@@ -1,0 +1,28 @@
+.dark .dark\:text-white {
+    color: white;
+}
+.dark .dark\:text-gray-300 {
+    --tw-bg-opacity: 1;
+    color: rgba(209, 213, 219, var(--tw-bg-opacity));
+}
+.w-7\/10 {
+  width: 70%;
+}
+.left-7\/10 {
+  left: 70% !important;
+}
+.left-2\/3 {
+  left: 66.666667%;
+}
+.left-3\/10 {
+  width: 30%;
+}
+.top-6\/10 {
+  top: 60%;
+}
+.w-3\/10 {
+  width: 30%;
+}
+.left-0\! {
+  left: 0 !important;
+}

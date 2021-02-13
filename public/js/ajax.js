@@ -122,3 +122,9 @@ function DeleteFriend(UserMain, UserOther) {
     xmlhttp.open("GET", 'ProcessDeleteFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
     xmlhttp.send();
 }
+function darkMode() {
+    if (document.getElementsByTagName("html")[0].classList == 'dark')
+    document.getElementsByTagName("html")[0].classList = ''
+    else 
+    document.getElementsByTagName("html")[0].classList = 'dark'
+}
