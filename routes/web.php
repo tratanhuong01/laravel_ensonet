@@ -15,7 +15,9 @@ Route::get('LoadFromRegister',function() {
 });
 Route::get('ProcessRegister','App\Http\Controllers\RegisterController@register');
 Route::get('ProcessVerify','App\Http\Controllers\VerifyMailController@verify');
+Route::get('VerifySuccess','App\Http\Controllers\VerifyMailController@verify');
 Route::post('ProcessLogin','App\Http\Controllers\LoginController@login')->name('ProcessLogin');
+Route::post('NewBieLogin','App\Http\Controllers\NewBieController@login')->name('NewBieLogin');
 Route::get('logout','App\Http\Controllers\LogoutController@logout');
 Route::get('index', function() {
     return view('Guest/index');
@@ -25,4 +27,3 @@ Route::get('ProcessRequestFriend','App\Http\Controllers\RequestFriendController@
 Route::get('ProcessCancelRequestFriend','App\Http\Controllers\CancelRequestFriendController@cancel');
 Route::get('ProcessAcceptFriend','App\Http\Controllers\AcceptFriendController@accept');
 Route::get('ProcessDeleteFriend','App\Http\Controllers\DeleteFriendController@delete');
-

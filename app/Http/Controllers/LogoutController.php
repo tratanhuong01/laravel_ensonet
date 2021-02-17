@@ -8,6 +8,7 @@ class LogoutController extends Controller
 {
     public function logout(Request $request) {
         $request->session()->forget('user');
-        return view('Guest/login');
+        redirect()->to('login')->send();
+        return view('Guest/login'); 
     }
 }

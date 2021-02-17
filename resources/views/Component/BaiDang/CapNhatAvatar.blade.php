@@ -1,8 +1,8 @@
 <div class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
         <div class="" style="width: 10%;">
-            <a href=""><img class="w-12 h-12 rounded-full 
-                            border-4 border-solid border-blue-900" src="img/avatar.jpg"></a>
+            <a href=""><img class="w-12 rounded-full 
+                            border-4 border-solid border-gray-200" src="img/avatar.jpg"></a>
         </div>
         <div class="relative pl-1" style="width: 80%;">
             <p class="mb-2 dark:text-gray-300"><a href=""><b class="dark:text-white">Trà Hưởng</b>
@@ -23,13 +23,14 @@
         <p class="dark:text-white">Phê 😂😂</p>
     </div>
     <div class="w-full mx-0 my-2.5">
-        <div class="w-full relative" style="height: 450px;">
+        <div class="w-full relative block" style="height:430px;">
             <img class="w-full h-60 object-cover" src="img/anhbia.jpg" alt="">
-            <img class="w-96 h-96 absolute rounded-full border-4 border-solid border-white" style="top: 5%;left: 15%;"
+            <img class="w-7/10 absolute rounded-full border-4 border-solid border-white" 
+            style="top: 5%;left: 15%;"
                 src="img/avatar.jpg" alt="">
         </div>
     </div>
-    <div class="w-full my-4 mx-0">
+    <div class="w-full mb-4 mx-0 block">
         <div class="w-full flex">
             <div class="w-full flex pl-0.5 py-1">
                 <i style="color: red;" class="fas fa-heart text-xl cursor-pointer"></i>

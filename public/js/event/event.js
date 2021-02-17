@@ -16,3 +16,10 @@ function checkValueTextAre() {
         main_textarea_post.style.height = (25 + textarea_post.scrollHeight)+"px";
     }
 }
+function eModalHeaderRight() {
+    var modal = document.getElementById("header-right-modal");
+    if (modal.style.display == 'none') 
+    modal.style.display = 'block';
+    else
+    modal.style.display = 'none';
+}

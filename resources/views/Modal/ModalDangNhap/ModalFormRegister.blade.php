@@ -1,22 +1,18 @@
 
 <div id="form-register" style="height: 600px;" class="overflow-x-auto wrapper-scrollbar w-11/12 fixed top-50per left-50per transform-translate-50per
-        p-4 opacity-100 bg-white z-50 border-2 border-solid border-gray-300 sm:w-11/12 sm:mt-12 
+        p-3 opacity-100 bg-white z-50 border-2 border-solid border-gray-300 sm:w-11/12 sm:mt-12 
         lg:w-4/5 xl:w-1/3 xl:mt-4">
     <div class="w-full">
-        <span onclick="closeRegister()" class="cursor-pointer text-3xl top-4 right-4">&times;</span>
+        <span onclick="closeRegister()" class="cursor-pointer absolute text-4xl top-4 right-2">&times;</span>
         <h1 class="py-2.5 text-3xl font-bold">Đăng Kí</h1>
     </div>
     <p class="pb-2.5">Nhanh Chóng Dễ Dàng</p>
     <hr>
     <br>
-    
         {{ csrf_field() }}
-        <p class="text-red my-2.5">
-
-        </p>
         <div class="w-full flex mb-4">
-            <input type="text" name="firstName" id="firstName" class="w-47per p-2.5 rounded-lg border-1 
-                    border-solid border-gray-300" placeholder="Họ">
+            <input type="text" name="firstName" id="firstName" 
+            class="w-47per p-2.5 rounded-lg border-2 border-solid border-gray-300" placeholder="Họ">
             <input type="text" name="lastName" id="lastName" class="w-47per ml-2.5 p-2.5 rounded-lg border-1 
                     border-solid border-gray-300" placeholder="Tên">
         </div>
@@ -25,7 +21,7 @@
                     border-solid border-gray-300" id="emailOrPhone" placeholder="Số Di Động Hoặc Email">
         </div>
         <div class="w-full mb-4" style="display: none;" id="email-again">
-            <input type="text" name="email-again" class="w-96per p-2.5 rounded-lg border-1 
+            <input type="text" name="emailAgain" id="emailAgain" class="w-96per p-2.5 rounded-lg border-1 
                     border-solid border-gray-300" placeholder="Nhập Lại Email">
         </div>
         <div class="w-full mb-4">
@@ -34,14 +30,16 @@
         </div>
         <div class="form_4">
             <p class="pb-4"><b class="text-sm">Ngày Sinh</b></p>
-            <input type="date" name="NgaySinh" id="NgaySinh" class="w-96per border-2 border-solid border-gray-200 p-2 font-bold">
+            <input type="date" name="NgaySinh" id="NgaySinh" 
+            class="w-96per border-2 border-solid border-gray-200 p-2 font-bold" 
+            value="1990-01-01">
         </div>
         <div class="w-full mb-2.5 mt-2.5">
             <p class="block"><b class="text-sm">Giới Tính</b></p>
             <div class="w-full flex mb-2.5">
                 <div class="mt-2.5 w-30per mr-4 p-2 border-gray-300 
                         border-solid border-1">
-                    <Label class="mr-16"><b>Nam</b></Label><input type="radio" name="GioiTinh" id="" value="Nam">
+                    <Label class="mr-16"><b>Nam</b></Label><input type="radio" name="GioiTinh" id="" value="Nam" checked>
                 </div>
                 <div class="mt-2.5 w-30per mr-4 p-2 border-gray-300 
                         border-solid border-1">

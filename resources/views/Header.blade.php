@@ -12,12 +12,11 @@
             </div>
             <div class="mt-1 pl-4">
                 <div
-                    class="relative bg-gray-100 dark:bg-dark-third px-2 py-2 w-14 h-11 lg:w-10 xl:w-max xl:pl-3 xl:pr-8 rounded-full flex items-center justify-center cursor-pointer">
+                    class="relative bg-gray-100 dark:bg-dark-third px-2 py-2 w-11 h-11 lg:w-10 xl:w-max xl:pl-3 xl:pr-8 rounded-full flex items-center justify-center cursor-pointer">
                     <i class='bx bx-search text-gray-500 text-xl xl:mr-2 dark:text-dark-txt'></i>
-                    <input type="text" placeholder="Search Facebook"
+                    <input type="text" placeholder="Tìm kiếm trên Ensonet"
                         class="outline-none bg-transparent hidden xl:inline-block">
                 </div>
-                
             </div>
         </div>
         <div class="w-1/2 hidden md:block md:w-1/2 lg:w-1/2">
@@ -74,7 +73,7 @@
             lg:mx-0">
                 <div class="w-1/3 hidden lg:block lg:w-full lg:pt-1 xl:w-auto xl:mr-2">
                     <!-- avatar user  -->
-                    <a href="profile.{{ $user[0]->IDTaiKhoan }}"><img class="min-w-8 h-8 rounded-full" src="{{ $user[0]->AnhDaiDien }}" alt="" /></a>
+                    <a href="profile.{{ $user[0]->IDTaiKhoan }}"><img class="w-8 h-8 rounded-full" src="{{ $user[0]->AnhDaiDien }}" alt="" /></a>
                 </div>
                 <div class="w-2/3 hidden pt-1 text-center xl:block xl:w-auto lg:pt-2">
                     <!-- name user  -->
@@ -111,10 +110,27 @@
                             </span>
                         </div>
                     </li>
-                    <li class="">
-                        <div onclick="openRequestFriend()" class="pt-1.5 w-10 bg-gray-200 dark:bg-dark-third dark:text-white text-center rounded-full cursor-pointer 
+                    <li class="relative">
+                        <div onclick="eModalHeaderRight()" class="pt-1.5 w-10 bg-gray-200 dark:bg-dark-third dark:text-white text-center rounded-full cursor-pointer 
                         h-10 ml-1 mr-1">
-                            <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt text-xm"></i></a>
+                            <i class="fas fa-sort-down text-xl leading-4"></i>
+                        </div>
+                        <div style="display:none;" id="header-right-modal" class="dark:bg-dark-second bg-white my-2 absolute right-0 
+                        w-80 p-2 border-2 border-solid rounded-lg">
+                            <ul class="w-full">
+                                <li onclick="window.location.href = 'profile.{{ $user[0]->IDTaiKhoan }}'"  class="w-full flex p-3 cursor-pointer 
+                                flex dark:hover:bg-dark-third hover:bg-gray-200"><img class="w-12 h-12 rounded-full"
+                                        src="{{ $user[0]->AnhDaiDien }}" alt="" srcset="">
+                                        &nbsp;&nbsp;
+                                    <p class="pt-2.5 pl-1 dark:text-white font-bold">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</p></li>
+                                <li onclick="window.location.href = 'logout'" 
+                                class="w-full flex p-3 cursor-pointer dark:hover:bg-dark-third 
+                                hover:bg-gray-200">
+                                    <a href="{{ url('logout') }}" class="dark:text-white font-bold">
+                                    &nbsp; &nbsp;&nbsp;<i class="fas fa-sign-out-alt text-xl dark:text-white"></i>
+                                        &nbsp; &nbsp; &nbsp;Đăng Xuất</a>
+                                    </li>
+                            </ul>
                         </div>
                     </li>
                 </ul>

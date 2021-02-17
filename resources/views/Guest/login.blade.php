@@ -4,22 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ensonet - Login Or Register</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/tailwind_second.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Lato', sans-serif;
-        }
-    </style>
+    @include('Head/css')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/Login/login.js"></script>
     <script src="js/ajax.js"></script>
 </head>
 
 <body>
+@if (session()->has('user')) 
+<?php redirect()->to('index')->send(); ?>
+@else 
+
+@endif
     <div id="register" class="w-full">
     </div>
     <div id="web" class="w-full bg-gray-100">
@@ -37,7 +33,7 @@
                     <div class="w-full text-center p-4 bg-white rounded-lg">
                         <div class="w-full">
                         <form class="w-full bg-white" action="{{ route('ProcessLogin') }}" method="post">
-                            {{ csrf_field() }}
+                        {{ csrf_field() }}
                                 <input type="text" name="emailOrPhone"
                                     class="w-96per p-3 m-2.5 rounded-lg border-2 border-solid border-gray-200" id=""
                                     placeholder="Email Hoặc Số Điện Thoại">

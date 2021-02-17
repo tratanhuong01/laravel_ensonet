@@ -23,15 +23,15 @@ function submitFormRegister() {
     xmlhttp.open("GET", 'ProcessRegister?lastName=' + value('lastName') + '&firstName=' + value('firstName') +
         '&passWord=' + value('passWord') + '&emailOrPhone=' + value('emailOrPhone') +
         '&GioiTinh=' + document.querySelector('input[name="GioiTinh"]:checked').value +
-        '&NgaySinh=' + value('NgaySinh'), true);
+        '&NgaySinh=' + value('NgaySinh') + '&emailAgain=' + value('emailAgain'), true);
     xmlhttp.send();
 }
 function submitFormVerify() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            $("#web").css("opacity", "1");
-            document.getElementById('register').innerHTML = ''
+            $("#web").css("opacity", "0.1");
+            document.getElementById('register').innerHTML = this.responseText;
         }
     };
     xmlhttp.open("GET", 'ProcessVerify?Email=' + value('Email') + '&code_veri=' + value('code_veri'), true);
@@ -127,4 +127,11 @@ function darkMode() {
     document.getElementsByTagName("html")[0].classList = ''
     else 
     document.getElementsByTagName("html")[0].classList = 'dark'
+}
+function CateGoryProfile(names) {
+    var NamesCate = document.getElementsByClassName("NamesCate")[0];
+    if (NamesCate.style.display == 'none') 
+        NamesCate.style.display = 'block';
+    else
+        NamesCate.style.display = 'none';
 }

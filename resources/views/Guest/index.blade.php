@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <title>Facebook</title>
+    <title>Ensonet</title>
     @include('Head/css')
     <script src="js/event/event.js"></script>
     <script src="js/ajax.js"></script>
@@ -9,9 +9,8 @@
 <body class="dark:bg-dark-main">
     @if (session()->has('user')) 
     <?php $user = Session::get('user'); ?>
-    
-    <div class="w-full bg-gray-100 dark:bg-dark-main" id="main" >
-        @include('Header');
+    <div class="w-full bg-gray-100 dark:bg-dark-main h-screen" id="main" >
+    @include('Header');
         <div class="w-full flex pt-10 bg-gray-100 dark:bg-dark-main lg:w-full lg:mx-auto xl:w-full" id="content">
             <div class="fixed pt-3 hidden sm:hidden xl:block xl:w-1/4">
                 <div id="wrapper-scrollbar" class="pl-1.5 w-4/6 overflow-x-hidden overflow-y-auto 
@@ -55,120 +54,14 @@
                     </div>
                     <hr class="w-full my-4">
                     <p class="ml-4 mb-4 font-bold dark:text-white">Lối tắt của bạn</p>
-                    <div class="w-full left-category">
-                        <ul>
-                            <li class="cursor-pointer flex p-2.5 font-bold cursor-pointer dark:hover:bg-dark-third">
-                                <img class="w-9 h-9 rounded-full" src="{{ $user[0]->AnhDaiDien }}" alt="">&nbsp;&nbsp;
-                                <span class="pl-1.5 pt-1.5 text-sm font-bold dark:text-white">{{ $user[0]->Ho . ' ' .$user[0]->Ten }}</span>
-                            </li>
-                            <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
-                            &nbsp;<img class="w-8 h-8" src="img/friends.png" alt=""
-                                    srcset="">&nbsp;&nbsp;
-                                <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Bạn Bè</span>
-                            </li>
-                            <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
-                            &nbsp;<img class="w-8 h-8" src="img/memory.png" alt=""
-                                    srcset="">&nbsp;&nbsp;
-                                <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Kỉ Niệm</span>
-                            </li>
-                            <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
-                            &nbsp;<img class="w-8 h-8" src="img/messager.png" alt=""
-                                    srcset="">&nbsp;&nbsp;
-                                <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Messenger</span>
-                            </li>
-                            <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
-                            &nbsp;<img class="w-8 h-8" src="img/groups.png" alt=""
-                                    srcset="">&nbsp;&nbsp;
-                                <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Nhóm</span>
-                            </li>
-                            <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
-                                <span class="bg-gray-200 dark:bg-dark-third px-2 py-1 
-                                rounded-full dark:text-white">
-                                <i class="bx bxs-chevron-down text-xl" ></i>
-                                </span>
-                                &nbsp;
-                                <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Xem thêm</span>
-                            </li>
-                            
-                        </ul>
-                    </div>
+                    
                 </div>
             </div>
             <div class="center-content relative left-0 px-2 sm:w-full sm:mx-auto md:w-3/4 lg:mx-0 
             lg:w-4/6 lg:left-0! xl:w-2/5 xl:left-3/10">
-                <div class="w-full flex mt-4">
-                    <div onclick="window.location.href = 'createStory.html'" 
-                    class="w-1/4 md:w-1/5 p-2 pl-0 relative text-center cursor-pointer">
-                        <div class="w-full">
-                            <img class="w-full rounded-t-lg object-cover" style="height: 132px;" 
-                            src="{{ $user[0]->AnhDaiDien }}" alt="">
-                        </div>
-                        <div class="w-full rounded-b-lg bg-gray-100 dark:bg-dark-second" style="height:50px;">
-                            <div class="w-11 h-11 rounded-full border-4 border-solid 
-                            border-white dark:border-dark-second absolute dark:bg-dark-second 
-                            bottom-4 pt-1" 
-                            style="background-color: #3A80DC;transform:translate(-50%,-50%);left:46%;">
-                                <i class="fas fa-plus pt-1.5 text-white"></i>
-                            </div>
-                            <p class="text-center text-sm font-bold pt-6 pb-2 dark:text-white">Tạo Tin</p>
-                        </div>
-                    </div>
-                    <div onclick="window.location.href = 'viewstory.html'" 
-                    class="w-1/4 md:w-1/5 p-1.5 relative text-center cursor-pointer">
-                        <div class="w-full">
-                            <img class="w-full object-cover" style="height: 182px;border-radius: 10px;"
-                                src="img/avatar.jpg" alt="">
-                        </div>
-                        <div class="w-full absolute text-left pl-2.5" style="bottom: 15px">
-                            <a href=""><b class="text-white">Trà Hưởng</b></a>
-                        </div>
-                        <div class="w-full text-left absolute top-5 left-4">
-                            <img class="w-9 h-9 rounded-full border-4 border-solid border-blue-500" src="img/avatar.jpg"
-                                alt="">
-                        </div>
-                    </div>
-                    <div class="w-1/4 md:w-1/5 p-1.5 relative text-center cursor-pointer">
-                        <div class="w-full">
-                            <img class="w-full object-cover" style="height: 182px;border-radius: 10px;"
-                                src="img/avatar.jpg" alt="">
-                        </div>
-                        <div class="w-full absolute text-left pl-2.5" style="bottom: 15px">
-                            <a href=""><b class="text-white">Trà Hưởng</b></a>
-                        </div>
-                        <div class="w-full text-left absolute top-5 left-4">
-                            <img class="w-9 h-9 rounded-full border-4 border-solid border-blue-500" src="img/avatar.jpg"
-                                alt="">
-                        </div>
-                    </div>
-                    <div class="w-1/4 md:w-1/5 p-1.5 relative text-center cursor-pointer">
-                        <div class="w-full">
-                            <img class="w-full object-cover" style="height: 182px;border-radius: 10px;"
-                                src="img/avatar.jpg" alt="">
-                        </div>
-                        <div class="w-full absolute text-left pl-2.5" style="bottom: 15px">
-                            <a href=""><b class="text-white">Trà Hưởng</b></a>
-                        </div>
-                        <div class="w-full text-left absolute top-5 left-4">
-                            <img class="w-9 h-9 rounded-full border-4 border-solid border-blue-500" src="img/avatar.jpg"
-                                alt="">
-                        </div>
-                    </div>
-                    <div class="hidden w-1/5 md:block p-2 pr-0 relative text-center cursor-pointer">
-                        <div class="w-full">
-                            <img class="w-full object-cover" style="height: 182px;border-radius: 10px;"
-                                src="img/avatar.jpg" alt="">
-                        </div>
-                        <div class="w-full absolute text-left pl-2.5" style="bottom: 15px">
-                            <a href=""><b class="text-white">Trà Hưởng</b></a>
-                        </div>
-                        <div class="w-full text-left absolute top-5 left-4">
-                            <img class="w-9 h-9 rounded-full border-4 border-solid border-blue-500" src="img/avatar.jpg"
-                                alt="">
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="w-full bg-white mb-3 mt-2 dark:bg-dark-second m-auto rounded-lg mb-2">
-                    <div class="w-full flex p-2.5">
+                <div class="w-full flex p-2.5 ">
                         <div class="w-2/12 md:w-1/12 mr-3 pt-1">
                             <a href=""><img class="w-12 rounded-full h-12" src="img/avatar.jpg"></a>
                         </div>
@@ -191,15 +84,11 @@
                         </ul>
                     </div>
                 </div>
-                @include('Component/BaiDang/BaiDangTT')
-                @include('Component/BaiDang/CapNhatAnhBia')
-                @include('Component/BaiDang/CapNhatAvatar')
-                @include('Component/BaiDang/ShareBaiViet')
+                
             </div>
             <div class="fixed hidden lg:block lg:w-1/3 lg:left-2/3 xl:left-7/10 xl:w-3/10">
                 <div id="content-right-ok" class="w-full flex">
                     <div class="w-1/5 hidden sm:hidden xl:block">
-
                     </div>
                     <div class="content-right wrapper-content-right w-4/5 overflow-y-auto py-0 
                     px-2.5 lg:w-full xl:w-4/5">
@@ -224,60 +113,6 @@
                             </div>
                         </div>
                         <hr class="my-3 mx-auto w-full">
-                        <div id="friend-request">
-                            <div class="w-full">
-                                <span class="float-left">
-                                    <p class="font-bold dark:text-white">Lời mời kết bạn</p>
-                                </span>
-                                <span class="float-right">
-                                    <a href="" class="font-bold dark:text-white">Xem tất cả</a>
-                                </span>
-                            </div>
-
-                            <div class="w-full flex py-2.5 px-0">
-                                <div class="w-1/5 pt-2">
-                                    <a href=""><img class="w-16 h-16 rounded-full" src="img/gai1.jpg" alt=""></a>
-                                </div>
-                                <div class="w-4/5 pl-2">
-                                    <div class="w-full">
-                                        <span class="float-left pl-2.5 font-bold">
-                                            <a href="" class="dark:text-white">Mỹ Hạnh</a></span>
-                                        <span class="float-right text-xs dark:text-white">Vừa xong</span>
-                                    </div>
-                                    <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                                        <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                                            style="border-radius: 10px;background-color: #1877F2;">
-                                            <a class="text-white " href="">Xác Nhận</a>
-                                        </span>
-                                        <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                                            style="background-color: #D8DADF;border-radius: 10px;">
-                                            <a class="color-black" href="">Xóa</a>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="my-2.5 mx-auto w-full">
-                            <br>
-                        </div>
-                        <div class="w-full">
-                            <div class="w-full">
-                                <span class="float-left">
-                                    <p class="font-bold dark:text-white">Sinh nhật</p>
-                                </span>
-                            </div>
-                            <div class="w-full flex px-0 py-2.5">
-                                <div class="w-2/12">
-                                    <i class="fas fa-gift text-4xl" style="color: #21A2F0;;"></i>
-                                </div>
-                                <div class="w-10/12 text-lg">
-                                    <span class="dark:text-white">Hôm nay là sinh nhật của 
-                                        <b class="dark:text-white">Nguyễn</b> và <b class="dark:text-white">6 người bạn khác</b></span>
-                                </div>
-                            </div>
-                            <br>
-                            <hr class="my-2.5 mx-auto w-11/12">
-
-                        </div>
                         <div class="w-full">
                             <div class="w-full">
                                 <span class="float-left py-2.5 px-0">
@@ -292,92 +127,10 @@
                                 </span>
                             </div>
                             <div onmouseover="viewInfoHover(0,event)" onmouseleave="viewInfoLeave(0)"
-                                class="w-full flex mb-4 p-2 friends-online relative cursor-pointer 
-                                dark:hover:bg-dark-third ">
-                                <div class="w-2/12 relative">
-                                    <a href=""><img class="w-10 h-10 rounded-full" src="img/avatar.jpg" alt=""></a>
-                                        <span class="bg-green-600 p-1 border-2 border-solid border-white rounded-full
-                                        absolute bottom-0 right-2.5 ">
-                                        </span>
-                                </div>
-                                <div class=" w-10/12 pt-2.5">
-                                    <p class="font-bold dark:text-white">Trà Hưởng</p>
-                                </div>
-                            </div>
-                            <div onmouseover="viewInfoHover(0,event)" onmouseleave="viewInfoLeave(0)"
-                                class="w-full flex mb-4 p-2 friends-online relative cursor-pointer 
-                                dark:hover:bg-dark-third ">
-                                <div class="w-2/12 relative">
-                                    <a href=""><img class="w-10 h-10 rounded-full" src="img/avatar.jpg" alt=""></a>
-                                        <span class="bg-green-600 p-1 border-2 border-solid border-white rounded-full
-                                        absolute bottom-0 right-2.5 ">
-                                        </span>
-                                </div>
-                                <div class=" w-10/12 pt-2.5">
-                                    <p class="font-bold dark:text-white">Trà Hưởng</p>
-                                </div>
-                            </div>
-                            <div onmouseover="viewInfoHover(0,event)" onmouseleave="viewInfoLeave(0)"
-                                class="w-full flex mb-4 p-2 friends-online relative cursor-pointer 
-                                dark:hover:bg-dark-third ">
-                                <div class="w-2/12 relative">
-                                    <a href=""><img class="w-10 h-10 rounded-full" src="img/avatar.jpg" alt=""></a>
-                                        <span class="bg-green-600 p-1 border-2 border-solid border-white rounded-full
-                                        absolute bottom-0 right-2.5 ">
-                                        </span>
-                                </div>
-                                <div class=" w-10/12 pt-2.5">
-                                    <p class="font-bold dark:text-white">Trà Hưởng</p>
-                                </div>
-                            </div>
-                            <div onmouseover="viewInfoHover(0,event)" onmouseleave="viewInfoLeave(0)"
-                                class="w-full flex mb-4 p-2 friends-online relative cursor-pointer 
-                                dark:hover:bg-dark-third ">
-                                <div class="w-2/12 relative">
-                                    <a href=""><img class="w-10 h-10 rounded-full" src="img/avatar.jpg" alt=""></a>
-                                        <span class="bg-green-600 p-1 border-2 border-solid border-white rounded-full
-                                        absolute bottom-0 right-2.5 ">
-                                        </span>
-                                </div>
-                                <div class=" w-10/12 pt-2.5">
-                                    <p class="font-bold dark:text-white">Trà Hưởng</p>
-                                </div>
-                            </div>
-                            <div onmouseover="viewInfoHover(0,event)" onmouseleave="viewInfoLeave(0)"
-                                class="w-full flex mb-4 p-2 friends-online relative cursor-pointer 
-                                dark:hover:bg-dark-third ">
-                                <div class="w-2/12 relative">
-                                    <a href=""><img class="w-10 h-10 rounded-full" src="img/avatar.jpg" alt=""></a>
-                                    <span class="bg-green-600 p-1 border-2 border-solid border-white rounded-full
-                                        absolute bottom-0 right-2.5 ">
-                                        </span>
-                                </div>
-                                <div class=" w-10/12 pt-2.5">
-                                    <p class="font-bold dark:text-white">Trà Hưởng</p>
-                                </div>
-                            </div>
-                            <div class="friends-online-info absolute bg-white 
-                             dark:bg-dark-third p-2 shadow-sm w-88 hidden top-0 right-90 px-4">
-                                <div class="w-1/3 relative py-2 pl-2">
-                                    <img class="rounded-full object-contain w-21 h-21"
-                                        src="img/avatar.jpg" alt="">
-                                    <span class="bg-green-600 p-2 border-2 border-solid border-white rounded-full
-                                    absolute bottom-12 right-4 ">
-                                    </span>
-                                </div>
-                                <div class="w-2/3">
-                                    <p class="font-bold dark:text-white" style="font-size: 20px;">Trà Hưởng</p>
-                                    <div class="w-full py-2">
-                                        <p class=" dark:text-white">
-                                        <i class="fas fa-user-friends dark:text-white"></i>&nbsp;&nbsp;
-                                        4 bạn bè chung gồm <b>Trà Tấn Hưởng</b> và <b>Hưởng MMO</b>
-                                        </p>
-                                    </div>
-                                    <div class="w-full py-2">
-                                        <p class="dark:text-white"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;
-                                        Sống tại <b>Quảng Nam</b></p>         
-                                    </div>
-                                </div>
+                                class="w-full flex mb-4 p-2 text-center friends-online relative cursor-pointer 
+                                dark:hover:bg-dark-third">
+                                <span class="mx-auto dark:text-white text-center font-bold dark:text-white">
+                                Không tìm thấy</span>
                             </div>
                         </div>
                     </div>
@@ -705,7 +458,7 @@
         </div>-->
     </div>
     <div class="w-full" id="second">
-        @include('Modal/ModalBaiDang/ModalViTri')
+        @include('Modal/ModalBaiDang/ModalTaoBaiViet')
     </div>
     @else 
     <?php redirect()->to('login')->send(); ?>

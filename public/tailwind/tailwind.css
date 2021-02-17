@@ -1360,6 +1360,9 @@ video {
   .xl\:flex {
     display: flex;
   }
+  .xl\:w-63\% {
+    width: 63% !important;
+  }
   .xl\:left-7\/10 {
     left: 70% !important;
   }

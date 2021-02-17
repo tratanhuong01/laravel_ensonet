@@ -15,9 +15,15 @@ class LoginController extends Controller
         if (sizeof($user) == 0) 
             return view('Guest/login');
         else {
-            $request->session()->put('user',$user);
-            redirect()->to('index')->send();
-            return view('Guest/index');
+            $data = DB::table('taikhoan')->where('IDTaiKhoan','=',$user[0]->IDTaiKhoan)->get();
+            if ($data[0]->XacMinh == 1 || $data[0]->XacMinh == 2) {
+                $request->session()->put('user',$user);
+                redirect()->to('index')->send();
+                return view('Guest/index');
+            }
+            else {
+                echo "Chưa verify";
+            }
         }
         
     }

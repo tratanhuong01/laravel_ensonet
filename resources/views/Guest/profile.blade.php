@@ -12,6 +12,7 @@
         @endif
     </title>
     @include('Head/css')
+    <script src="js/event/event.js"></script>
     <script src="js/ajax.js"></script>
 </head>
 <body>
@@ -21,10 +22,10 @@
     <div class="w-full dark:bg-dark-second" id="main">
         @include('Header');
         @if (sizeof($users) == 0) 
-            @include('Component\NotFindAcc');
+            @include('Component\KhongTimThay');
         @else
         @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan) 
-        <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-7/12">
+        <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
             <div class="w-full relative">
                 <div class="w-full mx-auto relative">
                     <div class="w-full relative h-60 lg:h-96">
@@ -35,7 +36,7 @@
                         <input onchange="changeBia(event)" name="fileBia" type="file" accept="image" id="changeB"
                             style="display: none">
                         <label for="changeB"><i class="fas fa-camera text-2xl pl-1"></i>&nbsp;&nbsp;
-                        <span class="hidden">Chỉnh sửa ảnh bìa</span></label>
+                        <span class="hidden lg:inline">Chỉnh sửa ảnh bìa</span></label>
                     </div>
                     <div class="w-full absolute text-center top-20 lg:top-6/10">
                         <img class="w-44 h-44 rounded-full mx-auto
@@ -53,7 +54,7 @@
             </div>
         </form>
         <div class="w-full relative">
-            <div class="mx-auto text-center" style="width: 63%;margin-top: 68px;">
+            <div class="mx-auto text-center w-63%" style="margin-top: 68px;">
                 <p class="outline-none text-center py-2 dark:text-white">{{ $user[0]->MoTa }}</p>
                 <div class="w-full pt-2">
                     <a style="color: #1876F2;font-size: 18px;" href="">Chỉnh sửa</a>
@@ -62,16 +63,16 @@
             </div>
         </div>
         @else
-        <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-7/12">>
+        <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">>
             <div class="w-full relative">
                 <div class="w-full mx-auto relative">
                     <div class="w-full relative h-60 lg:h-96">
                         <a href=""><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;"
-                                src="/{{ $user[0]->AnhBia}}img/anhbia.jpg" alt=""></a>
+                                src="/{{ $users[0]->AnhBia}}img/anhbia.jpg" alt=""></a>
                     </div>
                     <div class="w-full absolute text-center top-20 lg:top-6/10">
                         <img class="w-44 h-44 rounded-full mx-auto
-                            border-4 border-solid border-white object-cover" src="/{{ $user[0]->AnhDaiDien}}" alt=""></a>
+                            border-4 border-solid border-white object-cover" src="/{{ $users[0]->AnhDaiDien}}" alt=""></a>
                         <p class="font-bold text-center text-3xl py-2 dark:text-white" 
                         style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten}}</p>
                     </div>
@@ -79,13 +80,13 @@
             </div>
         </form>
         <div class="w-full relative">
-            <div class="mx-auto text-center" style="width: 63%;margin-top: 68px;">
+            <div class="mx-auto text-center py-4 dark:text-white w-63%" style="margin-top: 68px;">
                 <span class="outline-none">{{ $users[0]->MoTa}}</span>
                 <br>
             </div>
         </div>
         @endif
-        <hr class="w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-7/12 mb-2">
+        <hr class="w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63% mb-2">
         <?php $data = DB::table('moiquanhe')->where('IDTaiKhoan','=',$user[0]->IDTaiKhoan)
                                                 ->where('IDBanBe','=',$users[0]->IDTaiKhoan)->get(); ?>
         <div class="w-full relative py-2" id="moiQuanHe">
@@ -104,11 +105,11 @@
                 @endif
         </div>
         <div class="w-full relative bg-gray-100 dark:bg-dark-main">
-            <div class="mx-auto relative flex" style="width: 63%;">
-                <div class="w-2/5">
+            <div class="mx-auto relative w-full pt-4 lg:flex xl:w-63% md:w-4/5 lg:w-3/4 md:mx-auto">
+                <div class="w-full lg:w-2/5">
                     <div class="mx-2.5 mt-4 bg-white p-2.5 pt-0 rounded-lg dark:bg-dark-third" 
                     style="width:95%;">
-                        <p class="font-bold text-xl py-2" style="font-family: system-ui;">Giới thiệu</p>
+                        <p class="font-bold text-xl py-2 dark:text-white" style="font-family: system-ui;">Giới thiệu</p>
                         <ul class="w-full ">
                             <li class="w-full pb-3" style="font-size: 15px;">
                                 <p class="dark:text-gray-300"><i class="fas fa-briefcase 
@@ -245,11 +246,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-3/5 bg-white dark:bg-dark-main mx-auto my-4 rounded-lg">
+                <div class="w-full bg-white dark:bg-dark-main mx-auto my-4 rounded-lg lg:w-3/5">
                     <div class="w-full bg-white dark:bg-dark-second m-auto rounded-lg mb-2">
                         <div class="w-full flex p-2.5">
-                            <div class="w-1/12 mr-3 pt-1">
-                                <a href=""><img class="w-full rounded-full h-12" src="img/avatar.jpg"></a>
+                            <div class="w-2/12 md:w-1/12 mr-3 pt-1">
+                                <a href=""><img class="w-12 rounded-full" src="img/avatar.jpg"></a>
                             </div>
                             <div class="w-11/12">
                                 <input class="w-full p-3 border-none outline-none bg-gray-200 dark:bg-dark-third"
@@ -260,12 +261,12 @@
                         <hr>
                         <div class="w-full">
                             <ul class="w-full flex">
-                                <li class="w-1/3 cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #E42645;font-size: 18px;" class="fas fa-video"></i> 
+                                <li class="w-1/2 md:w-1/3 xl:w-1/3 cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #E42645;font-size: 18px;" class="fas fa-video"></i> 
                                 &nbsp;<b class="dark:text-white">Video Trực Tiếp</b></li>
-                                <li class="w-1/3 cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #41B35D;font-size: 18px;" class="far fa-image"></i> 
+                                <li class="w-1/2 md:w-1/3 xl:w-1/3  cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #41B35D;font-size: 18px;" class="far fa-image"></i> 
                                 &nbsp;<b class="dark:text-white">Ảnh / Video</b>
                                 </li>
-                                <li class="w-1/3 cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200 pr-0"><i style="color: #F7B928;font-size: 18px;" class="fas fa-smile"></i> 
+                                <li class="w-1/3 md:w-1/3 xl:w-1/3 md:block hidden cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200 pr-0"><i style="color: #F7B928;font-size: 18px;" class="fas fa-smile"></i> 
                                 &nbsp;<b class="dark:text-white">Cảm Xúc / Hoạt Động</b></li>
                             </ul>
                         </div>

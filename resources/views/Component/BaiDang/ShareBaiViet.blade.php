@@ -1,7 +1,7 @@
 <div class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
         <div class="" style="width: 10%;">
-            <a href=""><img class="w-12 h-12 rounded-full 
+            <a href=""><img class="w-12 rounded-full 
                             border-4 border-solid border-blue-900" src="img/avatar.jpg"></a>
         </div>
         <div class="relative pl-1" style="width: 80%;">
@@ -28,8 +28,8 @@
     <div class="w-full mx-0 my-4">
         <div class="w-11/12 flex p-4 mb-4 ml-4 bg-white dark:bg-dark-second" style="border: 1px solid #ccc;">
             <div class="" style="width: 10%;">
-                <a href=""><img class="w-12 h-12 rounded-full 
-                                border-4 border-solid border-blue" src="img/avatar.jpg"></a>
+                <a href=""><img class="w-12 rounded-full 
+                                border-4 border-solid border-gray-200" src="img/avatar.jpg"></a>
             </div>
             <div class="relative pl-1" style="width: 80%;">
                 <p class="mb-2 dark:text-gray-300 "><a href=""><b class="dark:text-gray-300">Trà Hưởng</b>
