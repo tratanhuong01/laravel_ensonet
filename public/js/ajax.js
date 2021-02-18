@@ -13,10 +13,16 @@ function value(names) {
     return document.getElementById(names).value;
 }
 function submitFormRegister() {
+    $("#web").css("opacity", "0.2");
+    var i = document.createElement('i');
+    document.getElementById('btn-submit-form').innerHTML = '';
+    document.getElementById('btn-submit-form').disabled = true;
+    document.getElementById('btn-submit-form').style.cursor = 'not-allowed';
+    i.className = 'fas fa-cog fa-spin text-xl';
+    document.getElementById('btn-submit-form').appendChild(i);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            $("#web").css("opacity", "0.2");
             document.getElementById('register').innerHTML = this.responseText;
         }
     };
@@ -34,7 +40,7 @@ function submitFormVerify() {
             document.getElementById('register').innerHTML = this.responseText;
         }
     };
-    xmlhttp.open("GET", 'ProcessVerify?Email=' + value('Email') + '&code_veri=' + value('code_veri'), true);
+    xmlhttp.open("GET", 'ProcessVerify?emailOrPhone=' + value('emailOrPhone') + '&code_veri=' + value('code_veri'), true);
     xmlhttp.send();
 }
 function RequestFriend(UserMain, UserOther) {
@@ -124,14 +130,31 @@ function DeleteFriend(UserMain, UserOther) {
 }
 function darkMode() {
     if (document.getElementsByTagName("html")[0].classList == 'dark')
-    document.getElementsByTagName("html")[0].classList = ''
-    else 
-    document.getElementsByTagName("html")[0].classList = 'dark'
+        document.getElementsByTagName("html")[0].classList = ''
+    else
+        document.getElementsByTagName("html")[0].classList = 'dark'
 }
 function CateGoryProfile(names) {
     var NamesCate = document.getElementsByClassName("NamesCate")[0];
-    if (NamesCate.style.display == 'none') 
+    if (NamesCate.style.display == 'none')
         NamesCate.style.display = 'block';
     else
         NamesCate.style.display = 'none';
+}
+function sendCodeAgain() {
+    $("#web").css("opacity", "0.2");
+    var i = document.createElement('i');
+    document.getElementById('btn-send-code').innerHTML = '';
+    document.getElementById('btn-send-code').disabled = true;
+    document.getElementById('btn-send-code').style.cursor = 'not-allowed';
+    i.className = 'fas fa-cog fa-spin text-xl';
+    document.getElementById('btn-send-code').appendChild(i);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById('register').innerHTML = this.responseText;;
+        }
+    };
+    xmlhttp.open("GET", 'ProcessSendCodeAgain?emailOrPhone=' + value('emailOrPhone'), true);
+    xmlhttp.send();
 }

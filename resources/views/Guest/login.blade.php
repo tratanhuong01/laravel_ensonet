@@ -7,15 +7,14 @@
     @include('Head/css')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/Login/login.js"></script>
+    <script src="js/event/event.js"></script>
     <script src="js/ajax.js"></script>
 </head>
 
 <body>
 @if (session()->has('user')) 
-<?php redirect()->to('index')->send(); ?>
+    <?php redirect()->to('index')->send(); ?>
 @else 
-
-@endif
     <div id="register" class="w-full">
     </div>
     <div id="web" class="w-full bg-gray-100">
@@ -55,7 +54,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full text-center pb-6">
+                    <div class="w-full text-center pb-6 px-3">
                         <a class="text-black" href=""><b>Tạo Trang</b>&nbsp;dành cho người nổi tiếng, nhãn hiệu hoặc
                             doanh nghiệp.</a>
                     </div>
@@ -113,6 +112,7 @@
             </div>
         </div>
     </div>
+@endif
 </body>
 
 </html>

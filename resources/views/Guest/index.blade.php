@@ -61,7 +61,7 @@
             lg:w-4/6 lg:left-0! xl:w-2/5 xl:left-3/10">
                 
                 <div class="w-full bg-white mb-3 mt-2 dark:bg-dark-second m-auto rounded-lg mb-2">
-                <div class="w-full flex p-2.5 ">
+                    <div class="w-full flex p-2.5 ">
                         <div class="w-2/12 md:w-1/12 mr-3 pt-1">
                             <a href=""><img class="w-12 rounded-full h-12" src="img/avatar.jpg"></a>
                         </div>

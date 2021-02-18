@@ -1,33 +1,80 @@
-
+<?php
+use Illuminate\Support\MessageBag;
+?>
 <div id="form-register" style="height: 600px;" class="overflow-x-auto wrapper-scrollbar w-11/12 fixed top-50per left-50per transform-translate-50per
         p-3 opacity-100 bg-white z-50 border-2 border-solid border-gray-300 sm:w-11/12 sm:mt-12 
         lg:w-4/5 xl:w-1/3 xl:mt-4">
+        
     <div class="w-full">
         <span onclick="closeRegister()" class="cursor-pointer absolute text-4xl top-4 right-2">&times;</span>
         <h1 class="py-2.5 text-3xl font-bold">Đăng Kí</h1>
     </div>
+    <?php 
+    $w47 = "input_register w-47per p-2.5 rounded-lg border-2 border-solid border-gray-300"; 
+    $w96 = "input_register w-96per p-2.5 rounded-lg border-2 border-solid  border-gray-300";
+    ?> 
     <p class="pb-2.5">Nhanh Chóng Dễ Dàng</p>
     <hr>
     <br>
         {{ csrf_field() }}
-        <div class="w-full flex mb-4">
-            <input type="text" name="firstName" id="firstName" 
-            class="w-47per p-2.5 rounded-lg border-2 border-solid border-gray-300" placeholder="Họ">
-            <input type="text" name="lastName" id="lastName" class="w-47per ml-2.5 p-2.5 rounded-lg border-1 
-                    border-solid border-gray-300" placeholder="Tên">
+        <div class="w-full flex">
+            <input type="text" 
+            name="firstName" 
+            id="firstName"
+             onclick='onclickRegister("{{ $w47 }}",0)'
+            class="input_register w-47per p-2.5 rounded-lg border-2 border-solid border-gray-300 
+            @error('firstName') border-red-600 text-red-600 placeholder-red-600 @enderror" 
+            placeholder="Họ" 
+            value="@isset($requestRegister){{$requestRegister['firstName']}}@endisset">
+            &nbsp;
+            <input type="text" 
+            name="lastName" 
+            id="lastName" 
+            onclick='onclickRegister("{{ $w47 }}",1)'
+            class="input_register w-47per ml-2.5 p-2.5 rounded-lg border-2 border-solid border-gray-300 
+            @error('lastName') border-red-600 text-red-600 placeholder-red-600 @enderror"
+            placeholder="Tên" 
+            value="@isset($requestRegister){{$requestRegister['lastName']}}@endisset">
         </div>
-        <div class="w-full mb-4">
-            <input oninput="checkEmail(event)" type="text" name="emailOrPhone" class="w-96per p-2.5 rounded-lg border-1 
-                    border-solid border-gray-300" id="emailOrPhone" placeholder="Số Di Động Hoặc Email">
+        <div class="w-full flex">
+        <ul class="w-1/2 mb-2.5 mt-2.5 " >
+            <li class="w-full text-red-600 value_error">@error('firstName') {{ $message  }} @enderror</li>
+        </ul>
+        <ul class="w-1/2 mb-2.5 mt-2.5 " >
+            <li class="w-full text-red-600 value_error">@error('lastName') {{ $message  }} @enderror</li>
+        </ul>
         </div>
-        <div class="w-full mb-4" style="display: none;" id="email-again">
-            <input type="text" name="emailAgain" id="emailAgain" class="w-96per p-2.5 rounded-lg border-1 
-                    border-solid border-gray-300" placeholder="Nhập Lại Email">
+        <div class="w-full">
+            <input oninput="checkEmail()" type="text" name="emailOrPhone" class="input_register w-96per p-2.5 rounded-lg border-2 
+            border-solid border-gray-300 @error('emailOrPhone') border-red-600 text-red-600 placeholder-red-600 @enderror"
+            id="emailOrPhone" placeholder="Số Di Động Hoặc Email" 
+            onclick='onclickRegister("{{ $w96 }}",2)'
+            value="@isset($requestRegister){{$requestRegister['emailOrPhone']}}@endisset">
         </div>
-        <div class="w-full mb-4">
-            <input type="password" name="passWord" id="passWord" class="w-96per p-2.5 rounded-lg border-1 
-                    border-solid border-gray-300" placeholder="Mật Khẩu Mới">
+        <ul class="w-full mb-4 mt-4">
+            <li class="w-full text-red-600 value_error">@error('emailOrPhone') {{ $message  }} @enderror</li>
+        </ul>
+        
+        <div class="w-full email_again_one mb-4" style="display: none;@error('emailAgain') display:block!important; @enderror" id="email-again">
+            <input type="text" name="emailAgain" id="emailAgain" class="
+            input_register w-96per p-2.5 rounded-lg border-2 border-solid border-gray-300 @error('emailAgain') border-red-600 text-red-600 placeholder-red-600 @enderror"
+            placeholder="Nhập Lại Email" 
+            onclick='onclickRegister("{{ $w96 }}",3)'
+            value="@isset($requestRegister){{$requestRegister['emailAgain']}}@endisset">
+            <ul class="w-full">
+                <li class="w-full text-red-600 value_error mt-4 mb-4">@error('emailAgain') {{ $message  }} @enderror</li>
+            </ul>
         </div>
+        <div class="w-full">
+            <input type="password" name="passWord" id="passWord" class="input_register w-96per p-2.5 rounded-lg border-2 
+            border-solid border-gray-300 @error('passWord') border-red-600 text-red-600 placeholder-red-600 @enderror"
+            placeholder="Mật Khẩu Mới" 
+            onclick='onclickRegister("{{ $w96 }}",4)'
+            value="@isset($requestRegister){{$requestRegister['passWord']}}@endisset">
+        </div>
+        <ul class="w-full mb-4 mt-4">
+            <li class="w-full text-red-600 value_error ">@error('passWord') {{ $message  }} @enderror</li>       
+        </ul>
         <div class="form_4">
             <p class="pb-4"><b class="text-sm">Ngày Sinh</b></p>
             <input type="date" name="NgaySinh" id="NgaySinh" 
@@ -59,7 +106,7 @@
             </p>
         </div>
         <div class="form_5 text-center p-4">
-            <button onclick="submitFormRegister()" style="font-size: 18px;width: 50%;background-color: #119F16;padding: 10px;border: none;
+            <button onclick="submitFormRegister()" id="btn-submit-form" style="font-size: 18px;width: 50%;background-color: #119F16;padding: 10px;border: none;
                                 border-radius: 10px;color: white;cursor: pointer;
                                 "><b>Đăng Kí</b></button>
         </div>

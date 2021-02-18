@@ -23,3 +23,15 @@ function eModalHeaderRight() {
     else
     modal.style.display = 'none';
 }
+function checkValueTypeCode() {
+    if (document.getElementById('code_veri').value.length <= 5) {
+        document.getElementById('btn-submit-veri').style.cursor = 'not-allowed';
+        document.getElementById('btn-submit-veri').disabled = true;
+        document.getElementById('btn-submit-veri').style.backgroundColor = 'gray';
+    }
+    else {
+        document.getElementById('btn-submit-veri').style.backgroundColor = '#1877F2';
+        document.getElementById('btn-submit-veri').style.cursor = 'pointer';
+        document.getElementById('btn-submit-veri').disabled = false;
+    }
+}

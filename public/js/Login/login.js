@@ -1,38 +1,3 @@
-var day_se = $("#day-se");
-var month_se = $("#month-se");
-var year_se = $("#year-se");
-day_se.prop("disabled", true);
-month_se.prop("disabled", true);
-for (var i = 1920; i <= 2021; i++)
-    year_se.append("<option>" + i + "</option>");
-function checkYear(obj) {
-    day_se.prop("disabled", true);
-    var y = obj.value;
-    if (y === "")
-        month_se.prop("disabled", true);
-    else {
-        for (var i = 1; i <= 12; i++)
-            month_se.append("<option>" + i + "</option>");
-        month_se.prop("disabled", false);
-    }
-}
-function checkMonth(obj) {
-    day_se.prop("disabled", false);
-    var y = obj.value;
-    if (y == 1 || y == 3 || y == 5 || y == 7 || y == 8 || y == 10 || y == 12)
-        for (var i = 1; i <= 31; i++)
-            day_se.append("<option>" + i + "</option>");
-    else if (y == 4 || y == 6 || y == 9 || y == 11)
-        for (var i = 1; i <= 31; i++)
-            day_se.append("<option>" + i + "</option>");
-    else
-        if (year_se.value % 4 == 0)
-            for (var i = 1; i <= 29; i++)
-                day_se.append("<option>" + i + "</option>");
-        else
-            for (var i = 1; i <= 28; i++)
-                day_se.append("<option>" + i + "</option>");
-}
 function openRegister() {
     $("#form-register").show();
     $("#web").css("opacity", "0.2");
@@ -49,14 +14,31 @@ function closeGetAcc() {
     $("#get-account-main").hide();
     $("#web").css("opacity", "1");
 }
-function checkEmail(e) {
+function checkEmail() {
     var regex_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    var email_again = document.getElementById("email-again");
+    var regex_phone = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+    var email_again = document.getElementsByClassName("email_again_one");
     var emailOrPhone = document.getElementById("emailOrPhone");
+    var emailAgain = document.getElementById("emailAgain");
     if (regex_email.test(emailOrPhone.value)) {
-        email_again.style.display = 'block';
+        email_again[0].style.cssText += ';display:block !important;';
+        emailAgain.className = 'input_register w-96per p-2.5 rounded-lg border-2 border-solid border-gray-300';
+        document.getElementsByClassName('value_error')[3].innerText = '';
+        document.getElementById('emailOrPhone').name = 'email';
     }
+    // else if (regex_phone.test(emailOrPhone.value)){
+    //     document.getElementById('emailOrPhone').name = 'phone';
+        
+    // }
     else {
-        email_again.style.display = 'none';
+        email_again[0].style.display = 'none';
     }
+}
+function uncheckEmail() {
+    var emailAgain = document.getElementById("emailAgain");
+    var emailOrPhone = document.getElementById("emailOrPhone");
+}
+function onclickRegister(classNames,index) {
+    document.getElementsByClassName('value_error')[index].innerHTML = ' ';
+    document.getElementsByClassName('input_register')[index].className = classNames;
 }

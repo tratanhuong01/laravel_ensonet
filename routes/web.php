@@ -27,3 +27,11 @@ Route::get('ProcessRequestFriend','App\Http\Controllers\RequestFriendController@
 Route::get('ProcessCancelRequestFriend','App\Http\Controllers\CancelRequestFriendController@cancel');
 Route::get('ProcessAcceptFriend','App\Http\Controllers\AcceptFriendController@accept');
 Route::get('ProcessDeleteFriend','App\Http\Controllers\DeleteFriendController@delete');
+Route::get('ProcessSendCodeAgain','App\Http\Controllers\SendCodeAgainController@send');
+Route::get('checked',function() {
+    $regex = '';
+    if (preg_match($regex,'Hưởng') == 1) 
+    echo "oke";
+    else 
+    echo "not oke";
+});
