@@ -12,6 +12,8 @@
         @endif
     </title>
     @include('Head/css')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/Login/login.js"></script>
     <script src="js/event/event.js"></script>
     <script src="js/ajax.js"></script>
 </head>
@@ -19,72 +21,82 @@
 </div>
 
 <?php $user = Session::get('user'); ?>
-    <div class="w-full dark:bg-dark-second" id="main">
-        @include('Header');
-        @if (sizeof($users) == 0) 
-            @include('Component\KhongTimThay');
-        @else
+    <div id="main">
+    @include('Modal/ModalProfile/XemTruocAnhDaiDien')
+    </div>
+    <div class="w-full dark:bg-dark-second" id="web">
+    @include('Header');
+    @if (sizeof($users) == 0) 
+        @include('Component\KhongTimThay');
+    @else
         @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan) 
-        <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
+            <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
+                <div class="w-full relative">
+                    <div class="w-full mx-auto relative">
+                        <div class="w-full relative h-60 lg:h-96">
+                            <a href=""><img class="w-full h-60 object-cover lg:h-96 rounded-lg" 
+                             id="anhBia" src="/{{ $user[0]->AnhBia}}" alt=""></a>
+                        </div>
+                        <div class="z-30 p-2 bg-gray-100 absolute text-center rounded-lg bottom-3 right-3">
+                            <input onchange="changeBia(event)" name="fileBia" type="file" 
+                            accept="image" id="changeB" style="display: none">
+                            <label for="changeB" class="flex"><i class="fas fa-camera text-2xl pl-1">
+                            </i>&nbsp;&nbsp;<span class="hidden lg:inline pt-1">Chỉnh sửa ảnh bìa</span></label>
+                        </div>
+                        <div id="showSubmitBia" class="w-full h-16 absolute left-0 top-10 p-2 text-right 
+                        " style="background: rgba(0,0,0,0.5);display:none;">
+                            <a href="" class="cursor-pointer font-bold border-none bg-blue-600 text-white 
+                            p-3">Hủy</a>
+                            <input type="submit" value="Lưu Thay Đổi" 
+                            class="cursor-pointer font-bold border-none bg-blue-600 ml-3 text-white p-2.5" />
+                        </div>
+                        <div class="w-full absolute text-center top-20 lg:top-6/10">
+                            <img class="w-44 h-44 rounded-full mx-auto
+                                border-4 border-solid border-white object-cover" src="/{{ $user[0]->AnhDaiDien}}" alt=""></a>
+                            <p class="font-bold text-center text-3xl py-2 dark:text-white" 
+                            style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten}}</p>
+                        </div>
+                        <div class="text-2xl absolute bg-gray-100 rounded-full"
+                            style="top: 95%;left: 54%;padding: 2px 6px;">
+                            <input onchange="changeAvatar(event)" name="files" type="file" 
+                            accept="image" id="changeavt" style="display: none">
+                            <label for="changeavt"><i class="fas fa-camera"></i></label>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <div class="w-full relative">
-                <div class="w-full mx-auto relative">
-                    <div class="w-full relative h-60 lg:h-96">
-                        <a href=""><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;"
-                                src="/{{ $user[0]->AnhBia}}img/anhbia.jpg" alt=""></a>
+                <div class="mx-auto text-center w-63%" style="margin-top: 68px;">
+                    <p class="outline-none text-center py-2 dark:text-white">{{ $user[0]->MoTa }}</p>
+                    <div class="w-full pt-2">
+                        <a style="color: #1876F2;font-size: 18px;" href="">Chỉnh sửa</a>
                     </div>
-                    <div class="p-2 bg-gray-100 absolute text-center rounded-lg bottom-3 right-3">
-                        <input onchange="changeBia(event)" name="fileBia" type="file" accept="image" id="changeB"
-                            style="display: none">
-                        <label for="changeB"><i class="fas fa-camera text-2xl pl-1"></i>&nbsp;&nbsp;
-                        <span class="hidden lg:inline">Chỉnh sửa ảnh bìa</span></label>
-                    </div>
-                    <div class="w-full absolute text-center top-20 lg:top-6/10">
-                        <img class="w-44 h-44 rounded-full mx-auto
-                            border-4 border-solid border-white object-cover" src="/{{ $user[0]->AnhDaiDien}}" alt=""></a>
-                        <p class="font-bold text-center text-3xl py-2 dark:text-white" 
-                        style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten}}</p>
-                    </div>
-                    <div class="text-2xl absolute bg-gray-100 rounded-full"
-                        style="top: 95%;left: 54%;padding: 2px 6px;">
-                        <input onchange="changeAvatar(event)" name="files" type="file" accept="image" id="changeavt"
-                            style="display: none">
-                        <label for="changeavt"><i class="fas fa-camera"></i></label>
-                    </div>
+                    <br>
                 </div>
             </div>
-        </form>
-        <div class="w-full relative">
-            <div class="mx-auto text-center w-63%" style="margin-top: 68px;">
-                <p class="outline-none text-center py-2 dark:text-white">{{ $user[0]->MoTa }}</p>
-                <div class="w-full pt-2">
-                    <a style="color: #1876F2;font-size: 18px;" href="">Chỉnh sửa</a>
-                </div>
-                <br>
-            </div>
-        </div>
         @else
-        <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">>
-            <div class="w-full relative">
-                <div class="w-full mx-auto relative">
-                    <div class="w-full relative h-60 lg:h-96">
-                        <a href=""><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;"
-                                src="/{{ $users[0]->AnhBia}}img/anhbia.jpg" alt=""></a>
-                    </div>
-                    <div class="w-full absolute text-center top-20 lg:top-6/10">
-                        <img class="w-44 h-44 rounded-full mx-auto
-                            border-4 border-solid border-white object-cover" src="/{{ $users[0]->AnhDaiDien}}" alt=""></a>
-                        <p class="font-bold text-center text-3xl py-2 dark:text-white" 
-                        style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten}}</p>
+            <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">>
+                <div class="w-full relative">
+                    <div class="w-full mx-auto relative">
+                        <div class="w-full relative h-60 lg:h-96">
+                            <a href=""><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;"
+                                    src="/{{ $users[0]->AnhBia}}img/anhbia.jpg" alt=""></a>
+                        </div>
+                        <div class="w-full absolute text-center top-20 lg:top-6/10">
+                            <img class="w-44 h-44 rounded-full mx-auto
+                                border-4 border-solid border-white object-cover" src="/{{ $users[0]->AnhDaiDien}}" alt=""></a>
+                            <p class="font-bold text-center text-3xl py-2 dark:text-white" 
+                            style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten}}</p>
+                        </div>
                     </div>
                 </div>
+            </form>
+            <div class="w-full relative">
+                <div class="mx-auto text-center py-4 dark:text-white w-63%" style="margin-top: 68px;">
+                    <span class="outline-none">{{ $users[0]->MoTa}}</span>
+                    <br>
+                </div>
             </div>
-        </form>
-        <div class="w-full relative">
-            <div class="mx-auto text-center py-4 dark:text-white w-63%" style="margin-top: 68px;">
-                <span class="outline-none">{{ $users[0]->MoTa}}</span>
-                <br>
-            </div>
-        </div>
         @endif
         <hr class="w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63% mb-2">
         <?php $data = DB::table('moiquanhe')->where('IDTaiKhoan','=',$user[0]->IDTaiKhoan)
@@ -125,7 +137,7 @@
                             </li>
                             <li class="w-full pb-3" style="font-size: 15px;">
                             <p class="dark:text-gray-300"><i class="fas fa-home text-gray-600 dark:text-gray-300
-                             text-xl"></i>&nbsp;&nbsp;Sống tại <b class="dark:text-gray-300">Đà Nẵng</b></p>
+                            text-xl"></i>&nbsp;&nbsp;Sống tại <b class="dark:text-gray-300">Đà Nẵng</b></p>
                             </li>
                             <li class="w-full pb-3" style="font-size: 15px;">
                                 <p class="dark:text-gray-300">&nbsp;<i class="fas fa-map-marker-alt text-gray-600 dark:text-gray-300 text-xl"></i>&nbsp;&nbsp;
@@ -133,7 +145,7 @@
                             </li>
                             <li class="w-full pb-3" style="font-size: 15px;">
                                 <p class="dark:text-gray-300"><i class="fas fa-heart text-gray-600 dark:text-gray-300
-                                 text-xl"></i></i>&nbsp;&nbsp; Độc Thân</p>
+                                text-xl"></i></i>&nbsp;&nbsp; Độc Thân</p>
                             </li>
                             <li class="w-full pb-3" style="font-size: 15px;">
                                 <p class="dark:text-gray-300"><i class="fas fa-clock text-gray-600 text-xl 
@@ -278,8 +290,9 @@
                 </div>
             </div>
         </div>
-        @endif
+    @endif
     </div>
+    
     <script src="js/scrollbar.js"></script>
 </body>
 

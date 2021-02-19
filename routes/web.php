@@ -28,6 +28,8 @@ Route::get('ProcessCancelRequestFriend','App\Http\Controllers\CancelRequestFrien
 Route::get('ProcessAcceptFriend','App\Http\Controllers\AcceptFriendController@accept');
 Route::get('ProcessDeleteFriend','App\Http\Controllers\DeleteFriendController@delete');
 Route::get('ProcessSendCodeAgain','App\Http\Controllers\SendCodeAgainController@send');
+Route::get('ProcessUpdateAvatar','App\Http\Controllers\UpdateAvatarController@update');
+Route::get('ProcessUpdateCoverImage','App\Http\Controllers\UpdateCoverImageController@update');
 Route::get('LoadQuenTaiKhoan',function() {
     return view('Modal\ModalDangNhap\ModalNhapTT');
 });

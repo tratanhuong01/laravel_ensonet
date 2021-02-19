@@ -13,6 +13,7 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DeleteFriendController' => $baseDir . '/app/Http/Controllers/DeleteFriendController.php',
     'App\\Http\\Controllers\\FollowController' => $baseDir . '/app/Http/Controllers/FollowController.php',
+    'App\\Http\\Controllers\\ForgetAccountController' => $baseDir . '/app/Http/Controllers/ForgetAccountController.php',
     'App\\Http\\Controllers\\LoginController' => $baseDir . '/app/Http/Controllers/LoginController.php',
     'App\\Http\\Controllers\\LogoutController' => $baseDir . '/app/Http/Controllers/LogoutController.php',
     'App\\Http\\Controllers\\NewBieController' => $baseDir . '/app/Http/Controllers/NewBieController.php',

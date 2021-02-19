@@ -163,3 +163,25 @@ function forgetAccount() {
     xmlhttp.open("GET", 'ProcessForgetAccount?emailOrPhone_Type=' + value('emailOrPhone_Type'), true);
     xmlhttp.send();
 }
+function updateAvatar() {
+    $("#web").css("opacity", "1");
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById('main').innerHTML = ''
+        }
+    };
+    xmlhttp.open("GET", 'ProcessUpdateAvatar?File=' + value('emailOrPhone_Type'), true);
+    xmlhttp.send();
+}
+function updateCoverImage() {
+    $("#web").css("opacity", "1");
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById('main').innerHTML = ''
+        }
+    };
+    xmlhttp.open("GET", 'ProcessUpdateCoverImage?File=' + value('emailOrPhone_Type'), true);
+    xmlhttp.send();
+}

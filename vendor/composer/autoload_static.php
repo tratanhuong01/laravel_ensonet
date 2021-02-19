@@ -520,6 +520,7 @@ class ComposerStaticInit0945b6683b73ae78b35bf7a6511a022c
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DeleteFriendController' => __DIR__ . '/../..' . '/app/Http/Controllers/DeleteFriendController.php',
         'App\\Http\\Controllers\\FollowController' => __DIR__ . '/../..' . '/app/Http/Controllers/FollowController.php',
+        'App\\Http\\Controllers\\ForgetAccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/ForgetAccountController.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
         'App\\Http\\Controllers\\LogoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/LogoutController.php',
         'App\\Http\\Controllers\\NewBieController' => __DIR__ . '/../..' . '/app/Http/Controllers/NewBieController.php',

@@ -2,7 +2,7 @@
         p-4 opacity-100 bg-white z-50 border-2 border-solid border-gray-300 sm:w-4/5 sm:mt-12 
         lg:w-3/5 xl:w-5/12 xl:mt-4">
     <div class="w-full mx-auto">
-        <span onclick="closeGetAcc()" class="cursor-pointer text-3xl top-4 right-4">&times;</span>
+    <span onclick="closeGetAcc()" class="cursor-pointer text-3xl top-4 right-4">&times;</span>
         <p class="py-2 font-bold">Đã xác nhận thành công</p>
         <hr>
         <br>
