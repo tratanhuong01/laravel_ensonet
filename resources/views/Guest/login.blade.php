@@ -12,8 +12,9 @@
 </head>
 
 <body>
+<?php use Illuminate\Http\Request;  ?>
 @if (session()->has('user')) 
-    <?php redirect()->to('index')->send(); ?>
+<?php redirect()->to('index')->send(); ?>
 @else 
     <div id="register" class="w-full">
     </div>
@@ -33,18 +34,33 @@
                         <div class="w-full">
                         <form class="w-full bg-white" action="{{ route('ProcessLogin') }}" method="post">
                         {{ csrf_field() }}
-                                <input type="text" name="emailOrPhone"
-                                    class="w-96per p-3 m-2.5 rounded-lg border-2 border-solid border-gray-200" id=""
-                                    placeholder="Email Hoặc Số Điện Thoại">
-                                <input type="password" name="passWord"
-                                    class="w-96per p-3 m-2.5 rounded-lg border-2 border-solid border-gray-200" id=""
-                                    placeholder="Mật Khẩu">
-                                <button
-                                    class="mx-auto ml-2 w-93per p-3 my-2.5 border-none rounded-lg bg-1877F2 text-sm text-white font-bold"
-                                    type="submit">Đăng Nhập</button>
-                                <p class="p-4 bg-white cursor-pointer"><a onclick="openGetAcc()"
-                                        class="text-1877F2 bg-white">Quên Tài khoản</a></p>
-                            </form>
+                            <input type="text" name="emailOrPhone"
+                                class="w-96per p-3 m-2.5 rounded-lg border-2 border-solid border-gray-200 
+                                @error('emailOrPhone') border-red-600 text-red-600 placeholder-red-600 @enderror" id=""
+                                placeholder="Email Hoặc Số Điện Thoại" 
+                                value="{{ session()->has('emailOrPhone') ? Session::get('emailOrPhone') : '' }}">
+                                <p class="py-2 text-left pl-3 font-bold text-red-600">
+                                @error('emailOrPhone') {{ $message  }} @enderror
+                                </p>
+                                <?php 
+                                    if (session()->has('emailOrPhone'))
+                                    session()->forget('emailOrPhone');
+                                ?>
+                            <input type="password" name="passWord"
+                                class="w-96per p-3 m-2.5 rounded-lg border-2 border-solid border-gray-200 
+                                @error('passWord') border-red-600 text-red-600 placeholder-red-600 @enderror" id=""
+                                placeholder="Mật Khẩu"
+                                value="">
+                                <p class="py-2 text-left pl-3 font-bold text-red-600">
+                                @error('passWord') {{ $message  }} @enderror
+                                @isset($message){{$message}}@endisset
+                                </p>
+                            <button
+                                class="mx-auto ml-2 w-93per p-3 my-2.5 border-none rounded-lg bg-1877F2 text-sm text-white font-bold"
+                                type="submit">Đăng Nhập</button>
+                            <p class="p-4 bg-white cursor-pointer"><a onclick="loadajax('LoadQuenTaiKhoan','register')"
+                                    class="text-1877F2 bg-white">Quên Tài khoản</a></p>
+                        </form>
                         </div>
                         <hr class="w-90%;mx-auto mb-4">
                         <div class="w-full">

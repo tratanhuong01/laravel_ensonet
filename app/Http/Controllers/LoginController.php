@@ -5,16 +5,43 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Session;
+use Validator;
 
 class LoginController extends Controller
 {
     public function login(Request $request) {
-        $user = DB::table('taikhoan')->where('taikhoan.Email','=',$request->emailOrPhone)
-            ->where('taikhoan.MatKhau','=',md5($request->passWord))->get();
+        $user = DB::table('taikhoan')->where('taikhoan.Email','=',$request->emailOrPhone)->get();
+        $validator = null;
+        if (sizeof($user) == 0){
+            $emailErr = $request->Email . '@';
+            $validator = Validator::make($request->all(),[
+                'emailOrPhone' => 'required|in:'.$emailErr, 
+                'passWord'  => 'required'
+            ],$messages = [
+                'emailOrPhone.required' => 'Email hoặc số điện thoại không được để trống!',
+                'emailOrPhone.in' => 'Email hoặc số điện thoại không khớp bất kì tài khoản nào!',
+                'passWord.required' => 'Mật khẩu không được để trống!',
+            ]);
+        }
+        else {
+            $pass = null;
+            if (md5($request->passWord) == $user[0]->MatKhau)
+            $pass = $request->passWord;
             
-        if (sizeof($user) == 0) {
-            redirect()->to('index')->send();
-            return view('Guest/login');
+            $validator = Validator::make($request->all(),[
+                'emailOrPhone' => 'required|in:'.$user[0]->Email, 
+                'passWord'  => 'required|in:'.$pass
+            ],$messages = [
+                'emailOrPhone.required' => 'Email hoặc số điện thoại không được để trống!',
+                'passWord.required' => 'Mật khẩu không được để trống!',
+                'passWord.in' => 'Mật khẩu không chính xác!',
+            ]);
+        }
+        
+        if ($validator->fails()) {
+            $request->session()->put('emailOrPhone',$request->emailOrPhone);
+            $errors = $validator->errors();
+            redirect()->to('login')->withErrors($errors)->send();
         } 
         else {
             $data = DB::table('taikhoan')->where('IDTaiKhoan','=',$user[0]->IDTaiKhoan)->get();
@@ -24,11 +51,10 @@ class LoginController extends Controller
                 return view('Guest/index');
             }
             else {
-                redirect()->to('index')->send();
+                
                 echo "Chưa verify";
             }
-        }
-        
+        }   
     }
     
 }

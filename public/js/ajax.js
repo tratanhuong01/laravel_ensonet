@@ -14,12 +14,6 @@ function value(names) {
 }
 function submitFormRegister() {
     $("#web").css("opacity", "0.2");
-    var i = document.createElement('i');
-    document.getElementById('btn-submit-form').innerHTML = '';
-    document.getElementById('btn-submit-form').disabled = true;
-    document.getElementById('btn-submit-form').style.cursor = 'not-allowed';
-    i.className = 'fas fa-cog fa-spin text-xl';
-    document.getElementById('btn-submit-form').appendChild(i);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -156,5 +150,16 @@ function sendCodeAgain() {
         }
     };
     xmlhttp.open("GET", 'ProcessSendCodeAgain?emailOrPhone=' + value('emailOrPhone'), true);
+    xmlhttp.send();
+}
+function forgetAccount() {
+    $("#web").css("opacity", "0.2");
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById('register').innerHTML = this.responseText;
+        }
+    };
+    xmlhttp.open("GET", 'ProcessForgetAccount?emailOrPhone_Type=' + value('emailOrPhone_Type'), true);
     xmlhttp.send();
 }

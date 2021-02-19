@@ -1,7 +1,7 @@
 
 <div class="w-full mx-auto flex py-2 md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
-@include('Component/MoiQuanHe/DanhMuc')
-    <div class="w-4/5 pb-1.5 text-right mr-3">
+    @include('Component/MoiQuanHe/DanhMuc')
+    <div class="w-4/5 pb-1.5 xl:w-5/12 text-right mr-3">
         <span onclick="AcceptFriend('{{ $user[0]->IDTaiKhoan }}','{{ $users[0]->IDTaiKhoan }}')" 
         class="p-3 mr-2 cursor-pointer bg-blue-200 text-blue-600"
             style="border-radius: 6px;line-height: 24px;"><i class="fas fa-user-plus text-blue-600 nhanYeuCau" 
