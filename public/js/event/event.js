@@ -35,16 +35,16 @@ function checkValueTypeCode() {
         document.getElementById('btn-submit-veri').disabled = false;
     }
 }
-function changeAvatar(event) {
-    document.getElementById('web').style.opacity = '0.2';
-    document.getElementById("get-account-main").style.display = 'block';
-    var path = URL.createObjectURL(event.target.files[0]);
-    document.getElementById("avt-opactity").src = path;
-    document.getElementById("avt-opactity-none").src = path;
-}
-function changeBia(event) {
-    var path = URL.createObjectURL(event.target.files[0]);
-    var showBia = document.getElementById("showSubmitBia");
-    document.getElementById("anhBia").src = path;
-    showBia.style.display = 'block';
-}
+// function changeAvatar(event) {
+//     document.getElementById('web').style.opacity = '0.2';
+//     document.getElementById("get-account-main").style.display = 'block';
+//     var path = URL.createObjectURL(event.target.files[0]);
+//     document.getElementById("avt-opactity").src = path;
+//     document.getElementById("avt-opactity-none").src = path;
+// }
+// function changeBia(event) {
+//     var path = URL.createObjectURL(event.target.files[0]);
+//     var showBia = document.getElementById("showSubmitBia");
+//     document.getElementById("anhBia").src = path;
+//     showBia.style.display = 'block';
+// }

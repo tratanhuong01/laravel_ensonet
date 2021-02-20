@@ -8,7 +8,9 @@
         </div>
         <div class="w-70per my-4 mx-auto">
             <p>Vui lòng nhập số điện thoại hoặc email để lấy mật khẩu</p>
+            <form action="" id="formNhapTT">
             <input class="w-full p-4 my-4" type="text" name="emailOrPhone_Type" id="emailOrPhone_Type" placeholder="Email hoặc số điện thoại">
+            </form>
         </div>
         <p class="w-70per text-red-600 font-bold py-4 mx-auto">@isset($errors){{$errors}}@endisset</p>
         <hr>

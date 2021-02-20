@@ -24,7 +24,7 @@ function checkEmail() {
         email_again[0].style.cssText += ';display:block !important;';
         emailAgain.className = 'input_register w-96per p-2.5 rounded-lg border-2 border-solid border-gray-300';
         document.getElementsByClassName('value_error')[3].innerText = '';
-        document.getElementById('emailOrPhone').name = 'email';
+        // document.getElementById('emailOrPhone').name = 'email';
     }
     // else if (regex_phone.test(emailOrPhone.value)){
     //     document.getElementById('emailOrPhone').name = 'phone';

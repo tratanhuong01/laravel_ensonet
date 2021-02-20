@@ -1,14 +1,18 @@
+<?php use App\Models\StringUtil; ?>
 <div class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
         <div class="" style="width: 10%;">
-            <a href=""><img class="w-12 rounded-full 
-                            border-4 border-solid border-gray-200" src="img/avatar.jpg"></a>
+            <a href=""><img class="w-12 h-12 rounded-full 
+                            border-4 border-solid border-gray-200" src="/{{ $item->AnhDaiDien }}"></a>
         </div>
         <div class="relative pl-1" style="width: 80%;">
-            <p class="mb-2 dark:text-gray-300"><a href=""><b class="dark:text-white">Trà Hưởng</b>
+            <p class="mb-2 dark:text-gray-300"><a href=""><b class="dark:text-white">
+            {{ $item->Ho . ' ' . $item->Ten }}</b>
                     &nbsp;</a> đã cập nhật ảnh đại diện của anh ấy.</p>
             <div class="w-full flex">
-                <div class="text-xs pr-2"><a href="" class="dark:text-gray-300 font-bold">Vừa xong</a>
+                <div class="text-xs pr-2"><a href="" class="dark:text-gray-300 font-bold">
+                {{ StringUtil::CheckDateTime($item->NgayDang) }}
+                </a>
             </div>
                 <div class="relative">
                     <i class="fas fa-globe-europe absolute top-0.5 dark:text-gray-300"></i>
@@ -20,14 +24,14 @@
         </div>
     </div>
     <div class="w-full mx-0 my-2.5">
-        <p class="dark:text-white">Phê 😂😂</p>
+        <p class="dark:text-white">{{ $item->NoiDung }}</p>
     </div>
     <div class="w-full mx-0 my-2.5">
         <div class="w-full relative block" style="height:430px;">
-            <img class="w-full h-60 object-cover" src="img/anhbia.jpg" alt="">
+            <img class="w-full h-60 object-cover" src="/{{ $item->AnhBia }}" alt="">
             <img class="w-7/10 absolute rounded-full border-4 border-solid border-white" 
-            style="top: 5%;left: 15%;"
-                src="img/avatar.jpg" alt="">
+            style="top: 5%;left: 15%;height:390px;"
+                src="{{ $item->DuongDan }}" alt="">
         </div>
     </div>
     <div class="w-full mb-4 mx-0 block">

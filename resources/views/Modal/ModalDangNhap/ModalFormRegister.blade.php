@@ -16,6 +16,7 @@ use Illuminate\Support\MessageBag;
     <p class="pb-2.5">Nhanh Chóng Dễ Dàng</p>
     <hr>
     <br>
+    <form action="" id="formRegister">
         {{ csrf_field() }}
         <div class="w-full flex">
             <input type="text" 
@@ -54,7 +55,6 @@ use Illuminate\Support\MessageBag;
         <ul class="w-full mb-4 mt-4">
             <li class="w-full text-red-600 value_error">@error('emailOrPhone') {{ $message  }} @enderror</li>
         </ul>
-        
         <div class="w-full email_again_one mb-4" style="display: none;@error('emailAgain') display:block!important; @enderror" id="email-again">
             <input type="text" name="emailAgain" id="emailAgain" class="
             input_register w-96per p-2.5 rounded-lg border-2 border-solid border-gray-300 @error('emailAgain') border-red-600 text-red-600 placeholder-red-600 @enderror"
@@ -106,8 +106,10 @@ use Illuminate\Support\MessageBag;
             </p>
         </div>
         <div class="form_5 text-center p-4">
-            <button onclick="submitFormRegister()" id="btn-submit-form" style="font-size: 18px;width: 50%;background-color: #119F16;padding: 10px;border: none;
+            <button onclick="submitFormRegister()" type="button" id="btn-submit-form"
+             style="font-size: 18px;width: 50%;background-color: #119F16;padding: 10px;border: none;
                                 border-radius: 10px;color: white;cursor: pointer;
                                 "><b>Đăng Kí</b></button>
         </div>
+    </form>
 </div>

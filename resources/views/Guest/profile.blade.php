@@ -22,7 +22,7 @@
 
 <?php $user = Session::get('user'); ?>
     <div id="main">
-    @include('Modal/ModalProfile/XemTruocAnhDaiDien')
+        
     </div>
     <div class="w-full dark:bg-dark-second" id="web">
     @include('Header');
@@ -30,41 +30,54 @@
         @include('Component\KhongTimThay');
     @else
         @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan) 
-            <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
+            <div class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
                 <div class="w-full relative">
                     <div class="w-full mx-auto relative">
                         <div class="w-full relative h-60 lg:h-96">
-                            <a href=""><img class="w-full h-60 object-cover lg:h-96 rounded-lg" 
+                            <a href="" id="ajaxCover"><img 
+                            class="w-full h-60 object-cover lg:h-96 rounded-lg" 
                              id="anhBia" src="/{{ $user[0]->AnhBia}}" alt=""></a>
                         </div>
                         <div class="z-30 p-2 bg-gray-100 absolute text-center rounded-lg bottom-3 right-3">
-                            <input onchange="changeBia(event)" name="fileBia" type="file" 
-                            accept="image" id="changeB" style="display: none">
+                            <form id="form">
+                                {{ csrf_field() }}
+                                <input onchange="changeBia(event)" name="fileBia" type="file" 
+                                accept="image" id="changeB" style="display: none"  enctype="multipart/form-data" >
+                                </form>
                             <label for="changeB" class="flex"><i class="fas fa-camera text-2xl pl-1">
                             </i>&nbsp;&nbsp;<span class="hidden lg:inline pt-1">Chỉnh sửa ảnh bìa</span></label>
                         </div>
                         <div id="showSubmitBia" class="w-full h-16 absolute left-0 top-10 p-2 text-right 
                         " style="background: rgba(0,0,0,0.5);display:none;">
+                            <form action="" method="post" id="formUpdateCover" enctype="multipart/form-data">
+                            {{ csrf_field() }}
                             <a href="" class="cursor-pointer font-bold border-none bg-blue-600 text-white 
                             p-3">Hủy</a>
-                            <input type="submit" value="Lưu Thay Đổi" 
+                            <input type="button" onclick="updateCoverImage()" value="Lưu Thay Đổi" 
                             class="cursor-pointer font-bold border-none bg-blue-600 ml-3 text-white p-2.5" />
+                            </form>
                         </div>
                         <div class="w-full absolute text-center top-20 lg:top-6/10">
-                            <img class="w-44 h-44 rounded-full mx-auto
-                                border-4 border-solid border-white object-cover" src="/{{ $user[0]->AnhDaiDien}}" alt=""></a>
+                            <a href="" id="ajaxAnhDaiDien"><img class="w-44 h-44 rounded-full mx-auto
+                                border-4 border-solid border-white object-cover" 
+                                src="/{{ $user[0]->AnhDaiDien}}" alt=""></a>
                             <p class="font-bold text-center text-3xl py-2 dark:text-white" 
                             style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten}}</p>
                         </div>
                         <div class="text-2xl absolute bg-gray-100 rounded-full"
                             style="top: 95%;left: 54%;padding: 2px 6px;">
-                            <input onchange="changeAvatar(event)" name="files" type="file" 
-                            accept="image" id="changeavt" style="display: none">
+                            <form id="formAvatar" method="POST" action="ProcessViewAvatar"
+                             enctype="multipart/form-data">
+                             {{ csrf_field() }}
+                            <input onchange="changeAvatar(event)" name="fileAvatar" type="file" 
+                            accept="image" id="changeavt" style="display: none"  >
                             <label for="changeavt"><i class="fas fa-camera"></i></label>
+                            </form>
+                            
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
             <div class="w-full relative">
                 <div class="mx-auto text-center w-63%" style="margin-top: 68px;">
                     <p class="outline-none text-center py-2 dark:text-white">{{ $user[0]->MoTa }}</p>
@@ -283,10 +296,24 @@
                             </ul>
                         </div>
                     </div>
-                    @include('Component/BaiDang/BaiDangTT')
-                    @include('Component/BaiDang/CapNhatAnhBia')
-                    @include('Component/BaiDang/CapNhatAvatar')
-                    @include('Component/BaiDang/ShareBaiViet')
+                    <?php
+                        $post = DB::table('baidang')
+                        ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
+                        ->join('hinhanh', 'hinhanh.IDBaiDang', '=', 'baidang.IDBaiDang')
+                        ->where('taikhoan.IDTaiKhoan','=',$users[0]->IDTaiKhoan)
+                        ->orderBy('NgayDang', 'desc')
+                        ->get();
+                    ?>
+                    @for ($i = 0 ; $i < sizeof($post) ; $i++) 
+                        @switch($post[$i]->LoaiBaiDang)
+                            @case('0')
+                                @include('Component/BaiDang/CapNhatAvatar',['item' => $post[$i]])
+                                @break
+                            @case('1')
+                                @include('Component/BaiDang/CapNhatAnhBia',['item' => $post[$i]])
+                                @break
+                        @endswitch
+                    @endfor
                 </div>
             </div>
         </div>

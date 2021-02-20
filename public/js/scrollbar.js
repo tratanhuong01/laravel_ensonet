@@ -1,14 +1,12 @@
 function openPost() {
   var register = document.getElementById("modal-one");
   register.style.display = "block";
-  var web = document.getElementById("main");
-  web.style.opacity = "0.2";
+  document.getElementById("second").className += ' fixed';
 }
 function closePost() {
   var register = document.getElementById("modal-one");
   register.style.display = "none";
-  var web = document.getElementById("main");
-  web.style.opacity = "1";
+  second.classList.remove("fixed");
 }
 function viewInfoHover(index, event) {
   var d = document.getElementsByClassName("friends-online-info");

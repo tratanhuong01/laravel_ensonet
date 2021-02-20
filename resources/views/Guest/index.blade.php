@@ -63,12 +63,12 @@
                 <div class="w-full bg-white mb-3 mt-2 dark:bg-dark-second m-auto rounded-lg mb-2">
                     <div class="w-full flex p-2.5 ">
                         <div class="w-2/12 md:w-1/12 mr-3 pt-1">
-                            <a href=""><img class="w-12 rounded-full h-12" src="img/avatar.jpg"></a>
+                            <a href=""><img class="w-12 rounded-full h-12" src="/{{ $user[0]->AnhDaiDien }}"></a>
                         </div>
                         <div class="w-11/12">
                             <input class="w-full p-3 border-none outline-none bg-gray-200 dark:bg-dark-third"
                                 style="border-radius: 40px;" onclick="openPost()" type="text"
-                                placeholder="Hưởng ơi, Bạn Đang Nghĩ Gì Thế?">
+                                placeholder="{{ $user[0]->Ten }} ơi, Bạn Đang Nghĩ Gì Thế?">
                         </div>
                     </div>
                     <hr>
@@ -457,7 +457,7 @@
             </div>
         </div>-->
     </div>
-    <div class="w-full" id="second">
+    <div class="w-full h-screen bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
         @include('Modal/ModalBaiDang/ModalTaoBaiViet')
     </div>
     @else 

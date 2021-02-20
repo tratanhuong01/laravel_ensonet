@@ -18,15 +18,17 @@
             <ul class="w-full mb-4 mt-4">
                 <li class="w-full text-red-600 value_error">@isset($errors) {{ $errors }} @endisset</li>
             </ul>
-            <input type="hidden" name="emailOrPhone" id="emailOrPhone" value="{{ $emailOrPhoneRegister }}">
         </div>
         <hr>
         <div class="w-full mt-4 text-right">
-            <input type="submit" onclick="submitFormVerify()" 
-            class="cursor-pointer w-1/5 p-2 bg-1877F2 border-none font-bold 
-            text-white rounded-lg" value="Xác nhận" id="btn-submit-veri" >
-            <span onclick="sendCodeAgain()" class="cursor-pointer w-1/4 p-2.5 bg-1877F2 border-none font-bold 
-            text-white rounded-lg" id="btn-send-code">Gửi lại</span>
+            <form action="" id="formSendAgainCode">
+                <input type="hidden" name="emailOrPhone" id="emailOrPhone" value="{{ $emailOrPhoneRegister }}">
+                <input type="button" onclick="submitFormVerify()" 
+                class="cursor-pointer w-1/5 p-2 bg-1877F2 border-none font-bold 
+                text-white rounded-lg" value="Xác nhận" id="btn-submit-veri" >
+                <span onclick="sendCodeAgain()" class="cursor-pointer w-1/4 p-2.5 bg-1877F2 border-none font-bold 
+                text-white rounded-lg" id="btn-send-code">Gửi lại</span>
+            </form>
         </div>
     </div>
 </div>

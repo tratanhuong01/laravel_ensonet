@@ -1,4 +1,4 @@
-<div id="modal-one" class="border-2 border-solid border-gray-300 py-3 pl-1.5 pr-1.5 pt-0
+<div id="modal-one" class="shadow-sm border border-solid border-gray-500 py-3 pl-1.5 pr-1.5 pt-0
             bg-white w-full fixed z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg 
             sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3"
         style="transform: translate(-50%,-50%);display: none;z-index:10;">
@@ -13,7 +13,7 @@
             <a href=""><img class="w-14 h-14 rounded-full object-contain" src="{{ $user[0]->AnhDaiDien }}" alt=""></a>
         </div>
         <div class="w-11/12">
-            <p class="p-1 pt-0 dark:text-white">Trà Hưởng</p>
+            <p class="p-1 pt-0 font-bold dark:text-white">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</p>
             <div class="py-0 px-1 relative w-3/10 bg-gray-300 dark:bg-dark-third" style="border-radius: 30px;">
                 <ul class="flex text-xs relative cursor-pointer">
                     <li class="px-0.5 py-1.5"><i class="fas fa-globe-europe dark:text-white"></i></li>
@@ -28,13 +28,13 @@
         <div class="w-full relative" id="main-textarea-post">
             <textarea id="textarea-post" oninput="checkValueTextAre()" 
             class="w-full border-none dark:text-white text-xm px-2 pt-2 py-6 outline-none overflow-hidden dark:bg-dark-second
-            resize-none" name="contentpost" id="" placeholder="Hưởng ơi, Bạn đang nghĩ gì thế?"></textarea>
+            resize-none" name="contentpost" id="" placeholder="{{ $user[0]->Ten }} ơi, Bạn đang nghĩ gì thế?"></textarea>
             <button class="absolute right-2 bottom-2 bg-white outline-none dark:bg-dark-second">
             <i class="far fa-smile text-gray-600 text-2xl dark:text-gray-300"></i>
             </button>
         </div>
-        <div class="w-full mt-2.5 px-2">
-            <img src="img/avatar.jpg" class="w-full" alt="" srcset="">
+        <div class="w-full mt-2.5 px-2 flex flex-wrap relative" id="imagePost">
+            
         </div>
     </div>   
     <div class="w-full p-2 border-2 border-solid border-gray-300 mt-4">
@@ -44,8 +44,15 @@
             </li>
             <li class="cursor-pointer "><i style="color: #9567EF;font-size: 25px;padding: 2px 4px;" class="fas fa-video"></i>
                 &nbsp;&nbsp;</li>
+                <form action="" class="hidden">
+                    <input type="file" onchange="changeUploadFiles(event)" id="uploadFileS" name="files" multiple="multiple">
+                </form>
+            <label for="uploadFileS">
             <li class="cursor-pointer "><i style="color: #45B560;font-size: 25px;padding: 2px 4px;" class="far fa-image"></i>
-                &nbsp;&nbsp;</li>
+                &nbsp;&nbsp;
+            </li>
+            </label>
+            
             <li onclick="clickOpenModal(1)" class="eOpenModal cursor-pointer "><i
                     style="color: #EAB026;font-size: 25px;padding: 2px 4px;" class="fas fa-smile"></i> &nbsp;&nbsp;
             </li>

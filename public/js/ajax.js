@@ -13,18 +13,18 @@ function value(names) {
     return document.getElementById(names).value;
 }
 function submitFormRegister() {
-    $("#web").css("opacity", "0.2");
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('register').innerHTML = this.responseText;
+    $('#btn-submit-form').html('');
+    $('#btn-submit-form').prop("disabled", true );
+    $('#btn-submit-form').css('cursor','not-allowed');
+    $('#btn-submit-form').append('<i class="fas fa-cog fa-spin text-xl"></i>');
+    $.ajax({
+        method: "GET",
+        url: 'ProcessRegister',
+        data: $('#formRegister').serialize(),
+        success : function(response) {
+            $('#register').html(response);
         }
-    };
-    xmlhttp.open("GET", 'ProcessRegister?lastName=' + value('lastName') + '&firstName=' + value('firstName') +
-        '&passWord=' + value('passWord') + '&emailOrPhone=' + value('emailOrPhone') +
-        '&GioiTinh=' + document.querySelector('input[name="GioiTinh"]:checked').value +
-        '&NgaySinh=' + value('NgaySinh') + '&emailAgain=' + value('emailAgain'), true);
-    xmlhttp.send();
+    });
 }
 function submitFormVerify() {
     var xmlhttp = new XMLHttpRequest();
@@ -136,52 +136,163 @@ function CateGoryProfile(names) {
         NamesCate.style.display = 'none';
 }
 function sendCodeAgain() {
-    $("#web").css("opacity", "0.2");
-    var i = document.createElement('i');
-    document.getElementById('btn-send-code').innerHTML = '';
-    document.getElementById('btn-send-code').disabled = true;
-    document.getElementById('btn-send-code').style.cursor = 'not-allowed';
-    i.className = 'fas fa-cog fa-spin text-xl';
-    document.getElementById('btn-send-code').appendChild(i);
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('register').innerHTML = this.responseText;;
+    $('#btn-send-code').html('');
+    $('#btn-send-code').prop("disabled", true );
+    $('#btn-send-code').css('cursor','not-allowed');
+    $('#btn-send-code').append('<i class="fas fa-cog fa-spin text-xl"></i>');
+    $.ajax({
+        method: "GET",
+        url: 'ProcessSendCodeAgain',
+        data: $('#formSendAgainCode').serialize(),
+        success : function(response) {
+            $('#register').html(response);
         }
-    };
-    xmlhttp.open("GET", 'ProcessSendCodeAgain?emailOrPhone=' + value('emailOrPhone'), true);
-    xmlhttp.send();
+    });
 }
 function forgetAccount() {
     $("#web").css("opacity", "0.2");
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('register').innerHTML = this.responseText;
+    $.ajax({
+        method: "GET",
+        url: 'ProcessForgetAccount',
+        data: $('#formNhapTT').serialize(),
+        success : function(response) {
+            $('#register').html(response);
         }
-    };
-    xmlhttp.open("GET", 'ProcessForgetAccount?emailOrPhone_Type=' + value('emailOrPhone_Type'), true);
-    xmlhttp.send();
+    });
+}
+function changeAvatar(event) {
+    var path = URL.createObjectURL(event.target.files[0]);
+    let formData = new FormData($('#formAvatar')[0]);
+    $.ajax({
+        method: "POST",
+        url: "ProcessViewAvatar",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success : function(response){
+            $('#web').css('opactity','0.2');
+            $('#main').html(response);
+            $('#avt-opactity').attr('src',path);
+            $('#avt-opactity-none').attr('src',path);
+            var child = $('#changeavt').clone();
+            $('#formUpdateAvatar1').append(child);
+        },
+    });
+}
+function changeBia(event) {
+    var path = URL.createObjectURL(event.target.files[0]);
+    var showBia = document.getElementById("showSubmitBia");
+    document.getElementById("anhBia").src = path;
+    showBia.style.display = 'block';
+    document.getElementById('formUpdateCover').appendChild(document.getElementById('changeB'));
 }
 function updateAvatar() {
     $("#web").css("opacity", "1");
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('main').innerHTML = ''
+    let formData = new FormData($('#formUpdateAvatar')[0]);
+    $.ajax({
+        method: "POST",
+        url: 'ProcessUpdateAvatar',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success : function(response) {
+            $('#main').html('');
+            var re = document.getElementById('ajaxAnhDaiDien');
+            var parent1 = document.createElement('div');
+            parent1.className = 'w-44 h-44 rounded-full mx-auto border-4 border-solid border-white pt-16 dark:bg-dark-third bg-gray-100'
+            var child1 = document.createElement('i');
+            child1.className = 'fas fa-spinner fa-pulse text-5xl dark:text-white';
+            parent1.appendChild(child1);
+            var parent2 = document.createElement('div');
+            parent2.className = 'w-8 h-8 rounded-full mx-auto py-0.5 px-1.5 dark:bg-dark-third bg-gray-100'
+            var child2 = document.createElement('i');
+            child2.className = 'fas fa-spinner fa-pulse text-xl dark:text-white';
+            parent2.appendChild(child2);
+            $('#ajaxAnhDaiDien').html('');
+            $('#ajaxAnhDaiDien1').html('');
+            re.appendChild(parent1);
+            $('#ajaxAnhDaiDien1').append(parent2);
+            setTimeout(function() {
+                $('#ajaxAnhDaiDien').html(response);
+                $('#ajaxAnhDaiDien1').html('');
+                $('#ajaxAnhDaiDien1').append('<img class="w-8 h-8 rounded-full" id="ajaxAnhDaiDien2" src="" alt="" />');
+                var src = document.getElementById('anhDaiDien_Main').src;
+                $('#ajaxAnhDaiDien2').attr('src',src);
+            },1000);
         }
-    };
-    xmlhttp.open("GET", 'ProcessUpdateAvatar?File=' + value('emailOrPhone_Type'), true);
-    xmlhttp.send();
+    });
 }
 function updateCoverImage() {
     $("#web").css("opacity", "1");
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('main').innerHTML = ''
+    let formData = new FormData($('#formUpdateCover')[0]);
+    $.ajax({
+        method: "POST",
+        url: 'ProcessUpdateCoverImage',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success : function(response) {
+            $('#showSubmitBia').hide();
+            $('#ajaxCover').html(response);
         }
-    };
-    xmlhttp.open("GET", 'ProcessUpdateCoverImage?File=' + value('emailOrPhone_Type'), true);
-    xmlhttp.send();
+    });
+}
+function changeUploadFiles(event) {
+    var files = event.target.files;
+    for (var i = 0, file; file = files[i]; i++) {
+        var div = document.createElement('div');
+        var img = document.createElement('img');
+        img.style.objectFit = 'cover';
+        if (files.length <= 1) {
+            div.className = 'w-full';
+            img.className = 'w-full';
+            img.src = URL.createObjectURL(file);
+            div.appendChild(img);
+            img.src = URL.createObjectURL(file);
+            document.getElementById('imagePost').appendChild(div); 
+        }
+        else {
+            img.className = 'p-1';
+            div.style.width = '235px';
+            div.style.height = '250px';
+            img.style.width = '241px';
+            img.style.height = '248px';
+            img.src = URL.createObjectURL(file);
+            div.appendChild(img);
+            document.getElementById('imagePost').appendChild(div); 
+            if (files.length >= 4 && i==3) {
+                var divs = document.createElement('div');
+                divs.className = 'relative';
+                var span = document.createElement('span');
+                var num = files.length - 4;
+                span.innerHTML = '+ ' + num;
+                span.className = 'text-3xl font-bold absolute top-1/2 left-1/2 text-white';
+                span.style.transform = 'translate(-50%,-50%)';
+                divs.appendChild(span);
+                divs.style.width = '224px';
+                divs.style.height = '239px';
+                divs.style.background = 'rgba(0, 0, 0, 0.5)';
+                divs.className = 'absolute bottom-2 right-4';
+                document.getElementById('imagePost').appendChild(divs);
+                break;
+            }
+        }
+         
+    }
+    // let formData = new FormData($('#formAvatar')[0]);
+    // $.ajax({
+    //     method: "POST",
+    //     url: "ProcessViewAvatar",
+    //     data: formData,
+    //     contentType: false,
+    //     processData: false,
+    //     success : function(response){
+    //         $('#web').css('opactity','0.2');
+    //         $('#main').html(response);
+    //         $('#avt-opactity').attr('src',path);
+    //         $('#avt-opactity-none').attr('src',path);
+    //         var child = $('#changeavt').clone();
+    //         $('#formUpdateAvatar1').append(child);
+    //     },
+    // });
 }

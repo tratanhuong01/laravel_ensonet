@@ -73,7 +73,9 @@
             lg:mx-0">
                 <div class="w-1/3 hidden lg:block lg:w-full lg:pt-1 xl:w-auto xl:mr-2">
                     <!-- avatar user  -->
-                    <a href="profile.{{ $user[0]->IDTaiKhoan }}"><img class="w-8 h-8 rounded-full" src="{{ $user[0]->AnhDaiDien }}" alt="" /></a>
+                    <a href="profile.{{ $user[0]->IDTaiKhoan }}" id="ajaxAnhDaiDien1">
+                    <img id="ajaxAnhDaiDien2" class="w-8 h-8 rounded-full" 
+                    src="{{ $user[0]->AnhDaiDien }}" alt="" /></a>
                 </div>
                 <div class="w-2/3 hidden pt-1 text-center xl:block xl:w-auto lg:pt-2">
                     <!-- name user  -->
