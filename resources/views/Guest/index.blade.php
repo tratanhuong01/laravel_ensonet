@@ -5,6 +5,7 @@
     @include('Head/css')
     <script src="js/event/event.js"></script>
     <script src="js/ajax.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body class="dark:bg-dark-main">
     @if (session()->has('user')) 

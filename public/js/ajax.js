@@ -1,3 +1,4 @@
+
 function loadajax(value, nameID) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -237,18 +238,24 @@ function updateCoverImage() {
         }
     });
 }
-function changeUploadFiles(event) {
-    var files = event.target.files;
-    for (var i = 0, file; file = files[i]; i++) {
+function changeUploadFiles(el) {
+    var files = el.files;
+    var arr = Array.from(files);
+    for (var i = 0; i < arr.length; i++) {
         var div = document.createElement('div');
+        div.className = 'divImage';
         var img = document.createElement('img');
         img.style.objectFit = 'cover';
-        if (files.length <= 1) {
+        div.addEventListener('click',function() {
+            arr.splice(i,0);
+            this.remove();
+            loadUI();
+        });
+        if (arr.length <= 1) {
             div.className = 'w-full';
             img.className = 'w-full';
-            img.src = URL.createObjectURL(file);
+            img.src = URL.createObjectURL(arr);
             div.appendChild(img);
-            img.src = URL.createObjectURL(file);
             document.getElementById('imagePost').appendChild(div); 
         }
         else {
@@ -257,14 +264,14 @@ function changeUploadFiles(event) {
             div.style.height = '250px';
             img.style.width = '241px';
             img.style.height = '248px';
-            img.src = URL.createObjectURL(file);
+            img.src = URL.createObjectURL(arr[i]);
             div.appendChild(img);
             document.getElementById('imagePost').appendChild(div); 
             if (files.length >= 4 && i==3) {
                 var divs = document.createElement('div');
                 divs.className = 'relative';
                 var span = document.createElement('span');
-                var num = files.length - 4;
+                var num = arr.length - 4;
                 span.innerHTML = '+ ' + num;
                 span.className = 'text-3xl font-bold absolute top-1/2 left-1/2 text-white';
                 span.style.transform = 'translate(-50%,-50%)';
@@ -277,22 +284,18 @@ function changeUploadFiles(event) {
                 break;
             }
         }
-         
     }
-    // let formData = new FormData($('#formAvatar')[0]);
-    // $.ajax({
-    //     method: "POST",
-    //     url: "ProcessViewAvatar",
-    //     data: formData,
-    //     contentType: false,
-    //     processData: false,
-    //     success : function(response){
-    //         $('#web').css('opactity','0.2');
-    //         $('#main').html(response);
-    //         $('#avt-opactity').attr('src',path);
-    //         $('#avt-opactity-none').attr('src',path);
-    //         var child = $('#changeavt').clone();
-    //         $('#formUpdateAvatar1').append(child);
-    //     },
-    // });
+}
+function postFiles() {
+    let formData = new FormData($('#formPost')[0]);
+    $.ajax({
+        method: "POST",
+        url: 'ProcessPostNormal',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success : function(response) {
+            $('#second').html(response);
+        }
+    });
 }

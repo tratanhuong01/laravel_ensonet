@@ -10,19 +10,27 @@ class Baidang extends Model
     protected $table = "baidang";
 
     protected $fillable = [
-                        'IDBaiDang',
-                        'IDTaiKhoan',
-                        'IDQuyenRiengTu',
-                        'NoiDung',
-                        'GanThe',
-                        'IDCamXuc',
-                        'IDViTri',
-                        'NgayDang',
-                        'LoaiBaiDang'
-                        ];
-    public static function add($IDBaiDang,$IDTaiKhoan,
-    $IDQuyenRiengTu,$NoiDung,$GanThe,$IDCamXuc,
-    $IDViTri,$NgayDang,$LoaiBaiDang) {
+        'IDBaiDang',
+        'IDTaiKhoan',
+        'IDQuyenRiengTu',
+        'NoiDung',
+        'GanThe',
+        'IDCamXuc',
+        'IDViTri',
+        'NgayDang',
+        'LoaiBaiDang'
+    ];
+    public static function add(
+        $IDBaiDang,
+        $IDTaiKhoan,
+        $IDQuyenRiengTu,
+        $NoiDung,
+        $GanThe,
+        $IDCamXuc,
+        $IDViTri,
+        $NgayDang,
+        $LoaiBaiDang
+    ) {
         $baidang = new Baidang;
         $baidang->IDBaiDang = $IDBaiDang;
         $baidang->IDTaiKhoan = $IDTaiKhoan;

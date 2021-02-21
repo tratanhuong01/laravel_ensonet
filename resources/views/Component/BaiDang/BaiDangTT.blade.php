@@ -9,7 +9,7 @@
                     &nbsp;</a></p>
             <div class="w-full flex">
                 <div class="text-xs pr-2"><a href="" class="dark:text-gray-300 font-bold">Vừa xong</a>
-            </div>
+                </div>
                 <div class="relative">
                     <i class="fas fa-globe-europe absolute top-0.5 dark:text-gray-300"></i>
                 </div>
@@ -31,7 +31,7 @@
                 <i style="color: red;" class="fas fa-heart text-xl cursor-pointer"></i>
                 &nbsp;&nbsp;<span style="font-size: 15px;" class="cursor-pointer  
                 dark:text-gray-300 text-gray-600 font-bold ">
-                        Hưởng MMO và 123 người khác</span>
+                    Hưởng MMO và 123 người khác</span>
             </div>
             <div class="w-full text-right pr-2 py-1">
                 <p class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold ">&nbsp;12&nbsp;bình luận</p>

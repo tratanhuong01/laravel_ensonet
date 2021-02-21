@@ -32,6 +32,7 @@ Route::post('ProcessUpdateAvatar','App\Http\Controllers\UpdateAvatarController@u
 Route::post('ProcessUpdateCoverImage','App\Http\Controllers\UpdateCoverImageController@update')->name('ProcessUpdateCoverImage');
 Route::post('ProcessViewAvatar','App\Http\Controllers\UpdateAvatarController@view')->name('ProcessViewAvatar');
 Route::get('ProcessViewCoverImage','App\Http\Controllers\UpdateCoverImageController@view');
+Route::post('ProcessPostNormal','App\Http\Controllers\PostNormalController@post')->name('ProcessPostNormal');
 Route::get('LoadQuenTaiKhoan',function() {
     return view('Modal\ModalDangNhap\ModalNhapTT');
 });
