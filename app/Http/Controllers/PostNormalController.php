@@ -15,10 +15,10 @@ class PostNormalController extends Controller
     public function post(Request $request)
     {
         try {
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $user = Session::get('user');
             if ($request->hasFile('files')) {
                 $files = $request->file('files');
-                date_default_timezone_set('Asia/Ho_Chi_Minh');
-                $user = Session::get('user');
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
                 Baidang::add(
@@ -41,8 +41,21 @@ class PostNormalController extends Controller
                 echo "<pre>";
                 print_r($files);
                 echo "</pre>";
-            } else
-                echo "khong co file";
+            } else {
+                $datetime = date("Y-m-d H:i:s");
+                $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
+                Baidang::add(
+                    $idBaiDang,
+                    $user[0]->IDTaiKhoan,
+                    'CHIBANBE',
+                    $request->content,
+                    NULL,
+                    NULL,
+                    NULL,
+                    $datetime,
+                    2
+                );
+            }
         } catch (Exception $e) {
             $e->Error;
         }

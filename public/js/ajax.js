@@ -1,4 +1,3 @@
-
 function loadajax(value, nameID) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -15,14 +14,14 @@ function value(names) {
 }
 function submitFormRegister() {
     $('#btn-submit-form').html('');
-    $('#btn-submit-form').prop("disabled", true );
-    $('#btn-submit-form').css('cursor','not-allowed');
+    $('#btn-submit-form').prop("disabled", true);
+    $('#btn-submit-form').css('cursor', 'not-allowed');
     $('#btn-submit-form').append('<i class="fas fa-cog fa-spin text-xl"></i>');
     $.ajax({
         method: "GET",
         url: 'ProcessRegister',
         data: $('#formRegister').serialize(),
-        success : function(response) {
+        success: function (response) {
             $('#register').html(response);
         }
     });
@@ -138,14 +137,14 @@ function CateGoryProfile(names) {
 }
 function sendCodeAgain() {
     $('#btn-send-code').html('');
-    $('#btn-send-code').prop("disabled", true );
-    $('#btn-send-code').css('cursor','not-allowed');
+    $('#btn-send-code').prop("disabled", true);
+    $('#btn-send-code').css('cursor', 'not-allowed');
     $('#btn-send-code').append('<i class="fas fa-cog fa-spin text-xl"></i>');
     $.ajax({
         method: "GET",
         url: 'ProcessSendCodeAgain',
         data: $('#formSendAgainCode').serialize(),
-        success : function(response) {
+        success: function (response) {
             $('#register').html(response);
         }
     });
@@ -156,7 +155,7 @@ function forgetAccount() {
         method: "GET",
         url: 'ProcessForgetAccount',
         data: $('#formNhapTT').serialize(),
-        success : function(response) {
+        success: function (response) {
             $('#register').html(response);
         }
     });
@@ -170,11 +169,11 @@ function changeAvatar(event) {
         data: formData,
         contentType: false,
         processData: false,
-        success : function(response){
-            $('#web').css('opactity','0.2');
+        success: function (response) {
+            $('#web').css('opactity', '0.2');
             $('#main').html(response);
-            $('#avt-opactity').attr('src',path);
-            $('#avt-opactity-none').attr('src',path);
+            $('#avt-opactity').attr('src', path);
+            $('#avt-opactity-none').attr('src', path);
             var child = $('#changeavt').clone();
             $('#formUpdateAvatar1').append(child);
         },
@@ -196,7 +195,7 @@ function updateAvatar() {
         data: formData,
         contentType: false,
         processData: false,
-        success : function(response) {
+        success: function (response) {
             $('#main').html('');
             var re = document.getElementById('ajaxAnhDaiDien');
             var parent1 = document.createElement('div');
@@ -213,13 +212,13 @@ function updateAvatar() {
             $('#ajaxAnhDaiDien1').html('');
             re.appendChild(parent1);
             $('#ajaxAnhDaiDien1').append(parent2);
-            setTimeout(function() {
+            setTimeout(function () {
                 $('#ajaxAnhDaiDien').html(response);
                 $('#ajaxAnhDaiDien1').html('');
                 $('#ajaxAnhDaiDien1').append('<img class="w-8 h-8 rounded-full" id="ajaxAnhDaiDien2" src="" alt="" />');
                 var src = document.getElementById('anhDaiDien_Main').src;
-                $('#ajaxAnhDaiDien2').attr('src',src);
-            },1000);
+                $('#ajaxAnhDaiDien2').attr('src', src);
+            }, 1000);
         }
     });
 }
@@ -232,7 +231,7 @@ function updateCoverImage() {
         data: formData,
         contentType: false,
         processData: false,
-        success : function(response) {
+        success: function (response) {
             $('#showSubmitBia').hide();
             $('#ajaxCover').html(response);
         }
@@ -246,17 +245,17 @@ function changeUploadFiles(el) {
         div.className = 'divImage';
         var img = document.createElement('img');
         img.style.objectFit = 'cover';
-        div.addEventListener('click',function() {
-            arr.splice(i,0);
+        div.addEventListener('click', function () {
+            arr.splice(i, 0);
             this.remove();
             loadUI();
         });
         if (arr.length <= 1) {
             div.className = 'w-full';
             img.className = 'w-full';
-            img.src = URL.createObjectURL(arr);
+            img.src = URL.createObjectURL(arr[i]);
             div.appendChild(img);
-            document.getElementById('imagePost').appendChild(div); 
+            document.getElementById('imagePost').appendChild(div);
         }
         else {
             img.className = 'p-1';
@@ -266,8 +265,8 @@ function changeUploadFiles(el) {
             img.style.height = '248px';
             img.src = URL.createObjectURL(arr[i]);
             div.appendChild(img);
-            document.getElementById('imagePost').appendChild(div); 
-            if (files.length >= 4 && i==3) {
+            document.getElementById('imagePost').appendChild(div);
+            if (files.length > 4 && i == 3) {
                 var divs = document.createElement('div');
                 divs.className = 'relative';
                 var span = document.createElement('span');
@@ -287,6 +286,10 @@ function changeUploadFiles(el) {
     }
 }
 function postFiles() {
+    $('#button-post').html('');
+    $('#button-post').prop("disabled", true);
+    $('#button-post').css('cursor', 'not-allowed');
+    $('#button-post').append('<i class="fas fa-cog fa-spin text-xl"></i>');
     let formData = new FormData($('#formPost')[0]);
     $.ajax({
         method: "POST",
@@ -294,8 +297,18 @@ function postFiles() {
         data: formData,
         contentType: false,
         processData: false,
-        success : function(response) {
+        success: function (response) {
             $('#second').html(response);
         }
     });
+}
+function ajaxProfileFriend(ID, NameID) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(NameID).innerHTML = this.responseText;
+        }
+    };
+    xmlhttp.open("GET", 'ProcessProfileFriend?IDView=' + ID, true);
+    xmlhttp.send();
 }

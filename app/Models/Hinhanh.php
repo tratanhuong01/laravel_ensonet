@@ -10,14 +10,19 @@ class Hinhanh extends Model
     protected $table = "hinhanh";
 
     protected $fillable = [
-                        'IDHinhAnh',
-                        'IDAlbumAnh',
-                        'IDBaiDang',
-                        'DuongDan',
-                        'NoiDungIMg'
-                        ];
-    public static function add($IDHinhAnh,$IDAlbumAnh,
-    $IDBaiDang,$DuongDan,$NoiDungIMg) {
+        'IDHinhAnh',
+        'IDAlbumAnh',
+        'IDBaiDang',
+        'DuongDan',
+        'NoiDungIMg'
+    ];
+    public static function add(
+        $IDHinhAnh,
+        $IDAlbumAnh,
+        $IDBaiDang,
+        $DuongDan,
+        $NoiDungIMg
+    ) {
         $hinhanh = new Hinhanh;
         $hinhanh->IDHinhAnh = $IDHinhAnh;
         $hinhanh->IDAlbumAnh = $IDAlbumAnh;

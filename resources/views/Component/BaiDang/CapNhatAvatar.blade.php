@@ -1,19 +1,21 @@
-<?php use App\Models\StringUtil; ?>
+<?php
+
+use App\Models\StringUtil; ?>
 <div class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
         <div class="" style="width: 10%;">
             <a href=""><img class="w-12 h-12 rounded-full 
-                            border-4 border-solid border-gray-200" src="/{{ $item->AnhDaiDien }}"></a>
+                            border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
         </div>
         <div class="relative pl-1" style="width: 80%;">
             <p class="mb-2 dark:text-gray-300"><a href=""><b class="dark:text-white">
-            {{ $item->Ho . ' ' . $item->Ten }}</b>
+                        {{ $item[0]->Ho . ' ' . $item[0]->Ten }}</b>
                     &nbsp;</a> đã cập nhật ảnh đại diện của anh ấy.</p>
             <div class="w-full flex">
                 <div class="text-xs pr-2"><a href="" class="dark:text-gray-300 font-bold">
-                {{ StringUtil::CheckDateTime($item->NgayDang) }}
-                </a>
-            </div>
+                        {{ StringUtil::CheckDateTime($item[0]->NgayDang) }}
+                    </a>
+                </div>
                 <div class="relative">
                     <i class="fas fa-globe-europe absolute top-0.5 dark:text-gray-300"></i>
                 </div>
@@ -24,14 +26,12 @@
         </div>
     </div>
     <div class="w-full mx-0 my-2.5">
-        <p class="dark:text-white">{{ $item->NoiDung }}</p>
+        <p class="dark:text-white">{{ $item[0]->NoiDung }}</p>
     </div>
     <div class="w-full mx-0 my-2.5">
         <div class="w-full relative block" style="height:430px;">
-            <img class="w-full h-60 object-cover" src="/{{ $item->AnhBia }}" alt="">
-            <img class="w-7/10 absolute rounded-full border-4 border-solid border-white" 
-            style="top: 5%;left: 15%;height:390px;"
-                src="{{ $item->DuongDan }}" alt="">
+            <img class="w-full h-60 object-cover" src="/{{ $item[0]->AnhBia }}" alt="">
+            <img class="w-7/10 absolute rounded-full border-4 border-solid border-white" style="top: 5%;left: 15%;height:390px;" src="{{ $item[0]->DuongDan }}" alt="">
         </div>
     </div>
     <div class="w-full mb-4 mx-0 block">
@@ -40,7 +40,7 @@
                 <i style="color: red;" class="fas fa-heart text-xl cursor-pointer"></i>
                 &nbsp;&nbsp;<span style="font-size: 15px;" class="cursor-pointer  
                 dark:text-gray-300 text-gray-600 font-bold ">
-                        Hưởng MMO và 123 người khác</span>
+                    Hưởng MMO và 123 người khác</span>
             </div>
             <div class="w-full text-right pr-2 py-1">
                 <p class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold ">&nbsp;12&nbsp;bình luận</p>

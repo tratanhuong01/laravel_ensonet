@@ -25,6 +25,7 @@
 
     use Illuminate\Support\Facades\Session;
     use Illuminate\Support\Facades\DB;
+    use App\Models\Functions;
 
     $user = Session::get('user'); ?>
     <div id="main">
@@ -89,7 +90,7 @@
             <div class="w-full relative">
                 <div class="w-full mx-auto relative">
                     <div class="w-full relative h-60 lg:h-96">
-                        <a href=""><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;" src="/{{ $users[0]->AnhBia}}img/anhbia.jpg" alt=""></a>
+                        <a href=""><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;" src="/{{ $users[0]->AnhBia}}" alt=""></a>
                     </div>
                     <div class="w-full absolute text-center top-20 lg:top-6/10">
                         <img class="w-44 h-44 rounded-full mx-auto
@@ -124,7 +125,7 @@
             @include('Component/MoiQuanHe/BanBe')
             @endif
         </div>
-        <div class="w-full relative bg-gray-100 dark:bg-dark-main">
+        <div id="place_load_about" class="w-full relative bg-gray-100 dark:bg-dark-main">
             <div class="mx-auto relative w-full pt-4 lg:flex xl:w-63% md:w-4/5 lg:w-3/4 md:mx-auto">
                 <div class="w-full lg:w-2/5">
                     <div class="mx-2.5 mt-4 bg-white p-2.5 pt-0 rounded-lg dark:bg-dark-third" style="width:95%;">
@@ -280,23 +281,22 @@
                         </div>
                     </div>
                     <?php
-                    $post = DB::table('baidang')
-                        ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
-                        ->join('hinhanh', 'hinhanh.IDBaiDang', '=', 'baidang.IDBaiDang')
-                        ->where('taikhoan.IDTaiKhoan', '=', $users[0]->IDTaiKhoan)
-                        ->orderBy('NgayDang', 'desc')
-                        ->get();
+
+                    $post_main = Functions::countPost($users[0]->IDTaiKhoan);
                     ?>
-                    @for ($i = 0 ; $i < sizeof($post) ; $i++) @switch($post[$i]->LoaiBaiDang)
+                    @for ($i = 0 ; $i < sizeof($post_main) ; $i++) <?php $post = Functions::getPost($post_main[$i]); ?> @switch($post[0]->LoaiBaiDang)
                         @case('0')
-                        @include('Component/BaiDang/CapNhatAvatar',['item' => $post[$i]])
+                        @include('Component/BaiDang/CapNhatAvatar',['item' => $post])
                         @break
+
                         @case('1')
-                        @include('Component/BaiDang/CapNhatAnhBia',['item' => $post[$i]])
+                        @include('Component/BaiDang/CapNhatAnhBia',['item' => $post])
                         @break
+
                         @case('2')
-                        @include('Component/BaiDang/BaiDangTT',['item' => $post[$i]])
+                        @include('Component/BaiDang/BaiDangTT',['item' => $post])
                         @break
+
                         @endswitch
                         @endfor
                 </div>
