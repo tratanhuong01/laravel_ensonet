@@ -30,7 +30,7 @@ class Functions extends Model
             ->where('moiquanhe.TinhTrang', '=', '3')
             ->orderBy('moiquanhe.NgayChapNhan', 'desc')
             ->get();
-        $newListFriend = NULL;
+        $newListFriend = array();
         for ($i = 0; $i < sizeof($listFriend); $i++) {
             $friendOfUser = DB::table('taikhoan')->where('taikhoan.IDTaiKhoan', '=', $listFriend[$i]->IDBanBe)->get();
             $newListFriend[$i] = $friendOfUser;
@@ -44,25 +44,50 @@ class Functions extends Model
             ->where('moiquanhe.TinhTrang', '=', '3')
             ->orderBy('moiquanhe.NgayChapNhan', 'desc')
             ->get();
-        $newListFriend = NULL;
+        $newListFriend = array();
         $c = 0;
         if (sizeof($listFriend) <= 0) {
         } else {
-
             for ($i = 0; $i < sizeof($listFriend); $i++) {
-                $newListFriend = DB::table('moiquanhe')
+                $data = DB::table('moiquanhe')
                     ->where('moiquanhe.IDTaiKhoan', '=', $listFriend[$i]->IDBanBe)
                     ->where('moiquanhe.IDBanBe', '=', $idTaiKhoan)
                     ->where('moiquanhe.IDTaiKhoan', '!=', $idTaiKhoan)
                     ->where('moiquanhe.TinhTrang', '=', '3')
                     ->orderBy('NgayChapNhan', 'desc')
                     ->get();
-                if (count($newListFriend) == 0) {
+                if (count($data) == 0) {
                 } else {
+                    $newListFriend[$c] = $data;
                     $c++;
                 }
             }
         }
-        return $c;
+        return $newListFriend;
+    }
+    public static function getListRequestFriendNew($idTaiKhoan)
+    {
+        $listRequest = DB::table('moiquanhe')
+            ->where('moiquanhe.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('moiquanhe.TinhTrang', '=', '2')
+            ->orderBy('NgayChapNhan', 'desc')
+            ->get();
+        $newListRequest = array();
+        if (count($listRequest) > 0)
+            for ($i = 0; $i < count($listRequest); $i++) {
+                $requestFriend = DB::table('taikhoan')
+                    ->where('taikhoan.IDTaiKhoan', '=', $listRequest[$i]->IDBanBe)
+                    ->get();
+                $newListRequest[$i] = $requestFriend;
+            }
+        return $newListRequest;
+    }
+    public static function getDateTimeFriend($idTaiKhoan, $idBanBe, $tinhTrang, $loaiNgay)
+    {
+        return DB::table('moiquanhe')
+            ->where('moiquanhe.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('moiquanhe.IDBanBe', '=', $idBanBe)
+            ->where('moiquanhe.TinhTrang', '=', $tinhTrang)
+            ->get()[0]->$loaiNgay;
     }
 }

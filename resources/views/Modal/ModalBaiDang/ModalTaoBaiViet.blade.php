@@ -11,7 +11,7 @@
         </div>
         <div class="w-full flex px-0 py-2">
             <div class="w-2/12 pt-1">
-                <a href=""><img class="w-14 h-14 rounded-full object-contain" src="{{ $user[0]->AnhDaiDien }}" alt=""></a>
+                <a href=""><img class="w-14 h-14 rounded-full object-cover mx-auto" src="{{ $user[0]->AnhDaiDien }}" alt=""></a>
             </div>
             <div class="w-11/12">
                 <p class="p-1 pt-0 font-bold dark:text-white">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</p>

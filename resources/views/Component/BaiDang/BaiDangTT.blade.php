@@ -31,7 +31,7 @@ use App\Models\StringUtil; ?>
         <ul class="w-full flex flex-wrap relative">
             @for ($i = 0 ; $i < sizeof($item) ; $i++) @if ($item[$i]->DuongDan == NULL)
                 @elseif (sizeof($item) == 1 && $item[$i]->DuongDan != NULL)
-                <li class="w-full"><img class="w-full p-1" style="height:650px;" src="/{{ $item[$i]->DuongDan }}" alt=""></li>
+                <li class="w-full"><img class="w-full p-1 object-cover" style="height:650px;" src="/{{ $item[$i]->DuongDan }}" alt=""></li>
                 @else
                 @if (sizeof($item) > 4 && $i == 3)
                 <div class="p-1 object-fill rounded-lg absolute bottom-0 right-0" style="width:278px;height:285px;background:rgba(0, 0, 0, 0.5);">
