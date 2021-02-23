@@ -136,28 +136,67 @@ class Functions extends Model
                 break;
         }
     }
-    public static function getStringFeel($idBaiDang, $loaiCamXuc)
+    public static function getFeelMain($i)
     {
-        if (count(Functions::getUserFeel($idBaiDang)) == 0)
-            switch (explode('@', $loaiCamXuc)[0]) {
+        switch (explode('@', $i)[0]) {
+            case '0':
+                return '👍 ';
+                break;
+            case '1':
+                return '❤️ ';
+                break;
+            case '2':
+                return '😆 ';
+                break;
+            case '3':
+                return '😥 ';
+                break;
+            case '4':
+                return '😮 ';
+                break;
+            case '5':
+                return '😡 ';
+                break;
+        }
+    }
+    public static function getStringFeel($idBaiDang)
+    {
+        $userFeel = Functions::getUserFeel($idBaiDang);
+        if (count($userFeel) == 0) {
+        } else if (count($userFeel) == 1)
+            switch (explode('@', $userFeel[0]->LoaiCamXuc)[0]) {
                 case '0':
-                    return '👍';
+                    return '👍 ' . '<span class="font-bold" style="color:#F2314C;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
                 case '1':
-                    return '❤️';
+                    return '❤️ ' . '<span class="font-bold" style="color:#F2314C;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
                 case '2':
-                    return '😆';
+                    return '😆 ' . '<span class="font-bold" style="color:#FFD700;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
                 case '3':
-                    return '😥';
+                    return '😥 ' . '<span class="font-bold" style="color:#FFD700;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
                 case '4':
-                    return '😮';
+                    return '😮 ' . '<span class="font-bold" style="color:#FFD700;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
                 case '5':
-                    return '😡';
+                    return '😡 ' . '<span class="font-bold" style="color:#EB7F27;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
             }
+        else if (count($userFeel) == 2) {
+            return Functions::getFeelMain($userFeel[0]->LoaiCamXuc) . ' ' .
+                Functions::getFeelMain($userFeel[1]->LoaiCamXuc) . ' ' .
+                '&nbsp;<span style="font-size: 17px;" class="cursor-pointer  
+                dark:text-gray-300 text-gray-600 font-bold ">' .
+                count($userFeel) . '</span>';
+        } else {
+            return Functions::getFeelMain($userFeel[0]->LoaiCamXuc) . ' ' .
+                Functions::getFeelMain($userFeel[1]->LoaiCamXuc) . ' ' .
+                Functions::getFeelMain($userFeel[2]->LoaiCamXuc) . ' ' .
+                '&nbsp;<span style="font-size: 17px;" class="cursor-pointer  
+                dark:text-gray-300 text-gray-600 font-bold ">' .
+                count($userFeel) . '</span>';
+        }
     }
 }

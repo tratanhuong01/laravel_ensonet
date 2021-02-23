@@ -51,12 +51,9 @@ use App\Models\Functions;
     </div>
     <div class="w-full my-4 mx-0">
         <div class="w-full flex">
-            <div class="w-full flex pl-0.5 py-1">
-                <i style="color: red;" class="fas fa-heart text-xl cursor-pointer"></i>
-                &nbsp;&nbsp;<span style="font-size: 15px;" class="cursor-pointer  
-                dark:text-gray-300 text-gray-600 font-bold ">
-                    {{ count(Functions::getUserFeel($item[0]->IDBaiDang)) }}
-                </span>
+            <div class="w-full flex pl-0.5 py-1" id="{{ $item[0]->IDBaiDang . 'post' }}" style="line-height: 40px;">
+                <?php $data = Functions::getUserFeel($item[0]->IDBaiDang); ?>
+                {!! Functions::getStringFeel($item[0]->IDBaiDang) !!}
             </div>
             <div class="w-full text-right pr-2 py-1">
                 <p class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold ">

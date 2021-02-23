@@ -37,15 +37,13 @@ use App\Models\Functions;
     </div>
     <div class="w-full my-4 mx-0">
         <div class="w-full flex">
-            <div class="w-full flex pl-0.5 py-1">
-                <i style="color: red;" class="fas fa-heart text-xl cursor-pointer"></i>
-                &nbsp;&nbsp;<span style="font-size: 15px;" class="cursor-pointer  
-                dark:text-gray-300 text-gray-600 font-bold ">
-                    {{ count(Functions::getUserFeel($item[0]->IDBaiDang)) }}
-                </span>
+            <div class="w-full flex pl-0.5 py-1" id="{{ $item[0]->IDBaiDang . 'post' }}" style="line-height: 40px;">
+                <?php $data = Functions::getUserFeel($item[0]->IDBaiDang); ?>
+                {!! Functions::getStringFeel($item[0]->IDBaiDang) !!}
             </div>
             <div class="w-full text-right pr-2 py-1">
-                <p class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold ">&nbsp;12&nbsp;bình luận</p>
+                <p class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold ">
+                </p>
             </div>
         </div>
         <style>
@@ -53,7 +51,7 @@ use App\Models\Functions;
                 display: none;
             }
 
-            .feels:hover .show-feels {
+            .feels:hover>.show-feels {
                 display: flex;
             }
         </style>
@@ -64,7 +62,7 @@ use App\Models\Functions;
             text-center w-full font-bold py-3 cursor-pointer justify-items-center" id="{{ $item[0]->IDBaiDang }}" onclick="FeelPost('{{ $item[0]->IDBaiDang }}','0@0')">
                     {!! Functions::checkIsFeel($user[0]->IDTaiKhoan,$item[0]->IDBaiDang) !!}
                 </li>
-                <ul class="show-feels absolute bottom-full flex flex-column dark:bg-dark-second bg-white rounded-lg border-solid 
+                <ul class=" show-feels absolute bottom-full flex flex-column dark:bg-dark-second bg-white rounded-lg border-solid 
             dark:border-dark-third border-gray-300 border rounded-3xl">
                     <li class="px-2 py-2 text-3xl cursor-pointer rounded-full hover:bg-gray-300 
                 dark:hover:bg-dark-third" onclick="FeelPost('{{ $item[0]->IDBaiDang }}','0@1')">👍</li>

@@ -324,6 +324,17 @@ function FeelPost(nameID, loaiCamXuc) {
             $('#' + nameID).html(response);
         }
     });
+    $.ajax({
+        method: "GET",
+        url: 'ProcessViewFeelPost',
+        data: {
+            IDBaiDang: nameID,
+            LoaiCamXuc: loaiCamXuc
+        },
+        success: function (response) {
+            $('#' + nameID + 'post').html(response);
+        }
+    });
 }
 function CommentPost() {
 

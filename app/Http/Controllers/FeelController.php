@@ -45,4 +45,12 @@ class FeelController extends Controller
             }
         }
     }
+    public function view(Request $request)
+    {
+        $data = Functions::getUserFeel($request->IDBaiDang);
+        if (count($data) == 0)
+            return '';
+        else
+            return Functions::getStringFeel($data[0]->IDBaiDang);
+    }
 }
