@@ -9,10 +9,10 @@ class Hinhanh extends Migration
     public function up()
     {
         Schema::create('hinhanh', function (Blueprint $table) {
-            $table->string('IDHinhAnh',10)->primary();
+            $table->string('IDHinhAnh', 10)->primary();
             $table->string('IDAlbumAnh', 10)->index();
-            $table->string('IDBaiDang',10)->index();
-            $table->string('NoiDung',255)->nullable();
+            $table->string('IDBaiDang', 10)->index();
+            $table->string('NoiDung', 255)->nullable();
             $table->foreign('IDAlbumAnh')->references('IDAlbumAnh')->on('albumanh')->onDelete('cascade');
             $table->foreign('IDBaiDang')->references('IDBaiDang')->on('baidang')->onDelete('cascade');
         });

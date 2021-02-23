@@ -312,3 +312,25 @@ function ajaxProfileFriend(ID, NameID) {
     xmlhttp.open("GET", 'ProcessProfileFriend?IDView=' + ID, true);
     xmlhttp.send();
 }
+function FeelPost(nameID, loaiCamXuc) {
+    $.ajax({
+        method: "GET",
+        url: 'ProcessFeelPost',
+        data: {
+            IDBaiDang: nameID,
+            LoaiCamXuc: loaiCamXuc
+        },
+        success: function (response) {
+            $('#' + nameID).html(response);
+        }
+    });
+}
+function CommentPost() {
+
+}
+function SharePost() {
+
+}
+function RepCommentPost() {
+
+}

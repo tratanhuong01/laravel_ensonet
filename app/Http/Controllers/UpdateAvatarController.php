@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Baidang;
 use App\Models\Hinhanh;
 use App\Models\StringUtil;
-use Session;
-use DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class UpdateAvatarController extends Controller
 {

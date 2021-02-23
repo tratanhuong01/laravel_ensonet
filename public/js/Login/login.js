@@ -6,14 +6,6 @@ function closeRegister() {
     $("#form-register").hide();
     $("#web").css("opacity", "1");
 }
-function openGetAcc() {
-    $("#get-account-main").show();
-    $("#web").css("opacity", "0.2");
-}
-function closeGetAcc() {
-    $("#get-account-main").hide();
-    $("#web").css("opacity", "1");
-}
 function checkEmail() {
     var regex_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     var regex_phone = /((09|03|07|08|05)+([0-9]{8})\b)/g;
@@ -28,7 +20,7 @@ function checkEmail() {
     }
     // else if (regex_phone.test(emailOrPhone.value)){
     //     document.getElementById('emailOrPhone').name = 'phone';
-        
+
     // }
     else {
         email_again[0].style.display = 'none';
@@ -38,7 +30,7 @@ function uncheckEmail() {
     var emailAgain = document.getElementById("emailAgain");
     var emailOrPhone = document.getElementById("emailOrPhone");
 }
-function onclickRegister(classNames,index) {
+function onclickRegister(classNames, index) {
     document.getElementsByClassName('value_error')[index].innerHTML = ' ';
     document.getElementsByClassName('input_register')[index].className = classNames;
 }

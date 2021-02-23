@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Exception;
 use App\Mail\Ensonet;
 use App\Models\Taikhoan;
 use App\Models\StringUtil;
+
 
 class RegisterController extends Controller
 {

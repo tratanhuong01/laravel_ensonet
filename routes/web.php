@@ -95,3 +95,7 @@ Route::get('checked', function () {
     }
     return $result;
 });
+Route::get('ProcessFeelPost', 'App\Http\Controllers\FeelController@feel');
+Route::post('ProcessCommentPost', 'App\Http\Controllers\CommentController@comment')->name('ProcessCommentPost');
+Route::post('ProcessRepCommentPost', 'App\Http\Controllers\RepCommentController@rep')->name('ProcessRepCommentPost');
+Route::post('ProcessSharePost', 'App\Http\Controllers\SharePostController@share')->name('ProcessSharePost');

@@ -1,12 +1,11 @@
 function openPost() {
-  var register = document.getElementById("modal-one");
-  register.style.display = "block";
-  document.getElementById("second").className += ' fixed';
+  $('#modal-one').show();
+  second.className += ' fixed h-screen';
 }
 function closePost() {
-  var register = document.getElementById("modal-one");
-  register.style.display = "none";
+  $('#modal-one').hide();
   second.classList.remove("fixed");
+  second.classList.remove("h-screen");
 }
 function viewInfoHover(index, event) {
   var d = document.getElementsByClassName("friends-online-info");
@@ -37,11 +36,6 @@ function openEditFriend(index) {
   document.getElementsByClassName("main-friends")[0].addEventListener("click", function () {
     editFriend[index].style.display = 'none';
   }, true);
-}
-function searchAccount() {
-  document.getElementById("show-gui-getacc").style.display = "block";
-  document.getElementById("get-account-main").style.display = "none";
-  document.getElementById("web").style.opacity = "0.2";
 }
 function loadTextBoxType(index) {
   var d = document.getElementsByClassName("newExcen");
