@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\MoiQuanHe;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Exception;
 
-class CancelRequestFriendController extends Controller
+
+class DeleteFriendController extends Controller
 {
-    public function cancel(Request $request)
+    public function delete(Request $request)
     {
         try {
             DB::table('moiquanhe')->where('moiquanhe.IDTaiKhoan', '=', $request->UserMain)

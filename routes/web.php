@@ -1,102 +1,109 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Mail\Ensonet;
 use App\Models\Taikhoan;
 use App\Models\Functions;
+use App\Events\RedisEvent;
 // Đăng Nhập
 Route::get('/login', function () {
     return view('Guest/login');
 });
+// ajax đăng kí
 Route::get('LoadFromRegister', function () {
     return view('Modal/ModalDangNhap/ModalFormRegister');
 });
-Route::get('ProcessRegister', 'App\Http\Controllers\RegisterController@register');
-Route::get('ProcessVerify', 'App\Http\Controllers\VerifyMailController@verify');
-Route::get('ProcessForgetAccount', 'App\Http\Controllers\ForgetAccountController@get');
-Route::get('VerifySuccess', 'App\Http\Controllers\VerifyMailController@verify');
-Route::post('ProcessLogin', 'App\Http\Controllers\LoginController@login')->name('ProcessLogin');
-Route::post('NewBieLogin', 'App\Http\Controllers\NewBieController@login')->name('NewBieLogin');
-Route::get('logout', 'App\Http\Controllers\LogoutController@logout');
+// xử lí đăng kí
+
+Route::get('ProcessRegister', [DangKi\RegisterController::class, 'register']);
+//ajax xác nhận code
+
+Route::get('ProcessVerify', [DangKi\VerifyMailController::class, 'verify']);
+
+//ajax quên mật khẩu
+Route::get('ProcessForgetAccount', [TaiKhoan\ForgetAccountController::class, 'get']);
+
+//ajax xác nhận thành công
+Route::get('VerifySuccess', [VerifyMailController::class, 'verify']);
+
+// ajax đăng nhập
+Route::post('ProcessLogin', [DangNhap\LoginController::class, 'login'])->name('ProcessLogin');
+
+// xử lí người dùng mới
+Route::post('NewBieLogin', [DangNhap\NewBieController::class, 'login'])->name('NewBieLogin');
+
+//xử lí đăng xuất
+Route::get('logout', [DangNhap\LogoutController::class, 'logout']);
+
+// redriect sang index
 Route::get('index', function () {
     return view('Guest/index');
 });
-Route::get('profile.{id}', 'App\Http\Controllers\ProfileController@view');
-Route::get('ProcessRequestFriend', 'App\Http\Controllers\RequestFriendController@send');
-Route::get('ProcessCancelRequestFriend', 'App\Http\Controllers\CancelRequestFriendController@cancel');
-Route::get('ProcessAcceptFriend', 'App\Http\Controllers\AcceptFriendController@accept');
-Route::get('ProcessDeleteFriend', 'App\Http\Controllers\DeleteFriendController@delete');
-Route::get('ProcessSendCodeAgain', 'App\Http\Controllers\SendCodeAgainController@send');
-Route::post('ProcessUpdateAvatar', 'App\Http\Controllers\UpdateAvatarController@update')->name('ProcessUpdateAvatar');
-Route::post('ProcessUpdateCoverImage', 'App\Http\Controllers\UpdateCoverImageController@update')->name('ProcessUpdateCoverImage');
-Route::post('ProcessViewAvatar', 'App\Http\Controllers\UpdateAvatarController@view')->name('ProcessViewAvatar');
-Route::get('ProcessViewCoverImage', 'App\Http\Controllers\UpdateCoverImageController@view');
-Route::post('ProcessPostNormal', 'App\Http\Controllers\PostNormalController@post')->name('ProcessPostNormal');
+
+// profile người dùng
+Route::get('profile.{id}', [ProfileController::class, 'view']);
+
+// ajax yêu cầu kết bạn
+Route::get('ProcessRequestFriend', [MoiQuanHe\RequestFriendController::class, 'send']);
+
+// ajax hủy yêu cầu kết bạn
+Route::get('ProcessCancelRequestFriend', [MoiQuanHe\CancelRequestFriendController::class, 'cancel']);
+
+// ajax chấp nhận kết bạn
+Route::get('ProcessAcceptFriend', [MoiQuanHe\AcceptFriendController::class, 'accept']);
+
+// ajax xóa kết bạn
+Route::get('ProcessDeleteFriend', [MoiQuanHe\DeleteFriendController::class, 'delete']);
+
+// ajax gửi lại code
+Route::get('ProcessSendCodeAgain', [TaiKhoan\SendCodeAgainController::class, 'send']);
+
+//ajax cập nhật ảnh đại diện
+Route::post('ProcessUpdateAvatar', [UpdateAvatarController::class, 'update'])
+    ->name('ProcessUpdateAvatar');
+
+// ajax cập nhật ảnh bìa
+Route::post('ProcessUpdateCoverImage', [UpdateCoverImageController::class, 'update'])
+    ->name('ProcessUpdateCoverImage');
+
+// ajax xem trước ảnh đại diện
+Route::post('ProcessViewAvatar', [UpdateAvatarController::class, 'view'])
+    ->name('ProcessViewAvatar');
+
+// ajax xem trước ảnh bìa
+Route::get('ProcessViewCoverImage', [UpdateCoverImageController::class, 'view']);
+
+// xử lí bài đăng thông thường
+Route::post('ProcessPostNormal', [BaiDang\PostNormalController::class, 'post'])
+    ->name('ProcessPostNormal');
+
+// ajax quên tài khoản
 Route::get('LoadQuenTaiKhoan', function () {
     return view('Modal\ModalDangNhap\ModalNhapTT');
 });
-Route::get('ProcessProfileFriend', 'App\Http\Controllers\ProfileFriendsController@view');
-Route::get('checked', function () {
-    $datetime = "2021-02-20 17:07:47";
-    $result = "";
-    $timeInput = strtotime($datetime);
-    echo $timeInput . "<br>";
-    $timeCurrent = time();
-    echo $timeCurrent;
-    $time = $timeCurrent - $timeInput;
-    $sec = $time;
-    $min = round($sec / 60);
-    $hour = round($sec / (3600));
-    $day = round($sec / (86400));
-    $week = round($sec / 604800);
-    $month = round($sec / 2629440);
-    $year = round($sec / 31553280);
-    if ($sec <= 60) {
-        $result = "Bây giờ";
-    } else if ($min <= 60) {
-        if ($min == 1) {
-            $result = "1 phút trước";
-        } else {
-            $result = "$min phút trước";
-        }
-    } else if ($hour <= 24) {
-        if ($hour == 1) {
-            $result = "1h";
-        } else {
-            $result = "$hour h";
-        }
-    } else if ($day <= 7) {
-        if ($day == 1) {
-            $result = "Hôm qua";
-        } else {
-            $result = "$day ngày trước";
-        }
-    } else if ($week <= 4.3) //4.3 == 52/12  
-    {
-        if ($week == 1) {
-            $result = "1w";
-        } else {
-            $result = "$week w";
-        }
-    } else if ($month <= 12) {
-        if ($month == 1) {
-            $result = "a month ago";
-        } else {
-            $result = "$month month ago";
-        }
-    } else {
-        if ($year == 1) {
-            return "one year ago";
-        } else {
-            return "$year year ago";
-        }
-    }
-    return $result;
-});
-Route::get('ProcessFeelPost', 'App\Http\Controllers\FeelController@feel');
-Route::get('ProcessViewFeelPost', 'App\Http\Controllers\FeelController@view');
-Route::post('ProcessCommentPost', 'App\Http\Controllers\CommentController@comment')->name('ProcessCommentPost');
-Route::post('ProcessRepCommentPost', 'App\Http\Controllers\RepCommentController@rep')->name('ProcessRepCommentPost');
-Route::post('ProcessSharePost', 'App\Http\Controllers\SharePostController@share')->name('ProcessSharePost');
+
+// redriect bạn bè
+Route::get('ProcessProfileFriend', [ProfileFriendsController::class, 'view']);
+
+// ajax bày tỏ cảm xúc bài đăng
+Route::get('ProcessFeelPost', [BaiDang\FeelController::class, 'feel']);
+
+// ajax xử lí lượt cảm xúc bài đăng
+Route::get('ProcessViewFeelPost', [BaiDang\FeelController::class, 'view']);
+
+// ajax xử lí bình luận
+Route::post('ProcessCommentPost', [BaiDang\CommentController::class, 'comment'])
+    ->name('ProcessCommentPost');
+
+// ajax xử lí phản hồi bình luận
+Route::post('ProcessRepCommentPost', [BaiDang\RepCommentController::class, 'rep'])
+    ->name('ProcessRepCommentPost');
+
+// ajax xử lí chia sẽ bài viết
+Route::post('ProcessSharePost', [BaiDang\SharePostController::class, 'share'])
+    ->name('ProcessSharePost');
