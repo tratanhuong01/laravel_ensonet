@@ -12,6 +12,6 @@ class ProfileFriendsController extends Controller
     public function view(Request $request)
     {
         $data = Functions::getListFriendsUser($request->IDView);
-        return view('Component\GioiThieu\BanBe')->with('data', $data);
+        return view('Component\DanhMuc\BanBe')->with('data', $data);
     }
 }

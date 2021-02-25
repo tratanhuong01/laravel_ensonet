@@ -25,7 +25,7 @@ class StringUtil extends Model
     public static function CheckDateTime($datetime)
     {
         $d = explode('-', explode(' ', $datetime)[0])[2];
-        $m = explode('-', explode(' ', $datetime)[0])[1];
+        $mon = explode('-', explode(' ', $datetime)[0])[1];
         $h = explode(':', explode(' ', $datetime)[1])[0];
         $m = explode(':', explode(' ', $datetime)[1])[1];
         $s = explode(':', explode(' ', $datetime)[1])[2];
@@ -59,7 +59,7 @@ class StringUtil extends Model
             if ($day == 1) {
                 $result = "Hôm qua lúc $h : $m : $s";
             } else {
-                $result = "$d tháng $m lúc $h : $m : $s";
+                $result = "$d tháng $mon lúc $h : $m : $s";
             }
         }
         // } else if ($week <= 4.3) //4.3 == 52/12  

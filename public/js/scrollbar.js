@@ -7,15 +7,28 @@ function closePost() {
   second.classList.remove("fixed");
   second.classList.remove("h-screen");
 }
-function viewInfoHover(index, event) {
-  var d = document.getElementsByClassName("friends-online-info");
+function viewInfoHover(IDTaiKhoan, event) {
+  var d = document.getElementById("friends-online-info");
   var topPos = event.clientY;
-  d[index].style.display = 'flex';
-  d[index].style.top = topPos - 144 + "px";
+  d.style.top = topPos - 144 + "px";
+  $.ajax({
+    method: "GET",
+    url: 'ProcessViewInfo',
+    data: {
+      IDTaiKhoan: IDTaiKhoan
+    },
+    success: function (response) {
+      $('#friends-online-info').html('');
+      $('#friends-online-info').html(response);
+      d.style.display = 'flex';
+    }
+  });
+
 }
-function viewInfoLeave(index) {
-  var d = document.getElementsByClassName("friends-online-info");
-  d[index].style.display = 'none';
+function viewInfoLeave() {
+  var d = document.getElementById("friends-online-info");
+  d.innerHTML = '';
+  d.style.display = 'none';
 }
 var cmt = document.getElementsByClassName("comment-per");
 var tym_cmt = document.getElementsByClassName("tym-comment");

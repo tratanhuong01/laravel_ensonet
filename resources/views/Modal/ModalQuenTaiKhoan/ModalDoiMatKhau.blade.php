@@ -16,30 +16,24 @@
                 <table class="mx-auto w-3/4">
                     <tr>
                         <td>Mật khẩu mới</td>
-                        <td class="flex"><input
-                                class="input-password font-bold w-full p-2 border-2 border-gray-200 rounded-lg"
-                                type="password" placeholder="Nhập mật khẩu">&nbsp;&nbsp;&nbsp;<i
-                                class="far fa-eye eye1 text-xm pt-3 cursor-pointer" onclick="hideOrShow(0)"></i>
+                        <td class="flex"><input class="input-password font-bold w-full p-2 border-2 border-gray-200 rounded-lg" type="password" placeholder="Nhập mật khẩu">&nbsp;&nbsp;&nbsp;<i class="far fa-eye eye1 text-xm pt-3 cursor-pointer" onclick="hideOrShow(0)"></i>
                         </td>
                     </tr>
                     <tr>
                         <td class="mt-2">Nhập lại mật khẩu mới</td>
-                        <td class="mt-2 flex"><input
-                                class="input-password font-bold w-full p-2 border-2 border-gray-200 rounded-lg"
-                                type="password" placeholder="Nhập lại mật khẩu">&nbsp;&nbsp;&nbsp;<i
-                                class="far fa-eye eye1 text-xm pt-3 cursor-pointer" onclick="hideOrShow(1)"></i>
+                        <td class="mt-2 flex"><input class="input-password font-bold w-full p-2 border-2 border-gray-200 rounded-lg" type="password" placeholder="Nhập lại mật khẩu">&nbsp;&nbsp;&nbsp;<i class="far fa-eye eye1 text-xm pt-3 cursor-pointer" onclick="hideOrShow(1)"></i>
                         </td>
                     </tr>
                     <script>
                         var count = 0;
+
                         function hideOrShow(index) {
                             if (count == 0) {
                                 count++;
                                 var eye1 = document.getElementsByClassName("eye1")[index];
                                 eye1.className = "far fa-eye-slash eye1 text-xm pt-3 cursor-pointer";
                                 document.getElementsByClassName("input-password")[index].type = "text";
-                            }
-                            else {
+                            } else {
                                 var eye1 = document.getElementsByClassName("eye1")[index];
                                 eye1.className = "far fa-eye eye1 text-xm pt-3 cursor-pointer";
                                 document.getElementsByClassName("input-password")[index].type = "password";

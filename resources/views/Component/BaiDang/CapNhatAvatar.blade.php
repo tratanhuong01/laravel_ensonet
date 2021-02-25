@@ -24,8 +24,25 @@ use App\Models\Functions;
                 </div>
             </div>
         </div>
-        <div class="text-center" style="width: 10%;">
-            <i class="fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
+        <div class="text-center relative" style="width: 10%;">
+            <i class="fas fa-ellipsis-h cursor-pointer  pt-2 text-xl dark:text-gray-300"></i>
+            <div class="w-72 z-40 dark:bg-dark-second bg-gray-100 border-2 absolute top-10 right-4 
+            border-solid border-gray-300 dark:border-dark-third shadow-1 hidden">
+                <ul class="w-full">
+                    <li class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
+                    dark:border-dark-third cursor-pointer text-left dark:hover:bg-dark-third hover:bg-gray-200">
+                        <i class="fas fa-pen text-xl"></i>&nbsp;&nbsp;&nbsp;Chỉnh sửa bài viết
+                    </li>
+                    <li class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
+                    dark:border-dark-third cursor-pointer text-left dark:hover:bg-dark-third hover:bg-gray-200">
+                        <i class="fas fa-globe-europe text-xl"></i>&nbsp;&nbsp;&nbsp;Chỉnh sửa đối tượng
+                    </li>
+                    <li class="dark:text-white font-bold px-4 py-2.5 cursor-pointer text-left 
+                    dark:hover:bg-dark-third  hover:bg-gray-200">
+                        <i class="far fa-trash-alt text-xl"></i>&nbsp;&nbsp;&nbsp;&nbsp;Xóa
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="w-full mx-0 my-2.5">

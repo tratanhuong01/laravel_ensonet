@@ -107,3 +107,10 @@ Route::post('ProcessRepCommentPost', [BaiDang\RepCommentController::class, 'rep'
 // ajax xử lí chia sẽ bài viết
 Route::post('ProcessSharePost', [BaiDang\SharePostController::class, 'share'])
     ->name('ProcessSharePost');
+
+// ajax xử lí chia sẽ bài viết
+Route::get('ProcessViewInfo', [ViewInfoHoverController::class, 'view']);
+
+Route::get('checked', function () {
+    return view('Guest/about');
+});

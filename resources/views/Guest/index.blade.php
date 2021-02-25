@@ -71,7 +71,6 @@ use Illuminate\Support\Facades\Session;
             </div>
             <div class="center-content relative left-0 px-2 sm:w-full sm:mx-auto md:w-3/4 lg:mx-0 
             lg:w-4/6 lg:left-0! xl:w-2/5 xl:left-3/10">
-
                 <div class="w-full bg-white mb-3 mt-2 dark:bg-dark-second m-auto rounded-lg mb-2">
                     <div class="w-full flex p-2.5 ">
                         <div class="w-2/12 md:w-1/12 mr-3 pt-1">
@@ -140,26 +139,31 @@ use Illuminate\Support\Facades\Session;
                                     </ul>
                                 </span>
                             </div>
-                            <div onmouseover="viewInfoHover(0,event)" onmouseleave="viewInfoLeave(0)" class="w-full flex mb-4 p-2 text-center friends-online relative cursor-pointer 
+                            <?php $listFriend = Functions::getListFriendsUser($user[0]->IDTaiKhoan); ?>
+                            @if (count($listFriend) == 0)
+
+                            <div class="w-full flex mb-4 p-2 text-center friends-online relative cursor-pointer 
                                 dark:hover:bg-dark-third">
                                 <span class="mx-auto dark:text-white text-center font-bold dark:text-white">
                                     Không tìm thấy</span>
                             </div>
+                            @else
+                            @for ($i = 0 ; $i < count($listFriend) ; $i++) @include('Component\TrangChu\NguoiDungHoatDong',['data'=> $listFriend[$i][0]]) @endfor @endif
+                                <div id="friends-online-info" class="absolute bg-white 
+                            dark:bg-dark-third p-2 shadow-sm w-88 hidden top-0 right-90 px-4" style="display: none;">
+
+                                </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--<div class="w-11/12 fixed -bottom-2">
-            
-        </div>-->
-    </div>
-    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
-        @include('Modal/ModalBaiDang/ModalTaoBaiViet')
-    </div>
-    @else
-    <?php redirect()->to('login')->send(); ?>
-    @endif
+        <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
+            @include('Modal/ModalBaiDang/ModalTaoBaiViet')
+        </div>
+        @else
+        <?php redirect()->to('login')->send(); ?>
+        @endif
 
 </body>
 
