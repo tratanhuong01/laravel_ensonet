@@ -22,7 +22,6 @@ class Functions extends Model
             ->where('taikhoan.IDTaiKhoan', '=', $post->IDTaiKhoan)
             ->where('baidang.IDBaiDang', '=', $post->IDBaiDang)
             ->orderBy('NgayDang', 'desc')
-
             ->get();
     }
     public static function getListFriendsUser($idTaiKhoan)
@@ -102,17 +101,15 @@ class Functions extends Model
     }
     public static function getUserFeel($idBaiDang)
     {
-        return DB::table('baidang')
-            ->join('camxuc', 'baidang.IDBaiDang', '=', 'camxuc.IDBaiDang')
-            ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
-            ->where('baidang.IDBaiDang', '=', $idBaiDang)->get();
+        return Camxuc::where('camxuc.IDBaiDang', '=', $idBaiDang)
+            ->get();
     }
     public static function getFeel($i)
     {
         switch (explode('@', $i)[0]) {
             case '0':
                 return '<span class="text-xl">👍</span> &nbsp; 
-            <span class="font-bold" style="color:#FFD700;">Thích</span>';
+            <span class="font-bold" style="color:orange;">Thích</span>';
                 break;
             case '1':
                 return '<span class="text-xl">❤️</span> &nbsp; 
@@ -120,15 +117,15 @@ class Functions extends Model
                 break;
             case '2':
                 return '<span class="text-xl">😆</span> &nbsp; 
-                <span class="font-bold" style="color:#FFD700;">Haha</span>';
+                <span class="font-bold" style="color:orange;">Haha</span>';
                 break;
             case '3':
                 return '<span class="text-xl">😥</span> &nbsp; 
-                    <span class="font-bold" style="color:#FFD700;">Buồn</span>';
+                    <span class="font-bold" style="color:orange;">Buồn</span>';
                 break;
             case '4':
                 return '<span class="text-xl">😮</span> &nbsp; 
-                    <span class="font-bold" style="color:#FFD700;">Wow</span>';
+                    <span class="font-bold" style="color:orange;">Wow</span>';
                 break;
             case '5':
                 return '<span class="text-xl">😡</span> &nbsp; 
@@ -163,40 +160,58 @@ class Functions extends Model
     {
         $userFeel = Functions::getUserFeel($idBaiDang);
         if (count($userFeel) == 0) {
-        } else if (count($userFeel) == 1)
-            switch (explode('@', $userFeel[0]->LoaiCamXuc)[0]) {
+        } else if (count($userFeel) == 1) {
+            $loaiCamXuc = explode('@', $userFeel[0]->LoaiCamXuc)[0];
+            $userFeel = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $userFeel[0]->IDTaiKhoan)->get();
+            switch ($loaiCamXuc) {
                 case '0':
-                    return '👍 ' . '<span class="font-bold" style="color:#F2314C;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
+                    return '👍 ' . '<span class="font-bold" style="color:orange;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
                 case '1':
                     return '❤️ ' . '<span class="font-bold" style="color:#F2314C;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
                 case '2':
-                    return '😆 ' . '<span class="font-bold" style="color:#FFD700;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
+                    return '😆 ' . '<span class="font-bold" style="color:orange;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
                 case '3':
-                    return '😥 ' . '<span class="font-bold" style="color:#FFD700;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
+                    return '😥 ' . '<span class="font-bold" style="color:orange;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
                 case '4':
-                    return '😮 ' . '<span class="font-bold" style="color:#FFD700;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
+                    return '😮 ' . '<span class="font-bold" style="color:orange;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
                 case '5':
                     return '😡 ' . '<span class="font-bold" style="color:#EB7F27;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
             }
-        else if (count($userFeel) == 2) {
-            return Functions::getFeelMain($userFeel[0]->LoaiCamXuc) . ' ' .
-                Functions::getFeelMain($userFeel[1]->LoaiCamXuc) . ' ' .
-                '&nbsp;<span style="font-size: 17px;" class="cursor-pointer  
-                dark:text-gray-300 text-gray-600 font-bold ">' .
-                count($userFeel) . '</span>';
+        } else if (count($userFeel) == 2) {
+            if (
+                explode('@', $userFeel[0]->LoaiCamXuc)[0] ==
+                explode('@', $userFeel[1]->LoaiCamXuc)[0]
+            ) {
+                $arr[0] = Functions::getFeelMain($userFeel[0]->LoaiCamXuc);
+                $arr[1] = count($userFeel);
+                $arr[2] = $userFeel;
+                return view('Component\BaiDang\SoLuongCamXuc')->with('arr', $arr);
+            } else {
+                $arr[0] = Functions::getFeelMain($userFeel[0]->LoaiCamXuc) . ' ' .
+                    Functions::getFeelMain($userFeel[1]->LoaiCamXuc);
+                $arr[1] = count($userFeel);
+                $arr[2] = $userFeel;
+                return view('Component\BaiDang\SoLuongCamXuc')->with('arr', $arr);
+            }
         } else {
-            return Functions::getFeelMain($userFeel[0]->LoaiCamXuc) . ' ' .
-                Functions::getFeelMain($userFeel[1]->LoaiCamXuc) . ' ' .
-                Functions::getFeelMain($userFeel[2]->LoaiCamXuc) . ' ' .
-                '&nbsp;<span style="font-size: 17px;" class="cursor-pointer  
-                dark:text-gray-300 text-gray-600 font-bold ">' .
-                count($userFeel) . '</span>';
+            $arr[0] = Functions::getFeelMain($userFeel[0]->LoaiCamXuc);
+            $arr[1] = count($userFeel);
+            $arr[2] = $userFeel;
+            return view('Component\BaiDang\SoLuongCamXuc')->with('arr', $arr);
+        }
+    }
+    public static function checkGetStringFeel($idBaiDang)
+    {
+        $userFeel = Functions::getUserFeel($idBaiDang);
+        for ($i = 0; $i < count($userFeel); $i++) {
+            for ($i = 1; $i < count($userFeel) - 1; $i++) {
+            }
         }
     }
 }

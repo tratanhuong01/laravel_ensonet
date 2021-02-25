@@ -10,6 +10,7 @@ use App\Mail\Ensonet;
 use App\Models\Taikhoan;
 use App\Models\Functions;
 use App\Events\RedisEvent;
+use App\Models\Data;
 // Đăng Nhập
 Route::get('/login', function () {
     return view('Guest/login');
@@ -42,6 +43,7 @@ Route::get('logout', [DangNhap\LogoutController::class, 'logout']);
 
 // redriect sang index
 Route::get('index', function () {
+    session()->forget('users');
     return view('Guest/index');
 });
 
@@ -111,6 +113,15 @@ Route::post('ProcessSharePost', [BaiDang\SharePostController::class, 'share'])
 // ajax xử lí chia sẽ bài viết
 Route::get('ProcessViewInfo', [ViewInfoHoverController::class, 'view']);
 
+// ajax view lượt cảm xúc
+Route::get('ProcessViewDetailFeel', [BaiDang\ViewDetailFeelController::class, 'view']);
+
+// ajax view lượt cảm xúc
+Route::get('ProcessViewOnlyDetailFeel', [BaiDang\ViewDetailFeelController::class, 'viewOnly']);
+
+// ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
-    return view('Guest/about');
+    echo "<pre>";
+    print_r(Data::getDetailFeelPost('2000000027'));
+    echo "</pre>";
 });

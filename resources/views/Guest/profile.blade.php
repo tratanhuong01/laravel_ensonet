@@ -16,6 +16,7 @@
     <script src="js/Login/login.js"></script>
     <script src="js/event/event.js"></script>
     <script src="js/ajax.js"></script>
+    <script src="js/ajax/BaiDang/ajax.js"></script>
 </head>
 
 <body>
@@ -28,8 +29,8 @@
     use App\Models\Functions;
 
     $user = Session::get('user'); ?>
-    <div id="main">
-
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
+        @include('Modal/ModalBaiDang/ModalTaoBaiViet')
     </div>
     <div class="w-full dark:bg-dark-second" id="web">
         @include('Header');

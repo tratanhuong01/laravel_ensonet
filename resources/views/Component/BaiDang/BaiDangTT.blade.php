@@ -2,6 +2,9 @@
 
 use App\Models\StringUtil;
 use App\Models\Functions;
+use Illuminate\Support\Facades\Session;
+
+$u = Session::get('user');
 
 ?>
 <div class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
@@ -91,9 +94,9 @@ use App\Models\Functions;
             <div class="w-1/3 dark:hover:bg-dark-third hover:bg-gray-200 feels">
                 <li class="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200 
             text-center w-full font-bold py-3 cursor-pointer justify-items-center" id="{{ $item[0]->IDBaiDang }}" onclick="FeelPost('{{ $item[0]->IDBaiDang }}','0@0')">
-                    {!! Functions::checkIsFeel($user[0]->IDTaiKhoan,$item[0]->IDBaiDang) !!}
+                    {!! Functions::checkIsFeel(Session::get('user')[0]->IDTaiKhoan,$item[0]->IDBaiDang) !!}
                 </li>
-                <ul class=" show-feels absolute bottom-full flex flex-column dark:bg-dark-second bg-white rounded-lg border-solid 
+                <ul class="show-feels absolute bottom-full flex flex-column dark:bg-dark-second bg-white rounded-lg border-solid 
             dark:border-dark-third border-gray-300 border rounded-3xl">
                     <li class="px-2 py-2 text-3xl cursor-pointer rounded-full hover:bg-gray-300 
                 dark:hover:bg-dark-third" onclick="FeelPost('{{ $item[0]->IDBaiDang }}','0@1')">👍</li>

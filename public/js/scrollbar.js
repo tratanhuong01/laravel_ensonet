@@ -4,6 +4,7 @@ function openPost() {
 }
 function closePost() {
   $('#modal-one').hide();
+  second.innerHTML = '';
   second.classList.remove("fixed");
   second.classList.remove("h-screen");
 }

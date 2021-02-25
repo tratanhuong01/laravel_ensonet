@@ -52,6 +52,6 @@ class FeelController extends Controller
         if (count($data) == 0)
             return '';
         else
-            return Functions::getStringFeel($data[0]->IDBaiDang);
+            return Functions::getStringFeel($request->IDBaiDang);
     }
 }

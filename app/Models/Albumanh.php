@@ -10,10 +10,11 @@ class Albumanh extends Model
     protected $table = "albumanh";
 
     protected $fillable = [
-                        'IDAlbumAnh',
-                        'TenAlbumAnh',
-                        ];
-    public static function add($IDAlbumAnh,$TenAlbumAnh) {
+        'IDAlbumAnh',
+        'TenAlbumAnh',
+    ];
+    public static function add($IDAlbumAnh, $TenAlbumAnh)
+    {
         $albumanh = new Albumanh;
         $albumanh->IDAlbumAnh = $IDAlbumAnh;
         $albumanh->TenAlbumAnh = $TenAlbumAnh;

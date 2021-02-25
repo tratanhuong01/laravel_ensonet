@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Functions;
+use App\Models\Data;
 use Illuminate\Support\Facades\Session;
 
 ?>
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Session;
     <script src="js/scrollbar.js"></script>
     <script src="js/index.js"></script>
     <script src="js/event/event.js"></script>
+    <script src="js/ajax/BaiDang/ajax.js"></script>
     <script src="js/ajax.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -94,7 +96,23 @@ use Illuminate\Support\Facades\Session;
                         </ul>
                     </div>
                 </div>
+                <?php $post = Data::sortAllPost($user[0]->IDTaiKhoan); ?>
 
+                @for ($i = 0 ; $i < sizeof($post) ; $i++) @switch($post[$i][0]->LoaiBaiDang)
+                    @case('0')
+                    @include('Component/BaiDang/CapNhatAvatar',['item' => $post[$i]])
+                    @break
+
+                    @case('1')
+                    @include('Component/BaiDang/CapNhatAnhBia',['item' => $post[$i]])
+                    @break
+
+                    @case('2')
+                    @include('Component/BaiDang/BaiDangTT',['item' => $post[$i]])
+                    @break
+
+                    @endswitch
+                    @endfor
             </div>
             <div class="fixed hidden lg:block lg:w-1/3 lg:left-2/3 xl:left-7/10 xl:w-3/10">
                 <div id="content-right-ok" class="w-full flex">

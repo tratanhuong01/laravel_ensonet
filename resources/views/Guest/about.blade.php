@@ -19,8 +19,7 @@
 
 <body>
     <div class="w-full relative">
-        <div class="w-7/12 mx-auto py-2 flex flex-wrap">
-        </div>
+
     </div>
 </body>
 
