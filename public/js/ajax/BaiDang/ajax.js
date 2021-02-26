@@ -25,3 +25,9 @@ function viewOnlyDetailFeel(IDBaiDang, LoaiCamXuc) {
         }
     });
 }
+function openEditPost(ids) {
+    $('#' + ids).show();
+    document.getElementById(ids + "Main").addEventListener("click", function () {
+        $('#' + ids).hide();
+    }, true);
+}

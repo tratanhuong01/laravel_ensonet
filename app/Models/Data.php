@@ -45,11 +45,18 @@ class Data extends Model
             'SELECT DISTINCT  `LoaiCamXuc` FROM `camxuc` WHERE camxuc.IDBaiDang = ? ',
             [$idBaiDang]
         );
+        for ($i = 0; $i < count($typeFeel); $i++) {
+            if ($typeFeel[$i]->LoaiCamXuc == '0@1') {
+                unset($typeFeel[$i]);
+                break;
+            }
+        }
+        $typeFeel = array_values($typeFeel);
         $detailFeel = array();
         $user = array();
         $k = 0;
         for ($i = 0; $i < count($typeFeel); $i++) {
-            $data = Camxuc::where('camxuc.LoaiCamXuc', '=', $typeFeel[$i]->LoaiCamXuc)
+            $data = Camxuc::where('camxuc.LoaiCamXuc', 'LIKE', '%' . explode('@', $typeFeel[$i]->LoaiCamXuc)[0] . '@' . '%')
                 ->where('camxuc.IDBaiDang', '=', $idBaiDang)->get();
             for ($j = 0; $j < count($data); $j++) {
                 $u = DB::table('taikhoan')

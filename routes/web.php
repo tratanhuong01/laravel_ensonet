@@ -56,8 +56,14 @@ Route::get('ProcessRequestFriend', [MoiQuanHe\RequestFriendController::class, 's
 // ajax hủy yêu cầu kết bạn
 Route::get('ProcessCancelRequestFriend', [MoiQuanHe\CancelRequestFriendController::class, 'cancel']);
 
+// ajax hủy yêu cầu kết bạn
+Route::get('ProcessCancelRequestFriendIndex', [MoiQuanHe\CancelRequestFriendController::class, 'cancelIndex']);
+
 // ajax chấp nhận kết bạn
 Route::get('ProcessAcceptFriend', [MoiQuanHe\AcceptFriendController::class, 'accept']);
+
+// ajax chấp nhận kết bạn index
+Route::get('ProcessAcceptFriendIndex', [MoiQuanHe\AcceptFriendController::class, 'acceptIndex']);
 
 // ajax xóa kết bạn
 Route::get('ProcessDeleteFriend', [MoiQuanHe\DeleteFriendController::class, 'delete']);
@@ -122,6 +128,6 @@ Route::get('ProcessViewOnlyDetailFeel', [BaiDang\ViewDetailFeelController::class
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    print_r(Data::getDetailFeelPost('2000000027'));
+    print_r(Data::getDetailFeelPosts('2000000029'));
     echo "</pre>";
 });

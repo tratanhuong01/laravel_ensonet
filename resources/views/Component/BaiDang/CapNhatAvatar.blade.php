@@ -4,6 +4,8 @@ use App\Models\StringUtil;
 use App\Models\Functions;
 use Illuminate\Support\Facades\Session;
 
+$u = Session::get('user');
+
 ?>
 <div class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
@@ -16,12 +18,26 @@ use Illuminate\Support\Facades\Session;
                         {{ $item[0]->Ho . ' ' . $item[0]->Ten }}</b>
                     &nbsp;</a> đã cập nhật ảnh đại diện của anh ấy.</p>
             <div class="w-full flex">
-                <div class="text-xs pr-2"><a href="" class="dark:text-gray-300 font-bold">
-                        {{ StringUtil::CheckDateTime($item[0]->NgayDang) }}
-                    </a>
-                </div>
-                <div class="relative">
-                    <i class="fas fa-globe-europe absolute top-0.5 dark:text-gray-300"></i>
+                <div class="text-xs pt-0.5 pr-2">
+                    <ul class="flex">
+                        <li class="pt-1">
+                            <a href="" class="dark:text-gray-300 font-bold">
+                                {{ StringUtil::CheckDateTime($item[0]->NgayDang) }}</a>
+                        </li>
+                        <li class="pl-3 pt-0.5">
+                            @switch($item[0]->IDQuyenRiengTu)
+                            @case('CONGKHAI')
+                            <i class="cursor-pointer text-sm fas fa-globe-europe dark:text-gray-300"></i>
+                            @break
+                            @case('CHIBANBE')
+                            <i class="cursor-pointer text-sm fas fa-user-friends dark:text-gray-300"></i>
+                            @break
+                            @case('RIENGTU')
+                            <i class="cursor-pointer text-sm fas fa-lock dark:text-gray-300"></i>
+                            @break
+                            @endswitch
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -80,7 +96,7 @@ use Illuminate\Support\Facades\Session;
             <div class="w-1/3 dark:hover:bg-dark-third hover:bg-gray-200 feels">
                 <li class="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200 
             text-center w-full font-bold py-3 cursor-pointer justify-items-center" id="{{ $item[0]->IDBaiDang }}" onclick="FeelPost('{{ $item[0]->IDBaiDang }}','0@0')">
-                    {!! Functions::checkIsFeel(Session::get('user')[0]->IDTaiKhoan,$item[0]->IDBaiDang) !!}
+                    {!! Functions::checkIsFeel($u[0]->IDTaiKhoan,$item[0]->IDBaiDang) !!}
                 </li>
                 <ul class=" show-feels absolute bottom-full flex flex-column dark:bg-dark-second bg-white rounded-lg border-solid 
             dark:border-dark-third border-gray-300 border rounded-3xl">

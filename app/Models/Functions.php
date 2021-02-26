@@ -6,13 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Camxuc;
+use Illuminate\Support\Facades\Session;
 
 class Functions extends Model
 {
     public static function countPost($idTaiKhoan)
     {
-        return DB::table('baidang')->where('baidang.IDTaiKhoan', '=', $idTaiKhoan)
-            ->orderBy('NgayDang', 'desc')->get();
+        if (Session::get('user')[0]->IDTaiKhoan == $idTaiKhoan)
+            return DB::table('baidang')->where('baidang.IDTaiKhoan', '=', $idTaiKhoan)
+                ->orderBy('NgayDang', 'desc')->get();
+        else
+            return DB::table('baidang')->where('baidang.IDTaiKhoan', '=', $idTaiKhoan)
+                ->where('IDQuyenRiengTu', '!=', 'RIENGTU')
+                ->orderBy('NgayDang', 'desc')->get();
     }
     public static function getPost($post)
     {
@@ -67,10 +73,10 @@ class Functions extends Model
     }
     public static function getListRequestFriendNew($idTaiKhoan)
     {
-        $listRequest = DB::table('moiquanhe')
+        $listRequest = DB::table('moiquanhe')->skip(0)->take(3)
             ->where('moiquanhe.IDTaiKhoan', '=', $idTaiKhoan)
             ->where('moiquanhe.TinhTrang', '=', '2')
-            ->orderBy('NgayChapNhan', 'desc')
+            ->orderBy('NgayGui', 'desc')
             ->get();
         $newListRequest = array();
         if (count($listRequest) > 0)

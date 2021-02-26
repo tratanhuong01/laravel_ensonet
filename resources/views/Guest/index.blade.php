@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Session;
     <script src="js/index.js"></script>
     <script src="js/event/event.js"></script>
     <script src="js/ajax/BaiDang/ajax.js"></script>
+    <script src="js/ajax/MoiQuanHe/ajax.js"></script>
     <script src="js/ajax.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -139,23 +140,37 @@ use Illuminate\Support\Facades\Session;
                             </div>
                         </div>
                         <hr class="my-3 mx-auto w-full">
-                        <?php $requestFriend = Functions::getListRequestFriendNew($user[0]->IDTaiKhoan); ?>
-                        @if (count($requestFriend) == 0)
-                        @else
-                        @include('Component/TrangChu/LoiMoiKetBan',['requestFriend',$requestFriend])
-                        @endif
-                        <div class="w-full">
-                            <div class="w-full">
-                                <span class="float-left py-2.5 px-0">
+                        <div id="friend-request">
+                            <div class="w-full flex">
+                                <div class="w-1/2 text-left">
+                                    <p class="font-bold dark:text-white">Lời mời kết bạn</p>
+                                </div>
+                                <div class="w-1/2 text-right">
+                                    <a href="" class="font-bold dark:text-white">Xem tất cả</a>
+                                </div>
+                            </div>
+                            <div class="w-full" id="loiMoi">
+                                <?php $requestFriend = Functions::getListRequestFriendNew($user[0]->IDTaiKhoan); ?>
+                                @if (count($requestFriend) == 0)
+                                <p class="mx-auto py-3 dark:text-white text-center font-bold dark:text-white">
+                                    Không có lời mời kết bạn</p>
+                                @else
+                                @include('Component/TrangChu/LoiMoiKetBan',['requestFriend',$requestFriend])
+                                @endif
+                            </div>
+                        </div>
+                        <div class="w-full pt-3">
+                            <div class="w-full flex">
+                                <div class="w-1/2 py-2.5 px-0">
                                     <p class="font-bold dark:text-white">Bạn bè</p>
-                                </span>
-                                <span class="float-right">
-                                    <ul class="flex">
+                                </div>
+                                <div class="w-1/2">
+                                    <ul class="flex float-right">
                                         <li class="cursor-pointer p-2.5 text-xl"><i class="fas fa-video dark:text-white"></i></li>
                                         <li class="cursor-pointer p-2.5 text-xl"><i class="fab fa-searchengin dark:text-white"></i></li>
                                         <li class="cursor-pointer p-2.5 text-xl"><i class="fas fa-ellipsis-h dark:text-white"></i></li>
                                     </ul>
-                                </span>
+                                </div>
                             </div>
                             <?php $listFriend = Functions::getListFriendsUser($user[0]->IDTaiKhoan); ?>
                             @if (count($listFriend) == 0)
