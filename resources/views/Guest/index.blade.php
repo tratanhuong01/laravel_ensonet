@@ -192,7 +192,7 @@ use Illuminate\Support\Facades\Session;
             </div>
         </div>
         <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
-            @include('Modal/ModalBaiDang/ModalTaoBaiViet')
+
         </div>
         @else
         <?php redirect()->to('login')->send(); ?>

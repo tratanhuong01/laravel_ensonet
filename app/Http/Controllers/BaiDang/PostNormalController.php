@@ -25,7 +25,7 @@ class PostNormalController extends Controller
                 Baidang::add(
                     $idBaiDang,
                     $user[0]->IDTaiKhoan,
-                    'CHIBANBE',
+                    $request->IDQuyenRiengTu,
                     $request->content,
                     NULL,
                     NULL,

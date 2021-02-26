@@ -29,8 +29,7 @@
     use App\Models\Functions;
 
     $user = Session::get('user'); ?>
-    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
-        @include('Modal/ModalBaiDang/ModalTaoBaiViet')
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second" style="z-index: 100;">
     </div>
     <div class="w-full dark:bg-dark-second" id="web">
         @include('Header');

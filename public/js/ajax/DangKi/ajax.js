@@ -1,3 +1,4 @@
+// đăng kí 
 function submitFormRegister() {
     $('#btn-submit-form').html('');
     $('#btn-submit-form').prop("disabled", true);
@@ -12,6 +13,8 @@ function submitFormRegister() {
         }
     });
 }
+
+// xác nhận đăng kí 
 function submitFormVerify() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -23,6 +26,8 @@ function submitFormVerify() {
     xmlhttp.open("GET", 'ProcessVerify?emailOrPhone=' + value('emailOrPhone') + '&code_veri=' + value('code_veri'), true);
     xmlhttp.send();
 }
+
+// gửi lại code
 function sendCodeAgain() {
     $('#btn-send-code').html('');
     $('#btn-send-code').prop("disabled", true);

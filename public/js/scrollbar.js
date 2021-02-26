@@ -1,6 +1,16 @@
 function openPost() {
-  $('#modal-one').show();
-  second.className += ' fixed h-screen';
+  $.ajax({
+    method: "GET",
+    url: 'ProcessOpenPostDialog',
+    data: {
+    },
+    success: function (response) {
+      $('#modal-one').show();
+      second.innerHTML = response;
+      second.className += ' fixed h-screen';
+    }
+  });
+
 }
 function closePost() {
   $('#modal-one').hide();

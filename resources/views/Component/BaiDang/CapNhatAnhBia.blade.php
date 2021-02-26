@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 $u = Session::get('user');
 
 ?>
-<div class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
+<div id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Main" class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
         <div class="mr-2">
             <a href=""><img class="w-12 h-12 rounded-full 
@@ -25,42 +25,37 @@ $u = Session::get('user');
                             <a href="" class="dark:text-gray-300 font-bold">
                                 {{ StringUtil::CheckDateTime($item[0]->NgayDang) }}</a>
                         </li>
-                        <li class="pl-3 pt-0.5">
-                            @switch($item[0]->IDQuyenRiengTu)
-                            @case('CONGKHAI')
-                            <i class="cursor-pointer text-sm fas fa-globe-europe dark:text-gray-300"></i>
-                            @break
-                            @case('CHIBANBE')
-                            <i class="cursor-pointer text-sm fas fa-user-friends dark:text-gray-300"></i>
-                            @break
-                            @case('RIENGTU')
-                            <i class="cursor-pointer text-sm fas fa-lock dark:text-gray-300"></i>
-                            @break
-                            @endswitch
+                        <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
+                            @include('Component\BaiDang\QuyenRiengTuBD',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="text-center relative" style="width: 10%;">
-            <i class="fas fa-ellipsis-h cursor-pointer pt-2 text-xl dark:text-gray-300"></i>
+            @if ($item[0]->IDTaiKhoan != $u[0]->IDTaiKhoan)
+            <i class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
+            @else
+            <i onclick="openEditPost('{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}')" class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
             <div class="w-72 z-40 dark:bg-dark-second bg-gray-100 border-2 absolute top-10 right-4 
-            border-solid border-gray-300 dark:border-dark-third shadow-1 hidden">
+            border-solid border-gray-300 dark:border-dark-third shadow-1 hidden " id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}">
                 <ul class="w-full">
-                    <li class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
+                    <li onclick="editPost('{{ $item[0]->IDBaiDang }}')" class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
                     dark:border-dark-third cursor-pointer text-left dark:hover:bg-dark-third hover:bg-gray-200">
                         <i class="fas fa-pen text-xl"></i>&nbsp;&nbsp;&nbsp;Chỉnh sửa bài viết
                     </li>
-                    <li class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
+                    <li onclick="changeObjectPrivacyPost('{{ $item[0]->IDBaiDang }}')" class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
                     dark:border-dark-third cursor-pointer text-left dark:hover:bg-dark-third hover:bg-gray-200">
                         <i class="fas fa-globe-europe text-xl"></i>&nbsp;&nbsp;&nbsp;Chỉnh sửa đối tượng
                     </li>
-                    <li class="dark:text-white font-bold px-4 py-2.5 cursor-pointer text-left 
+                    <li onclick="deleteWarnPost('{{ $item[0]->IDBaiDang }}',
+                    '{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Main')" class="dark:text-white font-bold px-4 py-2.5 cursor-pointer text-left 
                     dark:hover:bg-dark-third  hover:bg-gray-200">
                         <i class="far fa-trash-alt text-xl"></i>&nbsp;&nbsp;&nbsp;&nbsp;Xóa
                     </li>
                 </ul>
             </div>
+            @endif
         </div>
     </div>
     <div class="w-full mx-0 my-2.5">

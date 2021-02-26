@@ -1,3 +1,4 @@
+// chấp nhận kết bạn
 function AcceptFriendIndex(UserMain, UserOther) {
     var nhanYeuCau = document.getElementsByClassName(UserMain + UserOther);
     var xmlhttp = new XMLHttpRequest();
@@ -18,6 +19,8 @@ function AcceptFriendIndex(UserMain, UserOther) {
     xmlhttp.send();
 
 }
+
+// hủy yêu cầu kết bạn
 function CancelRequestFriendIndex(UserMain, UserOther) {
     var nhanYeuCau = document.getElementsByClassName(UserMain + UserOther + 'delete');
     var xmlhttp = new XMLHttpRequest();

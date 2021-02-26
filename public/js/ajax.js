@@ -258,8 +258,8 @@ function changeUploadFiles(el) {
             document.getElementById('imagePost').appendChild(div);
         }
         else {
-            img.className = 'p-1';
-            div.style.width = '235px';
+            img.className = 'p-1 object-cover';
+            div.style.width = '232px';
             div.style.height = '250px';
             img.style.width = '241px';
             img.style.height = '248px';

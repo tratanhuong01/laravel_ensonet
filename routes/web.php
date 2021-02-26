@@ -125,6 +125,48 @@ Route::get('ProcessViewDetailFeel', [BaiDang\ViewDetailFeelController::class, 'v
 // ajax view lượt cảm xúc
 Route::get('ProcessViewOnlyDetailFeel', [BaiDang\ViewDetailFeelController::class, 'viewOnly']);
 
+// ajax mở hộp thoại bài đăng
+Route::get('ProcessOpenPostDialog', function () {
+    return view('Modal\ModalBaiDang\ModalTaoBaiViet');
+});
+
+// ajax chọn quyền riêng tư bài đăng
+Route::get('ProcessSelecPrivacyPost', function () {
+    return view('Modal\ModalQuyenRiengTu\ModalQuyenRiengTu');
+});
+
+// ajax chọn quyền riêng tư bài đăng
+Route::get('ProcessOnChangeInputPrivacy', function (Request $request) {
+    return view('Component\Child\QuyenRiengTu')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
+});
+
+// ajax xóa bài đăng
+Route::get('ProcessDeletePost', [BaiDang\DeletePostController::class, 'delete'])
+    ->name('ProcessDeletePost');
+
+// ajax xác nhận xóa bài đăng
+Route::get('ProcessWarnDeletePost', [BaiDang\DeletePostController::class, 'warn'])
+    ->name('ProcessWarnDeletePost');
+
+// ajax chỉnh sửa bài đăng
+Route::get('ProcessEditPost', [BaiDang\EditPostController::class, 'edit'])
+    ->name('ProcessEditPost');
+
+// ajax view chỉnh sửa bài đăng
+Route::get('ProcessViewEditPost', [BaiDang\EditPostController::class, 'view'])
+    ->name('ProcessViewEditPost');
+
+// ajax chỉnh sửa đối tượng bài đăng view
+Route::get('ProcessViewObjectPrivacyPost', [BaiDang\EditObjectPrivacyController::class, 'view'])
+    ->name('ProcessViewObjectPrivacyPost');
+
+// ajax chỉnh sửa đối tượng bài đăng view
+Route::get('ProcessEditObjectPrivacyPost', [BaiDang\EditObjectPrivacyController::class, 'edit'])
+    ->name('ProcessEditObjectPrivacyPost');
+
+//xem chi tiết hình 
+Route::get('/profile.{idTaiKhoan}/{idBaiDang}/{duongDan}', [Displays\ViewImageController::class, 'views']);
+
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";

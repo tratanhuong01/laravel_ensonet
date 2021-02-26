@@ -24,42 +24,37 @@ $u = Session::get('user');
                             <a href="" class="dark:text-gray-300 font-bold">
                                 {{ StringUtil::CheckDateTime($item[0]->NgayDang) }}</a>
                         </li>
-                        <li class="pl-3 pt-0.5">
-                            @switch($item[0]->IDQuyenRiengTu)
-                            @case('CONGKHAI')
-                            <i class="cursor-pointer text-sm fas fa-globe-europe dark:text-gray-300"></i>
-                            @break
-                            @case('CHIBANBE')
-                            <i class="cursor-pointer text-sm fas fa-user-friends dark:text-gray-300"></i>
-                            @break
-                            @case('RIENGTU')
-                            <i class="cursor-pointer text-sm fas fa-lock dark:text-gray-300"></i>
-                            @break
-                            @endswitch
+                        <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
+                            @include('Component\BaiDang\QuyenRiengTuBD',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="relative text-center" style="width: 10%;">
+            @if ($item[0]->IDTaiKhoan != $u[0]->IDTaiKhoan)
+            <i class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
+            @else
             <i onclick="openEditPost('{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}')" class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
             <div class="w-72 z-40 dark:bg-dark-second bg-gray-100 border-2 absolute top-10 right-4 
             border-solid border-gray-300 dark:border-dark-third shadow-1 hidden " id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}">
                 <ul class="w-full">
-                    <li class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
+                    <li onclick="editPost('{{ $item[0]->IDBaiDang }}')" class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
                     dark:border-dark-third cursor-pointer text-left dark:hover:bg-dark-third hover:bg-gray-200">
                         <i class="fas fa-pen text-xl"></i>&nbsp;&nbsp;&nbsp;Chỉnh sửa bài viết
                     </li>
-                    <li class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
+                    <li onclick="changeObjectPrivacyPost('{{ $item[0]->IDBaiDang }}')" class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
                     dark:border-dark-third cursor-pointer text-left dark:hover:bg-dark-third hover:bg-gray-200">
                         <i class="fas fa-globe-europe text-xl"></i>&nbsp;&nbsp;&nbsp;Chỉnh sửa đối tượng
                     </li>
-                    <li class="dark:text-white font-bold px-4 py-2.5 cursor-pointer text-left 
+                    <li onclick="deleteWarnPost('{{ $item[0]->IDBaiDang }}',
+                    '{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Main')" class="dark:text-white font-bold px-4 py-2.5 cursor-pointer text-left 
                     dark:hover:bg-dark-third  hover:bg-gray-200">
                         <i class="far fa-trash-alt text-xl"></i>&nbsp;&nbsp;&nbsp;&nbsp;Xóa
                     </li>
                 </ul>
             </div>
+            @endif
         </div>
     </div>
     <div class="w-full mx-0 my-2.5">
@@ -69,16 +64,20 @@ $u = Session::get('user');
         <ul class="w-full flex flex-wrap relative">
             @for ($i = 0 ; $i < sizeof($item) ; $i++) @if ($item[$i]->DuongDan == NULL)
                 @elseif (sizeof($item) == 1 && $item[$i]->DuongDan != NULL)
-                <li class="w-full"><img class="w-full p-1 object-cover" style="height:650px;" src="/{{ $item[$i]->DuongDan }}" alt=""></li>
+                <li class="w-full">
+                    <a href="profile.{{ $item[0]->IDTaiKhoan }}/{{ $item[0]->IDBaiDang }}/{{ md5(explode('/',$item[$i]->DuongDan)[2]) }}"><img class="w-full p-1 object-cover" style="height:650px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a>
+                </li>
                 @else
                 @if (sizeof($item) > 4 && $i == 3)
-                <div class="p-1 object-fill rounded-lg absolute bottom-0 right-0" style="width:278px;height:285px;background:rgba(0, 0, 0, 0.5);">
-                    <span class="text-5xl font-bold absolute top-1/2 left-1/2 text-white" style="transform:translate(-50%,-50%);">{{ '+'. (sizeof($item) - 4) }}</span>
-                </div>
-                <li class=""><img class="p-1 object-fill rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></li>
+                <a href="profile.{{ $item[0]->IDTaiKhoan }}/{{ $item[0]->IDBaiDang }}/{{ explode('/',$item[$i]->DuongDan)[2] }}">
+                    <div class="p-1 object-fill rounded-lg absolute bottom-0 right-0" style="width:278px;height:285px;background:rgba(0, 0, 0, 0.5);">
+                        <span class="text-5xl font-bold absolute top-1/2 left-1/2 text-white" style="transform:translate(-50%,-50%);">{{ '+'. (sizeof($item) - 4) }}</span>
+                    </div>
+                </a>
+                <li class=""><a href="profile.{{ $item[0]->IDTaiKhoan }}/{{ $item[0]->IDBaiDang }}/{{ explode('/',$item[$i]->DuongDan)[2] }}"><img class="p-1 object-fill rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
                 @break;
                 @else
-                <li class=""><img class="p-1 object-fill rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></li>
+                <li class=""><a href="profile.{{ $item[0]->IDTaiKhoan }}/{{ $item[0]->IDBaiDang }}/{{ explode('/',$item[$i]->DuongDan)[2] }}"><img class="p-1 object-fill rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
                 @endif
                 @endif
                 @endfor

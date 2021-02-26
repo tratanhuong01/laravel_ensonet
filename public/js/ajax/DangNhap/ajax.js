@@ -1,3 +1,4 @@
+// quên tài khoản
 function forgetAccount() {
     $("#web").css("opacity", "0.2");
     $.ajax({

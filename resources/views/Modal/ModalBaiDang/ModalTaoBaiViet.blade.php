@@ -1,9 +1,16 @@
+<?php
+
+use Illuminate\Support\Facades\Session;
+
+$user = Session::get('user');
+
+?>
 <div id="modal-one" class="shadow-sm border border-solid border-gray-500 py-3 pl-1.5 pr-1.5 pt-0
 bg-white w-full fixed z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg 
-sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);
-display: none;z-index:10;">
+sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-index:10;">
     <form action="" id="formPost" enctype="multipart/form-data">
         {{ csrf_field() }}
+        <input type="hidden" name="IDQuyenRiengTu" id="IDQuyenRiengTu" value="">
         <div class="w-full text-center">
             <p class="text-2xl font-bold p-2.5 dark:text-white">Tạo bài viết</p>
             <span onclick="closePost()" class=" rounded-full bg-aliceblue px-3 py-1 text-2xl font-bold
@@ -16,8 +23,8 @@ display: none;z-index:10;">
             </div>
             <div class="w-11/12">
                 <p class="p-1 pt-0 font-bold dark:text-white">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</p>
-                <div class="py-0 px-1 relative w-3/10 bg-gray-300 dark:bg-dark-third" style="border-radius: 30px;">
-                    <ul class="flex text-xs relative cursor-pointer">
+                <div class="py-0 px-1 w-auto w-1/4 bg-gray-300 dark:bg-dark-third" style="border-radius: 30px;">
+                    <ul onclick="selectPrivacy()" id="selectPrivacyMain" class="flex text-xs relative cursor-pointer">
                         <li class="px-0.5 py-1.5"><i class="fas fa-globe-europe dark:text-white"></i></li>
                         <li class="px-0.5 py-1.5"><b class="dark:text-white">&nbsp;Công Khai&nbsp;&nbsp;</b></li>
                         <li class="px-0.5 py-1.5"><i style="position: absolute;top: 6px;" class="fas fa-sort-down dark:text-white"></i>
