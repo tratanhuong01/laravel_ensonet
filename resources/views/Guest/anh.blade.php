@@ -34,19 +34,19 @@ $user = Session::get('user');
 <body>
     <?php
     $dataNew = array();
-    for ($i = 0; $i < count($data); $i++) {
-        $dataNew[$i][$data[$i]->IDHinhAnh] = $data[$i]->DuongDan;
-    }
     $indexImage = -1;
-    for ($i = 0; $i < count($dataNew); $i++) {
-        foreach ($dataNew[$i] as $key => $value) {
-            if ($key == $idHinhAnh) {
-                $indexImage = $i;
-            }
-        }
+    if (count($data) != 0) {
+        for ($i = 0; $i < count($data); $i++)
+            $dataNew[$i][$data[$i]->IDHinhAnh] = $data[$i]->DuongDan;
+        for ($i = 0; $i < count($dataNew); $i++)
+            foreach ($dataNew[$i] as $key => $value)
+                if ($key == $idHinhAnh)
+                    $indexImage = $i;
     }
     ?>
-
+    @if (count($dataNew) == 0 && $indexImage == -1)
+    @include('Component\KhongTimThay')
+    @else
     <div class="w-full dark:bg-dark-main" id="main">
         <div class="w-full flex h-screen bg-gray-100" id="content">
             <div class="w-9/12 flex bg-black relative" id="leftImage">
@@ -188,6 +188,7 @@ $user = Session::get('user');
         </script>
         @endif
     </div>
+    @endif
     <script>
         function zoom() {
             if (document.getElementById('rightImage').style.display == 'none') {

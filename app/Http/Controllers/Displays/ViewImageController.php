@@ -13,20 +13,32 @@ class ViewImageController extends Controller
 {
     public function views($idBaiDang, $idHinhAnh)
     {
-        if (session()->has('numLoad')) {
-            if (url()->current() == url()->previous()) {
-                Session::forget('first');
-            } else {
-                $numLoad = Session::get('numLoad');
-                $numLoad--;
-                Session::put('numLoad', $numLoad);
-            }
-        } else {
-            Session::put('numLoad', -1);
-        }
         $post = DB::table('baidang')->where('baidang.IDBaiDang', '=', $idBaiDang)->get();
-        $data = Functions::getPost($post[0]);
-        return view('Guest\anh')->with('data', $data)->with('idHinhAnh', $idHinhAnh);
+
+        if (count($post) == 0)
+            return view('Guest\anh')->with('data', $post);
+        else {
+            $posts = DB::table('hinhanh')
+                ->where('hinhanh.IDHinhAnh', '=', $idHinhAnh)
+                ->where('hinhanh.IDBaiDang', '=', $idBaiDang)
+                ->get();
+            if (count($posts) == 0)
+                return view('Guest\anh')->with('data', $posts);
+            else {
+                if (session()->has('numLoad'))
+                    if (url()->current() == url()->previous())
+                        Session::forget('first');
+                    else {
+                        $numLoad = Session::get('numLoad');
+                        $numLoad--;
+                        Session::put('numLoad', $numLoad);
+                    }
+                else
+                    Session::put('numLoad', -1);
+                $data = Functions::getPost($post[0]);
+                return view('Guest\anh')->with('data', $data)->with('idHinhAnh', $idHinhAnh);
+            }
+        }
     }
     public function backPage($value1, $value2, $value3)
     {

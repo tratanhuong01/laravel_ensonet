@@ -11,6 +11,8 @@ use App\Models\Taikhoan;
 use App\Models\Functions;
 use App\Events\RedisEvent;
 use App\Models\Data;
+use Illuminate\Support\Facades\DB;
+
 // Đăng Nhập
 Route::get('/login', function () {
     return view('Guest/login');
@@ -174,6 +176,6 @@ Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewOut', [Displays\ViewImage
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    print_r(Data::getDetailFeelPosts('2000000029'));
+    print_r(DB::table('baidang')->get()[0]);
     echo "</pre>";
 });
