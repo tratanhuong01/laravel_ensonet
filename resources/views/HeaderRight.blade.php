@@ -1,6 +1,10 @@
+<?php
+
+use Illuminate\Http\Request;
+
+?>
 <li onclick="darkMode()" class="">
-    <div class="cursor-pointer pt-1.5 relative h-10 ml-1 mr-1 w-10 bg-gray-200 dark:bg-dark-third dark:text-white 
-                        text-center rounded-full">
+    <div class="cursor-pointer pt-1.5 relative h-10 ml-1 mr-1 w-10 bg-gray-200 dark:bg-dark-third dark:text-white text-center rounded-full">
         <i class="bx bx-plus text-xl hidden"></i>
         <i class="bx bxs-moon text-xl"></i>
     </div>
@@ -32,11 +36,29 @@
         <i class="fas fa-sort-down text-xl leading-4"></i>
     </div>
     <div style="display:none;" id="header-right-modal" class="dark:bg-dark-second bg-white my-2 absolute right-0 
-                        w-80 p-2 border-2 border-solid rounded-lg">
+                        w-80 p-2 border-2 border-solid rounded-lg z-50">
         <ul class="w-full">
-            <li onclick="window.location.href = 'profile.{{ $user[0]->IDTaiKhoan }}'" class="w-full flex p-3 cursor-pointer 
-                                flex dark:hover:bg-dark-third hover:bg-gray-200">
-                <img class="w-12 h-12 rounded-full object-cover" src="{{ $user[0]->AnhDaiDien }}" alt="" srcset="">
+            <?php
+
+            $url_red = "profile." . $user[0]->IDTaiKhoan;
+
+            ?>
+            <li onclick='window.location.href = "{{ url($url_red)}}"' class="w-full flex p-3 cursor-pointer flex dark:hover:bg-dark-third hover:bg-gray-200">
+                <?php
+                $path = explode('/', parse_url(url()->current())['path']);
+                switch (count($path)) {
+                    case '2':
+                        $path = '/';
+                        break;
+                    case '3':
+                        $path = '/../../';
+                        break;
+                    case '4':
+                        $path = '/../../../';
+                        break;
+                }
+                ?>
+                <img class="w-12 h-12 rounded-full object-cover" src="{{ $path.$user[0]->AnhDaiDien }}" alt="" srcset="">
                 &nbsp;&nbsp;
                 <p class="pt-2.5 pl-1 dark:text-white font-bold">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</p>
             </li>

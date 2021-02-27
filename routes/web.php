@@ -165,7 +165,11 @@ Route::get('ProcessEditObjectPrivacyPost', [BaiDang\EditObjectPrivacyController:
     ->name('ProcessEditObjectPrivacyPost');
 
 //xem chi tiết hình 
-Route::get('/profile.{idTaiKhoan}/{idBaiDang}/{duongDan}', [Displays\ViewImageController::class, 'views']);
+Route::get('/photo/{idBaiDang}/{idHinhAnh}', [Displays\ViewImageController::class, 'views']);
+Route::get('/{value1}/{value2}/{value3}/backpage', [Displays\ViewImageController::class, 'backPage'])
+    ->name('backpage');
+Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewIn', [Displays\ViewImageController::class, 'zoomIn']);
+Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewOut', [Displays\ViewImageController::class, 'zoomOut']);
 
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {

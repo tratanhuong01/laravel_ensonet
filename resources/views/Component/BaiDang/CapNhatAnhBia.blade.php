@@ -10,11 +10,11 @@ $u = Session::get('user');
 <div id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Main" class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
         <div class="mr-2">
-            <a href=""><img class="w-12 h-12 rounded-full 
+            <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 rounded-full 
                             border-4 border-solid border-gray-200" src="{{ $item[0]->AnhDaiDien }}"></a>
         </div>
         <div class="relative pl-1" style="width: 80%;">
-            <p class="mb-2 dark:text-gray-300"><a href=""><b class="dark:text-white">
+            <p class="mb-2 dark:text-gray-300"><a href="profile.{{ $item[0]->IDTaiKhoan }}"><b class="dark:text-white">
                         {{ $item[0]->Ho . ' ' . $item[0]->Ten }}
                     </b>
                     &nbsp;</a> đã cập nhật ảnh bìa của anh ấy.</p>
@@ -62,7 +62,9 @@ $u = Session::get('user');
         <p class="dark:text-white">{{ $item[0]->NoiDung }}</p>
     </div>
     <div class="w-full mx-0 my-2.5">
-        <img src="{{ $item[0]->DuongDan }}" alt="" class="w-full h-72 object-cover">
+        <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[0]->IDHinhAnh }}">
+            <img src="{{ $item[0]->DuongDan }}" alt="" class="w-full h-72 object-cover">
+        </a>
     </div>
     <div class="w-full my-4 mx-0">
         <div class="w-full flex">
