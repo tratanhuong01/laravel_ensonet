@@ -5,7 +5,7 @@
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
-$user = Session::get('user');
+$u = Session::get('user');
 
 ?>
 
@@ -19,6 +19,7 @@ $user = Session::get('user');
     <script src="/../../js/ajax/BaiDang/ajax.js"></script>
     <script src="/../../js/ajax/MoiQuanHe/ajax.js"></script>
     <script src="/../../js/ajax.js"></script>
+    <script src="/../../js/scrollbar.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
@@ -97,7 +98,7 @@ $user = Session::get('user');
                 <div class="w-full pl-3">
                     <div class="absolute right-4 top-1 pt-2 pb-2">
                         <ul class="w-full flex">
-                            @include('HeaderRight')
+                            @include('HeaderRight',['user' => $u])
                         </ul>
                     </div>
                     <hr>
@@ -133,44 +134,7 @@ $user = Session::get('user');
                             <i class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
                         </div>
                     </div>
-                    <div class="w-full py-5">
-                        hêhe
-                    </div>
-                    <div class="w-full my-4 mx-0">
-                        <div class="w-full flex">
-                            <div class="w-full flex pl-0.5 py-1" id="" style="line-height: 40px;">
-                            </div>
-                            <div class="w-full text-right pr-2 py-1">
-                                <p class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold ">
-                                </p>
-                            </div>
-                        </div>
-                        <style>
-                            .show-feels {
-                                display: none;
-                            }
-
-                            .feels:hover>.show-feels {
-                                display: flex;
-                            }
-                        </style>
-                        <ul class="w-full flex border-t-2 border-b-2 border-solid border-gray-300 
-                        dark:border-dark-third relative">
-                            <div class="w-1/3 dark:hover:bg-dark-third hover:bg-gray-200 feels">
-                                <li class="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200 
-                            text-center w-full font-bold py-3 cursor-pointer justify-items-center" id="}" onclick="">
-                                    <span class="text-xl" style="color: transparent;text-shadow: 0 0 0 gray;">👍</span>
-                                    &nbsp;
-                                    <span class="font-bold">Thích</span>
-                                </li>
-
-                            </div>
-                            <li class="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200 
-                            text-center w-1/3 font-bold py-4 cursor-pointer justify-items-center"><i class="far fa-comment-alt dark:text-gray-300"></i> &nbsp; Bình Luận</li>
-                            <li class="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200 
-                            text-center w-1/3 font-bold py-4 cursor-pointer justify-items-center"><i class="fas fa-share dark:text-gray-300"></i> &nbsp; Chia sẻ</li>
-                        </ul>
-                    </div>
+                    @include('Component\Child\CamXucBinhLuan',['item' => $data])
                 </div>
             </div>
         </div>
@@ -187,6 +151,9 @@ $user = Session::get('user');
             document.getElementById('leftImage').style.width = '75%';
         </script>
         @endif
+    </div>
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
+
     </div>
     @endif
     <script>

@@ -100,6 +100,9 @@ Route::get('LoadQuenTaiKhoan', function () {
 // redriect bạn bè
 Route::get('ProcessProfileFriend', [ProfileFriendsController::class, 'view']);
 
+// redriect bạn bè
+Route::get('profile.{IDTaiKhoan}/friends', [ProfileFriendsController::class, 'view']);
+
 // ajax bày tỏ cảm xúc bài đăng
 Route::get('ProcessFeelPost', [BaiDang\FeelController::class, 'feel']);
 
@@ -118,7 +121,7 @@ Route::post('ProcessRepCommentPost', [BaiDang\RepCommentController::class, 'rep'
 Route::post('ProcessSharePost', [BaiDang\SharePostController::class, 'share'])
     ->name('ProcessSharePost');
 
-// ajax xử lí chia sẽ bài viết
+// ajax xử lí xem thông tin người dùng
 Route::get('ProcessViewInfo', [ViewInfoHoverController::class, 'view']);
 
 // ajax view lượt cảm xúc
@@ -126,6 +129,12 @@ Route::get('ProcessViewDetailFeel', [BaiDang\ViewDetailFeelController::class, 'v
 
 // ajax view lượt cảm xúc
 Route::get('ProcessViewOnlyDetailFeel', [BaiDang\ViewDetailFeelController::class, 'viewOnly']);
+
+// ajax view lượt cảm xúc path khác
+Route::get('/{value1}/{value2}/{value3}/ProcessViewDetailFeel', [BaiDang\ViewDetailFeelController::class, 'view']);
+
+// ajax view lượt cảm xúc path khác
+Route::get('/{value1}/{value2}/{value3}/ProcessViewOnlyDetailFeel', [BaiDang\ViewDetailFeelController::class, 'viewOnly']);
 
 // ajax mở hộp thoại bài đăng
 Route::get('ProcessOpenPostDialog', function () {

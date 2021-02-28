@@ -1,8 +1,8 @@
 //xem tất cả số lượng cảm xúc của bài đăng 
-function viewDetailFeel(IDBaiDang) {
+function viewDetailFeel(IDBaiDang, Path) {
     $.ajax({
         method: "GET",
-        url: 'ProcessViewDetailFeel',
+        url: Path + '/' + 'ProcessViewDetailFeel',
         data: {
             IDBaiDang: IDBaiDang,
         },
@@ -15,10 +15,10 @@ function viewDetailFeel(IDBaiDang) {
 }
 
 //xem số lượng mỗi cảm xúc của bài đăng 
-function viewOnlyDetailFeel(IDBaiDang, LoaiCamXuc) {
+function viewOnlyDetailFeel(IDBaiDang, LoaiCamXuc, Path) {
     $.ajax({
         method: "GET",
-        url: 'ProcessViewOnlyDetailFeel',
+        url: Path + '/' + 'ProcessViewOnlyDetailFeel',
         data: {
             IDBaiDang: IDBaiDang,
             LoaiCamXuc: LoaiCamXuc
@@ -28,6 +28,7 @@ function viewOnlyDetailFeel(IDBaiDang, LoaiCamXuc) {
         }
     });
 }
+
 // mở hộp thoại chỉnh sửa bài đăng  
 function openEditPost(ids) {
     $('#' + ids).show();

@@ -281,7 +281,6 @@
                         </div>
                     </div>
                     <?php
-
                     $post_main = Functions::countPost($users[0]->IDTaiKhoan);
                     ?>
                     @for ($i = 0 ; $i < sizeof($post_main) ; $i++) <?php $post = Functions::getPost($post_main[$i]); ?> @switch($post[0]->LoaiBaiDang)

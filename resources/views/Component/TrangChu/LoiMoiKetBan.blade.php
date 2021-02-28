@@ -13,12 +13,12 @@ $user = Session::get('user');
 @else
 @for($i = 0 ; $i < count($requestFriend) ; $i++) <div class="w-full flex py-2.5 px-0">
     <div class="w-1/5 pt-2">
-        <a href=""><img class="w-16 h-16 rounded-full object-cover" src="/{{ $requestFriend[$i][0]->AnhDaiDien }}" alt=""></a>
+        <a href="profile.{{ $requestFriend[$i][0]->IDTaiKhoan }}"><img class="w-16 h-16 rounded-full object-cover" src="/{{ $requestFriend[$i][0]->AnhDaiDien }}" alt=""></a>
     </div>
     <div class="w-4/5 pl-2">
         <div class="w-full">
             <span class="float-left pl-2.5 font-bold">
-                <a href="" class="dark:text-white">{{ $requestFriend[$i][0]->Ho . ' ' . 
+                <a href="profile.{{ $requestFriend[$i][0]->IDTaiKhoan }}" class="dark:text-white">{{ $requestFriend[$i][0]->Ho . ' ' . 
                         $requestFriend[$i][0]->Ten }}</a></span>
             <span class="float-right text-xs dark:text-white">
                 {{ StringUtil::CheckDateTimeRequest(Functions::getDateTimeFriend($user[0]->IDTaiKhoan,

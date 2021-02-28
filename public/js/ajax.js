@@ -170,8 +170,8 @@ function changeAvatar(event) {
         contentType: false,
         processData: false,
         success: function (response) {
-            $('#web').css('opactity', '0.2');
-            $('#main').html(response);
+            second.innerHTML = response;
+            second.className += ' fixed h-screen';
             $('#avt-opactity').attr('src', path);
             $('#avt-opactity-none').attr('src', path);
             var child = $('#changeavt').clone();
@@ -196,7 +196,7 @@ function updateAvatar() {
         contentType: false,
         processData: false,
         success: function (response) {
-            $('#main').html('');
+            second.innerHTML = '';
             var re = document.getElementById('ajaxAnhDaiDien');
             var parent1 = document.createElement('div');
             parent1.className = 'w-44 h-44 rounded-full mx-auto border-4 border-solid border-white pt-16 dark:bg-dark-third bg-gray-100'

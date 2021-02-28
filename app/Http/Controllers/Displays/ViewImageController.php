@@ -16,14 +16,14 @@ class ViewImageController extends Controller
         $post = DB::table('baidang')->where('baidang.IDBaiDang', '=', $idBaiDang)->get();
 
         if (count($post) == 0)
-            return view('Guest\anh')->with('data', $post);
+            return view('Guest\view')->with('data', $post);
         else {
             $posts = DB::table('hinhanh')
                 ->where('hinhanh.IDHinhAnh', '=', $idHinhAnh)
                 ->where('hinhanh.IDBaiDang', '=', $idBaiDang)
                 ->get();
             if (count($posts) == 0)
-                return view('Guest\anh')->with('data', $posts);
+                return view('Guest\view')->with('data', $posts);
             else {
                 if (session()->has('numLoad'))
                     if (url()->current() == url()->previous())
@@ -36,7 +36,7 @@ class ViewImageController extends Controller
                 else
                     Session::put('numLoad', -1);
                 $data = Functions::getPost($post[0]);
-                return view('Guest\anh')->with('data', $data)->with('idHinhAnh', $idHinhAnh);
+                return view('Guest\view')->with('data', $data)->with('idHinhAnh', $idHinhAnh);
             }
         }
     }
