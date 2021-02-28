@@ -113,6 +113,10 @@ Route::get('ProcessViewFeelPost', [BaiDang\FeelController::class, 'view']);
 Route::get('ProcessCommentPost', [BaiDang\CommentController::class, 'comment'])
     ->name('ProcessCommentPost');
 
+// ajax xử lí bình luận
+Route::get('ProcessViewMoreCommentPost', [BaiDang\CommentController::class, 'viewmore'])
+    ->name('ProcessViewMoreCommentPost');
+
 // ajax xử lí phản hồi bình luận
 Route::post('ProcessRepCommentPost', [BaiDang\RepCommentController::class, 'rep'])
     ->name('ProcessRepCommentPost');

@@ -3,6 +3,7 @@
 use App\Models\StringUtil;
 use App\Models\Functions;
 use Illuminate\Support\Facades\Session;
+use App\Models\Process;
 
 $u = Session::get('user');
 
@@ -65,7 +66,8 @@ $u = Session::get('user');
             @for ($i = 0 ; $i < sizeof($item) ; $i++) @if ($item[$i]->DuongDan == NULL)
                 @elseif (sizeof($item) == 1 && $item[$i]->DuongDan != NULL)
                 <li class="w-full">
-                    <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="w-full p-1 object-cover" style="height:650px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a>
+                    <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
+                        <img class="w-full p-1 object-cover" style="max-height:650px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a>
                 </li>
                 @else
                 @if (sizeof($item) > 4 && $i == 3)
@@ -85,7 +87,15 @@ $u = Session::get('user');
     </div>
     @include('Component\BaiDang\CamXucBinhLuan',['item' => $item])
     <div class="w-full" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}CommentLv1">
+        <?php $commentLimit = Process::getCommentLimit($item[0]->IDBaiDang);
+        $comment = Process::getCommentNew($item[0]->IDBaiDang); ?>
+        @if (count($commentLimit) == 0)
 
-    </div>
-    @include('Component\BinhLuan\VietBinhLuanLv1')
+        @else
+        @for ($i = 0 ; $i < count($commentLimit) ; $i++) @include('Component\BinhLuan\BinhLuanLv1',['comment'=> $commentLimit[$i]])
+            @endfor
+            @include('Component\BinhLuan\XemThemBinhLuan',['num' => count($comment),
+            'comment' => $commentLimit[0],'index' => 2])
+            @endif </div>
+    @include('Component\BinhLuan\VietBinhLuanLv1',['item' => $item])
 </div>

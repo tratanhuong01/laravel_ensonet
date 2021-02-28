@@ -26,10 +26,25 @@ class CommentController extends Controller
             '1',
             NULL
         );
+        $comment = DB::table('binhluan')
+            ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
+            ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
+            ->where('binhluan.IDBinhLuan', '=', $idBinhLuan)
+            ->get();
         return view('Component\BinhLuan\BinhLuanLv1')
             ->with(
                 'comment',
-                Binhluan::where('binhluan.IDBinhLuan', '=', $idBinhLuan)->get()
+                $comment
             );
+    }
+    public function viewmore(Request $request)
+    {
+        $comment = DB::table('binhluan')
+            ->skip(0)->take(2)
+            ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
+            ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
+            ->orderBy('ThoiGianBinhLuan', 'desc')
+            ->get();
+        return view('Component\BinhLuan\BinhLuanLv1')->with('comment', $comment[0]);
     }
 }

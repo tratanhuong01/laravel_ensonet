@@ -41,19 +41,7 @@ function viewInfoLeave() {
   d.innerHTML = '';
   d.style.display = 'none';
 }
-var cmt = document.getElementsByClassName("comment-per");
-var tym_cmt = document.getElementsByClassName("tym-comment");
-for (var index = 0; index < cmt.length; index++) {
-  var width_cmt = cmt[index].offsetWidth;
-  if (width_cmt <= 135) {
-    tym_cmt[index].style.right = -24 + "px";
-    tym_cmt[index].style.bottom = -8 + "px";
-  }
-  else {
-    tym_cmt[index].style.right = 16 + "px";
-    tym_cmt[index].style.bottom = -20 + "px";
-  }
-}
+
 function openEditFriend(index) {
   var editFriend = document.getElementsByClassName("edit-friend");
   editFriend[index].style.display = 'block';
