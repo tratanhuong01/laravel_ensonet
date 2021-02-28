@@ -196,7 +196,6 @@ function updateAvatar() {
         contentType: false,
         processData: false,
         success: function (response) {
-            second.innerHTML = '';
             var re = document.getElementById('ajaxAnhDaiDien');
             var parent1 = document.createElement('div');
             parent1.className = 'w-44 h-44 rounded-full mx-auto border-4 border-solid border-white pt-16 dark:bg-dark-third bg-gray-100'
@@ -212,6 +211,9 @@ function updateAvatar() {
             $('#ajaxAnhDaiDien1').html('');
             re.appendChild(parent1);
             $('#ajaxAnhDaiDien1').append(parent2);
+            second.innerHTML = '';
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
             setTimeout(function () {
                 $('#ajaxAnhDaiDien').html(response);
                 $('#ajaxAnhDaiDien1').html('');
@@ -219,6 +221,7 @@ function updateAvatar() {
                 var src = document.getElementById('anhDaiDien_Main').src;
                 $('#ajaxAnhDaiDien2').attr('src', src);
             }, 1000);
+
         }
     });
 }
@@ -335,13 +338,4 @@ function FeelPost(nameID, loaiCamXuc) {
             $('#' + nameID + 'post').html(response);
         }
     });
-}
-function CommentPost() {
-
-}
-function SharePost() {
-
-}
-function RepCommentPost() {
-
 }

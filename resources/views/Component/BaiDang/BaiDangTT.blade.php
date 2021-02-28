@@ -84,4 +84,8 @@ $u = Session::get('user');
         </ul>
     </div>
     @include('Component\BaiDang\CamXucBinhLuan',['item' => $item])
+    <div class="w-full" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}CommentLv1">
+
+    </div>
+    @include('Component\BinhLuan\VietBinhLuanLv1')
 </div>

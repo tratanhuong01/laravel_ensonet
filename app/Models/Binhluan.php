@@ -16,7 +16,8 @@ class Binhluan extends Model
         'NoiDungBinhLuan',
         'ThoiGianBinhLuan',
         'PhanHoi',
-        'LoaiBinhLuan'
+        'LoaiBinhLuan',
+        'GanThe'
     ];
     public static function add(
         $IDBinhLuan,
@@ -25,7 +26,8 @@ class Binhluan extends Model
         $NoiDungBinhLuan,
         $ThoiGianBinhLuan,
         $PhanHoi,
-        $LoaiBinhLuan
+        $LoaiBinhLuan,
+        $GanThe
     ) {
         $binhluan = new binhluan;
         $binhluan->IDBinhLuan = $IDBinhLuan;
@@ -35,6 +37,7 @@ class Binhluan extends Model
         $binhluan->ThoiGianBinhLuan = $ThoiGianBinhLuan;
         $binhluan->PhanHoi = $PhanHoi;
         $binhluan->LoaiBinhLuan = $LoaiBinhLuan;
+        $binhluan->GanThe = $GanThe;
         $binhluan->save();
     }
     public $timestamps = false;

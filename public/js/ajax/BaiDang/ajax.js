@@ -18,7 +18,7 @@ function viewDetailFeel(IDBaiDang, Path) {
 function viewOnlyDetailFeel(IDBaiDang, LoaiCamXuc, Path) {
     $.ajax({
         method: "GET",
-        url: Path + '/' + 'ProcessViewOnlyDetailFeel',
+        url: '/' + 'ProcessViewOnlyDetailFeel',
         data: {
             IDBaiDang: IDBaiDang,
             LoaiCamXuc: LoaiCamXuc

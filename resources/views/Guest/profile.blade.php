@@ -17,6 +17,7 @@
     <script src="js/event/event.js"></script>
     <script src="js/ajax.js"></script>
     <script src="js/ajax/BaiDang/ajax.js"></script>
+    <script src="js/ajax/BinhLuan/ajax.js"></script>
 </head>
 
 <body>
@@ -127,7 +128,7 @@
         </div>
         <div id="place_load_about" class="w-full relative bg-gray-100 dark:bg-dark-main">
             <div class="mx-auto relative w-full pt-4 lg:flex xl:w-63% md:w-4/5 lg:w-3/4 md:mx-auto">
-                <div class="w-full lg:w-2/5">
+                <div id="profileLeft" class="w-full lg:w-2/5">
                     <div class="mx-2.5 mt-4 bg-white p-2.5 pt-0 rounded-lg dark:bg-dark-third" style="width:95%;">
                         <p class="font-bold text-xl py-2 dark:text-white" style="font-family: system-ui;">Giới thiệu</p>
                         <ul class="w-full ">
@@ -303,7 +304,9 @@
         </div>
         @endif
     </div>
+    <script>
 
+    </script>
     <script src="js/scrollbar.js"></script>
 </body>
 
