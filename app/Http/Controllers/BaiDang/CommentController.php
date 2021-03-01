@@ -40,12 +40,7 @@ class CommentController extends Controller
     }
     public function viewmore(Request $request)
     {
-        $comment = DB::table('binhluan')
-            ->skip($request->Index)->take(2)
-            ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
-            ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
-            ->orderBy('ThoiGianBinhLuan', 'desc')
-            ->get();
+        $comment = Process::getCommentLimitFromTo($request->IDBaiDang, $request->Index);
         $view = "";
         for ($i = 0; $i < count($comment); $i++)
             $view .= view('Component\BinhLuan\BinhLuanLv1')->with('comment', $comment[$i]);

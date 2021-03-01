@@ -201,6 +201,6 @@ Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewOut', [Displays\ViewImage
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    print_r(Process::getCommentNew('2000000038'));
+    print_r(Process::getRepCommentLimit('2000000042', 0));
     echo "</pre>";
 });

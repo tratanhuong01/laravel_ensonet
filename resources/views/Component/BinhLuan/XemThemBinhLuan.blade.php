@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Process;
 
 $num = $num - 2;
-$index = $count - ($num);
+$index = $count - $num;
 
 ?>
-@if ($num > 0)
+@if ($num >= 1)
 <p onclick="ViewMoreCommentPost('{{ $idTaiKhoan }}',
     '{{ $idBaiDang }}',
     '{{ $index }}',
-    '{{ $num}}',
+    '{{ $num }}',
     '{{ $count }}')" class="font-bold dark:text-white cursor-pointer py-2">
     Xem thêm {{ $num }} bình luận...
 </p>

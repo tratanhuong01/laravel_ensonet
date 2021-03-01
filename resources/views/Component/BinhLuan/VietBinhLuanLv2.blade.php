@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Session;
 
-$user = Session::get('user');
+if (session()->has('users'))
+    $user = Session::get('users');
+else
+    $user = Session::get('user');
 
 ?>
 <div class="w-full mx-0 my-2 flex">

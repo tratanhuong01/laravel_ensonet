@@ -43,16 +43,12 @@ use App\Models\StringUtil;
         </p>
         <div class="w-full" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}CommentLv2">
             <div class=w-full>
-                @if ($comment->PhanHoi == '0')
-
-                @else
                 <?php $commentLimit = Process::getRepCommentLimit($comment->IDBinhLuan, 0); ?>
                 @for($i = 0;$i < count($commentLimit) ;$i++) </p>
                     @include('Component\BinhLuan\BinhLuanLv2',[
                     'comment'=> $commentLimit[$i],
                     ])
                     @endfor
-                    @endif
             </div>
         </div>
     </div>
