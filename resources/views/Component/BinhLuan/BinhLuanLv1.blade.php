@@ -1,10 +1,10 @@
 <?php
 
+use App\Models\Process;
 use Illuminate\Support\Facades\Session;
 use App\Models\StringUtil;
 
 ?>
-ok
 
 <div class="w-full mx-0 my-2 flex">
     <div class="w-1/12 pt-2">
@@ -24,7 +24,11 @@ ok
         </div>
         <ul class="flex pl-2">
             <li class="font-bold text-sm py-1 pr-2 cursor-pointer dark:text-white">Thích</li>
-            <li class="font-bold text-sm py-1 pr-2 cursor-pointer dark:text-white">Trả lời</li>
+            <li onclick="RepViewCommentPost(
+                '{{ $comment->IDTaiKhoan }}',
+                '{{ $comment->IDBaiDang }}',
+                '{{ $comment->IDBinhLuan }}'
+                )" class="font-bold text-sm py-1 pr-2 cursor-pointer dark:text-white">Trả lời</li>
             <li class="py-1 pr-2 cursor-pointer dark:text-white font-bold" style="font-size: 13px;">
                 {{ StringUtil::CheckDateTime($comment->ThoiGianBinhLuan) }}
             </li>
@@ -37,5 +41,19 @@ ok
             <i style="color: #65676B;" class="fas fa-angle-double-up"></i>&nbsp;&nbsp;
             Thu gọn
         </p>
+        <div class="w-full" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}CommentLv2">
+            <div class=w-full>
+                @if ($comment->PhanHoi == '0')
+
+                @else
+                <?php $commentLimit = Process::getRepCommentLimit($comment->IDBaiDang, 0); ?>
+                @for($i = 0;$i < count($commentLimit) ;$i++) </p>
+                    @include('Component\BinhLuan\BinhLuanLv2',[
+                    'comment'=> $commentLimit[$i],
+                    ])
+                    @endfor
+                    @endif
+            </div>
+        </div>
     </div>
 </div>

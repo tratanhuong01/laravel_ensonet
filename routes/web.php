@@ -113,12 +113,20 @@ Route::get('ProcessViewFeelPost', [BaiDang\FeelController::class, 'view']);
 Route::get('ProcessCommentPost', [BaiDang\CommentController::class, 'comment'])
     ->name('ProcessCommentPost');
 
-// ajax xử lí bình luận
+// ajax xử lí xem thêm bình luận
 Route::get('ProcessViewMoreCommentPost', [BaiDang\CommentController::class, 'viewmore'])
     ->name('ProcessViewMoreCommentPost');
 
+// ajax xử lí xem thêm bình luận
+Route::get('ProcessLoadViewMoreComment', [BaiDang\CommentController::class, 'numcomment'])
+    ->name('ProcessLoadViewMoreComment');
+
 // ajax xử lí phản hồi bình luận
-Route::post('ProcessRepCommentPost', [BaiDang\RepCommentController::class, 'rep'])
+Route::get('ProcessRepViewCommentPost', [BaiDang\RepCommentController::class, 'repview'])
+    ->name('ProcessRepViewCommentPost');
+
+// ajax xử lí phản hồi bình luận
+Route::get('ProcessRepCommentPost', [BaiDang\RepCommentController::class, 'rep'])
     ->name('ProcessRepCommentPost');
 
 // ajax xử lí chia sẽ bài viết
@@ -181,14 +189,22 @@ Route::get('ProcessEditObjectPrivacyPost', [BaiDang\EditObjectPrivacyController:
 
 //xem chi tiết hình 
 Route::get('/photo/{idBaiDang}/{idHinhAnh}', [Displays\ViewImageController::class, 'views']);
+
 Route::get('/{value1}/{value2}/{value3}/backpage', [Displays\ViewImageController::class, 'backPage'])
     ->name('backpage');
+
 Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewIn', [Displays\ViewImageController::class, 'zoomIn']);
+
 Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewOut', [Displays\ViewImageController::class, 'zoomOut']);
 
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    print_r(DB::table('baidang')->get()[0]);
+    print_r(DB::table('binhluan')
+        ->skip(6)->take(2)
+        ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
+        ->where('binhluan.IDBaiDang', '=', '2000000041')
+        ->orderBy('ThoiGianBinhLuan', 'desc')
+        ->get());
     echo "</pre>";
 });

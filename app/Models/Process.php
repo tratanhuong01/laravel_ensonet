@@ -14,6 +14,7 @@ class Process extends Model
         return DB::table('binhluan')
             ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
             ->where('binhluan.IDBaiDang', '=', $idBaiDang)
+            ->where('binhluan.LoaiBinhLuan', '=', '1')
             ->orderBy('ThoiGianBinhLuan', 'desc')
             ->get();
     }
@@ -23,16 +24,27 @@ class Process extends Model
             ->skip(0)->take(2)
             ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
             ->where('binhluan.IDBaiDang', '=', $idBaiDang)
+            ->where('binhluan.LoaiBinhLuan', '=', '1')
             ->orderBy('ThoiGianBinhLuan', 'desc')
             ->get();
     }
     public static function getCommentLimitFromTo($idBaiDang, $num)
     {
-        $num += 2;
         return DB::table('binhluan')
             ->skip($num)->take(2)
             ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
             ->where('binhluan.IDBaiDang', '=', $idBaiDang)
+            ->where('binhluan.LoaiBinhLuan', '=', '1')
+            ->orderBy('ThoiGianBinhLuan', 'desc')
+            ->get();
+    }
+    public static function getRepCommentLimit($idBaiDang, $num)
+    {
+        return DB::table('binhluan')
+            ->skip($num)->take(2)
+            ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
+            ->where('binhluan.IDBaiDang', '=', $idBaiDang)
+            ->where('binhluan.LoaiBinhLuan', '=', '2')
             ->orderBy('ThoiGianBinhLuan', 'desc')
             ->get();
     }

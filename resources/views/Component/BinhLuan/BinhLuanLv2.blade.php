@@ -1,40 +1,47 @@
-<div class="w-full py-2">
-    <div class="w-full">
-        <div class="w-full my-2 flex">
-            <div class="w-1/12">
-                <a href=""><img class="w-10 h-10 mt-2 rounded-full border-2 border-solid" src="img/avatar.jpg" alt="" srcset=""></a>
-            </div>
-            <div class="comment-per w-max p-2 bg-gray-100 relative" style="border-radius: 10px;max-width: 91%;">
-                <p><a href="" class="font-bold">Hưởng Tea</a></p>
-                <p style="font-size: 15px;clear: both;">
-                    😂😂😂😂😂😂😂😂😂😂😂😂😂😂
-                </p>
-                <span class="tym-comment bg-white color-word px-2 py-1 absolute right-4 -bottom-6 cursor-pointer" style="border-radius: 20px;">
-                    <i class="fas fa-heart text-xm cursor-pointer pt-0.5" style="color: red;">
-                    </i>&nbsp;&nbsp;<b style="font-size: 14px;">1</b>
-                </span>
-            </div>
+<?php
+
+use Illuminate\Support\Facades\Session;
+use App\Models\StringUtil;
+
+?>
+
+<div class="w-full mx-0 my-2 flex">
+    <div class="w-1/12 pt-2">
+        <a href=""><img class="w-12 h-12 p-0.5 object-cover rounded-full" src="/{{ $comment->AnhDaiDien }}" alt="" srcset=""></a>
+    </div>
+    <div class="w-11/12 ml-2">
+        <div class="comment-per w-max p-2 dark:bg-dark-third bg-gray-100 relative rounded-lg" style="max-width: 91%;">
+            <p><a href="" class="font-bold dark:text-white">{{ $comment->Ho . ' ' . $comment->Ten }}</a></p>
+            <p class="dark:text-white" style="font-size: 15px;clear: both;word-wrap: break-word;">
+                {{ $comment->NoiDungBinhLuan }}
+            </p>
+            <span class="tym-comment dark:bg-dark-main bg-white color-word px-2 py-1 
+            absolute cursor-pointer" style="border-radius: 20px;bottom:-5px;right:-24px;">
+                <i class="fas fa-heart text-xm cursor-pointer pt-0.5" style="color: red;">
+                </i>&nbsp;&nbsp;<b class="dark:text-white" style="font-size: 14px;">2</b>
+            </span>
         </div>
         <ul class="flex pl-2">
-            <li class="font-bold text-sm py-1 pr-2 cursor-pointer">Tym</li>
-            <li class="font-bold text-sm py-1 pr-2 cursor-pointer">Trả lời</li>
-            <li class="py-1 pr-2 cursor-pointer" style="font-size: 12px;">1 ngày</li>
+            <li class="font-bold text-sm py-1 pr-2 cursor-pointer dark:text-white">Thích</li>
+            <li onclick="RepViewCommentPost(
+                '{{ $comment->IDTaiKhoan }}',
+                '{{ $comment->IDBaiDang }}',
+                '{{ $comment->IDBinhLuan }}'
+                )" class="font-bold text-sm py-1 pr-2 cursor-pointer dark:text-white">Trả lời</li>
+            <li class="py-1 pr-2 cursor-pointer dark:text-white font-bold" style="font-size: 13px;">
+                {{ StringUtil::CheckDateTime($comment->ThoiGianBinhLuan) }}
+            </li>
         </ul>
-        <div class="w-full my-2 flex">
-            <div class="w-1/12">
-                <a href=""><img class="w-10 h-10 rounded-full border-2 border-solid" src="img/avatar.jpg" alt="" srcset=""></a>
-            </div>
-            <div class="w-11/12 relative bg-gray-100 px-3 overflow-hidden" style="border-radius: 30px;">
-                <div class="border-none outline-none bg-gray-100 py-3" style="min-height: 30px;width: 98%;" contenteditable>
-                    Viết bình luận....
-                </div>
-                <ul class="flex absolute bottom-0 right-0">
-                    <li class="py-2 pr-3 cursor-pointer"><i class="color-word far fa-smile"></i></li>
-                    <li class="py-2 pr-3 cursor-pointer"><i class="color-word fas fa-camera"></i></li>
-                    <li class="py-2 pr-3 cursor-pointer"><i class="color-word fas fa-radiation"></i></li>
-                    <li class="py-2 pr-3 cursor-pointer"><i class="color-word far fa-sticky-note"></i></li>
-                </ul>
-            </div>
+        <p style="font-size: 15px;display: none;" class="color-word font-bold cursor-pointer pl-2">
+            <i style="color: #65676B;" class="fas fa-angle-double-down"></i>&nbsp;&nbsp;
+            Xem 19 bình luận
+        </p>
+        <p style="font-size: 15px;display: none;" class="color-word font-bold cursor-pointer pl-2">
+            <i style="color: #65676B;" class="fas fa-angle-double-up"></i>&nbsp;&nbsp;
+            Thu gọn
+        </p>
+        <div class="w-full" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}CommentLv2">
+
         </div>
     </div>
 </div>

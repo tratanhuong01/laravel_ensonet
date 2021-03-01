@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Exception;
 use App\Models\Binhluan;
 use App\Models\StringUtil;
+use App\Models\Process;
 
 class CommentController extends Controller
 {
@@ -34,7 +35,7 @@ class CommentController extends Controller
         return view('Component\BinhLuan\BinhLuanLv1')
             ->with(
                 'comment',
-                $comment
+                $comment[0]
             );
     }
     public function viewmore(Request $request)
@@ -45,6 +46,21 @@ class CommentController extends Controller
             ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
             ->orderBy('ThoiGianBinhLuan', 'desc')
             ->get();
-        return view('Component\BinhLuan\BinhLuanLv1')->with('comment', $comment[0]);
+        $view = "";
+        for ($i = 0; $i < count($comment); $i++)
+            $view .= view('Component\BinhLuan\BinhLuanLv1')->with('comment', $comment[$i]);
+        return $view;
+    }
+    public function numcomment(Request $request)
+    {
+        $comment = Process::getCommentLimitFromTo($request->IDBaiDang, $request->Index);
+        if (count($comment) == 0)
+            return '';
+        else
+            return view('Component\BinhLuan\XemThemBinhLuan')
+                ->with('num', $request->Num)
+                ->with('count', $request->Count)
+                ->with('idTaiKhoan', $request->IDTaiKhoan)
+                ->with('idBaiDang', $request->IDBaiDang);
     }
 }

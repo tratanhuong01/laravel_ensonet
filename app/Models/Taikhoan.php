@@ -10,28 +10,45 @@ class Taikhoan extends Model
     protected $table = "taikhoan";
 
     protected $fillable = [
-                            'IDTaiKhoan',
-                            'MatKhau',
-                            'Ho',
-                            'Ten',
-                            'Email',
-                            'SoDienThoai',
-                            'CodeEmail',
-                            'CodeSoDienThoai',
-                            'AnhDaiDien',
-                            'AnhBia',
-                            'GioiTinh',
-                            'NgaySinh',
-                            'MoTa',
-                            'LanDangNhap',
-                            'LoaiTaiKhoan',
-                            'XacMinh',
-                            'TinhTrang',
-                            'NgayTao'
-                        ];
-    public static function add($IDTaiKhoan,$MatKhau,$Ho,$Ten,$Email,
-    $SoDienThoai,$CodeEmail,$CodeSoDienThoai,$AnhDaiDien,$AnhBia,
-    $GioiTinh,$NgaySinh,$MoTa,$LanDangNhap,$LoaiTaiKhoan,$XacMinh,$TinhTrang,$NgayTao) {
+        'IDTaiKhoan',
+        'MatKhau',
+        'Ho',
+        'Ten',
+        'Email',
+        'SoDienThoai',
+        'CodeEmail',
+        'CodeSoDienThoai',
+        'AnhDaiDien',
+        'AnhBia',
+        'GioiTinh',
+        'NgaySinh',
+        'MoTa',
+        'LanDangNhap',
+        'LoaiTaiKhoan',
+        'XacMinh',
+        'TinhTrang',
+        'NgayTao'
+    ];
+    public static function add(
+        $IDTaiKhoan,
+        $MatKhau,
+        $Ho,
+        $Ten,
+        $Email,
+        $SoDienThoai,
+        $CodeEmail,
+        $CodeSoDienThoai,
+        $AnhDaiDien,
+        $AnhBia,
+        $GioiTinh,
+        $NgaySinh,
+        $MoTa,
+        $LanDangNhap,
+        $LoaiTaiKhoan,
+        $XacMinh,
+        $TinhTrang,
+        $NgayTao
+    ) {
         $taikhoan = new Taikhoan;
         $taikhoan->IDTaiKhoan = $IDTaiKhoan;
         $taikhoan->MatKhau = md5($MatKhau);

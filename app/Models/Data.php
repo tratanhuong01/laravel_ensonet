@@ -75,7 +75,7 @@ class Data extends Model
     {
         $user = array();
         $k = 0;
-        $data = Camxuc::where('camxuc.LoaiCamXuc', '=', $loaiCamXuc)
+        $data = Camxuc::where('camxuc.LoaiCamXuc', 'LIKE', '%' . explode('@', $loaiCamXuc)[0] . '@' . '%')
             ->where('camxuc.IDBaiDang', '=', $idBaiDang)->get();
         for ($j = 0; $j < count($data); $j++) {
             $u = DB::table('taikhoan')
