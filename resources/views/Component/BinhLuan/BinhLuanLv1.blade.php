@@ -46,7 +46,7 @@ use App\Models\StringUtil;
                 @if ($comment->PhanHoi == '0')
 
                 @else
-                <?php $commentLimit = Process::getRepCommentLimit($comment->IDBaiDang, 0); ?>
+                <?php $commentLimit = Process::getRepCommentLimit($comment->IDBinhLuan, 0); ?>
                 @for($i = 0;$i < count($commentLimit) ;$i++) </p>
                     @include('Component\BinhLuan\BinhLuanLv2',[
                     'comment'=> $commentLimit[$i],

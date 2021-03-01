@@ -39,15 +39,13 @@ class RepCommentController extends Controller
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $idBinhLuan = StringUtil::ID('binhluan', 'IDBinhLuan');
-        DB::update('UPDATE binhluan SET binhluan.PhanHoi = ? WHERE 
-        binhluan.IDBinhLuan = ? ', [$request->IDBinhLuan, $request->IDBinhLuan]);
         Binhluan::add(
             $idBinhLuan,
             $request->IDBaiDang,
             Session::get('user')[0]->IDTaiKhoan,
             $request->NoiDungBinhLuan,
             date("Y-m-d H:i:s"),
-            '0',
+            $request->IDBinhLuan,
             '2',
             NULL
         );

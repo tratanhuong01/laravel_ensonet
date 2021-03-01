@@ -90,7 +90,6 @@ $u = Session::get('user');
         <?php $commentLimit = Process::getCommentLimitFromTo($item[0]->IDBaiDang, 0);
         $comment = Process::getCommentNew($item[0]->IDBaiDang); ?>
         @if (count($commentLimit) == 0)
-
         @else
         <div class=w-full>
             @for($i = 0;$i < count($commentLimit) ;$i++) </p>

@@ -38,12 +38,12 @@ class Process extends Model
             ->orderBy('ThoiGianBinhLuan', 'desc')
             ->get();
     }
-    public static function getRepCommentLimit($idBaiDang, $num)
+    public static function getRepCommentLimit($idBinhLuan, $num)
     {
         return DB::table('binhluan')
             ->skip($num)->take(2)
             ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
-            ->where('binhluan.IDBaiDang', '=', $idBaiDang)
+            ->where('binhluan.PhanHoi', '=', $idBinhLuan)
             ->where('binhluan.LoaiBinhLuan', '=', '2')
             ->orderBy('ThoiGianBinhLuan', 'desc')
             ->get();

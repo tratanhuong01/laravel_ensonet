@@ -41,7 +41,7 @@ class CommentController extends Controller
     public function viewmore(Request $request)
     {
         $comment = DB::table('binhluan')
-            ->skip(0)->take(2)
+            ->skip($request->Index)->take(2)
             ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
             ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
             ->orderBy('ThoiGianBinhLuan', 'desc')

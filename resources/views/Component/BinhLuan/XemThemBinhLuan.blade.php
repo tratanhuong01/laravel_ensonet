@@ -7,9 +7,9 @@ use App\Models\Process;
 
 $num = $num - 2;
 $index = $count - ($num);
-$counts = $count;
 
 ?>
+@if ($num > 0)
 <p onclick="ViewMoreCommentPost('{{ $idTaiKhoan }}',
     '{{ $idBaiDang }}',
     '{{ $index }}',
@@ -17,3 +17,5 @@ $counts = $count;
     '{{ $count }}')" class="font-bold dark:text-white cursor-pointer py-2">
     Xem thêm {{ $num }} bình luận...
 </p>
+@else
+@endif

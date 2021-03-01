@@ -12,6 +12,7 @@ use App\Models\Functions;
 use App\Events\RedisEvent;
 use App\Models\Data;
 use Illuminate\Support\Facades\DB;
+use App\Models\Process;
 
 // Đăng Nhập
 Route::get('/login', function () {
@@ -200,11 +201,6 @@ Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewOut', [Displays\ViewImage
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    print_r(DB::table('binhluan')
-        ->skip(6)->take(2)
-        ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
-        ->where('binhluan.IDBaiDang', '=', '2000000041')
-        ->orderBy('ThoiGianBinhLuan', 'desc')
-        ->get());
+    print_r(Process::getCommentNew('2000000038'));
     echo "</pre>";
 });
