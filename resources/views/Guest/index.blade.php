@@ -7,16 +7,19 @@ use Illuminate\Support\Facades\Session;
 ?>
 
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en" class="dark">
 
 <head>
     <title>Ensonet</title>
     @include('Head/css')
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/emojis.css">
     <script src="js/scrollbar.js"></script>
     <script src="js/index.js"></script>
     <script src="js/event/event.js"></script>
     <script src="js/ajax/BaiDang/ajax.js"></script>
     <script src="js/ajax/MoiQuanHe/ajax.js"></script>
+    <script src="js/ajax/BinhLuan/ajax.js"></script>
     <script src="js/ajax.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -197,7 +200,10 @@ use Illuminate\Support\Facades\Session;
         @else
         <?php redirect()->to('login')->send(); ?>
         @endif
-
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    <script src="js/DisMojiPicker.js"></script>
 </body>
 
 </html>

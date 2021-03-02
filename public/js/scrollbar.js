@@ -95,3 +95,8 @@ function typeChat(index) {
     three_exten[index].style.display = 'block';
   }
 }
+function showEmojii(name) {
+  $("#emojis").disMojiPicker();
+  $("#emojis").picker(emoji => $('#' + name).append(emoji));
+  twemoji.parse(document.body);
+}
