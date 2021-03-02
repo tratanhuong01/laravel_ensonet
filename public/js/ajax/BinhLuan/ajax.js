@@ -74,3 +74,26 @@ function RepCommentPost(IDTaiKhoan, IDBaiDang, IDBinhLuan, event) {
         });
     }
 }
+function FeelCommentPost(IDBinhLuan, LoaiCamXuc) {
+    $.ajax({
+        method: "GET",
+        url: "ProcessFeelCommentPost",
+        data: {
+            IDBinhLuan: IDBinhLuan,
+            LoaiCamXuc: LoaiCamXuc
+        },
+        success: function (response) {
+            $('#' + IDBinhLuan).html(response);
+        }
+    });
+    $.ajax({
+        method: "GET",
+        url: "ProcessLoadNumFeelCommentPost",
+        data: {
+
+        },
+        success: function (response) {
+
+        }
+    });
+}

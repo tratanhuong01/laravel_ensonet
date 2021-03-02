@@ -1,12 +1,14 @@
 <?php
 
+use App\Models\Process;
 use Illuminate\Support\Facades\Session;
 use App\Models\StringUtil;
+use App\Models\Functions;
 
 ?>
 
 <div class="w-full mx-0 my-2 flex">
-    <div class="w-1/12 pt-2">
+    <div class="pt-2">
         <a href=""><img class="w-12 h-12 p-0.5 object-cover rounded-full" src="/{{ $comment->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
     <div class="w-11/12 ml-2">
@@ -22,7 +24,11 @@ use App\Models\StringUtil;
             </span>
         </div>
         <ul class="flex pl-2">
-            <li class="font-bold text-sm py-1 pr-2 cursor-pointer dark:text-white">Thích</li>
+            <li id="{{ $comment->IDBinhLuan }}" class="relative feels font-bold text-sm py-1 
+                pr-2 cursor-pointer dark:text-white">
+                {!! Functions::checkIsFeelCmt($user[0]->IDTaiKhoan,$comment->IDBinhLuan) !!}
+                @include('Component\BinhLuan\CamXucBinhLuan',['comment' => $comment])
+            </li>
             <li onclick="RepViewCommentPost(
                 '{{ $comment->IDTaiKhoan }}',
                 '{{ $comment->IDBaiDang }}',

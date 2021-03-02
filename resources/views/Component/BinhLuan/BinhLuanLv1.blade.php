@@ -3,6 +3,7 @@
 use App\Models\Process;
 use Illuminate\Support\Facades\Session;
 use App\Models\StringUtil;
+use App\Models\Functions;
 
 ?>
 
@@ -23,7 +24,11 @@ use App\Models\StringUtil;
             </span>
         </div>
         <ul class="flex pl-2">
-            <li class="font-bold text-sm py-1 pr-2 cursor-pointer dark:text-white">Thích</li>
+            <li id="{{ $comment->IDBinhLuan }}" class="relative feels font-bold text-sm py-1 
+                pr-2 cursor-pointer dark:text-white">
+                {!! Functions::checkIsFeelCmt($user[0]->IDTaiKhoan,$comment->IDBinhLuan) !!}
+                @include('Component\BinhLuan\CamXucBinhLuan',['comment' => $comment])
+            </li>
             <li onclick="RepViewCommentPost(
                 '{{ $comment->IDTaiKhoan }}',
                 '{{ $comment->IDBaiDang }}',

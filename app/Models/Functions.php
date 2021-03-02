@@ -162,6 +162,14 @@ class Functions extends Model
                 break;
         }
     }
+    public static function checkGetStringFeel($idBaiDang)
+    {
+        $userFeel = Functions::getUserFeel($idBaiDang);
+        for ($i = 0; $i < count($userFeel); $i++) {
+            for ($i = 1; $i < count($userFeel) - 1; $i++) {
+            }
+        }
+    }
     public static function getStringFeel($idBaiDang)
     {
         $userFeel = Functions::getUserFeel($idBaiDang);
@@ -212,12 +220,47 @@ class Functions extends Model
             return view('Component\BaiDang\SoLuongCamXuc')->with('arr', $arr);
         }
     }
-    public static function checkGetStringFeel($idBaiDang)
+
+    public static function getFeelCmt($i)
     {
-        $userFeel = Functions::getUserFeel($idBaiDang);
-        for ($i = 0; $i < count($userFeel); $i++) {
-            for ($i = 1; $i < count($userFeel) - 1; $i++) {
-            }
+        switch (explode('@', $i)[0]) {
+            case '0':
+                return '<span class="font-bold text-sm" style="color:orange;">Thích</span>';
+                break;
+            case '1':
+                return '<span class="font-bold text-sm" style="color:#F2314C;">Yêu thích</span>';
+                break;
+            case '2':
+                return '<span class="font-bold text-sm" style="color:orange;">Haha</span>';
+                break;
+            case '3':
+                return '<span class="font-bold text-sm" style="color:orange;">Buồn</span>';
+                break;
+            case '4':
+                return '<span class="font-bold text-sm" style="color:orange;">Wow</span>';
+                break;
+            case '5':
+                return '<span class="font-bold text-sm" style="color:#EB7F27;">Phẩn nộ</span>';
+                break;
         }
+    }
+    public static function checkIsFeelCmt($idTaiKhoan, $idBinhLuan)
+    {
+        $data = Camxucbinhluan::where('camxucbinhluan.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('camxucbinhluan.IDBinhLuan', '=', $idBinhLuan)
+            ->get();
+        if (count($data) == 0)
+            return '<span class="text-sm font-bold">Thích</span>';
+        else
+            return Functions::getFeelCmt($data[0]->LoaiCamXuc);
+    }
+    public static function getUserFeelCmt($idBinhLuan)
+    {
+        return Camxucbinhluan::where('camxucbinhluan.IDBinhLuan', '=', $idBinhLuan)
+            ->get();
+    }
+    public static function getStringFeelCmt($idBinhLuan)
+    {
+        $userFeel = Functions::getUserFeel($idBinhLuan);
     }
 }

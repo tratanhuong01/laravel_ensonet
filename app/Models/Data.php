@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Camxuc;
+use Illuminate\Support\Arr;
 
 class Data extends Model
 {
@@ -45,18 +46,31 @@ class Data extends Model
             'SELECT DISTINCT  `LoaiCamXuc` FROM `camxuc` WHERE camxuc.IDBaiDang = ? ',
             [$idBaiDang]
         );
+        $countFeel1 = 0;
+        $countFeel2 = 0;
         for ($i = 0; $i < count($typeFeel); $i++) {
-            if ($typeFeel[$i]->LoaiCamXuc == '0@1') {
-                unset($typeFeel[$i]);
-                break;
+            if ($typeFeel[$i]->LoaiCamXuc == '0@1')
+                $countFeel1++;
+            else if ($typeFeel[$i]->LoaiCamXuc == '0@1')
+                $countFeel2++;
+        }
+        for ($i = 0; $i < count($typeFeel); $i++) {
+            if ($countFeel1 != 0 && $countFeel2 != 0) {
+                if ($typeFeel[$i]->LoaiCamXuc == '0@1')
+                    unset($typeFeel[$i]);
             }
         }
         $typeFeel = array_values($typeFeel);
-        $detailFeel = array();
+        if (count($typeFeel) == 0) {
+            $camxuc = new Camxuc;
+            $camxuc->LoaiCamXuc = '0@1';
+            $typeFeel = array('0' => $camxuc);
+        }
         $user = array();
         $k = 0;
         for ($i = 0; $i < count($typeFeel); $i++) {
-            $data = Camxuc::where('camxuc.LoaiCamXuc', 'LIKE', '%' . explode('@', $typeFeel[$i]->LoaiCamXuc)[0] . '@' . '%')
+            $data = Camxuc::where('camxuc.LoaiCamXuc', 'LIKE', '%' .
+                explode('@', $typeFeel[$i]->LoaiCamXuc)[0] . '@' . '%')
                 ->where('camxuc.IDBaiDang', '=', $idBaiDang)->get();
             for ($j = 0; $j < count($data); $j++) {
                 $u = DB::table('taikhoan')

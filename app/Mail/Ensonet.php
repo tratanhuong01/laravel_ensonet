@@ -21,6 +21,6 @@ class Ensonet extends Mailable
     public function build()
     {
         return $this->from($address = 'noreply@domain.com', $name = 'Ensonet - Entertaiment Social Network')
-        ->view('viewmail')->with('code_veri',$this->code);
+            ->view('viewmail')->with('code_veri', $this->code);
     }
 }

@@ -198,9 +198,15 @@ Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewIn', [Displays\ViewImageC
 
 Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewOut', [Displays\ViewImageController::class, 'zoomOut']);
 
+//ajax thả cảm xúc cho bình luận
+Route::get('ProcessFeelCommentPost', [BaiDang\FeelCommentPostController::class, 'feel']);
+
+//ajax số lượng cảm xúc của bình luận
+Route::get('ProcessLoadNumFeelCommentPost', [BaiDang\FeelCommentPostController::class, 'loadnumfeel']);
+
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    print_r(Process::getRepCommentLimit('2000000042', 0));
+    print_r(Data::getDetailFeelPost('2000000047'));
     echo "</pre>";
 });
