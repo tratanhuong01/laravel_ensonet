@@ -1,7 +1,7 @@
 <div class="w-full mx-0 my-2 flex">
     <div class="w-1/12">
         <a href=""><img class="w-12 h-12 p-0.5 object-cover
-        rounded-full border-2 border-solid" src="/{{ $item[0]->AnhDaiDien }}" alt="" srcset=""></a>
+        rounded-full border-2 border-solid" src="/{{ Session::get('user')[0]->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
     <div class="w-11/12 ml-2 relative bg-gray-100 dark:bg-dark-third px-3 overflow-hidden" style="border-radius: 30px;">
         <div onkeyup="CommentPost('{{$item[0]->IDTaiKhoan}}',

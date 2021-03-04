@@ -58,7 +58,6 @@ class Functions extends Model
                 $data = DB::table('moiquanhe')
                     ->where('moiquanhe.IDTaiKhoan', '=', $listFriend[$i]->IDBanBe)
                     ->where('moiquanhe.IDBanBe', '=', $idTaiKhoan)
-                    ->where('moiquanhe.IDTaiKhoan', '!=', $idTaiKhoan)
                     ->where('moiquanhe.TinhTrang', '=', '3')
                     ->orderBy('NgayChapNhan', 'desc')
                     ->get();

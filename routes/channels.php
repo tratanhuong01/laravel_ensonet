@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+Broadcast::channel('ensonet', function ($user, $id) {
+    print("jkdshfjkhsdjkfhdsjkfhdsjkfhdsjkfhsdkjfhkjds");
     return (int) $user->id === (int) $id;
 });

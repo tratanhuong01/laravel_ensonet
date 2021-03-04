@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Functions;
 
 $users = Session::get('users');
-$user = Session::get('user');
 ?>
 <div class="w-63% mx-auto py-2">
     <div class="w-full flex py-4">
@@ -28,15 +27,16 @@ $user = Session::get('user');
         @else
         @for ($i = 0 ; $i < count($data) ; $i++) <div class="relative flex border-2 border-solid dark:border-dark-second  
         border-gray-200 rounded-lg" style="width: 48.5%;margin: 6px;padding: 2%;">
+            <?php $path = "profile." . $data[$i][0]->IDTaiKhoan; ?>
             <div class="w-1/4">
-                <a href="profile.{{ $data[$i][0]->IDTaiKhoan }}"><img class="w-24 h-24 rounded-lg object-cover" src="/{{ $data[$i][0]->AnhDaiDien }}" alt=""></a>
+                <a href="{{ url($path) }}"><img class="w-24 h-24 rounded-lg object-cover" src="/{{ $data[$i][0]->AnhDaiDien }}" alt=""></a>
             </div>
             <div class="w-2/4 py-4 pl-4">
                 <p style="font-family: Arial, Helvetica, sans-serif"><b>
-                        <a style="font-size: 17px;" class="dark:text-white" href="profile.{{ $data[$i][0]->IDTaiKhoan }}">
+                        <a style="font-size: 17px;" class="dark:text-white" href="{{ url($path) }}">
                             {{ $data[$i][0]->Ho . ' ' .  $data[$i][0]->Ten }}</a></b></p>
                 <p style="color: #65687B;font-size: 14px;">
-                    {{ count(Functions::getMutualFriend($data[$i][0]->IDTaiKhoan,$user[0]->IDTaiKhoan)) }} bạn chung
+                    {{ count(Functions::getMutualFriend($data[$i][0]->IDTaiKhoan,$users[0]->IDTaiKhoan)) }} bạn chung
                 </p>
             </div>
             <div class="w-1/4 py-5">

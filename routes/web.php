@@ -13,6 +13,7 @@ use App\Events\RedisEvent;
 use App\Models\Data;
 use Illuminate\Support\Facades\DB;
 use App\Models\Process;
+use App\Events\NotificationEvent;
 
 // Đăng Nhập
 Route::get('/login', function () {
@@ -221,4 +222,12 @@ Route::get('checked', function () {
     echo "<pre>";
     print_r(Data::getDetailFeelPost('2000000047'));
     echo "</pre>";
+});
+
+Route::view('/Socket', 'SocketIOTest');
+
+Route::get('/seen', function () {
+    event(new NotificationEvent('hello world'));
+
+    return "OK";
 });
