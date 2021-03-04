@@ -49,7 +49,7 @@ class StringUtil extends Model
             } else {
                 $result = "$min phút trước";
             }
-        } else if ($hour <= 24) {
+        } else if ($hour < 24) {
             if ($hour == 1) {
                 $result = "1 giờ";
             } else {
@@ -61,27 +61,26 @@ class StringUtil extends Model
             } else {
                 $result = "$d tháng $mon lúc $h : $m : $s";
             }
+        } else if ($week <= 4.3) //4.3 == 52/12  
+        {
+            if ($week == 1) {
+                $result = "1 tuần";
+            } else {
+                $result = "$week tuần trước";
+            }
+        } else if ($month <= 12) {
+            if ($month == 1) {
+                $result = "1 tháng trước";
+            } else {
+                $result = "$month tháng trước";
+            }
+        } else {
+            if ($year == 1) {
+                return "1 năm trước";
+            } else {
+                return "$year năn trước";
+            }
         }
-        // } else if ($week <= 4.3) //4.3 == 52/12  
-        // {
-        //     if ($week == 1) {
-        //         $result = "1 tuần";
-        //     } else {
-        //         $result = "$week tuần trước";
-        //     }
-        // } else if ($month <= 12) {
-        //     if ($month == 1) {
-        //         $result = "1 tháng trước";
-        //     } else {
-        //         $result = "$month tháng trước";
-        //     }
-        // } else {
-        //     if ($year == 1) {
-        //         return "1 năm trước";
-        //     } else {
-        //         return "$year năn trước";
-        //     }
-        // }
         return $result;
     }
     public static function CheckDateTimeRequest($datetime)
@@ -111,7 +110,7 @@ class StringUtil extends Model
             } else {
                 $result = "$min phút trước";
             }
-        } else if ($hour <= 24) {
+        } else if ($hour < 24) {
             if ($hour == 1) {
                 $result = "1 giờ";
             } else {

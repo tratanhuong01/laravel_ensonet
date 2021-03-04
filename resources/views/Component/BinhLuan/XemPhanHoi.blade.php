@@ -10,13 +10,14 @@ $index = $count - $num;
 
 ?>
 @if ($num >= 1)
-<p onclick="ViewMoreCommentPost('{{ $idTaiKhoan }}',
+<p onclick="ViewMoreCommentPostCmt('{{ $idTaiKhoan }}',
+    '{{ $idBinhLuan }}',
     '{{ $idBaiDang }}',
     '{{ $index }}',
     '{{ $num }}',
     '{{ $count }}')" class="dark:text-white font-bold cursor-pointer py-2">
     <i class="fas fa-angle-double-down dark:text-white "></i>&nbsp;&nbsp;
-    Xem thêm {{ $num }} bình luận...
+    {{ $num }} phản hồi...
 </p>
 @else
 @endif

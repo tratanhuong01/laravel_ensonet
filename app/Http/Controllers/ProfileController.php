@@ -10,7 +10,6 @@ class ProfileController extends Controller
 {
     public function view($id)
     {
-        $request = new Request;
         $user = Session::get('user');
         if ($user[0]->IDTaiKhoan == $id) {
             session()->put('users', $user);

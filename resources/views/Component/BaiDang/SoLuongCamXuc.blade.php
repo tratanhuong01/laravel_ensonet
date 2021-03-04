@@ -15,13 +15,17 @@ for ($i = 0; $i < count($arr[2]); $i++)
 $path = '';
 ?>
 @if ($uf == $u[0]->IDTaiKhoan)
-{{ $arr[0] }}&nbsp; <span class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold">Bạn và&nbsp;</span>
-<span onclick="viewDetailFeel('{{ $arr[2][0]->IDBaiDang }}','{{ $path }}')" style="font-size: 17px;" class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold">
-    {{ $arr[1] - 1 }}&nbsp;<span class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold">người khác</span>
-</span>
+<div onclick="viewDetailFeel('{{ $arr[2][0]->IDBaiDang }}','{{ $path }}')">
+    {{ $arr[0] }}&nbsp; <span class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold">Bạn và&nbsp;</span>
+    <span style="font-size: 17px;" class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold">
+        {{ $arr[1] - 1 }}&nbsp;<span class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold">người khác</span>
+    </span>
+</div>
 @else
-{{ $arr[0] }}&nbsp;
-<span onclick="viewDetailFeel('{{ $arr[2][0]->IDBaiDang }}','{{ $path }}')" style="font-size: 17px;" class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold">
-    {{ $arr[1] }}
-</span>
+<div onclick="viewDetailFeel('{{ $arr[2][0]->IDBaiDang }}','{{ $path }}')">
+    {{ $arr[0] }}&nbsp;
+    <span style="font-size: 17px;" class="cursor-pointer dark:text-gray-300 text-gray-600 font-bold">
+        {{ $arr[1] }}
+    </span>
+</div>
 @endif

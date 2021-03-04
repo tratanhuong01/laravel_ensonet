@@ -1,3 +1,12 @@
+<?php
+
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use App\Models\Functions;
+
+$user = Session::get('user');
+
+?>
 <!DOCTYPE html>
 <html lang="en" class="dark">
 
@@ -13,23 +22,14 @@
     </title>
     @include('Head/css')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="js/Login/login.js"></script>
-    <script src="js/event/event.js"></script>
-    <script src="js/ajax.js"></script>
-    <script src="js/ajax/BaiDang/ajax.js"></script>
-    <script src="js/ajax/BinhLuan/ajax.js"></script>
+    <script src="/js/Login/login.js"></script>
+    <script src="/js/event/event.js"></script>
+    <script src="/js/ajax.js"></script>
+    <script src="/js/ajax/BaiDang/ajax.js"></script>
+    <script src="/js/ajax/BinhLuan/ajax.js"></script>
 </head>
 
 <body>
-    </div>
-
-    <?php
-
-    use Illuminate\Support\Facades\Session;
-    use Illuminate\Support\Facades\DB;
-    use App\Models\Functions;
-
-    $user = Session::get('user'); ?>
     <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second" style="z-index: 100;">
     </div>
     <div class="w-full dark:bg-dark-second" id="web">
@@ -109,24 +109,30 @@
         </div>
         @endif
         <hr class="w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63% mb-2">
-        <?php $data = DB::table('moiquanhe')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
+        <?php $moiQuanHe = DB::table('moiquanhe')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
             ->where('IDBanBe', '=', $users[0]->IDTaiKhoan)->get(); ?>
         <div class="w-full relative py-2" id="moiQuanHe">
             @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
             @include('Component/MoiQuanHe/ChinhChu')
-            @elseif (sizeof($data) == 0)
+            @elseif (sizeof($moiQuanHe) == 0)
             @include('Component/MoiQuanHe/ChuaKetBan')
-            @elseif ($data[0]->TinhTrang == 0)
+            @elseif ($moiQuanHe[0]->TinhTrang == 0)
             @include('Component/MoiQuanHe/ChuaKetBan')
-            @elseif ($data[0]->TinhTrang == 1)
+            @elseif ($moiQuanHe[0]->TinhTrang == 1)
             @include('Component/MoiQuanHe/GuiYeuCau')
-            @elseif ($data[0]->TinhTrang == 2)
+            @elseif ($moiQuanHe[0]->TinhTrang == 2)
             @include('Component/MoiQuanHe/NhanYeuCau')
-            @elseif ($data[0]->TinhTrang == 3)
+            @elseif ($moiQuanHe[0]->TinhTrang == 3)
             @include('Component/MoiQuanHe/BanBe')
             @endif
         </div>
         <div id="place_load_about" class="w-full relative bg-gray-100 dark:bg-dark-main">
+            <?php $paths = explode('/', parse_url(url()->current())['path']); ?>
+            @switch($paths[count($paths) - 1])
+            @case('friends')
+            @include('Component\DanhMuc\BanBe',['data' => $data])
+            @break;
+            @default
             <div class="mx-auto relative w-full pt-4 lg:flex xl:w-63% md:w-4/5 lg:w-3/4 md:mx-auto">
                 <div id="profileLeft" class="w-full lg:w-2/5">
                     <div class="mx-2.5 mt-4 bg-white p-2.5 pt-0 rounded-lg dark:bg-dark-third" style="width:95%;">
@@ -180,31 +186,31 @@
                         </div>
                         <div class="w-full pt-4 pl-0.5 flex flex-wrap">
                             <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -220,39 +226,39 @@
                         </div>
                         <div class="w-full pt-4 flex flex-wrap">
                             <div class="fr-us">
-                                <a href=""><img src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
                                 <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
                                 <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
                                 <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
                                 <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
                                 <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
                                 <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
                                 <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
                                 <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
                             </div>
                             <div class="fr-us">
-                                <a href=""><img src="img/avatar.jpg" alt=""></a>
+                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
                                 <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
                             </div>
                         </div>
@@ -262,7 +268,7 @@
                     <div class="w-full bg-white dark:bg-dark-second m-auto rounded-lg mb-2">
                         <div class="w-full flex p-2.5">
                             <div class="w-2/12 md:w-1/12 mr-3 pt-1">
-                                <a href=""><img class="w-12 rounded-full" src="img/avatar.jpg"></a>
+                                <a href=""><img class="w-12 rounded-full" src="/img/avatar.jpg"></a>
                             </div>
                             <div class="w-11/12">
                                 <input class="w-full p-3 border-none outline-none bg-gray-200 dark:bg-dark-third" style="border-radius: 40px;" onclick="openPost()" type="text" placeholder="Hưởng ơi, Bạn Đang Nghĩ Gì Thế?">
@@ -301,13 +307,11 @@
                         @endfor
                 </div>
             </div>
+            @endswitch
         </div>
         @endif
     </div>
-    <script>
-
-    </script>
-    <script src="js/scrollbar.js"></script>
+    <script src="/js/scrollbar.js"></script>
 </body>
 
 </html>

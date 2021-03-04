@@ -24,7 +24,7 @@ $user = Session::get('user');
     </div>
     <div class="main-friends w-full flex border-2 border-solid border-gray-200 dark:border-dark-second rounded-lg flex-wrap 
     dark:bg-gray-main">
-        @if ($data == NULL) <p class="font-bold dark:text-white text-center mx-auto py-4">Không có bạn bè để hiển thị</p>
+        @if (count($data) == 0) <p class="font-bold dark:text-white text-center mx-auto py-4">Không có bạn bè để hiển thị</p>
         @else
         @for ($i = 0 ; $i < count($data) ; $i++) <div class="relative flex border-2 border-solid dark:border-dark-second  
         border-gray-200 rounded-lg" style="width: 48.5%;margin: 6px;padding: 2%;">

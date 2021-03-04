@@ -310,6 +310,7 @@ function ajaxProfileFriend(ID, NameID) {
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById(NameID).innerHTML = this.responseText;
+            window.history.pushState('page2', 'Title', '/profile.1000000001/friends')
         }
     };
     xmlhttp.open("GET", 'ProcessProfileFriend?IDView=' + ID, true);

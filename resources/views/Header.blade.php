@@ -13,7 +13,7 @@ $user = Session::get('user');
             <div class="">
                 <!-- ** Logo ** -->
                 <a href="{{ url('index') }}">
-                    <img class="w-12 p-0.5 sm:w-12" src="img/logo.png" alt="" srcset="">
+                    <img class="w-12 p-0.5 sm:w-12" src="/img/logo.png" alt="" srcset="">
                 </a>
             </div>
             <div class="mt-1 pl-4">
@@ -67,8 +67,9 @@ $user = Session::get('user');
             lg:mx-0">
                 <div class="w-1/3 hidden lg:block lg:w-full lg:pt-1 xl:w-auto xl:mr-2">
                     <!-- avatar user  -->
-                    <a href="profile.{{ $user[0]->IDTaiKhoan }}" id="ajaxAnhDaiDien1">
-                        <img id="ajaxAnhDaiDien2" class="w-8 h-8 rounded-full object-cover" src="{{ $user[0]->AnhDaiDien }}" alt="" /></a>
+                    <?php $pathProfile = "profile." . $user[0]->IDTaiKhoan; ?>
+                    <a href="{{ url($pathProfile) }}" id="ajaxAnhDaiDien1">
+                        <img id="ajaxAnhDaiDien2" class="w-8 h-8 rounded-full object-cover" src="/{{ $user[0]->AnhDaiDien }}" alt="" /></a>
                 </div>
                 <div class="w-2/3 hidden pt-1 text-center xl:block xl:w-auto lg:pt-2">
                     <!-- name user  -->

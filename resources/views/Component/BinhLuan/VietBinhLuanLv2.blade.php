@@ -14,8 +14,8 @@ else
         rounded-full border-2 border-solid" src="/{{ $user[0]->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
     <div class="w-11/12 ml-2 relative bg-gray-100 dark:bg-dark-third px-3 overflow-hidden" style="border-radius: 30px;">
-        <div onkeyup="RepCommentPost('{{ $user[0]->IDTaiKhoan }}',
-        '{{ $comment->IDBaiDang }}','{{ $comment->IDBinhLuan }}',event)" id="{{ $user[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write" class="border-none outline-none bg-gray-100 dark:bg-dark-third dark:text-white py-3" style="min-height: 30px;width: 96%;" contenteditable>
+        <div onkeyup="RepCommentPost('{{ $comment->IDTaiKhoan }}',
+        '{{ $comment->IDBaiDang }}','{{ $comment->IDBinhLuan }}',event)" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write" class="border-none outline-none bg-gray-100 dark:bg-dark-third dark:text-white py-3" style="min-height: 30px;width: 96%;" contenteditable>
             @if ($comment->IDTaiKhoan == $user[0]->IDTaiKhoan)
             @else
             {!! $name !!}
@@ -23,7 +23,7 @@ else
 
         </div>
         <script>
-            $("#{{ $user[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write").keypress(function(e) {
+            $("#{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write").keypress(function(e) {
                 return e.which != 13;
             });
         </script>

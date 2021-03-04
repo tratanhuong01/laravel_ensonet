@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Camxucbinhluan;
 use App\Models\Functions;
+use App\Models\Process;
 use App\Models\StringUtil;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -47,5 +48,6 @@ class FeelCommentPostController extends Controller
     }
     public function loadnumfeel(Request $request)
     {
+        return Process::getFeelComment($request->IDBinhLuan);
     }
 }

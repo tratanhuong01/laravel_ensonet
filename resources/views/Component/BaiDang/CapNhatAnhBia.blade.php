@@ -12,7 +12,7 @@ $u = Session::get('user');
     <div class="w-full flex">
         <div class="mr-2">
             <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 rounded-full 
-                            border-4 border-solid border-gray-200" src="{{ $item[0]->AnhDaiDien }}"></a>
+                            border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
         </div>
         <div class="relative pl-1" style="width: 80%;">
             <p class="mb-2 dark:text-gray-300"><a href="profile.{{ $item[0]->IDTaiKhoan }}"><b class="dark:text-white">
@@ -64,7 +64,7 @@ $u = Session::get('user');
     </div>
     <div class="w-full mx-0 my-2.5">
         <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[0]->IDHinhAnh }}">
-            <img src="{{ $item[0]->DuongDan }}" alt="" class="w-full h-72 object-cover">
+            <img src="/{{ $item[0]->DuongDan }}" alt="" class="w-full h-72 object-cover">
         </a>
     </div>
     @include('Component\BaiDang\CamXucBinhLuan',['item' => $item])

@@ -102,7 +102,7 @@ Route::get('LoadQuenTaiKhoan', function () {
 Route::get('ProcessProfileFriend', [ProfileFriendsController::class, 'view']);
 
 // redriect bạn bè
-Route::get('profile.{IDTaiKhoan}/friends', [ProfileFriendsController::class, 'view']);
+Route::get('profile.{IDTaiKhoan}/friends', [ProfileFriendsController::class, 'viewFriends']);
 
 // ajax bày tỏ cảm xúc bài đăng
 Route::get('ProcessFeelPost', [BaiDang\FeelController::class, 'feel']);
@@ -142,6 +142,12 @@ Route::get('ProcessViewDetailFeel', [BaiDang\ViewDetailFeelController::class, 'v
 
 // ajax view lượt cảm xúc
 Route::get('ProcessViewOnlyDetailFeel', [BaiDang\ViewDetailFeelController::class, 'viewOnly']);
+
+// ajax view lượt cảm xúc cmt
+Route::get('ProcessViewDetailFeelCmt', [BaiDang\ViewDetailFeelController::class, 'viewCmt']);
+
+// ajax view lượt cảm xúc cmt
+Route::get('ProcessViewOnlyDetailFeelCmt', [BaiDang\ViewDetailFeelController::class, 'viewOnlyCmt']);
 
 // ajax view lượt cảm xúc path khác
 Route::get('/{value1}/{value2}/{value3}/ProcessViewDetailFeel', [BaiDang\ViewDetailFeelController::class, 'view']);
@@ -203,6 +209,12 @@ Route::get('ProcessFeelCommentPost', [BaiDang\FeelCommentPostController::class, 
 
 //ajax số lượng cảm xúc của bình luận
 Route::get('ProcessLoadNumFeelCommentPost', [BaiDang\FeelCommentPostController::class, 'loadnumfeel']);
+
+//ajax thả cảm xúc cho bình luận
+Route::get('ProcessLoadNumRepComment', [BaiDang\RepCommentController::class, 'load']);
+
+//ajax 
+Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view']);
 
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {

@@ -97,6 +97,8 @@ function typeChat(index) {
 }
 function showEmojii(name) {
   $("#emojis").disMojiPicker();
-  $("#emojis").picker(emoji => $('#' + name).append(emoji));
+  $("#emojis").picker(emoji => {
+    $('#' + name).append(emoji)
+  });
   twemoji.parse(document.body);
 }

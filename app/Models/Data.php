@@ -51,7 +51,7 @@ class Data extends Model
         for ($i = 0; $i < count($typeFeel); $i++) {
             if ($typeFeel[$i]->LoaiCamXuc == '0@1')
                 $countFeel1++;
-            else if ($typeFeel[$i]->LoaiCamXuc == '0@1')
+            else if ($typeFeel[$i]->LoaiCamXuc == '0@0')
                 $countFeel2++;
         }
         for ($i = 0; $i < count($typeFeel); $i++) {

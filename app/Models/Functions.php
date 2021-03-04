@@ -197,30 +197,41 @@ class Functions extends Model
                     return '😡 ' . '<span class="font-bold" style="color:#EB7F27;">&nbsp;' . $userFeel[0]->Ho . ' ' . $userFeel[0]->Ten . '</span>';
                     break;
             }
-        } else if (count($userFeel) == 2) {
-            if (
-                explode('@', $userFeel[0]->LoaiCamXuc)[0] ==
-                explode('@', $userFeel[1]->LoaiCamXuc)[0]
-            ) {
-                $arr[0] = Functions::getFeelMain($userFeel[0]->LoaiCamXuc);
-                $arr[1] = count($userFeel);
-                $arr[2] = $userFeel;
-                return view('Component\BaiDang\SoLuongCamXuc')->with('arr', $arr);
-            } else {
-                $arr[0] = Functions::getFeelMain($userFeel[0]->LoaiCamXuc) . ' ' .
-                    Functions::getFeelMain($userFeel[1]->LoaiCamXuc);
-                $arr[1] = count($userFeel);
-                $arr[2] = $userFeel;
-                return view('Component\BaiDang\SoLuongCamXuc')->with('arr', $arr);
-            }
         } else {
-            $arr[0] = Functions::getFeelMain($userFeel[0]->LoaiCamXuc);
+            $typeFeel = DB::select(
+                'SELECT DISTINCT  `LoaiCamXuc` FROM `camxuc` WHERE camxuc.IDBaiDang = ? ',
+                [$idBaiDang]
+            );
+            $countFeel1 = 0;
+            $countFeel2 = 0;
+            for ($i = 0; $i < count($typeFeel); $i++) {
+                if ($typeFeel[$i]->LoaiCamXuc == '0@1')
+                    $countFeel1++;
+                else if ($typeFeel[$i]->LoaiCamXuc == '0@0')
+                    $countFeel2++;
+            }
+            for ($i = 0; $i < count($typeFeel); $i++) {
+                if ($countFeel1 != 0 && $countFeel2 != 0) {
+                    if ($typeFeel[$i]->LoaiCamXuc == '0@1')
+                        unset($typeFeel[$i]);
+                }
+            }
+            $typeFeel = array_values($typeFeel);
+            if (count($typeFeel) == 0) {
+                $camxuc = new Camxuc;
+                $camxuc->LoaiCamXuc = '0@1';
+                $typeFeel = array('0' => $camxuc);
+            }
+            $all = '';
+            for ($i = 0; $i < count($typeFeel); $i++) {
+                $all .= Functions::getFeelMain($typeFeel[$i]->LoaiCamXuc);
+            }
+            $arr[0] = $all;
             $arr[1] = count($userFeel);
             $arr[2] = $userFeel;
             return view('Component\BaiDang\SoLuongCamXuc')->with('arr', $arr);
         }
     }
-
     public static function getFeelCmt($i)
     {
         switch (explode('@', $i)[0]) {
@@ -258,9 +269,5 @@ class Functions extends Model
     {
         return Camxucbinhluan::where('camxucbinhluan.IDBinhLuan', '=', $idBinhLuan)
             ->get();
-    }
-    public static function getStringFeelCmt($idBinhLuan)
-    {
-        $userFeel = Functions::getUserFeel($idBinhLuan);
     }
 }

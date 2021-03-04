@@ -12,7 +12,7 @@ $u = Session::get('user');
     <div class="w-full flex">
         <div class="mr-2">
             <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 rounded-full 
-                            border-4 border-solid border-gray-200" src="{{ $item[0]->AnhDaiDien }}"></a>
+                            border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
         </div>
         <div class="relative pl-1 w-4/5">
             <p class="dark:text-gray-300"><a href="profile.{{ $item[0]->IDTaiKhoan }}"><b class="dark:text-white">
@@ -102,7 +102,7 @@ $u = Session::get('user');
         @endif
     </div>
     @if (count($commentLimit) > 0)
-    <div class="w-11/12 ml-2" id="loadNumComment">
+    <div class="w-11/12 ml-2" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}NumComment">
         @include('Component\BinhLuan\XemThemBinhLuan',
         ['num' => count($comment),
         'idTaiKhoan' => $item[0]->IDTaiKhoan,

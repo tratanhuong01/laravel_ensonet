@@ -16,7 +16,20 @@ class ProfileFriendsController extends Controller
     }
     public function viewFriends($idTaiKhoan)
     {
+        $request = new Request;
+        $user = Session::get('user');
         $data = Functions::getListFriendsUser($idTaiKhoan);
-        return view('Component\DanhMuc\BanBe')->with('data', $data);
+        if ($user[0]->IDTaiKhoan == $idTaiKhoan) {
+            session()->put('users', $user);
+            return view('Guest/profile')->with('users', $user)->with('data', $data);;
+        } else {
+            $user = DB::table('taikhoan')->where('taikhoan.IDTaiKhoan', '=', $idTaiKhoan)->get();
+            if (sizeof($user) == 0)
+                return view('Guest/Profile')->with('users', $user)->with('data', $data);
+            else {
+                session()->put('users', $user);
+                return view('Guest/Profile')->with('users', $user)->with('data', $data);
+            }
+        }
     }
 }
