@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Session;
     <title>Ensonet</title>
     @include('Head/css')
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="css/emojis.css">
-    <script src="js/scrollbar.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/event/event.js"></script>
-    <script src="js/ajax/BaiDang/ajax.js"></script>
-    <script src="js/ajax/MoiQuanHe/ajax.js"></script>
-    <script src="js/ajax/BinhLuan/ajax.js"></script>
-    <script src="js/ajax.js"></script>
+    <link rel="stylesheet" href="/css/emojis.css">
+    <script src="/js/scrollbar.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/event/event.js"></script>
+    <script src="/js/ajax/BaiDang/ajax.js"></script>
+    <script src="/js/ajax/MoiQuanHe/ajax.js"></script>
+    <script src="/js/ajax/BinhLuan/ajax.js"></script>
+    <script src="/js/ajax.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -43,7 +43,7 @@ use Illuminate\Support\Facades\Session;
                                 <img class="w-9 h-9 rounded-full object-cover" src="{{ $user[0]->AnhDaiDien }}" alt="">&nbsp;&nbsp;
                                 <span class="pl-1.5 pt-1.5 text-sm font-bold dark:text-white">{{ $user[0]->Ho . ' ' .$user[0]->Ten }}</span>
                             </li>
-                            <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
+                            <li onclick="window.location.href='profile.{{ $user[0]->IDTaiKhoan }}/friends'" class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
                                 &nbsp;<img class="w-8 h-8" src="img/friends.png" alt="" srcset="">&nbsp;&nbsp;
                                 <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Bạn Bè</span>
                             </li>

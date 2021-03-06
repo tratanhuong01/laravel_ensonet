@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Notify;
 use Illuminate\Support\Facades\Session;
 
 $user = Session::get('user');
@@ -60,7 +61,7 @@ $user = Session::get('user');
                 </ul>
             </div>
         </div>
-        <div class="w-1/2 flex sm:w-3/4 md:w-1/4">
+        <div class="w-1/2 flex sm:w-3/4 md:w-1/4 relative">
             <!-- header right -->
             <div class="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 
             hover:bg-gray-200 round-avatar dark:hover:bg-dark-third 
@@ -80,6 +81,11 @@ $user = Session::get('user');
                 <ul class="flex float-right">
                     @include('HeaderRight')
                 </ul>
+            </div>
+            <div id="modalHeaderRight" class="w-92 rounded-lg absolute dark:bg-dark-second bg-white z-50 top-16
+            wrapper-scrollbar w-full overflow-x-hidden overflow-y-auto" style="max-height: 675px !important;">
+                <?php $notify = Notify::getNotify($user[0]->IDTaiKhoan); ?>
+                @include('Modal\ModalHeader\ModalThongBao',['notify' => $notify])
             </div>
         </div>
     </div>

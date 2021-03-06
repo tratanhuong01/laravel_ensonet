@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('ensonet', function ($user, $id) {
-    print("jkdshfjkhsdjkfhdsjkfhdsjkfhdsjkfhsdkjfhkjds");
-    return (int) $user->id === (int) $id;
+Broadcast::channel('test.{id}', function ($ids, $id) {
+    return $ids === $id;
 });

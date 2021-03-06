@@ -3,27 +3,27 @@
 <head>
     <title>Pusher Test</title>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('5064fc09fcd20f23d5c1', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('test');
+        channel.bind('tests', function(data) {
+            document.getElementById('main').style.backgroundColor = 'yellow';
+        });
+    </script>
 </head>
 
 <body>
+    <div id="main" style="width:100px;height:100px;background-color: red;">
+    </div>
     <h1>Pusher Test</h1>
     <p>
         Try publishing an event to channel <code>my-channel</code>
         with event name <code>my-event</code>.
     </p>
-
-    <script>
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('d8a8c897ed00512a1cd4', {
-            cluster: 'ap1'
-        });
-
-        console.log("pusher======", pusher)
-        var channel = pusher.subscribe('ensonet');
-        channel.bind('new-noti', function(data) {
-            alert(JSON.stringify(data));
-        });
-    </script>
 </body>

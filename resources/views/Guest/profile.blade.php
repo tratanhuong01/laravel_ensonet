@@ -21,12 +21,14 @@ $user = Session::get('user');
         @endif
     </title>
     @include('Head/css')
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/js/Login/login.js"></script>
     <script src="/js/event/event.js"></script>
     <script src="/js/ajax.js"></script>
     <script src="/js/ajax/BaiDang/ajax.js"></script>
     <script src="/js/ajax/BinhLuan/ajax.js"></script>
+    <script src="/js/realtime/notification.js"></script>
 </head>
 
 <body>
@@ -312,6 +314,24 @@ $user = Session::get('user');
         @endif
     </div>
     <script src="/js/scrollbar.js"></script>
+    <script>
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('5064fc09fcd20f23d5c1', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
+        channel.bind('tests', function() {
+            $.ajax({
+                method: "GET",
+                url: "/ProcessNotificationShow",
+                success: function(response) {
+                    $('#numNotification').html(response);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -19,12 +19,10 @@
                 <span class="float-right text-xs">Vừa xong</span>
             </div>
             <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                    style="border-radius: 10px;background-color: #1877F2;">
+                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
                     <a class="text-white" href="">Xác Nhận</a>
                 </span>
-                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                    style="background-color: #D8DADF;border-radius: 10px;">
+                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
                     <a class="color-black" href="">Xóa</a>
                 </span>
             </div>
@@ -41,12 +39,10 @@
                 <span class="float-right text-xs">Vừa xong</span>
             </div>
             <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                    style="border-radius: 10px;background-color: #1877F2;">
+                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
                     <a class="text-white" href="">Xác Nhận</a>
                 </span>
-                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                    style="background-color: #D8DADF;border-radius: 10px;">
+                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
                     <a class="color-black" href="">Xóa</a>
                 </span>
             </div>
@@ -63,12 +59,10 @@
                 <span class="float-right text-xs">Vừa xong</span>
             </div>
             <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                    style="border-radius: 10px;background-color: #1877F2;">
+                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
                     <a class="text-white" href="">Xác Nhận</a>
                 </span>
-                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                    style="background-color: #D8DADF;border-radius: 10px;">
+                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
                     <a class="color-black" href="">Xóa</a>
                 </span>
             </div>
@@ -85,12 +79,10 @@
                 <span class="float-right text-xs">Vừa xong</span>
             </div>
             <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                    style="border-radius: 10px;background-color: #1877F2;">
+                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
                     <a class="text-white" href="">Xác Nhận</a>
                 </span>
-                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                    style="background-color: #D8DADF;border-radius: 10px;">
+                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
                     <a class="color-black" href="">Xóa</a>
                 </span>
             </div>
@@ -107,12 +99,10 @@
                 <span class="float-right text-xs">Vừa xong</span>
             </div>
             <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                    style="border-radius: 10px;background-color: #1877F2;">
+                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
                     <a class="text-white" href="">Xác Nhận</a>
                 </span>
-                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                    style="background-color: #D8DADF;border-radius: 10px;">
+                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
                     <a class="color-black" href="">Xóa</a>
                 </span>
             </div>
@@ -129,12 +119,10 @@
                 <span class="float-right text-xs">Vừa xong</span>
             </div>
             <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                    style="border-radius: 10px;background-color: #1877F2;">
+                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
                     <a class="text-white" href="">Xác Nhận</a>
                 </span>
-                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                    style="background-color: #D8DADF;border-radius: 10px;">
+                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
                     <a class="color-black" href="">Xóa</a>
                 </span>
             </div>
@@ -151,12 +139,10 @@
                 <span class="float-right text-xs">Vừa xong</span>
             </div>
             <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                    style="border-radius: 10px;background-color: #1877F2;">
+                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
                     <a class="text-white" href="">Xác Nhận</a>
                 </span>
-                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                    style="background-color: #D8DADF;border-radius: 10px;">
+                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
                     <a class="color-black" href="">Xóa</a>
                 </span>
             </div>
@@ -173,12 +159,10 @@
                 <span class="float-right text-xs">Vừa xong</span>
             </div>
             <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                    style="border-radius: 10px;background-color: #1877F2;">
+                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
                     <a class="text-white" href="">Xác Nhận</a>
                 </span>
-                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                    style="background-color: #D8DADF;border-radius: 10px;">
+                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
                     <a class="color-black" href="">Xóa</a>
                 </span>
             </div>
@@ -195,12 +179,10 @@
                 <span class="float-right text-xs">Vừa xong</span>
             </div>
             <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                    style="border-radius: 10px;background-color: #1877F2;">
+                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
                     <a class="text-white" href="">Xác Nhận</a>
                 </span>
-                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                    style="background-color: #D8DADF;border-radius: 10px;">
+                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
                     <a class="color-black" href="">Xóa</a>
                 </span>
             </div>
@@ -217,12 +199,10 @@
                 <span class="float-right text-xs">Vừa xong</span>
             </div>
             <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer"
-                    style="border-radius: 10px;background-color: #1877F2;">
+                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
                     <a class="text-white" href="">Xác Nhận</a>
                 </span>
-                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer"
-                    style="background-color: #D8DADF;border-radius: 10px;">
+                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
                     <a class="color-black" href="">Xóa</a>
                 </span>
             </div>

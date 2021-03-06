@@ -14,6 +14,8 @@ use App\Models\Data;
 use Illuminate\Support\Facades\DB;
 use App\Models\Process;
 use App\Events\NotificationEvent;
+use App\Http\Controllers\Realtime\NotificationController;
+use App\Models\Notify;
 
 // Đăng Nhập
 Route::get('/login', function () {
@@ -220,14 +222,14 @@ Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view'
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    print_r(Data::getDetailFeelPost('2000000047'));
+    print_r(Notify::getNotify('1000000001'));
     echo "</pre>";
 });
 
-Route::view('/Socket', 'SocketIOTest');
-
-Route::get('/seen', function () {
-    event(new NotificationEvent('hello world'));
-
-    return "OK";
+// 
+Route::get('ProcessModalLast', function () {
+    return view('Modal/ModalHeader/ModalLast');
 });
+
+// xử lí hiện thông báo
+Route::get('/ProcessNotificationShow', [Realtime\NotificationController::class, 'notify']);

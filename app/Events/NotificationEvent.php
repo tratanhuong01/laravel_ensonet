@@ -5,26 +5,26 @@ namespace App\Events;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class NotificationEvent implements ShouldBroadcast
+class NotificationEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
-
-    public function __construct($message)
+    public $ids;
+    public function __construct($ids)
     {
-        $this->message = $message;
+        $this->ids = $ids;
     }
 
     public function broadcastOn()
     {
-        return ['ensonet'];
+        return new Channel('test.' . $this->ids);
     }
 
     public function broadcastAs()
     {
-        return 'new-noti';
+        return 'tests';
     }
 }

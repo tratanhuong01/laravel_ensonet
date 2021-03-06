@@ -11,17 +11,22 @@ function checkValueTextAre() {
         button_post.style.backgroundColor = '#1771E6';
         button_post.style.cursor = 'pointer';
         button_post.disabled = false;
-        textarea_post.style.height = 1+"px";
-        textarea_post.style.height = (25 + textarea_post.scrollHeight)+"px";
-        main_textarea_post.style.height = (25 + textarea_post.scrollHeight)+"px";
+        textarea_post.style.height = 1 + "px";
+        textarea_post.style.height = (25 + textarea_post.scrollHeight) + "px";
+        main_textarea_post.style.height = (25 + textarea_post.scrollHeight) + "px";
     }
 }
 function eModalHeaderRight() {
-    var modal = document.getElementById("header-right-modal");
-    if (modal.style.display == 'none') 
-    modal.style.display = 'block';
+    if ($('#modalHeaderRight').html() == '')
+        $.ajax({
+            method: "GET",
+            url: 'ProcessModalLast',
+            success: function (response) {
+                $('#modalHeaderRight').html(response);
+            }
+        });
     else
-    modal.style.display = 'none';
+        $('#modalHeaderRight').html('');
 }
 function checkValueTypeCode() {
     if (document.getElementById('code_veri').value.length <= 5) {

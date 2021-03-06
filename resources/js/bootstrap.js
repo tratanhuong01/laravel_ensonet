@@ -22,7 +22,15 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    forceTLS: true
+    key: 'd8a8c897ed00512a1cd4',
+    cluster: 'ap1',
+    encrypted: true
+});
+
+const client = require('pusher-js');
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'your-pusher-channels-key',
+    client: client
 });
