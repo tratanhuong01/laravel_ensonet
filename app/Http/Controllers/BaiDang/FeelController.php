@@ -52,15 +52,16 @@ class FeelController extends Controller
             }
             return Functions::getFeel($request->LoaiCamXuc);
         } else {
-            event(new NotificationEvent($post[0]->IDTaiKhoan));
             if (explode('@', $request->LoaiCamXuc)[1] == 0) {
                 Camxuc::where('camxuc.IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
                     ->where('camxuc.IDBaiDang', '=', $request->IDBaiDang)
                     ->delete();
-                ThongBao::where('thongbao.IDGui', '=', $user[0]->IDTaiKhoan)
-                    ->where('thongbao.IDBaiDang', '=', $request->IDBaiDang)
+                DB::table('thongbao')
+                    ->where('thongbao.IDGui', '=', $user[0]->IDTaiKhoan)
+                    ->where('thongbao.IDContent', '=', $request->IDBaiDang . '&' . Notify::getTypeNotify($post[0]->LoaiBaiDang))
                     ->where('thongbao.IDLoaiThongBao', '=', Notify::getTypeNotify($post[0]->LoaiBaiDang))
                     ->delete();
+                event(new NotificationEvent($post[0]->IDTaiKhoan));
                 return '<span class="text-xl" style="color: transparent;text-shadow: 0 0 0 gray;">👍</span> &nbsp; 
                     <span class="font-bold">Thích</span>';
             } else {
@@ -70,10 +71,12 @@ class FeelController extends Controller
                     [$request->LoaiCamXuc, $user[0]->IDTaiKhoan, $rs[0]->IDBaiDang]
                 );
                 DB::update(
-                    'UPDATE thongbao SET ThoiGianThongBao = ? WHERE thongbao.IDTaiKhoan = ? 
-                    AND thongbao.IDContent = ?',
-                    [date("Y-m-d H:i:s"), $post[0]->IDTaiKhoan, $post[0]->IDBaiDang . '&' . Notify::getTypeNotify($post[0]->LoaiBaiDang)]
+                    'UPDATE thongbao SET thongbao.ThoiGianThongBao = ? , 
+                    thongbao.TinhTrang = ? WHERE thongbao.IDGui = ? 
+                    AND thongbao.IDContent = ? ',
+                    [date("Y-m-d H:i:s"), '0', $user[0]->IDTaiKhoan, $post[0]->IDBaiDang . '&' . Notify::getTypeNotify($post[0]->LoaiBaiDang)]
                 );
+                event(new NotificationEvent($post[0]->IDTaiKhoan));
                 return Functions::getFeel($request->LoaiCamXuc);
             }
         }

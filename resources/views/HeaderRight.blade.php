@@ -21,14 +21,14 @@ use App\Models\Notify;
     </div>
 </li>
 <li class="relative">
-    <div onclick="openRequestFriend()" class="pt-1.5 relative w-10 bg-gray-200 
+    <div onclick="openNotifications()" class="pt-1.5 relative w-10 bg-gray-200 
                         dark:bg-dark-third dark:text-white text-center rounded-full cursor-pointer 
                         h-10 ml-1 mr-1">
         <i class="far fa-bell text-xm"></i>
         <span id="numNotification" class="absolute
                                 -top-2 -right-1">
             @include('Component\Child\SoLuongThongBao',
-            ['num' => Notify::countNotify(Session::get('user')[0]->IDTaiKhoan)])
+            ['num' => Notify::countNotify(Session::get('user')[0]->IDTaiKhoan,0)])
         </span>
     </div>
 </li>

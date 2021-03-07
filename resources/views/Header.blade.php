@@ -84,8 +84,6 @@ $user = Session::get('user');
             </div>
             <div id="modalHeaderRight" class="w-92 rounded-lg absolute dark:bg-dark-second bg-white z-50 top-16
             wrapper-scrollbar w-full overflow-x-hidden overflow-y-auto" style="max-height: 675px !important;">
-                <?php $notify = Notify::getNotify($user[0]->IDTaiKhoan); ?>
-                @include('Modal\ModalHeader\ModalThongBao',['notify' => $notify])
             </div>
         </div>
     </div>

@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
-use App\Mail\Ensonet;
 use App\Models\Taikhoan;
-use App\Models\Functions;
-use App\Events\RedisEvent;
-use App\Models\Data;
 use Illuminate\Support\Facades\DB;
 use App\Models\Process;
-use App\Events\NotificationEvent;
-use App\Http\Controllers\Realtime\NotificationController;
 use App\Models\Notify;
+use App\Models\Thongbao;
+use Illuminate\Support\Facades\Session;
 
 // Đăng Nhập
 Route::get('/login', function () {
@@ -222,7 +216,7 @@ Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view'
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    print_r(Notify::getNotify('1000000001'));
+    var_dump(Notify::getNotify('1000000001'));
     echo "</pre>";
 });
 
@@ -232,4 +226,37 @@ Route::get('ProcessModalLast', function () {
 });
 
 // xử lí hiện thông báo
-Route::get('/ProcessNotificationShow', [Realtime\NotificationController::class, 'notify']);
+Route::get('ProcessNotificationShow', [Realtime\NotificationController::class, 'notify']);
+
+//xử lí show modal notifications
+Route::get('ProcessShowModalNotifications', function () {
+    $notify = Notify::getNotify(Session::get('user')[0]->IDTaiKhoan);
+    return view('Modal\ModalHeader\ModalThongBao')->with('notify', $notify);
+});
+
+//Cập nhật trạng thái của thông báo
+Route::get('ProcessUpdateStateNotifications', function () {
+    $notify = Thongbao::where('thongbao.IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)->get();
+    $count = 0;
+    for ($i = 0; $i < count($notify); $i++) {
+        if ($notify[$i]->TinhTrang == 2 || $notify[$i]->TinhTrang == 1)
+            $count++;
+    }
+    if ($count == count($notify)) {
+    } else {
+        DB::update('UPDATE thongbao SET TinhTrang = ? 
+        WHERE IDTaiKhoan = ? ', ['1', Session::get('user')[0]->IDTaiKhoan]);
+        return view('Component/Child/SoLuongThongBao')
+            ->with('num', Notify::countNotify(Session::get('user')[0]->IDTaiKhoan, 0));
+    }
+});
+
+//Đánh dấu tất cả là đã đọc
+Route::get('ProcessTickAllIsRead', function () {
+    DB::update('UPDATE thongbao SET TinhTrang = ? 
+    WHERE IDTaiKhoan = ? ', ['2', Session::get('user')[0]->IDTaiKhoan]);
+    return '';
+});
+
+//post
+Route::get('/post/{idBaiDang}', [BaiDang\PostController::class, 'view']);

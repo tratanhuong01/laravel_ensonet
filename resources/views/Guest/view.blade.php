@@ -20,6 +20,8 @@ $u = Session::get('user');
     <script src="/../../js/ajax/MoiQuanHe/ajax.js"></script>
     <script src="/../../js/ajax.js"></script>
     <script src="/../../js/scrollbar.js"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="/../../js/header.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>

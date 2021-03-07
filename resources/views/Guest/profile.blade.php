@@ -29,6 +29,7 @@ $user = Session::get('user');
     <script src="/js/ajax/BaiDang/ajax.js"></script>
     <script src="/js/ajax/BinhLuan/ajax.js"></script>
     <script src="/js/realtime/notification.js"></script>
+    <script src="/js/header.js"></script>
 </head>
 
 <body>

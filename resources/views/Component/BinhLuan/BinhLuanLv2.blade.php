@@ -34,19 +34,11 @@ $user = Session::get('user');
             <li onclick="RepViewCommentPost(
                 '{{ $comment->IDTaiKhoan }}',
                 '{{ $comment->IDBaiDang }}',
-                '{{ $comment->IDBinhLuan }}'
+                '{{ $comment_main->IDBinhLuan }}'
                 )" class="font-bold text-sm py-1 pr-2 cursor-pointer dark:text-white">Trả lời</li>
             <li class="py-1 pr-2 cursor-pointer dark:text-white font-bold" style="font-size: 13px;">
                 {{ StringUtil::CheckDateTime($comment->ThoiGianBinhLuan) }}
             </li>
         </ul>
-
-        <p style="font-size: 15px;display: none;" class="color-word font-bold cursor-pointer pl-2">
-            <i style="color: #65676B;" class="fas fa-angle-double-up"></i>&nbsp;&nbsp;
-            Thu gọn
-        </p>
-        <div class="w-full" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}CommentLv2">
-
-        </div>
     </div>
 </div>

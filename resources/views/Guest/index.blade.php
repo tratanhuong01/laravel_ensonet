@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Session;
     @include('Head/css')
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/css/emojis.css">
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="/js/scrollbar.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/event/event.js"></script>
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Session;
     <script src="/js/ajax/BinhLuan/ajax.js"></script>
     <script src="/js/ajax.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/js/header.js"></script>
 </head>
 
 <body class="dark:bg-dark-main">
@@ -204,6 +206,25 @@ use Illuminate\Support\Facades\Session;
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
     <script src="js/DisMojiPicker.js"></script>
+    <script>
+        $('#modalHeaderRight').html('')
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('5064fc09fcd20f23d5c1', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
+        channel.bind('tests', function() {
+            $.ajax({
+                method: "GET",
+                url: "/ProcessNotificationShow",
+                success: function(response) {
+                    $('#numNotification').html(response);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

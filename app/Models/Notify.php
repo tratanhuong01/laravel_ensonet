@@ -11,7 +11,11 @@ class Notify extends Model
     public static function getNotify($idTaiKhoan)
     {
         $post = DB::select(
-            'SELECT DISTINCT IDContent FROM thongbao WHERE IDTaiKhoan = ? ORDER BY ThoiGianThongBao DESC LIMIT 10',
+            'SELECT DISTINCT IDContent, MAX(ThoiGianThongBao) 
+            FROM thongbao 
+            WHERE thongbao.IDTaiKhoan = ?
+            GROUP BY IDContent 
+            ORDER BY MAX(ThoiGianThongBao) DESC, IDContent',
             [$idTaiKhoan]
         );
         $newAllNotify = array();
@@ -20,6 +24,8 @@ class Notify extends Model
         } else {
             for ($i = 0; $i < count($post); $i++) {
                 $newNotify = array();
+                $dt = Thongbao::where('thongbao.IDTaikhoan', '=', $idTaiKhoan)
+                    ->where('thongbao.IDContent', '=', $post[$i]->IDContent)->get();
                 for ($j = 0; $j < count($post); $j++) {
                     $notify = Thongbao::where('thongbao.IDTaikhoan', '=', $idTaiKhoan)
                         ->where('thongbao.IDContent', '=', $post[$i]->IDContent)
@@ -45,6 +51,15 @@ class Notify extends Model
         }
         return $newAllNotify;
     }
+    public static function sortAllNotify($postAll)
+    {
+        $postAllNew = array();
+        for ($i = 0; $i < count($postAll) - 1; $i++) {
+            for ($j = $i + 1; $j < count($postAll); $j++) {
+            }
+        }
+        return $postAll;
+    }
     public static function getTypeNotify($loaiBaiDang)
     {
         switch ($loaiBaiDang) {
@@ -57,17 +72,15 @@ class Notify extends Model
             case '2':
                 return 'CXP1234567';
                 break;
-            default:
-                return '';
         }
     }
-    public static function countNotify($idTaiKhoan)
+    public static function countNotify($idTaiKhoan, $tinhTrang)
     {
         $post = DB::select(
             'SELECT DISTINCT IDContent FROM thongbao 
             WHERE IDTaiKhoan = ? AND TinhTrang = ? 
             ORDER BY ThoiGianThongBao DESC',
-            [$idTaiKhoan, 0]
+            [$idTaiKhoan, $tinhTrang]
         );
         return count($post);
     }

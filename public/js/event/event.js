@@ -20,7 +20,7 @@ function eModalHeaderRight() {
     if ($('#modalHeaderRight').html() == '')
         $.ajax({
             method: "GET",
-            url: 'ProcessModalLast',
+            url: '/ProcessModalLast',
             success: function (response) {
                 $('#modalHeaderRight').html(response);
             }

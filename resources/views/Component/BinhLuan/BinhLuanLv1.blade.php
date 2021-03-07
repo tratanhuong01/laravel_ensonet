@@ -40,35 +40,31 @@ $user = Session::get('user');
                 {{ StringUtil::CheckDateTime($comment->ThoiGianBinhLuan) }}
             </li>
         </ul>
-        <p style="font-size: 15px;display: none;" class="color-word font-bold cursor-pointer pl-2">
-            <i style="color: #65676B;" class="fas fa-angle-double-down"></i>&nbsp;&nbsp;
-            Xem 19 bình luận
-        </p>
-        <p style="font-size: 15px;display: none;" class="color-word font-bold cursor-pointer pl-2">
-            <i style="color: #65676B;" class="fas fa-angle-double-up"></i>&nbsp;&nbsp;
-            Thu gọn
-        </p>
-        <div class="w-full" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}CommentLv2">
-            <div class=w-full>
-                <?php $commentLimit = Process::getRepCommentLimit($comment->IDBinhLuan, 0);
-                ?>
-                @for($i = 0;$i < count($commentLimit) ;$i++) </p>
-                    @include('Component\BinhLuan\BinhLuanLv2',[
-                    'comment'=> $commentLimit[$i],
-                    ])
-                    @endfor
+        <div class="w-full" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}ACommentLv2">
+            <div class="w-full" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}CommentLv2">
+                <div class=w-full>
+                    <?php $commentLimit = Process::getRepCommentLimit($comment->IDBinhLuan, 0);
+                    ?>
+                    @for($i = 0;$i < count($commentLimit) ;$i++) </p>
+                        @include('Component\BinhLuan\BinhLuanLv2',[
+                        'comment'=> $commentLimit[$i],
+                        'comment_main'=> $comment,
+                        ])
+                        @endfor
 
+                </div>
+            </div>
+            <div class="w-full" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}NumComment">
+                <?php $comments = Process::getCommentNewCmt($comment->IDBinhLuan); ?>
+                @include('Component\BinhLuan\XemPhanHoi',
+                ['num' => count($comments),
+                'idTaiKhoan' => $comment->IDTaiKhoan,
+                'idBaiDang' => $comment->IDBaiDang,
+                'idBinhLuan' => $comment->IDBinhLuan ,
+                'count' => count($comments)
+                ])
             </div>
         </div>
-        <div class="w-full" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}NumComment">
-            <?php $comments = Process::getCommentNewCmt($comment->IDBinhLuan); ?>
-            @include('Component\BinhLuan\XemPhanHoi',
-            ['num' => count($comments),
-            'idTaiKhoan' => $comment->IDTaiKhoan,
-            'idBaiDang' => $comment->IDBaiDang,
-            'idBinhLuan' => $comment->IDBinhLuan ,
-            'count' => count($comments)
-            ])
-        </div>
+
     </div>
 </div>

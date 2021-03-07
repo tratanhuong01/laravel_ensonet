@@ -59,6 +59,10 @@ class RepCommentController extends Controller
             ->with(
                 'comment',
                 $comment[0]
+            )
+            ->with(
+                'comment_main',
+                $comment[0]
             );
     }
     public function view(Request $request)
@@ -66,7 +70,8 @@ class RepCommentController extends Controller
         $comment = Process::getRepCommentLimit($request->IDBinhLuan, $request->Index);
         $view = "";
         for ($i = 0; $i < count($comment); $i++)
-            $view .= view('Component\BinhLuan\BinhLuanLv2')->with('comment', $comment[$i]);
+            $view .= view('Component\BinhLuan\BinhLuanLv2')->with('comment', $comment[$i])
+                ->with('comment_main', $comment[$i]);
         return $view;
     }
     public function load(Request $request)
@@ -79,7 +84,7 @@ class RepCommentController extends Controller
                 ->with('num', $request->Num)
                 ->with('count', $request->Count)
                 ->with('idTaiKhoan', $request->IDTaiKhoan)
-                ->with('idTaiKhoan', $request->IDBinhLuan)
+                ->with('idBinhLuan', $request->IDBinhLuan)
                 ->with('idBaiDang', $request->IDBaiDang);
     }
 }

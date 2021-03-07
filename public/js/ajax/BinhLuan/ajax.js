@@ -2,7 +2,7 @@ function CommentPost(IDTaiKhoan, IDBaiDang, event) {
     if (event.keyCode === 13) {
         $.ajax({
             method: "GET",
-            url: 'ProcessCommentPost',
+            url: '/ProcessCommentPost',
             data: {
                 IDBaiDang: IDBaiDang,
                 NoiDungBinhLuan: $('#' + IDTaiKhoan + IDBaiDang + "Write").html()
@@ -17,7 +17,7 @@ function CommentPost(IDTaiKhoan, IDBaiDang, event) {
 function ViewMoreCommentPost(IDTaiKhoan, IDBaiDang, Index, Num, Count) {
     $.ajax({
         method: "GET",
-        url: 'ProcessViewMoreCommentPost',
+        url: '/ProcessViewMoreCommentPost',
         data: {
             IDBaiDang: IDBaiDang,
             Index: Index,
@@ -29,7 +29,7 @@ function ViewMoreCommentPost(IDTaiKhoan, IDBaiDang, Index, Num, Count) {
     });
     $.ajax({
         method: "GET",
-        url: 'ProcessLoadViewMoreComment',
+        url: '/ProcessLoadViewMoreComment',
         data: {
             Index: Index,
             IDTaiKhoan: IDTaiKhoan,
@@ -45,15 +45,14 @@ function ViewMoreCommentPost(IDTaiKhoan, IDBaiDang, Index, Num, Count) {
 function RepViewCommentPost(IDTaiKhoan, IDBaiDang, IDBinhLuan) {
     $.ajax({
         method: "GET",
-        url: 'ProcessRepViewCommentPost',
+        url: '/ProcessRepViewCommentPost',
         data: {
             IDTaiKhoan: IDTaiKhoan,
             IDBaiDang: IDBaiDang,
             IDBinhLuan: IDBinhLuan
         },
         success: function (response) {
-            console.log('sussess');
-            $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "CommentLv2").append(response);
+            $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "ACommentLv2").prepend(response);
         }
     });
 }
@@ -61,7 +60,7 @@ function RepCommentPost(IDTaiKhoan, IDBaiDang, IDBinhLuan, event) {
     if (event.keyCode === 13) {
         $.ajax({
             method: "GET",
-            url: 'ProcessRepCommentPost',
+            url: '/ProcessRepCommentPost',
             data: {
                 IDTaiKhoan: IDTaiKhoan,
                 IDBaiDang: IDBaiDang,
@@ -78,7 +77,7 @@ function RepCommentPost(IDTaiKhoan, IDBaiDang, IDBinhLuan, event) {
 function FeelCommentPost(IDBinhLuan, LoaiCamXuc) {
     $.ajax({
         method: "GET",
-        url: "ProcessFeelCommentPost",
+        url: "/ProcessFeelCommentPost",
         data: {
             IDBinhLuan: IDBinhLuan,
             LoaiCamXuc: LoaiCamXuc
@@ -89,7 +88,7 @@ function FeelCommentPost(IDBinhLuan, LoaiCamXuc) {
     });
     $.ajax({
         method: "GET",
-        url: "ProcessLoadNumFeelCommentPost",
+        url: "/ProcessLoadNumFeelCommentPost",
         data: {
             IDBinhLuan: IDBinhLuan
         },
@@ -101,7 +100,7 @@ function FeelCommentPost(IDBinhLuan, LoaiCamXuc) {
 function ViewMoreCommentPostCmt(IDTaiKhoan, IDBinhLuan, IDBaiDang, Index, Num, Count) {
     $.ajax({
         method: "GET",
-        url: 'ProcessViewRepComment',
+        url: '/ProcessViewRepComment',
         data: {
             IDBinhLuan: IDBinhLuan,
             Index: Index,
@@ -112,7 +111,7 @@ function ViewMoreCommentPostCmt(IDTaiKhoan, IDBinhLuan, IDBaiDang, Index, Num, C
     });
     $.ajax({
         method: "GET",
-        url: 'ProcessLoadNumRepComment',
+        url: '/ProcessLoadNumRepComment',
         data: {
             Index: Index,
             IDTaiKhoan: IDTaiKhoan,
