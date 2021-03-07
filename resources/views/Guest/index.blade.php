@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 ?>
 
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="{{ Session::get('user')[0]->DarkMode == '0' ? '' : 'dark' }}">
 
 <head>
     <title>Ensonet</title>

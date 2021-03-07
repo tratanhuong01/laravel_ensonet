@@ -27,7 +27,8 @@ class Notify extends Model
                 $dt = Thongbao::where('thongbao.IDTaikhoan', '=', $idTaiKhoan)
                     ->where('thongbao.IDContent', '=', $post[$i]->IDContent)->get();
                 for ($j = 0; $j < count($post); $j++) {
-                    $notify = Thongbao::where('thongbao.IDTaikhoan', '=', $idTaiKhoan)
+                    $notify = Thongbao::select('*', 'thongbao.TinhTrang')
+                        ->where('thongbao.IDTaikhoan', '=', $idTaiKhoan)
                         ->where('thongbao.IDContent', '=', $post[$i]->IDContent)
                         ->join('loaithongbao', 'thongbao.IDLoaiThongBao', '=', 'loaithongbao.IDLoaiThongBao')
                         ->join('taikhoan', 'thongbao.IDGui', '=', 'taikhoan.IDTaikhoan')

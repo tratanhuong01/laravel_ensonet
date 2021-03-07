@@ -27,7 +27,9 @@ class Taikhoan extends Model
         'LoaiTaiKhoan',
         'XacMinh',
         'TinhTrang',
-        'NgayTao'
+        'NgayTao',
+        'DarkMode',
+        'TinhTrang'
     ];
     public static function add(
         $IDTaiKhoan,
@@ -47,7 +49,9 @@ class Taikhoan extends Model
         $LoaiTaiKhoan,
         $XacMinh,
         $TinhTrang,
-        $NgayTao
+        $NgayTao,
+        $DarkMode,
+        $HoatDong
     ) {
         $taikhoan = new Taikhoan;
         $taikhoan->IDTaiKhoan = $IDTaiKhoan;
@@ -68,6 +72,8 @@ class Taikhoan extends Model
         $taikhoan->XacMinh = $XacMinh;
         $taikhoan->TinhTrang = $TinhTrang;
         $taikhoan->NgayTao = $NgayTao;
+        $taikhoan->DarkMode = $DarkMode;
+        $taikhoan->HoatDong = $HoatDong;
         $taikhoan->save();
     }
     public $timestamps = false;

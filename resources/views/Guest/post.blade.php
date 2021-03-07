@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 ?>
 
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="{{ Session::get('user')[0]->DarkMode == 0 ? '' : 'dark' }}">
 
 <head>
     <title>Ensonet</title>
@@ -60,6 +60,25 @@ use Illuminate\Support\Facades\Session;
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    <script>
+        $('#modalHeaderRight').html('')
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('5064fc09fcd20f23d5c1', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
+        channel.bind('tests', function() {
+            $.ajax({
+                method: "GET",
+                url: "/ProcessNotificationShow",
+                success: function(response) {
+                    $('#numNotification').html(response);
+                }
+            });
+        });
+    </script>
     <script>
         $('#modalHeaderRight').html('')
         Pusher.logToConsole = true;

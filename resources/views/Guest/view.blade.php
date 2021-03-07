@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en" class="{{ Session::get('user')[0]->DarkMode == 0 ? '' : 'dark' }}">
 <?php
 
 use Illuminate\Support\Facades\Session;
@@ -191,6 +191,25 @@ $u = Session::get('user');
                 }
             });
         }
+    </script>
+    <script>
+        $('#modalHeaderRight').html('')
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('5064fc09fcd20f23d5c1', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
+        channel.bind('tests', function() {
+            $.ajax({
+                method: "GET",
+                url: "/ProcessNotificationShow",
+                success: function(response) {
+                    $('#numNotification').html(response);
+                }
+            });
+        });
     </script>
 </body>
 

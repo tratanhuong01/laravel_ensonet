@@ -8,7 +8,7 @@ $user = Session::get('user');
 
 ?>
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="{{ Session::get('user')[0]->DarkMode == 0 ? '' : 'dark' }}">
 
 <head>
     <meta charset="UTF-8">
@@ -316,6 +316,7 @@ $user = Session::get('user');
     </div>
     <script src="/js/scrollbar.js"></script>
     <script>
+        $('#modalHeaderRight').html('')
         Pusher.logToConsole = true;
 
         var pusher = new Pusher('5064fc09fcd20f23d5c1', {

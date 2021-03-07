@@ -260,3 +260,34 @@ Route::get('ProcessTickAllIsRead', function () {
 
 //post
 Route::get('/post/{idBaiDang}', [BaiDang\PostController::class, 'view']);
+
+Route::get('/ProcessDarkMode', function () {
+    $darkMode = Taikhoan::where(
+        'taikhoan.IDTaiKhoan',
+        '=',
+        Session::get('user')[0]->IDTaiKhoan
+    )->get()[0]->DarkMode;
+    if ($darkMode == 0) {
+        DB::update(
+            'UPDATE taikhoan SET DarkMode = ? WHERE IDTaiKhoan = ? ',
+            ['1', Session::get('user')[0]->IDTaiKhoan]
+        );
+        Session::put(
+            'user',
+            Taikhoan::where('taikhoan.IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)
+                ->get()
+        );
+        return 'dark';
+    } else {
+        DB::update(
+            'UPDATE taikhoan SET DarkMode = ? WHERE IDTaiKhoan = ? ',
+            ['0', Session::get('user')[0]->IDTaiKhoan]
+        );
+        Session::put(
+            'user',
+            Taikhoan::where('taikhoan.IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)
+                ->get()
+        );
+        return '';
+    }
+});

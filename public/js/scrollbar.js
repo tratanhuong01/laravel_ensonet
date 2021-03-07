@@ -41,7 +41,6 @@ function viewInfoLeave() {
   d.innerHTML = '';
   d.style.display = 'none';
 }
-
 function openEditFriend(index) {
   var editFriend = document.getElementsByClassName("edit-friend");
   editFriend[index].style.display = 'block';

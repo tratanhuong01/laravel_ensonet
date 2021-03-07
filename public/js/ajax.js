@@ -123,10 +123,13 @@ function DeleteFriend(UserMain, UserOther) {
     xmlhttp.send();
 }
 function darkMode() {
-    if (document.getElementsByTagName("html")[0].classList == 'dark')
-        document.getElementsByTagName("html")[0].classList = ''
-    else
-        document.getElementsByTagName("html")[0].classList = 'dark'
+    $.ajax({
+        method: "GET",
+        url: "/ProcessDarkMode",
+        success: function (response) {
+            document.getElementsByTagName("html")[0].classList = response;
+        }
+    });
 }
 function CateGoryProfile(names) {
     var NamesCate = document.getElementsByClassName("NamesCate")[0];
