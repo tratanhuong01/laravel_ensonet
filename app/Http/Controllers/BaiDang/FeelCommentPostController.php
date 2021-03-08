@@ -43,7 +43,7 @@ class FeelCommentPostController extends Controller
                     StringUtil::ID('thongbao', 'IDThongBao'),
                     $idTaiKhoan,
                     'BTCXVBLC12',
-                    $idBaiDang . '&' . 'BTCXVBLC12' . $request->IDBinhLuan,
+                    $idBaiDang . '&' . 'BTCXVBLC12' . '&' . $request->IDBinhLuan,
                     $user[0]->IDTaiKhoan,
                     '0',
                     date("Y-m-d H:i:s")

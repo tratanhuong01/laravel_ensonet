@@ -15,7 +15,7 @@ class Notify extends Model
             FROM thongbao 
             WHERE thongbao.IDTaiKhoan = ?
             GROUP BY IDContent 
-            ORDER BY MAX(ThoiGianThongBao) DESC, IDContent',
+            ORDER BY MAX(ThoiGianThongBao) DESC, IDContent LIMIT 10',
             [$idTaiKhoan]
         );
         $newAllNotify = array();
@@ -84,9 +84,12 @@ class Notify extends Model
     public static function countNotify($idTaiKhoan, $tinhTrang)
     {
         $post = DB::select(
-            'SELECT DISTINCT IDContent FROM thongbao 
-            WHERE IDTaiKhoan = ? AND TinhTrang = ? 
-            ORDER BY ThoiGianThongBao DESC',
+            'SELECT DISTINCT IDContent, MAX(ThoiGianThongBao) 
+            FROM thongbao 
+            WHERE thongbao.IDTaiKhoan = ?
+            AND thongbao.TinhTrang = ?
+            GROUP BY IDContent 
+            ORDER BY MAX(ThoiGianThongBao) DESC, IDContent',
             [$idTaiKhoan, $tinhTrang]
         );
         return count($post);

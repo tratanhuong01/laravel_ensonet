@@ -141,7 +141,7 @@ use App\Models\Notify;
     </div>
 </div>
 @break;
-@case('NDNTBLCH12')
+@case('NDBTBLCH12')
 <div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
     <div class=" pt-2 relative pl-2">
         <div class="w-16 h-16 rounded-full relative">
@@ -154,9 +154,11 @@ use App\Models\Notify;
     </div>
     <div class="w-9/12 dark:text-white pl-3">
         @if (count($value[$key]) <= 1) <b>
-            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }}
+            {{ $value[0][0]->GioiTinh == 'Nam' ? 'anh ấy.' : 'cô ấy' }}
             @else
-            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}
+            {{ $value[0][0]->GioiTinh == 'Nam' ? 'anh ấy.' : 'cô ấy' }}
             @endif
             <br>
             {{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
@@ -182,9 +184,11 @@ use App\Models\Notify;
     </div>
     <div class="w-9/12 dark:text-white pl-3">
         @if (count($value[$key]) <= 1) <b>
-            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }}
+            {{ $value[0][0]->GioiTinh == 'Nam' ? 'anh ấy.' : 'cô ấy' }}
             @else
-            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}
+            {{ $value[0][0]->GioiTinh == 'Nam' ? 'anh ấy.' : 'cô ấy' }}
             @endif
             <br>
             {{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
@@ -238,9 +242,9 @@ use App\Models\Notify;
     </div>
     <div class="w-9/12 dark:text-white pl-3">
         @if (count($value[$key]) <= 1) <b>
-            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }} của bạn.
             @else
-            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }} của bạn.
             @endif
             <br>
             {{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
