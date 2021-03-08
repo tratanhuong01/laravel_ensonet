@@ -3,7 +3,7 @@ function changeAvatar(event) {
     let formData = new FormData($('#formAvatar')[0]);
     $.ajax({
         method: "POST",
-        url: "ProcessViewAvatar",
+        url: "/ProcessViewAvatar",
         data: formData,
         contentType: false,
         processData: false,
@@ -29,7 +29,7 @@ function updateAvatar() {
     let formData = new FormData($('#formUpdateAvatar')[0]);
     $.ajax({
         method: "POST",
-        url: 'ProcessUpdateAvatar',
+        url: '/ProcessUpdateAvatar',
         data: formData,
         contentType: false,
         processData: false,
@@ -65,7 +65,7 @@ function updateCoverImage() {
     let formData = new FormData($('#formUpdateCover')[0]);
     $.ajax({
         method: "POST",
-        url: 'ProcessUpdateCoverImage',
+        url: '/ProcessUpdateCoverImage',
         data: formData,
         contentType: false,
         processData: false,

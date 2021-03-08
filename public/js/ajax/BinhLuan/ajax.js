@@ -52,11 +52,26 @@ function RepViewCommentPost(IDTaiKhoan, IDBaiDang, IDBinhLuan) {
             IDBinhLuan: IDBinhLuan
         },
         success: function (response) {
-            $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "ACommentLv2").prepend(response);
+            $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "ACommentLv2").append(response);
         }
     });
 }
-function RepCommentPost(IDTaiKhoan, IDBaiDang, IDBinhLuan, event) {
+function RepViewCommentPost2(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDBinhLuanRep) {
+    $.ajax({
+        method: "GET",
+        url: '/ProcessRepViewCommentPost2',
+        data: {
+            IDTaiKhoan: IDTaiKhoan,
+            IDBaiDang: IDBaiDang,
+            IDBinhLuan: IDBinhLuan,
+            IDBinhLuanRep: IDBinhLuanRep
+        },
+        success: function (response) {
+            $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuanRep + "ACommentLv2").append(response);
+        }
+    });
+}
+function RepCommentPost(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDBinhLuanRep, event) {
     if (event.keyCode === 13) {
         $.ajax({
             method: "GET",
@@ -65,10 +80,11 @@ function RepCommentPost(IDTaiKhoan, IDBaiDang, IDBinhLuan, event) {
                 IDTaiKhoan: IDTaiKhoan,
                 IDBaiDang: IDBaiDang,
                 IDBinhLuan: IDBinhLuan,
+                IDBinhLuanRep: IDBinhLuanRep,
                 NoiDungBinhLuan: $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "Write").html()
             },
             success: function (response) {
-                $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "CommentLv2").prepend(response);
+                $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuanRep + "CommentLv2").prepend(response);
                 $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "Write").html('');
             }
         });

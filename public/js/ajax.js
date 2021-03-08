@@ -19,7 +19,7 @@ function submitFormRegister() {
     $('#btn-submit-form').append('<i class="fas fa-cog fa-spin text-xl"></i>');
     $.ajax({
         method: "GET",
-        url: 'ProcessRegister',
+        url: '/ProcessRegister',
         data: $('#formRegister').serialize(),
         success: function (response) {
             $('#register').html(response);
@@ -34,7 +34,7 @@ function submitFormVerify() {
             document.getElementById('register').innerHTML = this.responseText;
         }
     };
-    xmlhttp.open("GET", 'ProcessVerify?emailOrPhone=' + value('emailOrPhone') + '&code_veri=' + value('code_veri'), true);
+    xmlhttp.open("GET", '/ProcessVerify?emailOrPhone=' + value('emailOrPhone') + '&code_veri=' + value('code_veri'), true);
     xmlhttp.send();
 }
 function RequestFriend(UserMain, UserOther) {
@@ -52,7 +52,7 @@ function RequestFriend(UserMain, UserOther) {
 
         }
     };
-    xmlhttp.open("GET", 'ProcessRequestFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
+    xmlhttp.open("GET", '/ProcessRequestFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
     xmlhttp.send();
 
 }
@@ -70,7 +70,7 @@ function AcceptFriend(UserMain, UserOther) {
 
         }
     };
-    xmlhttp.open("GET", 'ProcessAcceptFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
+    xmlhttp.open("GET", '/ProcessAcceptFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
     xmlhttp.send();
 
 }
@@ -87,7 +87,7 @@ function CancelRequestFriend(UserMain, UserOther) {
             }, 1500);
         }
     };
-    xmlhttp.open("GET", 'ProcessCancelRequestFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
+    xmlhttp.open("GET", '/ProcessCancelRequestFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
     xmlhttp.send();
 
 }
@@ -103,7 +103,7 @@ function DeleleRequestFriend(UserMain, UserOther) {
             }, 1500);
         }
     };
-    xmlhttp.open("GET", 'ProcessCancelRequestFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
+    xmlhttp.open("GET", '/ProcessCancelRequestFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
     xmlhttp.send();
 
 }
@@ -119,7 +119,7 @@ function DeleteFriend(UserMain, UserOther) {
             }, 1500);
         }
     };
-    xmlhttp.open("GET", 'ProcessDeleteFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
+    xmlhttp.open("GET", '/ProcessDeleteFriend?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
     xmlhttp.send();
 }
 function darkMode() {
@@ -145,7 +145,7 @@ function sendCodeAgain() {
     $('#btn-send-code').append('<i class="fas fa-cog fa-spin text-xl"></i>');
     $.ajax({
         method: "GET",
-        url: 'ProcessSendCodeAgain',
+        url: '/ProcessSendCodeAgain',
         data: $('#formSendAgainCode').serialize(),
         success: function (response) {
             $('#register').html(response);
@@ -168,7 +168,7 @@ function changeAvatar(event) {
     let formData = new FormData($('#formAvatar')[0]);
     $.ajax({
         method: "POST",
-        url: "ProcessViewAvatar",
+        url: "/ProcessViewAvatar",
         data: formData,
         contentType: false,
         processData: false,
@@ -194,7 +194,7 @@ function updateAvatar() {
     let formData = new FormData($('#formUpdateAvatar')[0]);
     $.ajax({
         method: "POST",
-        url: 'ProcessUpdateAvatar',
+        url: '/ProcessUpdateAvatar',
         data: formData,
         contentType: false,
         processData: false,
@@ -233,7 +233,7 @@ function updateCoverImage() {
     let formData = new FormData($('#formUpdateCover')[0]);
     $.ajax({
         method: "POST",
-        url: 'ProcessUpdateCoverImage',
+        url: '/ProcessUpdateCoverImage',
         data: formData,
         contentType: false,
         processData: false,
@@ -299,7 +299,7 @@ function postFiles() {
     let formData = new FormData($('#formPost')[0]);
     $.ajax({
         method: "POST",
-        url: 'ProcessPostNormal',
+        url: '/ProcessPostNormal',
         data: formData,
         contentType: false,
         processData: false,
@@ -316,13 +316,13 @@ function ajaxProfileFriend(ID, NameID) {
             window.history.pushState('page2', 'Title', '/profile.1000000001/friends')
         }
     };
-    xmlhttp.open("GET", 'ProcessProfileFriend?IDView=' + ID, true);
+    xmlhttp.open("GET", '/ProcessProfileFriend?IDView=' + ID, true);
     xmlhttp.send();
 }
 function FeelPost(nameID, loaiCamXuc) {
     $.ajax({
         method: "GET",
-        url: 'ProcessFeelPost',
+        url: '/ProcessFeelPost',
         data: {
             IDBaiDang: nameID,
             LoaiCamXuc: loaiCamXuc
@@ -333,7 +333,7 @@ function FeelPost(nameID, loaiCamXuc) {
     });
     $.ajax({
         method: "GET",
-        url: 'ProcessViewFeelPost',
+        url: '/ProcessViewFeelPost',
         data: {
             IDBaiDang: nameID,
             LoaiCamXuc: loaiCamXuc

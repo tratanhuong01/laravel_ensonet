@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\BaiDang;
 
+use App\Events\NotificationEvent;
 use App\Http\Controllers\Controller;
+use App\Models\Binhluan;
 use Illuminate\Http\Request;
 use App\Models\Camxucbinhluan;
 use App\Models\Functions;
+use App\Models\Notify;
 use App\Models\Process;
 use App\Models\StringUtil;
+use App\Models\Thongbao;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -20,6 +24,10 @@ class FeelCommentPostController extends Controller
         $rs = Camxucbinhluan::where('camxucbinhluan.IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
             ->where('camxucbinhluan.IDBinhLuan', '=', $request->IDBinhLuan)
             ->get();
+        $idTaiKhoan = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)
+            ->get()[0]->IDTaiKhoan;
+        $idBaiDang = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)
+            ->get()[0]->IDBaiDang;
         if (count($rs) == 0) {
             $idCamXucBinhLuan = StringUtil::ID('camxucbinhluan', 'IDCamXucBinhLuan');
             Camxucbinhluan::add(
@@ -29,6 +37,19 @@ class FeelCommentPostController extends Controller
                 $request->LoaiCamXuc,
                 date("Y-m-d H:i:s")
             );
+            if ($user[0]->IDTaiKhoan == $idTaiKhoan) {
+            } else {
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $idTaiKhoan,
+                    'BTCXVBLC12',
+                    $idBaiDang . '&' . 'BTCXVBLC12' . $request->IDBinhLuan,
+                    $user[0]->IDTaiKhoan,
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+                event(new NotificationEvent($idTaiKhoan));
+            }
             return Functions::getFeelCmt($request->LoaiCamXuc);
         } else {
             if (explode('@', $request->LoaiCamXuc)[1] == 0) {

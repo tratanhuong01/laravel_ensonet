@@ -37,9 +37,15 @@ class Notify extends Model
                     $newNotify[$j] = $notify;
                 }
                 $noiDung = Baidang::where('baidang.IDBaiDang', '=', explode('&', $post[$i]->IDContent)[0])->get()[0]->NoiDung;
-                $cx = Camxuc::where('camxuc.IDBaiDang', '=', explode('&', $post[$i]->IDContent)[0])
-                    ->where('camxuc.IDTaiKhoan', '=', $newNotify[0][0]->IDGui)
-                    ->get();
+                if (sizeof(explode('&', $post[$i]->IDContent)) > 2) {
+                    $cx = Camxucbinhluan::where('camxucbinhluan.IDBinhLuan', '=', explode('&', $post[$i]->IDContent)[2])
+                        ->where('camxucbinhluan.IDTaiKhoan', '=', $newNotify[0][0]->IDGui)
+                        ->get();
+                    $newNotify['idBinhLuan'] = explode('&', $post[$i]->IDContent)[2];
+                } else
+                    $cx = Camxuc::where('camxuc.IDBaiDang', '=', explode('&', $post[$i]->IDContent)[0])
+                        ->where('camxuc.IDTaiKhoan', '=', $newNotify[0][0]->IDGui)
+                        ->get();
                 if (count($cx) > 0)
                     $loaiCamXuc = $cx[0]->LoaiCamXuc;
                 else
@@ -84,5 +90,12 @@ class Notify extends Model
             [$idTaiKhoan, $tinhTrang]
         );
         return count($post);
+    }
+    public static function getContentComment($idTaiKhoan, $idBaiDang, $time)
+    {
+        return Binhluan::where('binhluan.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('binhluan.IDBaiDang', '=', $idBaiDang)
+            ->where('binhluan.ThoiGianBinhLuan', '=', $time)
+            ->get();
     }
 }

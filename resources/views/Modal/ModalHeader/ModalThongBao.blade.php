@@ -2,6 +2,7 @@
 
 use App\Models\Functions;
 use App\Models\StringUtil;
+use App\Models\Notify;
 
 ?>
 <div class="w-full flex">
@@ -22,7 +23,7 @@ use App\Models\StringUtil;
 @switch($value[0][0]->IDLoaiThongBao)
 @case('CXP1234567')
 <div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
-    <div class=" pt-2 relative pl-2">
+    <div class="relative pl-2">
         <div class="w-16 h-16 rounded-full relative">
             <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
@@ -41,7 +42,8 @@ use App\Models\StringUtil;
             {{ $value[0][0]->TenLoaiThongBao . ' ' . $value['noiDung']}}.
             @endif
             <br>
-            {{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+            <p class="text-xs font-bold">{{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+                &nbsp;&nbsp;&nbsp;</p>
     </div>
     <div class="w-1/12 relative text-center dotNotView">
         @if ($value[0][0]->TinhTrang != 2)
@@ -53,7 +55,7 @@ use App\Models\StringUtil;
 @break;
 @case('ADD1234567')
 <div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
-    <div class=" pt-2 relative pl-2">
+    <div class="relative pl-2">
         <div class="w-16 h-16 rounded-full relative">
             <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
@@ -69,7 +71,8 @@ use App\Models\StringUtil;
             <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}.
             @endif
             <br>
-            {{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+            <p class="text-xs font-bold">{{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+                &nbsp;&nbsp;&nbsp;</p>
     </div>
     <div class="w-1/12 relative text-center dotNotView">
         @if ($value[0][0]->TinhTrang != 2)
@@ -81,7 +84,7 @@ use App\Models\StringUtil;
 @break;
 @case('AB12345678')
 <div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
-    <div class=" pt-2 relative pl-2">
+    <div class="relative pl-2">
         <div class="w-16 h-16 rounded-full relative">
             <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
@@ -97,7 +100,8 @@ use App\Models\StringUtil;
             <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}.
             @endif
             <br>
-            {{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+            <p class="text-xs font-bold">{{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+                &nbsp;&nbsp;&nbsp;</p>
     </div>
     <div class="w-1/12 relative text-center dotNotView">
         @if ($value[0][0]->TinhTrang != 2)
@@ -109,7 +113,7 @@ use App\Models\StringUtil;
 @break;
 @case('BINHLUANPO')
 <div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
-    <div class=" pt-2  pl-2">
+    <div class="pl-2">
         <div class="w-16 h-16 rounded-full relative">
             <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
@@ -122,6 +126,120 @@ use App\Models\StringUtil;
         @if (count($value[$key]) <= 1) <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }}.
             @else
 
+            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            @endif
+            <br>
+            <p class="text-xs font-bold">{{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+                &nbsp;&nbsp;&nbsp; . " {{ Notify::getContentComment($value[0][0]->IDTaiKhoan,
+                    explode('&', $value[0][0]->IDContent)[0],$value[0][0]->ThoiGianThongBao)[0]->NoiDungBinhLuan }} "</p>
+    </div>
+    <div class="w-1/12 relative text-center dotNotView">
+        @if ($value[0][0]->TinhTrang != 2)
+        <span class="bg-blue-400 rounded-full p-1.5 absolute top-1/2" style="transform: translateY(-50%);"></span>
+        @else
+        @endif
+    </div>
+</div>
+@break;
+@case('NDNTBLCH12')
+<div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
+    <div class=" pt-2 relative pl-2">
+        <div class="w-16 h-16 rounded-full relative">
+            <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+            border-2 border-white" alt="">
+            <span class="absolute bottom-0 right-0 text-xl">
+                💭
+            </span>
+        </div>
+    </div>
+    <div class="w-9/12 dark:text-white pl-3">
+        @if (count($value[$key]) <= 1) <b>
+            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            @else
+            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            @endif
+            <br>
+            {{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+    </div>
+    <div class="w-1/12 relative text-center dotNotView">
+        @if ($value[0][0]->TinhTrang != 2)
+        <span class="bg-blue-400 rounded-full p-1.5 absolute top-1/2" style="transform: translateY(-50%);"></span>
+        @else
+        @endif
+    </div>
+</div>
+@break;
+@case('NDBTBLC123')
+<div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
+    <div class="relative pl-2">
+        <div class="w-16 h-16 rounded-full relative">
+            <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+            border-2 border-white" alt="">
+            <span class="absolute bottom-0 right-0 text-xl">
+                💭
+            </span>
+        </div>
+    </div>
+    <div class="w-9/12 dark:text-white pl-3">
+        @if (count($value[$key]) <= 1) <b>
+            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            @else
+            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            @endif
+            <br>
+            {{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+    </div>
+    <div class="w-1/12 relative text-center dotNotView">
+        @if ($value[0][0]->TinhTrang != 2)
+        <span class="bg-blue-400 rounded-full p-1.5 absolute top-1/2" style="transform: translateY(-50%);"></span>
+        @else
+        @endif
+    </div>
+</div>
+@break;
+@case('TLBLC12345')
+<div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
+    <div class="relative pl-2">
+        <div class="w-16 h-16 rounded-full relative">
+            <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+            border-2 border-white" alt="">
+            <span class="absolute bottom-0 right-0 text-xl">
+                💭
+            </span>
+        </div>
+    </div>
+    <div class="w-9/12 dark:text-white pl-3">
+        @if (count($value[$key]) <= 1) <b>
+            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            @else
+            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            @endif
+            <br>
+            {{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+    </div>
+    <div class="w-1/12 relative text-center dotNotView">
+        @if ($value[0][0]->TinhTrang != 2)
+        <span class="bg-blue-400 rounded-full p-1.5 absolute top-1/2" style="transform: translateY(-50%);"></span>
+        @else
+        @endif
+    </div>
+</div>
+@break;
+@case('BTCXVBLC12')
+<div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
+    <div class="relative pl-2">
+        <div class="w-16 h-16 rounded-full relative">
+            <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+            border-2 border-white" alt="">
+            <span class="absolute bottom-0 right-0 text-xl">
+                {{ Functions::getFeelMain($value['loaiCamXuc']) }}
+            </span>
+        </div>
+    </div>
+    <div class="w-9/12 dark:text-white pl-3">
+        @if (count($value[$key]) <= 1) <b>
+            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b> {{ $value[0][0]->TenLoaiThongBao }}.
+            @else
             <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và {{ count($value[$key]) - 1 }} người khác </b> {{ $value[0][0]->TenLoaiThongBao }}.
             @endif
             <br>

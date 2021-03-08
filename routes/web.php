@@ -124,6 +124,10 @@ Route::get('ProcessRepViewCommentPost', [BaiDang\RepCommentController::class, 'r
     ->name('ProcessRepViewCommentPost');
 
 // ajax xử lí phản hồi bình luận
+Route::get('ProcessRepViewCommentPost2', [BaiDang\RepCommentController::class, 'repview2'])
+    ->name('ProcessRepViewCommentPost2');
+
+// ajax xử lí phản hồi bình luận
 Route::get('ProcessRepCommentPost', [BaiDang\RepCommentController::class, 'rep'])
     ->name('ProcessRepCommentPost');
 
@@ -215,9 +219,17 @@ Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view'
 
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
-    echo "<pre>";
-    var_dump(Notify::getNotify('1000000001'));
-    echo "</pre>";
+    // echo "<pre>";
+    // var_dump(Notify::getNotify('1000000001'));
+    // echo "</pre>";
+    if (str_contains(
+        '<b class="!@#$%1000000001!@#$% bg-blue-500 text-white p-0.5">Trà Tấn Hưởng</b>&nbsp;chi có ghê bạn',
+        ' bg-blue-500 text-white p-0.5">'
+    )) {
+        echo "oke";
+    } else {
+        echo "not oke";
+    }
 });
 
 // 

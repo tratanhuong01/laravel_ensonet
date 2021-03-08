@@ -31,9 +31,10 @@ $user = Session::get('user');
                     {!! Functions::checkIsFeelCmt($user[0]->IDTaiKhoan,$comment->IDBinhLuan) !!}</span>
                 @include('Component\BinhLuan\CamXucBinhLuan',['comment' => $comment])
             </li>
-            <li onclick="RepViewCommentPost(
-                '{{ $comment->IDTaiKhoan }}',
-                '{{ $comment->IDBaiDang }}',
+            <li onclick="RepViewCommentPost2(
+                '{{ $comment_main->IDTaiKhoan }}',
+                '{{ $comment_main->IDBaiDang }}',
+                '{{ $comment->IDBinhLuan }}',
                 '{{ $comment_main->IDBinhLuan }}'
                 )" class="font-bold text-sm py-1 pr-2 cursor-pointer dark:text-white">Trả lời</li>
             <li class="py-1 pr-2 cursor-pointer dark:text-white font-bold" style="font-size: 13px;">

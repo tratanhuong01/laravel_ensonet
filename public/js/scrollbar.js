@@ -24,7 +24,7 @@ function viewInfoHover(IDTaiKhoan, event) {
   d.style.top = topPos - 144 + "px";
   $.ajax({
     method: "GET",
-    url: 'ProcessViewInfo',
+    url: '/ProcessViewInfo',
     data: {
       IDTaiKhoan: IDTaiKhoan
     },

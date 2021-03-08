@@ -40,7 +40,7 @@ function openEditPost(ids) {
 function selectPrivacy() {
     $.ajax({
         method: "GET",
-        url: 'ProcessSelecPrivacyPost',
+        url: '/ProcessSelecPrivacyPost',
         data: {
         },
         success: function (response) {
@@ -67,7 +67,7 @@ function selectPrivacy() {
 function handelOnChangeInput(IDQuyenRiengTu) {
     $.ajax({
         method: "GET",
-        url: 'ProcessOnChangeInputPrivacy',
+        url: '/ProcessOnChangeInputPrivacy',
         data: {
             IDQuyenRiengTu: IDQuyenRiengTu,
         },
@@ -84,7 +84,7 @@ function handelOnChangeInput(IDQuyenRiengTu) {
 function editPost(IDBaiDang) {
     $.ajax({
         method: "GET",
-        url: 'ProcessViewEditPost',
+        url: '/ProcessViewEditPost',
         data: {
             IDBaiDang: IDBaiDang
         },
@@ -104,7 +104,7 @@ function editPost(IDBaiDang) {
 function changeObjectPrivacyPost(IDBaiDang) {
     $.ajax({
         method: "GET",
-        url: 'ProcessViewObjectPrivacyPost',
+        url: '/ProcessViewObjectPrivacyPost',
         data: {
         },
         success: function (response) {
@@ -119,7 +119,7 @@ function changeObjectPrivacyPost(IDBaiDang) {
 function handelOnChangeInputPost(IDQuyenRiengTu) {
     $.ajax({
         method: "GET",
-        url: 'ProcessEditObjectPrivacyPost',
+        url: '/ProcessEditObjectPrivacyPost',
         data: {
             IDQuyenRiengTu: IDQuyenRiengTu,
             IDBaiDang: $('#IDBaiDangs').val(),
@@ -137,7 +137,7 @@ function handelOnChangeInputPost(IDQuyenRiengTu) {
 function deleteWarnPost(IDBaiDang, IDMain) {
     $.ajax({
         method: "GET",
-        url: 'ProcessWarnDeletePost',
+        url: '/ProcessWarnDeletePost',
         data: {
             IDBaiDang: IDBaiDang
         },

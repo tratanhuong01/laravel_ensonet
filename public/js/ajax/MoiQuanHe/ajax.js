@@ -15,7 +15,7 @@ function AcceptFriendIndex(UserMain, UserOther) {
 
         }
     };
-    xmlhttp.open("GET", 'ProcessAcceptFriendIndex?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
+    xmlhttp.open("GET", '/ProcessAcceptFriendIndex?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
     xmlhttp.send();
 
 }
@@ -37,7 +37,7 @@ function CancelRequestFriendIndex(UserMain, UserOther) {
 
         }
     };
-    xmlhttp.open("GET", 'ProcessCancelRequestFriendIndex?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
+    xmlhttp.open("GET", '/ProcessCancelRequestFriendIndex?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
     xmlhttp.send();
 
 }

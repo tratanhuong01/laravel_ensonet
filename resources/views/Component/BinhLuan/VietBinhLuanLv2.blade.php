@@ -2,10 +2,8 @@
 
 use Illuminate\Support\Facades\Session;
 
-if (session()->has('users'))
-    $user = Session::get('users');
-else
-    $user = Session::get('user');
+
+$user = Session::get('user');
 
 ?>
 <div class="w-full mx-0 my-2 flex">
@@ -14,16 +12,16 @@ else
         rounded-full border-2 border-solid" src="/{{ $user[0]->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
     <div class="w-11/12 ml-2 relative bg-gray-100 dark:bg-dark-third px-3 overflow-hidden" style="border-radius: 30px;">
-        <div onkeyup="RepCommentPost('{{ $comment->IDTaiKhoan }}',
-        '{{ $comment->IDBaiDang }}','{{ $comment->IDBinhLuan }}',event)" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write" class="border-none outline-none bg-gray-100 dark:bg-dark-third dark:text-white py-3" style="min-height: 30px;width: 96%;" contenteditable>
-            @if ($comment->IDTaiKhoan == $user[0]->IDTaiKhoan)
+        <div onkeyup="RepCommentPost('{{ $cmt[0]->IDTaiKhoan }}',
+        '{{ $comment->IDBaiDang }}','{{ $comment->IDBinhLuan }}','{{ $cmt[0]->IDBinhLuan }}',event)" id="{{ $cmt[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write" class="border-none outline-none bg-gray-100 dark:bg-dark-third dark:text-white py-3" style="min-height: 30px;width: 96%;" contenteditable>
+            @if ($idTag == $user[0]->IDTaiKhoan)
             @else
             {!! $name !!}
             @endif
 
         </div>
         <script>
-            $("#{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write").keypress(function(e) {
+            $("#{{ $cmt[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write").keypress(function(e) {
                 return e.which != 13;
             });
         </script>

@@ -19,7 +19,7 @@ function submitFormRegister() {
     $('#btn-submit-form').append('<i class="fas fa-cog fa-spin text-xl"></i>');
     $.ajax({
         method: "GET",
-        url: 'ProcessRegister',
+        url: '/ProcessRegister',
         data: $('#formRegister').serialize(),
         success: function (response) {
             $('#register').html(response);
@@ -34,7 +34,7 @@ function submitFormVerify() {
             document.getElementById('register').innerHTML = this.responseText;
         }
     };
-    xmlhttp.open("GET", 'ProcessVerify?emailOrPhone=' + value('emailOrPhone') + '&code_veri=' + value('code_veri'), true);
+    xmlhttp.open("GET", '/ProcessVerify?emailOrPhone=' + value('emailOrPhone') + '&code_veri=' + value('code_veri'), true);
     xmlhttp.send();
 }
 function sendCodeAgain() {
@@ -44,7 +44,7 @@ function sendCodeAgain() {
     $('#btn-send-code').append('<i class="fas fa-cog fa-spin text-xl"></i>');
     $.ajax({
         method: "GET",
-        url: 'ProcessSendCodeAgain',
+        url: '/ProcessSendCodeAgain',
         data: $('#formSendAgainCode').serialize(),
         success: function (response) {
             $('#register').html(response);
@@ -55,7 +55,7 @@ function forgetAccount() {
     $("#web").css("opacity", "0.2");
     $.ajax({
         method: "GET",
-        url: 'ProcessForgetAccount',
+        url: '/ProcessForgetAccount',
         data: $('#formNhapTT').serialize(),
         success: function (response) {
             $('#register').html(response);
