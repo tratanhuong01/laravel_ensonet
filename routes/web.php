@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use App\Models\Taikhoan;
 use Illuminate\Support\Facades\DB;
 use App\Models\Process;
 use App\Models\Notify;
+use App\Models\Taikhoan;
 use App\Models\Thongbao;
 use Illuminate\Support\Facades\Session;
+use App\Process\Functions;
+use Illuminate\Database\Eloquent\Model;
 
 // Đăng Nhập
 Route::get('/login', function () {
@@ -27,7 +29,7 @@ Route::get('ProcessRegister', [DangKi\RegisterController::class, 'register']);
 Route::get('ProcessVerify', [DangKi\VerifyMailController::class, 'verify']);
 
 //ajax quên mật khẩu
-Route::get('ProcessForgetAccount', [TaiKhoan\ForgetAccountController::class, 'get']);
+Route::get('ProcessForgetAccount', [TaiKhoans\ForgetAccountController::class, 'get']);
 
 //ajax xác nhận thành công
 Route::get('VerifySuccess', [VerifyMailController::class, 'verify']);
@@ -69,7 +71,7 @@ Route::get('ProcessAcceptFriendIndex', [MoiQuanHe\AcceptFriendController::class,
 Route::get('ProcessDeleteFriend', [MoiQuanHe\DeleteFriendController::class, 'delete']);
 
 // ajax gửi lại code
-Route::get('ProcessSendCodeAgain', [TaiKhoan\SendCodeAgainController::class, 'send']);
+Route::get('ProcessSendCodeAgain', [TaiKhoans\SendCodeAgainController::class, 'send']);
 
 //ajax cập nhật ảnh đại diện
 Route::post('ProcessUpdateAvatar', [UpdateAvatarController::class, 'update'])
@@ -96,10 +98,10 @@ Route::get('LoadQuenTaiKhoan', function () {
 });
 
 // redriect bạn bè
-Route::get('ProcessProfileFriend', [ProfileFriendsController::class, 'view']);
+Route::get('ProcessProfileFriend', [ProfileController::class, 'viewAjaxFriends']);
 
 // redriect bạn bè
-Route::get('profile.{IDTaiKhoan}/friends', [ProfileFriendsController::class, 'viewFriends']);
+Route::get('profile.{IDTaiKhoan}/friends', [ProfileController::class, 'viewFriends']);
 
 // ajax bày tỏ cảm xúc bài đăng
 Route::get('ProcessFeelPost', [BaiDang\FeelController::class, 'feel']);
@@ -219,18 +221,12 @@ Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view'
 
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
-    // echo "<pre>";
-    // var_dump(Notify::getNotify('1000000001'));
-    // echo "</pre>";
-    if (str_contains(
-        '<b class="!@#$%1000000001!@#$% bg-blue-500 text-white p-0.5">Trà Tấn Hưởng</b>&nbsp;chi có ghê bạn',
-        ' bg-blue-500 text-white p-0.5">'
-    )) {
-        echo "oke";
-    } else {
-        echo "not oke";
-    }
+    echo "<pre>";
+    echo "</pre>";
+    // Functions::get();
 });
+
+Route::get('ProcessSearchFriend', [TaiKhoans\SearchFriendController::class, 'search']);
 
 // 
 Route::get('ProcessModalLast', function () {
@@ -273,6 +269,7 @@ Route::get('ProcessTickAllIsRead', function () {
 //post
 Route::get('/post/{idBaiDang}', [BaiDang\PostController::class, 'view']);
 
+//dark mode
 Route::get('/ProcessDarkMode', function () {
     $darkMode = Taikhoan::where(
         'taikhoan.IDTaiKhoan',
@@ -303,3 +300,27 @@ Route::get('/ProcessDarkMode', function () {
         return '';
     }
 });
+
+// redirect giới thiệu
+Route::get('ProcessProfileAbout', [ProfileController::class, 'viewAjaxAbout']);
+
+// redirect giới thiệu
+Route::get('profile.{IDTaiKhoan}/about', [ProfileController::class, 'viewAbout']);
+
+// redirect ảnh
+Route::get('ProcessProfilePicture', [ProfileController::class, 'viewAjaxPicture']);
+
+// redirect ảnh
+Route::get('profile.{IDTaiKhoan}/pictures', [ProfileController::class, 'viewPicture']);
+
+Route::get('friends', function () {
+    return view('Guest/FriendRequest');
+});
+
+Route::get('ProcessSearchTagFriend', [BaiDang\TagFriendController::class, 'search']);
+
+Route::get('ProcesViewTagFriend', [BaiDang\TagFriendController::class, 'view']);
+
+Route::get('ProcesViewCreatePost', [BaiDang\PostController::class, 'viewCreatePost']);
+
+Route::get('ProcessTagFriend', [BaiDang\TagFriendController::class, 'tag']);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Process\DataProcess;
 use Illuminate\Support\Facades\Session;
 
 $user = Session::get('user');
@@ -22,7 +23,12 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                 <a href=""><img class="w-14 h-14 rounded-full object-cover mx-auto" src="{{ $user[0]->AnhDaiDien }}" alt=""></a>
             </div>
             <div class="w-11/12">
-                <p class="p-1 pt-0 font-bold dark:text-white">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</p>
+                <p class="p-1 pt-0 font-bold dark:text-white">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}
+                    @if (session()->has('tag') && count(Session::get('tag')) > 0)
+                    {{ DataProcess::getFriendTag(Session::get('tag')) }}
+                    @else
+                    @endif
+                </p>
                 <div class="py-0 px-1 w-auto w-1/4 bg-gray-300 dark:bg-dark-third" style="border-radius: 30px;">
                     <ul onclick="selectPrivacy()" id="selectPrivacyMain" class="flex text-xs relative cursor-pointer">
                         <li class="px-0.5 py-1.5"><i class="fas fa-globe-europe dark:text-white"></i></li>
@@ -64,7 +70,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
 
                 <li onclick="clickOpenModal(1)" class="eOpenModal cursor-pointer "><i style="color: #EAB026;font-size: 25px;padding: 2px 4px;" class="fas fa-smile"></i> &nbsp;&nbsp;
                 </li>
-                <li onclick="clickOpenModal(3)" class="eOpenModal cursor-pointer "><i style="color: #1771E6;font-size: 25px;padding: 2px 4px;" class="fas fa-user-tag"></i>
+                <li onclick="viewTagFriends()" class="eOpenModal cursor-pointer "><i style="color: #1771E6;font-size: 25px;padding: 2px 4px;" class="fas fa-user-tag"></i>
                     &nbsp;&nbsp;</li>
                 <li onclick="clickOpenModal(2)" class="eOpenModal cursor-pointer "><i style="color: #E94F3A;padding-right: 9px;font-size: 25px;padding: 2px 4px;" class="fas fa-map-marker-alt"></i></li>
                 <li onclick="clickOpenModal(4)" class="eOpenModal cursor-pointer "><i style="color: #28B19E;font-size: 25px;padding: 2px 4px;" class="fas fa-radiation"></i>

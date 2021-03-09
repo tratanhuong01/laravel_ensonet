@@ -4,6 +4,7 @@ use App\Models\StringUtil;
 use App\Models\Functions;
 use Illuminate\Support\Facades\Session;
 use App\Models\Process;
+use App\Process\DataProcess;
 
 $u = Session::get('user');
 
@@ -17,7 +18,21 @@ $u = Session::get('user');
         <div class="relative pl-1 w-4/5">
             <p class="dark:text-gray-300"><a href="profile.{{ $item[0]->IDTaiKhoan }}"><b class="dark:text-white">
                         {{ $item[0]->Ho . ' ' . $item[0]->Ten }}</b>
-                    &nbsp;</a></p>
+                </a>
+                <?php $tag = array();
+                $tags = explode('&', $item[0]->GanThe);
+                ?>
+                @if (count($tags) == 0)
+                @else
+                <?php $tags = explode('&', $item[0]->GanThe) ?>
+                @foreach($tags as $key => $value)
+                <?php $tag[$value] = $value ?>
+                @endforeach
+                <?php unset($tag['']); ?>
+                <span class="font-bold dark:text-white">{{ DataProcess::getFriendTag($tag) }}
+                </span>
+                @endif
+            </p>
             <div class="w-full flex">
                 <div class="text-xs pt-0.5 pr-2">
                     <ul class="flex">

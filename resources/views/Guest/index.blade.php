@@ -1,3 +1,4 @@
+@include('Reload')
 <?php
 
 use App\Models\Functions;

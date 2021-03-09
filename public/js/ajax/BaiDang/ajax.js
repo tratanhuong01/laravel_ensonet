@@ -167,3 +167,48 @@ function deleteWarnPost(IDBaiDang, IDMain) {
         }
     });
 }
+
+//gắn thẻ bạn bè
+function viewTagFriends() {
+    $.ajax({
+        method: "GET",
+        url: "/ProcesViewTagFriend",
+        success: function (response) {
+            $('#second').html(response);
+        }
+    });
+}
+function returnViewCreatePost() {
+    $.ajax({
+        method: "GET",
+        url: "/ProcesViewCreatePost",
+        success: function (response) {
+            $('#second').html(response);
+        }
+    });
+}
+function searchTagFriends(IDTaiKhoan) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessSearchTagFriend",
+        data: {
+            IDTaiKhoan: IDTaiKhoan,
+            HoTen: $('#searchTagFriends').val()
+        },
+        success: function (response) {
+            $('#tag-users').html(response);
+        }
+    });
+}
+function tagFriends(IDTaiKhoan) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessTagFriend",
+        data: {
+            IDTaiKhoan: IDTaiKhoan,
+        },
+        success: function (response) {
+            $('#' + IDTaiKhoan + "Check").html(response);
+        }
+    });
+}

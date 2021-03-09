@@ -23,9 +23,12 @@
     margin-bottom: 3%;
 }
 .fr-us img {
-    width: 100%;
-    
-    border-radius: 6px;
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+}
+.caseImage:hover .editCaseImage {
+    display: block;
 }
 .list-icon-header li {
     fill: #65676B;

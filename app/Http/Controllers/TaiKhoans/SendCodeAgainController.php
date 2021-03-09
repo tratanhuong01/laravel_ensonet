@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\TaiKhoan;
+namespace App\Http\Controllers\TaiKhoans;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

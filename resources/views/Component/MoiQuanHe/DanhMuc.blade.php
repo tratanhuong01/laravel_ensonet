@@ -5,27 +5,57 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Functions;
 
 $users = Session::get('users');
+$paths = explode('/', parse_url(url()->current())['path']);
+$border = "border-b-4 border-blue-500";
+$text = "text-blue-500";
+$data = ($paths[count($paths) - 1]);
+$arr = array();
+switch ($data) {
+    case 'about':
+        $arr['about']['border'] = $border;
+        $arr['about']['text'] = $text;
+        break;
+    case 'friends':
+        $arr['friends']['border'] = $border;
+        $arr['friends']['text'] = $text;
+        break;
+    case 'profile.' . $users[0]->IDTaiKhoan:
+        $arr['post']['border'] = $border;
+        $arr['post']['text'] = $text;
+        break;
+}
+
 ?>
 <div class="w-7/12">
     <ul class="w-full flex">
-        <li class="text-center py-2 px-4  cursor-pointer" style="font-size:15px; border-bottom: 3px solid #1877F2;">
-            <a class="font-bold dark:text-white" style="color: #1877F2;">Bài viết</a>
+        <?php $baiViet = 'profile.' . $users[0]->IDTaiKhoan; ?>
+        <li id="post" onclick="window.location.href='{{ url($baiViet) }}'" class="text-center py-2 px-4 cursor-pointer 
+        @isset($arr['post']) {{ $arr['post']['border'] }} @endisset
+        dark:text-white font-bold @isset($arr['post']) {{ $arr['post']['text'] }} @endisset cursor-pointer" style="font-size:15px;">
+            Bài viết
         </li>
-        <li class="text-center py-2 px-4 cursor-pointer" style="font-size:15px;">
-            <a class="font-bold dark:text-white">Giới thiệu</a>
+        <li id="about" onclick="ajaxProfileAbout('{{ $users[0]->IDTaiKhoan }}','place_load_about')" class="text-center py-2 px-4 cursor-pointer 
+        @isset($arr['about']) {{ $arr['about']['border'] }} @endisset cursor-pointer
+        dark:text-white font-bold @isset($arr['about']) {{ $arr['about']['text'] }} @endisset" style="font-size:15px;">
+            Giới thiệu
         </li>
-        <li onclick="ajaxProfileFriend('{{ $users[0]->IDTaiKhoan }}','place_load_about')" class="text-center py-2 px-4 cursor-pointer" style="font-size:15px;">
-            <a class="font-bold dark:text-white">Bạn bè &nbsp;
-                <span style="font-size: 13px;font-weight: normal !important;">
-                    {{ sizeof(Functions::getListFriendsUser($users[0]->IDTaiKhoan))}}
-                </span>
-            </a>
+        <li id="friends" onclick="ajaxProfileFriend('{{ $users[0]->IDTaiKhoan }}','place_load_about')" class="text-center py-2 px-4 cursor-pointer 
+        @isset($arr['friends']) {{ $arr['friends']['border'] }} @endisset 
+        font-bold @isset($arr['friends']) {{ $arr['friends']['text'] }} @endisset dark:text-white" style="font-size:15px;">
+            Bạn bè &nbsp;
+            <span style="font-size: 13px;font-weight: normal !important;">
+                {{ sizeof(Functions::getListFriendsUser($users[0]->IDTaiKhoan))}}
+            </span>
         </li>
-        <li class="text-center py-2 px-4 cursor-pointer" style="font-size:15px;">
-            <a class="font-bold dark:text-white">Ảnh</a>
+        <li id="pictures" class="text-center py-2 px-4 cursor-pointer font-bold dark:text-white
+        @isset($arr['picture']) {{ $arr['picture']['text'] }} @endisset 
+        @isset($arr['picture']) {{ $arr['picture']['border'] }} @endisset " style="font-size:15px;">
+            Ảnh
         </li>
-        <li class="text-center py-2 px-4 cursor-pointer" style="font-size:15px;">
-            <a class="font-bold dark:text-white">Xem thêm&nbsp;&nbsp;<i class="fas fa-caret-down"></i></a>
+        <li id="more" class="text-center py-2 px-4 cursor-pointer dark:text-white
+        @isset($arr['more']) {{ $arr['more']['text'] }} @endisset 
+        @isset($arr['more']) {{ $arr['more']['border'] }} @endisset " style="font-size:15px;">
+            Xem thêm&nbsp;&nbsp;<i class="fas fa-caret-down"></i>
         </li>
     </ul>
 </div>

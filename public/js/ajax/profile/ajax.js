@@ -8,8 +8,8 @@ function changeAvatar(event) {
         contentType: false,
         processData: false,
         success: function (response) {
-            $('#web').css('opactity', '0.2');
-            $('#main').html(response);
+            second.innerHTML = response;
+            second.className += ' fixed h-screen';
             $('#avt-opactity').attr('src', path);
             $('#avt-opactity-none').attr('src', path);
             var child = $('#changeavt').clone();
@@ -34,7 +34,6 @@ function updateAvatar() {
         contentType: false,
         processData: false,
         success: function (response) {
-            $('#main').html('');
             var re = document.getElementById('ajaxAnhDaiDien');
             var parent1 = document.createElement('div');
             parent1.className = 'w-44 h-44 rounded-full mx-auto border-4 border-solid border-white pt-16 dark:bg-dark-third bg-gray-100'
@@ -50,6 +49,9 @@ function updateAvatar() {
             $('#ajaxAnhDaiDien1').html('');
             re.appendChild(parent1);
             $('#ajaxAnhDaiDien1').append(parent2);
+            second.innerHTML = '';
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
             setTimeout(function () {
                 $('#ajaxAnhDaiDien').html(response);
                 $('#ajaxAnhDaiDien1').html('');
@@ -57,6 +59,7 @@ function updateAvatar() {
                 var src = document.getElementById('anhDaiDien_Main').src;
                 $('#ajaxAnhDaiDien2').attr('src', src);
             }, 1000);
+
         }
     });
 }
@@ -72,6 +75,56 @@ function updateCoverImage() {
         success: function (response) {
             $('#showSubmitBia').hide();
             $('#ajaxCover').html(response);
+        }
+    });
+}
+function ajaxProfileFriend(ID, NameID) {
+    $.ajax({
+        method: 'GET',
+        url: '/ProcessProfileFriend',
+        data: {
+            IDView: ID
+        },
+        success: function (response) {
+            $('#post').removeClass('border-b-4 border-blue-500');
+            $('#pictures').removeClass('border-b-4 border-blue-500');
+            $('#about').removeClass('border-b-4 border-blue-500');
+            $('#more').removeClass('border-b-4 border-blue-500');
+            $('#friends').addClass('border-b-4 border-blue-500');
+            $('#' + NameID).html(response);
+            window.history.pushState('', '', '/profile.' + ID + '/friends');
+        }
+    });
+}
+function ajaxProfileAbout(ID, NameID) {
+    $.ajax({
+        method: 'GET',
+        url: '/ProcessProfileAbout',
+        data: {
+            IDView: ID
+        },
+        success: function (response) {
+            $('#about').addClass('border-b-4 border-blue-500');
+            $('#post').removeClass('border-b-4 border-blue-500');
+            $('#friends').removeClass('border-b-4 border-blue-500');
+            $('#pictures').removeClass('border-b-4 border-blue-500');
+            $('#more').removeClass('border-b-4 border-blue-500');
+            $('#' + NameID).html(response);
+            window.history.pushState('', '', '/profile.' + ID + '/about');
+        }
+    });
+}
+function searchFriend(IDView, event) {
+    event.preventDefault();
+    $.ajax({
+        method: "GET",
+        url: "/ProcessSearchFriend",
+        data: {
+            IDView: IDView,
+            hoTen: $('#hoTen').val()
+        },
+        success: function (response) {
+            $('#place_load_about').html(response);
         }
     });
 }

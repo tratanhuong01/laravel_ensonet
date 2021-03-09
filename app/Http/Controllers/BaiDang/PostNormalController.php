@@ -22,12 +22,21 @@ class PostNormalController extends Controller
                 $files = $request->file('files');
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
+                $tag = "";
+                if (session()->has('tag')) {
+                    if (count(Session::get('tag')) > 0) {
+                        $tags = Session::get('tag');
+                        foreach ($tags as $key => $value) {
+                            $tag .= $key . '&';
+                        }
+                    }
+                }
                 Baidang::add(
                     $idBaiDang,
                     $user[0]->IDTaiKhoan,
                     $request->IDQuyenRiengTu,
                     $request->content,
-                    NULL,
+                    $tag,
                     NULL,
                     NULL,
                     $datetime,
@@ -45,12 +54,21 @@ class PostNormalController extends Controller
             } else {
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
+                $tag = "";
+                if (session()->has('tag')) {
+                    if (count(Session::get('tag')) > 0) {
+                        $tags = Session::get('tag');
+                        foreach ($tags as $key => $value) {
+                            $tag .= $key . '&';
+                        }
+                    }
+                }
                 Baidang::add(
                     $idBaiDang,
                     $user[0]->IDTaiKhoan,
-                    'CHIBANBE',
+                    $request->IDQuyenRiengTu,
                     $request->content,
-                    NULL,
+                    $tag,
                     NULL,
                     NULL,
                     $datetime,

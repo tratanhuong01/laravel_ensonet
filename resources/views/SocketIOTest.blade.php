@@ -1,29 +1,28 @@
 <!DOCTYPE html>
+<html class="dark">
 
 <head>
-    <title>Pusher Test</title>
+    <title>Ensonet</title>
+    @include('Head/css')
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/emojis.css">
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script>
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('5064fc09fcd20f23d5c1', {
-            cluster: 'ap1'
-        });
-
-        var channel = pusher.subscribe('test');
-        channel.bind('tests', function(data) {
-            document.getElementById('main').style.backgroundColor = 'yellow';
-        });
-    </script>
+    <script src="/js/scrollbar.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/event/event.js"></script>
+    <script src="/js/ajax/BaiDang/ajax.js"></script>
+    <script src="/js/ajax/MoiQuanHe/ajax.js"></script>
+    <script src="/js/ajax/BinhLuan/ajax.js"></script>
+    <script src="/js/ajax.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/js/header.js"></script>
 </head>
 
 <body>
     <div id="main" style="width:100px;height:100px;background-color: red;">
     </div>
-    <h1>Pusher Test</h1>
-    <p>
-        Try publishing an event to channel <code>my-channel</code>
-        with event name <code>my-event</code>.
-    </p>
+    <div>
+    </div>
 </body>
+
+</html>

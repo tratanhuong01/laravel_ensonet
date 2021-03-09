@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Taikhoan extends Model
 {
@@ -75,6 +76,22 @@ class Taikhoan extends Model
         $taikhoan->DarkMode = $DarkMode;
         $taikhoan->HoatDong = $HoatDong;
         $taikhoan->save();
+    }
+    public static function search($data, $idTaiKhoan)
+    {
+        return DB::select("select * from moiquanhe inner join
+         taikhoan on moiquanhe.IDBanBe = taikhoan.IDTaiKhoan 
+         where moiquanhe.IDTaiKhoan = '" . $idTaiKhoan . "' and
+         concat(taikhoan.Ho,' ',taikhoan.Ten) 
+         LIKE '%" . $data . "%' and moiquanhe.TinhTrang = 3 
+         order by moiquanhe.NgayChapNhan desc");
+    }
+    public static function get($idTaiKhoan)
+    {
+        return DB::select("select * from moiquanhe inner join
+         taikhoan on moiquanhe.IDBanBe = taikhoan.IDTaiKhoan 
+         where moiquanhe.IDTaiKhoan = '" . $idTaiKhoan . "' and
+         moiquanhe.TinhTrang = 3 LIMIT 12");
     }
     public $timestamps = false;
 }

@@ -11,7 +11,6 @@ use Exception;
 use App\Mail\Ensonet;
 use App\Models\Taikhoan;
 use App\Models\StringUtil;
-use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {

@@ -1,8 +1,10 @@
+@include('Reload')
 <?php
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Functions;
+use App\Process\DataProcess;
 
 $user = Session::get('user');
 
@@ -34,6 +36,7 @@ $user = Session::get('user');
     <script src="/js/ajax/BinhLuan/ajax.js"></script>
     <script src="/js/realtime/notification.js"></script>
     <script src="/js/header.js"></script>
+    <script src="/js/ajax/Profile/ajax.js"></script>
 </head>
 
 <body>
@@ -133,211 +136,201 @@ $user = Session::get('user');
             @include('Component/MoiQuanHe/BanBe')
             @endif
         </div>
-        <div id="place_load_about" class="w-full relative bg-gray-100 dark:bg-dark-main">
-            <?php $paths = explode('/', parse_url(url()->current())['path']); ?>
-            @switch($paths[count($paths) - 1])
-            @case('friends')
-            @include('Component\DanhMuc\BanBe',['data' => $data])
-            @break;
-            @default
-            <div class="mx-auto relative w-full pt-4 lg:flex xl:w-63% md:w-4/5 lg:w-3/4 md:mx-auto">
-                <div id="profileLeft" class="w-full lg:w-2/5">
-                    <div class="mx-2.5 mt-4 bg-white p-2.5 pt-0 rounded-lg dark:bg-dark-third" style="width:95%;">
-                        <p class="font-bold text-xl py-2 dark:text-white" style="font-family: system-ui;">Giới thiệu</p>
-                        <ul class="w-full ">
-                            <li class="w-full pb-3" style="font-size: 15px;">
-                                <p class="dark:text-gray-300"><i class="fas fa-briefcase 
-                                text-gray-600 text-xl dark:text-gray-300"></i>&nbsp;&nbsp;&nbsp;
-                                    Làm việc tại <b class="dark:text-gray-300">FacebookApp</b></p>
-                            </li>
-                            <li class="w-full pb-3" style="font-size: 15px;">
-                                <p class="dark:text-gray-300"><i class="fas fa-graduation-cap text-gray-600 dark:text-gray-300 text-xl"></i>&nbsp;
-                                    Học tại <b class="dark:text-gray-300">Trường Cao Đẳng Công Nghệ Thông Tin
-                                        - Đại Học Đà Nẵng
-                                    </b>
-                                </p>
-                            </li>
-                            <li class="w-full pb-3" style="font-size: 15px;">
-                                <p class="dark:text-gray-300"><i class="fas fa-home text-gray-600 dark:text-gray-300
-                            text-xl"></i>&nbsp;&nbsp;Sống tại <b class="dark:text-gray-300">Đà Nẵng</b></p>
-                            </li>
-                            <li class="w-full pb-3" style="font-size: 15px;">
-                                <p class="dark:text-gray-300">&nbsp;<i class="fas fa-map-marker-alt text-gray-600 dark:text-gray-300 text-xl"></i>&nbsp;&nbsp;
-                                    Đến từ <b class="dark:text-gray-300">Quảng Nam</b></p>
-                            </li>
-                            <li class="w-full pb-3" style="font-size: 15px;">
-                                <p class="dark:text-gray-300"><i class="fas fa-heart text-gray-600 dark:text-gray-300
-                                text-xl"></i></i>&nbsp;&nbsp; Độc Thân</p>
-                            </li>
-                            <li class="w-full pb-3" style="font-size: 15px;">
-                                <p class="dark:text-gray-300"><i class="fas fa-clock text-gray-600 text-xl 
-                                dark:text-gray-300"></i>&nbsp;&nbsp;
-                                    Đã tham gia vào tháng 4 năm 2014</p>
-                            </li>
-                            <li class="w-full pb-3 flex" style="font-size: 15px;">
-                                <p class="dark:text-gray-300">&nbsp;<i class="fab fa-foursquare text-gray-600 text-xl 
-                                dark:text-gray-300"></i>&nbsp;&nbsp;
-                                    <span>Có &nbsp;<b class="dark:text-gray-300">1.324</b>&nbsp; người theo dõi</span>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="pl-2.5 bg-white m-2.5 rounded-lg  dark:bg-dark-third" style="width: 95%;">
-                        <div class="w-full flex">
-                            <div class="w-full mt-2.5 mr-2.5">
-                                <p class="font-bold dark:text-white">Ảnh<br></p>
-                            </div>
-                            <div class="w-full text-right mt-2.5 mr-2.5">
-                                <a href=""><b style="color: #1876F2;">Xem tất cả</b></a>
-                            </div>
-                        </div>
-                        <div class="w-full pt-4 pl-0.5 flex flex-wrap">
-                            <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img class="rounded-lg" src="/img/avatar.jpg" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pl-2.5 bg-white m-2.5 rounded-lg dark:bg-dark-third" style="width: 95%;">
-                        <div class="w-full flex">
-                            <div class="w-1/2">
-                                <p class="dark:text-white font-bold pt-2">Bạn bè <br></p>
-                                <span class="color-word">1.802 người bạn</span>
-                            </div>
-                            <div class="w-1/2 mt-2.5 mr-2.5 text-right">
-                                <a href=""><b style="color: #1876F2;">Xem tất cả</b></a>
-                            </div>
-                        </div>
-                        <div class="w-full pt-4 flex flex-wrap">
-                            <div class="fr-us">
-                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
-                                <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
-                                <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
-                                <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
-                                <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
-                                <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
-                                <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
-                                <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
-                                <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
-                            </div>
-                            <div class="fr-us">
-                                <a href=""><img src="/img/avatar.jpg" alt=""></a>
-                                <p class="font-bold py-2 dark:text-white text-sm"><a href="">Trà Hưởng</a></p>
-                            </div>
-                        </div>
-                    </div>
+        <div class="w-full relative bg-gray-100 dark:bg-dark-main pt-3">
+            <?php
+            $paths = explode('/', parse_url(url()->current())['path']);
+
+            ?>
+            <div id="place_load_about" class="mx-auto relative w-full lg:flex xl:w-63% 
+            md:w-4/5 lg:w-3/4 md:mx-auto lg:flex-wrap rounded-lg">
+                @switch($paths[count($paths) - 1])
+                @case('friends')
+                @include('Component\DanhMuc\BanBe',['data' => $data])
+                @break
+                @case('about')
+                <div class="w-full dark:bg-dark-second flex my-4 rounded-lg">
+                    @include('Component\GioiThieu\DanhMuc')
+                    @include('Component\GioiThieu\TongQuan')
                 </div>
-                <div class="w-full bg-white dark:bg-dark-main mx-auto my-4 rounded-lg lg:w-3/5">
-                    <div class="w-full bg-white dark:bg-dark-second m-auto rounded-lg mb-2">
-                        <div class="w-full flex p-2.5">
-                            <div class="w-2/12 md:w-1/12 mr-3 pt-1">
-                                <a href=""><img class="w-12 rounded-full" src="/img/avatar.jpg"></a>
-                            </div>
-                            <div class="w-11/12">
-                                <input class="w-full p-3 border-none outline-none bg-gray-200 dark:bg-dark-third" style="border-radius: 40px;" onclick="openPost()" type="text" placeholder="Hưởng ơi, Bạn Đang Nghĩ Gì Thế?">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="w-full">
-                            <ul class="w-full flex">
-                                <li class="w-1/2 md:w-1/3 xl:w-1/3 cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #E42645;font-size: 18px;" class="fas fa-video"></i>
-                                    &nbsp;<b class="dark:text-white">Video Trực Tiếp</b></li>
-                                <li class="w-1/2 md:w-1/3 xl:w-1/3  cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #41B35D;font-size: 18px;" class="far fa-image"></i>
-                                    &nbsp;<b class="dark:text-white">Ảnh / Video</b>
+                @include('Component\DanhMuc\BanBe',['data' => $data])
+                @include('Component\DanhMuc\Anh')
+                @include('Component\DanhMuc\Video')
+                @include('Component\DanhMuc\Story')
+                @break
+                @case('pictures')
+                @include('Component\DanhMuc\Anh')
+                @include('Component\DanhMuc\Video')
+                @include('Component\DanhMuc\Story')
+                @break;
+                @default
+                <div class="w-full lg:flex">
+                    <div id="profileLeft" class="w-full lg:w-2/5">
+                        <div class="mx-2.5 mt-4 bg-white p-2.5 pt-0 rounded-lg dark:bg-dark-third" style="width:95%;">
+                            <p class="font-bold text-xl py-2 dark:text-white" style="font-family: system-ui;">Giới thiệu</p>
+                            <ul class="w-full ">
+                                <li class="w-full pb-3" style="font-size: 15px;">
+                                    <p class="dark:text-gray-300"><i class="fas fa-briefcase 
+                                text-gray-600 text-xl dark:text-gray-300"></i>&nbsp;&nbsp;&nbsp;
+                                        Làm việc tại <b class="dark:text-gray-300">FacebookApp</b></p>
                                 </li>
-                                <li class="w-1/3 md:w-1/3 xl:w-1/3 md:block hidden cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200 pr-0"><i style="color: #F7B928;font-size: 18px;" class="fas fa-smile"></i>
-                                    &nbsp;<b class="dark:text-white">Cảm Xúc / Hoạt Động</b></li>
+                                <li class="w-full pb-3" style="font-size: 15px;">
+                                    <p class="dark:text-gray-300"><i class="fas fa-graduation-cap text-gray-600 dark:text-gray-300 text-xl"></i>&nbsp;
+                                        Học tại <b class="dark:text-gray-300">Trường Cao Đẳng Công Nghệ Thông Tin
+                                            - Đại Học Đà Nẵng
+                                        </b>
+                                    </p>
+                                </li>
+                                <li class="w-full pb-3" style="font-size: 15px;">
+                                    <p class="dark:text-gray-300"><i class="fas fa-home text-gray-600 dark:text-gray-300
+                            text-xl"></i>&nbsp;&nbsp;Sống tại <b class="dark:text-gray-300">Đà Nẵng</b></p>
+                                </li>
+                                <li class="w-full pb-3" style="font-size: 15px;">
+                                    <p class="dark:text-gray-300">&nbsp;<i class="fas fa-map-marker-alt text-gray-600 dark:text-gray-300 text-xl"></i>&nbsp;&nbsp;
+                                        Đến từ <b class="dark:text-gray-300">Quảng Nam</b></p>
+                                </li>
+                                <li class="w-full pb-3" style="font-size: 15px;">
+                                    <p class="dark:text-gray-300"><i class="fas fa-heart text-gray-600 dark:text-gray-300
+                                text-xl"></i></i>&nbsp;&nbsp; Độc Thân</p>
+                                </li>
+                                <li class="w-full pb-3" style="font-size: 15px;">
+                                    <p class="dark:text-gray-300"><i class="fas fa-clock text-gray-600 text-xl 
+                                dark:text-gray-300"></i>&nbsp;&nbsp;
+                                        Đã tham gia vào tháng 4 năm 2014</p>
+                                </li>
+                                <li class="w-full pb-3 flex" style="font-size: 15px;">
+                                    <p class="dark:text-gray-300">&nbsp;<i class="fab fa-foursquare text-gray-600 text-xl 
+                                dark:text-gray-300"></i>&nbsp;&nbsp;
+                                        <span>Có &nbsp;<b class="dark:text-gray-300">1.324</b>&nbsp; người theo dõi</span>
+                                    </p>
+                                </li>
                             </ul>
                         </div>
+                        <div class="pl-2.5 bg-white m-2.5 rounded-lg  dark:bg-dark-third" style="width: 95%;">
+                            <div class="w-full flex">
+                                <div class="w-full mt-2.5 mr-2.5">
+                                    <p class="font-bold dark:text-white">Ảnh<br></p>
+                                </div>
+                                <div class="w-full text-right mt-2.5 mr-2.5">
+                                    <a href=""><b style="color: #1876F2;">Xem tất cả</b></a>
+                                </div>
+                            </div>
+                            <div class="w-full pt-4 pl-0.5 flex flex-wrap">
+                                <?php $images = DataProcess::getAllImage($users[0]->IDTaiKhoan); ?>
+                                @if (count($images) == 0)
+                                <p class="text-center font-bold dark:text-white py-3">
+                                    Không có bất kì ảnh nào.
+                                </p>
+                                @else
+                                @foreach($images as $key => $value)
+                                <?php $pathImg = 'photo/' . $value->IDBaiDang . '/' . $value->IDHinhAnh; ?>
+                                <div class="fr-us">
+                                    <a href="{{ url($pathImg) }}"><img class="object-cover rounded-lg" src="{{ $value->DuongDan }}" alt=""></a>
+                                </div>
+                                @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <div class="pl-2.5 bg-white m-2.5 rounded-lg dark:bg-dark-third" style="width: 95%;">
+                            <div class="w-full flex">
+                                <div class="w-1/2">
+                                    <p class="dark:text-white font-bold pt-2">Bạn bè <br></p>
+                                    <span class="color-word">1.802 người bạn</span>
+                                </div>
+                                <div class="w-1/2 mt-2.5 mr-2.5 text-right">
+                                    <?php $viewAllImage = "profile." . $users[0]->IDTaiKhoan . '/friends'; ?>
+                                    <a href="{{ url($viewAllImage) }}"><b style="color: #1876F2;">Xem tất cả</b></a>
+                                </div>
+                            </div>
+                            <div class="w-full pt-4 flex flex-wrap">
+                                <?php $friendsGet = Functions::getListFriendsUser($users[0]->IDTaiKhoan); ?>
+                                @if (count($friendsGet) == 0)
+                                <p class="text-center font-bold dark:text-white py-3">
+                                    Không có bất kì bạn bè nào.
+                                </p>
+                                @else
+                                @foreach($friendsGet as $key => $value)
+                                <?php $pathProfile = 'profile.' . $value[0]->IDTaiKhoan; ?>
+                                <div class="fr-us">
+                                    <a href="{{ url($pathProfile) }}"><img src="/{{ $value[0]->AnhDaiDien }}" alt=""></a>
+                                    <p class="font-bold py-2 dark:text-white text-sm">
+                                        <a href="{{ url($pathProfile) }}">
+                                            {{ $value[0]->Ho . ' ' . $value[0]->Ten }}
+                                        </a>
+                                    </p>
+                                </div>
+                                @endforeach
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <?php
-                    $post_main = Functions::countPost($users[0]->IDTaiKhoan);
-                    ?>
-                    @for ($i = 0 ; $i < sizeof($post_main) ; $i++) <?php $post = Functions::getPost($post_main[$i]); ?> @switch($post[0]->LoaiBaiDang)
-                        @case('0')
-                        @include('Component/BaiDang/CapNhatAvatar',['item' => $post])
-                        @break
+                    <div class="w-full bg-white dark:bg-dark-main mx-auto my-4 rounded-lg lg:w-3/5">
+                        <div class="w-full bg-white dark:bg-dark-second m-auto rounded-lg mb-2">
+                            <div class="w-full flex p-2.5">
+                                <div class="w-2/12 md:w-1/12 mr-3 pt-1">
+                                    <a href=""><img class="w-12 rounded-full" src="/img/avatar.jpg"></a>
+                                </div>
+                                <div class="w-11/12">
+                                    <input class="w-full p-3 border-none outline-none bg-gray-200 dark:bg-dark-third" style="border-radius: 40px;" onclick="openPost()" type="text" placeholder="Hưởng ơi, Bạn Đang Nghĩ Gì Thế?">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="w-full">
+                                <ul class="w-full flex">
+                                    <li class="w-1/2 md:w-1/3 xl:w-1/3 cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #E42645;font-size: 18px;" class="fas fa-video"></i>
+                                        &nbsp;<b class="dark:text-white">Video Trực Tiếp</b></li>
+                                    <li class="w-1/2 md:w-1/3 xl:w-1/3  cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #41B35D;font-size: 18px;" class="far fa-image"></i>
+                                        &nbsp;<b class="dark:text-white">Ảnh / Video</b>
+                                    </li>
+                                    <li class="w-1/3 md:w-1/3 xl:w-1/3 md:block hidden cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200 pr-0"><i style="color: #F7B928;font-size: 18px;" class="fas fa-smile"></i>
+                                        &nbsp;<b class="dark:text-white">Cảm Xúc / Hoạt Động</b></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php
+                        $post_main = Functions::countPost($users[0]->IDTaiKhoan);
+                        ?>
+                        @for ($i = 0 ; $i < sizeof($post_main) ; $i++) <?php $post = Functions::getPost($post_main[$i]); ?> @switch($post[0]->LoaiBaiDang)
+                            @case('0')
+                            @include('Component/BaiDang/CapNhatAvatar',['item' => $post])
+                            @break
 
-                        @case('1')
-                        @include('Component/BaiDang/CapNhatAnhBia',['item' => $post])
-                        @break
+                            @case('1')
+                            @include('Component/BaiDang/CapNhatAnhBia',['item' => $post])
+                            @break
 
-                        @case('2')
-                        @include('Component/BaiDang/BaiDangTT',['item' => $post])
-                        @break
+                            @case('2')
+                            @include('Component/BaiDang/BaiDangTT',['item' => $post])
+                            @break
 
-                        @endswitch
-                        @endfor
+                            @endswitch
+                            @endfor
+                    </div>
                 </div>
+                @break
+                @endswitch
             </div>
-            @endswitch
         </div>
         @endif
-    </div>
-    <script src="/js/scrollbar.js"></script>
-    <script>
-        $('#modalHeaderRight').html('')
-        Pusher.logToConsole = true;
+        <script src="/js/scrollbar.js"></script>
+        <script>
+            $('#modalHeaderRight').html('')
+            Pusher.logToConsole = true;
 
-        var pusher = new Pusher('5064fc09fcd20f23d5c1', {
-            cluster: 'ap1'
-        });
-
-        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
-        channel.bind('tests', function() {
-            $.ajax({
-                method: "GET",
-                url: "/ProcessNotificationShow",
-                success: function(response) {
-                    $('#numNotification').html(response);
-                }
+            var pusher = new Pusher('5064fc09fcd20f23d5c1', {
+                cluster: 'ap1'
             });
-        });
-    </script>
+
+            var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
+            channel.bind('tests', function() {
+                $.ajax({
+                    method: "GET",
+                    url: "/ProcessNotificationShow",
+                    success: function(response) {
+                        $('#numNotification').html(response);
+                    }
+                });
+            });
+        </script>
 </body>
 
 </html>
