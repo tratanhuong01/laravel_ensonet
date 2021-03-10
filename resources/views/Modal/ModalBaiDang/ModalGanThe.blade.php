@@ -14,7 +14,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
         cursor-pointer text-3xl dark:text-white'></i></span>
     <hr>
     <div class="w-full my-2 px-2">
-        <input oninput="searchTagFriends('{{ $user[0]->IDTaiKhoan }}')" class="dark:text-white font-bold w-full p-2 pl-4 bg-transparent dark:bg-dark-third rounded-3xl" type="text" placeholder="Tìm kiếm bạn bè" name="hoTen" id="searchTagFriends">
+        <input oninput="searchTagFriends('{{ $user[0]->IDTaiKhoan }}')" class="dark:text-white font-bold w-full p-2 pl-4 bg-transparent dark:bg-dark-third rounded-3xl" e="text" placeholder="Tìm kiếm bạn bè" name="hoTen" id="searchTagFriends">
     </div>
     <div class="tac-user wrapper-content-right" id="tag-users">
         @foreach($friends as $key => $value)

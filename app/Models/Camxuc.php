@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Camxuc extends Model
 {
@@ -11,25 +12,28 @@ class Camxuc extends Model
 
     protected $fillable = [
         'IDCamXuc',
-        'IDBaiDang',
-        'IDTaiKhoan',
-        'LoaiCamXuc',
-        'ThoiGianCamXuc'
+        'TenCamXuc',
+        'BieuTuong',
     ];
     public static function add(
         $IDCamXuc,
-        $IDBaiDang,
-        $IDTaiKhoan,
-        $LoaiCamXuc,
-        $ThoiGianCamXuc
+        $TenCamXuc,
+        $BieuTuong
     ) {
         $camxuc = new Camxuc;
         $camxuc->IDCamXuc = $IDCamXuc;
-        $camxuc->IDBaiDang = $IDBaiDang;
-        $camxuc->IDTaiKhoan = $IDTaiKhoan;
-        $camxuc->LoaiCamXuc = $LoaiCamXuc;
-        $camxuc->ThoiGianCamXuc = $ThoiGianCamXuc;
+        $camxuc->TenCamXuc = $TenCamXuc;
+        $camxuc->BieuTuong = $BieuTuong;
         $camxuc->save();
+    }
+    public static function search($data)
+    {
+        return DB::select("select * from camxuc 
+         where camxuc.TenCamXuc LIKE '%" . $data . "%' ");
+    }
+    public static function gets()
+    {
+        return Camxuc::get();
     }
     public $timestamps = false;
 }

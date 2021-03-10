@@ -68,7 +68,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                     </li>
                 </label>
 
-                <li onclick="clickOpenModal(1)" class="eOpenModal cursor-pointer "><i style="color: #EAB026;font-size: 25px;padding: 2px 4px;" class="fas fa-smile"></i> &nbsp;&nbsp;
+                <li onclick="viewFeelCurrent()" class="eOpenModal cursor-pointer "><i style="color: #EAB026;font-size: 25px;padding: 2px 4px;" class="fas fa-smile"></i> &nbsp;&nbsp;
                 </li>
                 <li onclick="viewTagFriends()" class="eOpenModal cursor-pointer "><i style="color: #1771E6;font-size: 25px;padding: 2px 4px;" class="fas fa-user-tag"></i>
                     &nbsp;&nbsp;</li>

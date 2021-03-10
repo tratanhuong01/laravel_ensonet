@@ -324,3 +324,9 @@ Route::get('ProcesViewTagFriend', [BaiDang\TagFriendController::class, 'view']);
 Route::get('ProcesViewCreatePost', [BaiDang\PostController::class, 'viewCreatePost']);
 
 Route::get('ProcessTagFriend', [BaiDang\TagFriendController::class, 'tag']);
+
+Route::get('ProcessViewFeelCurrent', [BaiDang\FeelController::class, 'viewFeel']);
+
+Route::get('ProcessTickFeelCurrent', [BaiDang\FeelController::class, 'tickFeel']);
+
+Route::get('ProcessSearchFeelCurrent', [BaiDang\FeelController::class, 'searchFeel']);

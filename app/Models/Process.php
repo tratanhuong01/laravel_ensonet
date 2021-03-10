@@ -88,7 +88,7 @@ class Process extends Model
             }
             $typeFeel = array_values($typeFeel);
             if (count($typeFeel) == 0) {
-                $camxuc = new Camxuc;
+                $camxuc = new Camxucbinhluan;
                 $camxuc->LoaiCamXuc = '0@1';
                 $typeFeel = array('0' => $camxuc);
             }
@@ -125,7 +125,7 @@ class Process extends Model
         }
         $typeFeel = array_values($typeFeel);
         if (count($typeFeel) == 0) {
-            $camxuc = new Camxuc;
+            $camxuc = new Camxucbinhluan;
             $camxuc->LoaiCamXuc = '0@1';
             $typeFeel = array('0' => $camxuc);
         }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use App\Models\Camxuc;
+use App\Models\Camxucbaidang;
 use Illuminate\Support\Arr;
 
 class Data extends Model
@@ -43,7 +43,7 @@ class Data extends Model
     {
         $feel = Functions::getUserFeel($idBaiDang);
         $typeFeel = DB::select(
-            'SELECT DISTINCT  `LoaiCamXuc` FROM `camxuc` WHERE camxuc.IDBaiDang = ? ',
+            'SELECT DISTINCT  `LoaiCamXuc` FROM `camxucbaidang` WHERE camxucbaidang.IDBaiDang = ? ',
             [$idBaiDang]
         );
         $countFeel1 = 0;
@@ -62,16 +62,16 @@ class Data extends Model
         }
         $typeFeel = array_values($typeFeel);
         if (count($typeFeel) == 0) {
-            $camxuc = new Camxuc;
+            $camxuc = new Camxucbaidang;
             $camxuc->LoaiCamXuc = '0@1';
             $typeFeel = array('0' => $camxuc);
         }
         $user = array();
         $k = 0;
         for ($i = 0; $i < count($typeFeel); $i++) {
-            $data = Camxuc::where('camxuc.LoaiCamXuc', 'LIKE', '%' .
+            $data = Camxucbaidang::where('camxucbaidang.LoaiCamXuc', 'LIKE', '%' .
                 explode('@', $typeFeel[$i]->LoaiCamXuc)[0] . '@' . '%')
-                ->where('camxuc.IDBaiDang', '=', $idBaiDang)->get();
+                ->where('camxucbaidang.IDBaiDang', '=', $idBaiDang)->get();
             for ($j = 0; $j < count($data); $j++) {
                 $u = DB::table('taikhoan')
                     ->where('taikhoan.IDTaiKhoan', '=', $data[$j]->IDTaiKhoan)
@@ -89,8 +89,8 @@ class Data extends Model
     {
         $user = array();
         $k = 0;
-        $data = Camxuc::where('camxuc.LoaiCamXuc', 'LIKE', '%' . explode('@', $loaiCamXuc)[0] . '@' . '%')
-            ->where('camxuc.IDBaiDang', '=', $idBaiDang)->get();
+        $data = Camxucbaidang::where('camxucbaidang.LoaiCamXuc', 'LIKE', '%' . explode('@', $loaiCamXuc)[0] . '@' . '%')
+            ->where('camxucbaidang.IDBaiDang', '=', $idBaiDang)->get();
         for ($j = 0; $j < count($data); $j++) {
             $u = DB::table('taikhoan')
                 ->where('taikhoan.IDTaiKhoan', '=', $data[$j]->IDTaiKhoan)

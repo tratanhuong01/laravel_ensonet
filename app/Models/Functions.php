@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use App\Models\Camxuc;
+use App\Models\Camxucbaidang;
 use Illuminate\Support\Facades\Session;
 
 class Functions extends Model
@@ -96,8 +96,8 @@ class Functions extends Model
     }
     public static function checkIsFeel($idTaiKhoan, $idBaiDang)
     {
-        $data = Camxuc::where('camxuc.IDTaiKhoan', '=', $idTaiKhoan)
-            ->where('camxuc.IDBaiDang', '=', $idBaiDang)
+        $data = Camxucbaidang::where('camxucbaidang.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('camxucbaidang.IDBaiDang', '=', $idBaiDang)
             ->get();
         if (count($data) == 0)
             return '<span class="text-xl" style="color: transparent;text-shadow: 0 0 0 gray;">👍</span> &nbsp; 
@@ -106,7 +106,7 @@ class Functions extends Model
     }
     public static function getUserFeel($idBaiDang)
     {
-        return Camxuc::where('camxuc.IDBaiDang', '=', $idBaiDang)
+        return Camxucbaidang::where('camxucbaidang.IDBaiDang', '=', $idBaiDang)
             ->get();
     }
     public static function getFeel($i)
@@ -198,7 +198,7 @@ class Functions extends Model
             }
         } else {
             $typeFeel = DB::select(
-                'SELECT DISTINCT  `LoaiCamXuc` FROM `camxuc` WHERE camxuc.IDBaiDang = ? ',
+                'SELECT DISTINCT  `LoaiCamXuc` FROM `camxucbaidang` WHERE camxucbaidang.IDBaiDang = ? ',
                 [$idBaiDang]
             );
             $countFeel1 = 0;
@@ -217,9 +217,9 @@ class Functions extends Model
             }
             $typeFeel = array_values($typeFeel);
             if (count($typeFeel) == 0) {
-                $camxuc = new Camxuc;
-                $camxuc->LoaiCamXuc = '0@1';
-                $typeFeel = array('0' => $camxuc);
+                $camxucbaidang = new camxucbaidang;
+                $camxucbaidang->LoaiCamXuc = '0@1';
+                $typeFeel = array('0' => $camxucbaidang);
             }
             $all = '';
             for ($i = 0; $i < count($typeFeel); $i++) {

@@ -178,15 +178,6 @@ function viewTagFriends() {
         }
     });
 }
-function returnViewCreatePost() {
-    $.ajax({
-        method: "GET",
-        url: "/ProcesViewCreatePost",
-        success: function (response) {
-            $('#second').html(response);
-        }
-    });
-}
 function searchTagFriends(IDTaiKhoan) {
     $.ajax({
         method: "GET",
@@ -200,6 +191,15 @@ function searchTagFriends(IDTaiKhoan) {
         }
     });
 }
+function returnViewCreatePost() {
+    $.ajax({
+        method: "GET",
+        url: "/ProcesViewCreatePost",
+        success: function (response) {
+            $('#second').html(response);
+        }
+    });
+}
 function tagFriends(IDTaiKhoan) {
     $.ajax({
         method: "GET",
@@ -209,6 +209,43 @@ function tagFriends(IDTaiKhoan) {
         },
         success: function (response) {
             $('#' + IDTaiKhoan + "Check").html(response);
+        }
+    });
+}
+
+//tâm trạng hiện tại
+function viewFeelCurrent() {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessViewFeelCurrent",
+        success: function (response) {
+            $('#second').html(response);
+        }
+    });
+}
+function searchFeelCurrent() {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessSearchFeelCurrent",
+        data: {
+            TenCamXuc: $('#searchFeelCurrent').val()
+        },
+        success: function (response) {
+            $('#feelUserCurrent').html(response);
+        }
+    });
+}
+function tickFeel(IDCamXuc) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessTickFeelCurrent",
+        data: {
+            IDCamXuc: IDCamXuc,
+        },
+        success: function (response) {
+            $('#' + $('#IDCamXucPrev').val() + "Tick").html('');
+            $('#' + IDCamXuc + "Tick").html(response);
+            $('#IDCamXucPrev').val(IDCamXuc);
         }
     });
 }

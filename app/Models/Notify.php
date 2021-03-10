@@ -43,8 +43,8 @@ class Notify extends Model
                         ->get();
                     $newNotify['idBinhLuan'] = explode('&', $post[$i]->IDContent)[2];
                 } else
-                    $cx = Camxuc::where('camxuc.IDBaiDang', '=', explode('&', $post[$i]->IDContent)[0])
-                        ->where('camxuc.IDTaiKhoan', '=', $newNotify[0][0]->IDGui)
+                    $cx = Camxucbaidang::where('camxucbaidang.IDBaiDang', '=', explode('&', $post[$i]->IDContent)[0])
+                        ->where('camxucbaidang.IDTaiKhoan', '=', $newNotify[0][0]->IDGui)
                         ->get();
                 if (count($cx) > 0)
                     $loaiCamXuc = $cx[0]->LoaiCamXuc;
