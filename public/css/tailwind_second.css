@@ -25,6 +25,9 @@ input {
 .w-48per {
     width: 43%;
 }
+.h-88 {
+    height: 352px;
+}
 .w-92 {
     width: 368px;
 }
@@ -48,6 +51,9 @@ input {
 }
 .text-14px {
     font-size: 14px;
+}
+.right-29per {
+    right: 29%;
 }
 .text-737373 {
     color: #737373;

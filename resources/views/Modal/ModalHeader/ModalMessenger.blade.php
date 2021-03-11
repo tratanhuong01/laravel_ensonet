@@ -1,8 +1,8 @@
 <div class="w-full flex">
-    <div class="w-1/2 text-left pl-2">
+    <div class="w-1/2 text-left pl-2 py-2">
         <b class="dark:text-white font-bold text-xm">Messenger</b>
     </div>
-    <div class="w-1/2 text-right pr-2">
+    <div class="w-1/2 text-right pr-2 py-2">
         <a href=""><b class="dark:text-white font-bold text-xm">Vào Messenger</b></a>
     </div>
 </div>

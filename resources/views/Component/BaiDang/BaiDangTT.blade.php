@@ -20,6 +20,7 @@ $u = Session::get('user');
                         {{ $item[0]->Ho . ' ' . $item[0]->Ten }}</b>
                 </a>
                 <?php $tag = array();
+                $feelCur[$item[0]->IDCamXuc] = $item[0]->IDCamXuc;
                 $tags = explode('&', $item[0]->GanThe);
                 ?>
                 @if (count($tags) == 0)
@@ -29,6 +30,12 @@ $u = Session::get('user');
                 <?php $tag[$value] = $value ?>
                 @endforeach
                 <?php unset($tag['']); ?>
+                <span class="font-bold dark:text-white">
+                    @if($item[0]->IDCamXuc != NULL)
+                    {{ DataProcess::getFeel($feelCur) }}
+                    @else
+                    @endif
+                </span>
                 <span class="font-bold dark:text-white">{{ DataProcess::getFriendTag($tag) }}
                 </span>
                 @endif

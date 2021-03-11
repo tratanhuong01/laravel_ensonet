@@ -25,6 +25,7 @@ class Functions extends Model
         return DB::table('baidang')->select('*', 'baidang.IDBaiDang')
             ->leftjoin('hinhanh', 'baidang.IDBaiDang', '=', 'hinhanh.IDBaiDang')
             ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
+            ->leftjoin('camxuc', 'baidang.IDCamXuc', '=', 'camxuc.IDCamXuc')
             ->where('taikhoan.IDTaiKhoan', '=', $post->IDTaiKhoan)
             ->where('baidang.IDBaiDang', '=', $post->IDBaiDang)
             ->orderBy('NgayDang', 'desc')
@@ -56,6 +57,7 @@ class Functions extends Model
         } else {
             for ($i = 0; $i < sizeof($listFriend); $i++) {
                 $data = DB::table('moiquanhe')
+                    ->join('taikhoan', "moiquanhe.IDBanBe", 'taikhoan.IDTaiKhoan')
                     ->where('moiquanhe.IDTaiKhoan', '=', $listFriend[$i]->IDBanBe)
                     ->where('moiquanhe.IDBanBe', '=', $idTaiKhoan)
                     ->where('moiquanhe.TinhTrang', '=', '3')

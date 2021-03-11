@@ -23,6 +23,10 @@ class PostNormalController extends Controller
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
                 $tag = "";
+                $idCamXuc = "";
+                if (session()->has('feelCur'))
+                    foreach (Session::get('feelCur') as $key => $value)
+                        $idCamXuc = $value;
                 if (session()->has('tag')) {
                     if (count(Session::get('tag')) > 0) {
                         $tags = Session::get('tag');
@@ -37,7 +41,7 @@ class PostNormalController extends Controller
                     $request->IDQuyenRiengTu,
                     $request->content,
                     $tag,
-                    NULL,
+                    $idCamXuc,
                     NULL,
                     $datetime,
                     2
@@ -55,6 +59,10 @@ class PostNormalController extends Controller
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
                 $tag = "";
+                $idCamXuc = "";
+                if (session()->has('feelCur'))
+                    foreach (Session::get('feelCur') as $key => $value)
+                        $idCamXuc = $value;
                 if (session()->has('tag')) {
                     if (count(Session::get('tag')) > 0) {
                         $tags = Session::get('tag');
@@ -69,7 +77,7 @@ class PostNormalController extends Controller
                     $request->IDQuyenRiengTu,
                     $request->content,
                     $tag,
-                    NULL,
+                    $idCamXuc,
                     NULL,
                     $datetime,
                     2

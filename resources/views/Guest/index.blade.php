@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\Session;
     <script src="/js/ajax.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/js/header.js"></script>
+    <script src="/js/ajax/TroChuyen/ajax.js"></script>
+    scri
 </head>
 
 <body class="dark:bg-dark-main">
@@ -38,9 +40,9 @@ use Illuminate\Support\Facades\Session;
     $user = Session::get('user');
 
     ?>
-    <div class="w-full bg-gray-100 dark:bg-dark-main h-screen" id="main">
+    <div class="w-full bg-gray-100 dark:bg-dark-main h-screen relative" id="main">
         @include('Header');
-        <div class="w-full flex pt-10 bg-gray-100 dark:bg-dark-main lg:w-full lg:mx-auto xl:w-full" id="content">
+        <div class="w-full flex z-10 pt-10 bg-gray-100 dark:bg-dark-main lg:w-full lg:mx-auto xl:w-full" id="content">
             <div class="fixed pt-3 hidden sm:hidden xl:block xl:w-1/4">
                 <div id="wrapper-scrollbar" class="pl-1.5 w-4/6 overflow-x-hidden overflow-y-auto 
                 xl:w-full">
@@ -201,16 +203,27 @@ use Illuminate\Support\Facades\Session;
                 </div>
             </div>
         </div>
-        <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
-
+        <div class="h-auto p-3 w-20">
+            <div class="text-center cursor-pointer py-2 pl-2 pr-1.5 fixed right-3 bottom-4 " id="chatMinize">
+                <div>
+                    <i class="far fa-edit text-2xl py-2 px-3 pr-2 rounded-full bg-white dark:bg-dark-second 
+                    dark:text-white"></i>
+                </div>
+            </div>
         </div>
-        @else
-        <?php redirect()->to('login')->send(); ?>
-        @endif
+        <div class="w-full px-4 flex z-50 md:w-full lg:w-full xl:w-1/2
+        ml-auto fixed -bottom-1 right-20" id="placeChat">
+        </div>
     </div>
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
+
+    </div>
+    @else
+    <?php redirect()->to('login')->send(); ?>
+    @endif
+
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
-    <script src="js/DisMojiPicker.js"></script>
     <script>
         $('#modalHeaderRight').html('')
         Pusher.logToConsole = true;

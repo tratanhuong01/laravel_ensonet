@@ -19,10 +19,8 @@
 </head>
 
 <body>
-    <div id="main" style="width:100px;height:100px;background-color: red;">
-    </div>
-    <div>
-
+    <div class="dark:bg-dark-main w-full h-screen">
+        @include('Modal\ModalTroChuyen\ModalChat')
     </div>
 </body>
 

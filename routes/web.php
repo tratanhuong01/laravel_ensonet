@@ -222,6 +222,7 @@ Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view'
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
+    print_r(\App\Models\Functions::getMutualFriend('1000000007', Session::get('user')[0]->IDTaiKhoan));
     echo "</pre>";
     // Functions::get();
 });
@@ -330,3 +331,15 @@ Route::get('ProcessViewFeelCurrent', [BaiDang\FeelController::class, 'viewFeel']
 Route::get('ProcessTickFeelCurrent', [BaiDang\FeelController::class, 'tickFeel']);
 
 Route::get('ProcessSearchFeelCurrent', [BaiDang\FeelController::class, 'searchFeel']);
+
+Route::get('/emo', function () {
+    return view('SocketIOTest');
+});
+
+Route::get('ProcessOpenChat', [TroChuyen\ChatController::class, 'view']);
+
+Route::get('ProcessMinizeChat', [TroChuyen\ChatController::class, 'minize']);
+
+Route::get('ProcessOpenMessenger', [TroChuyen\ChatController::class, 'openMessenger']);
+
+Route::get('ProcessSendMessages', [TroChuyen\SendMessageController::class, 'send']);

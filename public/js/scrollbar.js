@@ -49,13 +49,13 @@ function openEditFriend(index) {
   }, true);
 }
 function loadTextBoxType(index) {
-  var d = document.getElementsByClassName("newExcen");
-  var e = document.getElementsByClassName("addOrCancel")
-  if (d[index].style.display == 'none') {
-    d[index].style.display = 'block';
+  if (document.getElementById('newExcen').style.display == 'none') {
+    $('#newExcen').show();
+    $('#addOrCancel').addClass('transform rotate-45');
   }
   else {
-    d[index].style.display = 'none';
+    $('#newExcen').hide();
+    $('#addOrCancel').removeClass('transform rotate-45');
   }
 }
 var mess_right = document.getElementsByClassName("mess-right");
@@ -70,15 +70,7 @@ for (var a = 0; a < mess_right.length; a++) {
   mess_user_r1[a].style.width = mess_right[a].offsetWidth + "px";
   mess_user_r[a].style.width = mess_user[a].offsetWidth - 50 - mess_user_r1[a].offsetWidth + mess_user_r2[a].offsetWidth + "px";
 }
-function openSettingChat(index) {
-  var setting_chat = document.getElementsByClassName("setting-chat");
-  if (setting_chat[index].style.display == 'none') {
-    setting_chat[index].style.display = 'block';
-    setting_chat[index].style.zIndex = 99;
-  }
-  else
-    setting_chat[index].style.display = 'none';
-}
+
 function typeChat(index) {
   var three_exten = document.getElementsByClassName("three-exten");
   var three_exten1 = document.getElementsByClassName("three-exten1");

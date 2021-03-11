@@ -14,9 +14,8 @@ use App\Models\Notify;
     <div onclick="openMessenger()" class="w-10 bg-gray-200 dark:bg-dark-third 
                         dark:text-white text-center rounded-full cursor-pointer h-10 ml-1 mr-1 pt-1.5 relative">
         <i class="bx bxl-messenger text-xl"></i>
-        <span class="text-white bg-red-600 font-bold rounded-full text-xs px-1 py-0.5 absolute
+        <span id="numMessager" class="absolute
                                 -top-2 -right-1">
-            99+
         </span>
     </div>
 </li>

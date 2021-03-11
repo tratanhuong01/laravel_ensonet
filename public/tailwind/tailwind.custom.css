@@ -9,6 +9,10 @@
   --tw-bg-opacity: 1;
   color: rgba(220, 38, 38, var(--tw-bg-opacity));
 }
+.dark .dark\:text-blue-500 { 
+  --tw-text-opacity: 1;
+  color: rgba(59, 130, 246, var(--tw-text-opacity));
+}
 .w-7\/10 {
   width: 70%;
 }

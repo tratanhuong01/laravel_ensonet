@@ -113,6 +113,8 @@ class FeelController extends Controller
                 Session::forget('feelCur');
                 return '';
             } else {
+                Session::forget('feelCur');
+                $feelCur = NULL;
                 $feelCur[$request->IDCamXuc] = $request->IDCamXuc;
                 Session::put('feelCur', $feelCur);
                 return '<i class="fas fa-check text-green-400 text-xm"></i>';
