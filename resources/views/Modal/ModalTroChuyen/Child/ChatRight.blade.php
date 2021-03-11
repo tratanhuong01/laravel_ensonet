@@ -5,7 +5,7 @@
     <div class="mess-user-r1 pl-2 flex mr-4" style="width: inherit;">
         <div class="mess-right break-all ml-auto border-none outline-none bg-blue-500 p-1.5 rounded-lg 
                 text-white " style="max-width:65%;font-size: 15px;">
-            {{ $message[0]->NoiDung }}
+            {{ $message->NoiDung }}
         </div>
     </div>
     <div class="mess-user-r2 " style="width: 4%;">

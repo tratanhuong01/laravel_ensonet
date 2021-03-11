@@ -1,3 +1,8 @@
+<?php
+
+use Illuminate\Support\Facades\Session;
+
+?>
 <div id="{{ $chater[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
 dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     <div class="w-full flex py-1 border-b-2 border-solid border-gray-200  dark:border-dark-third">
@@ -48,8 +53,18 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             </ul>
         </div>
     </div>
-    <div id="{{ $chater[0]->IDTaiKhoan }}Messenges" class="w-full p-1 wrapper-scrollbar h-88 overflow-y-auto overflow-x-hidden relative">
+    <div id='{{ Session::get("user")[0]->IDTaiKhoan }}Messenges' class="w-full p-1 wrapper-scrollbar h-88 overflow-y-auto overflow-x-hidden relative">
+        @if (count($messages) == 0)
         @include('Modal/ModalTroChuyen/Child/NewChat',['chater' => $chater])
+        @else
+        @foreach($messages as $key => $value)
+        @if(Session::get('user')[0]->IDTaiKhoan == $value->IDTaiKhoan)
+        @include('Modal\ModalTroChuyen\Child\ChatRight',['message' => $value])
+        @else
+        @include('Modal\ModalTroChuyen\Child\ChatLeft',['message' => $value])
+        @endif
+        @endforeach
+        @endif
     </div>
     <div class="w-full bg-white dark:bg-dark-second relative z-20 pb-2 pt-4 px-1 flex dark:border-dark-third border-t-2 border-solid border-gray-300">
         <div id="newExcen" class="w-auto px-1 absolute -top-full rounded-2xl py-2 z-10 bg-white 
@@ -134,7 +149,9 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             </li>
         </ul>
         <div class="three-exten1 w-6/12">
-            <div onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
+            <?php $user = Session::get('user'); ?>
+            <div onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',
+            '{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
              bg-gray-200 py-1.5 w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" contenteditable placeholder="Aa">
 
             </div>
@@ -186,3 +203,25 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
 
     </div>
 </div>
+<script>
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('5064fc09fcd20f23d5c1', {
+        cluster: 'ap1'
+    });
+    var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
+    channel.bind('chat', function() {
+        $.ajax({
+            method: "GET",
+            url: "/ProcessChatEvent",
+            data: {
+                IDNhomTinNhan: '{{ $messages[0]->IDNhomTinNhan }}'
+            },
+            success: function(response) {
+                $('#{{ Session::get("user")[0]->IDTaiKhoan }}Messenges').append(response);
+                var objDiv = document.getElementById('{{ Session::get("user")[0]->IDTaiKhoan }}Messenges');
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }
+        });
+    });
+</script>

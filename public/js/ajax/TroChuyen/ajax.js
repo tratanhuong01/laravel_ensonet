@@ -63,18 +63,21 @@ function openSettingChat(IDTaiKhoan) {
     else
         $('#' + IDTaiKhoan + "SettingChat").hide();
 }
-function sendMessage(IDNguoiNhan, event) {
+function sendMessage(IDNguoiNhan, IDTaiKhoan, event) {
     if (event.keyCode === 13)
         if ($("#" + IDNguoiNhan + "PlaceTypeText").html().length > 0)
             $.ajax({
                 method: "GET",
-                url: "ProcessSendMessages",
+                url: "/ProcessSendMessages",
                 data: {
                     IDNguoiNhan: IDNguoiNhan,
                     NoiDungTinNhan: $("#" + IDNguoiNhan + "PlaceTypeText").html()
                 },
                 success: function (response) {
-                    $('#' + IDNguoiNhan + "Messenges").append(response);
+                    $('#' + IDTaiKhoan + "Messenges").append(response);
+                    $("#" + IDNguoiNhan + "PlaceTypeText").html('');
+                    var objDiv = document.getElementById(IDTaiKhoan + 'Messenges');
+                    objDiv.scrollTop = objDiv.scrollHeight;
                 }
             });
 }

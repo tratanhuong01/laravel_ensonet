@@ -343,3 +343,5 @@ Route::get('ProcessMinizeChat', [TroChuyen\ChatController::class, 'minize']);
 Route::get('ProcessOpenMessenger', [TroChuyen\ChatController::class, 'openMessenger']);
 
 Route::get('ProcessSendMessages', [TroChuyen\SendMessageController::class, 'send']);
+
+Route::get('ProcessChatEvent', [TroChuyen\SendMessageController::class, 'chatEvent']);

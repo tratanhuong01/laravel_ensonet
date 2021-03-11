@@ -64,8 +64,8 @@ class DataProcess extends Model
                     return $idMNhomMain;
                     break;
                 } else {
-                    $munatal = DB::select('SELECT DISTINCT IDTaiKhoan * FROM tinnhan 
-                    WHERE IDNhomTinNhan = ? ', $arrMunatalGroup[$i]);
+                    $munatal = DB::select('SELECT DISTINCT IDTaiKhoan FROM tinnhan 
+                    WHERE IDNhomTinNhan = ? ', [$arrMunatalGroup[$i]]);
                     if (count($munatal) == 2) {
                         $idMNhomMain = $arrMunatalGroup[$i];
                         return $idMNhomMain;
@@ -74,5 +74,15 @@ class DataProcess extends Model
             }
         else
             return $idMNhomMain;
+    }
+    public static function getMessageByID($sender, $receiver)
+    {
+        $idNhomTinNhan = DataProcess::checkIsSimilarGroupMessage($sender, $receiver);
+        return Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
+            ->where('tinnhan.LoaiTinNhan', '=', '1')
+            ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
+            ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
+            ->get();
     }
 }

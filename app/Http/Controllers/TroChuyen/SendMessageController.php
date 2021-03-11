@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\TroChuyen;
 
+use App\Events\ChatEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Nhomtinnhan;
 use App\Models\StringUtil;
@@ -55,7 +56,8 @@ class SendMessageController extends Controller
             $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)
                 ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                 ->get();
-            return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message);
+            event(new ChatEvent($request->IDNguoiNhan));
+            return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0]);
         } else {
             $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
             Tinnhan::add(
@@ -71,7 +73,23 @@ class SendMessageController extends Controller
             $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)
                 ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                 ->get();
-            return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message);
+            event(new ChatEvent($request->IDNguoiNhan));
+            return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0]);
         }
+    }
+    public function chatEvent(Request $request)
+    {
+        $message = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $request->IDNhomTinNhan)
+            ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->orderby('tinnhan.ThoiGianNhanTin', 'DESC')
+            ->get();
+        if (count($message) == 0) {
+            return 'not have id nhom tin nhan';
+        } else
+            return view('Modal\ModalTroChuyen\Child\ChatLeft')
+                ->with(
+                    'message',
+                    $message[0]
+                );
     }
 }
