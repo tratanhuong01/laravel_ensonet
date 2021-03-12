@@ -53,7 +53,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             </ul>
         </div>
     </div>
-    <div id='{{ Session::get("user")[0]->IDTaiKhoan }}Messenges' class="w-full p-1 wrapper-scrollbar h-88 overflow-y-auto overflow-x-hidden relative">
+    <div id='(count($messages)==0?0:$messages[0]->IDNhomTinNhan).Session::get("user")[0]->IDTaiKhoan }}Messenges' class="w-full p-1 wrapper-scrollbar h-88 overflow-y-auto overflow-x-hidden relative">
         @if (count($messages) == 0)
         @include('Modal/ModalTroChuyen/Child/NewChat',['chater' => $chater])
         @else
@@ -151,6 +151,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         <div class="three-exten1 w-6/12">
             <?php $user = Session::get('user'); ?>
             <div onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',
+            '{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan) }}',
             '{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
              bg-gray-200 py-1.5 w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" contenteditable placeholder="Aa">
 
@@ -204,6 +205,9 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     </div>
 </div>
 <script>
+    var objDiv = document.getElementById('{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan).Session::get("user")[0]->IDTaiKhoan }}Messenges');
+    objDiv.scrollTop = objDiv.scrollHeight;
+
     Pusher.logToConsole = true;
 
     var pusher = new Pusher('5064fc09fcd20f23d5c1', {
@@ -215,11 +219,10 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             method: "GET",
             url: "/ProcessChatEvent",
             data: {
-                IDNhomTinNhan: '{{ $messages[0]->IDNhomTinNhan }}'
+                IDNhomTinNhan: '{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan) }}'
             },
             success: function(response) {
-                $('#{{ Session::get("user")[0]->IDTaiKhoan }}Messenges').append(response);
-                var objDiv = document.getElementById('{{ Session::get("user")[0]->IDTaiKhoan }}Messenges');
+                $('#{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan).Session::get("user")[0]->IDTaiKhoan }}Messenges').append(response);
                 objDiv.scrollTop = objDiv.scrollHeight;
             }
         });

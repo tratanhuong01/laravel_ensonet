@@ -63,7 +63,7 @@ function openSettingChat(IDTaiKhoan) {
     else
         $('#' + IDTaiKhoan + "SettingChat").hide();
 }
-function sendMessage(IDNguoiNhan, IDTaiKhoan, event) {
+function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
     if (event.keyCode === 13)
         if ($("#" + IDNguoiNhan + "PlaceTypeText").html().length > 0)
             $.ajax({
@@ -74,9 +74,9 @@ function sendMessage(IDNguoiNhan, IDTaiKhoan, event) {
                     NoiDungTinNhan: $("#" + IDNguoiNhan + "PlaceTypeText").html()
                 },
                 success: function (response) {
-                    $('#' + IDTaiKhoan + "Messenges").append(response);
+                    $('#' + IDNhomTinNhan + IDTaiKhoan + "Messenges").append(response);
                     $("#" + IDNguoiNhan + "PlaceTypeText").html('');
-                    var objDiv = document.getElementById(IDTaiKhoan + 'Messenges');
+                    var objDiv = document.getElementById(IDNhomTinNhan + IDTaiKhoan + "Messenges");
                     objDiv.scrollTop = objDiv.scrollHeight;
                 }
             });
