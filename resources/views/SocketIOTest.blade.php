@@ -20,7 +20,7 @@
 
 <body>
     <div class="dark:bg-dark-main w-full h-screen">
-        @include('Modal\ModalTroChuyen\ModalChat')
+        @include('Modal\ModalTroChuyen\ModalXoaTinNhanR')
     </div>
 </body>
 

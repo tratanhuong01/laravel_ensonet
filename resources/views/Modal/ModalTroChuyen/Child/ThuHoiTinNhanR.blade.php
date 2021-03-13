@@ -1,4 +1,4 @@
-<div id="{{ $message->IDTinNhan }}" class="mess-user w-full py-1 flex relative">
+<div id="{{ $message->IDTinNhan }}" class="mess-user w-full py-2 flex relative">
     <div class="mess-user-feel hidden h-auto relative">
         <div class="cursor-pointer color-word absolute top-1/2 pl-2" style="transform: translateY(-50%);">
             <ul class="w-full flex relative">
@@ -14,9 +14,9 @@
         </div>
     </div>
     <div class="mess-user-r1 pl-2 flex mr-4" style="width: inherit;">
-        <div class="mess-right break-all ml-auto border-none outline-none bg-blue-500 p-1.5 rounded-lg 
-                text-white " style="max-width:65%;font-size: 15px;">
-            {{ $message->NoiDung }}
+        <div class="mess-right break-all ml-auto border-none outline-none p-1.5 rounded-lg 
+        dark:text-white dark:bg-dark-third" style="max-width:65%;font-size: 15px;">
+            bạn đã thu hồi tin nhắn
         </div>
     </div>
     <div class="mess-user-r2 " style="width: 4%;">

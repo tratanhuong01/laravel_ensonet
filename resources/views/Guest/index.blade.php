@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Session;
     ?>
     <div class="w-full bg-gray-100 dark:bg-dark-main h-screen relative" id="main">
         @include('Header');
-        <div class="w-full flex z-10 pt-10 bg-gray-100 dark:bg-dark-main lg:w-full lg:mx-auto xl:w-full" id="content">
+        <div class="w-full flex z-10 pt-6 bg-gray-100 dark:bg-dark-main lg:w-full lg:mx-auto xl:w-full" id="content">
             <div class="fixed pt-3 hidden sm:hidden xl:block xl:w-1/4">
                 <div id="wrapper-scrollbar" class="pl-1.5 w-4/6 overflow-x-hidden overflow-y-auto 
                 xl:w-full">
@@ -241,6 +241,21 @@ use Illuminate\Support\Facades\Session;
                     $('#numNotification').html(response);
                 }
             });
+        });
+    </script>
+    <script>
+        if (navigator.onLine) {
+            console.log('We\'re online!');
+        } else {
+            console.log('We\'re offline...');
+        }
+
+        window.addEventListener('online', function(e) {
+            console.log('And we\'re back :).');
+        });
+
+        window.addEventListener('offline', function(e) {
+            console.log('Connection is down.');
         });
     </script>
 </body>

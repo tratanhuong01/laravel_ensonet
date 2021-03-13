@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Nhomtinnhan;
 use App\Models\StringUtil;
 use App\Models\Taikhoan;
+use App\Models\Thongbao;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
 use Illuminate\Http\Request;
@@ -56,6 +57,18 @@ class SendMessageController extends Controller
             $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)
                 ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                 ->get();
+            $getUserOfGroupMessage = DataProcess::getUserOfGroupMessage($idNhomTinNhan);
+            foreach ($getUserOfGroupMessage as $key => $value) {
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $value->IDTaiKhoan,
+                    'TINNHAN001',
+                    $idNhomTinNhan,
+                    Session::get('user')[0]->IDTaiKhoan,
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+            }
             event(new ChatEvent($request->IDNguoiNhan));
             return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0]);
         } else {
@@ -73,6 +86,18 @@ class SendMessageController extends Controller
             $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)
                 ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                 ->get();
+            $getUserOfGroupMessage = DataProcess::getUserOfGroupMessage($idNhomTinNhanQuery);
+            foreach ($getUserOfGroupMessage as $key => $value) {
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $value->IDTaiKhoan,
+                    'TINNHAN001',
+                    $idNhomTinNhanQuery,
+                    Session::get('user')[0]->IDTaiKhoan,
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+            }
             event(new ChatEvent($request->IDNguoiNhan));
             return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0]);
         }

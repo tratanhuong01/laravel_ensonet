@@ -13,10 +13,11 @@ class Notify extends Model
         $post = DB::select(
             'SELECT DISTINCT IDContent, MAX(ThoiGianThongBao) 
             FROM thongbao 
-            WHERE thongbao.IDTaiKhoan = ?
+            INNER JOIN loaithongbao ON thongbao.IDLoaiThongBao = loaithongbao.IDLoaiThongBao
+            WHERE thongbao.IDTaiKhoan = ? AND loaithongbao.Loai = ? 
             GROUP BY IDContent 
             ORDER BY MAX(ThoiGianThongBao) DESC, IDContent LIMIT 10',
-            [$idTaiKhoan]
+            [$idTaiKhoan, '0']
         );
         $newAllNotify = array();
 
@@ -86,11 +87,12 @@ class Notify extends Model
         $post = DB::select(
             'SELECT DISTINCT IDContent, MAX(ThoiGianThongBao) 
             FROM thongbao 
-            WHERE thongbao.IDTaiKhoan = ?
+            INNER JOIN loaithongbao ON thongbao.IDLoaiThongBao = loaithongbao.IDLoaiThongBao
+            WHERE thongbao.IDTaiKhoan = ? AND loaithongbao.Loai = ? 
             AND thongbao.TinhTrang = ?
             GROUP BY IDContent 
             ORDER BY MAX(ThoiGianThongBao) DESC, IDContent',
-            [$idTaiKhoan, $tinhTrang]
+            [$idTaiKhoan, '0', $tinhTrang]
         );
         return count($post);
     }

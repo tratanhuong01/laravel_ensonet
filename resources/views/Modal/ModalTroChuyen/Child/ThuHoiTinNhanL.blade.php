@@ -3,8 +3,9 @@
         <a href=""><img class="absolute bottom-1 w-9 h-9 object-cover rounded-full" src="/{{ $message->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
     <div class=" pl-2 flex" style="width: inherit;">
-        <div class="border-none outline-none bg-gray-200 bg-1877F2 p-1.5" style="max-width:65%;min-height: 40px;border-radius: 12px;font-size: 15px;">
-            {{ $message->NoiDung }}
+        <div class="border-none outline-none p-1.5
+        dark:text-white dark:bg-dark-third" style="max-width:65%;min-height: 40px;border-radius: 12px;font-size: 15px;">
+            {{ $message->Ten }} đã thu hồi tin nhắn
         </div>
         <div class="mess-user-feel hidden h-auto relative">
             <div class="cursor-pointer color-word absolute top-1/2 pl-2" style="transform: translateY(-50%);">

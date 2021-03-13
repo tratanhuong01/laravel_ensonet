@@ -7,6 +7,7 @@ use App\Models\Taikhoan;
 use App\Models\Tinnhan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class DataProcess extends Model
 {
@@ -78,11 +79,62 @@ class DataProcess extends Model
     public static function getMessageByID($sender, $receiver)
     {
         $idNhomTinNhan = DataProcess::checkIsSimilarGroupMessage($sender, $receiver);
-        return Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
+        return Tinnhan::select('*', 'tinnhan.TinhTrang')
+            ->where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
             ->where('tinnhan.LoaiTinNhan', '=', '1')
             ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
             ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
             ->get();
+    }
+    public static function getUserOfGroupMessage($idNhomTinNhan)
+    {
+        $usersOfGroupMessages = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan ,AnhDaiDien,Ho,Ten FROM tinnhan INNER JOIN 
+        taikhoan ON tinnhan.IDTaiKhoan = taikhoan.IDTaiKhoan
+        WHERE tinnhan.IDNhomTinNhan = ? ', [$idNhomTinNhan]);
+        foreach ($usersOfGroupMessages as $key => $value) {
+            if ($usersOfGroupMessages[$key]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan) {
+                unset($usersOfGroupMessages[$key]);
+                return array_values($usersOfGroupMessages);
+                break;
+            }
+        }
+    }
+    public static function getNotificationMessage($idTaiKhoan, $tinhTrang)
+    {
+        $post = DB::select(
+            'SELECT DISTINCT IDContent, MAX(ThoiGianThongBao) 
+            FROM thongbao 
+            INNER JOIN loaithongbao ON thongbao.IDLoaiThongBao = loaithongbao.IDLoaiThongBao
+            WHERE thongbao.IDTaiKhoan = ? AND loaithongbao.Loai = ? 
+            AND thongbao.TinhTrang = ?
+            GROUP BY IDContent 
+            ORDER BY MAX(ThoiGianThongBao) DESC, IDContent',
+            [$idTaiKhoan, '1', $tinhTrang]
+        );
+        return count($post);
+    }
+    public static function getFullMessageByID($idTaiKhoan)
+    {
+        $mess = DB::select(
+            'SELECT DISTINCT IDNhomTinNhan, MAX(ThoiGianNhanTin) 
+        FROM tinnhan 
+        WHERE tinnhan.IDTaiKhoan = ?  
+        GROUP BY IDNhomTinNhan 
+        ORDER BY MAX(ThoiGianNhanTin) DESC, IDNhomTinNhan ',
+            [$idTaiKhoan]
+        );
+        $newArrMess = array();
+        foreach ($mess as $key => $value) {
+            $new = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $value->IDNhomTinNhan)
+                ->where('tinnhan.LoaiTinNhan', '=', '1')
+                ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
+                ->get();
+            foreach ($new as $keyM => $valueM) {
+                $newArrMess[$value->IDNhomTinNhan][$keyM] = $valueM;
+            }
+        }
+        return $newArrMess;
     }
 }

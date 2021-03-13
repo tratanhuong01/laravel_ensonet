@@ -9,6 +9,7 @@ use App\Models\Process;
 use App\Models\Notify;
 use App\Models\Taikhoan;
 use App\Models\Thongbao;
+use App\Process\DataProcess;
 use Illuminate\Support\Facades\Session;
 use App\Process\Functions;
 use Illuminate\Database\Eloquent\Model;
@@ -222,7 +223,7 @@ Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view'
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    print_r(\App\Models\Functions::getMutualFriend('1000000007', Session::get('user')[0]->IDTaiKhoan));
+    print_r(DataProcess::getFullMessageByID('1000000001'));
     echo "</pre>";
     // Functions::get();
 });
@@ -345,3 +346,7 @@ Route::get('ProcessOpenMessenger', [TroChuyen\ChatController::class, 'openMessen
 Route::get('ProcessSendMessages', [TroChuyen\SendMessageController::class, 'send']);
 
 Route::get('ProcessChatEvent', [TroChuyen\SendMessageController::class, 'chatEvent']);
+
+Route::get('ProcessViewRemoveMessage', [TroChuyen\DeleteMessageController::class, 'view']);
+
+Route::get('ProcessRemoveMessage', [TroChuyen\DeleteMessageController::class, 'remove']);

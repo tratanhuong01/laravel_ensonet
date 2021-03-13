@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Models\Notify;
+use App\Process\DataProcess;
 
 ?>
 <li onclick="darkMode()" class="">
@@ -16,6 +17,8 @@ use App\Models\Notify;
         <i class="bx bxl-messenger text-xl"></i>
         <span id="numMessager" class="absolute
                                 -top-2 -right-1">
+            @include('Component\Child\SoLuongThongBao',
+            ['num' => DataProcess::getNotificationMessage(Session::get('user')[0]->IDTaiKhoan,0)])
         </span>
     </div>
 </li>

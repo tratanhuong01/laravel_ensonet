@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 <div id="{{ $chater[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
 dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     <div class="w-full flex py-1 border-b-2 border-solid border-gray-200  dark:border-dark-third">
-        <div class="w-2/12 pb-0.5">
+        <div class=" pb-0.5">
             <div class="w-10 h-10 relative">
                 <img src="/{{ $chater[0]->AnhDaiDien }}" class="cursor-pointer w-10 h-10 rounded-full object-cover" alt="">
                 <span class="bg-green-600 p-1 border border-solid border-white rounded-full
@@ -14,12 +14,13 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 </span>
             </div>
         </div>
-        <div class="w-2/5">
-            <p onclick="openSettingChat('{{ $chater[0]->IDTaiKhoan }}')" class="dark:text-white cursor-pointer text-sm font-bold py-2.5">
-                {{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}&nbsp;&nbsp;<i class="fas fa-angle-down"></i>
+        <div class="w-2/5 pl-2">
+            <p onclick="openSettingChat('{{ $chater[0]->IDTaiKhoan }}')" class="dark:text-white cursor-pointer text-sm font-bold">
+                {{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}&nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
+                <span class="text-gray-300">Đang hoạt động</span>
             </p>
         </div>
-        <div class="w-5/12">
+        <div class="w-1/2">
             <ul class="flex justify-end">
                 <li class="cursor-pointer py-1.5 px-1.5 hover:bg-gray-200 rounded-full 
                 dark:hover:bg-dark-third">
@@ -53,15 +54,23 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             </ul>
         </div>
     </div>
-    <div id='(count($messages)==0?0:$messages[0]->IDNhomTinNhan).Session::get("user")[0]->IDTaiKhoan }}Messenges' class="w-full p-1 wrapper-scrollbar h-88 overflow-y-auto overflow-x-hidden relative">
+    <div id='{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan).Session::get("user")[0]->IDTaiKhoan }}Messenges' class="w-full p-1 wrapper-scrollbar h-88 overflow-y-auto overflow-x-hidden relative">
         @if (count($messages) == 0)
         @include('Modal/ModalTroChuyen/Child/NewChat',['chater' => $chater])
         @else
         @foreach($messages as $key => $value)
         @if(Session::get('user')[0]->IDTaiKhoan == $value->IDTaiKhoan)
-        @include('Modal\ModalTroChuyen\Child\ChatRight',['message' => $value])
+        @if($value->TinhTrang == 1)
+        @include('Modal\ModalTroChuyen\Child\ThuHoiTinNhanR',['message' => $value])
         @else
-        @include('Modal\ModalTroChuyen\Child\ChatLeft',['message' => $value])
+        @include('Modal\ModalTroChuyen\Child\ChatRight',['message' => $value])
+        @endif
+        @else
+        @if($value->TinhTrang == 1)
+        @include('Modal\ModalTroChuyen\Child\ThuHoiTinNhanL',['message' => $value])
+        @else
+        @include('Modal\ModalTroChuyen\Child\ChatRight',['message' => $value])
+        @endif
         @endif
         @endforeach
         @endif
@@ -148,12 +157,12 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 </svg>
             </li>
         </ul>
-        <div class="three-exten1 w-6/12">
+        <div class="three-exten1 w-8/12">
             <?php $user = Session::get('user'); ?>
             <div onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',
             '{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan) }}',
             '{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
-             bg-gray-200 py-1.5 w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" contenteditable placeholder="Aa">
+             bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" contenteditable placeholder="Aa">
 
             </div>
             <script>
@@ -164,7 +173,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         </div>
         <div class="w-1/12 pt-1 zoom">
             <p class="cursor-pointer zoom text-xl">
-                🖤
+                {{ (count($messages)==0?'🤝': $messages[0]->BieuTuong) }}
             </p>
         </div>
     </div>

@@ -81,7 +81,7 @@ function typeChat(index) {
     three_exten1[index].style.paddingLeft = "1em";
   }
   else {
-    three_exten1[index].style.width = "50%";
+    three_exten1[index].style.width = "66%";
     three_exten1[index].style.paddingLeft = "0em";
     three_exten[index].style.display = 'block';
   }
