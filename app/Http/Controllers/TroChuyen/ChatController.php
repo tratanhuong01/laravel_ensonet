@@ -60,7 +60,7 @@ class ChatController extends Controller
                     );
             }
         } else {
-            $userGroup[$IDTaiKhoan] = $IDTaiKhoan;
+            $userGroup[$IDTaiKhoan] = $request->IDTaiKhoan;
             Session::put('userGroup', $userGroup);
             return view('Modal/ModalTroChuyen/Child/UserSelected')
                 ->with(

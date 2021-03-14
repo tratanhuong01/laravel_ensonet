@@ -22,6 +22,7 @@ class DataProcessSecond extends Model
         $num = 0;
         foreach ($arr as $key => $value) {
             $data[$num] = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $value)->get()[0];
+            $num++;
         }
         return $data;
     }

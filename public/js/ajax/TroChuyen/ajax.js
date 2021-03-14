@@ -172,11 +172,11 @@ function changeColor() {
             second.innerHTML = '';
             second.classList.remove("fixed");
             second.classList.remove("h-screen");
-            changeColorSVG(tenMau[1]);
+            changeColorSVG(IDNhomTinNhan, tenMau[1]);
         }
     });
 }
-function changeColorSVG(TenMau) {
+function changeColorSVG(IDNhomTinNhan, TenMau) {
     document.getElementById('callVideo' + IDNhomTinNhan).setAttribute('fill', TenMau)
     document.getElementById('callAudio1' + IDNhomTinNhan).setAttribute('fill', TenMau)
     document.getElementById('callAudio2' + IDNhomTinNhan).setAttribute('fill', TenMau)

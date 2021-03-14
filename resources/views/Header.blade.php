@@ -63,18 +63,19 @@ $user = Session::get('user');
         </div>
         <div class="w-1/2 flex sm:w-3/4 md:w-1/4 relative">
             <!-- header right -->
-            <div class="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 
+            <?php $pathProfile = "profile." . $user[0]->IDTaiKhoan; ?>
+            <div onclick="window.location.href='{{ url($pathProfile) }}'" class="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 
             hover:bg-gray-200 round-avatar dark:hover:bg-dark-third 
             lg:mx-0">
                 <div class="w-1/3 hidden lg:block lg:w-full lg:pt-1 xl:w-auto xl:mr-2">
                     <!-- avatar user  -->
-                    <?php $pathProfile = "profile." . $user[0]->IDTaiKhoan; ?>
+
                     <a href="{{ url($pathProfile) }}" id="ajaxAnhDaiDien1">
                         <img id="ajaxAnhDaiDien2" class="w-8 h-8 rounded-full object-cover" src="/{{ $user[0]->AnhDaiDien }}" alt="" /></a>
                 </div>
                 <div class="w-2/3 hidden pt-1 text-center xl:block xl:w-auto lg:pt-2">
                     <!-- name user  -->
-                    <a href="" class="dark:text-white font-bold ">{{ $user[0]->Ten }}</a>
+                    <a href="{{ url($pathProfile) }}" class="dark:text-white font-bold text-sm">{{ $user[0]->Ten }}</a>
                 </div>
             </div>
             <div class="w-full pt-2 pb-2 sm:w-full">

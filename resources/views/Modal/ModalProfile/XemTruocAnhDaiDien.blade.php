@@ -13,10 +13,10 @@ fixed top-1/2 left-1/2 bg-white dark:bg-dark-second z-10 mt-1" style="transform:
 
         </div>
         <div class="w-full opacity-50 pt-4 relative">
-            <img id="avt-opactity" class="mx-auto object-fill" style="width:353px;height:334px;" src="img/avatar.jpg" alt="">
+            <img id="avt-opactity" class="mx-auto object-cover" style="width:353px;height:334px;" src="img/avatar.jpg" alt="">
         </div>
         <div class="w-full text-center absolute" style="top: 214px;left:0px;">
-            <img id="avt-opactity-none" class="object-fill w-7/12 mx-auto rounded-full border-none p-0.5" style="height:340px;" src="img/avatar.jpg" alt="">
+            <img id="avt-opactity-none" class="object-cover w-7/12 mx-auto rounded-full border-none p-0.5" style="height:340px;" src="img/avatar.jpg" alt="">
         </div>
         <div class="w-11/12 text-right pt-8 pb-4" id="formUpdateAvatar1">
             {{ csrf_field() }}
