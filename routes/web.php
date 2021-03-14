@@ -369,4 +369,6 @@ Route::get('ProcessAddViewUserChatting', [TroChuyen\ChatController::class, 'addU
 
 Route::get('ProcessRemoveUserSelectedGroup', [TroChuyen\ChatController::class, 'removeUser']);
 
-Route::get('ProcessLoadGUINewChat', [TroChuyen\ChatController::class, 'load']);
+Route::get('ProcessLoadGUINewChatRemove', [TroChuyen\ChatController::class, 'loadRemove']);
+
+Route::get('ProcessLoadGUINewChatAdd', [TroChuyen\ChatController::class, 'loadAdd']);

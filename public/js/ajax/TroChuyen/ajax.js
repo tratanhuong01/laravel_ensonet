@@ -1,4 +1,3 @@
-const e = require("cors");
 
 function openMessenger() {
     if ($('#modalHeaderRight').html() == '')
@@ -79,7 +78,7 @@ function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                     $('#' + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(response);
                     $("#" + IDNguoiNhan + "PlaceTypeText").html('');
                     var objDiv = document.getElementById(IDNhomTinNhan + IDNguoiNhan + "Messenges");
-                    objDiv.scrollTop = objDiv.scrollHeight;
+                    if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
                 }
             });
 }
@@ -168,7 +167,8 @@ function changeColor() {
             $('#' + IDTaiKhoan + "SettingChat").hide();
             $('#' + IDNhomTinNhan + IDTaiKhoan + "Messenges").append(response);
             var objDiv = document.getElementById(IDNhomTinNhan + IDTaiKhoan + 'Messenges');
-            objDiv.scrollTop = objDiv.scrollHeight;
+            if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+
             second.innerHTML = '';
             second.classList.remove("fixed");
             second.classList.remove("h-screen");
@@ -224,7 +224,7 @@ function addUserIntoGroup(IDTaiKhoan) {
             }
             $.ajax({
                 method: "GET",
-                url: "ProcessLoadGUINewChat",
+                url: "ProcessLoadGUINewChatAdd",
                 data: {
                     IDTaiKhoan: IDTaiKhoan
                 },
@@ -252,6 +252,16 @@ function removeUserSelectedGroup(IDTaiKhoan) {
             IDTaiKhoan: IDTaiKhoan
         },
         success: function (response) {
+            $.ajax({
+                method: "GET",
+                url: "ProcessLoadGUINewChatRemove",
+                data: {
+                    IDTaiKhoan: IDTaiKhoan
+                },
+                success: function (responses) {
+                    $('#placeShowUserSearchChat').html(responses);
+                }
+            });
             $('#' + IDTaiKhoan + 'Selected').remove();
             $('#' + IDTaiKhoan + "Tick").remove();
         }

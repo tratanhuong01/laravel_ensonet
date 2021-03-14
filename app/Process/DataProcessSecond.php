@@ -26,4 +26,13 @@ class DataProcessSecond extends Model
         }
         return $data;
     }
+    public static function getUserGroupAfterRemove($userGroup, $idTaiKhoan)
+    {
+        foreach ($userGroup as $key => $value) {
+            if ($value != $idTaiKhoan) {
+                return $value;
+                break;
+            }
+        }
+    }
 }

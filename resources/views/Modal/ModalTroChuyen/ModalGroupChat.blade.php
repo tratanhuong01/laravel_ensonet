@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Session;
 use App\Process\DataProcess;
 
 ?>
-<div id="{{ $chater[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
+<div id="{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
 dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     <div class="w-full flex py-1 border-b-2 border-solid border-gray-200  dark:border-dark-third">
         <div class=" pb-0.5">
