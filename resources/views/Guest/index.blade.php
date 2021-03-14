@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Session;
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/js/header.js"></script>
     <script src="/js/ajax/TroChuyen/ajax.js"></script>
+    <script src="/js/realtime/state.js"></script>
     scri
 </head>
 
@@ -205,7 +206,7 @@ use Illuminate\Support\Facades\Session;
         </div>
         <div class="h-auto p-3 w-20">
             <div class="text-center cursor-pointer py-2 pl-2 pr-1.5 fixed right-3 bottom-4 " id="chatMinize">
-                <div>
+                <div onclick="openCreateChat()" class="cursor-pointer">
                     <i class="far fa-edit text-2xl py-2 px-3 pr-2 rounded-full bg-white dark:bg-dark-second 
                     dark:text-white"></i>
                 </div>
@@ -241,21 +242,6 @@ use Illuminate\Support\Facades\Session;
                     $('#numNotification').html(response);
                 }
             });
-        });
-    </script>
-    <script>
-        if (navigator.onLine) {
-            console.log('We\'re online!');
-        } else {
-            console.log('We\'re offline...');
-        }
-
-        window.addEventListener('online', function(e) {
-            console.log('And we\'re back :).');
-        });
-
-        window.addEventListener('offline', function(e) {
-            console.log('Connection is down.');
         });
     </script>
 </body>

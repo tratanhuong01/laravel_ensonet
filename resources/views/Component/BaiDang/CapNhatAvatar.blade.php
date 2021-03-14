@@ -11,8 +11,17 @@ $u = Session::get('user');
 <div id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Main" class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
         <div class="" style="width: 10%;">
-            <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 rounded-full  object-cover
+            <div class="w-14 h-14 relative">
+                <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 rounded-full 
                             border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
+                @include('Component\Child\HoatDong',
+                [
+                'padding' => 'p-1.5',
+                'bottom' => 'bottom-2',
+                'right' => 'right-1.5',
+                'IDTaiKhoan' => $item[0]->IDTaiKhoan
+                ])
+            </div>
         </div>
         <div class="relative pl-1" style="width: 80%;">
             <p class="mb-2 dark:text-gray-300"><a href="profile.{{ $item[0]->IDTaiKhoan }}"><b class="dark:text-white">

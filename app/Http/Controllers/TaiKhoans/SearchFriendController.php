@@ -5,6 +5,7 @@ namespace App\Http\Controllers\TaiKhoans;
 use App\Http\Controllers\Controller;
 use App\Models\Taikhoan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SearchFriendController extends Controller
 {
@@ -16,5 +17,10 @@ class SearchFriendController extends Controller
             $new[$i][$i] = $data[$i];
         }
         return view('Component\DanhMuc\BanBe')->with('data', $new);
+    }
+    public function searchUserChat(Request $request)
+    {
+        $data = Taikhoan::search($request->HoTen, Session::get('user')[0]->IDTaiKhoan);
+        return view('Modal\ModalTroChuyen\Child\UserChat')->with('data', $data);
     }
 }

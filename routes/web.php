@@ -223,7 +223,7 @@ Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view'
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    print_r(DataProcess::getFullMessageByID('1000000001'));
+    echo DataProcess::getState('1000000008#2@@1000000008#3@', '1000000008');
     echo "</pre>";
     // Functions::get();
 });
@@ -350,3 +350,23 @@ Route::get('ProcessChatEvent', [TroChuyen\SendMessageController::class, 'chatEve
 Route::get('ProcessViewRemoveMessage', [TroChuyen\DeleteMessageController::class, 'view']);
 
 Route::get('ProcessRemoveMessage', [TroChuyen\DeleteMessageController::class, 'remove']);
+
+Route::get('ProcessStateUsersOnline', [TaiKhoans\StateUserController::class, 'online']);
+
+Route::get('ProcessStateUsersOffline', [TaiKhoans\StateUserController::class, 'offline']);
+
+Route::get('ProcessStateUsersOffline', [TaiKhoans\StateUserController::class, 'offline']);
+
+Route::get('ProcessOpenChangeColor', [TroChuyen\ColorMessageController::class, 'open']);
+
+Route::get('ProcessChangeColor', [TroChuyen\ColorMessageController::class, 'change']);
+
+Route::get('ProcessOpenCreateChat', [TroChuyen\ChatController::class, 'createChat']);
+
+Route::get('ProcessSearchUserChat', [TaiKhoans\SearchFriendController::class, 'searchUserChat']);
+
+Route::get('ProcessAddViewUserChatting', [TroChuyen\ChatController::class, 'addUser']);
+
+Route::get('ProcessRemoveUserSelectedGroup', [TroChuyen\ChatController::class, 'removeUser']);
+
+Route::get('ProcessLoadGUINewChat', [TroChuyen\ChatController::class, 'load']);

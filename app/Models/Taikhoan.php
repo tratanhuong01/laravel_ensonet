@@ -86,6 +86,16 @@ class Taikhoan extends Model
          LIKE '%" . $data . "%' and moiquanhe.TinhTrang = 3 
          order by moiquanhe.NgayChapNhan desc");
     }
+    public static function searchOther($data, $idTaiKhoan, $idIsset)
+    {
+        return DB::select("select * from moiquanhe inner join
+         taikhoan on moiquanhe.IDBanBe = taikhoan.IDTaiKhoan 
+         where moiquanhe.IDTaiKhoan = '" . $idTaiKhoan . "' and
+         moiquanhe.IDBanBe LIKE '%" . $idIsset . "%' and
+         concat(taikhoan.Ho,' ',taikhoan.Ten) 
+         LIKE '%" . $data . "%' and moiquanhe.TinhTrang = 3 
+         order by moiquanhe.NgayChapNhan desc");
+    }
     public static function get($idTaiKhoan)
     {
         return DB::select("select * from moiquanhe inner join

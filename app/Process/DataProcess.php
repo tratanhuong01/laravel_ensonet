@@ -81,7 +81,7 @@ class DataProcess extends Model
         $idNhomTinNhan = DataProcess::checkIsSimilarGroupMessage($sender, $receiver);
         return Tinnhan::select('*', 'tinnhan.TinhTrang')
             ->where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
-            ->where('tinnhan.LoaiTinNhan', '=', '1')
+            ->where('tinnhan.LoaiTinNhan', '!=', '0')
             ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
             ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
@@ -127,7 +127,7 @@ class DataProcess extends Model
         $newArrMess = array();
         foreach ($mess as $key => $value) {
             $new = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $value->IDNhomTinNhan)
-                ->where('tinnhan.LoaiTinNhan', '=', '1')
+                ->where('tinnhan.LoaiTinNhan', '!=', '0')
                 ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                 ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
                 ->get();
@@ -136,5 +136,55 @@ class DataProcess extends Model
             }
         }
         return $newArrMess;
+    }
+    public static function getIDChangeState($idTinNhan, $idTaiKhoan)
+    {
+        $tinhTrang = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)->get()[0]->TinhTrang;
+        $arr = explode('@', $tinhTrang);
+        foreach ($arr as $key => $value) {
+            if (explode('#', $value)[0] == $idTaiKhoan) {
+                unset($arr[$key]);
+                return array_values($arr);
+                break;
+            }
+        }
+    }
+    public static function createState($idNhomTinNhan, $tinhTrang)
+    {
+        $users = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan FROM tinnhan 
+        WHERE tinnhan.IDNhomTinNhan = ? ', [$idNhomTinNhan]);
+        $s = "";
+        foreach ($users as $key => $value) {
+            $s .= $value->IDTaiKhoan . '#' . $tinhTrang . '@';
+        }
+        return $s;
+    }
+    public static function updateState($idTinNhan, $idNhomTinNhan, $tinhTrang)
+    {
+        $users = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan FROM tinnhan 
+        WHERE tinnhan.IDNhomTinNhan = ? ', [$idNhomTinNhan]);
+        $s = "";
+        if ($tinhTrang == 2) {
+            foreach ($users as $key => $value) {
+                $s .= $value->IDTaiKhoan . '#' . $tinhTrang . '@';
+            }
+            return $s;
+        } else {
+            $arr = DataProcess::getIDChangeState($idTinNhan, Session::get('user')[0]->IDTaiKhoan);
+            foreach ($arr as $key => $value) {
+                $s .= $value . '@';
+            }
+            return $s . Session::get('user')[0]->IDTaiKhoan . '#' . $tinhTrang . '@';
+        }
+    }
+    public static function getState($tinhTrang, $idTaiKhoan)
+    {
+        $arr = explode('@', $tinhTrang);
+        foreach ($arr as $key => $value) {
+            if (explode('#', $value)[0] == $idTaiKhoan) {
+                return $value;
+                break;
+            }
+        }
     }
 }

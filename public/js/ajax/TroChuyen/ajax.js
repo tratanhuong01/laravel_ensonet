@@ -1,8 +1,10 @@
+const e = require("cors");
+
 function openMessenger() {
     if ($('#modalHeaderRight').html() == '')
         $.ajax({
             method: "GET",
-            url: "ProcessOpenMessenger",
+            url: "/ProcessOpenMessenger",
             success: function (response) {
                 $('#modalHeaderRight').html(response);
             }
@@ -13,7 +15,7 @@ function openMessenger() {
 function openChat(IDTaiKhoan) {
     $.ajax({
         method: "GET",
-        url: "ProcessOpenChat",
+        url: "/ProcessOpenChat",
         data: {
             IDTaiKhoan: IDTaiKhoan
         },
@@ -31,7 +33,7 @@ function closeChat(IDTaiKhoan) {
 function minizeChat(IDTaiKhoan) {
     $.ajax({
         method: "GET",
-        url: "ProcessMinizeChat",
+        url: "/ProcessMinizeChat",
         data: {
             IDTaiKhoan: IDTaiKhoan
         },
@@ -47,7 +49,7 @@ function closeMinizeChat(IDTaiKhoan) {
 function openMinizeChat(IDTaiKhoan) {
     $.ajax({
         method: "GET",
-        url: "ProcessMinizeChat",
+        url: "/ProcessMinizeChat",
         data: {
 
         },
@@ -74,20 +76,21 @@ function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                     NoiDungTinNhan: $("#" + IDNguoiNhan + "PlaceTypeText").html()
                 },
                 success: function (response) {
-                    $('#' + IDNhomTinNhan + IDTaiKhoan + "Messenges").append(response);
+                    $('#' + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(response);
                     $("#" + IDNguoiNhan + "PlaceTypeText").html('');
-                    var objDiv = document.getElementById(IDNhomTinNhan + IDTaiKhoan + "Messenges");
+                    var objDiv = document.getElementById(IDNhomTinNhan + IDNguoiNhan + "Messenges");
                     objDiv.scrollTop = objDiv.scrollHeight;
                 }
             });
 }
-function viewRemoveMessage(IDTinNhan, IDTaiKhoan) {
+function viewRemoveMessage(IDTinNhan, IDTaiKhoan, IDNhomTinNhan) {
     $.ajax({
         method: "GET",
-        url: "ProcessViewRemoveMessage",
+        url: "/ProcessViewRemoveMessage",
         data: {
             IDTinNhan: IDTinNhan,
-            IDTaiKhoan: IDTaiKhoan
+            IDTaiKhoan: IDTaiKhoan,
+            IDNhomTinNhan: IDNhomTinNhan
         },
         success: function (response) {
             second.innerHTML = response;
@@ -100,10 +103,11 @@ function viewRemoveMessage(IDTinNhan, IDTaiKhoan) {
             $('#btnXoaTinNhan').click(function () {
                 $.ajax({
                     method: "GET",
-                    url: "ProcessRemoveMessage",
+                    url: "/ProcessRemoveMessage",
                     data: {
                         IDTinNhan: IDTinNhan,
                         IDTaiKhoan: IDTaiKhoan,
+                        IDNhomTinNhan: IDNhomTinNhan,
                         Type: $('#thuHoiOrXoa').val()
                     },
                     success: function (responses) {
@@ -119,4 +123,137 @@ function viewRemoveMessage(IDTinNhan, IDTaiKhoan) {
 }
 function onchangeInputRemoveMessage(val) {
     $('#thuHoiOrXoa').val(val);
+}
+function selectColorMessage(IDMauTinNhan, TenMau) {
+    var tenMau = $('#TenMau').val().split('@');
+    if ($('#' + IDMauTinNhan + "Main").length > 0) {
+        $('#' + IDMauTinNhan + "Main").addClass('dark:bg-dark-third bg-gray-300');
+        $('#' + tenMau[0] + "Main").removeClass('dark:bg-dark-third bg-gray-300')
+        $('#TenMau').val(IDMauTinNhan + "@" + TenMau);
+    } else {
+        $('#TenMau').val(IDMauTinNhan + "@" + TenMau);
+        $('#' + IDMauTinNhan + "Main").addClass('dark:bg-dark-third bg-gray-300');
+        $('#' + IDMauTinNhan + "Main").removeClass('dark:bg-dark-third bg-gray-300')
+    }
+}
+function openChangeColor(IDNhomTinNhan, IDChat) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessOpenChangeColor",
+        data: {
+            IDNhomTinNhan: IDNhomTinNhan,
+            IDChat: IDChat
+        },
+        success: function (response) {
+            second.innerHTML = response;
+            second.className += ' fixed h-screen';
+            $('#IDNhomTinNhan').val(IDNhomTinNhan);
+        }
+    });
+}
+function changeColor() {
+    var val = $('#TenMau').val();
+    var tenMau = val.split('@');
+    var IDNhomTinNhan = $('#IDNhomTinNhan').val();
+    var IDTaiKhoan = $('#IDChat').val();
+    $.ajax({
+        method: "GET",
+        url: "/ProcessChangeColor",
+        data: {
+            IDMauTinNhan: tenMau[0],
+            IDNhomTinNhan: IDNhomTinNhan
+        },
+        success: function (response) {
+            console.log(IDNhomTinNhan + IDTaiKhoan + 'Messenges');
+            $('#' + IDTaiKhoan + "SettingChat").hide();
+            $('#' + IDNhomTinNhan + IDTaiKhoan + "Messenges").append(response);
+            var objDiv = document.getElementById(IDNhomTinNhan + IDTaiKhoan + 'Messenges');
+            objDiv.scrollTop = objDiv.scrollHeight;
+            second.innerHTML = '';
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
+            changeColorSVG(tenMau[1]);
+        }
+    });
+}
+function changeColorSVG(TenMau) {
+    document.getElementById('callVideo' + IDNhomTinNhan).setAttribute('fill', TenMau)
+    document.getElementById('callAudio1' + IDNhomTinNhan).setAttribute('fill', TenMau)
+    document.getElementById('callAudio2' + IDNhomTinNhan).setAttribute('fill', TenMau)
+    document.getElementById('callAudio2' + IDNhomTinNhan).setAttribute('stroke', TenMau)
+    document.getElementById('minize' + IDNhomTinNhan).setAttribute('stroke', TenMau)
+    document.getElementById('close1' + IDNhomTinNhan).setAttribute('stroke', TenMau)
+    document.getElementById('close2' + IDNhomTinNhan).setAttribute('stroke', TenMau)
+    document.getElementById('addOrCancel' + IDNhomTinNhan).setAttribute('fill', TenMau)
+    document.getElementById('picture1' + IDNhomTinNhan).setAttribute('fill', TenMau)
+    document.getElementById('picture2' + IDNhomTinNhan).setAttribute('fill', TenMau)
+    document.getElementById('picture3' + IDNhomTinNhan).setAttribute('fill', TenMau)
+    document.getElementById('picture3' + IDNhomTinNhan).setAttribute('stroke', TenMau)
+    document.getElementById('sticker' + IDNhomTinNhan).setAttribute('fill', TenMau)
+    document.getElementById('gif' + IDNhomTinNhan).setAttribute('fill', TenMau)
+}
+function searchUserChating() {
+    $.ajax({
+        method: "GET",
+        url: "ProcessSearchUserChat",
+        data: {
+            HoTen: $('#valueSearchUChat').html()
+        },
+        success: function (response) {
+            $('#placeShowUserSearchChat').html(response);
+        }
+    });
+}
+function addUserIntoGroup(IDTaiKhoan) {
+    $.ajax({
+        method: "GET",
+        url: "ProcessAddViewUserChatting",
+        data: {
+            IDTaiKhoan: IDTaiKhoan
+        },
+        success: function (response) {
+            $('#placeShowUserSearchChat').html('');
+            if (response == '') {
+                $('#' + IDTaiKhoan + "Selected").remove();
+                $('#' + IDTaiKhoan + "Tick").remove();
+                $('#valueSearchUChat').html('');
+            }
+            else {
+                $('#usersChats').append(response);
+                $('#valueSearchUChat').html('');
+            }
+            $.ajax({
+                method: "GET",
+                url: "ProcessLoadGUINewChat",
+                data: {
+                    IDTaiKhoan: IDTaiKhoan
+                },
+                success: function (responses) {
+                    $('#placeShowUserSearchChat').html(responses);
+                }
+            });
+        }
+    });
+}
+function openCreateChat() {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessOpenCreateChat",
+        success: function (response) {
+            $('#placeChat').append(response);
+        }
+    });
+}
+function removeUserSelectedGroup(IDTaiKhoan) {
+    $.ajax({
+        method: "GET",
+        url: "ProcessRemoveUserSelectedGroup",
+        data: {
+            IDTaiKhoan: IDTaiKhoan
+        },
+        success: function (response) {
+            $('#' + IDTaiKhoan + 'Selected').remove();
+            $('#' + IDTaiKhoan + "Tick").remove();
+        }
+    });
 }

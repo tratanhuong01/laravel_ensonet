@@ -3,7 +3,7 @@
         <a href=""><img class="absolute bottom-1 w-9 h-9 object-cover rounded-full" src="/{{ $message->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
     <div class=" pl-2 flex" style="width: inherit;">
-        <div class="border-none outline-none bg-gray-200 bg-1877F2 p-1.5" style="max-width:65%;min-height: 40px;border-radius: 12px;font-size: 15px;">
+        <div class="border-none outline-none bg-gray-200 bg-1877F2 p-1.5 rounded-lg" style="max-width:65%;font-size: 15px;">
             {{ $message->NoiDung }}
         </div>
         <div class="mess-user-feel hidden h-auto relative">
@@ -14,7 +14,8 @@
                     </li>
                     <li onclick="viewRemoveMessage(
                         '{{ $message->IDTinNhan }}',
-                        '{{ $message->IDTaiKhoan }}')" class="px-1.5 rounded-full hover:bg-gray-300 dark:hover:bg-dark-third">
+                        '{{ $message->IDTaiKhoan }}',
+                        '{{ $message->IDNhomTinNhan }}')" class="px-1.5 rounded-full hover:bg-gray-300 dark:hover:bg-dark-third">
                         <i class="far fa-trash-alt text-xm"></i>
                     </li>
                 </ul>

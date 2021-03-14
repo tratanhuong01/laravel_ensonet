@@ -11,6 +11,7 @@ use App\Models\Thongbao;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class SendMessageController extends Controller
@@ -29,7 +30,7 @@ class SendMessageController extends Controller
             Nhomtinnhan::add(
                 $idNhomTinNhan,
                 '',
-                '',
+                '5B5B5B',
                 "👍",
                 '0'
             );
@@ -69,6 +70,11 @@ class SendMessageController extends Controller
                     date("Y-m-d H:i:s")
                 );
             }
+            DB::update('UPDATE tinnhan SET TinhTrang  = ? 
+            WHERE IDTinNhan = ? ', [
+                DataProcess::createState($idNhomTinNhan, '1'),
+                $idTinNhan
+            ]);
             event(new ChatEvent($request->IDNguoiNhan));
             return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0]);
         } else {
@@ -98,6 +104,11 @@ class SendMessageController extends Controller
                     date("Y-m-d H:i:s")
                 );
             }
+            DB::update('UPDATE tinnhan SET TinhTrang  = ? 
+            WHERE IDTinNhan = ? ', [
+                DataProcess::createState($idNhomTinNhanQuery, '1'),
+                $idTinNhan
+            ]);
             event(new ChatEvent($request->IDNguoiNhan));
             return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0]);
         }
@@ -110,11 +121,18 @@ class SendMessageController extends Controller
             ->get();
         if (count($message) == 0) {
             return 'not have id nhom tin nhan';
-        } else
-            return view('Modal\ModalTroChuyen\Child\ChatLeft')
-                ->with(
+        } else {
+            if ($message[0]->LoaiTinNhan == 2)
+                return view('Modal\ModalTroChuyen\Child\ChatCenter')->with(
                     'message',
                     $message[0]
                 );
+            else
+                return view('Modal\ModalTroChuyen\Child\ChatLeft')
+                    ->with(
+                        'message',
+                        $message[0]
+                    );
+        }
     }
 }

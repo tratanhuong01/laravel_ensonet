@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Taikhoan;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
+use App\Process\DataProcessSecond;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -32,5 +33,64 @@ class ChatController extends Controller
     public function openMessenger()
     {
         return view('Modal/ModalHeader/ModalMessenger');
+    }
+    public function createChat()
+    {
+        return view('Modal/ModalTroChuyen/ModalNewChat');
+    }
+    public function addUser(Request $request)
+    {
+        $IDTaiKhoan = str_replace('0', '', $request->IDTaiKhoan);
+        $userGroup = array();
+        $user = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+
+        if (session()->has('userGroup')) {
+            $userGroup = Session::get('userGroup');
+            if (isset($userGroup[$IDTaiKhoan])) {
+                unset($userGroup[$IDTaiKhoan]);
+                Session::put('userGroup', $userGroup);
+                return '';
+            } else {
+                $userGroup[$IDTaiKhoan] = $request->IDTaiKhoan;
+                Session::put('userGroup', $userGroup);
+                return view('Modal/ModalTroChuyen/Child/UserSelected')
+                    ->with(
+                        'user',
+                        $user
+                    );
+            }
+        } else {
+            $userGroup[$IDTaiKhoan] = $IDTaiKhoan;
+            Session::put('userGroup', $userGroup);
+            return view('Modal/ModalTroChuyen/Child/UserSelected')
+                ->with(
+                    'user',
+                    $user
+                );
+        }
+    }
+    public function removeUser(Request $request)
+    {
+        $IDTaiKhoan = str_replace('0', '', $request->IDTaiKhoan);
+        $userGroup = Session::get('userGroup');
+        unset($userGroup[$IDTaiKhoan]);
+        Session::put('userGroup', $userGroup);
+        return '';
+    }
+    public function load(Request $request)
+    {
+        if (count(Session::get('userGroup')) == 1) {
+            $sender = Tinnhan::where('tinnhan.IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)
+                ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
+                ->get();
+            $receiver = Tinnhan::where('tinnhan.IDTaiKhoan', '=', $request->IDTaiKhoan)
+                ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
+                ->get();
+            $messages = DataProcess::getMessageByID($sender, $receiver);
+            return view('Modal\ModalTroChuyen\Child\Message')->with('messages', $messages);
+        } else {
+            $users = DataProcessSecond::createArrayUser(Session::get('userGroup'));
+            return view('Modal\ModalTroChuyen\Child\GUICreateGroup')->with('users', $users);
+        }
     }
 }

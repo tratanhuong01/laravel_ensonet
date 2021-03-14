@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\Tinnhan;
+use App\Process\DataProcess;
 
 class DeleteMessageController extends Controller
 {
@@ -23,21 +24,33 @@ class DeleteMessageController extends Controller
             if ($request->Type == 'ThuHoi') {
                 DB::update(
                     'UPDATE tinnhan SET TinhTrang = ? WHERE IDTinNhan = ? ',
-                    ['1', $request->IDTinNhan]
+                    [DataProcess::updateState(
+                        $request->IDTinNhan,
+                        $request->IDNhomTinNhan,
+                        '2'
+                    ), $request->IDTinNhan]
                 );
                 return view('Modal/ModalTroChuyen/Child/ThuHoiTinNhanR')
                     ->with('message', Tinnhan::where('tinnhan.IDTinNhan', '=', $request->IDTinNhan)->get()[0]);
             } else {
                 DB::update(
                     'UPDATE tinnhan SET TinhTrang = ? WHERE IDTinNhan = ? ',
-                    ['2', $request->IDTinNhan]
+                    [DataProcess::updateState(
+                        $request->IDTinNhan,
+                        $request->IDNhomTinNhan,
+                        '3'
+                    ), $request->IDTinNhan]
                 );
                 return '';
             }
         } else {
             DB::update(
                 'UPDATE tinnhan SET TinhTrang = ? WHERE IDTinNhan = ? ',
-                ['2', $request->IDTinNhan]
+                [DataProcess::updateState(
+                    $request->IDTinNhan,
+                    $request->IDNhomTinNhan,
+                    '3'
+                ), $request->IDTinNhan]
             );
             return '';
         }

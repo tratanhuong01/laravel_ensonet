@@ -7,7 +7,8 @@
                 </li>
                 <li onclick="viewRemoveMessage(
                         '{{ $message->IDTinNhan }}',
-                        '{{ $message->IDTaiKhoan }}')" class="px-1.5 rounded-full hover:bg-gray-300 dark:hover:bg-dark-third">
+                        '{{ $message->IDTaiKhoan }}',
+                        '{{ $message->IDNhomTinNhan }}')" class="px-1.5 rounded-full hover:bg-gray-300 dark:hover:bg-dark-third">
                     <i class="far fa-trash-alt text-xm"></i>
                 </li>
             </ul>

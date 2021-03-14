@@ -12,21 +12,21 @@ class Nhomtinnhan extends Model
     protected $fillable = [
         'IDNhomTinNhan',
         'TenNhomTinNhan',
-        'Mau',
+        'IDMauTinNhan',
         'BieuTuong',
         'LoaiNhomTinNhan'
     ];
     public static function add(
         $IDNhomTinNhan,
         $TenNhomTinNhan,
-        $Mau,
+        $IDMauTinNhan,
         $BieuTuong,
         $LoaiNhomTinNhan
     ) {
         $nhomtinnhan = new Nhomtinnhan;
         $nhomtinnhan->IDNhomTinNhan = $IDNhomTinNhan;
         $nhomtinnhan->TenNhomTinNhan = $TenNhomTinNhan;
-        $nhomtinnhan->Mau = $Mau;
+        $nhomtinnhan->IDMauTinNhan = $IDMauTinNhan;
         $nhomtinnhan->BieuTuong = $BieuTuong;
         $nhomtinnhan->LoaiNhomTinNhan = $LoaiNhomTinNhan;
         $nhomtinnhan->save();
