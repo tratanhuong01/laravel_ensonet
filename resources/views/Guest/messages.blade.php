@@ -82,7 +82,7 @@ use App\Models\StringUtil;
                     @else
                     @foreach($allMess as $key => $value)
                     @php
-                    $el = DataProcess::getUserOfGroupMessage($key)
+                    $el = DataProcess::getUserOfGroupMessage($value[0]->IDNhomTinNhan)
                     @endphp
                     <div class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
                     hover:bg-gray-200 py-2 px-1 w-full px-3">
@@ -108,14 +108,14 @@ use App\Models\StringUtil;
                                 <div class="w-4/5 dark:text-white text-sm">
                                     @isset($value[count($value) - 1])
                                     @if ($value[count($value) - 1]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
-                                    <span class="text-gray-500 dark:text-white">
+                                    <span class="text-gray-500 dark:text-white font-bold">
                                         You : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
-                                        <span class=" text-sm text-gray-200">{{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
+                                        <span class=" text-sm text-gray-700 ">{{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
                                     </span>
                                     @else
                                     <span class="text-blue-500 dark:text-blue-500 font-bold">
                                         {{$el[0]->Ten}} : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
-                                        <span class=" text-sm text-gray-200">{{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
+                                        <span class=" text-sm text-gray-700">{{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
                                     </span>
                                     @endif
                                     @endisset
@@ -133,13 +133,8 @@ use App\Models\StringUtil;
                     @endif
                 </div>
             </div>
-            <div class="w-1/2">
-                <div class="w-full" style="height: 718px;max-height: 718px;">
-                    @include('Component\Messenger\Messenger')
-                </div>
-            </div>
-            <div class="w-1/4">
-
+            <div class="w-3/4 flex">
+                @include('Component\Messenger\Messenger')
             </div>
         </div>
     </div>

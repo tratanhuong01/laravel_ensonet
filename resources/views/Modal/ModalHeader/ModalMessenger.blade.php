@@ -26,7 +26,7 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
     @else
     @foreach($allMess as $key => $value)
     @php
-    $el = DataProcess::getUserOfGroupMessage($key)
+    $el = DataProcess::getUserOfGroupMessage($value[0]->IDNhomTinNhan)
     @endphp
     <div class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
     hover:bg-gray-200 py-2 px-1">

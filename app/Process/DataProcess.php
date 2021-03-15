@@ -132,7 +132,20 @@ class DataProcess extends Model
                 ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
                 ->get();
             foreach ($new as $keyM => $valueM) {
-                $newArrMess[$value->IDNhomTinNhan][$keyM] = $valueM;
+                $newArrMess[$key][$keyM] = $valueM;
+            }
+        }
+        $temp = array();
+        for ($i = 0; $i < count($newArrMess); $i++) {
+            for ($j = $i + 1; $j < count($newArrMess) - 1; $j++) {
+                if (
+                    strtotime($newArrMess[$i][count($newArrMess[$i]) - 1]->ThoiGianNhanTin)
+                    < strtotime($newArrMess[$j][count($newArrMess[$j]) - 1]->ThoiGianNhanTin)
+                ) {
+                    $temp = $newArrMess[$i];
+                    $newArrMess[$i] = $newArrMess[$j];
+                    $newArrMess[$j] = $temp;
+                }
             }
         }
         return $newArrMess;
