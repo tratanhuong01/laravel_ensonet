@@ -372,3 +372,7 @@ Route::get('ProcessRemoveUserSelectedGroup', [TroChuyen\ChatController::class, '
 Route::get('ProcessLoadGUINewChatRemove', [TroChuyen\ChatController::class, 'loadRemove']);
 
 Route::get('ProcessLoadGUINewChatAdd', [TroChuyen\ChatController::class, 'loadAdd']);
+
+Route::get('messages', function () {
+    return view('Guest/messages');
+});

@@ -21,6 +21,7 @@ class ColorMessageController extends Controller
     }
     public function change(Request $request)
     {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         DB::update('UPDATE nhomtinnhan SET IDMauTinNhan = ? 
         WHERE IDNhomTinNhan = ? ', [$request->IDMauTinNhan, $request->IDNhomTinNhan]);
         $getUserOfGroupMessage = DataProcess::getUserOfGroupMessage($request->IDNhomTinNhan);

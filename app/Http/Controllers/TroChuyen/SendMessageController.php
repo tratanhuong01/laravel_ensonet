@@ -18,6 +18,7 @@ class SendMessageController extends Controller
 {
     public function send(Request $request)
     {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $sender = Tinnhan::where('tinnhan.IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)
             ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
             ->get();
