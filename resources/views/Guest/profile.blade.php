@@ -101,7 +101,7 @@ $user = Session::get('user');
             <div class="w-full relative">
                 <div class="w-full mx-auto relative">
                     <div class="w-full relative h-60 lg:h-96">
-                        <a href=""><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;" src="/{{ $users[0]->AnhBia}}" alt=""></a>
+                        <a href="photo/"><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;" src="/{{ $users[0]->AnhBia}}" alt=""></a>
                     </div>
                     <div class="w-full absolute text-center top-20 lg:top-6/10">
                         <img class="w-44 h-44 rounded-full mx-auto
@@ -232,9 +232,10 @@ $user = Session::get('user');
                         </div>
                         <div class="pl-2.5 bg-white m-2.5 rounded-lg dark:bg-dark-third" style="width: 95%;">
                             <div class="w-full flex">
+                                <?php $friendsGet = Functions::getListFriendsUser($users[0]->IDTaiKhoan); ?>
                                 <div class="w-1/2">
                                     <p class="dark:text-white font-bold pt-2">Bạn bè <br></p>
-                                    <span class="color-word">1.802 người bạn</span>
+                                    <span class="color-word">{{count($friendsGet)}} người bạn</span>
                                 </div>
                                 <div class="w-1/2 mt-2.5 mr-2.5 text-right">
                                     <?php $viewAllImage = "profile." . $users[0]->IDTaiKhoan . '/friends'; ?>
@@ -242,7 +243,7 @@ $user = Session::get('user');
                                 </div>
                             </div>
                             <div class="w-full pt-4 flex flex-wrap">
-                                <?php $friendsGet = Functions::getListFriendsUser($users[0]->IDTaiKhoan); ?>
+
                                 @if (count($friendsGet) == 0)
                                 <p class="text-center font-bold dark:text-white py-3">
                                     Không có bất kì bạn bè nào.

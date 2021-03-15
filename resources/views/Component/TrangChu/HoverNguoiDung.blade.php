@@ -1,11 +1,11 @@
-<!-- <?php
+<?php
 
-        // use App\Models\Functions;
-        // use Illuminate\Support\Facades\Session;
+use App\Models\Functions;
+use Illuminate\Support\Facades\Session;
 
-        // $getMutualFriend = Functions::getMutualFriend($data->IDTaiKhoan, Session::get('user')[0]->IDTaiKhoan)
+$getMutualFriend = Functions::getMutualFriend($data->IDTaiKhoan, Session::get('user')[0]->IDTaiKhoan)
 
-        ?>
+?>
 <div class="w-1/3 relative py-2 pl-2">
     <img class="rounded-full object-cover" style="width: 84px;height: 84px;" src="/{{ $data->AnhDaiDien }}" alt="">
     <span class="bg-green-600 p-2 border-2 border-solid border-white rounded-full
@@ -32,4 +32,4 @@
         <p class="dark:text-white"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;
             Sống tại <b>Quảng Nam</b></p>
     </div>
-</div> -->
+</div>

@@ -19,10 +19,12 @@ function openChat(IDTaiKhoan) {
             IDTaiKhoan: IDTaiKhoan
         },
         success: function (response) {
+            $('#modalHeaderRight').html('');
             if ($("#" + IDTaiKhoan + "Minize").length > 0) {
                 $("#" + IDTaiKhoan + "Minize").remove();
             }
             $('#placeChat').append(response);
+
         }
     });
 }
@@ -34,6 +36,7 @@ function openChatGroup(IDNhomTinNhan) {
             IDNhomTinNhan: IDNhomTinNhan
         },
         success: function (response) {
+            $('#modalHeaderRight').html('');
             $('#placeChat').append(response);
         }
     });
@@ -179,7 +182,7 @@ function changeColor() {
             console.log(IDNhomTinNhan + IDTaiKhoan + 'Messenges');
             $('#' + IDTaiKhoan + "SettingChat").hide();
             $('#' + IDNhomTinNhan + IDTaiKhoan + "Messenges").append(response);
-            var objDiv = document.getElementById(IDNhomTinNhan + IDTaiKhoan + 'Messenges');
+            var objDiv = document.getElementById(IDNhomTinNhan + 'Messenges');
             if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
 
             second.innerHTML = '';
@@ -298,7 +301,6 @@ function removeUserSelectedGroup(IDTaiKhoan) {
         }
     });
 }
-
 function sendMessageGroup(event) {
     if (event.keyCode === 13)
         $.ajax({

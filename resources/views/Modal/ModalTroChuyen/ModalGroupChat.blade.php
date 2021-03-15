@@ -272,6 +272,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 Num: '{{ count(DataProcess::getUserOfGroupMessage($idNhomTinNhan)) }}'
             },
             success: function(response) {
+                aud.play();
                 $('#{{ $idNhomTinNhan }}Messenges').append(response);
                 if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
             }

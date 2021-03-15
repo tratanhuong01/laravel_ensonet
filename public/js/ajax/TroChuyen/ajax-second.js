@@ -1,15 +1,3 @@
-function openChatGroup(IDNhomTinNhan) {
-    $.ajax({
-        method: "GET",
-        url: "/ProcessOpenMessageGroup",
-        data: {
-            IDNhomTinNhan: IDNhomTinNhan
-        },
-        success: function (response) {
-            $('#placeChat').append(response);
-        }
-    });
-}
 function closeChatGroup(IDNhomTinNhan, IDTaiKhoan) {
     $('#' + IDNhomTinNhan + IDTaiKhoan + 'Chat').remove();
 }

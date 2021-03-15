@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\TroChuyen;
 
-use App\Events\ChatEvent;
+use App\Events\ChatGroupEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Nhomtinnhan;
 use App\Models\StringUtil;
@@ -168,7 +168,7 @@ class ChatController extends Controller
                         '0',
                         date("Y-m-d H:i:s")
                     );
-                    event(new ChatEvent($value->IDTaiKhoan));
+                    event(new ChatGroupEvent($value->IDTaiKhoan));
                 }
                 DB::update('UPDATE tinnhan SET TinhTrang  = ? 
                 WHERE IDTinNhan = ? ', [
@@ -226,7 +226,7 @@ class ChatController extends Controller
                     '0',
                     date("Y-m-d H:i:s")
                 );
-                event(new ChatEvent($value->IDTaiKhoan));
+                event(new ChatGroupEvent($value->IDTaiKhoan));
             }
             DB::update('UPDATE tinnhan SET TinhTrang  = ? 
             WHERE IDTinNhan = ? ', [

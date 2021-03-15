@@ -84,6 +84,7 @@ use App\Models\StringUtil;
                     @php
                     $el = DataProcess::getUserOfGroupMessage($value[0]->IDNhomTinNhan)
                     @endphp
+                    @if(count($el) == 1)
                     <div class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
                     hover:bg-gray-200 py-2 px-1 w-full px-3">
                         <div class="w-1/5">
@@ -110,13 +111,13 @@ use App\Models\StringUtil;
                                     @if ($value[count($value) - 1]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
                                     <span class="text-gray-500 dark:text-white font-bold">
                                         You : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
-                                        <span class=" text-sm text-gray-700 ">{{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
                                     </span>
+                                    <span class="text-sm text-gray-700 dark:text-white font-bold">{{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
                                     @else
                                     <span class="text-blue-500 dark:text-blue-500 font-bold">
                                         {{$el[0]->Ten}} : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
-                                        <span class=" text-sm text-gray-700">{{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
                                     </span>
+                                    <span class="text-sm text-gray-700 dark:text-white font-bold">{{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
                                     @endif
                                     @endisset
                                 </div>
@@ -129,12 +130,72 @@ use App\Models\StringUtil;
                             </span>
                         </div>
                     </div>
+                    @else
+                    <div class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
+                    hover:bg-gray-200 py-2 px-1 w-full px-3">
+                        <div class="w-1/5">
+                            <div class="w-14 h-14 relative mx-auto">
+                                <img src="/{{ $el[0]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
+                                absolute top-0 right-0" alt="">
+                                <img src="/{{ $el[1]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
+                                absolute bottom-0 left-0" alt="">
+                            </div>
+                        </div>
+                        <div class="w-4/5">
+                            <div class="w-full">
+                                <span class="dark:text-white" style="float: left;font-weight: bold;">
+                                    @if ($value[0]->TenNhomTinNhan == '')
+                                    @php
+                                    $name = "";
+                                    @endphp
+                                    @foreach($el as $keys => $values)
+                                    @php
+                                    $name .= $values->Ten . ' , '
+                                    @endphp
+                                    @endforeach
+                                    {{ $name }}
+                                    @else
+                                    {{ $value[0]->TenNhomTinNhan }}
+                                    @endif
+                                </span>
+                            </div>
+                            <div class="w-full flex py-1 text-base flex">
+                                <div class="w-4/5">
+                                    @isset($value[count($value) - 1])
+                                    @if ($value[count($value) - 1]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
+                                    <span class="text-gray-500 dark:text-white">
+                                        You : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
+                                    </span>
+                                    <span class="text-gray-700 dark:text-white">{{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
+                                    @else
+                                    <span class="text-blue-500 dark:text-blue-500 font-bold">
+                                        {{ $value[count($value) - 1]->Ten }} : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
+                                    </span>
+                                    <span class="">
+                                        {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
+                                    @endif
+                                    @endisset
+                                </div>
+                                <div class="w-1/5">
+                                    <img class="float-right w-5 h-5 rounded-full" src="img/avatar.jpg" alt="">
+                                </div>
+                            </div>
+                            <span class="mess-edit top-4 right-8 text-center absolute rounded-full bg-white">
+                                <i class="fas fa-ellipsis-h edit-mess"></i>
+                            </span>
+                        </div>
+                    </div>
+                    @endif
                     @endforeach
                     @endif
                 </div>
             </div>
             <div class="w-3/4 flex">
-                @include('Component\Messenger\Messenger')
+                @include('Component\Messenger\Messenger',[
+                'idNhomTinNhan' => $idNhomTinNhan,
+                'chater' => $chater,
+                'messages' => $messages
+                ])
             </div>
         </div>
     </div>

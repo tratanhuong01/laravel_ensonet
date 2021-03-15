@@ -24,9 +24,15 @@ $users = Session::get('users');
             <button onclick="searchFriend('{{ $users[0]->IDTaiKhoan }}',event)" type="button" class="w-4/12 p-2 border-none font-bold text-white rounded-lg" style="background-color: #139DF7;">Tìm bạn bè</button>
         </div>
         @else
-        <div class="w-4/5 font-bold py-2.5 text-right">
+        <div class="w-5/12 font-bold py-2.5 text-right">
             <a style="color: #1876F2;font-size: 15px;" href="{{ url('friends') }}">Lời mời
                 kết bạn</a>
+        </div>
+        <div class="w-5/12 pr-2 pl-2">
+            {{ csrf_field() }}
+            <input class="w-7/12 p-2 border-none outline-none bg-gray-100 
+                dark:bg-dark-third rounded-lg" type="text" name="hoTen" id="hoTen" placeholder="Tìm kiếm">
+            <button onclick="searchFriend('{{ $users[0]->IDTaiKhoan }}',event)" type="button" class="w-4/12 p-2 border-none font-bold text-white rounded-lg" style="background-color: #139DF7;">Tìm bạn bè</button>
         </div>
         @endif
     </div>

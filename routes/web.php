@@ -373,8 +373,12 @@ Route::get('ProcessLoadGUINewChatRemove', [TroChuyen\ChatController::class, 'loa
 
 Route::get('ProcessLoadGUINewChatAdd', [TroChuyen\ChatController::class, 'loadAdd']);
 
-Route::get('messages', function () {
-    return view('Guest/messages');
+Route::get('messages/{idNhomTinNhan}', function ($idNhomTinNhan) {
+    $chater = DataProcess::getUserOfGroupMessage($idNhomTinNhan);
+    $messages = DataProcess::getMessageByNhomTinNhan($idNhomTinNhan);
+    return view('Guest/messages')->with('chater', $chater)
+        ->with('messages', $messages)
+        ->with('idNhomTinNhan', $idNhomTinNhan);
 });
 
 Route::get('ProcessSendMessageGroup', [TroChuyen\ChatController::class, 'sendMessageGroup']);
