@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Session;
     <script src="/js/header.js"></script>
     <script src="/js/ajax/TroChuyen/ajax.js"></script>
     <script src="/js/realtime/state.js"></script>
+    <script src="/js/ajax/TroChuyen/ajax-second.js"></script>
     scri
 </head>
 

@@ -26,6 +26,18 @@ function openChat(IDTaiKhoan) {
         }
     });
 }
+function openChatGroup(IDNhomTinNhan) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessOpenMessageGroup",
+        data: {
+            IDNhomTinNhan: IDNhomTinNhan
+        },
+        success: function (response) {
+            $('#placeChat').append(response);
+        }
+    });
+}
 function closeChat(IDTaiKhoan) {
     $('#' + IDTaiKhoan + 'Chat').remove();
 }
@@ -72,7 +84,8 @@ function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                 url: "/ProcessSendMessages",
                 data: {
                     IDNguoiNhan: IDNguoiNhan,
-                    NoiDungTinNhan: $("#" + IDNguoiNhan + "PlaceTypeText").html()
+                    NoiDungTinNhan: $("#" + IDNguoiNhan + "PlaceTypeText").html(),
+                    IDNhomTinNhan: IDNhomTinNhan
                 },
                 success: function (response) {
                     $('#' + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(response);
@@ -222,6 +235,14 @@ function addUserIntoGroup(IDTaiKhoan) {
                 $('#usersChats').append(response);
                 $('#valueSearchUChat').html('');
             }
+            if (document.getElementById('usersChats').children.length > 0) {
+                $('#typeChatNewChat').css('opacity', '1');
+                $('#typeChatNewChat').css('pointerEvents', 'auto');
+            }
+            else {
+                $('#typeChatNewChat').css('opacity', '0.5');
+                $('#typeChatNewChat').css('pointerEvents', 'none');
+            }
             $.ajax({
                 method: "GET",
                 url: "ProcessLoadGUINewChatAdd",
@@ -241,6 +262,8 @@ function openCreateChat() {
         url: "/ProcessOpenCreateChat",
         success: function (response) {
             $('#placeChat').append(response);
+            $('#typeChatNewChat').css('opacity', '0.5');
+            $('#typeChatNewChat').css('pointerEvents', 'none');
         }
     });
 }
@@ -264,6 +287,29 @@ function removeUserSelectedGroup(IDTaiKhoan) {
             });
             $('#' + IDTaiKhoan + 'Selected').remove();
             $('#' + IDTaiKhoan + "Tick").remove();
+            if (document.getElementById('usersChats').children.length > 0) {
+                $('#typeChatNewChat').css('opacity', '1');
+                $('#typeChatNewChat').css('pointerEvents', 'auto');
+            }
+            else {
+                $('#typeChatNewChat').css('opacity', '0.5');
+                $('#typeChatNewChat').css('pointerEvents', 'none');
+            }
         }
     });
+}
+
+function sendMessageGroup(event) {
+    if (event.keyCode === 13)
+        $.ajax({
+            method: "GET",
+            url: "ProcessSendMessageGroup",
+            data: {
+                NoiDungTinNhan: $('#PlaceTypeTextNewChat').html()
+            },
+            success: function (response) {
+                $('#CreateNewChatChat').remove();
+                $('#placeChat').append(response);
+            }
+        });
 }

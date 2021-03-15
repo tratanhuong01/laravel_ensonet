@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ChatEvent implements ShouldBroadcastNow
+class ChatNorlEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -27,6 +27,6 @@ class ChatEvent implements ShouldBroadcastNow
 
     public function broadcastAs()
     {
-        return 'chat';
+        return 'chatNorl';
     }
 }

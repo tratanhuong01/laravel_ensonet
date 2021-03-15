@@ -28,7 +28,7 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
     @php
     $el = DataProcess::getUserOfGroupMessage($value[0]->IDNhomTinNhan)
     @endphp
-    <div class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
+    <div onclick="openChatGroup('{{ $value[0]->IDNhomTinNhan }}')" class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
     hover:bg-gray-200 py-2 px-1">
         <div class="w-1/5">
             <a href=""><img src="/{{ $el[0]->AnhDaiDien }}" alt="" class="w-14 h-14 rounded-full object-cover p-0.5"></a>

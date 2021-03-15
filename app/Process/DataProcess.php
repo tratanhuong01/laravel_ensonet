@@ -200,4 +200,14 @@ class DataProcess extends Model
             }
         }
     }
+    public static function getMessageByNhomTinNhan($idNhomTinNhan)
+    {
+        return Tinnhan::select('*', 'tinnhan.TinhTrang')
+            ->where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
+            ->where('tinnhan.LoaiTinNhan', '!=', '0')
+            ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
+            ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
+            ->get();
+    }
 }

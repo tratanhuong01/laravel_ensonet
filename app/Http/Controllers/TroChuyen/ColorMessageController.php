@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\TroChuyen;
 
-use App\Events\ChatEvent;
+use App\Events\ChatGroupEvent;
+use App\Events\ChatNorlEvent;
 use App\Http\Controllers\Controller;
 use App\Models\StringUtil;
 use App\Models\Thongbao;
@@ -40,17 +41,31 @@ class ColorMessageController extends Controller
             ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->get();
         foreach ($getUserOfGroupMessage as $key => $value) {
-            Thongbao::add(
-                StringUtil::ID('thongbao', 'IDThongBao'),
-                $value->IDTaiKhoan,
-                'TINNHAN001',
-                $request->IDNhomTinNhan,
-                Session::get('user')[0]->IDTaiKhoan,
-                '0',
-                date("Y-m-d H:i:s")
-            );
+            if (count($getUserOfGroupMessage) == 1) {
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $value->IDTaiKhoan,
+                    'TINNHAN001',
+                    $request->IDNhomTinNhan,
+                    Session::get('user')[0]->IDTaiKhoan,
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+                event(new ChatNorlEvent($value->IDTaiKhoan));
+            } else {
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $value->IDTaiKhoan,
+                    'TINNHAN001',
+                    $request->IDNhomTinNhan,
+                    Session::get('user')[0]->IDTaiKhoan,
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+                event(new ChatGroupEvent($value->IDTaiKhoan));
+            }
         }
-        event(new ChatEvent($value->IDTaiKhoan));
+
         return view('Modal/ModalTroChuyen/Child/ChatCenter')->with('message', $message[0]);
     }
 }

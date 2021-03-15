@@ -3,23 +3,40 @@
 use Illuminate\Support\Facades\Session;
 use App\Process\DataProcess;
 
+$user = Session::get('user');
+
 ?>
-<div id="{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
+<div id="{{ $idNhomTinNhan.$user[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
 dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     <div class="w-full flex py-1 border-b-2 border-solid border-gray-200  dark:border-dark-third">
         <div class=" pb-0.5">
             <div class="w-10 h-10 relative">
-                <img src="/{{ $chater[0]->AnhDaiDien }}" class="cursor-pointer w-10 h-10 rounded-full object-cover" alt="">
+                <div class="w-10 h-10 relative mx-auto">
+                    <img src="/{{ $chater[0]->AnhDaiDien }}" class="w-7 h-7 rounded-full object-cover 
+                    absolute top-0 right-0" alt="">
+                    <img src="/{{ $chater[1]->AnhDaiDien }}" class="w-7 h-7 rounded-full object-cover 
+                    absolute bottom-0 left-0" alt="">
+                </div>
                 <span class="bg-green-600 p-1 border border-solid border-white rounded-full
                 absolute bottom-0 right-1 ">
                 </span>
             </div>
         </div>
         <div class="w-2/5 pl-2">
-            <p onclick="openSettingChat('{{ $chater[0]->IDTaiKhoan }}')" class="dark:text-white cursor-pointer text-sm font-bold">
-                {{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}&nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
-                <span class="text-gray-300">Đang hoạt động</span>
+            <p onclick="openSettingChatGroup('{{ $chater[0]->IDTaiKhoan }}')" class="dark:text-white 
+            cursor-pointer text-sm font-bold whitespace-nowrap">
+                @php
+                $name = "";
+                @endphp
+                @foreach($chater as $key => $value)
+                @php
+                $name .= $value->Ten . ' , '
+                @endphp
+                @endforeach
+                {{ $name }}&nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
+
             </p>
+            <span class="text-gray-300">Đang hoạt động</span>
         </div>
         <div class="w-1/2">
             <ul class="flex justify-end">
@@ -39,13 +56,13 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                         <path id="callAudio2{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" d="M10.952 14.044c.074.044.147.086.22.125a.842.842 0 001.161-.367c.096-.195.167-.185.337-.42.204-.283.552-.689.91-.772.341-.078.686-.105.92-.11.435-.01 1.118.174 1.926.648.824.484 1.394.898 1.713 1.147.224.175.37.43.393.711.042.494-.034 1.318-.754 2.137-1.135 1.291-2.859 1.772-4.942 1.088a17.47 17.47 0 01-6.855-4.212 17.485 17.485 0 01-4.213-6.855c-.683-2.083-.202-3.808 1.09-4.942.818-.72 1.642-.796 2.136-.754.282.023.536.17.711.392.25.32.663.89 1.146 1.714.475.808.681 1.491.65 1.926-.024.31-.026.647-.112.921-.11.35-.488.705-.77.91-.236.17-.226.24-.42.336a.841.841 0 00-.368 1.161c.04.072.081.146.125.22a14.012 14.012 0 004.996 4.996z" fill="none" stroke="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}"></path>
                     </svg>
                 </li>
-                <li onclick="minizeChat('{{ $chater[0]->IDTaiKhoan }}')" class="cursor-pointer py-1.5 px-1.5 hover:bg-gray-200 rounded-full 
+                <li onclick="minizeChatGroup('{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" class="cursor-pointer py-1.5 px-1.5 hover:bg-gray-200 rounded-full 
                 dark:hover:bg-dark-third">
                     <svg fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" height="26px" width="26px" viewBox="-4 -4 24 24">
                         <line id="minize{{ $idNhomTinNhan }}" stroke="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" stroke-linecap="round" stroke-width="2" x1="2" x2="14" y1="8" y2="8"></line>
                     </svg>
                 </li>
-                <li onclick="closeChat('{{ $chater[0]->IDTaiKhoan }}')" class="cursor-pointer py-1.5 px-1.5 hover:bg-gray-200 rounded-full 
+                <li onclick="closeChatGroup('{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" class="cursor-pointer py-1.5 px-1.5 hover:bg-gray-200 rounded-full 
                 dark:hover:bg-dark-third">
                     <svg height="26px" width="26px" viewBox="-4 -4 24 24">
                         <line id="close1{{ $idNhomTinNhan }}" stroke="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" stroke-linecap="round" stroke-width="2" x1="2" x2="14" y1="2" y2="14"></line>
@@ -55,11 +72,11 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             </ul>
         </div>
     </div>
-    <div id='{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges' class="w-full p-1 wrapper-content-right h-88 overflow-y-auto overflow-x-hidden relative">
+    <div id='{{ $idNhomTinNhan }}Messenges' class="w-full p-1 wrapper-content-right h-88 overflow-y-auto overflow-x-hidden relative">
         @if (count($messages) == 0)
-        @include('Modal/ModalTroChuyen/Child/NewChat',['chater' => $chater])
+        @include('Modal/ModalTroChuyen/Child/GUICreateGroup',['users' => $chater])
         @else
-        @include('Modal/ModalTroChuyen/Child/NewChat',['chater' => $chater])
+        @include('Modal/ModalTroChuyen/Child/GUICreateGroup',['users' => $chater])
         @foreach($messages as $key => $value)
         @if(Session::get('user')[0]->IDTaiKhoan == $value->IDTaiKhoan)
         @if($value->LoaiTinNhan == 2)
@@ -175,14 +192,14 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         </ul>
         <div class="three-exten1 w-8/12">
             <?php $user = Session::get('user'); ?>
-            <div onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',
+            <div onkeyup="sendMessageGroup('{{ $chater[0]->IDTaiKhoan }}',
             '{{ $idNhomTinNhan }}',
-            '{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
+            '{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $idNhomTinNhan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
              bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" contenteditable placeholder="Aa">
 
             </div>
             <script>
-                $("#{{ $chater[0]->IDTaiKhoan }}PlaceTypeText").keypress(function(e) {
+                $("#{{ $idNhomTinNhan }}PlaceTypeText").keypress(function(e) {
                     return e.which != 13;
                 });
             </script>
@@ -237,7 +254,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     </div>
 </div>
 <script>
-    var objDiv = document.getElementById('{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan).$chater[0]->IDTaiKhoan }}Messenges');
+    var objDiv = document.getElementById('{{ $idNhomTinNhan }}Messenges');
     if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
     Pusher.logToConsole = true;
 
@@ -245,15 +262,17 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         cluster: 'ap1'
     });
     var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
-    channel.bind('chat', function() {
+    channel.bind('chatGroup', function() {
+        var aud = new Audio("/mp3/ring-mess.mp3");
         $.ajax({
             method: "GET",
             url: "/ProcessChatEvent",
             data: {
-                IDNhomTinNhan: '{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan) }}'
+                IDNhomTinNhan: '{{ $idNhomTinNhan }}',
+                Num: '{{ count(DataProcess::getUserOfGroupMessage($idNhomTinNhan)) }}'
             },
             success: function(response) {
-                $('#{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan).$chater[0]->IDTaiKhoan }}Messenges').append(response);
+                $('#{{ $idNhomTinNhan }}Messenges').append(response);
                 if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
             }
         });

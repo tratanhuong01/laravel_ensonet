@@ -245,15 +245,19 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         cluster: 'ap1'
     });
     var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
-    channel.bind('chat', function() {
+    channel.bind('chatNorl', function() {
+        var aud = new Audio("/mp3/ring-mess.mp3");
+        aud.play();
         $.ajax({
             method: "GET",
             url: "/ProcessChatEvent",
             data: {
-                IDNhomTinNhan: '{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan) }}'
+                IDNhomTinNhan: '{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan) }}',
+                IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
             },
             success: function(response) {
-                $('#{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan).$chater[0]->IDTaiKhoan }}Messenges').append(response);
+                if ($('#{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan).$chater[0]->IDTaiKhoan }}Messenges').length > 0)
+                    $('#{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan).$chater[0]->IDTaiKhoan }}Messenges').append(response);
                 if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
             }
         });

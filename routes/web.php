@@ -376,3 +376,7 @@ Route::get('ProcessLoadGUINewChatAdd', [TroChuyen\ChatController::class, 'loadAd
 Route::get('messages', function () {
     return view('Guest/messages');
 });
+
+Route::get('ProcessSendMessageGroup', [TroChuyen\ChatController::class, 'sendMessageGroup']);
+
+Route::get('ProcessOpenMessageGroup', [TroChuyen\ChatController::class, 'openMessageGroup']);
