@@ -13,8 +13,8 @@ $user = Session::get('user');
     <div class="w-1/12 pt-2">
         <a href=""><img class="w-12 h-12 p-0.5 object-cover rounded-full" src="/{{ $comment->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
-    <div class="w-11/12 ml-2">
-        <div class="comment-per w-max p-2 dark:bg-dark-third bg-gray-100 relative rounded-lg" style="max-width: 91%;">
+    <div class="w-11/12 ml-2 relative main-comment">
+        <div id="comment.{{ $comment->IDBinhLuan.$comment->IDBaiDang }}" class="comment-per w-max p-2 dark:bg-dark-third bg-gray-100 relative rounded-lg" style="max-width: 91%;">
             <p><a href="" class="font-bold dark:text-white">{{ $comment->Ho . ' ' . $comment->Ten }}</a></p>
             <p class="dark:text-white" style="font-size: 15px;clear: both;word-wrap: break-word;">
                 {!! $comment->NoiDungBinhLuan !!}
@@ -23,7 +23,31 @@ $user = Session::get('user');
             absolute cursor-pointer" style="border-radius: 20px;bottom:-5px;left:92%;white-space: nowrap;">
                 {{ Process::getFeelComment($comment->IDBinhLuan) }}
             </span>
+            <div id="editComments.{{ $comment->IDBinhLuan.$comment->IDBaiDang }}" class="hidden 
+                editCommentsss px-2 dark:text-white cursor-pointer bg-gray-300 dark:bg-dark-third w-8 h-8
+                rounded-full absolute top-1/2 right-0" style="padding-top: 9px;">
+                <i class="fas fa-ellipsis-h"></i>
+
+            </div>
+            <div class="w-36 py-2 dark:bg-dark-main z-50 absolute hidden">
+                <ul class="w-full">
+                    <li class="w-full dark:text-white p-2">Chỉnh sửa</li>
+                    <li class="w-full dark:text-white p-2">Xóa</li>
+                </ul>
+            </div>
         </div>
+
+        <style>
+            .main-comment:hover .editCommentsss {
+                display: flex;
+            }
+        </style>
+        <script>
+            var comment = document.getElementById("comment." + "{{ $comment->IDBinhLuan.$comment->IDBaiDang }}");
+            var editComment = document.getElementById("editComments." + "{{ $comment->IDBinhLuan.$comment->IDBaiDang }}");
+            editComment.style.left = comment.offsetWidth + 20 + "px";
+            editComment.style.top = 5 + "px";
+        </script>
         <ul class="flex pl-2">
             <li class="relative feels font-bold text-sm py-1 
                 pr-2 cursor-pointer dark:text-white">

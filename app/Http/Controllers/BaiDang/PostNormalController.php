@@ -52,9 +52,6 @@ class PostNormalController extends Controller
                     Hinhanh::add($idHinhAnh, 'THONGTHUON', $idBaiDang, 'img/PosTT/' . $nameFile, NULL);
                     $file->move(public_path('img/PosTT'), $nameFile);
                 }
-                echo "<pre>";
-                print_r($files);
-                echo "</pre>";
             } else {
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');

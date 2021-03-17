@@ -32,6 +32,8 @@ use Illuminate\Support\Facades\Session;
     <script src="/js/ajax/TroChuyen/ajax.js"></script>
     <script src="/js/realtime/state.js"></script>
     <script src="/js/ajax/TroChuyen/ajax-second.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
     scri
 </head>
 
@@ -234,7 +236,11 @@ use Illuminate\Support\Facades\Session;
             cluster: 'ap1'
         });
 
-        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
+        // common.js
+
+        const userID = getUserID();
+
+        var channel = pusher.subscribe('test.' + userID);
         channel.bind('tests', function() {
             $.ajax({
                 method: "GET",

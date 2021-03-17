@@ -125,7 +125,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto" style="hei
         </ul>
         <div class="three-exten1 w-8/12">
             <?php $user = Session::get('user'); ?>
-            <div onkeyup="sendMessageGroup(event)" id="PlaceTypeTextNewChat" class="place-input-type border-none rounded-2xl pl-2 outline-none
+            <div onkeyup="sendMessageGroups(event)" id="PlaceTypeTextNewChat" class="place-input-type border-none rounded-2xl pl-2 outline-none
              bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" contenteditable placeholder="Aa">
 
             </div>

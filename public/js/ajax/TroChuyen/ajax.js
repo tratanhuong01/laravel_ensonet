@@ -301,7 +301,7 @@ function removeUserSelectedGroup(IDTaiKhoan) {
         }
     });
 }
-function sendMessageGroup(event) {
+function sendMessageGroups(event) {
     if (event.keyCode === 13)
         $.ajax({
             method: "GET",
