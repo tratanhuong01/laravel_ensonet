@@ -40,7 +40,6 @@ class FeelController extends Controller
                 ->get()[0]->IDTaiKhoan;
             if ($user[0]->IDTaiKhoan == $idTaiKhoan) {
             } else {
-                event(new NotificationEvent($post[0]->IDTaiKhoan));
                 $typeNotify = Notify::getTypeNotify($post[0]->LoaiBaiDang);
                 Thongbao::add(
                     StringUtil::ID('thongbao', 'IDThongBao'),
@@ -51,6 +50,7 @@ class FeelController extends Controller
                     '0',
                     $date
                 );
+                event(new NotificationEvent($post[0]->IDTaiKhoan));
             }
             return Functions::getFeel($request->LoaiCamXuc);
         } else {

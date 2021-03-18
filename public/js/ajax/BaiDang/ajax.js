@@ -249,3 +249,23 @@ function tickFeel(IDCamXuc) {
         }
     });
 }
+
+function viewUserTagOfPost(IDBaiDang) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        method: "GET",
+        url: "/ProcessViewUserTagOfPost",
+        data: {
+            IDBaiDang: IDBaiDang
+        },
+        success: function (response) {
+            $('#second').html(response);
+            $('#modal-one').show();
+            second.className += ' fixed h-screen';
+        }
+    });
+}

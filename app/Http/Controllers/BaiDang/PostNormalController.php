@@ -23,7 +23,7 @@ class PostNormalController extends Controller
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
                 $tag = "";
-                $idCamXuc = "";
+                $idCamXuc = NULL;
                 if (session()->has('feelCur'))
                     foreach (Session::get('feelCur') as $key => $value)
                         $idCamXuc = $value;

@@ -38,17 +38,47 @@ class CommentController extends Controller
             ->get()[0]->IDTaiKhoan;
         if ($user[0]->IDTaiKhoan == $idTaiKhoan) {
         } else {
-            $typeNotify = 'BINHLUANPO';
-            Thongbao::add(
-                StringUtil::ID('thongbao', 'IDThongBao'),
-                $idTaiKhoan,
-                $typeNotify,
-                $request->IDBaiDang . '&' . $typeNotify,
-                $user[0]->IDTaiKhoan,
-                '0',
-                $date
-            );
-            event(new NotificationEvent($post[0]->IDTaiKhoan));
+            if ($post[0]->GanThe == "") {
+                $typeNotify = 'BINHLUANPO';
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $idTaiKhoan,
+                    $typeNotify,
+                    $request->IDBaiDang . '&' . $typeNotify,
+                    $user[0]->IDTaiKhoan,
+                    '0',
+                    $date
+                );
+                event(new NotificationEvent($post[0]->IDTaiKhoan));
+            } else {
+                $typeNotify = 'BINHLUANPO';
+                $arrTag = explode('&', $post[0]->GanThe);
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $idTaiKhoan,
+                    $typeNotify,
+                    $request->IDBaiDang . '&' . $typeNotify,
+                    $user[0]->IDTaiKhoan,
+                    '0',
+                    $date
+                );
+                event(new NotificationEvent($post[0]->IDTaiKhoan));
+                for ($i = 0; $i < count($arrTag) - 1; $i++) {
+                    if ($arrTag[$i] == $user[0]->IDTaiKhoan) {
+                    } else {
+                        Thongbao::add(
+                            StringUtil::ID('thongbao', 'IDThongBao'),
+                            $arrTag[$i],
+                            $typeNotify,
+                            $request->IDBaiDang . '&' . $typeNotify,
+                            $user[0]->IDTaiKhoan,
+                            '0',
+                            $date
+                        );
+                        event(new NotificationEvent($arrTag[$i]));
+                    }
+                }
+            }
         }
         $comment = DB::table('binhluan')
             ->join('taikhoan', 'binhluan.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')

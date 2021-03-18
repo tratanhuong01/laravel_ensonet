@@ -83,7 +83,7 @@ $user = Session::get('user');
             @include('Component\Messenger\ChatLeft',['message' => $value])
             @break
             @case('2')
-            @include('Modal\ModalTroChuyen\Child\ThuHoiTinNhanL',['message' => $value])
+            @include('Component\Messenger\ThuHoiTinNhanL',['message' => $value])
             @break
             @endswitch
             @endif

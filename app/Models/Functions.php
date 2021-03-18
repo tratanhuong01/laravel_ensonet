@@ -10,6 +10,43 @@ use Illuminate\Support\Facades\Session;
 
 class Functions extends Model
 {
+    public static function getAllPost($idTaiKhoan)
+    {
+        $listFriend = Functions::getListFriendsUser($idTaiKhoan);
+        $newPost = array();
+        $num = 0;
+        foreach ($listFriend as $key => $value) {
+            $post = Baidang::where('baidang.IDTaiKhoan', '=', $value[0]->IDTaiKhoan)
+                ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                ->get();
+            foreach ($post as $keys => $values) {
+                $arrTag = explode('&', $values->GanThe);
+                foreach ($arrTag as $keyss => $valuess) {
+                    if ($valuess == $idTaiKhoan) {
+                        $newPost[$num] = $values;
+                        $num++;
+                    }
+                }
+            }
+        }
+        $postMainOfUser = Functions::countPost($idTaiKhoan);
+        $num = count($newPost);
+        foreach ($postMainOfUser as $key => $value) {
+            $newPost[$num] = $value;
+            $num++;
+        }
+        $postAllNew = array();
+        for ($i = 0; $i < count($newPost) - 1; $i++) {
+            for ($j = $i + 1; $j < count($newPost); $j++) {
+                if (strtotime($newPost[$i]->NgayDang) < strtotime($newPost[$j]->NgayDang)) {
+                    $postAllNew = $newPost[$i];
+                    $newPost[$i] = $newPost[$j];
+                    $newPost[$j] = $postAllNew;
+                }
+            }
+        }
+        return $newPost;
+    }
     public static function countPost($idTaiKhoan)
     {
         if (Session::get('user')[0]->IDTaiKhoan == $idTaiKhoan)

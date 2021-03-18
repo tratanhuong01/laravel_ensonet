@@ -143,7 +143,7 @@ use App\Models\StringUtil;
                         </div>
                         <div class="w-4/5">
                             <div class="w-full">
-                                <span class="dark:text-white" style="float: left;font-weight: bold;">
+                                <span class="dark:text-white " style="float: left;font-weight: bold;">
                                     @if ($value[0]->TenNhomTinNhan == '')
                                     @php
                                     $name = "";
@@ -160,7 +160,7 @@ use App\Models\StringUtil;
                                 </span>
                             </div>
                             <div class="w-full flex py-1 text-base flex">
-                                <div class="w-4/5">
+                                <div class="w-4/5 text-sm">
                                     @isset($value[count($value) - 1])
                                     @if ($value[count($value) - 1]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
                                     <span class="text-gray-500 dark:text-white">
@@ -171,7 +171,7 @@ use App\Models\StringUtil;
                                     <span class="text-blue-500 dark:text-blue-500 font-bold">
                                         {{ $value[count($value) - 1]->Ten }} : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
                                     </span>
-                                    <span class="">
+                                    <span class="dark:text-white">
                                         {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}</span>
                                     @endif
                                     @endisset

@@ -37,6 +37,29 @@ class DataProcess extends Model
         } else
             return '';
     }
+    public static function getFriendTags($tag, $idBaiDang)
+    {
+        $new = array();
+        $num = 0;
+        if (count($tag) > 0) {
+            foreach ($tag as $key => $value) {
+                $tager = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $key)->get()[0];
+                $new[$num] = $tager;
+                $num++;
+            }
+            return view('Component\BaiDang\Child\Tag')->with(
+                'hoTen1',
+                $new[0]->Ho . ' ' . $new[0]->Ten
+            )->with(
+                'other',
+                (count($new) - 1 == 0 ? '' :  " và " . (count($new) - 1) . ' ' . "người khác")
+            )->with(
+                'idBaiDang',
+                $idBaiDang
+            );
+        } else
+            return '';
+    }
     public static function getFeel($feels)
     {
         foreach ($feels as $key => $value) {
@@ -126,7 +149,8 @@ class DataProcess extends Model
         );
         $newArrMess = array();
         foreach ($mess as $key => $value) {
-            $new = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $value->IDNhomTinNhan)
+            $new = Tinnhan::select('*', 'tinnhan.TinhTrang')
+                ->where('tinnhan.IDNhomTinNhan', '=', $value->IDNhomTinNhan)
                 ->where('tinnhan.LoaiTinNhan', '!=', '0')
                 ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                 ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')

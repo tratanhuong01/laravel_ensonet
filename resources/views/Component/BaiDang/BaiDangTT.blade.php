@@ -45,7 +45,7 @@ $u = Session::get('user');
                     @else
                     @endif
                 </span>
-                <span class="font-bold dark:text-white">{{ DataProcess::getFriendTag($tag) }}
+                <span class="font-bold dark:text-white">{{ DataProcess::getFriendTags($tag,$item[0]->IDBaiDang) }}
                 </span>
                 @endif
             </p>

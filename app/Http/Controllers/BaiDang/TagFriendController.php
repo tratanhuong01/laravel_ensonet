@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BaiDang;
 
 use App\Http\Controllers\Controller;
 use App\Models\Taikhoan;
+use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -37,5 +38,10 @@ class TagFriendController extends Controller
             Session::put('tag', $tag);
             return '<i class="fas fa-check text-green-400 text-xl"></i>';
         }
+    }
+    public function viewUserTagOfPost(Request $request)
+    {
+        $data = DataProcessThird::getUserTag($request->IDBaiDang);
+        return view('Modal/ModalBaiDang/ModalTagUser')->with('data', $data);
     }
 }

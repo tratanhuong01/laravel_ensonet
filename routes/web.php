@@ -223,9 +223,8 @@ Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view'
 // ajax xử lí chia sẽ bài viết
 Route::get('checked', function () {
     echo "<pre>";
-    echo DataProcess::getState('1000000008#2@@1000000008#3@', '1000000008');
+    print_r(DataProcess::getFullMessageByID('1000000001'));
     echo "</pre>";
-    // Functions::get();
 });
 
 Route::get('ProcessSearchFriend', [TaiKhoans\SearchFriendController::class, 'search']);
@@ -254,8 +253,8 @@ Route::get('ProcessUpdateStateNotifications', function () {
     }
     if ($count == count($notify)) {
     } else {
-        DB::update('UPDATE thongbao SET TinhTrang = ? 
-        WHERE IDTaiKhoan = ? ', ['1', Session::get('user')[0]->IDTaiKhoan]);
+        DB::update("UPDATE thongbao SET TinhTrang = ? 
+        WHERE IDTaiKhoan = ? AND IDLoaiThongBao != 'TINNHAN001' ", ['1', Session::get('user')[0]->IDTaiKhoan]);
         return view('Component/Child/SoLuongThongBao')
             ->with('num', Notify::countNotify(Session::get('user')[0]->IDTaiKhoan, 0));
     }
@@ -263,8 +262,8 @@ Route::get('ProcessUpdateStateNotifications', function () {
 
 //Đánh dấu tất cả là đã đọc
 Route::get('ProcessTickAllIsRead', function () {
-    DB::update('UPDATE thongbao SET TinhTrang = ? 
-    WHERE IDTaiKhoan = ? ', ['2', Session::get('user')[0]->IDTaiKhoan]);
+    DB::update("UPDATE thongbao SET TinhTrang = ? 
+    WHERE IDTaiKhoan = ? AND IDLoaiThongBao != 'TINNHAN001' ", ['2', Session::get('user')[0]->IDTaiKhoan]);
     return '';
 });
 
@@ -384,3 +383,5 @@ Route::get('messages/{idNhomTinNhan}', function ($idNhomTinNhan) {
 Route::get('ProcessSendMessageGroup', [TroChuyen\ChatController::class, 'sendMessageGroup']);
 
 Route::get('ProcessOpenMessageGroup', [TroChuyen\ChatController::class, 'openMessageGroup']);
+
+Route::get('ProcessViewUserTagOfPost', [BaiDang\TagFriendController::class, 'viewUserTagOfPost']);
