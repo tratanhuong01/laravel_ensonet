@@ -1,2 +1,2 @@
- cùng với<a href="">{{ ' ' . $hoTen1 . ' ' }}</a>&nbsp;và&nbsp;
+ cùng với<a href="">{{ ' ' . $hoTen1 . ' ' }}</a>
  <span class="cursor-pointer" onclick="viewUserTagOfPost('{{ $idBaiDang }}')">{{ $other }}</span>

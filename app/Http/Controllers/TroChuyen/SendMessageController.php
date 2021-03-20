@@ -11,6 +11,7 @@ use App\Models\Taikhoan;
 use App\Models\Thongbao;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
+use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -21,13 +22,16 @@ class SendMessageController extends Controller
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
+        $trangThai = DataProcessThird::checkChatUserActivity($request->IDNhomTinNhan) == true ?
+            DataProcessThird::createTrangThai($request->IDNhomTinNhan, 1) :
+            DataProcessThird::createTrangThai($request->IDNhomTinNhan, 0);
         Tinnhan::add(
             $idTinNhan,
             $request->IDNhomTinNhan,
             Session::get('user')[0]->IDTaiKhoan,
             $request->NoiDungTinNhan,
-            '0',
-            '0',
+            DataProcess::createState($request->IDNhomTinNhan, '1'),
+            $trangThai,
             '1',
             date("Y-m-d H:i:s")
         );
@@ -60,12 +64,6 @@ class SendMessageController extends Controller
                 event(new ChatGroupEvent($value->IDTaiKhoan));
             }
         }
-        DB::update('UPDATE tinnhan SET TinhTrang  = ? 
-            WHERE IDTinNhan = ? ', [
-            DataProcess::createState($request->IDNhomTinNhan, '1'),
-            $idTinNhan
-        ]);
-
         return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0]);
     }
     public function chatEvent(Request $request)

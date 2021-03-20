@@ -3,8 +3,8 @@
 
 use App\Models\Functions;
 use App\Models\Data;
+use App\Process\DataProcessThird;
 use Illuminate\Support\Facades\Session;
-
 ?>
 
 <!DOCTYPE html>
@@ -17,36 +17,17 @@ use Illuminate\Support\Facades\Session;
 <head>
     <title>Ensonet</title>
     @include('Head/css')
-    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/css/emojis.css">
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script src="/js/scrollbar.js"></script>
     <script src="/js/index.js"></script>
-    <script src="/js/event/event.js"></script>
-    <script src="/js/ajax/BaiDang/ajax.js"></script>
-    <script src="/js/ajax/MoiQuanHe/ajax.js"></script>
-    <script src="/js/ajax/BinhLuan/ajax.js"></script>
-    <script src="/js/ajax.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/js/header.js"></script>
-    <script src="/js/ajax/TroChuyen/ajax.js"></script>
-    <script src="/js/realtime/state.js"></script>
-    <script src="/js/ajax/TroChuyen/ajax-second.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
-    scri
 </head>
 
 <body class="dark:bg-dark-main">
     @if (session()->has('user'))
     <?php
-
     $user = Session::get('user');
-
     ?>
     <div class="w-full bg-gray-100 dark:bg-dark-main h-screen relative" id="main">
         @include('Header');
-        <div class="w-full flex z-10 pt-6 bg-gray-100 dark:bg-dark-main lg:w-full lg:mx-auto xl:w-full" id="content">
+        <div class="w-full flex z-10 pt-11 bg-gray-100 dark:bg-dark-main lg:w-full lg:mx-auto xl:w-full" id="content">
             <div class="fixed pt-3 hidden sm:hidden xl:block xl:w-1/4">
                 <div id="wrapper-scrollbar" class="pl-1.5 w-4/6 overflow-x-hidden overflow-y-auto 
                 xl:w-full">
@@ -90,6 +71,12 @@ use Illuminate\Support\Facades\Session;
             </div>
             <div class="center-content relative left-0 px-2 sm:w-full sm:mx-auto md:w-3/4 lg:mx-0 
             lg:w-4/6 lg:left-0! xl:w-2/5 xl:left-3/10">
+                <?php $allStory = DataProcessThird::getAllStoryByID($user[0]->IDTaiKhoan); ?>
+                @if (count($allStory) == 0)
+                @include('Component/TrangChu/StoryNewUser')
+                @else
+                @include('Component/TrangChu/Story',['allStory' => $allStory])
+                @endif
                 <div class="w-full bg-white mb-3 mt-2 dark:bg-dark-second m-auto rounded-lg mb-2">
                     <div class="w-full flex p-2.5 ">
                         <div class="w-2/12 md:w-1/12 mr-3 pt-1">
@@ -114,22 +101,9 @@ use Illuminate\Support\Facades\Session;
                     </div>
                 </div>
                 <?php $post = Data::sortAllPost($user[0]->IDTaiKhoan); ?>
-
-                @for ($i = 0 ; $i < sizeof($post) ; $i++) @switch($post[$i][0]->LoaiBaiDang)
-                    @case('0')
-                    @include('Component/BaiDang/CapNhatAvatar',['item' => $post[$i]])
-                    @break
-
-                    @case('1')
-                    @include('Component/BaiDang/CapNhatAnhBia',['item' => $post[$i]])
-                    @break
-
-                    @case('2')
-                    @include('Component/BaiDang/BaiDangTT',['item' => $post[$i]])
-                    @break
-
-                    @endswitch
-                    @endfor
+                <div class="timeline">
+                    <input type="hidden" name="indexPost" id="indexPost" value="0">
+                </div>
             </div>
             <div class="fixed hidden lg:block lg:w-1/3 lg:left-2/3 xl:left-7/10 xl:w-3/10">
                 <div id="content-right-ok" class="w-full flex">
@@ -138,8 +112,7 @@ use Illuminate\Support\Facades\Session;
                     <div class="content-right wrapper-content-right w-4/5 overflow-y-auto py-0 
                     px-2.5 lg:w-full xl:w-4/5">
                         <div class="w-full">
-                            <br>
-                            <p class="font-bold dark:text-white">Được tài trợ</p>
+                            <p class="font-bold dark:text-white pt-2.5">Được tài trợ</p>
                             <div class="w-full flex mx-0 my-4">
                                 <a href=""><img class="w-32 h-32 object-contain" style="border-radius: 20px;" src="img/ads1.jpg" alt=""></a>
                                 <div class="block my-9 mx-2.5">
@@ -197,11 +170,13 @@ use Illuminate\Support\Facades\Session;
                                     Không tìm thấy</span>
                             </div>
                             @else
-                            @for ($i = 0 ; $i < count($listFriend) ; $i++) @include('Component\TrangChu\NguoiDungHoatDong',['data'=> $listFriend[$i][0]]) @endfor @endif
-                                <div id="friends-online-info" class="absolute bg-white 
+                            @foreach($listFriend as $key => $value)
+                            @include('Component\TrangChu\NguoiDungHoatDong',['data'=> $value[0]])
+                            @endforeach
+                            @endif
+                            <div id="friends-online-info" class="absolute bg-white 
                             dark:bg-dark-third p-2 shadow-sm w-88 hidden top-0 right-90 px-4" style="display: none;">
-
-                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -225,21 +200,36 @@ use Illuminate\Support\Facades\Session;
     @else
     <?php redirect()->to('login')->send(); ?>
     @endif
+    <script>
+        var action = 'inactive';
+        if (action == 'inactive') {
+            loading();
 
+            setTimeout(function() {
+                loadingPost(0);
+            }, 1000);
+        }
+        $(window).scroll(function() {
+            if ($(window).scrollTop() + $(window).height() > $(".timeline").height() &&
+                action == 'inactive') {
+                action = 'active';
+                loading();
+                setTimeout(function() {
+                    loadingPost($('#indexPost').val());
+                }, 500);
+            }
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
     <script>
         $('#modalHeaderRight').html('')
         Pusher.logToConsole = true;
-
         var pusher = new Pusher('5064fc09fcd20f23d5c1', {
             cluster: 'ap1'
         });
-
         // common.js
-
         const userID = getUserID();
-
         var channel = pusher.subscribe('test.' + userID);
         channel.bind('tests', function() {
             $.ajax({

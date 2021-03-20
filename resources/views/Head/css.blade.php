@@ -1,4 +1,5 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/loading.css">
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/tailwind_second.css">
 <link rel="stylesheet" href="/tailwind/tailwind.css" />
@@ -13,6 +14,22 @@
     }
 </style>
 <script src="/js/common.js"></script>
+
 <meta property="userID" content="{{ session()->has('user') ? Session::get('user')[0]->IDTaiKhoan : '' }}" />
 <link rel="icon" href="/img/logo.ico" type="image/icon type">
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/css/emojis.css">
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script src="/js/scrollbar.js"></script>
+<script src="/js/event/event.js"></script>
+<script src="/js/ajax/BaiDang/ajax.js"></script>
+<script src="/js/ajax/MoiQuanHe/ajax.js"></script>
+<script src="/js/ajax/BinhLuan/ajax.js"></script>
+<script src="/js/ajax.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/ajax/TroChuyen/ajax.js"></script>
+<script src="/js/realtime/state.js"></script>
+<script src="/js/ajax/TroChuyen/ajax-second.js"></script>
+<script src="/js/PlaceHolderLoading/ajax.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.2/socket.io.js" integrity="sha512-YybopSVjZU0fe8TY4YDuQbP5bhwpGBE/T6eBUEZ0usM72IWBfWrgVI13qfX4V2A/W7Hdqnm7PIOYOwP9YHnICw==" crossorigin="anonymous"></script>

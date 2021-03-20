@@ -52,7 +52,7 @@ class Taikhoan extends Model
         $TinhTrang,
         $NgayTao,
         $DarkMode,
-        $HoatDong
+        $ThoiGianHoatDong
     ) {
         $taikhoan = new Taikhoan;
         $taikhoan->IDTaiKhoan = $IDTaiKhoan;
@@ -74,7 +74,7 @@ class Taikhoan extends Model
         $taikhoan->TinhTrang = $TinhTrang;
         $taikhoan->NgayTao = $NgayTao;
         $taikhoan->DarkMode = $DarkMode;
-        $taikhoan->HoatDong = $HoatDong;
+        $taikhoan->ThoiGianHoatDong = $ThoiGianHoatDong;
         $taikhoan->save();
     }
     public static function search($data, $idTaiKhoan)

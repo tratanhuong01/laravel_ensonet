@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+namespace App\Http\Controllers;
+
+use App\Models\Story;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('ProcessSearchTagFriend', [BaiDang\TagFriendController::class, 'search']);
+Route::post('ProcessSaveCanvasStory', [Storys\StoryController::class, 'create'])
+    ->name('ProcessSaveCanvasStorys');

@@ -87,7 +87,7 @@ class RegisterController extends Controller
                             0,
                             date("Y-m-d H:i:s"),
                             0,
-                            1
+                            date("Y-m-d H:i:s")
                         );
                         $code_veri = mt_rand(100000, 999999);
                         DB::update('update taikhoan set CodeEmail = ? where taikhoan.IDTaiKhoan = ?', [$code_veri, $id]);

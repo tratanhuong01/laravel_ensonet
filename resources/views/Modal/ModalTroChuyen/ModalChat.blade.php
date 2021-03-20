@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Session;
 use App\Process\DataProcess;
+use App\Models\StringUtil;
 
 ?>
 <div id="{{ $chater[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
@@ -10,18 +11,31 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         <div class=" pb-0.5">
             <div class="w-10 h-10 relative">
                 <img src="/{{ $chater[0]->AnhDaiDien }}" class="cursor-pointer w-10 h-10 rounded-full object-cover" alt="">
-                <span class="bg-green-600 p-1 border border-solid border-white rounded-full
-                absolute bottom-0 right-1 ">
-                </span>
+                @include('Component\Child\HoatDong',
+                [
+                'padding' => 'p-1',
+                'bottom' => 'bottom-0',
+                'right' => 'right-1',
+                'IDTaiKhoan' => $chater[0]->IDTaiKhoan
+                ])
             </div>
         </div>
-        <div class="w-2/5 pl-2">
+        <div class="w-3/5 pl-2">
+            @php
+            $timeAcitivity = StringUtil::CheckDateTimeUserActivity($chater[0]->ThoiGianHoatDong)
+            @endphp
+            @if ($timeAcitivity == "")
+            <p onclick="openSettingChat('{{ $chater[0]->IDTaiKhoan }}')" class="py-2.5 dark:text-white cursor-pointer text-sm font-bold">
+                {{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}&nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
+            </p>
+            @else
             <p onclick="openSettingChat('{{ $chater[0]->IDTaiKhoan }}')" class="dark:text-white cursor-pointer text-sm font-bold">
                 {{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}&nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
-                <span class="text-gray-300">Đang hoạt động</span>
+                <span class="text-gray-300 text-xs">{{ $timeAcitivity }}</span>
             </p>
+            @endif
         </div>
-        <div class="w-1/2">
+        <div class="w-45per">
             <ul class="flex justify-end">
                 <li class="cursor-pointer py-1.5 px-1.5 hover:bg-gray-200 rounded-full 
                 dark:hover:bg-dark-third">

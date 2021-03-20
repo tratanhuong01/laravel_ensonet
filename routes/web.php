@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Data;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,32 +12,13 @@ use App\Models\Taikhoan;
 use App\Models\Thongbao;
 use App\Process\DataProcess;
 use Illuminate\Support\Facades\Session;
-use App\Process\Functions;
+use App\Models\Functions;
 use Illuminate\Database\Eloquent\Model;
 
 // Đăng Nhập
 Route::get('/login', function () {
     return view('Guest/login');
 });
-// ajax đăng kí
-Route::get('LoadFromRegister', function () {
-    return view('Modal/ModalDangNhap/ModalFormRegister');
-});
-// xử lí đăng kí
-
-Route::get('ProcessRegister', [DangKi\RegisterController::class, 'register']);
-//ajax xác nhận code
-
-Route::get('ProcessVerify', [DangKi\VerifyMailController::class, 'verify']);
-
-//ajax quên mật khẩu
-Route::get('ProcessForgetAccount', [TaiKhoans\ForgetAccountController::class, 'get']);
-
-//ajax xác nhận thành công
-Route::get('VerifySuccess', [VerifyMailController::class, 'verify']);
-
-// ajax đăng nhập
-Route::post('ProcessLogin', [DangNhap\LoginController::class, 'login'])->name('ProcessLogin');
 
 // xử lí người dùng mới
 Route::post('NewBieLogin', [DangNhap\NewBieController::class, 'login'])->name('NewBieLogin');
@@ -52,6 +34,42 @@ Route::get('index', function () {
 
 // profile người dùng
 Route::get('profile.{id}', [ProfileController::class, 'view']);
+
+// redriect bạn bè
+Route::get('ProcessProfileFriend', [ProfileController::class, 'viewAjaxFriends']);
+
+// redriect bạn bè
+Route::get('profile.{IDTaiKhoan}/friends', [ProfileController::class, 'viewFriends']);
+
+//xem chi tiết hình 
+Route::get('/photo/{idBaiDang}/{idHinhAnh}', [Displays\ViewImageController::class, 'views']);
+
+Route::get('/{value1}/{value2}/{value3}/backpage', [Displays\ViewImageController::class, 'backPage'])
+    ->name('backpage');
+
+Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewIn', [Displays\ViewImageController::class, 'zoomIn']);
+
+Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewOut', [Displays\ViewImageController::class, 'zoomOut']);
+
+// ajax đăng kí
+Route::get('LoadFromRegister', function () {
+    return view('Modal/ModalDangNhap/ModalFormRegister');
+});
+
+// xử lí đăng kí
+Route::get('ProcessRegister', [DangKi\RegisterController::class, 'register']);
+
+//ajax xác nhận code
+Route::get('ProcessVerify', [DangKi\VerifyMailController::class, 'verify']);
+
+//ajax quên mật khẩu
+Route::get('ProcessForgetAccount', [TaiKhoans\ForgetAccountController::class, 'get']);
+
+//ajax xác nhận thành công
+Route::get('VerifySuccess', [VerifyMailController::class, 'verify']);
+
+// ajax đăng nhập
+Route::post('ProcessLogin', [DangNhap\LoginController::class, 'login'])->name('ProcessLogin');
 
 // ajax yêu cầu kết bạn
 Route::get('ProcessRequestFriend', [MoiQuanHe\RequestFriendController::class, 'send']);
@@ -97,12 +115,6 @@ Route::post('ProcessPostNormal', [BaiDang\PostNormalController::class, 'post'])
 Route::get('LoadQuenTaiKhoan', function () {
     return view('Modal\ModalDangNhap\ModalNhapTT');
 });
-
-// redriect bạn bè
-Route::get('ProcessProfileFriend', [ProfileController::class, 'viewAjaxFriends']);
-
-// redriect bạn bè
-Route::get('profile.{IDTaiKhoan}/friends', [ProfileController::class, 'viewFriends']);
 
 // ajax bày tỏ cảm xúc bài đăng
 Route::get('ProcessFeelPost', [BaiDang\FeelController::class, 'feel']);
@@ -198,16 +210,6 @@ Route::get('ProcessViewObjectPrivacyPost', [BaiDang\EditObjectPrivacyController:
 Route::get('ProcessEditObjectPrivacyPost', [BaiDang\EditObjectPrivacyController::class, 'edit'])
     ->name('ProcessEditObjectPrivacyPost');
 
-//xem chi tiết hình 
-Route::get('/photo/{idBaiDang}/{idHinhAnh}', [Displays\ViewImageController::class, 'views']);
-
-Route::get('/{value1}/{value2}/{value3}/backpage', [Displays\ViewImageController::class, 'backPage'])
-    ->name('backpage');
-
-Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewIn', [Displays\ViewImageController::class, 'zoomIn']);
-
-Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewOut', [Displays\ViewImageController::class, 'zoomOut']);
-
 //ajax thả cảm xúc cho bình luận
 Route::get('ProcessFeelCommentPost', [BaiDang\FeelCommentPostController::class, 'feel']);
 
@@ -220,18 +222,19 @@ Route::get('ProcessLoadNumRepComment', [BaiDang\RepCommentController::class, 'lo
 //ajax 
 Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view']);
 
-// ajax xử lí chia sẽ bài viết
-Route::get('checked', function () {
-    echo "<pre>";
-    print_r(DataProcess::getFullMessageByID('1000000001'));
-    echo "</pre>";
-});
-
+// tìm kiếm bạn bè
 Route::get('ProcessSearchFriend', [TaiKhoans\SearchFriendController::class, 'search']);
 
 // 
 Route::get('ProcessModalLast', function () {
     return view('Modal/ModalHeader/ModalLast');
+});
+
+// ajax xử lí chia sẽ bài viết
+Route::get('checked', function () {
+    echo "<pre>";
+    print_r(DataProcess::getFullMessageByID('1000000001'));
+    echo "</pre>";
 });
 
 // xử lí hiện thông báo
@@ -352,9 +355,7 @@ Route::get('ProcessRemoveMessage', [TroChuyen\DeleteMessageController::class, 'r
 
 Route::get('ProcessStateUsersOnline', [TaiKhoans\StateUserController::class, 'online']);
 
-Route::get('ProcessStateUsersOffline', [TaiKhoans\StateUserController::class, 'offline']);
-
-Route::get('ProcessStateUsersOffline', [TaiKhoans\StateUserController::class, 'offline']);
+Route::get('ProcessStateUsersOnlineOther', [TaiKhoans\StateUserController::class, 'onlineOther']);
 
 Route::get('ProcessOpenChangeColor', [TroChuyen\ColorMessageController::class, 'open']);
 
@@ -385,3 +386,89 @@ Route::get('ProcessSendMessageGroup', [TroChuyen\ChatController::class, 'sendMes
 Route::get('ProcessOpenMessageGroup', [TroChuyen\ChatController::class, 'openMessageGroup']);
 
 Route::get('ProcessViewUserTagOfPost', [BaiDang\TagFriendController::class, 'viewUserTagOfPost']);
+
+Route::get('Timeline', function () {
+    return strtotime(date("Y-m-d H:i:s")) - strtotime('2021-03-19 15:09:29');
+});
+
+Route::get('ProcessLoadingPost', function (Request $request) {
+    $post = Data::sortAllPost(Session::get('user')[0]->IDTaiKhoan);
+    $data = "";
+    $num = $request->indexPost;
+    $arrayNew = array_slice($post, $num, 3);
+    if (count($arrayNew) == 0) {
+        return '';
+    } else {
+        foreach ($arrayNew as $key => $value) {
+            switch ($value[0]->LoaiBaiDang) {
+                case '0':
+                    $data .= view('Component/BaiDang/CapNhatAvatar')
+                        ->with('item', $value)
+                        ->with('user', Session::get('user'));
+                    break;
+                case '1':
+                    $data .= view('Component/BaiDang/CapNhatAnhBia')
+                        ->with('item', $value)
+                        ->with('user', Session::get('user'));
+                    break;
+                case '2':
+                    $data .= view('Component/BaiDang/BaiDangTT')
+                        ->with('item', $value)
+                        ->with('user', Session::get('user'));
+                    break;
+            }
+        }
+        $num += 3;
+        return $data . '<input type="hidden" name="indexPost" id="indexPost" value="' . $num . '">';
+    }
+});
+
+Route::get('ProcessLoadingPostProfile', function (Request $request) {
+    $posts = Functions::getAllPost($request->IDTaiKhoan);
+    $data = "";
+    $num = $request->indexPost;
+    $arrayNew = array_slice($posts, $num, 3);
+    if (count($arrayNew) == 0) {
+        return '';
+    } else {
+        foreach ($arrayNew as $key => $value) {
+            $post = Functions::getPost($value);
+            switch ($value->LoaiBaiDang) {
+                case '0':
+                    $data .= view('Component/BaiDang/CapNhatAvatar')
+                        ->with('item', $post)
+                        ->with('user', Session::get('user'));
+                    break;
+                case '1':
+                    $data .= view('Component/BaiDang/CapNhatAnhBia')
+                        ->with('item', $post)
+                        ->with('user', Session::get('user'));
+                    break;
+                case '2':
+                    $data .= view('Component/BaiDang/BaiDangTT')
+                        ->with('item', $post)
+                        ->with('user', Session::get('user'));
+                    break;
+            }
+        }
+        $num += 3;
+        return $data . '<input type="hidden" name="indexPost" id="indexPost" value="' . $num . '">';
+    }
+});
+
+Route::get('ProcessLoading', function () {
+    return view('TimeLine/BaiDang') . view('TimeLine/BaiDang');
+});
+
+
+Route::get('stories/create', function () {
+    return view('Guest/Story/createstory');
+});
+
+Route::get('stories/create/text', function () {
+    return view('Guest/Story/storytext');
+});
+
+Route::get('stories/{IDStory}', function ($idStory) {
+    return view('Guest/Story/viewstory');
+});

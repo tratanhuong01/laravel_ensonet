@@ -287,24 +287,9 @@ $user = Session::get('user');
                                 </ul>
                             </div>
                         </div>
-                        <?php
-                        $post_main = Functions::getAllPost($users[0]->IDTaiKhoan);
-                        ?>
-                        @for ($i = 0 ; $i < sizeof($post_main) ; $i++) <?php $post = Functions::getPost($post_main[$i]); ?> @switch($post[0]->LoaiBaiDang)
-                            @case('0')
-                            @include('Component/BaiDang/CapNhatAvatar',['item' => $post])
-                            @break
-
-                            @case('1')
-                            @include('Component/BaiDang/CapNhatAnhBia',['item' => $post])
-                            @break
-
-                            @case('2')
-                            @include('Component/BaiDang/BaiDangTT',['item' => $post])
-                            @break
-
-                            @endswitch
-                            @endfor
+                        <div class="timeline">
+                            <input type="hidden" name="indexPost" id="indexPost" value="0">
+                        </div>
                     </div>
                 </div>
                 @break
@@ -312,6 +297,26 @@ $user = Session::get('user');
             </div>
         </div>
         @endif
+        <script>
+            var action = 'inactive';
+            if (action == 'inactive') {
+                loading();
+
+                setTimeout(function() {
+                    loadingPostProfile(0, '{{ $users[0]->IDTaiKhoan }}');
+                }, 1000);
+            }
+            $(window).scroll(function() {
+                if ($(window).scrollTop() + $(window).height() - 700 > $(".timeline").height() &&
+                    action == 'inactive') {
+                    action = 'active';
+                    loading();
+                    setTimeout(function() {
+                        loadingPostProfile($('#indexPost').val(), '{{ $users[0]->IDTaiKhoan }}');
+                    }, 500);
+                }
+            });
+        </script>
         <script src="/js/scrollbar.js"></script>
         <script>
             $('#modalHeaderRight').html('')

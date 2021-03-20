@@ -144,4 +144,33 @@ class StringUtil extends Model
         }
         return $result;
     }
+    public static function CheckDateTimeUserActivity($datetime)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $result = "";
+        $timeInput = strtotime($datetime);
+        $timeCurrent = time();
+        $time = $timeCurrent - $timeInput;
+        $sec = $time;
+        $min = round($sec / 60);
+        $hour = round($sec / (3600));
+        if ($hour > 23) {
+            $result = "";
+        } else if ($min <= 60) {
+            if ($min == 1) {
+                $result = "Hoạt động 1 phút trước";
+            } else if ($sec < 60) {
+                $result = "Đang hoạt động";
+            } else {
+                $result = "Hoạt động $min phút trước";
+            }
+        } else {
+            if ($hour == 1) {
+                $result = "Hoạt động 1 giờ";
+            } else {
+                $result = "Hoạt động $hour giờ";
+            }
+        }
+        return $result;
+    }
 }

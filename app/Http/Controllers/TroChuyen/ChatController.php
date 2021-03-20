@@ -11,6 +11,7 @@ use App\Models\Thongbao;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
 use App\Process\DataProcessSecond;
+use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -147,13 +148,16 @@ class ChatController extends Controller
                     ->get();
                 $idNhomTinNhan = DataProcess::checkIsSimilarGroupMessage($sender, $receiver);
                 $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
+                $trangThai = DataProcessThird::checkChatUserActivity($idNhomTinNhan) == true ?
+                    DataProcessThird::createTrangThai($idNhomTinNhan, 1) :
+                    DataProcessThird::createTrangThai($idNhomTinNhan, 0);
                 Tinnhan::add(
                     $idTinNhan,
                     $idNhomTinNhan,
                     Session::get('user')[0]->IDTaiKhoan,
                     $request->NoiDungTinNhan,
-                    '0',
-                    '0',
+                    DataProcess::createState($request->IDNhomTinNhan, '1'),
+                    $trangThai,
                     '1',
                     date("Y-m-d H:i:s")
                 );
@@ -170,11 +174,6 @@ class ChatController extends Controller
                     );
                     event(new ChatGroupEvent($value->IDTaiKhoan));
                 }
-                DB::update('UPDATE tinnhan SET TinhTrang  = ? 
-                WHERE IDTinNhan = ? ', [
-                    DataProcess::createState($idNhomTinNhan, '1'),
-                    $idTinNhan
-                ]);
                 $messages = DataProcess::getMessageByID($sender, $receiver);
                 return view('Modal\ModalTroChuyen\ModalChat')->with('chater', $chater)
                     ->with('messages', $messages)
@@ -195,8 +194,8 @@ class ChatController extends Controller
                 $idNhomTinNhan,
                 Session::get('user')[0]->IDTaiKhoan,
                 $request->NoiDungTinNhan,
-                '0',
-                '0',
+                '',
+                '',
                 '1',
                 date("Y-m-d H:i:s")
             );
@@ -212,6 +211,9 @@ class ChatController extends Controller
                     date("Y-m-d H:i:s")
                 );
             }
+            $trangThai = DataProcessThird::checkChatUserActivity($idNhomTinNhan) == true ?
+                DataProcessThird::createTrangThai($idNhomTinNhan, 1) :
+                DataProcessThird::createTrangThai($idNhomTinNhan, 0);
             $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)
                 ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                 ->get();
@@ -228,11 +230,14 @@ class ChatController extends Controller
                 );
                 event(new ChatGroupEvent($value->IDTaiKhoan));
             }
-            DB::update('UPDATE tinnhan SET TinhTrang  = ? 
-            WHERE IDTinNhan = ? ', [
-                DataProcess::createState($idNhomTinNhan, '1'),
-                $idTinNhan
-            ]);
+            DB::update(
+                'UPDATE tinnhan SET tinnhan.TinhTrang = ?  WHERE tinnhan.IDTinNhan = ? ',
+                [DataProcess::createState($idNhomTinNhan, '1'), $idTinNhan]
+            );
+            DB::update(
+                'UPDATE tinnhan SET tinnhan.TrangThai = ?  WHERE tinnhan.IDTinNhan = ? ',
+                [$trangThai, $idTinNhan]
+            );
             return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0]);
         }
     }

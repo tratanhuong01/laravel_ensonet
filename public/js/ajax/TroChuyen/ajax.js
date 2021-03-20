@@ -182,8 +182,15 @@ function changeColor() {
             console.log(IDNhomTinNhan + IDTaiKhoan + 'Messenges');
             $('#' + IDTaiKhoan + "SettingChat").hide();
             $('#' + IDNhomTinNhan + IDTaiKhoan + "Messenges").append(response);
-            var objDiv = document.getElementById(IDNhomTinNhan + 'Messenges');
-            if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+            if ($('#' + IDNhomTinNhan + 'Messenges').length > 0) {
+                var objDiv = $('#' + IDNhomTinNhan + 'Messenges');
+                if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+            }
+
+            if ($('#' + IDNhomTinNhan + IDTaiKhoan + 'Messenges').length > 0) {
+                var objDiv = $('#' + IDNhomTinNhan + IDTaiKhoan + 'Messenges');
+                if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+            }
 
             second.innerHTML = '';
             second.classList.remove("fixed");

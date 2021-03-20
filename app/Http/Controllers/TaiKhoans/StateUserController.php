@@ -12,18 +12,23 @@ class StateUserController extends Controller
 {
     public function online()
     {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         DB::update(
-            'UPDATE taikhoan SET HoatDong = ? WHERE IDTaiKhoan = ? ',
-            ['1', Session::get('user')[0]->IDTaiKhoan]
+            'UPDATE taikhoan SET ThoiGianHoatDong = ? WHERE IDTaiKhoan = ? ',
+            [date("Y-m-d H:i:s"), Session::get('user')[0]->IDTaiKhoan]
         );
         Session::put('user', Taikhoan::where('IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)->get());
     }
-    public function offline()
+    public function onlineOther(Request $request)
     {
-        DB::update(
-            'UPDATE taikhoan SET HoatDong = ? WHERE IDTaiKhoan = ? ',
-            ['0', Session::get('user')[0]->IDTaiKhoan]
-        );
-        Session::put('user', Taikhoan::where('IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)->get());
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        if (
+            strtotime(date("Y-m-d H:i:s")) -
+            strtotime(Taikhoan::where('IDTaiKhoan', $request->IDTaiKhoan)->get()[0]->ThoiGianHoatDong)
+            > 60
+        )
+            return "Off";
+        else
+            return "On";
     }
 }

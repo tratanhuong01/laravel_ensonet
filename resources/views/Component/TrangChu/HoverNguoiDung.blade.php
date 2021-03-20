@@ -8,9 +8,12 @@ $getMutualFriend = Functions::getMutualFriend($data->IDTaiKhoan, Session::get('u
 ?>
 <div class="w-1/3 relative py-2 pl-2">
     <img class="rounded-full object-cover" style="width: 84px;height: 84px;" src="/{{ $data->AnhDaiDien }}" alt="">
-    <span class="bg-green-600 p-2 border-2 border-solid border-white rounded-full
-        absolute bottom-12 right-4 ">
-    </span>
+    @include('Component/Child/HoatDong',[
+    'IDTaiKhoan' => $data->IDTaiKhoan,
+    'padding' => 'p-2',
+    'bottom' => 'bottom-5',
+    'right' => 'right-4',
+    ])
 </div>
 <div class="w-2/3">
     <p class="font-bold dark:text-white" style="font-size: 20px;">{{ $data->Ho . ' ' . $data->Ten }}</p>
