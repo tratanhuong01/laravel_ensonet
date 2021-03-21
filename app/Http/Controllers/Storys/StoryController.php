@@ -33,4 +33,12 @@ class StoryController extends Controller
         );
         redirect()->to('index')->send();
     }
+    public function load(Request $request)
+    {
+        return Story::where('story.IDTaiKhoan', '=', $request->IDTaiKhoan)
+            ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+            ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->orderBy('story.ThoiGianDangStory', 'ASC')
+            ->get()[$request->Index]->DuongDan;
+    }
 }

@@ -58,19 +58,46 @@ class DataProcessThird extends Model
     {
         $friends = Functions::getListFriendsUser($idTaiKhoan);
         $allStory = array();
-        $num = 0;
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         foreach ($friends as $key => $value) {
             $story = Story::where('story.IDTaiKhoan', '=', $value[0]->IDTaiKhoan)
                 ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
                 ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                ->orderBy('story.ThoiGianDangStory', 'DESC')
+                ->orderBy('story.ThoiGianDangStory', 'ASC')
                 ->get();
             foreach ($story as $keys => $values) {
-                $allStory[$num] = $values;
-                $num++;
+                $allStory[$key][$keys] = $values;
+            }
+        }
+        $allStory = array_values($allStory);
+        $item = array();
+        for ($i = 0; $i < count($allStory) - 1; $i++) {
+            for ($j = $i + 1; $j < count($allStory); $j++) {
+                if (
+                    strtotime($allStory[$i][count($allStory[$i]) - 1]->ThoiGianDangStory)
+                    < strtotime($allStory[$j][count($allStory[$j]) - 1]->ThoiGianDangStory)
+                ) {
+                    $item = $allStory[$i];
+                    $allStory[$i] = $allStory[$j];
+                    $allStory[$j] = $item;
+                }
             }
         }
         return $allStory;
+    }
+    public static function sortStoryByID($idTaiKhoan)
+    {
+        $allStory = DataProcessThird::getAllStoryByID($idTaiKhoan);
+        $newAllStory = array();
+        $newAllStory[0] = Story::where('story.IDTaiKhoan', '=', $idTaiKhoan)
+            ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+            ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->orderBy('story.ThoiGianDangStory', 'ASC')
+            ->get();
+        for ($i = 1; $i <= count($allStory); $i++) {
+            $newAllStory[$i] = $allStory[$i - 1];
+        }
+
+        return $newAllStory;
     }
 }

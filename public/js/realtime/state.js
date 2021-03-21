@@ -3,7 +3,7 @@ $.ajax({
     data: {
         IDTaiKhoan: getUserID()
     },
-    url: "ProcessStateUsersOnline",
+    url: "/ProcessStateUsersOnline",
     success: function (response) {
 
     }
@@ -14,7 +14,7 @@ setInterval(function () {
         data: {
             IDTaiKhoan: getUserID()
         },
-        url: "ProcessStateUsersOnline",
+        url: "/ProcessStateUsersOnline",
         success: function (response) {
 
         }

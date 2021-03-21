@@ -20,17 +20,34 @@ function createStory(text) {
         context.fillStyle = 'white';
     }
 }
-function display() {
-    var heightScreen = header.clientHeight;
-    document.getElementsByClassName("preview")[0].style.height = heightScreen - 64 + "px";
-}
-
 function changeTexts() {
     createStory(document.getElementsByClassName("place-type")[0].value)
     document.getElementsByClassName("content-story-text")[0].innerText = document.getElementsByClassName("place-type")[0].value;
 }
-display();
 function clickChangeBackground(IDPhongNen, DuongDanPN) {
     $('#myImage').attr('src', '/' + DuongDanPN);
     $('#IDPhongNen').val(IDPhongNen);
+}
+function getLiHaveShowLi() {
+    var parent = $('#storyView').children();
+    for (var i = 0; i < parent.length; i++) {
+        if (parent[i].classList.contains('showLi'))
+            return parent[i];
+    }
+}
+function changeStoryImage(element, index) {
+    var el = getLiHaveShowLi();
+    document.getElementById('storyView').scrollLeft = document.getElementById('storyView').scrollLeft + 128
+    if (el == element) {
+
+    }
+    else {
+        el.classList.remove('showLi')
+        el.classList.remove('mr-2')
+        el.childNodes[1].classList.add('p-2')
+        el.childNodes[1].classList.add('opacity-40')
+        element.classList.add('showLi')
+        element.childNodes[1].classList.remove('p-2')
+        element.childNodes[1].classList.remove('opacity-40')
+    }
 }

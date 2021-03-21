@@ -296,6 +296,9 @@ $user = Session::get('user');
                 @endswitch
             </div>
         </div>
+        <div class="w-full px-4 flex z-50 md:w-full lg:w-full xl:w-1/2
+        ml-auto fixed -bottom-1 right-20" id="placeChat">
+        </div>
         @endif
         <script>
             var action = 'inactive';

@@ -71,7 +71,7 @@ use Illuminate\Support\Facades\Session;
             </div>
             <div class="center-content relative left-0 px-2 sm:w-full sm:mx-auto md:w-3/4 lg:mx-0 
             lg:w-4/6 lg:left-0! xl:w-2/5 xl:left-3/10">
-                <?php $allStory = DataProcessThird::getAllStoryByID($user[0]->IDTaiKhoan); ?>
+                <?php $allStory = DataProcessThird::sortStoryByID($user[0]->IDTaiKhoan); ?>
                 @if (count($allStory) == 0)
                 @include('Component/TrangChu/StoryNewUser')
                 @else

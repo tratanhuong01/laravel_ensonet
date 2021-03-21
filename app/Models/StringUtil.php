@@ -173,4 +173,33 @@ class StringUtil extends Model
         }
         return $result;
     }
+    public static function CheckDateTimeStory($datetime)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $result = "";
+        $timeInput = strtotime($datetime);
+        $timeCurrent = time();
+        $time = $timeCurrent - $timeInput;
+        $sec = $time;
+        $min = round($sec / 60);
+        $hour = round($sec / (3600));
+        if ($hour > 23) {
+            $result = "";
+        } else if ($min <= 60) {
+            if ($min == 1) {
+                $result = "1 phút trước";
+            } else if ($sec < 60) {
+                $result = "Vừa xong";
+            } else {
+                $result = "$min phút trước";
+            }
+        } else {
+            if ($hour == 1) {
+                $result = "1 giờ";
+            } else {
+                $result = "$hour giờ";
+            }
+        }
+        return $result;
+    }
 }

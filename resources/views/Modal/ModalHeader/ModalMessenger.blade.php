@@ -32,7 +32,18 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
     <div onclick="openChatGroup('{{ $value[0]->IDNhomTinNhan }}')" class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
     hover:bg-gray-200 py-2 px-1">
         <div class="w-1/5">
-            <a href=""><img src="/{{ $el[0]->AnhDaiDien }}" alt="" class="w-14 h-14 rounded-full object-cover p-0.5"></a>
+            <a href="">
+                <div class="w-14 h-14 rounded-full relative">
+                    <img src="/{{ $el[0]->AnhDaiDien }}" alt="" class="w-14 h-14 rounded-full object-cover p-0.5">
+                    @include('Component\Child\HoatDong',
+                    [
+                    'padding' => 'p-1.5',
+                    'bottom' => 'bottom-0',
+                    'right' => 'right-0',
+                    'IDTaiKhoan' => $el[0]->IDTaiKhoan
+                    ])
+                </div>
+            </a>
         </div>
         <div class="w-4/5">
             <div class="w-full">
@@ -52,7 +63,7 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
                     @switch($sws)
                     @case('0')
                     <span class="text-blue-500 dark:text-blue-500 font-bold">
-                        {{$el[0]->Ten}} : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
+                        {{ $el[0]->Ten }} : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
                         {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}
                     </span>
                     @break
@@ -75,13 +86,13 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
                     @switch($sws)
                     @case('0')
                     <span class="text-blue-500 dark:text-blue-500 font-bold">
-                        {{$el[0]->Ten}} : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
+                        {{ $el[0]->Ten }} : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
                         {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}
                     </span>
                     @break
                     @case('1')
                     <span class="text-blue-500 dark:text-blue-500 font-bold">
-                        {{$el[0]->Ten}} }} : {{ substr($value[count($value) - 1]->NoiDung,0,20) .'...' }} &nbsp;&nbsp;
+                        {{$el[0]->Ten }} : {{ substr($value[count($value) - 1]->NoiDung,0,20) .'...' }} &nbsp;&nbsp;
                         {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}
                     </span>
                     @break

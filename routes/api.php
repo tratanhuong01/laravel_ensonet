@@ -8,3 +8,6 @@ use Illuminate\Support\Facades\Session;
 
 Route::post('ProcessSaveCanvasStory', [Storys\StoryController::class, 'create'])
     ->name('ProcessSaveCanvasStorys');
+
+Route::post('ProcessLoadStory', [Storys\StoryController::class, 'load'])
+    ->name('ProcessLoadStory');

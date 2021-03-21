@@ -13,6 +13,8 @@ use App\Models\Thongbao;
 use App\Process\DataProcess;
 use Illuminate\Support\Facades\Session;
 use App\Models\Functions;
+use App\Models\Story;
+use App\Process\DataProcessThird;
 use Illuminate\Database\Eloquent\Model;
 
 // Đăng Nhập
@@ -460,7 +462,6 @@ Route::get('ProcessLoading', function () {
     return view('TimeLine/BaiDang') . view('TimeLine/BaiDang');
 });
 
-
 Route::get('stories/create', function () {
     return view('Guest/Story/createstory');
 });
@@ -469,6 +470,20 @@ Route::get('stories/create/text', function () {
     return view('Guest/Story/storytext');
 });
 
-Route::get('stories/{IDStory}', function ($idStory) {
-    return view('Guest/Story/viewstory');
+Route::get('stories', function () {
+    $story = array();
+    $allStory = DataProcessThird::sortStoryByID(Session::get('user')[0]->IDTaiKhoan);
+    return view('Guest/Story/viewstory')->with('story', $story)
+        ->with('allStory', $allStory);
+});
+
+Route::get('stories/{IDTaiKhoan}', function ($idTaiKhoan) {
+    $allStory = DataProcessThird::sortStoryByID(Session::get('user')[0]->IDTaiKhoan);
+    $story = Story::where('story.IDTaiKhoan', '=', $idTaiKhoan)
+        ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+        ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+        ->orderBy('story.ThoiGianDangStory', 'ASC')
+        ->get();
+    return view('Guest/Story/viewstory')->with('story', $story)
+        ->with('allStory', $allStory);
 });

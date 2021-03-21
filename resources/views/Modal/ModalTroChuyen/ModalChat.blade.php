@@ -254,7 +254,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     </div>
 </div>
 <script>
-    var objDiv = document.getElementById('{{ (count($messages)==0?0:$messages[0]->IDNhomTinNhan).$chater[0]->IDTaiKhoan }}Messenges');
+    var objDiv = document.getElementById('{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges');
     if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
     Pusher.logToConsole = true;
 
