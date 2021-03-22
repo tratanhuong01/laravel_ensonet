@@ -11,3 +11,6 @@ Route::post('ProcessSaveCanvasStory', [Storys\StoryController::class, 'create'])
 
 Route::post('ProcessLoadStory', [Storys\StoryController::class, 'load'])
     ->name('ProcessLoadStory');
+
+Route::post('ProcessLoadAndAddViewStory', [Storys\StoryController::class, 'loadAndAddViewStory'])
+    ->name('ProcessLoadAndAddViewStory');

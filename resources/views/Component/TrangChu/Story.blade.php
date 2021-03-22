@@ -1,5 +1,7 @@
 <?php
 
+use App\Process\DataProcessThird;
+
 $allStory = array_slice($allStory, 0, 4);
 
 ?>
@@ -28,7 +30,8 @@ $allStory = array_slice($allStory, 0, 4);
     @php
     $pathStorys = 'stories/'.$value[0]->IDTaiKhoan
     @endphp
-    <div onclick="window.location.href = '{{ url($pathStorys) }}'" class="w-1/4 md:w-1/5 p-1.5 relative text-center cursor-pointer flex-shrink-0">
+    <div onclick="window.location.href = '{{ url($pathStorys) }}'" class="w-1/4 md:w-1/5 p-1.5 relative 
+    text-center cursor-pointer flex-shrink-0">
         <div class="w-full">
             <img class="w-full object-cover" style="height: 182px;border-radius: 10px;" src="/{{ $value[0]->DuongDan }}" alt="">
         </div>
@@ -36,7 +39,10 @@ $allStory = array_slice($allStory, 0, 4);
             <a href=""><b class="text-white text-sm">{{ $value[0]->Ho . ' ' . $value[0]->Ten }}</b></a>
         </div>
         <div class="w-full text-left absolute top-5 left-4">
-            <img class="w-9 h-9 rounded-full border-4 border-solid border-blue-500" src="/{{ $value[0]->AnhDaiDien }}" alt="">
+            <img class="w-9 h-9 rounded-full border-4 border-solid  
+            {{ DataProcessThird::checkIsViewStoryOfUser(
+            $value[0]->IDTaiKhoan
+            ,$user[0]->IDTaiKhoan ) == 0 ? 'border-white' : 'border-blue-500' }} " src="/{{ $value[0]->AnhDaiDien }}" alt="">
         </div>
     </div>
     @endif

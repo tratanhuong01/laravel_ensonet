@@ -1,10 +1,11 @@
 <?php
 
 use App\Models\StringUtil;
+use App\Process\DataProcessThird;
 use Illuminate\Support\Facades\Session;
 
 ?>
-<div class="w-full flex">
+<div class="w-full flex overflow-y-auto" id="rightStoryUser">
     <div class="w-2/3">
         <div class="w-11/12 mx-auto relative top-2 left-20 flex">
             <div class="w-1/12 pr-4">
@@ -18,10 +19,13 @@ use Illuminate\Support\Facades\Session;
                         <ul class="w-full flex">
                             @foreach($allStory[0] as $key => $value)
                             @php
-                            $width = 'w-' . round(100/count($allStory[0])) . '%'
+                            $width = 'w-' . round(100/count($allStory[0])) . '%';
+                            $widthChild = count(DataProcessThird::checkUserViewThisStory($user[0]->IDTaiKhoan,$value->IDStory)) == 0
+                            ? 'w-0'
+                            : 'w-' . count($allStory[0]) * round(100/count($allStory[0])) . '%'
                             @endphp
                             <li class="{{ $width }} bg-gray-300 mr-1 cursor-pointer">
-                                <div id="loadingAudio{{$key}}" class="bg-white py-0.5 " style="width: 0;"></div>
+                                <div id="loadingAudio{{$key}}" class="bg-white py-0.5 {{ $widthChild }}"></div>
                             </li>
                             @endforeach
                         </ul>
@@ -32,7 +36,7 @@ use Illuminate\Support\Facades\Session;
                         </div>
                         <div class="w-1/2 pt-1">
                             <p class="pb-1"><a href="" class="font-bold text-white">{{ $story[0]->Ho . ' ' .$story[0]->Ten }}</a>
-                                &nbsp;<span class="text-sm text-white">
+                                &nbsp;<span class="text-sm text-white" id="timeStory">
                                     {{ StringUtil::CheckDateTimeStory($story[0]->ThoiGianDangStory) }}
                                 </span></p>
                             <p class="text-white text-sm">Mod(Remix) </p>
@@ -77,7 +81,7 @@ use Illuminate\Support\Facades\Session;
             </div>
         </div>
     </div>
-    <div class="w-1/3 bg-gray-100 dark:bg-dark-second pl-2">
+    <div class="w-1/3 bg-gray-100 dark:bg-dark-second pl-2 ">
         @include('Guest/Story/Child/PersonViewStory')
     </div>
 </div>

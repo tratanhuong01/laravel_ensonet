@@ -20,9 +20,9 @@ class Luotxemstory extends Model
         $IDXem
     ) {
         $luotxemstory = new Luotxemstory;
-        $luotxemstory->IDNhomTinNhan = $IDLuotXemStory;
-        $luotxemstory->TenNhomTinNhan = $IDStory;
-        $luotxemstory->IDMauTinNhan = $IDXem;
+        $luotxemstory->IDLuotXemStory = $IDLuotXemStory;
+        $luotxemstory->IDStory = $IDStory;
+        $luotxemstory->IDXem = $IDXem;
         $luotxemstory->save();
     }
     public $timestamps = false;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Storys\StoryController;
 use App\Models\Data;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -477,13 +478,4 @@ Route::get('stories', function () {
         ->with('allStory', $allStory);
 });
 
-Route::get('stories/{IDTaiKhoan}', function ($idTaiKhoan) {
-    $allStory = DataProcessThird::sortStoryByID(Session::get('user')[0]->IDTaiKhoan);
-    $story = Story::where('story.IDTaiKhoan', '=', $idTaiKhoan)
-        ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
-        ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-        ->orderBy('story.ThoiGianDangStory', 'ASC')
-        ->get();
-    return view('Guest/Story/viewstory')->with('story', $story)
-        ->with('allStory', $allStory);
-});
+Route::get('stories/{IDTaiKhoan}', [Storys\StoryController::class, 'addViewStory']);

@@ -5,11 +5,13 @@ namespace App\Process;
 use App\Models\Baidang;
 use App\Models\Data;
 use App\Models\Functions;
+use App\Models\Luotxemstory;
 use App\Models\Phongnen;
 use App\Models\Story;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Taikhoan;
 use App\Models\Tinnhan;
+use Illuminate\Support\Facades\Session;
 
 class DataProcessThird extends Model
 {
@@ -99,5 +101,34 @@ class DataProcessThird extends Model
         }
 
         return $newAllStory;
+    }
+    public static function checkIsViewStoryOfUser($storyTaiKhoan, $idTaiKhoan)
+    {
+        $story = Story::where('story.IDTaiKhoan', '=', $storyTaiKhoan)
+            ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+            ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->orderBy('story.ThoiGianDangStory', 'ASC')
+            ->get();
+        $num = 0;
+        foreach ($story as $key => $value) {
+            $view = Luotxemstory::where('luotxemstory.IDStory', '=', $value->IDStory)
+                ->where('luotxemstory.IDXem', '=', $idTaiKhoan)->get();
+            if (count($view) == 1) {
+            } else
+                $num++;
+        }
+        return $num;
+    }
+    public static function checkUserViewThisStory($idTaiKhoan, $idStory)
+    {
+        return Luotxemstory::where('luotxemstory.IDStory', '=', $idStory)
+            ->where('luotxemstory.IDXem', '=', $idTaiKhoan)->get();
+    }
+    public static function getViewStoryByIDStory($idStory, $idTaiKhoan)
+    {
+        return Luotxemstory::where('luotxemstory.IDStory', '=', $idStory)
+            ->where('luotxemstory.IDXem', '!=', $idTaiKhoan)
+            ->join('taikhoan', 'luotxemstory.IDXem', 'taikhoan.IDTaiKhoan')
+            ->get();
     }
 }

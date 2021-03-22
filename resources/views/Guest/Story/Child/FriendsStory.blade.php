@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Session;
                 <div class="w-full py-1 px-2 absolute top-1">
                     <div class="w-full pb-2">
                         <ul class="w-full flex">
-                            @for ($i = 0 ; $i < count($story) ; $i++ ) @php $widthI='w-' . round(100/count($story)) . '%' @endphp <li class="{{ $widthI }} bg-gray-300 mr-1 cursor-pointer">
-                                <div id="loadingAudio{{$i}}" class="bg-white py-0.5 " style="width: 0;"></div>
+                            @for ($i = 0 ; $i < count($story) ; $i++) @php $widthI='w-' . round(100/count($story)) . '%' @endphp <li class="{{ $widthI }} bg-gray-300 mr-1 cursor-pointer">
+                                <div id="loadingAudio{{$i}}" class="bg-white py-0.5 "></div>
                                 </li>
                                 @endfor
                         </ul>
@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Session;
                         </div>
                         <div class="w-1/2 pt-1">
                             <p class="pb-1"><a href="" class="font-bold text-white">{{ $story[0]->Ho . ' ' .$story[0]->Ten }}</a>
-                                &nbsp;<span class="text-sm text-white">
+                                &nbsp;<span id="timeStory" class="text-sm text-white">
                                     {{ StringUtil::CheckDateTimeStory($story[0]->ThoiGianDangStory) }}
                                 </span></p>
                             <p class="text-white text-sm">Mod(Remix) </p>

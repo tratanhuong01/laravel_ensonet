@@ -2,11 +2,15 @@
 
 use App\Models\StringUtil;
 use Illuminate\Support\Facades\Session;
+use App\Process\DataProcessThird;
 
 ?>
 
 <!DOCTYPE html>
 @if (session()->has('user'))
+@php
+$user = Session::get('user')
+@endphp
 <html lang="en" class="{{ Session::get('user')[0]->DarkMode == '0' ? '' : 'dark' }}">
 @else
 <html lang="en">
@@ -46,13 +50,19 @@ use Illuminate\Support\Facades\Session;
                 <div onclick="window.location.href='{{ url($pathMainUs) }}'" class="w-full flex my-2 hover:bg-gray-200 cursor-pointer rounded-lg p-2
                  dark:hover:bg-dark-third ">
                     <div class="w-23per">
-                        <img src="/{{ $allStory[0][0]->AnhDaiDien }}" class="
-                        rounded-full p-1 border-4 border-blue-500 object-cover 
+                        <img id="img{{ $allStory[0][0]->IDTaiKhoan }}" src="/{{ $allStory[0][0]->AnhDaiDien }}" class="
+                        rounded-full p-1 {{ DataProcessThird::checkIsViewStoryOfUser($allStory[0][0]->IDTaiKhoan,$user[0]->IDTaiKhoan) == 0 ? 'border-4 border-white' 
+                            : 'border-4 border-blue-500' }} object-cover 
                     border-solid" alt="" style="width: 65px;height: 65px;">
                     </div>
                     <div class="w-3/4">
                         <p class="font-bold pt-2 dark:text-white"><a href="">{{ $allStory[0][0]->Ho . ' ' . $allStory[0][0]->Ten }}</a></p>
-                        <p class="color-word text-xm"><span class="text-blue-400">{{ count($allStory[0]) }} thẻ mới</span>&nbsp;&nbsp;1 giờ</p>
+                        <p class="color-word text-xm"><span id="tag{{ $allStory[0][0]->IDTaiKhoan }}" class="text-blue-400">
+                                {{ DataProcessThird::checkIsViewStoryOfUser($allStory[0][0]->IDTaiKhoan,$user[0]->IDTaiKhoan) == 0 ? '' 
+                            : DataProcessThird::checkIsViewStoryOfUser($allStory[0][0]->IDTaiKhoan,$user[0]->IDTaiKhoan) . '  thẻ mới  ' }}
+                            </span>
+                            <span class="font0-bold text-sm">{{ StringUtil::CheckDateTimeStory($allStory[0][count($allStory[0])-1]->ThoiGianDangStory) }}</span>
+                        </p>
                     </div>
                 </div>
                 @endif
@@ -61,19 +71,26 @@ use Illuminate\Support\Facades\Session;
                     <div onclick="window.location.href='{{ url($pathIStories) }}'" class="w-full flex my-2 hover:bg-gray-200 cursor-pointer rounded-lg p-2
                  dark:hover:bg-dark-third ">
                         <div class="w-23per">
-                            <img src="/{{ $allStory[$i][0]->AnhDaiDien }}" class="rounded-full p-1 border-4 border-blue-500 
+                            <img id="img{{$allStory[$i][0]->IDTaiKhoan}}" src="/{{ $allStory[$i][0]->AnhDaiDien }}" class="rounded-full p-1 
+                            {{ DataProcessThird::checkIsViewStoryOfUser($allStory[$i][0]->IDTaiKhoan,$user[0]->IDTaiKhoan) == 0 ? 'border-4 border-white' 
+                            : 'border-4 border-blue-500' }}
                     border-solid object-cover" alt="" style="width: 65px;height: 65px;">
                         </div>
                         <div class="w-3/4">
                             <p class="font-bold pt-2 dark:text-white"><a href="">{{ $allStory[$i][0]->Ho . ' ' . $allStory[$i][0]->Ten }}</a></p>
-                            <p class="color-word text-xm"><span class="text-blue-400">{{ count($allStory[$i]) }} thẻ mới</span>&nbsp;&nbsp;1 giờ</p>
+                            <p class="color-word text-xm"><span id="tag{{$allStory[$i][0]->IDTaiKhoan}}" class="text-blue-400">
+                                    {{ DataProcessThird::checkIsViewStoryOfUser($allStory[$i][0]->IDTaiKhoan,$user[0]->IDTaiKhoan) == 0 ? '' 
+                            : DataProcessThird::checkIsViewStoryOfUser($allStory[$i][0]->IDTaiKhoan,$user[0]->IDTaiKhoan) . '  thẻ mới  ' }}
+                                </span>
+                                <span class=" font0-bold text-sm">{{ StringUtil::CheckDateTimeStory($allStory[$i][count($allStory[$i])-1]->ThoiGianDangStory) }}</span>
+                            </p>
                         </div>
                     </div>
                     @endfor
             </div>
             <div class="w-3/4 bg-gray-200 dark:bg-dark-main story-right ">
                 @if (count($story) == 0)
-                <div class="w-full flex relative">
+                <div class="w-full flex relative h-full">
                     <div class="w-40 h-32 text-center absolute left-1/2" style="top:40%;transform: translate(-50%,-50%);">
                         <svg style="width: 100px;height: 100px;margin: auto;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112">
                             <defs>
@@ -109,38 +126,55 @@ use Illuminate\Support\Facades\Session;
             </div>
         </div>
     </div>
-    <audio class="hidden" src="/mp3/Chill.mp3" id="myAudio" autoplay></audio>
+    <audio class="hidden" src="/mp3/Chill.mp3" id="myAudio"></audio>
 </body>
 <script>
-    var x = Number('{{ count($story) }}');
-    console.log(x)
+    var countStory = Number('{{ count($story) }}');
     var data = 0;
     var s
     var numberStory = 0;
 
     function Audio() {
-        if ($('#btnClickStart').hasClass('far fa-play-circle')) {
-            if (Math.round(data) == 100) {
-                numberStory++;
+        if (countStory <= 0) {
+
+        } else {
+            $.ajax({
+                method: "POST",
+                url: "{{ route('ProcessLoadAndAddViewStory') }}",
+                data: {
+                    IDStory: '{{ $story[0]->IDStory }}',
+                    IDTaiKhoan: '{{ Session::get("user")[0]->IDTaiKhoan }}'
+                },
+                success: function(responses) {
+                    $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            });
+            if ($('#btnClickStart').hasClass('far fa-play-circle')) {
+                if (Math.round(data) == 100) {
+                    numberStory++;
+                    window.clearInterval(s);
+                    $('#btnClickStart').removeClass('far fa-stop-circle');
+                    $('#btnClickStart').addClass('far fa-play-circle');
+                    data = 0;
+                    document.getElementById('loadingAudio' + numberStory).style.width = data + 0.05 + "%";
+                    s = setIntervalLoad(s);
+                } else {
+                    s = setIntervalLoad(s);
+                }
+                document.getElementById('myAudio').play();
+                document.getElementById("myAudio").muted = false;
+                $('#btnClickStart').removeClass('far fa-play-circle');
+                $('#btnClickStart').addClass('far fa-stop-circle');
+            } else {
                 window.clearInterval(s);
                 $('#btnClickStart').removeClass('far fa-stop-circle');
                 $('#btnClickStart').addClass('far fa-play-circle');
-                data = 0;
-                document.getElementById('loadingAudio' + numberStory).style.width = data + 0.05 + "%";
-                s = setIntervalLoad(s);
-            } else {
-                s = setIntervalLoad(s);
+                document.getElementById('myAudio').pause();
+                document.getElementById("myAudio").muted = false;
             }
-            document.getElementById('myAudio').play();
-            document.getElementById("myAudio").muted = false;
-            $('#btnClickStart').removeClass('far fa-play-circle');
-            $('#btnClickStart').addClass('far fa-stop-circle');
-        } else {
-            window.clearInterval(s);
-            $('#btnClickStart').removeClass('far fa-stop-circle');
-            $('#btnClickStart').addClass('far fa-play-circle');
-            document.getElementById('myAudio').pause();
-            document.getElementById("myAudio").muted = false;
         }
     }
     window.onload = function() {
@@ -156,11 +190,11 @@ use Illuminate\Support\Facades\Session;
                 document.getElementsByClassName("img-story")[0].offsetHeight
         }
         document.getElementsByClassName("img-story")[0].style.margin = marginY = (marginY <= 0 ? 0 : ((marginY / 2) - 20)) + "px 0px";
-        document.getElementsByClassName("img-story")[0].style.maxHeight = document.getElementsByClassName("story-right")[1].offsetHeight + "px"
-
+        document.getElementsByClassName("img-story")[0].style.maxHeight = document.getElementsByClassName("story-right")[1].offsetHeight + 10 + "px"
         setTimeout(function() {
             document.getElementById('play').click();
         }, 500)
+
     }
 
     function setIntervalLoad(s) {
@@ -168,9 +202,11 @@ use Illuminate\Support\Facades\Session;
             if (Math.round(data) === 100) {
                 data = 0;
                 window.clearInterval(s);
-                if (numberStory >= x - 1) {
-                    console.log(x);
+                if (numberStory >= countStory - 1) {
                     window.clearInterval(s);
+                    $.ajax({
+
+                    })
                 } else {
                     numberStory++;
                     document.getElementById('myAudio').pause();
@@ -182,11 +218,31 @@ use Illuminate\Support\Facades\Session;
                         url: '{{ url("ProcessLoadStory") }}',
                         data: {
                             Index: numberStory,
-                            IDTaiKhoan: '{{ $story[0]->IDTaiKhoan }}'
+                            IDTaiKhoan: '@isset($story[0]->IDTaiKhoan) {{ ($story[0]->IDTaiKhoan) }} @endisset'
                         },
                         success: function(response) {
-                            $('.img-story').attr('src', "/" + response);
-                            $('#myAudio').attr('src', '/mp3/ILoveYou.mp3');
+                            $.ajax({
+                                method: "POST",
+                                url: "{{ route('ProcessLoadAndAddViewStory') }}",
+                                data: {
+                                    IDStory: response.IDStory,
+                                    IDTaiKhoan: '{{ Session::get("user")[0]->IDTaiKhoan }}'
+                                },
+                                success: function(responses) {
+                                    $('#img' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').removeClass(responses.Border)
+                                    $('#tag' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').html(responses.SoTheMoi)
+                                    $('.img-story').attr('src', "/" + response.DuongDan);
+                                    $('#timeStory').html(response.ThoiGianDangStory)
+                                    if ($('#' + response.IDStory).length > 0)
+                                        changeStoryImage(document.getElementById(response.IDStory), 0)
+                                    $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
+                                    $('#myAudio').attr('src', '/mp3/ILoveYou.mp3');
+                                    document.getElementById('myAudio').play();
+                                },
+                                error: function(err) {
+                                    console.log(err);
+                                }
+                            });
                         }
                     });
                 }

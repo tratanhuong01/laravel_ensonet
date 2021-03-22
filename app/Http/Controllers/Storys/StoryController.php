@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Storys;
 
 use App\Http\Controllers\Controller;
+use App\Models\Luotxemstory;
 use App\Models\Story;
 use App\Models\StringUtil;
+use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -35,10 +37,65 @@ class StoryController extends Controller
     }
     public function load(Request $request)
     {
-        return Story::where('story.IDTaiKhoan', '=', $request->IDTaiKhoan)
+        $story =  Story::where('story.IDTaiKhoan', '=', $request->IDTaiKhoan)
             ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
             ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderBy('story.ThoiGianDangStory', 'ASC')
-            ->get()[$request->Index]->DuongDan;
+            ->get()[$request->Index];
+        return response()->json([
+            'DuongDan' => $story->DuongDan,
+            'ThoiGianDangStory' => StringUtil::CheckDateTimeStory($story->ThoiGianDangStory),
+            'IDStory' => $story->IDStory
+        ]);
+    }
+    public function addViewStory($idTaiKhoan)
+    {
+        $allStory = DataProcessThird::sortStoryByID(Session::get('user')[0]->IDTaiKhoan);
+        $story = Story::where('story.IDTaiKhoan', '=', $idTaiKhoan)
+            ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+            ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->orderBy('story.ThoiGianDangStory', 'ASC')
+            ->get();
+        $view = Luotxemstory::where('luotxemstory.IDStory', '=', $story[0]->IDStory)
+            ->where('luotxemstory.IDXem', '=', Session::get('user')[0]->IDTaiKhoan)->get();
+        if (count($view) > 0) {
+        } else {
+            Luotxemstory::add(
+                NULL,
+                $story[0]->IDStory,
+                Session::get('user')[0]->IDTaiKhoan
+            );
+        }
+        return view('Guest/Story/viewstory')->with('story', $story)
+            ->with('allStory', $allStory);
+    }
+    public function loadAndAddViewStory(Request $request)
+    {
+        $view = Luotxemstory::where('luotxemstory.IDStory', '=', $request->IDStory)
+            ->where('luotxemstory.IDXem', '=', $request->IDTaiKhoan)->get();
+        if (count($view) > 0) {
+            return response()->json([
+                'SoTheMoi' => '',
+                'Border' => '',
+                'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
+                    ->with('viewStory', DataProcessThird::getViewStoryByIDStory($request->IDStory, $request->IDTaiKhoan))
+            ]);
+        } else {
+            Luotxemstory::add(
+                NULL,
+                $request->IDStory,
+                $request->IDTaiKhoan
+            );
+            $dt = DataProcessThird::checkIsViewStoryOfUser(
+                Story::where('IDStory', '=', $request->IDStory)->get()[0]->IDTaiKhoan,
+                $request->IDTaiKhoan
+            );
+            return response()->json([
+                'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
+                'Border' => $dt == 0 ? 'border-blue-500' : '',
+                'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
+                    ->with('viewStory', DataProcessThird::getViewStoryByIDStory($request->IDStory))
+            ]);
+        }
     }
 }
