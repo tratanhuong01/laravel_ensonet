@@ -78,23 +78,31 @@ class SendMessageController extends Controller
             return 'not have id nhom tin nhan';
         } else {
             $num = 0;
+
             $userGroup = DataProcess::getUserOfGroupMessage($request->IDNhomTinNhan);
+            $chater = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $userGroup[0]->IDTaiKhoan)->get();
+            $messages = DataProcess::getMessageByNhomTinNhan($request->IDNhomTinNhan);
             for ($i = 0; $i < count($u); $i++) {
                 if ($u[$i]->IDTaiKhoan == $userGroup[$i]->IDTaiKhoan)
                     $num++;
             }
             if ($num == count($u))
                 if ($message[0]->LoaiTinNhan == 2)
-                    return view('Modal\ModalTroChuyen\Child\ChatCenter')->with(
-                        'message',
-                        $message[0]
-                    );
+                    return response()->json([
+                        'viewSmall' => "" . view('Modal\ModalTroChuyen\Child\ChatCenter')
+                            ->with('message', $message[0]),
+                        'viewBig' => "" . view('Modal\ModalTroChuyen\ModalChat')->with('chater', $chater)
+                            ->with('messages', $messages)
+                            ->with('idNhomTinNhan', $request->IDNhomTinNhan)
+                    ]);
                 else
-                    return view('Modal\ModalTroChuyen\Child\ChatLeft')
-                        ->with(
-                            'message',
-                            $message[0]
-                        );
+                    return response()->json([
+                        'viewSmall' => "" . view('Modal\ModalTroChuyen\Child\ChatLeft')
+                            ->with('message', $message[0]),
+                        'viewBig' => "" . view('Modal\ModalTroChuyen\ModalChat')->with('chater', $chater)
+                            ->with('messages', $messages)
+                            ->with('idNhomTinNhan', $request->IDNhomTinNhan)
+                    ]);
             else
                 return 'sai';
         }

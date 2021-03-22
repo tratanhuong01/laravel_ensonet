@@ -17,7 +17,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
             Right: '{{ $right }}',
             Padding: '{{ $padding }}'
         },
-        url: "ProcessStateUsersOnlineOther",
+        url: "/ProcessStateUsersOnlineOther",
         success: function(response) {
             if (response == "On") {
                 $('.' + 'activity' + '{{$IDTaiKhoan}}').addClass(' absolute bg-green-600  border-2 border-solid border-white rounded-full ');
@@ -35,7 +35,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                 Right: '{{ $right }}',
                 Padding: '{{ $padding }}'
             },
-            url: "ProcessStateUsersOnlineOther",
+            url: "/ProcessStateUsersOnlineOther",
             success: function(response) {
                 if (response == "On") {
 

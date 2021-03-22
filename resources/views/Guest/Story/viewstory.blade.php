@@ -126,7 +126,7 @@ $user = Session::get('user')
             </div>
         </div>
     </div>
-    <audio class="hidden" src="/mp3/Chill.mp3" id="myAudio"></audio>
+    <audio class="hidden" src="/mp3/VivaLaVida.mp3" id="myAudio"></audio>
 </body>
 <script>
     var countStory = Number('{{ count($story) }}');
@@ -142,7 +142,7 @@ $user = Session::get('user')
                 method: "POST",
                 url: "{{ route('ProcessLoadAndAddViewStory') }}",
                 data: {
-                    IDStory: '{{ $story[0]->IDStory }}',
+                    IDStory: '@isset($story[0]->IDStory) {{ $story[0]->IDStory }} @endisset',
                     IDTaiKhoan: '{{ Session::get("user")[0]->IDTaiKhoan }}'
                 },
                 success: function(responses) {
@@ -236,7 +236,7 @@ $user = Session::get('user')
                                     if ($('#' + response.IDStory).length > 0)
                                         changeStoryImage(document.getElementById(response.IDStory), 0)
                                     $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
-                                    $('#myAudio').attr('src', '/mp3/ILoveYou.mp3');
+                                    $('#myAudio').attr('src', '/mp3/Mood.mp3');
                                     document.getElementById('myAudio').play();
                                 },
                                 error: function(err) {
