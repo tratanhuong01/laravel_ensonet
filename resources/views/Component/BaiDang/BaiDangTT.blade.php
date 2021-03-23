@@ -13,8 +13,8 @@ $u = Session::get('user');
     <div class="w-full flex">
         <div class="mr-2">
             <div class="w-14 h-14 relative">
-                <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 rounded-full 
-                            border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
+                <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 
+                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
                 @include('Component\Child\HoatDong',
                 [
                 'padding' => 'p-1.5',
@@ -102,7 +102,7 @@ $u = Session::get('user');
                 </li>
                 @else
                 @if (sizeof($item) > 4 && $i == 3)
-                <li class="relative"><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-fill rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
+                <li class="relative"><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
                 <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
                     <div class="rounded-lg absolute bottom-1 left-1/2" style="width:273px;height:280px;background:rgba(0, 0, 0, 0.5);">
                         <span class="text-5xl font-bold absolute top-1/2 left-1/2 text-white" style="transform:translate(-50%,-50%);">{{ '+'. (sizeof($item) - 4) }}</span>
@@ -110,7 +110,7 @@ $u = Session::get('user');
                 </a>
                 @break;
                 @else
-                <li class=""><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-fill rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
+                <li class=""><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
                 @endif
                 @endif
                 @endfor

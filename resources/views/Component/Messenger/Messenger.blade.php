@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\StringUtil;
 use App\Models\Taikhoan;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
@@ -172,7 +173,10 @@ $user = Session::get('user');
         </div>
         <p class="font-bold text-center py-1 dark:text-white">{{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}</p>
         <p class="font-bold text-center text-sm text-gray-600 dark:text-gray-300">
-            Đang hoạt động
+            @php
+            $timeAcitivity = StringUtil::CheckDateTimeUserActivity($chater[0]->ThoiGianHoatDong)
+            @endphp
+            {{ $timeAcitivity }}
         </p>
     </div>
     <ul class="w-full py-2">

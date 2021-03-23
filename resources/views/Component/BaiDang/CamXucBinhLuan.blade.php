@@ -31,7 +31,7 @@ use App\Models\Process;
     <ul class="w-full flex border-t-2 border-b-2 border-solid border-gray-300 
         dark:border-dark-third relative">
         @if ($user[0]->IDTaiKhoan == $item[0]->IDTaiKhoan || $item[0]->IDQuyenRiengTu == 'CONGKHAI')
-        <div class="w-1/2 dark:hover:bg-dark-third hover:bg-gray-200 feels">
+        <div class="w-1/3 dark:hover:bg-dark-third hover:bg-gray-200 feels">
             <li class="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200 
             text-center w-full font-bold py-3 cursor-pointer justify-items-center" id="{{ $item[0]->IDBaiDang }}" onclick="FeelPost('{{ $item[0]->IDBaiDang }}','0@0')">
                 {!! Functions::checkIsFeel($u[0]->IDTaiKhoan,$item[0]->IDBaiDang) !!}

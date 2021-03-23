@@ -6,34 +6,34 @@
     color: rgba(209, 213, 219, var(--tw-bg-opacity));
 }
 .dark .dark\:text-red-600 {
-  --tw-bg-opacity: 1;
-  color: rgba(220, 38, 38, var(--tw-bg-opacity));
+    --tw-bg-opacity: 1;
+    color: rgba(220, 38, 38, var(--tw-bg-opacity));
 }
-.dark .dark\:text-blue-500 { 
-  --tw-text-opacity: 1;
-  color: rgba(59, 130, 246, var(--tw-text-opacity));
+.dark .dark\:text-blue-500 {
+    --tw-text-opacity: 1;
+    color: rgba(59, 130, 246, var(--tw-text-opacity));
 }
 .w-7\/10 {
-  width: 70%;
+    width: 70%;
 }
 .left-7\/10 {
-  left: 70% !important;
+    left: 70% !important;
 }
 .left-2\/3 {
-  left: 66.666667%;
+    left: 66.666667%;
 }
 .left-3\/10 {
-  width: 30%;
+    width: 30%;
 }
 .top-6\/10 {
-  top: 60%;
+    top: 60%;
 }
 .w-3\/10 {
-  width: 30%;
+    width: 30%;
 }
 .left-0\! {
-  left: 0 !important;
+    left: 0 !important;
 }
 .w-63\% {
-  width: 63%;
+    width: 63%;
 }

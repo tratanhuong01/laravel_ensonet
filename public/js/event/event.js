@@ -40,3 +40,13 @@ function checkValueTypeCode() {
         document.getElementById('btn-submit-veri').disabled = false;
     }
 }
+function inputSearchEvent() {
+    if ($('#searchDataEnsonet').hasClass('hidden')) {
+        $('#searchDataEnsonet').removeClass('hidden');
+        $('#searchDataEnsonet').addClass('flex');
+    }
+    else {
+        $('#searchDataEnsonet').removeClass('flex');
+        $('#searchDataEnsonet').addClass('hidden');
+    }
+}

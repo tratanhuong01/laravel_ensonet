@@ -104,3 +104,10 @@ function checkEmail(e) {
     email_again.style.display = 'none';
   }
 }
+function guiVeri(index) {
+  var content_veri = document.getElementsByClassName("content-veri");
+  if (content_veri[index].style.display == 'none')
+    content_veri[index].style.display = 'block';
+  else
+    content_veri[index].style.display = 'none';
+}

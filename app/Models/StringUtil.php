@@ -202,4 +202,22 @@ class StringUtil extends Model
         }
         return $result;
     }
+    public static function createNameFileCMND($id, $num)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $datetime = date("Y-m-d H:i:s");
+        $d = explode('-', explode(' ', $datetime)[0])[2];
+        $m = explode('-', explode(' ', $datetime)[0])[1];
+        $y = explode('-', explode(' ', $datetime)[0])[0];
+        $h = explode(':', explode(' ', $datetime)[1])[0];
+        $m = explode(':', explode(' ', $datetime)[1])[1];
+        $s = explode(':', explode(' ', $datetime)[1])[2];
+        return $id . $d . $m . $y . $h . $m . $s . '_' . '_' . $num . 'CMND';
+    }
+    public static function getDateUse($datetime)
+    {
+        $m = explode('-', explode(' ', $datetime)[0])[1];
+        $y = explode('-', explode(' ', $datetime)[0])[0];
+        return 'Đã tham gia tháng ' . $m . ' năm ' . $y;
+    }
 }

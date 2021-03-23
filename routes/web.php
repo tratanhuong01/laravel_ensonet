@@ -19,9 +19,9 @@ use App\Process\DataProcessThird;
 use Illuminate\Database\Eloquent\Model;
 
 // Đăng Nhập
-Route::get('/login', function () {
+Route::get('/login', function (Request $request) {
     return view('Guest/login');
-});
+})->name('login');
 
 // xử lí người dùng mới
 Route::post('NewBieLogin', [DangNhap\NewBieController::class, 'login'])->name('NewBieLogin');
@@ -479,3 +479,46 @@ Route::get('stories', function () {
 });
 
 Route::get('stories/{IDTaiKhoan}', [Storys\StoryController::class, 'addViewStory']);
+
+Route::get('verify-user-identity', function () {
+    return view('Guest/VeriAcc');
+});
+
+Route::get('verify-success', function () {
+    Session::flush();
+    return view('Component/Child/GuiYeuCauThanhCong');
+});
+
+Route::get('checkpoint', function () {
+    return view('Guest/Block');
+});
+
+Route::get('activity', function () {
+    return view('Guest/Activity')->with(
+        'data',
+        DataProcessThird::getActivityByIDTaiKhoan(Session::get('idcheckpoint'))
+    );
+})->name('activity');
+
+Route::get('change-password', function () {
+    return view('Guest/ChangePass');
+})->name('change-password');
+
+Route::post('ProcessSendRequestUser', [DangNhap\RequestUserContrller::class, 'send'])
+    ->name('ProcessSendRequestUser');
+
+Route::get('admin', function () {
+    return view('Admin/index');
+});
+
+Route::get('loadIndexVeriCheckpoint', function () {
+    Session::put('user', Taikhoan::where(
+        'taikhoan.IDTaiKhoan',
+        '=',
+        Session::get('idcheckpoint')
+    )->get());
+    DB::update('UPDATE taikhoan SET taikhoan.TinhTrang = ? 
+    WHERE taikhoan.IDTaiKhoan = ? ', ['0', Session::get('idcheckpoint')]);
+    Session::forget('idcheckpoint');
+    redirect()->to('index')->send();
+});

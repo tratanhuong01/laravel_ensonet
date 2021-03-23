@@ -12,8 +12,8 @@ $u = Session::get('user');
     <div class="w-full flex">
         <div class="mr-2">
             <div class="w-14 h-14 relative">
-                <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 rounded-full 
-                            border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
+                <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 
+                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
                 @include('Component\Child\HoatDong',
                 [
                 'padding' => 'p-1.5',

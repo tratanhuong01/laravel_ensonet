@@ -10,10 +10,11 @@ class Quyenriengtu extends Model
     protected $table = "quyenriengtu";
 
     protected $fillable = [
-                            'IDQuyenRiengTu',
-                            'TenQuyenRiengTu',
-                        ];
-    public static function add($IDQuyenRiengTu,$TenQuyenRiengTu) {
+        'IDQuyenRiengTu',
+        'TenQuyenRiengTu',
+    ];
+    public static function add($IDQuyenRiengTu, $TenQuyenRiengTu)
+    {
         $quyenriengtu = new Quyenriengtu;
         $quyenriengtu->IDQuyenRiengTu = $IDQuyenRiengTu;
         $quyenriengtu->TenQuyenRiengTu = $TenQuyenRiengTu;

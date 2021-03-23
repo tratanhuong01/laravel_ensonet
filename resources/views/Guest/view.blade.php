@@ -6,6 +6,7 @@
 @endif
 <?php
 
+use App\Models\StringUtil;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
@@ -127,10 +128,10 @@ $u = Session::get('user');
                                     <ul class="flex">
                                         <li class="pt-1">
                                             <a href="" class="dark:text-gray-300 font-bold">
-                                                25 phút trước</a>
+                                                {{ StringUtil::CheckDateTime($data[0]->NgayDang) }}</a></a>
                                         </li>
-                                        <li class="pl-3 pt-0.5" id="">
-                                            @
+                                        <li class="pl-3 pt-0.5" id="{{ $data[0]->IDBaiDang }}QRT">
+                                            @include('Component\BaiDang\QuyenRiengTuBD',['idQuyenRiengTu' => $data[0]->IDQuyenRiengTu])
                                         </li>
                                     </ul>
                                 </div>

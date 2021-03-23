@@ -4,6 +4,7 @@ namespace App\Process;
 
 use App\Models\Camxuc;
 use App\Models\Mautinnhan;
+use App\Models\Moiquanhe;
 use App\Models\Taikhoan;
 use App\Models\Tinnhan;
 use Illuminate\Database\Eloquent\Model;
@@ -34,5 +35,10 @@ class DataProcessSecond extends Model
                 break;
             }
         }
+    }
+    public static function getUserFollowByID($idTaiKhoan)
+    {
+        return Moiquanhe::where('moiquanhe.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('moiquanhe.TinhTrang', '=', '2')->get();
     }
 }

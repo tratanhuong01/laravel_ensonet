@@ -4,7 +4,9 @@
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Functions;
+use App\Models\StringUtil;
 use App\Process\DataProcess;
+use App\Process\DataProcessSecond;
 
 $user = Session::get('user');
 
@@ -195,14 +197,22 @@ $user = Session::get('user');
                                 <li class="w-full pb-3" style="font-size: 15px;">
                                     <p class="dark:text-gray-300"><i class="fas fa-clock text-gray-600 text-xl 
                                 dark:text-gray-300"></i>&nbsp;&nbsp;
-                                        Đã tham gia vào tháng 4 năm 2014</p>
+                                        {{ StringUtil::getDateUse($users[0]->NgayTao) }}
+                                    </p>
                                 </li>
+                                @php
+                                $numberUserFollow = DataProcessSecond::getUserFollowByID($users[0]->IDTaiKhoan)
+                                @endphp
+                                @if (count($numberUserFollow) == 0)
+                                @else
                                 <li class="w-full pb-3 flex" style="font-size: 15px;">
                                     <p class="dark:text-gray-300">&nbsp;<i class="fab fa-foursquare text-gray-600 text-xl 
                                 dark:text-gray-300"></i>&nbsp;&nbsp;
-                                        <span>Có &nbsp;<b class="dark:text-gray-300">1.324</b>&nbsp; người theo dõi</span>
+                                        <span>Có &nbsp;<b class="dark:text-gray-300">{{ count($numberUserFollow) }}</b>&nbsp; người theo dõi</span>
                                     </p>
                                 </li>
+                                @endif
+
                             </ul>
                         </div>
                         <div class="pl-2.5 bg-white m-2.5 rounded-lg  dark:bg-dark-third" style="width: 95%;">
@@ -232,7 +242,9 @@ $user = Session::get('user');
                         </div>
                         <div class="pl-2.5 bg-white m-2.5 rounded-lg dark:bg-dark-third" style="width: 95%;">
                             <div class="w-full flex">
-                                <?php $friendsGet = Functions::getListFriendsUser($users[0]->IDTaiKhoan); ?>
+                                <?php
+                                $friendsGet = Functions::getListFriendsUser($users[0]->IDTaiKhoan);
+                                ?>
                                 <div class="w-1/2">
                                     <p class="dark:text-white font-bold pt-2">Bạn bè <br></p>
                                     <span class="color-word">{{count($friendsGet)}} người bạn</span>
@@ -304,10 +316,7 @@ $user = Session::get('user');
             var action = 'inactive';
             if (action == 'inactive') {
                 loading();
-
-                setTimeout(function() {
-                    loadingPostProfile(0, '{{ $users[0]->IDTaiKhoan }}');
-                }, 1000);
+                loadingPostProfile(0, '{{ $users[0]->IDTaiKhoan }}');
             }
             $(window).scroll(function() {
                 if ($(window).scrollTop() + $(window).height() - 700 > $(".timeline").height() &&

@@ -46,12 +46,28 @@ class LoginController extends Controller
         } else {
             $data = DB::table('taikhoan')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)->get();
             if ($data[0]->XacMinh == 1 || $data[0]->XacMinh == 2) {
-                $request->session()->put('user', $user);
-                redirect()->to('index')->send();
-                return view('Guest/index');
-            } else {
+                switch ($data[0]->TinhTrang) {
+                    case '1':
+                        //checkpoint
+                        Session::put('idcheckpoint', $data[0]->IDTaiKhoan);
+                        redirect()->to('checkpoint')->send();
+                        break;
 
-                echo "Chưa verify";
+                    case '2':
+                        //xác minh danh tính
+                        Session::put('idblock', $data[0]->IDTaiKhoan);
+                        redirect()->to('verify-user-identity')->with('user', $data[0]->IDTaiKhoan)->send();
+                        break;
+                    case '5':
+                        //block
+                        return redirect()->to('verify-success')->send();
+                        break;
+                    default:
+                        $request->session()->put('user', $user);
+                        redirect()->to('index')->send();
+                        break;
+                }
+            } else {
             }
         }
     }

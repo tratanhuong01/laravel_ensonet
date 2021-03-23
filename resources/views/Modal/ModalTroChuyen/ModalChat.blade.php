@@ -31,7 +31,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             @else
             <p onclick="openSettingChat('{{ $chater[0]->IDTaiKhoan }}')" class="dark:text-white cursor-pointer text-sm font-bold">
                 {{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}&nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
-                <span class="text-gray-300 text-xs">{{ $timeAcitivity }}</span>
+                <span class="text-gray-700 text-xs">{{ $timeAcitivity }}</span>
             </p>
             @endif
         </div>

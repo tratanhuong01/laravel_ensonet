@@ -19,6 +19,7 @@ class DataProcess extends Model
             ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
             ->where('taikhoan.IDTaiKhoan', '=', $idTaiKhoan)
             ->where('baidang.LoaiBaiDang', '!=', '1')
+            ->where('baidang.IDQuyenRiengTu', '!=', 'RIENGTU')
             ->orderByDesc('baidang.NgayDang')
             ->get();
     }
