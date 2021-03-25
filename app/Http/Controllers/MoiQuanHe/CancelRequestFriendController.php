@@ -37,4 +37,16 @@ class CancelRequestFriendController extends Controller
             $e->Error;
         }
     }
+    public function cancelRequest(Request $request)
+    {
+        try {
+            DB::table('moiquanhe')->where('moiquanhe.IDTaiKhoan', '=', $request->UserMain)
+                ->where('moiquanhe.IDBanBe', '=', $request->UserOther)->delete();
+            DB::table('moiquanhe')->where('moiquanhe.IDTaiKhoan', '=', $request->UserOther)
+                ->where('moiquanhe.IDBanBe', '=', $request->UserMain)->delete();
+            return 'Đã hủy lời mời';
+        } catch (Exception $e) {
+            $e->Error;
+        }
+    }
 }

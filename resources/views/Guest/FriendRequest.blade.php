@@ -1,3 +1,14 @@
+<?php
+
+use App\Models\Functions;
+use Illuminate\Support\Facades\Session;
+use App\Models\StringUtil;
+use App\Process\DataProcessSecond;
+
+$user = Session::get('user');
+$requestFriend = DataProcessSecond::getListRequestFriendNew($user[0]->IDTaiKhoan);
+
+?>
 <!DOCTYPE html>
 @if (session()->has('user'))
 <html lang="en" class="{{ Session::get('user')[0]->DarkMode == '0' ? '' : 'dark' }}">
@@ -23,15 +34,6 @@
 </head>
 
 <body>
-    <?php
-
-    use App\Models\Functions;
-    use Illuminate\Support\Facades\Session;
-
-    $users = Session::get('users');
-    $data = Functions::getListFriendsUser($users[0]->IDTaiKhoan);
-
-    ?>
     <div class="w-full" id="main">
         @include('Header')
         <div class="w-full flex">
@@ -39,38 +41,44 @@
                 <div class="wrapper-content-right mt-16 w-full overflow-x-hidden overflow-y-auto" style="height:750px;max-height: 750px;">
                     <div class="w-full ">
                         <span class="dark:text-white">
-                            <b>768 lời mời kết bạn</b> <br>
+                            <b>{{ count($requestFriend) }} lời mời kết bạn</b> <br>
                         </span>
                         <span class="pr-4">
-                            <a href="" class="text-1877F2 text-sm">Xem lời mời đã gửi</a>
+                            <p href="" onclick="requestFriendsM('{{ $user[0]->IDTaiKhoan }}')" class="text-1877F2 text-sm cursor-pointer">Xem lời mời đã gửi</p>
                         </span>
                     </div>
-                    <div class="w-full flex py-2.5 px-0 cursor-pointer">
-                        <div class="w-1/5">
-                            <a href=""><img class="w-16 h-16 object-cover" src="/img/gai1.jpg" alt=""></a>
-                        </div>
-                        <div class="w-4/5 pl-2 pr-4">
-                            <div class="w-full">
-                                <span class="float-left pl-2.5 font-bold">
-                                    <a href="" class="dark:text-white">Mỹ Hạnh</a></span>
-                                <span class="float-right text-xs dark:text-white">Vừa xong</span>
+                    @if (count($requestFriend) <= 0) <p class="font-bold py-3 text-center dark:text-white">
+                        Không có lời mời kết bạn nào.
+                        </p>
+                        @else
+                        @foreach($requestFriend as $key => $value)
+                        <div onclick="window.location.href=''" class="w-full flex py-2.5 px-0 cursor-pointer">
+                            <div class="w-1/5">
+                                <a href=""><img class="w-16 h-16 object-cover" src="/{{ $value->AnhDaiDien }}" alt=""></a>
                             </div>
-                            <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                                <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
-                                    <a class="text-white" href="">Xác Nhận</a>
-                                </span>
-                                <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
-                                    <a class="color-black" href="">Xóa</a>
-                                </span>
+                            <div class="w-4/5 pl-2 pr-4">
+                                <div class="w-full">
+                                    <span class="float-left pl-2.5 font-bold">
+                                        <a href="" class="dark:text-white">{{ $value->Ho . ' ' . $value->Ten }}</a></span>
+                                    <span class="float-right text-xs dark:text-white">{{ StringUtil::CheckDateTimeRequest($value->NgayGui) }}</span>
+                                </div>
+                                <div class="w-full flex py-2.5 px-0 text-sm font-bold">
+                                    <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
+                                        <a class="text-white" href="">Xác Nhận</a>
+                                    </span>
+                                    <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
+                                        <a class="color-black" href="">Xóa</a>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr class="my-2.5 mx-auto w-11/12">
-                    <br>
+                        @endforeach
+                        @endif
+                        <hr class="my-2.5 mx-auto w-11/12">
+                        <br>
                 </div>
             </div>
             <div class="w-3/4 fixed right-0 " style="max-height:876px;overflow-y: auto;">
-
                 <div class="text-center w-full py-96 dark:bg-dark-main">
                     <i class="fas fa-user-friends dark:text-white text-6xl"></i>
                     <p class="font-bold text-3xl py-2 dark:text-white" style="font-family: system-ui;">
@@ -79,6 +87,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
+
     </div>
     <script src="js/scrollbar.js"></script>
     <script>

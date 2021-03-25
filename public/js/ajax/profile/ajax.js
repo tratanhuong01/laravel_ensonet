@@ -128,3 +128,16 @@ function searchFriend(IDView, event) {
         }
     });
 }
+function requestFriendsM(IDTaiKhoan) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessOpenRequestFriendsMain",
+        data : {
+            IDTaiKhoan : IDTaiKhoan
+        },
+        success: function(response) {
+            second.innerHTML = response.view;
+            second.className += ' fixed h-screen';
+        }
+    });
+}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Functions;
+use App\Models\Taikhoan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -52,15 +53,20 @@ class ProfileController extends Controller
     {
         $data = Functions::getListFriendsUser($request->IDView);
         return '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg">' .
-            view('Component\GioiThieu\DanhMuc') . view('Component\GioiThieu\TongQuan')
-            . "</div>"
+            view('Component\GioiThieu\DanhMuc')->with(
+                'data',
+                Taikhoan::where('IDTaiKhoan', $request->IDView)->get()
+            )
+            . '<div class="w-3/4 px-3" id="detailAbout">'
+            . view('Component\GioiThieu\TongQuan')
+            . "</div> </div>"
             . '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg">'
             . view('Component\DanhMuc\Anh')->with('data', $data)
             . "</div>"
             . '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg">'
             . view('Component\DanhMuc\Video')->with('data', $data)
             . "</div>"
-            . '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg">'
+            . '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg flex-wrap">'
             . view('Component\DanhMuc\Story')->with('data', $data)
             . "</div>";
     }

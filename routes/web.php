@@ -78,6 +78,9 @@ Route::post('ProcessLogin', [DangNhap\LoginController::class, 'login'])->name('P
 Route::get('ProcessRequestFriend', [MoiQuanHe\RequestFriendController::class, 'send']);
 
 // ajax hủy yêu cầu kết bạn
+Route::get('ProcessCancelRequestRFriend', [MoiQuanHe\CancelRequestFriendController::class, 'cancelRequest']);
+
+// ajax hủy yêu cầu kết bạn
 Route::get('ProcessCancelRequestFriend', [MoiQuanHe\CancelRequestFriendController::class, 'cancel']);
 
 // ajax hủy yêu cầu kết bạn

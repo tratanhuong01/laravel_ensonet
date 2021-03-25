@@ -220,4 +220,14 @@ class StringUtil extends Model
         $y = explode('-', explode(' ', $datetime)[0])[0];
         return 'Đã tham gia tháng ' . $m . ' năm ' . $y;
     }
+    public static function getChillDateTime($datetime)
+    {
+        $d = explode('-', explode(' ', $datetime)[0])[2];
+        $n = explode('-', explode(' ', $datetime)[0])[1];
+        $y = explode('-', explode(' ', $datetime)[0])[0];
+        $h = explode(':', explode(' ', $datetime)[1])[0];
+        $m = explode(':', explode(' ', $datetime)[1])[1];
+        $s = explode(':', explode(' ', $datetime)[1])[2];
+        return array($d, $n, $y, $h, $m, $s);
+    }
 }

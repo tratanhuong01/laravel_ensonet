@@ -3,8 +3,10 @@
 namespace App\Process;
 
 use App\Models\Camxuc;
+use App\Models\Luotxemstory;
 use App\Models\Mautinnhan;
 use App\Models\Moiquanhe;
+use App\Models\Story;
 use App\Models\Taikhoan;
 use App\Models\Tinnhan;
 use Illuminate\Database\Eloquent\Model;
@@ -40,5 +42,28 @@ class DataProcessSecond extends Model
     {
         return Moiquanhe::where('moiquanhe.IDTaiKhoan', '=', $idTaiKhoan)
             ->where('moiquanhe.TinhTrang', '=', '2')->get();
+    }
+    public static function getListRequestFriendNew($idTaiKhoan)
+    {
+        $listRequest = Moiquanhe::where('moiquanhe.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('moiquanhe.TinhTrang', '=', '2')
+            ->join('taikhoan', 'moiquanhe.IDBanBe', 'taikhoan.IDTaiKhoan')
+            ->orderBy('NgayGui', 'desc')
+            ->get();
+        return $listRequest;
+    }
+    public static function getAllStoryOfUsers($idTaiKhoan)
+    {
+        $story = Story::where('story.IDTaiKhoan', '=', $idTaiKhoan)
+            ->orderBy('story.ThoiGianDangStory', 'DESC')->get();
+        return $story;
+    }
+    public static function getRequestSend($idTaiKhoan)
+    {
+        return Moiquanhe::where('moiquanhe.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('moiquanhe.TinhTrang', '=', '1')
+            ->join('taikhoan', 'moiquanhe.IDBanBe', 'taikhoan.IDTaiKhoan')
+            ->orderBy('moiquanhe.NgayGui', 'DESC')
+            ->get();
     }
 }

@@ -39,6 +39,7 @@ $user = Session::get('user');
     <script src="/js/realtime/notification.js"></script>
     <script src="/js/header.js"></script>
     <script src="/js/ajax/Profile/ajax.js"></script>
+    <script src="/js/ajax/GioiThieu/ajax.js"></script>
 </head>
 
 <body>
@@ -151,8 +152,10 @@ $user = Session::get('user');
                 @break
                 @case('about')
                 <div class="w-full dark:bg-dark-second flex my-4 rounded-lg">
-                    @include('Component\GioiThieu\DanhMuc')
-                    @include('Component\GioiThieu\TongQuan')
+                    @include('Component\GioiThieu\DanhMuc',['data' => $users])
+                    <div class="w-3/4 px-3" id="detailAbout">
+                        @include('Component\GioiThieu\TongQuan')
+                    </div>
                 </div>
                 @include('Component\DanhMuc\BanBe',['data' => $data])
                 @include('Component\DanhMuc\Anh')
@@ -165,7 +168,7 @@ $user = Session::get('user');
                 @include('Component\DanhMuc\Story')
                 @break;
                 @default
-                <div class="w-full lg:flex">
+                <div class="w-full lg:flex" id="activeLoadPost">
                     <div id="profileLeft" class="w-full lg:w-2/5">
                         <div class="mx-2.5 mt-4 bg-white p-2.5 pt-0 rounded-lg dark:bg-dark-third" style="width:95%;">
                             <p class="font-bold text-xl py-2 dark:text-white" style="font-family: system-ui;">Giới thiệu</p>
@@ -313,21 +316,36 @@ $user = Session::get('user');
         </div>
         @endif
         <script>
-            var action = 'inactive';
-            if (action == 'inactive') {
-                loading();
-                loadingPostProfile(0, '{{ $users[0]->IDTaiKhoan }}');
-            }
-            $(window).scroll(function() {
-                if ($(window).scrollTop() + $(window).height() - 700 > $(".timeline").height() &&
-                    action == 'inactive') {
-                    action = 'active';
-                    loading();
-                    setTimeout(function() {
-                        loadingPostProfile($('#indexPost').val(), '{{ $users[0]->IDTaiKhoan }}');
-                    }, 500);
+            var config = {
+                routes: {
+                    ProcessAjaxDashboardAbout: "{{ route('ProcessAjaxDashboardAbout') }}",
+                    ProcessAjaxWorkAndStudyAbout: "{{ route('ProcessAjaxWorkAndStudyAbout') }}",
+                    ProcessAjaxPlaceLivedAbout: "{{ route('ProcessAjaxPlaceLivedAbout') }}",
+                    ProcessAjaxInfoSimpleAndContactAbout: "{{ route('ProcessAjaxInfoSimpleAndContactAbout') }}",
+                    ProcessAjaxFamilyAndRelationshipAbout: "{{ route('ProcessAjaxFamilyAndRelationshipAbout') }}",
+                    ProcessAjaxDetailAboutUserAbout: "{{ route('ProcessAjaxDetailAboutUserAbout') }}",
+                    ProcessAjaxEventLifeAbout: "{{ route('ProcessAjaxEventLifeAbout') }}"
                 }
-            });
+            };
+        </script>
+        <script>
+            var action = 'inactive';
+            if ($('#activeLoadPost').length > 0) {
+                if (action == 'inactive') {
+                    loading();
+                    loadingPostProfile(0, '{{ $users[0]->IDTaiKhoan }}');
+                }
+                $(window).scroll(function() {
+                    if ($(window).scrollTop() + $(window).height() - 700 > $(".timeline").height() &&
+                        action == 'inactive') {
+                        action = 'active';
+                        loading();
+                        setTimeout(function() {
+                            loadingPostProfile($('#indexPost').val(), '{{ $users[0]->IDTaiKhoan }}');
+                        }, 500);
+                    }
+                });
+            }
         </script>
         <script src="/js/scrollbar.js"></script>
         <script>

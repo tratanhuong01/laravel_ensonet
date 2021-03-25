@@ -34,7 +34,10 @@ $user = Session::get('user')
                         Tin Của Bạn</span>
                 </div>
                 @if (count($allStory[0]) == 0)
-                <div class="cursor-pointer w-full flex pb-2.5">
+                @php
+                $pathMainUs = 'stories/create'
+                @endphp
+                <div onclick="window.location.href='{{ url($pathMainUs) }}'" class="cursor-pointer w-full flex pb-2.5">
                     <div class="w-2/12">
                         <i class="fas fa-plus p-5 text-green-600 bg-gray-100 rounded-full"></i>
                     </div>

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Session;
     <title>Ensonet</title>
     @include('Head/css')
     <script src="/js/index.js"></script>
+    <script src="/js/ajax/Header/ajax.js"></script>
 </head>
 
 <body class="dark:bg-dark-main">
@@ -202,13 +203,20 @@ use Illuminate\Support\Facades\Session;
     <?php redirect()->to('login')->send(); ?>
     @endif
     <script>
+        var config = {
+            routes: {
+                ProcessSearchData: "{{ route('ProcessSearchData') }}"
+            }
+        };
+    </script>
+    <script>
         var action = 'inactive';
         if (action == 'inactive') {
             loading();
 
             setTimeout(function() {
                 loadingPost(0);
-            }, 1000);
+            }, 300);
         }
         $(window).scroll(function() {
             if ($(window).scrollTop() + $(window).height() > $(".timeline").height() &&

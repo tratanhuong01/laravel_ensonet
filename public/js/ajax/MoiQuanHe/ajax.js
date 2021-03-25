@@ -41,3 +41,18 @@ function CancelRequestFriendIndex(UserMain, UserOther) {
     xmlhttp.send();
 
 }
+
+function CancelRequestFriendF(UserOther,UserMain,el) {
+    $.ajax({
+        method: "GET",
+        url : "/ProcessCancelRequestRFriend",
+        data : {
+            UserMain: UserMain,
+            UserOther : UserOther
+        },
+        success : function(response) {
+            el.remove();
+            $('#'+ UserOther + "relationship").html(response);
+        }
+    });
+}
