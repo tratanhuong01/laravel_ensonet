@@ -27,22 +27,6 @@
                     Viết một số điều về chính bạn</a>
             </p>
         </div>
-        <div class="w-full hidden">
-            <textarea name="" id="" class="w-full my-2 p-2 border-2 border-solid border-gray-200 
-            dark:bg-dark-third dark:border-dark-second shadow-lg dark:text-white resize-none outline-none h-28 rounded-lg
-                        " placeholder="Giới thiệu bản thân"></textarea>
-            <div class="w-full flex relative h-16 h-16">
-                <div class="bg-gray-200 dark:bg-dark-third dark:text-white rounded-lg p-2 absolute left-0 font-bold">
-                    <i class="fas fa-globe-europe"></i>&nbsp;&nbsp;Công khai
-                </div>
-                <div class="bg-1877F2 text-white rounded-lg p-2 absolute right-0 font-bold">
-                    Lưu
-                </div>
-                <div class="bg-gray-200  dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute right-12 font-bold">
-                    Hủy
-                </div>
-            </div>
-        </div>
     </div>
     <div class="w-full">
         <div class="w-full dark:text-white">
@@ -52,25 +36,6 @@
                 <a href=""><i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
                     Thêm cách đọc tên</a>
             </p>
-        </div>
-        <div class="w-full hidden">
-            <input name="" id="" class="w-full my-2 p-2 border-2 border-solid border-gray-200 
-            dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  resize-none outline-none h-16 rounded-lg
-                        " placeholder="Họ(Trà Tấn)">
-            <input name="" id="" class="w-full my-2 p-2 border-2 border-solid border-gray-200 
-            dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  resize-none outline-none h-16 rounded-lg
-                        " placeholder="Tên(Hưởng)">
-            <div class="w-full flex relative h-16 mt-2">
-                <div class="bg-gray-200  dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute left-0 font-bold">
-                    <i class="fas fa-globe-europe"></i>&nbsp;&nbsp;Công khai
-                </div>
-                <div class="bg-1877F2 text-white rounded-lg p-2 absolute right-0 font-bold">
-                    Lưu
-                </div>
-                <div class="bg-gray-200  dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute right-12 font-bold">
-                    Hủy
-                </div>
-            </div>
         </div>
     </div>
     <div class="w-full">
@@ -100,26 +65,6 @@
                     </ul>
                 </div>
             </li>
-        </div>
-        <div class="w-full hidden">
-            <select name="" id="" class="w-full my-2 p-2 border-2 border-solid border-gray-200 
-            dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  resize-none outline-none h-16 rounded-lg">
-                <option value="" class="py-3">Tên khai sinh</option>
-            </select>
-            <input name="" id="" class="w-full my-2 p-2 border-2 border-solid border-gray-200 
-            dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  resize-none outline-none h-16 rounded-lg
-                        " placeholder="Biệt danh">
-            <div class="w-full flex relative h-16">
-                <div class="bg-gray-200  dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute left-0 font-bold">
-                    <i class="fas fa-globe-europe"></i>&nbsp;&nbsp;Công khai
-                </div>
-                <div class="bg-1877F2 text-white rounded-lg p-2 absolute right-0 font-bold">
-                    Lưu
-                </div>
-                <div class="bg-gray-200  dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute right-12 font-bold">
-                    Hủy
-                </div>
-            </div>
         </div>
     </div>
     <div class="w-full">

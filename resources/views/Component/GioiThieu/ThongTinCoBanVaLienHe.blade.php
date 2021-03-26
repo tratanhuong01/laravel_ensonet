@@ -53,6 +53,7 @@
                 </ul>
             </div>
         </li>
+        @include('Component/GioiThieu/Child/ThemGioiTinh')
         <li class="w-full pb-6 flex flex-wrap" style="font-size: 16px;">
             <div class="w-1/12 py-3">
                 <i class="fas fa-birthday-cake text-2xl"></i>
@@ -87,5 +88,6 @@
                 </ul>
             </div>
         </li>
+        @include('Component/GioiThieu/Child/ThemNgaySinh')
     </ul>
 </div>
