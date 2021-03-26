@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gioithieu;
+use App\Process\DataProcessFour;
 use App\Process\DataProcessSecond;
 use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
@@ -118,4 +119,26 @@ Route::get('get', function () {
     echo "<pre>";
     print_r($json);
     echo "</pre>";
+});
+
+Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
+    switch ($request->Type) {
+        case 'Companies':
+            $data = DataProcessFour::getCompanies($request->Value);
+            return view('Component/GioiThieu/Child/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        case 'CityAndTown':
+            $data = DataProcessFour::getCityAndTown($request->Value);
+            return view('Component/GioiThieu/Child/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        default:
+            # code...
+            break;
+    }
+});
+
+Route::get('ProcessViewPrivacyAbout', function () {
+    return view('Component/GioiThieu/Modal/QuyenRiengTu');
 });

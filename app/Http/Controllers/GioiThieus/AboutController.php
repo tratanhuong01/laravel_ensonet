@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\GioiThieus;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gioithieu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AboutController extends Controller
 {
     public function dashboard(Request $request)
     {
-        return view('Component/GioiThieu/TongQuan');
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+        return view('Component/GioiThieu/TongQuan')->with('json', $json)
+            ->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function workAndStudy(Request $request)
     {

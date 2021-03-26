@@ -23,6 +23,13 @@ Route::get('/login', function (Request $request) {
     return view('Guest/login');
 })->name('login');
 
+Route::get('/', function () {
+    if (session()->has('user'))
+        redirect()->to('index')->send();
+    else
+        redirect()->to('index')->send();
+});
+
 // xử lí người dùng mới
 Route::post('NewBieLogin', [DangNhap\NewBieController::class, 'login'])->name('NewBieLogin');
 

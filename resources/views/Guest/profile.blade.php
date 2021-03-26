@@ -154,7 +154,7 @@ $user = Session::get('user');
                 <div class="w-full dark:bg-dark-second flex my-4 rounded-lg">
                     @include('Component\GioiThieu\DanhMuc',['data' => $users])
                     <div class="w-3/4 px-3" id="detailAbout">
-                        @include('Component\GioiThieu\TongQuan')
+                        @include('Component\GioiThieu\TongQuan',['idTaiKhoan' => $users[0]->IDTaiKhoan])
                     </div>
                 </div>
                 @include('Component\DanhMuc\BanBe',['data' => $data])

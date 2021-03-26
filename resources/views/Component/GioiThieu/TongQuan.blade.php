@@ -4,21 +4,26 @@ use App\Models\Gioithieu;
 use App\Process\DataProcessFour;
 use Illuminate\Support\Facades\Session;
 
-$json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', Session::get('users')[0]->IDTaiKhoan)->get();
+if (isset($jsons))
+    $json = $jsons;
+else
+    $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->get();
 
 ?>
+<form action="" method="post" id="formTongQuan">
+</form>
 <div class="w-full">
-    <ul class="w-full py-2 px-4">
+    <ul class="w-full py-2 px-4 mainAboutFull">
         @if (DataProcessFour::checkPlaceWork(json_decode($json[0]->JsonGioiThieu)) == 0)
-        <p class="font-bold text-xm py-4 text-1877F2">
-            <a href=""><i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
-                Thêm nơi làm việc</a>
+        <p onclick="AddView('placeWork')" class="placeWork font-bold text-xm py-4 text-1877F2 cursor-pointer">
+            <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
+            Thêm nơi làm việc
         </p>
         @include('Component/GioiThieu/Child/ThemNoiLamViec')
         @else
-        <p class="font-bold text-xm py-4 text-1877F2">
-            <a href=""><i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
-                Thêm nơi làm việc</a>
+        <p onclick="AddView('placeWork')" class="font-bold text-xm py-4 text-1877F2">
+            <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
+            Thêm nơi làm việc
         </p>
         <li class="w-full py-4 flex relative" style="font-size: 16px;">
             <div class="w-10/12 dark:text-white">
@@ -41,9 +46,9 @@ $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', Session::get('users')[0]->
         </li>
         @endif
         @if (DataProcessFour::checkSchool(json_decode($json[0]->JsonGioiThieu)) == 0)
-        <p class="font-bold text-xm py-4 text-1877F2">
-            <a href=""><i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
-                Thêm trường học</a>
+        <p onclick="AddView('school')" class="school font-bold text-xm py-4 text-1877F2 cursor-pointer">
+            <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
+            Thêm trường học
         </p>
         @include('Component/GioiThieu/Child/ThemTruongHoc')
         @else
@@ -72,9 +77,9 @@ $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', Session::get('users')[0]->
         </li>
         @endif
 
-        <p class="font-bold text-xm py-4 text-1877F2">
-            <a href=""><i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
-                Thêm nơi ở hiện tại</a>
+        <p onclick="AddView('PlaceLiveCurrent')" class="PlaceLiveCurrent font-bold text-xm py-4 text-1877F2 cursor-pointer">
+            <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
+            Thêm nơi ở hiện tại
         </p>
         @include('Component/GioiThieu/Child/ThemNoiOHienTai')
         <li class="w-full pb-4 flex hidden" style="font-size: 16px;">
@@ -96,9 +101,9 @@ $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', Session::get('users')[0]->
                 </ul>
             </div>
         </li>
-        <p class="font-bold text-xm py-4 text-1877F2">
-            <a href=""><i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
-                Thêm quê quán</a>
+        <p onclick="AddView('HomeTown')" class="HomeTown font-bold text-xm py-4 text-1877F2 cursor-pointer">
+            <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
+            Thêm quê quán
         </p>
         @include('Component/GioiThieu/Child/ThemQueQuan')
         <li class="w-full pb-4 flex hidden" style="font-size: 16px;">
