@@ -10,8 +10,18 @@
     </div>
     <div class="w-2/12">
         <ul class="w-full flex">
-            <li class="p-2  dark:text-white  text-gray-600">
+            <li class="p-2 dark:text-white text-gray-600">
+                @switch($data->IDQuyenRiengTu)
+                @case('CONGKHAI')
                 <i class="fas fa-globe-europe text-xl cursor-pointer"></i>
+                @break
+                @case('CHIBANBE')
+                <i class="fas fa-user-friends text-xl cursor-pointer"></i>
+                @break
+                @case('RIENGTU')
+                <i class="fas fa-lock  text-xl cursor-pointer"></i>
+                @break
+                @endswitch
             </li>
             <li onclick="editViewAbout('{{ $data->IDCongViec }}',
             'PlaceWork','placeWorkMain','placeWork')" class="p-2  dark:text-white  text-gray-600">

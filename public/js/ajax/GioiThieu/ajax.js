@@ -253,10 +253,19 @@ function editViewAbout(ID,TypeEdit,Main,Type) {
             TypeEdit : TypeEdit
         },
         success: function(response) {
-            $('#' + Main).html(response);
+            document.getElementById(Main).children[0].classList.add('hidden');
+            $('#' + Main).append(response);
             document.getElementsByClassName(Type)[0].classList.remove('hidden');
-            document.getElementById('btn' + TypeEdit).addEventListener('click',function() {
-
+            document.getElementById('btnHuy' + TypeEdit).addEventListener('click',function() {
+                var cl = document.getElementsByClassName(Type)[0]
+                if (cl.classList.contains('hidden')) {
+                    
+                    cl.classList.remove('hidden')
+                }
+                else {
+                    document.getElementById(Main).children[0].classList.remove('hidden');
+                    cl.classList.add('hidden')
+                }
             })
         }
     });

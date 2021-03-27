@@ -84,7 +84,7 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
         <div onclick="addPlaceWorkSS()" class=" cursor-pointer bg-1877F2 text-white ml-3 rounded-lg p-2 absolute right-0 font-bold">
             Lưu
         </div>
-        <div id="btnHuyPlaceWork" onclick="AddView('placeWork')" class=" cursor-pointer bg-gray-200 dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute right-12 font-bold">
+        <div id="btnHuyPlaceWork" onclick="" class=" cursor-pointer bg-gray-200 dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute right-12 font-bold">
             Hủy
         </div>
     </div>

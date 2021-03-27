@@ -1,3 +1,12 @@
+<?php
+
+use App\Models\Gioithieu;
+use App\Process\DataProcessFour;
+
+$json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')->get()[0]->JsonGioiThieu;
+$json = json_decode($json);
+
+?>
 <div class="w-full">
     <ul class="w-full py-2 px-4">
         <p class="font-bold text-xm pt-2 pb-3 dark:text-white" style="font-family: system-ui;">
@@ -103,14 +112,16 @@
         </li>
         <p class="font-bold text-xm py-2 dark:text-white" style="font-family: system-ui;">
             Thành viên trong gia đình</p>
-        <p class="font-bold text-xm py-3 text-1877F2">
-            <a href=""><i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
-                Thêm một thành viên gia đình</a>
-        </p>
-
+        @include('Component/GioiThieu/Them/ThemThanhVienGiaDinh')
+        @if (sizeof($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh) > 0)
+        @include('Component/GioiThieu/Xoa/XoaThanhVienGiaDinh')
+        @include('Component/GioiThieu/Them/ThemThanhVienGiaDinh')
+        @else
+        @include('Component/GioiThieu/Xoa/XoaThanhVienGiaDinh')
         @include('Component/GioiThieu/Them/ThemThanhVienGiaDinh')
         <li class="w-full pb-4 flex" style="font-size: 16px;">
             <ul class="w-full">
+                @foreach($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh as $key => $value)
                 <li class="w-full py-2 flex relative" style="font-size: 16px;">
                     <div class="w-10/12 pb-2 flex">
                         <div class="mr-2">
@@ -136,57 +147,9 @@
                         </ul>
                     </div>
                 </li>
-                <li class="w-full py-2 flex relative" style="font-size: 16px;">
-                    <div class="w-10/12 pb-2 flex">
-                        <div class="mr-2">
-                            <img src="/img/avatar.jpg" class="w-12 h-12 object-cover 
-                            rounded-full" alt="">
-                        </div>
-                        <div class="">
-                            <p class="dark:text-gray-300 text-xm text-gray-600 pb-2">Trà Tấn Hưởng</p>
-                            <p class="text-sm dark:text-gray-300 text-gray-600" style="font-size:12px;">Anh Trai</p>
-                        </div>
-                    </div>
-                    <div class="w-2/12 py-2.5">
-                        <ul class="w-full flex">
-                            <li class="p-2  dark:text-white  text-gray-600">
-                                <i class="fas fa-globe-europe text-xl cursor-pointer"></i>
-                            </li>
-                            <li class="p-2  dark:text-white  text-gray-600">
-                                <i class="far fa-edit text-xl cursor-pointer"></i>
-                            </li>
-                            <li class="p-2  dark:text-white  text-gray-600">
-                                <i class="far fa-trash-alt text-xl cursor-pointer"></i>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="w-full py-2 flex relative" style="font-size: 16px;">
-                    <div class="w-10/12 pb-2 flex">
-                        <div class="mr-2">
-                            <img src="/img/avatar.jpg" class="w-12 h-12 object-cover 
-                            rounded-full" alt="">
-                        </div>
-                        <div class="">
-                            <p class="dark:text-gray-300 text-xm text-gray-600 pb-2">Trà Tấn Hưởng</p>
-                            <p class="text-sm dark:text-gray-300 text-gray-600" style="font-size:12px;">Anh Trai</p>
-                        </div>
-                    </div>
-                    <div class="w-2/12 py-2.5">
-                        <ul class="w-full flex">
-                            <li class="p-2  dark:text-white  text-gray-600">
-                                <i class="fas fa-globe-europe text-xl cursor-pointer"></i>
-                            </li>
-                            <li class="p-2  dark:text-white  text-gray-600">
-                                <i class="far fa-edit text-xl cursor-pointer"></i>
-                            </li>
-                            <li class="p-2  dark:text-white  text-gray-600">
-                                <i class="far fa-trash-alt text-xl cursor-pointer"></i>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                @endforeach
             </ul>
         </li>
+        @endif
     </ul>
 </div>

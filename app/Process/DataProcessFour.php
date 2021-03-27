@@ -4,6 +4,7 @@ namespace App\Process;
 
 use App\Models\Congty;
 use App\Models\Diachi;
+use App\Models\Gioithieu;
 use App\Models\Truonghoc;
 use Illuminate\Database\Eloquent\Model;
 
@@ -83,5 +84,19 @@ class DataProcessFour extends Model
             }
         }
         return $newArray;
+    }
+    public static function getTypeSchoolByType($dt, $idTaiKhoan)
+    {
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->get()[0]->JsonGioiThieu;
+        $json = json_decode($json);
+        $new = array();
+        $num = 0;
+        foreach ($json->CongViecHocVan->HocVan as $key => $value) {
+            if ($value->LoaiTruong == $dt) {
+                $new[$num] =  $value;
+                $num++;
+            }
+        }
+        return $new;
     }
 }

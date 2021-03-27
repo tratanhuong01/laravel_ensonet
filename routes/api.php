@@ -132,7 +132,7 @@ Route::get('save', function () {
         ]
     ];
     DB::table('gioithieu')->insert([
-        'IDTaiKhoan' => '1000000001',
+        'IDTaiKhoan' => '1000000004',
         'JsonGioiThieu' => json_encode($json)
     ]);
 });
@@ -140,7 +140,7 @@ Route::get('save', function () {
 Route::get('get', function () {
     $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')->get();
     $json = json_decode($json[0]->JsonGioiThieu);
-
+    echo count($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh);
     echo "<pre>";
     print_r($json);
     echo "</pre>";
