@@ -108,7 +108,7 @@
                 Thêm một thành viên gia đình</a>
         </p>
 
-        @include('Component/GioiThieu/Child/ThemThanhVienGiaDinh')
+        @include('Component/GioiThieu/Them/ThemThanhVienGiaDinh')
         <li class="w-full pb-4 flex" style="font-size: 16px;">
             <ul class="w-full">
                 <li class="w-full py-2 flex relative" style="font-size: 16px;">

@@ -66,6 +66,20 @@ Route::group(['namespace' => 'GioiThieus'], function () {
 
     Route::post('ProcessAddHomeTown', [GioiThieus\AddAboutController::class, 'addHomeTown'])
         ->name('ProcessAddHomeTown');
+
+    //Delete
+
+    Route::get('ProcessDeleteAbout', [GioiThieus\DeleteAboutController::class, 'delete']);
+
+    Route::get('ProcessDeleteAboutMain', [GioiThieus\DeleteAboutController::class, 'deleteMain']);
+
+    //Edit
+
+    Route::get('ProcessEditViewAbout', [GioiThieus\EditAboutController::class, 'editView']);
+
+    Route::get('ProcessEditAboutMain', [GioiThieus\EditAboutController::class, 'edit']);
+
+    //
 });
 
 Route::get('save', function () {
@@ -99,7 +113,10 @@ Route::get('save', function () {
             'CongViec' => [],
             'HocVan' => [],
         ],
-        'NoiTungSong' => [],
+        'NoiTungSong' => [
+            'QueQuan' => [],
+            'NoiOHienTai' => []
+        ],
         'GiaDinhVaCacMoiQuanHe' => [
             'HonNhan' => [
                 'IDQuyenRiengTu' => 'CHIBANBE',
@@ -133,22 +150,32 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
     switch ($request->Type) {
         case 'Companies':
             $data = DataProcessFour::getCompanies($request->Value);
-            return view('Component/GioiThieu/Child/DuLieu')->with('data', $data)
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'CityAndTown':
             $data = DataProcessFour::getCityAndTown($request->Value);
-            return view('Component/GioiThieu/Child/DuLieu')->with('data', $data)
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'NameSchool':
             $data = DataProcessFour::getSchool($request->Value);
-            return view('Component/GioiThieu/Child/DuLieu')->with('data', $data)
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'TypeSchool':
             $data = DataProcessFour::getTypeSchool($request->Value);
-            return view('Component/GioiThieu/Child/DuLieu')->with('data', $data)
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        case 'LiveCurrents':
+            $data = DataProcessFour::getCityAndTown($request->Value);
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        case 'PlaceHomeTown':
+            $data = DataProcessFour::getCityAndTown($request->Value);
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         default:

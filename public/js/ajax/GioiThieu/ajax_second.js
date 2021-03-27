@@ -32,3 +32,37 @@ function addSchoolSS() {
         }
     });
 }
+function addPlaceLiveCurrent() {
+    let formData = new FormData($('#formTongQuan')[0]);
+    $.ajax({
+        method : "POST",
+        url : dashboard.routes.ProcessAddPlaceLiveCurrent,
+        data : formData,
+        contentType: false,
+        processData: false,
+        success : function(response) {
+            document.getElementsByClassName('PlaceLiveCurrent')[1].classList.add('hidden');
+            $('#placeLiveCurrentMain').append(response);
+        },
+        error : function(response) {
+            console.log(response)
+        }
+    });
+}
+function addHomeTown() {
+    let formData = new FormData($('#formTongQuan')[0]);
+    $.ajax({
+        method : "POST",
+        url : dashboard.routes.ProcessAddHomeTown,
+        data : formData,
+        contentType: false,
+        processData: false,
+        success : function(response) {
+            document.getElementsByClassName('HomeTown')[1].classList.add('hidden');
+            $('#homeTownMain').append(response);
+        },
+        error : function(response) {
+            console.log(response)
+        }
+    });
+}

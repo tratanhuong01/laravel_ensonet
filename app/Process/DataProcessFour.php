@@ -15,11 +15,15 @@ class DataProcessFour extends Model
     }
     public static function checkSchool($jsonGioiThieu)
     {
-        return 0;
+        return count($jsonGioiThieu->CongViecHocVan->HocVan) == 0 ? 0 : 1;
     }
-    public static function checkPlaceLived($jsonGioiThieu)
+    public static function checkPlaceLiveCurrent($jsonGioiThieu)
     {
-        return count($jsonGioiThieu->CongViecHocVan->CongViec) == 0 ? 0 : 1;
+        return count($jsonGioiThieu->NoiTungSong->NoiOHienTai) == 0 ? 0 : 1;
+    }
+    public static function checkHomeTown($jsonGioiThieu)
+    {
+        return count($jsonGioiThieu->NoiTungSong->QueQuan) == 0 ? 0 : 1;
     }
     public static function getCompanies($value)
     {

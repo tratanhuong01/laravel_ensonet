@@ -13,10 +13,12 @@
             <li class="p-2  dark:text-white  text-gray-600">
                 <i class="fas fa-globe-europe text-xl cursor-pointer"></i>
             </li>
-            <li class="p-2  dark:text-white  text-gray-600">
+            <li onclick="editViewAbout('{{ $data->IDCongViec }}',
+            'PlaceWork','placeWorkMain','placeWork')" class="p-2  dark:text-white  text-gray-600">
                 <i class="far fa-edit text-xl cursor-pointer"></i>
             </li>
-            <li class="p-2  dark:text-white  text-gray-600">
+            <li onclick="deleteAbout('{{ $data->IDCongViec }}',
+            'PlaceWork','placeWorkMain')" class="p-2  dark:text-white  text-gray-600">
                 <i class="far fa-trash-alt text-xl cursor-pointer"></i>
             </li>
         </ul>

@@ -209,3 +209,67 @@ function choose(IDInput,ID,Name,ValueInput,IDS,Value) {
         document.getElementById('formTongQuan').append(input);
     }
 }
+function deleteAbout(ID,TypeDelete,Main) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessDeleteAbout",
+        data : {
+
+        },
+        success : function(response) {
+            second.innerHTML = response;
+            second.className += ' fixed h-screen';
+            document.getElementById('btnHuyXoaGioiThieu').addEventListener('click',function() {
+                second.innerHTML = '';
+                second.classList.remove("fixed");
+                second.classList.remove("h-screen");
+            });
+            document.getElementById('btnXoaGioiThieu').addEventListener('click',function(response) {
+                $.ajax({
+                    method : "GET",
+                    url : "/ProcessDeleteAboutMain",
+                    data : {
+                        ID : ID,
+                        TypeDelete : TypeDelete
+                    },
+                    success : function(response) {  
+                        $('#' + Main).html(response);
+                        second.innerHTML = '';
+                        second.classList.remove("fixed");
+                        second.classList.remove("h-screen");
+                    }
+                });
+            });
+        }
+    });
+}
+
+function editViewAbout(ID,TypeEdit,Main,Type) {
+    $.ajax({
+        method : "GET",
+        url: "/ProcessEditViewAbout",
+        data : {
+            ID : ID,
+            TypeEdit : TypeEdit
+        },
+        success: function(response) {
+            $('#' + Main).html(response);
+            document.getElementsByClassName(Type)[0].classList.remove('hidden');
+            document.getElementById('btn' + TypeEdit).addEventListener('click',function() {
+
+            })
+        }
+    });
+}
+function editAbout(ID,TypeEdit,Main) {
+    $.ajax({
+        method : "GET",
+        url: "/ProcessEditAboutMain",
+        data : {
+
+        },
+        success: function(response) {
+
+        }
+    });
+}

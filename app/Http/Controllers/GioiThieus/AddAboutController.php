@@ -101,10 +101,83 @@ class AddAboutController extends Controller
             $get
         );
     }
-    public function addPlaceLiveCurrent()
+    public function addPlaceLiveCurrent(Request $request)
     {
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')
+            ->get()[0]->JsonGioiThieu;
+        $json = json_decode($json);
+        $address = Diachi::where('diachi.IDDiaChi', '=', $request->IDDiaChiLive)->get();
+        if (count($json->NoiTungSong->NoiOHienTai) == 0) {
+            $json->NoiTungSong->NoiOHienTai[0] = (object)[
+                'IDNoiOHienTai' => '10001',
+                'IDQuyenRiengTu' => $request->PrivacyInputLiveCurrent,
+                'DuongDanImg' => 'img/completed.png',
+                'IDDiaChi' => $request->IDDiaChiLive,
+                'TenDiaChi' => $address[0]->TenTrang == NULL ? $address[0]->TenDiaChi : $address[0]->TenTrang,
+                'NamBatDau' => $request->YearStartLiveCurrent,
+                'NamKetThuc' => $request->YearStartEndCurrent
+            ];
+        } else {
+            $json->NoiTungSong->NoiOHienTai[count($json->NoiTungSong->NoiOHienTai)] = (object)[
+                'IDNoiOHienTai' => '10001',
+                'IDQuyenRiengTu' => $request->PrivacyInputLiveCurrent,
+                'DuongDanImg' => 'img/completed.png',
+                'IDDiaChi' => $request->IDDiaChiLive,
+                'TenDiaChi' => $address[0]->TenTrang == NULL ? $address[0]->TenDiaChi : $address[0]->TenTrang,
+                'NamBatDau' => $request->YearStartLiveCurrent,
+                'NamKetThuc' => $request->YearStartEndCurrent
+            ];
+        }
+        $get = NULL;
+        foreach ($json->NoiTungSong->NoiOHienTai as $key => $value) {
+            if ($value->IDNoiOHienTai == '10001')
+                $get = $value;
+        }
+        DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+        gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
+        return view('Component/GioiThieu/Data/NoiOHienTai')->with(
+            'data',
+            $get
+        );
     }
-    public function addHomeTown()
+    public function addHomeTown(Request $request)
     {
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')
+            ->get()[0]->JsonGioiThieu;
+        $json = json_decode($json);
+        $address = Diachi::where('diachi.IDDiaChi', '=', $request->IDDiaChiHome)->get();
+        if (count($json->NoiTungSong->QueQuan) == 0) {
+            $json->NoiTungSong->QueQuan[0] =
+                (object)[
+                    'IDQueQuan' => '10001',
+                    'IDQuyenRiengTu' => $request->PrivacyInputLiveCurrent,
+                    'DuongDanImg' => 'img/completed.png',
+                    'IDDiaChi' => $request->IDDiaChiLive,
+                    'TenDiaChi' => $address[0]->TenTrang == NULL ? $address[0]->TenDiaChi : $address[0]->TenTrang,
+                    'NamBatDau' => $request->YearStartSchoolInput,
+                    'NamKetThuc' => $request->YearEndSchoolInput
+                ];
+        } else {
+            $json->NoiTungSong->QueQuan[count($json->NoiTungSong->QueQuan)] = (object)[
+                'IDQueQuan' => '10001',
+                'IDQuyenRiengTu' => $request->PrivacyInputHomeTown,
+                'DuongDanImg' => 'img/completed.png',
+                'IDDiaChi' => $request->IDDiaChiHome,
+                'TenDiaChi' => $address[0]->TenTrang == NULL ? $address[0]->TenDiaChi : $address[0]->TenTrang,
+                'NamBatDau' => $request->YearStartHomeTown,
+                'NamKetThuc' => $request->YearEndHomeTown
+            ];
+        }
+        $get = NULL;
+        foreach ($json->NoiTungSong->QueQuan as $key => $value) {
+            if ($value->IDQueQuan == '10001')
+                $get = $value;
+        }
+        DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+        gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
+        return view('Component/GioiThieu/Data/QueQuan')->with(
+            'data',
+            $get
+        );
     }
 }
