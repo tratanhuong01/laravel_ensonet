@@ -52,6 +52,20 @@ Route::group(['namespace' => 'GioiThieus'], function () {
 
     Route::post('ProcessAjaxEventLifeAbout', [GioiThieus\AboutController::class, 'eventLife'])
         ->name('ProcessAjaxEventLifeAbout');
+
+    // Add
+
+    Route::post('ProccessAddPlaceWorkAbout', [GioiThieus\AddAboutController::class, 'addPlaceWorks'])
+        ->name('ProccessAddPlaceWorkAbout');
+
+    Route::post('ProcessAddSchoolAbout', [GioiThieus\AddAboutController::class, 'addSchool'])
+        ->name('ProcessAddSchoolAbout');
+
+    Route::post('ProcessAddPlaceLiveCurrent', [GioiThieus\AddAboutController::class, 'addPlaceLiveCurrent'])
+        ->name('ProcessAddPlaceLiveCurrent');
+
+    Route::post('ProcessAddHomeTown', [GioiThieus\AddAboutController::class, 'addHomeTown'])
+        ->name('ProcessAddHomeTown');
 });
 
 Route::get('save', function () {
@@ -83,13 +97,7 @@ Route::get('save', function () {
         ],
         'CongViecHocVan' => [
             'CongViec' => [],
-            'HocVan' => [
-                'DaiHocCaoDang' => [],
-                'TrungHocPhoThong' => [],
-                'TrungHocCoSo' => [],
-                'TieuHoc' => []
-
-            ],
+            'HocVan' => [],
         ],
         'NoiTungSong' => [],
         'GiaDinhVaCacMoiQuanHe' => [
@@ -133,6 +141,16 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
             return view('Component/GioiThieu/Child/DuLieu')->with('data', $data)
                 ->with('type', $request->Type);
             break;
+        case 'NameSchool':
+            $data = DataProcessFour::getSchool($request->Value);
+            return view('Component/GioiThieu/Child/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        case 'TypeSchool':
+            $data = DataProcessFour::getTypeSchool($request->Value);
+            return view('Component/GioiThieu/Child/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
         default:
             # code...
             break;
@@ -141,4 +159,7 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
 
 Route::get('ProcessViewPrivacyAbout', function () {
     return view('Component/GioiThieu/Modal/QuyenRiengTu');
+});
+Route::get('ProcessPrivacyAbouts', function (Request $request) {
+    return view('Component/Child/QuyenRiengTuGioiThieu')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
 });

@@ -1,28 +1,24 @@
 <?php
 
+namespace App\Process;
+
 use Illuminate\Database\Eloquent\Model;
 
 class JsonGioiThieu extends Model
 {
-    public static function CongViec(
-        $idCongViec,
-        $idQuyenRiengTu,
-        $duongDanImg,
-        $congTy,
-        $chucVu,
-        $thanhPho,
-        $namBatDau,
-        $namKetThuc
-    ) {
+    public static function CongViec()
+    {
         return [
-            'IDCongViec' => $idCongViec,
-            'IDQuyenRiengTu' => $idQuyenRiengTu,
-            'DuongDanImg' => $duongDanImg,
-            'CongTy' => $congTy,
-            'ChucVu' => $chucVu,
-            'ThanhPho' => $thanhPho,
-            'NamBatDau' => $namBatDau,
-            'NamKetThuc' => $namKetThuc
+            'IDCongViec' => '',
+            'IDQuyenRiengTu' => '',
+            'DuongDanImg' => '',
+            'IDCongTy' => '',
+            'TenCongTy' => '',
+            'ChucVu' => '',
+            'IDDiaChi' => '',
+            'TenDiaChi' => '',
+            'NamBatDau' => '',
+            'NamKetThuc' => ''
         ];
     }
     public static function DaiHocCaoDang(

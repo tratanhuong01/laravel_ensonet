@@ -11,15 +11,15 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
     shadow-lg w-full hidden" style="max-height: 320px;">
     </div>
     <input name="" id="" class="w-full my-2 p-3 border-2 border-solid border-gray-200 
-            dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  
-            resize-none outline-none rounded-lg" placeholder="Chức vụ">
+    dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  
+    resize-none outline-none rounded-lg" placeholder="Chức vụ">
     <div class=" top-16 z-30 bg-gray-200 dark:bg-dark-second overflow-y-auto postionA
     border-gray-300 rounded-lg wrapper-content-right border-2 border-solid dark:border-dark-third 
     shadow-lg w-full hidden" style="max-height: 320px;">
     </div>
     <input oninput="OninputValueInputAbout('placeWork',this,'CityAndTown')" onclick="EventClickInputAbout('placeWork',this,'CityAndTown')" name="" id="IDDiaChis" class="w-full my-2 p-3 border-2 border-solid border-gray-200 
-            dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  
-            resize-none outline-none rounded-lg" placeholder="Thành phố / thị xã">
+    dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  
+    resize-none outline-none rounded-lg" placeholder="Thành phố / thị xã">
     <div class=" top-16 z-30 bg-gray-200 dark:bg-dark-second overflow-y-auto CityAndTown
     border-gray-300 rounded-lg wrapper-content-right border-2 border-solid dark:border-dark-third 
     shadow-lg w-full hidden" style="max-height: 320px;">
@@ -39,13 +39,19 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
     <div class="w-full p-2 flex dark:text-white font-bold yearAboutPlaceWork">
         <p class="py-2">Từ</p>
         <div class="w-24 text-center relative dark:text-white">
-            <button onclick="EventClickYearAbout('yearPlaceWorks',0)" class="px-4 py-2.5 dark:bg-dark-third dark:text-white bg-gray-200 
-                    font-bold rounded-lg ">Năm</button>
-            <div class="z-50 absolute left-2 top-12 w-80 h-60 overflow-y-auto wrapper-content-right
+            <input type="button" onclick="EventClickYearAbout('yearPlaceWorks',0)" id="YearStartPlaceWorks" class="px-4 py-2.5 dark:bg-dark-third dark:text-white bg-gray-200 
+                    font-bold rounded-lg " value="Năm">
+            <div class="YearStartPlaceWorkss z-50 absolute left-2 top-12 w-80 h-60 overflow-y-auto wrapper-content-right
                      shadow-lg border-gray-300 dark:border-dark-main dark:bg-dark-second 
                      bg-gray-200 hidden yearPlaceWorks " style="max-height: 200px;">
-                @for($i = $year ; $i > $year - 35; $i--) <div class="w-full p-3 dark:text-white font-bold text-left
-                 cursor-pointer dark:bg-dark-third">
+                @for($i = $year ; $i > $year - 35; $i--)
+                <div onclick="choose('YearStartPlaceWork',
+                '{{ $i }}',
+                '{{ $i }}',
+                'YearStartPlaceWorkInput',
+                'YearStartPlaceWorks',
+                'YearStartPlaceWorkss')" class="w-full p-3 dark:text-white font-bold text-left
+                cursor-pointer dark:bg-dark-third">
                     {{$i}}
                 </div>
                 @endfor
@@ -53,12 +59,18 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
         </div>
         <p class="py-2">Đến</p>
         <div class="w-24 text-center relative dark:text-white">
-            <button onclick="EventClickYearAbout('yearPlaceWorks',1)" class="px-4 py-2.5 dark:bg-dark-third dark:text-white bg-gray-200 
-                    font-bold rounded-lg">Năm</button>
-            <div class="z-50 hidden absolute left-3.5 top-12 w-80 h-60 overflow-y-auto wrapper-content-right
+            <input type="button" onclick="EventClickYearAbout('yearPlaceWorks',1)" class="px-4 py-2.5 dark:bg-dark-third dark:text-white bg-gray-200 
+                    font-bold rounded-lg" value="Năm" id="YearEndPlaceWorks">
+            <div class="YearEndPlaceWorkss z-50 hidden absolute left-3.5 top-12 w-80 h-60 overflow-y-auto wrapper-content-right
                      shadow-lg border-gray-300 dark:border-dark-main dark:bg-dark-second 
                      bg-gray-200 yearPlaceWorks" style="max-height: 200px;">
-                @for($i = $year ; $i > $year - 35; $i--) <div class="w-full p-3 dark:text-white font-bold text-left
+                @for($i = $year ; $i > $year - 35; $i--)
+                <div onclick="choose('YearEndPlaceWork',
+                '{{ $i }}',
+                '{{ $i }}',
+                'YearEndPlaceWorkInput',
+                'YearEndPlaceWorks',
+                'YearEndPlaceWorkss')" class="w-full p-3 dark:text-white font-bold text-left
                  cursor-pointer dark:bg-dark-third">
                     {{$i}}
                 </div>
@@ -67,10 +79,10 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
         </div>
     </div>
     <div class="w-full flex relative h-16 pt-3 ">
-        <div onclick="PrivacyAbout()" class="bg-gray-200  cursor-pointer dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute left-0 font-bold">
+        <div onclick="PrivacyAbout(this,'PrivacyInputPlaceWork')" class="bg-gray-200 cursor-pointer dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute left-0 font-bold">
             <i class="fas fa-globe-europe"></i>&nbsp;&nbsp;Công khai
         </div>
-        <div class=" cursor-pointer bg-1877F2 text-white ml-3 rounded-lg p-2 absolute right-0 font-bold">
+        <div onclick="addPlaceWorkSS()" class=" cursor-pointer bg-1877F2 text-white ml-3 rounded-lg p-2 absolute right-0 font-bold">
             Lưu
         </div>
         <div onclick="AddView('placeWork')" class=" cursor-pointer bg-gray-200 dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute right-12 font-bold">

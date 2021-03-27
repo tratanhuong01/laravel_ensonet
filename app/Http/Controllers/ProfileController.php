@@ -58,7 +58,7 @@ class ProfileController extends Controller
                 Taikhoan::where('IDTaiKhoan', $request->IDView)->get()
             )
             . '<div class="w-3/4 px-3" id="detailAbout">'
-            . view('Component\GioiThieu\TongQuan')
+            . view('Component\GioiThieu\TongQuan')->with('idTaiKhoan', $request->IDView)
             . "</div> </div>"
             . '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg">'
             . view('Component\DanhMuc\Anh')->with('data', $data)

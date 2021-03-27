@@ -27,16 +27,98 @@ function EventClickInputAbout(Name,Element,Condition) {
         }
     });
 }
-function PrivacyAbout() {
+function PrivacyAbout(Element,IDInput) {
     $.ajax({
         method : "GET",
         url : "/ProcessViewPrivacyAbout",
-        data : {
-
-        },
         success : function(response) {
             second.innerHTML = response;
             second.className += ' fixed h-screen';
+            var inputPrivacy = document.getElementsByClassName('privacyAboutss');
+            inputPrivacy[0].addEventListener('change',function(){
+                $.ajax({
+                    method : "GET",
+                    url: "/ProcessPrivacyAbouts",
+                    data : {
+                        IDQuyenRiengTu : 'CONGKHAI'
+                    },
+                    success : function(responses) {
+                        if ($('#' + IDInput).length > 0) {
+                            $('#' + IDInput).val('CONGKHAI');
+                            Element.innerHTML = responses;
+                        }
+                        else {
+                            var input = document.createElement('input');
+                            input.setAttribute('name',IDInput);
+                            input.setAttribute('type','hidden');
+                            input.setAttribute('id',IDInput);
+                            input.setAttribute('value','CONGKHAI');
+                            Element.innerHTML = responses;
+                            document.getElementById('formTongQuan').append(input);
+                        }
+                        second.innerHTML = '';
+                        second.classList.remove("fixed");
+                        second.classList.remove("h-screen");
+                    }
+                })
+                
+            });
+            inputPrivacy[1].addEventListener('change',function(){
+                $.ajax({
+                    method : "GET",
+                    url: "/ProcessPrivacyAbouts",
+                    data : {
+                        IDQuyenRiengTu : 'CHIBANBE'
+                    },
+                    success : function(responses) {
+                        if ($('#' + IDInput).length > 0) {
+                            $('#' + IDInput).val('CHIBANBE');
+                            Element.innerHTML = responses;
+                        }
+                        else {
+                            var input = document.createElement('input');
+                            input.setAttribute('name',IDInput);
+                            input.setAttribute('type','hidden');
+                            input.setAttribute('id',IDInput);
+                            input.setAttribute('value','CHIBANBE');
+                            Element.innerHTML = responses;
+                            document.getElementById('formTongQuan').append(input);
+                        }
+                        second.innerHTML = '';
+                        second.classList.remove("fixed");
+                        second.classList.remove("h-screen");
+                    }
+                })
+                
+            });
+            inputPrivacy[2].addEventListener('change',function(){
+                $.ajax({
+                    method : "GET",
+                    url: "/ProcessPrivacyAbouts",
+                    data : {
+                        IDQuyenRiengTu : 'RIENGTU'
+                    },
+                    success : function(responses) {
+                        if ($('#' + IDInput).length > 0) {
+                            $('#' + IDInput).val('RIENGTU');
+                            Element.innerHTML = responses;
+                        }
+                        else {
+                            var input = document.createElement('input');
+                            input.setAttribute('name',IDInput);
+                            input.setAttribute('type','hidden');
+                            input.setAttribute('id',IDInput);
+                            input.setAttribute('value','RIENGTU');
+                            Element.innerHTML = responses;
+                            document.getElementById('formTongQuan').append(input);
+                        }
+                        second.innerHTML = '';
+                        second.classList.remove("fixed");
+                        second.classList.remove("h-screen");
+                    }
+                })
+                
+            });
         }
     });
 }
@@ -56,6 +138,17 @@ function OnChangeCheckBoxAboutOnOrOff(Element,Name) {
     else {
         data[2].classList.remove('hidden');
         data[3].classList.remove('hidden');
+    }
+}
+function OnChangeCheckBoxAboutOffOrOn(Element,Name) {
+    var data = document.getElementsByClassName(Name)[0].children;
+    if (Element.checked) {
+        data[2].classList.remove('hidden');
+        data[3].classList.remove('hidden');
+    }
+    else {
+        data[2].classList.add('hidden');
+        data[3].classList.add('hidden');  
     }
 }
 function OninputValueInputAbout(Name,Element,Condition) {
@@ -113,23 +206,6 @@ function choose(IDInput,ID,Name,ValueInput,IDS,Value) {
         input.setAttribute('value',ID);
         document.getElementById(IDS).value = Name;
         document.getElementsByClassName(Value)[0].classList.add('hidden');
-        document.getElementById('formTongQuan').append(input);
-    }
-}
-function chooseCityAndTown(IDDiaChi,TenDiaChi) {
-    if ($('#cityAndTownInput').length > 0) {
-        $('#cityAndTownInput').val(IDDiaChi);
-        document.getElementById('IDDiaChis').value = TenDiaChi;
-        document.getElementsByClassName('CityAndTown')[0].classList.add('hidden');
-    }
-    else {
-        var input = document.createElement('input');
-        input.setAttribute('name','IDDiaChi');
-        input.setAttribute('type','hidden');
-        input.setAttribute('id','cityAndTownInput');
-        input.setAttribute('value',IDDiaChi);
-        document.getElementById('IDDiaChis').value = TenDiaChi;
-        document.getElementsByClassName('CityAndTown')[0].classList.add('hidden');
         document.getElementById('formTongQuan').append(input);
     }
 }

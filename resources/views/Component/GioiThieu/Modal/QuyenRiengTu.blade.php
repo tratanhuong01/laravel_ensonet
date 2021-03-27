@@ -18,7 +18,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                 <p class="dark:text-white">Mọi người trên hoặc ngoài facebook</p>
             </div>
             <div class="w-1/12 p-6">
-                <input onchange="handelOnChangeInputPost('CONGKHAI')" type="radio" class="text-3xl h-4" name="state" style="transform: scale(1.5);">
+                <input type="radio" class="privacyAboutss text-3xl h-4" name="state" style="transform: scale(1.5);">
             </div>
         </li>
         <li class="w-full flex p-2 cursor-pointer">
@@ -30,7 +30,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                 <p class="dark:text-white">Bạn bè của bạn trên facebook</p>
             </div>
             <div class="w-1/12 p-6">
-                <input onchange="handelOnChangeInputPost('CHIBANBE')" type="radio" class="text-3xl h-4" name="state" style="transform: scale(1.5);">
+                <input type="radio" class="privacyAboutss text-3xl h-4" name="state" style="transform: scale(1.5);">
             </div>
         </li>
         <li class="w-full flex p-2 cursor-pointer">
@@ -42,7 +42,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                 <p class="dark:text-white">Chỉ mình bạn có thể thấy thông tin này</p>
             </div>
             <div class="w-1/12 p-6">
-                <input onchange="handelOnChangeInputPost('RIENGTU')" type="radio" class="text-3xl h-4" name="state" style="transform: scale(1.5);">
+                <input type="radio" class="privacyAboutss text-3xl h-4" name="state" style="transform: scale(1.5);">
             </div>
         </li>
     </ul>

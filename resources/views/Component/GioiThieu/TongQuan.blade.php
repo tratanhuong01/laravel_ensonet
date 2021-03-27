@@ -14,69 +14,30 @@ else
 </form>
 <div class="w-full">
     <ul class="w-full py-2 px-4 mainAboutFull">
-        @if (DataProcessFour::checkPlaceWork(json_decode($json[0]->JsonGioiThieu)) == 0)
-        <p onclick="AddView('placeWork')" class="placeWork font-bold text-xm py-4 text-1877F2 cursor-pointer">
-            <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
-            Thêm nơi làm việc
-        </p>
-        @include('Component/GioiThieu/Child/ThemNoiLamViec')
-        @else
-        <p onclick="AddView('placeWork')" class="font-bold text-xm py-4 text-1877F2">
-            <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
-            Thêm nơi làm việc
-        </p>
-        <li class="w-full py-4 flex relative" style="font-size: 16px;">
-            <div class="w-10/12 dark:text-white">
-                <i class="fas fa-briefcase text-gray-600  dark:text-white  text-2xl"></i>&nbsp;&nbsp;&nbsp;
-                Làm việc tại <b>FacebookApp </b>
-            </div>
-            <div class="w-2/12">
-                <ul class="w-full flex">
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="fas fa-globe-europe text-xl cursor-pointer"></i>
-                    </li>
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="far fa-edit text-xl cursor-pointer"></i>
-                    </li>
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="far fa-trash-alt text-xl cursor-pointer"></i>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        @endif
-        @if (DataProcessFour::checkSchool(json_decode($json[0]->JsonGioiThieu)) == 0)
-        <p onclick="AddView('school')" class="school font-bold text-xm py-4 text-1877F2 cursor-pointer">
-            <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
-            Thêm trường học
-        </p>
-        @include('Component/GioiThieu/Child/ThemTruongHoc')
-        @else
-        <p class="font-bold text-xm py-4 text-1877F2">
-            <a href=""><i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
-                Thêm trường học</a>
-        </p>
-        <li class="w-full pb-4 flex hidden" style="font-size: 16px;">
-            <div class="w-10/12 text-gray-600  dark:text-white ">
-                <i class="fas fa-graduation-cap text-2xl"></i>&nbsp;
-                Học tại <b>Trường Cao Đẳng Công Nghệ Thông Tin - Đại Học Đà Nẵng</b>
-            </div>
-            <div class="w-2/12">
-                <ul class="w-full flex">
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="fas fa-globe-europe text-xl cursor-pointer"></i>
-                    </li>
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="far fa-edit text-xl cursor-pointer"></i>
-                    </li>
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="far fa-trash-alt text-xl cursor-pointer"></i>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        @endif
-
+        <div class="w-full " id="placeWorkMain">
+            @if (DataProcessFour::checkPlaceWork(json_decode($json[0]->JsonGioiThieu)) == 0)
+            <p onclick="AddView('placeWork')" class="placeWork font-bold text-xm py-4 text-1877F2 cursor-pointer">
+                <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
+                Thêm nơi làm việc
+            </p>
+            @include('Component/GioiThieu/Child/ThemNoiLamViec')
+            @else
+            @include('Component/GioiThieu/Data/NoiLamViec',['data' =>
+            json_decode($json[0]->JsonGioiThieu)->CongViecHocVan->CongViec[0]])
+            @endif
+        </div>
+        <div class="w-full " id="schoolMain">
+            @if (DataProcessFour::checkSchool(json_decode($json[0]->JsonGioiThieu)) == 0)
+            <p onclick="AddView('school')" class="school font-bold text-xm py-4 text-1877F2 cursor-pointer">
+                <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
+                Thêm trường học
+            </p>
+            @include('Component/GioiThieu/Child/ThemTruongHoc')
+            @else
+            @include('Component/GioiThieu/Data/NoiLamViec',['data' =>
+            json_decode($json[0]->JsonGioiThieu)->CongViecHocVan->HocVan[0]])
+            @endif
+        </div>
         <p onclick="AddView('PlaceLiveCurrent')" class="PlaceLiveCurrent font-bold text-xm py-4 text-1877F2 cursor-pointer">
             <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
             Thêm nơi ở hiện tại
@@ -145,27 +106,17 @@ else
             </div>
         </li>
         @include('Component/GioiThieu/Child/ThemMoiQuanHe')
-        <!-- <li class="w-full pb-4 flex" style="font-size: 16px;">
-            <div class="w-10/12 font-bold flex text-gray-600  dark:text-white ">
-                <i class="fas fa-phone text-2xl text-gray-600  dark:text-white   mr-1" style="transform: rotate(90deg);"></i>
-                <div class="pl-3 text-gray-600  dark:text-white ">
-                    <p>0354114665</p>
-                    <p class="text-sm text-gray-600  dark:text-white ">Di động</p>
-                </div>
-            </div>
-            <div class="w-2/12">
-                <ul class="w-full flex">
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="fas fa-globe-europe text-xl cursor-pointer"></i>
-                    </li>
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="far fa-edit text-xl cursor-pointer"></i>
-                    </li>
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="far fa-trash-alt text-xl cursor-pointer"></i>
-                    </li>
-                </ul>
-            </div>
-        </li> -->
     </ul>
 </div>
+
+<script>
+    var dashboard = {
+        IDTaiKhoan: '{{ $idTaiKhoan }}',
+        routes: {
+            ProccessAddPlaceWorkAbout: "{{ route('ProccessAddPlaceWorkAbout') }}",
+            ProcessAddSchoolAbout: "{{ route('ProcessAddSchoolAbout') }}",
+            ProcessAddPlaceLiveCurrent: "{{ route('ProcessAddPlaceLiveCurrent') }}",
+            ProcessAddHomeTown: "{{ route('ProcessAddHomeTown') }}"
+        }
+    }
+</script>

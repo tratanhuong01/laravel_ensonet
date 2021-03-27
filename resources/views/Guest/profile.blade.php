@@ -40,6 +40,7 @@ $user = Session::get('user');
     <script src="/js/header.js"></script>
     <script src="/js/ajax/Profile/ajax.js"></script>
     <script src="/js/ajax/GioiThieu/ajax.js"></script>
+    <script src="/js/ajax/GioiThieu/ajax_second.js"></script>
 </head>
 
 <body>
