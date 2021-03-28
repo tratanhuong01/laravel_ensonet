@@ -24,6 +24,8 @@ class DeleteAboutController extends Controller
                         unset($json->CongViecHocVan->CongViec[$key]);
                     }
                 }
+                $dt = array_values($json->CongViecHocVan->CongViec);
+                $json->CongViecHocVan->CongViec = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
                 return view('Component/GioiThieu/Xoa/XoaNoiLamViec') .
@@ -35,6 +37,8 @@ class DeleteAboutController extends Controller
                         unset($json->CongViecHocVan->HocVan[$key]);
                     }
                 }
+                $dt = array_values($json->CongViecHocVan->HocVan);
+                $json->CongViecHocVan->HocVan = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
                 return view('Component/GioiThieu/Xoa/XoaTruongHoc') .
@@ -46,6 +50,8 @@ class DeleteAboutController extends Controller
                         unset($json->NoiTungSong->NoiOHienTai[$key]);
                     }
                 }
+                $dt = array_values($json->NoiTungSong->NoiOHienTai);
+                $json->NoiTungSong->NoiOHienTai = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                             gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
                 return view('Component/GioiThieu/Xoa/XoaNoiOHienTai') .
@@ -70,6 +76,8 @@ class DeleteAboutController extends Controller
                         unset($json->NoiTungSong->QueQuan[$key]);
                     }
                 }
+                $dt = array_values($json->NoiTungSong->QueQuan);
+                $json->NoiTungSong->QueQuan = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
                 return view('Component/GioiThieu/Xoa/XoaQueQuan') .

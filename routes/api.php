@@ -70,6 +70,18 @@ Route::group(['namespace' => 'GioiThieus'], function () {
     Route::post('ProcessAddPlaceLived', [GioiThieus\AddAboutController::class, 'addPlaceLived'])
         ->name('ProcessAddPlaceLived');
 
+    Route::post('ProcessAddIntroYouSelf', [GioiThieus\AddAboutController::class, 'addIntroYourSelf'])
+        ->name('ProcessAddIntroYouSelf');
+
+    Route::post('ProcessAddWayReadName', [GioiThieus\AddAboutController::class, 'AddWayReadName'])
+        ->name('ProcessAddWayReadName');
+
+    Route::post('ProcessAddNickName', [GioiThieus\AddAboutController::class, 'addNickName'])
+        ->name('ProcessAddNickName');
+
+    Route::post('ProcessAddFavoriteQuote', [GioiThieus\AddAboutController::class, 'addFavoriteQuote'])
+        ->name('ProcessAddFavoriteQuote');
+
     //Delete
 
     Route::get('ProcessDeleteAbout', [GioiThieus\DeleteAboutController::class, 'delete']);

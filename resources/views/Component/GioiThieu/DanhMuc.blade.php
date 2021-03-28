@@ -31,3 +31,20 @@
         </li>
     </ul>
 </div>
+<script>
+    var dashboard = {
+        IDTaiKhoan: '{{ $idTaiKhoan }}',
+        routes: {
+            ProccessAddPlaceWorkAbout: "{{ route('ProccessAddPlaceWorkAbout') }}",
+            ProcessAddSchoolAbout: "{{ route('ProcessAddSchoolAbout') }}",
+            ProcessAddPlaceLiveCurrent: "{{ route('ProcessAddPlaceLiveCurrent') }}",
+            ProcessAddHomeTown: "{{ route('ProcessAddHomeTown') }}",
+            ProcessAddPlaceLived: "{{ route('ProcessAddPlaceLived') }}",
+
+            ProcessAddIntroYouSelf: "{{ route('ProcessAddIntroYouSelf') }}",
+            ProcessAddWayReadName: "{{ route('ProcessAddWayReadName') }}",
+            ProcessAddNickName: "{{ route('ProcessAddNickName') }}",
+            ProcessAddFavoriteQuote: "{{ route('ProcessAddFavoriteQuote') }}"
+        }
+    }
+</script>

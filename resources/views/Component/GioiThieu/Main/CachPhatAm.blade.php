@@ -1,6 +1,13 @@
 <li class="w-full py-4 flex relative" style="font-size: 16px;">
     <div class="w-10/12 py-2 dark:text-white">
-        Code
+        <script src="/js/responsiveVoice.js"></script>
+        <script>
+            function speakAPI() {
+                responsiveVoice.speak($('#contentSpeak').text());
+            }
+        </script>
+        <i id="playAudioAPI" onclick="speakAPI()" class="fas fa-play-circle cursor-pointer"></i>
+        &nbsp;&nbsp;&nbsp;<span class="dark:text-white font-bold" id="contentSpeak">{{ $value->Ho . ' ' . $value->Ten }}</span>
     </div>
     <div class="w-2/12">
         <ul class="w-full flex">

@@ -13,6 +13,20 @@ else
     <input type="hidden" id="IDTaiKhoanU" name="IDTaiKhoan" value="{{ $idTaiKhoan }}">
     <input type="hidden" id="ActiveIn" name="ActiveIn" value="{{ 'Dashboard' }}">
     <input type="hidden" name="IDQuyenRiengTu" value="CONGKHAI">
+    <input name="IDCongTy" type="hidden" id="companiesInput" value="">
+    <input name="IDDiaChi" type="hidden" id="cityAndTownInput" value="">
+    <input name="YearStartPlaceWork" type="hidden" id="YearStartPlaceWorkInput" value="">
+    <input name="YearEndPlaceWork" type="hidden" id="YearEndPlaceWorkInput" value="">
+    <input name="PrivacyInputPlaceWork" type="hidden" id="PrivacyInputPlaceWork" value="">
+    <input name="IDTruongHoc" type="hidden" id="schoolNameInput" value="">
+    <input name="TypeSchool" type="hidden" id="schoolTypeInput" value="">
+    <input name="YearStartSchoolInput" type="hidden" id="YearStartSchoolInputs" value="">
+    <input name="YearEndSchoolInput" type="hidden" id="YearEndSchoolInputs" value="">
+    <input name="PrivacyInputSchool" type="hidden" id="PrivacyInputSchool" value="">
+    <input name="IDDiaChiLive" type="hidden" id="liveCurrentInput" value="">
+    <input name="PrivacyInputLiveCurrent" type="hidden" id="PrivacyInputLiveCurrent" value="">
+    <input name="IDDiaChiHome" type="hidden" id="homeTownInput" value="">
+    <input name="PrivacyInputHomeTown" type="hidden" id="PrivacyInputHomeTown" value="">
 </form>
 <div class="w-full">
     <ul class="w-full py-2 px-4 mainAboutFull">
@@ -71,16 +85,3 @@ else
         </div>
     </ul>
 </div>
-
-<script>
-    var dashboard = {
-        IDTaiKhoan: '{{ $idTaiKhoan }}',
-        routes: {
-            ProccessAddPlaceWorkAbout: "{{ route('ProccessAddPlaceWorkAbout') }}",
-            ProcessAddSchoolAbout: "{{ route('ProcessAddSchoolAbout') }}",
-            ProcessAddPlaceLiveCurrent: "{{ route('ProcessAddPlaceLiveCurrent') }}",
-            ProcessAddHomeTown: "{{ route('ProcessAddHomeTown') }}",
-            ProcessAddPlaceLived: "{{ route('ProcessAddPlaceLived') }}"
-        }
-    }
-</script>

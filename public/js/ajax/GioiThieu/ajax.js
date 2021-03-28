@@ -237,10 +237,14 @@ function deleteAbout(ID,TypeDelete,Main) {
                         TypeDelete : TypeDelete
                     },
                     success : function(response) {
-                        if ($('#' + ID + TypeDelete).length > 0)
+                        if ($('#' + ID + TypeDelete).length > 0){
+                            if (document.getElementById(Main).children.length >= 3)
                             $('#' + ID + TypeDelete).remove();
+                            else 
+                            $('#' + Main).append(response);
+                        }
                         else 
-                            $('#' + Main).html(response);
+                        $('#' + Main).html(response);
                         second.innerHTML = '';
                         second.classList.remove("fixed");
                         second.classList.remove("h-screen");

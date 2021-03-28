@@ -78,11 +78,13 @@ class AddAboutController extends Controller
         $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)
             ->get()[0]->JsonGioiThieu;
         $json = json_decode($json);
+        $id = '';
         $school = Truonghoc::where('truonghoc.IDTruongHoc', '=', $request->IDTruongHoc)->get();
         if (count($json->CongViecHocVan->HocVan) == 0) {
+            $id = '10000';
             $json->CongViecHocVan->HocVan[0] =
                 (object)[
-                    'IDHocVan' => '10001',
+                    'IDHocVan' => $id,
                     'IDQuyenRiengTu' => $request->PrivacyInputSchool == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputSchool,
                     'DuongDanImg' => 'img/completed.png',
                     'IDTruongHoc' => $request->IDCongTy,
@@ -92,20 +94,23 @@ class AddAboutController extends Controller
                     'NamKetThuc' => $request->YearEndSchoolInput
                 ];
         } else {
-            (object)[
-                'IDHocVan' => '10001',
-                'IDQuyenRiengTu' => $request->PrivacyInputSchool == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputSchool,
-                'DuongDanImg' => 'img/completed.png',
-                'IDTruongHoc' => $request->IDCongTy,
-                'LoaiTruong' => $request->TypeSchool,
-                'TenTruongHoc' => $school[0]->TenTrang == NULL ? $school[0]->TenTruongHoc : $school[0]->TenTrang,
-                'NamBatDau' => $request->YearStartSchoolInput,
-                'NamKetThuc' => $request->YearEndSchoolInput
-            ];
+            $id = $json->NoiTungSong->HocVan[count($json->CongViecHocVan->HocVan) - 1]->IDHocVan;
+            $id++;
+            $json->CongViecHocVan->HocVan[count($json->CongViecHocVan->HocVan)] =
+                (object)[
+                    'IDHocVan' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputSchool == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputSchool,
+                    'DuongDanImg' => 'img/completed.png',
+                    'IDTruongHoc' => $request->IDCongTy,
+                    'LoaiTruong' => $request->TypeSchool,
+                    'TenTruongHoc' => $school[0]->TenTrang == NULL ? $school[0]->TenTruongHoc : $school[0]->TenTrang,
+                    'NamBatDau' => $request->YearStartSchoolInput,
+                    'NamKetThuc' => $request->YearEndSchoolInput
+                ];
         }
         $get = NULL;
         foreach ($json->CongViecHocVan->HocVan as $key => $value) {
-            if ($value->IDHocVan == '10001')
+            if ($value->IDHocVan == $id)
                 $get = $value;
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
@@ -120,10 +125,12 @@ class AddAboutController extends Controller
         $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)
             ->get()[0]->JsonGioiThieu;
         $json = json_decode($json);
+        $id = '';
         $address = Diachi::where('diachi.IDDiaChi', '=', $request->IDDiaChiLive)->get();
         if (count($json->NoiTungSong->NoiOHienTai) == 0) {
+            $id = '10000';
             $json->NoiTungSong->NoiOHienTai[0] = (object)[
-                'IDNoiOHienTai' => '10001',
+                'IDNoiOHienTai' => $id,
                 'IDQuyenRiengTu' => $request->PrivacyInputLiveCurrent == NULL ? $request->IDQuyenRiengTu  :  $request->PrivacyInputLiveCurrent,
                 'DuongDanImg' => 'img/completed.png',
                 'IDDiaChi' => $request->IDDiaChiLive,
@@ -132,8 +139,10 @@ class AddAboutController extends Controller
                 'NamKetThuc' => $request->YearStartEndCurrent
             ];
         } else {
+            $id = $json->NoiTungSong->NoiOHienTai[count($json->NoiTungSong->NoiOHienTai) - 1]->IDNoiOHienTai;
+            $id++;
             $json->NoiTungSong->NoiOHienTai[count($json->NoiTungSong->NoiOHienTai)] = (object)[
-                'IDNoiOHienTai' => '10001',
+                'IDNoiOHienTai' => $id,
                 'IDQuyenRiengTu' => $request->PrivacyInputLiveCurrent == NULL ?  $request->IDQuyenRiengTu  :  $request->PrivacyInputLiveCurrent,
                 'DuongDanImg' => 'img/completed.png',
                 'IDDiaChi' => $request->IDDiaChiLive,
@@ -160,10 +169,12 @@ class AddAboutController extends Controller
             ->get()[0]->JsonGioiThieu;
         $json = json_decode($json);
         $address = Diachi::where('diachi.IDDiaChi', '=', $request->IDDiaChiHome)->get();
+        $id = '';
         if (count($json->NoiTungSong->QueQuan) == 0) {
+            $id = '10000';
             $json->NoiTungSong->QueQuan[0] =
                 (object)[
-                    'IDQueQuan' => '10001',
+                    'IDQueQuan' => $id,
                     'IDQuyenRiengTu' => $request->PrivacyInputHomeTown == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputHomeTown,
                     'DuongDanImg' => 'img/completed.png',
                     'IDDiaChi' => $request->IDDiaChiLive,
@@ -172,8 +183,10 @@ class AddAboutController extends Controller
                     'NamKetThuc' => $request->YearEndSchoolInput
                 ];
         } else {
+            $id = $json->NoiTungSong->QueQuan[count($json->NoiTungSong->QueQuan) - 1]->IDQueQuan;
+            $id++;
             $json->NoiTungSong->QueQuan[count($json->NoiTungSong->QueQuan)] = (object)[
-                'IDQueQuan' => '10001',
+                'IDQueQuan' => $id,
                 'IDQuyenRiengTu' => $request->PrivacyInputHomeTown == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputHomeTown,
                 'DuongDanImg' => 'img/completed.png',
                 'IDDiaChi' => $request->IDDiaChiHome,
@@ -184,7 +197,7 @@ class AddAboutController extends Controller
         }
         $get = NULL;
         foreach ($json->NoiTungSong->QueQuan as $key => $value) {
-            if ($value->IDQueQuan == '10001')
+            if ($value->IDQueQuan == $id)
                 $get = $value;
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
@@ -243,5 +256,85 @@ class AddAboutController extends Controller
             'value',
             $get
         );
+    }
+    public function addIntroYourSelf(Request $request)
+    {
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)
+            ->get()[0]->JsonGioiThieu;
+        $json = json_decode($json);
+        $id = "";
+        $address = Diachi::where('diachi.IDDiaChi', '=', $request->IDNoiTungSong)->get();
+        if (count($json->ChiTietBanThan->GioiThieu) == 0) {
+            $id = "10000";
+            $json->ChiTietBanThan->GioiThieu[0] =
+                (object)[
+                    'IDGioiThieu' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputIntroYourSelf == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputIntroYourSelf,
+                    'TenGioiThieu' => $request->InfoIntroYourSelf
+                ];
+        } else {
+            $id =  $json->ChiTietBanThan->GioiThieu[count($json->ChiTietBanThan->GioiThieu) - 1]->IDGioiThieu;
+            $id++;
+            $json->ChiTietBanThan->GioiThieu[count($json->ChiTietBanThan->GioiThieu)] =
+                (object)[
+                    'IDGioiThieu' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputIntroYourSelf == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputIntroYourSelf,
+                    'TenGioiThieu' => $request->InfoIntroYourSelf
+                ];
+        }
+        $get = NULL;
+        foreach ($json->ChiTietBanThan->GioiThieu as $key => $value) {
+            if ($value->IDGioiThieu == $id)
+                $get = $value;
+        }
+        DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+        gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
+        return view('Component/GioiThieu/Main/GioiThieuBanThan')->with(
+            'value',
+            $get
+        );
+    }
+    public function addWayReadName(Request $request)
+    {
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)
+            ->get()[0]->JsonGioiThieu;
+        $json = json_decode($json);
+        $id = "";
+        $address = Diachi::where('diachi.IDDiaChi', '=', $request->IDNoiTungSong)->get();
+        if (count($json->ChiTietBanThan->GioiThieu) == 0) {
+            $id = "10000";
+            $json->ChiTietBanThan->GioiThieu[0] =
+                (object)[
+                    'IDGioiThieu' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputIntroYourSelf == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputIntroYourSelf,
+                    'TenGioiThieu' => $request->InfoIntroYourSelf
+                ];
+        } else {
+            $id =  $json->ChiTietBanThan->GioiThieu[count($json->ChiTietBanThan->GioiThieu) - 1]->IDGioiThieu;
+            $id++;
+            $json->ChiTietBanThan->GioiThieu[count($json->ChiTietBanThan->GioiThieu)] =
+                (object)[
+                    'IDGioiThieu' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputIntroYourSelf == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputIntroYourSelf,
+                    'TenGioiThieu' => $request->InfoIntroYourSelf
+                ];
+        }
+        $get = NULL;
+        foreach ($json->ChiTietBanThan->GioiThieu as $key => $value) {
+            if ($value->IDGioiThieu == $id)
+                $get = $value;
+        }
+        DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+        gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
+        return view('Component/GioiThieu/Main/CachPhatAm')->with(
+            'value',
+            $get
+        );
+    }
+    public function addNickName(Request $request)
+    {
+    }
+    public function addFaroviteQuote(Request $request)
+    {
     }
 }

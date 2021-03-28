@@ -1,5 +1,6 @@
 <form action="" method="post" id="formTongQuan">
     <input type="hidden" id="IDTaiKhoanU" name="IDTaiKhoan" value="{{ $idTaiKhoan }}">
+    <input type="hidden" name="IDQuyenRiengTu" value="CONGKHAI">
 </form>
 <div class="w-full">
     <ul class="w-full py-2 px-4  dark:text-white mainAboutFull">

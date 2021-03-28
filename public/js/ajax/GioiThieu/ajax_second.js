@@ -1,88 +1,118 @@
-function addPlaceWorkSS() {
-    let formData = new FormData($('#formTongQuan')[0]);
-    $.ajax({
-        method : "POST",
-        url : dashboard.routes.ProccessAddPlaceWorkAbout,
-        data : formData,
-        contentType: false,
-        processData: false,
-        success : function(response) {
-            document.getElementsByClassName('placeWork')[1].classList.add('hidden');
-            $('#placeWorkMain').append(response);
-        },
-        error : function(response) {
-            console.log(response)
-        }
-    });
-}
-function addSchoolSS() {
-    let formData = new FormData($('#formTongQuan')[0]);
-    $.ajax({
-        method : "POST",
-        url : dashboard.routes.ProcessAddSchoolAbout,
-        data : formData,
-        contentType: false,
-        processData: false,
-        success : function(response) {
-            document.getElementsByClassName('school')[1].classList.add('hidden');
-            $('#schoolMain').append(response);
-        },
-        error : function(response) {
-            console.log(response)
-        }
-    });
-}
-function addPlaceLiveCurrent() {
-    let formData = new FormData($('#formTongQuan')[0]);
-    $.ajax({
-        method : "POST",
-        url : dashboard.routes.ProcessAddPlaceLiveCurrent,
-        data : formData,
-        contentType: false,
-        processData: false,
-        success : function(response) {
-            document.getElementsByClassName('PlaceLiveCurrent')[1].classList.add('hidden');
-            $('#placeLiveCurrentMain').append(response);
-        },
-        error : function(response) {
-            console.log(response)
-        }
-    });
-}
-function addHomeTown() {
-    let formData = new FormData($('#formTongQuan')[0]);
-    $.ajax({
-        method : "POST",
-        url : dashboard.routes.ProcessAddHomeTown,
-        data : formData,
-        contentType: false,
-        processData: false,
-        success : function(response) {
-            document.getElementsByClassName('HomeTown')[1].classList.add('hidden');
-            $('#homeTownMain').append(response);
-        },
-        error : function(response) {
-            console.log(response)
-        }
-    });
-}
-function addPlaceLived() {
-    let formData = new FormData($('#formTongQuan')[0]);
-    $.ajax({
-        method : "POST",
-        url : dashboard.routes.ProcessAddPlaceLived,
-        data : formData,
-        contentType: false,
-        processData: false,
-        success : function(response) {
-            document.getElementsByClassName('PlaceLivedSS')[1].classList.add('hidden');
-            $('#placeLivedMain').append(response);
-        },
-        error : function(response) {
-            console.log(response)
-        }
-    });
-}
+
+// function addPlaceWorkSS() {
+//     let formData = new FormData($('#formTongQuan')[0]);
+//     $.ajax({
+//         method : "POST",
+//         url : dashboard.routes.ProccessAddPlaceWorkAbout,
+//         data : formData,
+//         contentType: false,
+//         processData: false,
+//         success : function(response) {
+//             if ($('#ActiveIn').length > 0) {
+//                 document.getElementsByClassName('placeWork')[1].classList.add('hidden');
+//                 $('#placeWorkMain').append(response);
+//             }
+//            else {
+//             document.getElementsByClassName('placeWork')[0].classList.remove('hidden');
+//             document.getElementsByClassName('placeWork')[1].classList.add('hidden');
+//             $('#placeWorkMain').append(response);
+//            }
+//         },
+//         error : function(response) {
+//             console.log(response)
+//         }
+//     });
+// }
+// function addSchoolSS() {
+//     let formData = new FormData($('#formTongQuan')[0]);
+//     $.ajax({
+//         method : "POST",
+//         url : dashboard.routes.ProcessAddSchoolAbout,
+//         data : formData,
+//         contentType: false,
+//         processData: false,
+//         success : function(response) {
+//             if ($('#ActiveIn').length > 0) {
+//                 document.getElementsByClassName('school')[1].classList.add('hidden');
+//                 $('#schoolMain').append(response);
+//             }
+//             else {
+//                 document.getElementsByClassName('school')[0].classList.remove('hidden');
+//                 document.getElementsByClassName('school')[1].classList.add('hidden');
+//                 $('#schoolMain').append(response);
+//             }
+//         },
+//         error : function(response) {
+//             console.log(response)
+//         }
+//     });
+// }
+// function addPlaceLiveCurrent() {
+//     let formData = new FormData($('#formTongQuan')[0]);
+//     $.ajax({
+//         method : "POST",
+//         url : dashboard.routes.ProcessAddPlaceLiveCurrent,
+//         data : formData,
+//         contentType: false,
+//         processData: false,
+//         success : function(response) {
+//             if ($('#ActiveIn').length > 0) {
+//                 document.getElementsByClassName('PlaceLiveCurrent')[1].classList.add('hidden');
+//                 $('#placeLiveCurrentMain').append(response);
+//             }
+//             else {
+//                 document.getElementsByClassName('PlaceLiveCurrent')[0].classList.remove('hidden');
+//                 document.getElementsByClassName('PlaceLiveCurrent')[1].classList.add('hidden');
+//                 $('#placeLiveCurrentMain').append(response);
+//             }
+//         },
+//         error : function(response) {
+//             console.log(response)
+//         }
+//     });
+// }
+// function addHomeTown() {
+//     let formData = new FormData($('#formTongQuan')[0]);
+//     $.ajax({
+//         method : "POST",
+//         url : dashboard.routes.ProcessAddHomeTown,
+//         data : formData,
+//         contentType: false,
+//         processData: false,
+//         success : function(response) {
+//             if ($('#ActiveIn').length > 0) {
+//                 document.getElementsByClassName('HomeTown')[1].classList.add('hidden');
+//                 $('#homeTownMain').append(response);
+//             }
+//             else {
+//                 document.getElementsByClassName('HomeTown')[0].classList.remove('hidden');
+//                 document.getElementsByClassName('HomeTown')[1].classList.add('hidden');
+//                 $('#homeTownMain').append(response);
+//             }
+//         },
+//         error : function(response) {
+//             console.log(response)
+//         }
+//     });
+// }
+// function addPlaceLived() {
+//     let formData = new FormData($('#formTongQuan')[0]);
+//     $.ajax({
+//         method : "POST",
+//         url : dashboard.routes.ProcessAddPlaceLived,
+//         data : formData,
+//         contentType: false,
+//         processData: false,
+//         success : function(response) {
+//             document.getElementsByClassName('PlaceLivedSS')[0].classList.add('hidden');
+//             document.getElementsByClassName('PlaceLivedSS')[1].classList.add('hidden');
+//             $('#placeLivedMain').append(response);
+//         },
+//         error : function(response) {
+//             console.log(response)
+//         }
+//     });
+// }
 function changePrivacyAboutMain(TypeChange,ID,Element) {
     $.ajax({
         method: "GET",
@@ -213,4 +243,60 @@ function editViewAboutChild(ID,TypeEdit,Main,Type) {
             })
         }
     });
+}
+function add(routes,value,valueName) {
+    let formData = new FormData($('#formTongQuan')[0]);
+    $.ajax({
+        method : "POST",
+        url : routes,
+        data : formData,
+        contentType: false,
+        processData: false,
+        success : function(response) {
+            if ($('#ActiveIn').length > 0) {
+                document.getElementsByClassName(value)[1].classList.add('hidden');
+                $('#' + valueName).append(response);
+            }
+           else {
+            document.getElementsByClassName(value)[0].classList.remove('hidden');
+            document.getElementsByClassName(value)[1].classList.add('hidden');
+            $('#' + valueName).append(response);
+           }
+        },
+        error : function(response) {
+            console.log(response)
+        }
+    });
+}
+function addChild(routes,value,IDInput,Name,Main) {
+    if ($('#' + IDInput).length > 0) {
+        $('#' + IDInput).val($('#' + Name).val());
+    }
+    else {
+        var input = document.createElement('input');
+        input.setAttribute('name',IDInput);
+        input.setAttribute('type','hidden');
+        input.setAttribute('id',IDInput);
+        input.setAttribute('value',$('#' + Name).val());
+        $('#formTongQuan').append(input);
+    }
+    document.getElementsByClassName(value)[1].classList.add('hidden');
+    let formData = new FormData($('#formTongQuan')[0]);
+    $.ajax({
+        method : "POST",
+        url : routes,
+        data : formData,
+        contentType: false,
+        processData: false,
+        success : function(response) {
+            document.getElementsByClassName(value)[1].classList.add('hidden');
+            $('#' + Main).append(response);
+        },
+        error : function(response) {
+            console.log(response)
+        }
+    });    
+}
+function speakAPI() {
+    responsiveVoice.speak('hello worl');
 }
