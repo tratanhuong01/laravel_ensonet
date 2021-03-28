@@ -1,5 +1,8 @@
+<form action="" method="post" id="formTongQuan">
+    <input type="hidden" id="IDTaiKhoanU" name="IDTaiKhoan" value="{{ $idTaiKhoan }}">
+</form>
 <div class="w-full">
-    <ul class="w-full py-2 px-4  dark:text-white">
+    <ul class="w-full py-2 px-4  dark:text-white mainAboutFull">
         <li class="w-full pb-6 flex  dark:text-white" style="font-size: 16px;">
             <div class="w-1/12 py-3">
                 <i class="fas fa-phone text-2xl" style="transform: rotate(90deg);"></i>

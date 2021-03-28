@@ -1,4 +1,4 @@
-<div class="w-full mb-16">
+<div class="w-full mb-16 mainAboutFull">
     <div class="w-full ">
         <div class="w-full dark:text-white">
             <p class="font-bold text-xm py-2 " style="font-family: system-ui;">

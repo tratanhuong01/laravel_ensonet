@@ -176,7 +176,11 @@ function loadDataAbout(routes,IDTaiKhoan,el) {
             searchActiveAboutLi(el);
             $('#detailAbout').html(response);
             // window.History.pushState('','','')
+        },
+        error: function(response) {
+            console.log(response)
         }
+        
     });
 }
 function searchActiveAboutLi(el) {
@@ -232,8 +236,11 @@ function deleteAbout(ID,TypeDelete,Main) {
                         ID : ID,
                         TypeDelete : TypeDelete
                     },
-                    success : function(response) {  
-                        $('#' + Main).html(response);
+                    success : function(response) {
+                        if ($('#' + ID + TypeDelete).length > 0)
+                            $('#' + ID + TypeDelete).remove();
+                        else 
+                            $('#' + Main).html(response);
                         second.innerHTML = '';
                         second.classList.remove("fixed");
                         second.classList.remove("h-screen");
@@ -244,41 +251,3 @@ function deleteAbout(ID,TypeDelete,Main) {
     });
 }
 
-function editViewAbout(ID,TypeEdit,Main,Type) {
-    $.ajax({
-        method : "GET",
-        url: "/ProcessEditViewAbout",
-        data : {
-            ID : ID,
-            TypeEdit : TypeEdit
-        },
-        success: function(response) {
-            document.getElementById(Main).children[0].classList.add('hidden');
-            $('#' + Main).append(response);
-            document.getElementsByClassName(Type)[0].classList.remove('hidden');
-            document.getElementById('btnHuy' + TypeEdit).addEventListener('click',function() {
-                var cl = document.getElementsByClassName(Type)[0]
-                if (cl.classList.contains('hidden')) {
-                    
-                    cl.classList.remove('hidden')
-                }
-                else {
-                    document.getElementById(Main).children[0].classList.remove('hidden');
-                    cl.classList.add('hidden')
-                }
-            })
-        }
-    });
-}
-function editAbout(ID,TypeEdit,Main) {
-    $.ajax({
-        method : "GET",
-        url: "/ProcessEditAboutMain",
-        data : {
-
-        },
-        success: function(response) {
-
-        }
-    });
-}

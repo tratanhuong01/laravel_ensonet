@@ -17,26 +17,38 @@ class AboutController extends Controller
     }
     public function workAndStudy(Request $request)
     {
-        return view('Component/GioiThieu/CongViecHocVan');
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+        return view('Component/GioiThieu/CongViecHocVan')->with('json', $json)
+            ->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function placeLived(Request $request)
     {
-        return view('Component/GioiThieu/NoiTungSong');
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+        return view('Component/GioiThieu/NoiTungSong')->with('json', $json)
+            ->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function infoSimpleAndContact(Request $request)
     {
-        return view('Component/GioiThieu/ThongTinCoBanVaLienHe');
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+        return view('Component/GioiThieu/ThongTinCoBanVaLienHe')->with('json', $json)
+            ->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function familyAndRelatioship(Request $request)
     {
-        return view('Component/GioiThieu/GiaDinhVaMoiQuanHe');
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+        return view('Component/GioiThieu/GiaDinhVaMoiQuanHe')->with('json', $json)
+            ->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function detailAboutUser(Request $request)
     {
-        return view('Component/GioiThieu/ChiTietVeBanThan');
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+        return view('Component/GioiThieu/ChiTietVeBanThan')->with('json', $json)
+            ->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function eventLife(Request $request)
     {
-        return view('Component/GioiThieu/SuKienTrongDoi');
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+        return view('Component/GioiThieu/SuKienTrongDoi')->with('json', $json)
+            ->with('idTaiKhoan', $request->IDTaiKhoan);
     }
 }

@@ -8,9 +8,11 @@ if (isset($jsons))
     $json = $jsons;
 else
     $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->get();
-
 ?>
 <form action="" method="post" id="formTongQuan">
+    <input type="hidden" id="IDTaiKhoanU" name="IDTaiKhoan" value="{{ $idTaiKhoan }}">
+    <input type="hidden" id="ActiveIn" name="ActiveIn" value="{{ 'Dashboard' }}">
+    <input type="hidden" name="IDQuyenRiengTu" value="CONGKHAI">
 </form>
 <div class="w-full">
     <ul class="w-full py-2 px-4 mainAboutFull">
@@ -62,26 +64,11 @@ else
             json_decode($json[0]->JsonGioiThieu)->NoiTungSong->QueQuan[0]])
             @endif
         </div>
-        <li class="w-full  pt-2 pb-4 flex" style="font-size: 16px;">
-            <div class="w-10/12 text-gray-600  dark:text-white ">
-                &nbsp;<i class="fas fa-heart text-gray-600  dark:text-white   text-2xl"></i>
-                &nbsp;&nbsp;&nbsp;Độc Thân
+        <div class="w-full" id="marriageMain">
+            @include('Component/GioiThieu/Data/HonNhan',['data' => json_decode($json[0]->JsonGioiThieu)->GiaDinhVaCacMoiQuanHe->HonNhan])
+            <div class="w-full" id="marriageMainEdit">
             </div>
-            <div class="w-2/12">
-                <ul class="w-full flex">
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="fas fa-globe-europe text-xl cursor-pointer"></i>
-                    </li>
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="far fa-edit text-xl cursor-pointer"></i>
-                    </li>
-                    <li class="p-2  dark:text-white  text-gray-600">
-                        <i class="far fa-trash-alt text-xl cursor-pointer"></i>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        @include('Component/GioiThieu/Them/ThemMoiQuanHe')
+        </div>
     </ul>
 </div>
 
@@ -92,7 +79,8 @@ else
             ProccessAddPlaceWorkAbout: "{{ route('ProccessAddPlaceWorkAbout') }}",
             ProcessAddSchoolAbout: "{{ route('ProcessAddSchoolAbout') }}",
             ProcessAddPlaceLiveCurrent: "{{ route('ProcessAddPlaceLiveCurrent') }}",
-            ProcessAddHomeTown: "{{ route('ProcessAddHomeTown') }}"
+            ProcessAddHomeTown: "{{ route('ProcessAddHomeTown') }}",
+            ProcessAddPlaceLived: "{{ route('ProcessAddPlaceLived') }}"
         }
     }
 </script>

@@ -26,7 +26,8 @@ class DeleteAboutController extends Controller
                 }
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
-                return view('Component/GioiThieu/Xoa/XoaNoiLamViec');
+                return view('Component/GioiThieu/Xoa/XoaNoiLamViec') .
+                    view('Component/GioiThieu/Them/ThemNoiLamViec');
                 break;
             case 'School':
                 foreach ($json->CongViecHocVan->HocVan as $key => $value) {
@@ -36,7 +37,8 @@ class DeleteAboutController extends Controller
                 }
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
-                return view('Component/GioiThieu/Xoa/XoaTruongHoc');
+                return view('Component/GioiThieu/Xoa/XoaTruongHoc') .
+                    view('Component/GioiThieu/Them/ThemTruongHoc');
                 break;
             case 'PlaceLiveCurrent':
                 foreach ($json->NoiTungSong->NoiOHienTai as $key => $value) {
@@ -46,7 +48,21 @@ class DeleteAboutController extends Controller
                 }
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                             gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
-                return view('Component/GioiThieu/Xoa/XoaNoiOHienTai');
+                return view('Component/GioiThieu/Xoa/XoaNoiOHienTai') .
+                    view('Component/GioiThieu/Them/ThemNoiOHienTai');
+                break;
+            case 'PlaceLived':
+                foreach ($json->NoiTungSong->NoiTungSong as $key => $value) {
+                    if ($value->IDNoiTungSong == $request->ID) {
+                        unset($json->NoiTungSong->NoiTungSong[$key]);
+                    }
+                }
+                $dt = array_values($json->NoiTungSong->NoiTungSong);
+                $json->NoiTungSong->NoiTungSong = $dt;
+                DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+                                gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
+                return view('Component/GioiThieu/Xoa/XoaNoiOHienTai') .
+                    view('Component/GioiThieu/Them/ThemNoiOHienTai');
                 break;
             case 'HomeTown':
                 foreach ($json->NoiTungSong->QueQuan as $key => $value) {
@@ -56,7 +72,8 @@ class DeleteAboutController extends Controller
                 }
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
-                return view('Component/GioiThieu/Xoa/XoaQueQuan');
+                return view('Component/GioiThieu/Xoa/XoaQueQuan') .
+                    view('Component/GioiThieu/Them/ThemQueQuan');
                 break;
             default:
                 # code...

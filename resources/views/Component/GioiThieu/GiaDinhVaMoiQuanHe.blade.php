@@ -7,8 +7,11 @@ $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')->get()[0]->J
 $json = json_decode($json);
 
 ?>
+<form action="" method="post" id="formTongQuan">
+    <input type="hidden" id="IDTaiKhoanU" name="IDTaiKhoan" value="{{ $idTaiKhoan }}">
+</form>
 <div class="w-full">
-    <ul class="w-full py-2 px-4">
+    <ul class="w-full py-2 px-4 mainAboutFull">
         <p class="font-bold text-xm pt-2 pb-3 dark:text-white" style="font-family: system-ui;">
             Mối quan hệ</p>
         <div class="w-full relative hidden">

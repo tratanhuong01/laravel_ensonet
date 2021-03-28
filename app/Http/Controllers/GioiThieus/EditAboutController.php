@@ -23,7 +23,14 @@ class EditAboutController extends Controller
                     }
                 }
                 break;
-
+            case 'Marriage':
+                $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')->get()[0]->JsonGioiThieu;
+                $json = json_decode($json);
+                if ($json->GiaDinhVaCacMoiQuanHe->HonNhan->IDHonNhan ==  $request->ID) {
+                    $view =  view('Component/GioiThieu/Sua/SuaMoiQuanHe')
+                        ->with('data', $json->GiaDinhVaCacMoiQuanHe->HonNhan);
+                }
+                break;
             default:
                 # code...
                 break;

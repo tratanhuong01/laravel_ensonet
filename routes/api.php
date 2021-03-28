@@ -67,6 +67,9 @@ Route::group(['namespace' => 'GioiThieus'], function () {
     Route::post('ProcessAddHomeTown', [GioiThieus\AddAboutController::class, 'addHomeTown'])
         ->name('ProcessAddHomeTown');
 
+    Route::post('ProcessAddPlaceLived', [GioiThieus\AddAboutController::class, 'addPlaceLived'])
+        ->name('ProcessAddPlaceLived');
+
     //Delete
 
     Route::get('ProcessDeleteAbout', [GioiThieus\DeleteAboutController::class, 'delete']);
@@ -79,10 +82,12 @@ Route::group(['namespace' => 'GioiThieus'], function () {
 
     Route::get('ProcessEditAboutMain', [GioiThieus\EditAboutController::class, 'edit']);
 
-    //
+    Route::get('ProcessChangePrivacyAboutViewMain', [GioiThieus\ChangePrivacyAboutController::class, 'changeView']);
+
+    Route::get('ProcessChangePrivacyAboutMain', [GioiThieus\ChangePrivacyAboutController::class, 'change']);
 });
 
-Route::get('save', function () {
+Route::get('save/{id}', function ($id) {
     $json = [
         'ThongTinCoBanVaLienHe' => [
             'NgaySinh' => [
@@ -105,6 +110,7 @@ Route::get('save', function () {
                 'IDQuyenRiengTu' => 'CHIBANBE'
             ],
             'GioiTinh' => [
+                'IDGioiTinh' => '10000',
                 'IDQuyenRiengTu' => 'CHIBANBE',
                 'TenGioiTinh' => 'Nam'
             ]
@@ -115,12 +121,14 @@ Route::get('save', function () {
         ],
         'NoiTungSong' => [
             'QueQuan' => [],
-            'NoiOHienTai' => []
+            'NoiOHienTai' => [],
+            'NoiTungSong' => []
         ],
         'GiaDinhVaCacMoiQuanHe' => [
             'HonNhan' => [
+                'IDHonNhan' => '10000',
                 'IDQuyenRiengTu' => 'CHIBANBE',
-                'TinhTrang' => '0'
+                'TinhTrang' => 'Độc Thân'
             ],
             'ThanhVienGiaDinh' => []
         ],
@@ -132,7 +140,7 @@ Route::get('save', function () {
         ]
     ];
     DB::table('gioithieu')->insert([
-        'IDTaiKhoan' => '1000000004',
+        'IDTaiKhoan' => $id,
         'JsonGioiThieu' => json_encode($json)
     ]);
 });
@@ -174,6 +182,11 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
                 ->with('type', $request->Type);
             break;
         case 'PlaceHomeTown':
+            $data = DataProcessFour::getCityAndTown($request->Value);
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        case 'PlaceLived':
             $data = DataProcessFour::getCityAndTown($request->Value);
             return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
                 ->with('type', $request->Type);

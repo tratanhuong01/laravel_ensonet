@@ -39,7 +39,7 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
         <p class="py-2">Từ</p>
         <div class="w-24 text-center relative dark:text-white">
             <input type="button" onclick="EventClickYearAbout('yearPlaceWorks',0)" id="YearStartPlaceWorks" class="px-4 py-2.5 dark:bg-dark-third dark:text-white bg-gray-200 
-                    font-bold rounded-lg " value="{{ $data->NamBatDau }}">
+                    font-bold rounded-lg " value="{{ $data->NamBatDau == NULL ? 'Năm' : $data->NamBatDau }}">
             <div class="YearStartPlaceWorkss z-50 absolute left-2 top-12 w-80 h-60 overflow-y-auto wrapper-content-right
                      shadow-lg border-gray-300 dark:border-dark-main dark:bg-dark-second 
                      bg-gray-200 hidden yearPlaceWorks " style="max-height: 200px;">
@@ -59,7 +59,7 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
         <p class="py-2">Đến</p>
         <div class="w-24 text-center relative dark:text-white">
             <input type="button" onclick="EventClickYearAbout('yearPlaceWorks',1)" class="px-4 py-2.5 dark:bg-dark-third dark:text-white bg-gray-200 
-                    font-bold rounded-lg" value="{{ $data->NamKetThuc }}" id="YearEndPlaceWorks">
+                    font-bold rounded-lg" value="{{ $data->NamKetThuc == NULL ? 'Năm' : $data->NamKetThuc }}" id="YearEndPlaceWorks">
             <div class="YearEndPlaceWorkss z-50 hidden absolute left-3.5 top-12 w-80 h-60 overflow-y-auto wrapper-content-right
                      shadow-lg border-gray-300 dark:border-dark-main dark:bg-dark-second 
                      bg-gray-200 yearPlaceWorks" style="max-height: 200px;">

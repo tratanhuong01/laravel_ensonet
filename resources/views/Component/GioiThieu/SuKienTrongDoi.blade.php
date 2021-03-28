@@ -1,5 +1,8 @@
+<form action="" method="post" id="formTongQuan">
+    <input type="hidden" id="IDTaiKhoanU" name="IDTaiKhoan" value="{{ $idTaiKhoan }}">
+</form>
 <div class="w-full">
-    <ul class="w-full py-2 px-4">
+    <ul class="w-full py-2 px-4 mainAboutFull">
         <li class="w-full pb-6" style="font-size: 16px;">
             <p class="font-bold text-xm py-1 dark:text-white" style="font-family: system-ui;">2019</p>
             <p class=" dark:text-white"><i class="fas fa-graduation-cap text-gray-600 text-2xl"></i>&nbsp;&nbsp;

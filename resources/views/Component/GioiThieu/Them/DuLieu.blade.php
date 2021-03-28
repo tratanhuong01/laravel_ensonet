@@ -107,4 +107,22 @@
 </div>
 @endforeach
 @break
+@case('PlaceLived')
+@foreach($data as $key => $value)
+<div onclick="choose('IDNoiTungSong',
+    '{{ $value->IDDiaChi }}',
+    '{{ $value->TenTrang == NULL ? $value->TenDiaChi : $value->TenTrang }}',
+    'placeLivedInput',
+    'IDDiaChiLived',
+    'PlaceLived')" class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
+    dark:text-white flex rounded-lg flex font-bold">
+    <div class="mr-3">
+        <img src="/{{ $value->AnhDaiDien == NULL ? 'img/completed.png' : $value->AnhDaiDien }}" class="w-10 h-10 object-cover rounded-full" alt="">
+    </div>
+    <div class="font-bold dark:text-white py-2">
+        {{ $value->TenTrang == NULL ? $value->TenDiaChi : $value->TenTrang }}
+    </div>
+</div>
+@endforeach
+@break
 @endswitch
