@@ -125,4 +125,40 @@
 </div>
 @endforeach
 @break
+@case('NameOthers')
+@foreach($data as $key => $value)
+<div onclick="choose('TypeNickName',
+    '{{ $value->LoaiBietDanh }}',
+    '{{ $value->LoaiBietDanh }}',
+    'TypeNickNameInput',
+    'TypeNickNamess',
+    'NameOthers')" class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
+    dark:text-white flex rounded-lg flex font-bold">
+    <div class="mr-3">
+        <img src="/img/completed.png" class="w-10 h-10 object-cover rounded-full" alt="">
+    </div>
+    <div class="font-bold dark:text-white py-2">
+        {{ $value->LoaiBietDanh }}
+    </div>
+</div>
+@endforeach
+@break
+@case('Sexs')
+@foreach($data as $key => $value)
+<div onclick="choose('IDSex',
+    '{{ $value->TenGioiTinh }}',
+    '{{ $value->TenGioiTinh }}',
+    'SexInput',
+    'IDSex',
+    'Sexs')" class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
+    dark:text-white flex rounded-lg flex font-bold">
+    <div class="mr-3">
+        <img src="/img/completed.png" class="w-10 h-10 object-cover rounded-full" alt="">
+    </div>
+    <div class="font-bold dark:text-white py-2">
+        {{ $value->TenGioiTinh }}
+    </div>
+</div>
+@endforeach
+@break
 @endswitch

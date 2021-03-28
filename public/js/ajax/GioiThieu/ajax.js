@@ -213,6 +213,23 @@ function choose(IDInput,ID,Name,ValueInput,IDS,Value) {
         document.getElementById('formTongQuan').append(input);
     }
 }
+function choose1(IDInput,ID,Name,ValueInput,IDS,Value) {
+    if ($('#' + ValueInput).length > 0) {
+        $('#' + ValueInput).val(ID);
+        document.getElementById(IDS).innerHTML = Name;
+        document.getElementsByClassName(Value)[0].classList.add('hidden');
+    }
+    else {
+        var input = document.createElement('input');
+        input.setAttribute('name',IDInput);
+        input.setAttribute('type','hidden');
+        input.setAttribute('id',ValueInput);
+        input.setAttribute('value',ID);
+        document.getElementById(IDS).value = Name;
+        document.getElementsByClassName(Value)[0].classList.add('hidden');
+        document.getElementById('formTongQuan').append(input);
+    }
+}
 function deleteAbout(ID,TypeDelete,Main) {
     $.ajax({
         method: "GET",

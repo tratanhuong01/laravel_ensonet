@@ -153,15 +153,22 @@ class AddAboutController extends Controller
         }
         $get = NULL;
         foreach ($json->NoiTungSong->NoiOHienTai as $key => $value) {
-            if ($value->IDNoiOHienTai == '10001')
+            if ($value->IDNoiOHienTai == $id)
                 $get = $value;
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-        return view('Component/GioiThieu/Data/NoiOHienTai')->with(
-            'data',
-            $get
-        );
+        if ($request->ActiveIn == 'Dashboard') {
+            return view('Component/GioiThieu/Data/NoiOHienTai')->with(
+                'data',
+                $get
+            );
+        } else {
+            return view('Component/GioiThieu/Main/NoiOHienTai')->with(
+                'value',
+                $get
+            );
+        }
     }
     public function addHomeTown(Request $request)
     {
@@ -300,28 +307,29 @@ class AddAboutController extends Controller
             ->get()[0]->JsonGioiThieu;
         $json = json_decode($json);
         $id = "";
-        $address = Diachi::where('diachi.IDDiaChi', '=', $request->IDNoiTungSong)->get();
-        if (count($json->ChiTietBanThan->GioiThieu) == 0) {
+        if (count($json->ChiTietBanThan->PhatAm) == 0) {
             $id = "10000";
-            $json->ChiTietBanThan->GioiThieu[0] =
+            $json->ChiTietBanThan->PhatAm[0] =
                 (object)[
-                    'IDGioiThieu' => $id,
-                    'IDQuyenRiengTu' => $request->PrivacyInputIntroYourSelf == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputIntroYourSelf,
-                    'TenGioiThieu' => $request->InfoIntroYourSelf
+                    'IDPhatAm' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputWayReadName == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputWayReadName,
+                    'Ho' => $request->FirstNameRead,
+                    'Ten' => $request->LastNameRead
                 ];
         } else {
-            $id =  $json->ChiTietBanThan->GioiThieu[count($json->ChiTietBanThan->GioiThieu) - 1]->IDGioiThieu;
+            $id =  $json->ChiTietBanThan->PhatAm[count($json->ChiTietBanThan->PhatAm) - 1]->IDPhatAm;
             $id++;
-            $json->ChiTietBanThan->GioiThieu[count($json->ChiTietBanThan->GioiThieu)] =
+            $json->ChiTietBanThan->PhatAm[0] =
                 (object)[
-                    'IDGioiThieu' => $id,
-                    'IDQuyenRiengTu' => $request->PrivacyInputIntroYourSelf == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputIntroYourSelf,
-                    'TenGioiThieu' => $request->InfoIntroYourSelf
+                    'IDPhatAm' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputWayReadName == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputWayReadName,
+                    'Ho' => $request->FristNameRead,
+                    'Ten' => $request->LastNameRead
                 ];
         }
         $get = NULL;
-        foreach ($json->ChiTietBanThan->GioiThieu as $key => $value) {
-            if ($value->IDGioiThieu == $id)
+        foreach ($json->ChiTietBanThan->PhatAm as $key => $value) {
+            if ($value->IDPhatAm == $id)
                 $get = $value;
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
@@ -333,8 +341,76 @@ class AddAboutController extends Controller
     }
     public function addNickName(Request $request)
     {
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)
+            ->get()[0]->JsonGioiThieu;
+        $json = json_decode($json);
+        $id = "";
+        if (count($json->ChiTietBanThan->BietDanh) == 0) {
+            $id = "10000";
+            $json->ChiTietBanThan->BietDanh[0] =
+                (object)[
+                    'IDBietDanh' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputWayReadName == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputWayReadName,
+                    'LoaiBietDanh' => $request->TypeNickName,
+                    'TenBietDanh' => $request->NameNickName
+                ];
+        } else {
+            $id =  $json->ChiTietBanThan->BietDanh[count($json->ChiTietBanThan->BietDanh) - 1]->IDBietDanh;
+            $id++;
+            $json->ChiTietBanThan->BietDanh[0] =
+                (object)[
+                    'IDBietDanh' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputNickName == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputNickName,
+                    'LoaiBietDanh' => $request->TypeNickName,
+                    'TenBietDanh' => $request->NameNickName
+                ];
+        }
+        $get = NULL;
+        foreach ($json->ChiTietBanThan->BietDanh as $key => $value) {
+            if ($value->IDBietDanh == $id)
+                $get = $value;
+        }
+        DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+        gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
+        return view('Component/GioiThieu/Main/BietDanh')->with(
+            'value',
+            $get
+        );
     }
-    public function addFaroviteQuote(Request $request)
+    public function addFavoriteQuote(Request $request)
     {
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)
+            ->get()[0]->JsonGioiThieu;
+        $json = json_decode($json);
+        $id = "";
+        if (count($json->ChiTietBanThan->TrichDanYeuThich) == 0) {
+            $id = "10000";
+            $json->ChiTietBanThan->TrichDanYeuThich[0] =
+                (object)[
+                    'IDTrichDanYeuThich' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputFavoriteQuote == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputFavoriteQuote,
+                    'TenTrichDanYeuThich' => $request->InfoFavoriteQuote,
+                ];
+        } else {
+            $id =  $json->ChiTietBanThan->TrichDanYeuThich[count($json->ChiTietBanThan->TrichDanYeuThich) - 1]->IDTrichDanYeuThich;
+            $id++;
+            $json->ChiTietBanThan->TrichDanYeuThich[0] =
+                (object)[
+                    'IDTrichDanYeuThich' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputFavoriteQuote == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputFavoriteQuote,
+                    'TenTrichDanYeuThich' => $request->InfoFavoriteQuote,
+                ];
+        }
+        $get = NULL;
+        foreach ($json->ChiTietBanThan->TrichDanYeuThich as $key => $value) {
+            if ($value->IDTrichDanYeuThich == $id)
+                $get = $value;
+        }
+        DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+        gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
+        return view('Component/GioiThieu/Main/TrichDanYeuThich')->with(
+            'value',
+            $get
+        );
     }
 }

@@ -51,8 +51,14 @@ $json = json_decode($json);
             <p class="font-bold text-xm py-1" style="font-family: system-ui;">
                 Các tên khác</p>
             <div class="w-full" id="NickNameMain">
+                @if (count($json->ChiTietBanThan->BietDanh) == 0)
                 @include('Component/GioiThieu/Xoa/XoaTenKhac')
                 @include('Component/GioiThieu/Them/ThemTenKhac')
+                @else
+                @include('Component/GioiThieu/Main/BietDanh',
+                ['value' => $json->ChiTietBanThan->BietDanh[0]])
+                @include('Component/GioiThieu/Them/ThemTenKhac')
+                @endif
             </div>
         </div>
     </div>
@@ -61,8 +67,14 @@ $json = json_decode($json);
             <p class="font-bold text-xm py-1" style="font-family: system-ui;">
                 Trích dẫn yêu thích</p>
             <div class="w-full" id="FavoriteQuoteMain">
+                @if (count($json->ChiTietBanThan->GioiThieu) == 0)
                 @include('Component/GioiThieu/Xoa/XoaTrichDanYeuThich')
                 @include('Component/GioiThieu/Them/ThemTrichDanYeuThich')
+                @else
+                @include('Component/GioiThieu/Main/TrichDanYeuThich',
+                ['value' => $json->ChiTietBanThan->TrichDanYeuThich[0]])
+                @include('Component/GioiThieu/Them/ThemPhatAm')
+                @endif
             </div>
         </div>
 

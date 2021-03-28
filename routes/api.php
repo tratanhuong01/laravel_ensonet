@@ -92,7 +92,8 @@ Route::group(['namespace' => 'GioiThieus'], function () {
 
     Route::get('ProcessEditViewAbout', [GioiThieus\EditAboutController::class, 'editView']);
 
-    Route::get('ProcessEditAboutMain', [GioiThieus\EditAboutController::class, 'edit']);
+    Route::post('ProcessEditAboutMain', [GioiThieus\EditAboutController::class, 'edit'])
+        ->name('ProcessEditAboutMain');
 
     Route::get('ProcessChangePrivacyAboutViewMain', [GioiThieus\ChangePrivacyAboutController::class, 'changeView']);
 
@@ -104,20 +105,24 @@ Route::get('save/{id}', function ($id) {
         'ThongTinCoBanVaLienHe' => [
             'NgaySinh' => [
                 'Ngay' => [
+                    'IDNgay' => '10000',
                     'Ngay' => '01',
                     'IDQuyenRiengTu' => 'CHIBANBE'
                 ],
                 'Thang' => [
+                    'IDThang' => '10000',
                     'Thang' => '10',
                     'IDQuyenRiengTu' => 'CHIBANBE'
                 ],
                 'Nam' => [
+                    'IDNam' => '10000',
                     'Nam' => '2001',
                     'IDQuyenRiengTu' => 'CHIBANBE'
                 ]
             ],
             'DiaChi' => [],
             'Email' => [
+                'IDEmail' => '10000',
                 'Email' => 'tratanhuong01@gmail.com',
                 'IDQuyenRiengTu' => 'CHIBANBE'
             ],
@@ -125,7 +130,12 @@ Route::get('save/{id}', function ($id) {
                 'IDGioiTinh' => '10000',
                 'IDQuyenRiengTu' => 'CHIBANBE',
                 'TenGioiTinh' => 'Nam'
-            ]
+            ],
+            'SoDienThoai' => [
+                'IDSoDienThoai' => '10000',
+                'SoDienThoai' => '0354114665',
+                'IDQuyenRiengTu' => 'CHIBANBE'
+            ],
         ],
         'CongViecHocVan' => [
             'CongViec' => [],
@@ -147,7 +157,7 @@ Route::get('save/{id}', function ($id) {
         'ChiTietBanThan' => [
             'GioiThieu' => [],
             'PhatAm' => [],
-            'TenKhac' => [],
+            'BietDanh' => [],
             'TrichDanYeuThich' => []
         ]
     ];
@@ -200,6 +210,16 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
             break;
         case 'PlaceLived':
             $data = DataProcessFour::getCityAndTown($request->Value);
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        case 'NameOthers':
+            $data = DataProcessFour::getNickName($request->Value);
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        case 'Sexs':
+            $data = DataProcessFour::getSex($request->Value);
             return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
                 ->with('type', $request->Type);
             break;

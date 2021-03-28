@@ -39,7 +39,8 @@ else
             @include('Component/GioiThieu/Them/ThemNoiLamViec')
             @else
             @include('Component/GioiThieu/Data/NoiLamViec',['data' =>
-            json_decode($json[0]->JsonGioiThieu)->CongViecHocVan->CongViec[0]])
+            json_decode($json[0]->JsonGioiThieu)->CongViecHocVan->CongViec[0],
+            'idTaiKhoan'=>$idTaiKhoan])
             @endif
         </div>
         <div class="w-full " id="schoolMain">

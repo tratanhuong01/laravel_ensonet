@@ -44,7 +44,8 @@
             ProcessAddIntroYouSelf: "{{ route('ProcessAddIntroYouSelf') }}",
             ProcessAddWayReadName: "{{ route('ProcessAddWayReadName') }}",
             ProcessAddNickName: "{{ route('ProcessAddNickName') }}",
-            ProcessAddFavoriteQuote: "{{ route('ProcessAddFavoriteQuote') }}"
+            ProcessAddFavoriteQuote: "{{ route('ProcessAddFavoriteQuote') }}",
+            ProcessEditAboutMain: "{{ route('ProcessEditAboutMain') }}"
         }
     }
 </script>

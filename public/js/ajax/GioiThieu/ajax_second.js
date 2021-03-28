@@ -181,13 +181,14 @@ function changePrivacyAboutMain(TypeChange,ID,Element) {
         }
     });
 }
-function editViewAbout(ID,TypeEdit,Main,Type) {
+function editViewAbout(ID,TypeEdit,Main,Type,IDTaiKhoan) {
     $.ajax({
         method : "GET",
         url: "/ProcessEditViewAbout",
         data : {
             ID : ID,
-            TypeEdit : TypeEdit
+            TypeEdit : TypeEdit,
+            IDTaiKhoan : IDTaiKhoan
         },
         success: function(response) {
             document.getElementById(Main).children[0].classList.add('hidden');
@@ -196,7 +197,6 @@ function editViewAbout(ID,TypeEdit,Main,Type) {
             document.getElementById('btnHuy' + TypeEdit).addEventListener('click',function() {
                 var cl = document.getElementsByClassName(Type)[0]
                 if (cl.classList.contains('hidden')) {
-                    
                     cl.classList.remove('hidden')
                 }
                 else {
@@ -204,20 +204,25 @@ function editViewAbout(ID,TypeEdit,Main,Type) {
                     cl.classList.add('hidden')
                 }
             })
+            document.getElementById('btnLuu' + TypeEdit).addEventListener('click',function() {
+                let formData = new FormData($('#formTongQuan')[0]);
+                formData.append('TypeEdit',TypeEdit)
+                $.ajax({
+                    method : "POST",
+                    url: dashboard.routes.ProcessEditAboutMain,
+                    data : formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(responses) {
+                        $('#' + ID + TypeEdit).replaceWith(responses);
+                        document.getElementsByClassName(Type)[0].classList.add('hidden')
+                    }
+                });
+            })
         }
     });
 }
-function editAbout(ID,TypeEdit,Main) {
-    $.ajax({
-        method : "GET",
-        url: "/ProcessEditAboutMain",
-        data : {
-
-        },
-        success: function(response) {
-
-        }
-    });
+function editAbout(ID,TypeEdit,Main,IDTaiKhoan) {  
 }
 function editViewAboutChild(ID,TypeEdit,Main,Type) {
     $.ajax({
@@ -258,10 +263,19 @@ function add(routes,value,valueName) {
                 $('#' + valueName).append(response);
             }
            else {
-            document.getElementsByClassName(value)[0].classList.remove('hidden');
-            document.getElementsByClassName(value)[1].classList.add('hidden');
-            $('#' + valueName).append(response);
+               if ($('#placeLiveCurrentMain').children <= 2) {
+                document.getElementsByClassName(value)[1].classList.add('hidden');
+               }
+               else if ($('#homeTownMain').length <= 2) {
+                document.getElementsByClassName(value)[1].classList.add('hidden');
+               }
+               else {
+                document.getElementsByClassName(value)[0].classList.remove('hidden');
+                document.getElementsByClassName(value)[1].classList.add('hidden');
+               }
+                $('#' + valueName).append(response);
            }
+           
         },
         error : function(response) {
             console.log(response)
@@ -297,6 +311,43 @@ function addChild(routes,value,IDInput,Name,Main) {
         }
     });    
 }
-function speakAPI() {
-    responsiveVoice.speak('hello worl');
+function addChildTwo(routes,value,IDInput1,IDInput2,Name1,Name2,Main) {
+    if ($('#' + IDInput1).length > 0) {
+        $('#' + IDInput1).val($('#' + Name1).val());
+    }
+    else {
+        var input = document.createElement('input');
+        input.setAttribute('name',IDInput1);
+        input.setAttribute('type','hidden');
+        input.setAttribute('id',IDInput1);
+        input.setAttribute('value',$('#' + Name1).val());
+        $('#formTongQuan').append(input);
+    }
+    if ($('#' + IDInput2).length > 0) {
+        $('#' + IDInput2).val($('#' + Name2).val());
+    }
+    else {
+        var input = document.createElement('input');
+        input.setAttribute('name',IDInput2);
+        input.setAttribute('type','hidden');
+        input.setAttribute('id',IDInput2);
+        input.setAttribute('value',$('#' + Name2).val());
+        $('#formTongQuan').append(input);
+    }
+    document.getElementsByClassName(value)[1].classList.add('hidden');
+    let formData = new FormData($('#formTongQuan')[0]);
+    $.ajax({
+        method : "POST",
+        url : routes,
+        data : formData,
+        contentType: false,
+        processData: false,
+        success : function(response) {
+            document.getElementsByClassName(value)[1].classList.add('hidden');
+            $('#' + Main).append(response);
+        },
+        error : function(response) {
+            console.log(response)
+        }
+    });    
 }

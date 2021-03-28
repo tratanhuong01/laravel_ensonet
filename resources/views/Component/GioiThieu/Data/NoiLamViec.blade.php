@@ -27,7 +27,7 @@
                 @endswitch
             </li>
             <li onclick="editViewAbout('{{ $data->IDCongViec }}',
-            'PlaceWork','placeWorkMain','placeWork')" class="p-2  dark:text-white  text-gray-600">
+            'PlaceWork','placeWorkMain','placeWork','{{$idTaiKhoan}}')" class="p-2  dark:text-white  text-gray-600">
                 <i class="far fa-edit text-xl cursor-pointer"></i>
             </li>
             <li onclick="deleteAbout('{{ $data->IDCongViec }}',

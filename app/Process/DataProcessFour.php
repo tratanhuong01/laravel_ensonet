@@ -99,4 +99,65 @@ class DataProcessFour extends Model
         }
         return $new;
     }
+    public static function getNickName($value)
+    {
+        $array = [
+            0 => (object)[
+                'LoaiBietDanh' => 'Tên thời con gái'
+            ],
+            1 => (object)[
+                'LoaiBietDanh' => 'Cách viết khác',
+            ],
+            2 => (object) [
+                'LoaiBietDanh' => 'Tên sau khi kết hôn',
+            ],
+            3 => (object)[
+                'LoaiBietDanh' => 'Họ và tên bố',
+            ],
+            4 => (object)[
+                'LoaiBietDanh' => 'Tên khai sinh',
+            ],
+            5 => (object)[
+                'LoaiBietDanh' => 'Tên cũ',
+            ],
+            6 => (object)[
+                'LoaiBietDanh' => 'Chức danh',
+            ],
+            7 => (object)[
+                'LoaiBietDanh' => 'Khác',
+            ]
+        ];
+        $num = 0;
+        $newArray = array();
+        foreach ($array as $key => $values) {
+            if (str_contains(strtolower($values->LoaiBietDanh), strtolower($value))) {
+                $newArray[$num] = $values;
+                $num++;
+            }
+        }
+        return $newArray;
+    }
+    public static function getSex($value)
+    {
+        $array = [
+            0 => (object)[
+                'TenGioiTinh' => 'Nam'
+            ],
+            1 => (object)[
+                'TenGioiTinh' => 'Nữ',
+            ],
+            2 => (object) [
+                'TenGioiTinh' => 'Khác',
+            ]
+        ];
+        $num = 0;
+        $newArray = array();
+        foreach ($array as $key => $values) {
+            if (str_contains(strtolower($values->TenGioiTinh), strtolower($value))) {
+                $newArray[$num] = $values;
+                $num++;
+            }
+        }
+        return $newArray;
+    }
 }
