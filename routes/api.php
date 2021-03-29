@@ -178,6 +178,9 @@ Route::get('get', function () {
     echo "<pre>";
     print_r($json);
     echo "</pre>";
+    echo "<pre>";
+    print_r(DataProcessFour::sortImageByTagOfUser('1000000007'));
+    echo "</pre>";
 });
 
 Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {

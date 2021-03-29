@@ -11,7 +11,6 @@
         console.log('ResponsiveVoice already loaded');
         console.log(responsiveVoice);
     } else {
-
         var ResponsiveVoice = function() {
 
             var self = this;

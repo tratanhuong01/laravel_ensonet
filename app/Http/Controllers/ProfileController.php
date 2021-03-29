@@ -94,7 +94,7 @@ class ProfileController extends Controller
     public function viewAjaxPicture(Request $request)
     {
         $data = Functions::getListFriendsUser($request->IDView);
-        return view('Component\GioiThieu\Anh') . view('Component\GioiThieu\Video');
+        return view('Component\DanhMuc\Anh') . view('Component\DanhMuc\Video');
     }
     public function viewPicture($idTaiKhoan)
     {

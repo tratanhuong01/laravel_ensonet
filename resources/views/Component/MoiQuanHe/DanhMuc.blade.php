@@ -19,6 +19,10 @@ switch ($data) {
         $arr['friends']['border'] = $border;
         $arr['friends']['text'] = $text;
         break;
+    case 'pictures':
+        $arr['pictures']['border'] = $border;
+        $arr['pictures']['text'] = $text;
+        break;
     case 'profile.' . $users[0]->IDTaiKhoan:
         $arr['post']['border'] = $border;
         $arr['post']['text'] = $text;
@@ -47,9 +51,9 @@ switch ($data) {
                 {{ sizeof(Functions::getListFriendsUser($users[0]->IDTaiKhoan))}}
             </span>
         </li>
-        <li id="pictures" class="text-center py-2 px-4 cursor-pointer font-bold dark:text-white
-        @isset($arr['picture']) {{ $arr['picture']['text'] }} @endisset hover:bg-gray-200 dark:hover:bg-dark-third
-        @isset($arr['picture']) {{ $arr['picture']['border'] }} @endisset " style="font-size:15px;">
+        <li id="pictures" onclick="ajaxProfilePicture('{{ $users[0]->IDTaiKhoan }}','place_load_about')" class="text-center py-2 px-4 cursor-pointer font-bold dark:text-white
+        @isset($arr['pictures']) {{ $arr['pictures']['text'] }} @endisset hover:bg-gray-200 dark:hover:bg-dark-third
+        @isset($arr['pictures']) {{ $arr['pictures']['border'] }} @endisset " style="font-size:15px;">
             Ảnh
         </li>
         <li id="more" class="text-center py-2 px-4 cursor-pointer dark:text-white

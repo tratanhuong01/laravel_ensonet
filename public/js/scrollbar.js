@@ -48,6 +48,16 @@ function openEditFriend(index) {
     editFriend[index].style.display = 'none';
   }, true);
 }
+function openEditPicture(index) {
+  var editFriend = document.getElementsByClassName("edit-friend");
+  if (editFriend[index].style.display == 'none') {
+    editFriend[index].style.display = 'block'
+  }
+  else {
+    editFriend[index].style.display = 'none'
+  }
+  
+}
 function loadTextBoxType(index) {
   if (document.getElementById('newExcen').style.display == 'none') {
     $('#newExcen').show();

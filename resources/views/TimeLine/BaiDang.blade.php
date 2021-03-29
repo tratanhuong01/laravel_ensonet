@@ -10,7 +10,7 @@
             </ul>
         </div>
     </div>
-    <div class="w-full h-20">
+    <div class="w-full h-32">
 
     </div>
     <div class="w-full">

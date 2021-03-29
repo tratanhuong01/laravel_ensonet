@@ -2,11 +2,15 @@
 
 namespace App\Process;
 
+use App\Models\Baidang;
 use App\Models\Congty;
 use App\Models\Diachi;
+use App\Models\Functions;
 use App\Models\Gioithieu;
+use App\Models\Hinhanh;
 use App\Models\Truonghoc;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class DataProcessFour extends Model
 {
@@ -289,5 +293,53 @@ class DataProcessFour extends Model
             }
         }
         return $newArray;
+    }
+    public static function sortImageByTagOfUser($idTaiKhoan)
+    {
+        $friends = Functions::getListFriendsUser($idTaiKhoan);
+        $post = array();
+        $num = 0;
+        foreach ($friends as $key => $value) {
+            $posts = Baidang::where('baidang.IDTaiKhoan', '=', $value[0]->IDTaiKhoan)
+                ->join('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')->get();
+            foreach ($posts as $keys => $values) {
+                $arrTag = explode('&', $values->GanThe);
+                for ($i = 0; $i < count($arrTag) -  1; $i++) {
+                    if ($arrTag[$i] == $idTaiKhoan) {
+                        $post[$num] = $values;
+                        $num++;
+                    }
+                }
+            }
+        }
+        $images = array();
+        $num = 0;
+        foreach ($post as $key => $value) {
+            $image = Hinhanh::where('hinhanh.IDBaiDang', '=', $value->IDBaiDang)->get()[0];
+            $images[$num] = $image;
+        }
+        return $images;
+    }
+    public static function sortImageByUser($idTaiKhoan)
+    {
+        return DB::table('hinhanh')
+            ->join('baidang', 'hinhanh.IDBaiDang', '=', 'baidang.IDBaiDang')
+            ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
+            ->where('baidang.IDTaiKhoan', '=', $idTaiKhoan)
+            ->orderByDesc('baidang.NgayDang')
+            ->get();
+    }
+    public static function groupImage($idTaiKhoan)
+    {
+        $groupImage = DB::select('SELECT DISTINCT IDAlbumAnh FROM hinhanh WHERE 
+        baidang.IDTaiKhoan = ? INNER JOIN baidang ON hinhanh.IDBaiDang = baidang.IDBaiDang');
+        $allImage = array();
+        foreach ($groupImage as $key => $value) {
+            $image = Hinhanh::where('hinhanh.IDAlbumAnh', '=', $value->IDAlbumAnh)->get();
+            foreach ($image as $key => $value) {
+                $allImage[$value->IDAlbumAnh][$key] = $value;
+            }
+        }
+        return $allImage;
     }
 }

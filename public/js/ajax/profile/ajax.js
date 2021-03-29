@@ -96,6 +96,24 @@ function ajaxProfileFriend(ID, NameID) {
         }
     });
 }
+function ajaxProfilePicture(ID, NameID) {
+    $.ajax({
+        method: 'GET',
+        url: '/ProcessProfilePicture',
+        data: {
+            IDView: ID
+        },
+        success: function (response) {
+            $('#about').removeClass('border-b-4 border-blue-500');
+            $('#post').removeClass('border-b-4 border-blue-500');
+            $('#friends').removeClass('border-b-4 border-blue-500');
+            $('#pictures').addClass('border-b-4 border-blue-500');
+            $('#more').removeClass('border-b-4 border-blue-500');
+            $('#' + NameID).html(response);
+            window.history.pushState('', '', '/profile.' + ID + '/pictures');
+        }
+    });
+}
 function ajaxProfileAbout(ID, NameID) {
     $.ajax({
         method: 'GET',

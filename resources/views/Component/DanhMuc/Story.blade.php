@@ -5,10 +5,10 @@ use App\Process\DataProcessThird;
 use App\Process\DataProcessSecond;
 use Illuminate\Support\Facades\Session;
 
-$user = session()->has('user') ?
-    Session::get('user')[0] :
-    Session::get('users')[0];
-$storys = DataProcessSecond::getAllStoryOfUsers($user->IDTaiKhoan)
+$users = session()->has('users') ?
+    Session::get('users')[0] :
+    Session::get('user')[0];
+$storys = DataProcessSecond::getAllStoryOfUsers($users->IDTaiKhoan)
 
 ?>
 <div class="w-full px-3">
