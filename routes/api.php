@@ -83,6 +83,9 @@ Route::group(['namespace' => 'GioiThieus'], function () {
     Route::post('ProcessAddFavoriteQuote', [GioiThieus\AddAboutController::class, 'addFavoriteQuote'])
         ->name('ProcessAddFavoriteQuote');
 
+    Route::post('ProcessAddMemberFamilyAbout', [GioiThieus\AddAboutController::class, 'addMemberFamily'])
+        ->name('ProcessAddMemberFamilyAbout');
+
     //Delete
 
     Route::get('ProcessDeleteAbout', [GioiThieus\DeleteAboutController::class, 'delete']);

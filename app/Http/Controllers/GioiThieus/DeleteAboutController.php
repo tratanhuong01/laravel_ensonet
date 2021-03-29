@@ -83,6 +83,19 @@ class DeleteAboutController extends Controller
                 return view('Component/GioiThieu/Xoa/XoaQueQuan') .
                     view('Component/GioiThieu/Them/ThemQueQuan');
                 break;
+            case 'MemberFamily':
+                foreach ($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh as $key => $value) {
+                    if ($value->IDThanhVienGiaDinh == $request->ID) {
+                        unset($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh[$key]);
+                    }
+                }
+                $dt = array_values($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh);
+                $json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh = $dt;
+                DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+                                    gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
+                return view('Component/GioiThieu/Xoa/XoaQueQuan') .
+                    view('Component/GioiThieu/Them/ThemQueQuan');
+                break;
             default:
                 # code...
                 break;

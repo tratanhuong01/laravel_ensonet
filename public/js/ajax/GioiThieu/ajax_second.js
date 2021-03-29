@@ -264,15 +264,16 @@ function add(routes,value,valueName) {
                 $('#' + valueName).append(response);
             }
            else {
-               if ($('#placeLiveCurrentMain').children <= 2) {
+               if ($('#placeLiveCurrentMain').children.length <= 2 && $('#placeLiveCurrentMain').length > 0) {
                 document.getElementsByClassName(value)[1].classList.add('hidden');
                }
-               else if ($('#homeTownMain').length <= 2) {
+               else if ($('#homeTownMain').children.length <= 2 && $('#homeTownMain').length > 0) {
                 document.getElementsByClassName(value)[1].classList.add('hidden');
                }
                else {
-                document.getElementsByClassName(value)[0].classList.remove('hidden');
-                document.getElementsByClassName(value)[1].classList.add('hidden');
+                   console.log(document.getElementsByClassName(value)[0])
+                   document.getElementsByClassName(value)[0].classList.add('hidden');
+                document.getElementsByClassName(value)[1].classList.remove('hidden');
                }
                 $('#' + valueName).append(response);
            }

@@ -192,6 +192,19 @@ class ChangePrivacyAboutController extends Controller
                     ->with('typeChange', $request->TypeChange)
                     ->with('id', $request->ID);
                 break;
+            case 'changeMemberFamily':
+                foreach ($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh as $key => $value) {
+                    if ($value->IDThanhVienGiaDinh == $request->ID) {
+                        $json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh[$key]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
+                        DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+                        gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
+                        return view('Component/GioiThieu/Modal/QuyenRiengTuMini')
+                            ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
+                            ->with('typeChange', $request->TypeChange)
+                            ->with('id', $request->ID);
+                    }
+                }
+                break;
             default:
                 # code...
                 break;

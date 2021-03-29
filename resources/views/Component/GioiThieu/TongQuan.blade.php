@@ -30,8 +30,10 @@ else
 </form>
 <div class="w-full">
     <ul class="w-full py-2 px-4 mainAboutFull">
+        @if ($idTaiKhoan == '1000000001')
         <div class="w-full " id="placeWorkMain">
-            @if (DataProcessFour::checkPlaceWork(json_decode($json[0]->JsonGioiThieu)) == 0)
+            @if (DataProcessFour::checkPlaceWork(json_decode($json[0]->JsonGioiThieu)) == 0 &&
+            )
             <p onclick="AddView('placeWork')" class="placeWork font-bold text-xm py-4 text-1877F2 cursor-pointer">
                 <i class="fas fa-plus border-2 py-1.5 px-1.5 text-xm border-solid rounded-full" style="border-color: #1877F2;"></i>&nbsp;&nbsp;
                 Thêm nơi làm việc
@@ -43,6 +45,13 @@ else
             'idTaiKhoan'=>$idTaiKhoan])
             @endif
         </div>
+        @else
+        <div class="w-full " id="placeWorkMain">
+            @include('Component/GioiThieu/Data/NoiLamViec',['data' =>
+            json_decode($json[0]->JsonGioiThieu)->CongViecHocVan->CongViec[0],
+            'idTaiKhoan'=>$idTaiKhoan])
+        </div>
+        @endif
         <div class="w-full " id="schoolMain">
             @if (DataProcessFour::checkSchool(json_decode($json[0]->JsonGioiThieu)) == 0)
             <p onclick="AddView('school')" class="school font-bold text-xm py-4 text-1877F2 cursor-pointer">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Congty;
 use App\Models\Diachi;
 use App\Models\Gioithieu;
+use App\Models\Taikhoan;
 use App\Models\Truonghoc;
 use Illuminate\Http\Request;
 use App\Process\JsonGioiThieu;
@@ -409,6 +410,53 @@ class AddAboutController extends Controller
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
         return view('Component/GioiThieu/Main/TrichDanYeuThich')->with(
+            'value',
+            $get
+        )->with('idTaiKhoan', $request->IDTaiKhoan);
+    }
+    public function addMemberFamily(Request $request)
+    {
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)
+            ->get()[0]->JsonGioiThieu;
+        $json = json_decode($json);
+        $id = "";
+        $mem = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDMemberFamily)->get()[0];
+        if (count($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh) == 0) {
+            $id = "10000";
+            $json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh[0] =
+                (object)[
+                    'IDThanhVienGiaDinh' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputMemberFamily == NULL ?
+                        $request->IDQuyenRiengTu : $request->PrivacyInputMemberFamily,
+                    'Ho' => $mem->Ho,
+                    'Ten' => $mem->Ten,
+                    'AnhDaiDien' => $mem->AnhDaiDien,
+                    'MoiQuanHe' => $request->IDRelationShipFamily,
+                    'TinhTrang' => 'Đang chờ'
+                ];
+        } else {
+            $id =  $json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh[count($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh) - 1]->IDThanhVienGiaDinh;
+            $id++;
+            $json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh[count($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh)] =
+                (object)[
+                    'IDThanhVienGiaDinh' => $id,
+                    'IDQuyenRiengTu' => $request->PrivacyInputMemberFamily == NULL ?
+                        $request->IDQuyenRiengTu : $request->PrivacyInputMemberFamily,
+                    'Ho' => $mem->Ho,
+                    'Ten' => $mem->Ten,
+                    'AnhDaiDien' => $mem->AnhDaiDien,
+                    'MoiQuanHe' => $request->IDRelationShipFamily,
+                    'TinhTrang' => 'Đang chờ'
+                ];
+        }
+        $get = NULL;
+        foreach ($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh as $key => $value) {
+            if ($value->IDThanhVienGiaDinh == $id)
+                $get = $value;
+        }
+        DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+        gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
+        return view('Component/GioiThieu/Main/ThanhVienGiaDinh')->with(
             'value',
             $get
         )->with('idTaiKhoan', $request->IDTaiKhoan);

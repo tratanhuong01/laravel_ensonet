@@ -19,7 +19,7 @@
         <div onclick="PrivacyAbout(this,'PrivacyInputMemberFamily')" class="bg-gray-200 cursor-pointer dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute left-0 font-bold">
             <i class="fas fa-globe-europe"></i>&nbsp;&nbsp;Công khai
         </div>
-        <div onclick="add(dashboard.routes.ProcessAddSchoolAbout, 'school' , 'schoolMain' )" class=" cursor-pointer bg-1877F2 text-white ml-3 rounded-lg p-2 absolute right-0 font-bold">
+        <div onclick="add(dashboard.routes.ProcessAddMemberFamilyAbout, 'memberFamily' , 'memberFamilyMain' )" class=" cursor-pointer bg-1877F2 text-white ml-3 rounded-lg p-2 absolute right-0 font-bold">
             Lưu
         </div>
         <div onclick="AddView('memberFamily')" class=" cursor-pointer bg-gray-200 dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute right-12 font-bold">

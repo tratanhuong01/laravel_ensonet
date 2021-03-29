@@ -40,6 +40,7 @@
             ProcessAddPlaceLiveCurrent: "{{ route('ProcessAddPlaceLiveCurrent') }}",
             ProcessAddHomeTown: "{{ route('ProcessAddHomeTown') }}",
             ProcessAddPlaceLived: "{{ route('ProcessAddPlaceLived') }}",
+            ProcessAddMemberFamilyAbout: "{{ route('ProcessAddMemberFamilyAbout') }}",
 
             ProcessAddIntroYouSelf: "{{ route('ProcessAddIntroYouSelf') }}",
             ProcessAddWayReadName: "{{ route('ProcessAddWayReadName') }}",
