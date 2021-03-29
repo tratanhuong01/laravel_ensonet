@@ -1,4 +1,4 @@
-<li class="w-full pb-6 flex flex-wrap" style="font-size: 16px;">
+<li class="w-full pb-6 flex flex-wrap" id="{{$value->Ngay->IDNgay}}BirthDay" style="font-size: 16px;">
     <div class="w-1/12 py-3">
         <i class="fas fa-birthday-cake text-2xl"></i>
     </div>
@@ -8,7 +8,7 @@
         </p>
         <p>Ngày sinh</p>
     </div>
-    <div class="w-2/12">
+    <div class=" w-2/12">
         <ul class="float-right flex">
             <li class="p-2 dark:text-white text-gray-600">
                 @switch($value->Ngay->IDQuyenRiengTu)
@@ -26,7 +26,7 @@
                 @break
                 @endswitch
             </li>
-            <li onclick="editViewAbout('',
+            <li onclick="editViewAbout('{{$value->Ngay->IDNgay}}',
             'BirthDay','birthDayMain','birthday','{{$idTaiKhoan}}')" class="p-2 dark:text-white"><i class="far fa-edit text-xl cursor-pointer"></i></li>
         </ul>
     </div>
@@ -34,7 +34,7 @@
 
     </div>
     <div class="w-3/4">
-        <p class="font-bold text-xm py-1" style="font-family: system-ui;">2001
+        <p class="font-bold text-xm py-1" style="font-family: system-ui;">{{$value->Nam->Nam}}
         </p>
         <p>Năm sinh</p>
     </div>

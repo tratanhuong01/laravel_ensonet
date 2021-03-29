@@ -1,4 +1,4 @@
-<li class="w-full  pt-2 pb-4 flex Marriage" style="font-size: 16px;">
+<li class="w-full  pt-2 pb-4 flex Marriage" id="{{$data->IDHonNhan}}RelationShip" style="font-size: 16px;">
     <div class="w-10/12 text-gray-600  dark:text-white">
         &nbsp;<i class="fas fa-heart text-gray-600  dark:text-white   text-2xl"></i>
         &nbsp;&nbsp;&nbsp;{{$data->TinhTrang}}
@@ -21,8 +21,8 @@
                 @break
                 @endswitch
             </li>
-            <li onclick="editViewAboutChild('{{ $data->IDHonNhan }}',
-            'Marriage','marriageMainEdit','marriage')" class="p-2  dark:text-white  text-gray-600">
+            <li onclick="editViewAbout('{{ $data->IDHonNhan }}',
+            'RelationShip','relationShipMain','relationShip','{{$idTaiKhoan}}')" class="p-2  dark:text-white  text-gray-600">
                 <i class="far fa-edit text-xl cursor-pointer"></i>
             </li>
         </ul>

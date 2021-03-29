@@ -79,10 +79,9 @@ else
             json_decode($json[0]->JsonGioiThieu)->NoiTungSong->QueQuan[0]])
             @endif
         </div>
-        <div class="w-full" id="marriageMain">
-            @include('Component/GioiThieu/Data/HonNhan',['data' => json_decode($json[0]->JsonGioiThieu)->GiaDinhVaCacMoiQuanHe->HonNhan])
-            <div class="w-full" id="marriageMainEdit">
-            </div>
+        <div class="w-full" id="relationShipMain">
+            @include('Component/GioiThieu/Data/HonNhan',['data' => json_decode($json[0]->JsonGioiThieu)->GiaDinhVaCacMoiQuanHe->HonNhan,
+            'idTaiKhoan'=> $idTaiKhoan])
         </div>
     </ul>
 </div>

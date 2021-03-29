@@ -45,6 +45,12 @@ class EditAboutController extends Controller
                 $view =  view('Component/GioiThieu/Sua/SuaNgaySinh')
                     ->with('data', $json->ThongTinCoBanVaLienHe->NgaySinh);
                 break;
+            case 'RelationShip':
+                $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()[0]->JsonGioiThieu;
+                $json = json_decode($json);
+                $view =  view('Component/GioiThieu/Sua/SuaMoiQuanHe')
+                    ->with('data', $json->GiaDinhVaCacMoiQuanHe->HonNhan);
+                break;
             default:
                 # code...
                 break;
@@ -77,16 +83,31 @@ class EditAboutController extends Controller
                 $json->ThongTinCoBanVaLienHe->NgaySinh->Thang->Thang = $request->MonthBirth;
                 $json->ThongTinCoBanVaLienHe->NgaySinh->Nam->Nam = $request->YearBirth;
                 $json->ThongTinCoBanVaLienHe->NgaySinh->Ngay->IDQuyenRiengTu =
-                    $request->PrivacyInputDayAndMonthBirth == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputDayAndMonthBirth;
+                    $request->PrivacyInputDayAnMonthBirth == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputDayAnMonthBirth;
                 $json->ThongTinCoBanVaLienHe->NgaySinh->Thang->IDQuyenRiengTu =
-                    $request->PrivacyInputDayAndMonthBirth == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputDayAndMonthBirth;
+                    $request->PrivacyInputDayAnMonthBirth == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputDayAnMonthBirth;
                 $json->ThongTinCoBanVaLienHe->NgaySinh->Nam->IDQuyenRiengTu =
                     $request->PrivacyInputYearBirth == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputYearBirth;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                return view('Component/GioiThieu/Main/GioiTinh')->with(
+                return view('Component/GioiThieu/Main/NgaySinh')->with(
                     'value',
-                    $json->ThongTinCoBanVaLienHe->GioiTinh
+                    $json->ThongTinCoBanVaLienHe->NgaySinh
+                )
+                    ->with(
+                        'idTaiKhoan',
+                        $request->IDTaiKhoan
+                    );
+                break;
+            case 'RelationShip':
+                $json->GiaDinhVaCacMoiQuanHe->HonNhan->TinhTrang = $request->IDRelationShip;
+                $json->GiaDinhVaCacMoiQuanHe->HonNhan->IDQuyenRiengTu =
+                    $request->PrivacyInputRelationShip == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputRelationShip;
+                DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+                        gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
+                return view('Component/GioiThieu/Data/HonNhan')->with(
+                    'data',
+                    $json->GiaDinhVaCacMoiQuanHe->HonNhan
                 )
                     ->with(
                         'idTaiKhoan',

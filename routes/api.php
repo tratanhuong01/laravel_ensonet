@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gioithieu;
+use App\Models\Taikhoan;
 use App\Process\DataProcessFour;
 use App\Process\DataProcessSecond;
 use App\Process\DataProcessThird;
@@ -220,6 +221,21 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
             break;
         case 'Sexs':
             $data = DataProcessFour::getSex($request->Value);
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        case 'RelationShip':
+            $data = DataProcessFour::getMaritalStatus($request->Value);
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        case 'MemberFamily':
+            $data = Taikhoan::search($request->Value, $request->Name);
+            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+                ->with('type', $request->Type);
+            break;
+        case 'RelationShipFamily':
+            $data = DataProcessFour::getRelationShip($request->Value);
             return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
                 ->with('type', $request->Type);
             break;

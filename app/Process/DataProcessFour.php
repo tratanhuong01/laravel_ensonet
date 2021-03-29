@@ -160,4 +160,134 @@ class DataProcessFour extends Model
         }
         return $newArray;
     }
+    public static function getMaritalStatus($value)
+    {
+        $array = [
+            0 => (object)[
+                'TinhTrang' => 'Độc Thân'
+            ],
+            1 => (object)[
+                'TinhTrang' => 'Hẹn Hò',
+            ],
+            2 => (object) [
+                'TinhTrang' => 'Đã Đính Hôn',
+            ],
+            3 => (object)[
+                'TinhTrang' => 'Đã Kết Hôn'
+            ],
+            4 => (object)[
+                'TinhTrang' => 'Kết Hôn Đồng Giới',
+            ],
+            5 => (object) [
+                'TinhTrang' => 'Chung Sống',
+            ],
+            6 => (object)[
+                'TinhTrang' => 'Tìm Hiểu'
+            ],
+            7 => (object)[
+                'TinhTrang' => 'Có Một Mối Quan Hệ Phức Tạp',
+            ],
+            8 => (object) [
+                'TinhTrang' => 'Đã Ly Thân',
+            ],
+            9 => (object) [
+                'TinhTrang' => 'Đã Ly Hôn',
+            ],
+            10 => (object) [
+                'TinhTrang' => 'Góa',
+            ]
+        ];
+        $num = 0;
+        $newArray = array();
+        foreach ($array as $key => $values) {
+            if (str_contains(strtolower($values->TinhTrang), strtolower($value))) {
+                $newArray[$num] = $values;
+                $num++;
+            }
+        }
+        return $newArray;
+    }
+    public static function getRelationShip($value)
+    {
+        $array = [
+            0 => (object)[
+                'MoiQuanHe' => 'Bố'
+            ],
+            1 => (object)[
+                'MoiQuanHe' => 'Mẹ',
+            ],
+            2 => (object) [
+                'MoiQuanHe' => 'Con gái',
+            ],
+            3 => (object)[
+                'MoiQuanHe' => 'Con trai'
+            ],
+            4 => (object)[
+                'MoiQuanHe' => 'Cháu gái',
+            ],
+            5 => (object) [
+                'MoiQuanHe' => 'Cháu trai',
+            ],
+            6 => (object)[
+                'MoiQuanHe' => 'Em gái'
+            ],
+            7 => (object)[
+                'MoiQuanHe' => 'Chị gái',
+            ],
+            8 => (object) [
+                'MoiQuanHe' => 'Em trai',
+            ],
+            9 => (object) [
+                'MoiQuanHe' => 'Anh trai',
+            ],
+            10 => (object) [
+                'MoiQuanHe' => 'Bà nội',
+            ],
+            11 => (object)[
+                'MoiQuanHe' => 'Bà ngoại',
+            ],
+            12 => (object) [
+                'MoiQuanHe' => 'Ông nội',
+            ],
+            13 => (object) [
+                'MoiQuanHe' => 'Ông ngoại',
+            ],
+            14 => (object) [
+                'MoiQuanHe' => 'Cháu gái (Cháu ngoại)',
+            ],
+            15 => (object) [
+                'MoiQuanHe' => 'Cháu gái (Cháu nội)',
+            ],
+            16 => (object) [
+                'MoiQuanHe' => 'Cháu trai (Cháu ngoại)',
+            ],
+            17 => (object) [
+                'MoiQuanHe' => 'Cháu trai (Cháu ngoại)',
+            ],
+            18 => (object) [
+                'MoiQuanHe' => 'Bác (Chị của bố)',
+            ],
+            19 => (object) [
+                'MoiQuanHe' => 'Dì (Em của mẹ)',
+            ],
+            20 => (object) [
+                'MoiQuanHe' => 'Cô (Em của bố)',
+            ],
+            21 => (object) [
+                'MoiQuanHe' => 'Bác (Anh của bố)',
+            ],
+            22 => (object) [
+                'MoiQuanHe' => 'Chú (Em của bố)',
+            ]
+        ];
+        $num = 0;
+        $newArray = array();
+        foreach ($array as $key => $values) {
+            if (str_contains(strtolower($values->MoiQuanHe), strtolower($value))) {
+                $newArray[$num] = $values;
+                $num++;
+            }
+        }
+        return $newArray;
+    }
 }

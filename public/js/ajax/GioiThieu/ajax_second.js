@@ -224,13 +224,14 @@ function editViewAbout(ID,TypeEdit,Main,Type,IDTaiKhoan) {
 }
 function editAbout(ID,TypeEdit,Main,IDTaiKhoan) {  
 }
-function editViewAboutChild(ID,TypeEdit,Main,Type) {
+function editViewAboutChild(ID,TypeEdit,Main,Type,IDTaiKhoan) {
     $.ajax({
         method : "GET",
         url: "/ProcessEditViewAbout",
         data : {
             ID : ID,
-            TypeEdit : TypeEdit
+            TypeEdit : TypeEdit,
+            IDTaiKhoan : IDTaiKhoan
         },
         success: function(response) {
             $('#' + Main).html(response);

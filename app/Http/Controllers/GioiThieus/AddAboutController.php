@@ -63,14 +63,14 @@ class AddAboutController extends Controller
             return view('Component/GioiThieu/Data/NoiLamViec')->with(
                 'data',
                 $get
-            );
+            )->with('idTaiKhoan', $request->IDTaiKhoan);
         } else {
             DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
             return view('Component/GioiThieu/Main/NoiLamViec')->with(
                 'value',
                 $get
-            );
+            )->with('idTaiKhoan', $request->IDTaiKhoan);
         }
     }
     public function addSchool(Request $request)
@@ -118,7 +118,7 @@ class AddAboutController extends Controller
         return view('Component/GioiThieu/Data/TruongHoc')->with(
             'data',
             $get
-        );
+        )->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function addPlaceLiveCurrent(Request $request)
     {
@@ -162,12 +162,12 @@ class AddAboutController extends Controller
             return view('Component/GioiThieu/Data/NoiOHienTai')->with(
                 'data',
                 $get
-            );
+            )->with('idTaiKhoan', $request->IDTaiKhoan);
         } else {
             return view('Component/GioiThieu/Main/NoiOHienTai')->with(
                 'value',
                 $get
-            );
+            )->with('idTaiKhoan', $request->IDTaiKhoan);
         }
     }
     public function addHomeTown(Request $request)
@@ -213,12 +213,12 @@ class AddAboutController extends Controller
             return view('Component/GioiThieu/Data/QueQuan')->with(
                 'data',
                 $get
-            );
+            )->with('idTaiKhoan', $request->IDTaiKhoan);
         else
             return view('Component/GioiThieu/Main/QueQuan')->with(
                 'value',
                 $get
-            );
+            )->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function addPlaceLived(Request $request)
     {
@@ -262,7 +262,7 @@ class AddAboutController extends Controller
         return view('Component/GioiThieu/Main/NoiTungSong')->with(
             'value',
             $get
-        );
+        )->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function addIntroYourSelf(Request $request)
     {
@@ -299,7 +299,7 @@ class AddAboutController extends Controller
         return view('Component/GioiThieu/Main/GioiThieuBanThan')->with(
             'value',
             $get
-        );
+        )->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function addWayReadName(Request $request)
     {
@@ -337,7 +337,7 @@ class AddAboutController extends Controller
         return view('Component/GioiThieu/Main/CachPhatAm')->with(
             'value',
             $get
-        );
+        )->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function addNickName(Request $request)
     {
@@ -375,7 +375,7 @@ class AddAboutController extends Controller
         return view('Component/GioiThieu/Main/BietDanh')->with(
             'value',
             $get
-        );
+        )->with('idTaiKhoan', $request->IDTaiKhoan);
     }
     public function addFavoriteQuote(Request $request)
     {
@@ -411,6 +411,6 @@ class AddAboutController extends Controller
         return view('Component/GioiThieu/Main/TrichDanYeuThich')->with(
             'value',
             $get
-        );
+        )->with('idTaiKhoan', $request->IDTaiKhoan);
     }
 }

@@ -16,8 +16,11 @@ $json = json_decode($json);
     <input name="DayBirth" type="hidden" id="DayBirth" value="">
     <input name="MonthBirth" type="hidden" id="MonthBirth" value="">
     <input name="YearBirth" type="hidden" id="YearBirth" value="">
-    <input name="PrivacyInputDayAndMonthBirth" type="hidden" id="PrivacyInputDayAndMonthBirth" value="">
+    <input name="PrivacyInputDayAnMonthBirth" type="hidden" id="PrivacyInputDayAnMonthBirth" value="">
     <input name="PrivacyInputYearBirth" type="hidden" id="PrivacyInputYearBirth" value="">
+    <input name="MonthBirth" type="hidden" id="MonthBirthInput" value="">
+    <input name="DayBirth" type="hidden" id="DayBirthInput" value="">
+    <input name="YearBirth" type="hidden" id="YearBirthInput" value="">
 </form>
 <div class="w-full">
     <ul class="w-full py-2 px-4  dark:text-white mainAboutFull">

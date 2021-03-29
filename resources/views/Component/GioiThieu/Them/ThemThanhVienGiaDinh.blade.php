@@ -1,105 +1,28 @@
-<div class="w-full hidden MemberFamily">
+<div class="w-full hidden memberFamily">
     <div class="w-full relative">
-        <input name="" id="" class="w-full my-2 p-3 border-2 border-solid border-gray-200 
+        <input oninput="OninputValueInputAbout('{{$idTaiKhoan}}',this,'MemberFamily')" onclick="EventClickInputAbout('{{$idTaiKhoan}}',this,'MemberFamily')" name="" id="IDMemberFamilys" class="w-full my-2 p-3 border-2 border-solid border-gray-200 
                 dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  resize-none outline-none rounded-lg" placeholder="Thành viên gia đình">
-        <div class=" z-30 bg-gray-200 dark:bg-dark-second overflow-y-auto border-gray-300 rounded-lg
+        <div class="MemberFamily hidden z-30 bg-gray-200 dark:bg-dark-second overflow-y-auto border-gray-300 rounded-lg
         wrapper-content-right border-2 border-solid dark:border-dark-third shadow-lg w-full" style="max-height: 288px;">
-            <div class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
-                    dark:text-white flex rounded-lg flex font-bold">
-                <div class="mr-3">
-                    <img src="/img/avatar.jpg" class="w-10 h-10 object-cover rounded-full" alt="">
-                </div>
-                <div class="font-bold dark:text-white py-2">
-                    Trà Hưởng
-                </div>
-            </div>
-            <div class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
-                    dark:text-white flex rounded-lg flex font-bold">
-                <div class="mr-3">
-                    <img src="/img/avatar.jpg" class="w-10 h-10 object-cover rounded-full" alt="">
-                </div>
-                <div class="font-bold dark:text-white py-2">
-                    Trà Hưởng
-                </div>
-            </div>
-            <div class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
-                    dark:text-white flex rounded-lg flex font-bold">
-                <div class="mr-3">
-                    <img src="/img/avatar.jpg" class="w-10 h-10 object-cover rounded-full" alt="">
-                </div>
-                <div class="font-bold dark:text-white py-2">
-                    Trà Hưởng
-                </div>
-            </div>
-            <div class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
-                    dark:text-white flex rounded-lg flex font-bold">
-                <div class="mr-3">
-                    <img src="/img/avatar.jpg" class="w-10 h-10 object-cover rounded-full" alt="">
-                </div>
-                <div class="font-bold dark:text-white py-2">
-                    Trà Hưởng
-                </div>
-            </div>
-            <div class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
-                    dark:text-white flex rounded-lg flex font-bold">
-                <div class="mr-3">
-                    <img src="/img/avatar.jpg" class="w-10 h-10 object-cover rounded-full" alt="">
-                </div>
-                <div class="font-bold dark:text-white py-2">
-                    Trà Hưởng
-                </div>
-            </div>
-            <div class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
-                    dark:text-white flex rounded-lg flex font-bold">
-                <div class="mr-3">
-                    <img src="/img/avatar.jpg" class="w-10 h-10 object-cover rounded-full" alt="">
-                </div>
-                <div class="font-bold dark:text-white py-2">
-                    Trà Hưởng
-                </div>
-            </div>
-            <div class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
-                    dark:text-white flex rounded-lg flex font-bold">
-                <div class="mr-3">
-                    <img src="/img/avatar.jpg" class="w-10 h-10 object-cover rounded-full" alt="">
-                </div>
-                <div class="font-bold dark:text-white py-2">
-                    Trà Hưởng
-                </div>
-            </div>
-            <div class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
-                    dark:text-white flex rounded-lg flex font-bold">
-                <div class="mr-3">
-                    <img src="/img/avatar.jpg" class="w-10 h-10 object-cover rounded-full" alt="">
-                </div>
-                <div class="font-bold dark:text-white py-2">
-                    Trà Hưởng
-                </div>
-            </div>
+
         </div>
     </div>
     <div class="w-full relative">
-        <div class="hidden z-30 w-80 h-48 bg-gray-200 dark:bg-dark-second overflow-y-auto border-gray-300 rounded-lg
-                wrapper-content-right border-2 border-solid dark:border-dark-third shadow-lg" style="max-height: 176px;">
-            <div class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
-                dark:text-white flex rounded-lg  font-bold">
-                <div class="w-1/2">
-                    Độc thân
-                </div>
-                <div class="w-1/2">
+        <input oninput="OninputValueInputAbout('{{$idTaiKhoan}}',this,'RelationShipFamily')" onclick="EventClickInputAbout('{{$idTaiKhoan}}',this,'RelationShipFamily')" name="" id="IDRelationShipFamilys" class="w-full my-2 p-3 border-2 border-solid border-gray-200 
+                dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  resize-none outline-none rounded-lg" placeholder="Mối quan hệ">
+        <div class="RelationShipFamily hidden z-30 bg-gray-200 dark:bg-dark-second overflow-y-auto border-gray-300 rounded-lg
+        wrapper-content-right border-2 border-solid dark:border-dark-third shadow-lg w-full" style="max-height: 288px;">
 
-                </div>
-            </div>
         </div>
     </div>
-    <div class="w-full flex pb-1 relative h-16">
-        <div class="bg-gray-200  dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute left-0 font-bold">
+    <div class="w-full flex pb-1 pt-3 relative h-16">
+        <div onclick="PrivacyAbout(this,'PrivacyInputMemberFamily')" class="bg-gray-200 cursor-pointer dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute left-0 font-bold">
             <i class="fas fa-globe-europe"></i>&nbsp;&nbsp;Công khai
         </div>
-        <div class="bg-1877F2 text-white rounded-lg p-2 absolute right-0 font-bold">
+        <div onclick="add(dashboard.routes.ProcessAddSchoolAbout, 'school' , 'schoolMain' )" class=" cursor-pointer bg-1877F2 text-white ml-3 rounded-lg p-2 absolute right-0 font-bold">
             Lưu
         </div>
-        <div class="bg-gray-200  dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute right-12 font-bold">
+        <div onclick="AddView('memberFamily')" class=" cursor-pointer bg-gray-200 dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute right-12 font-bold">
             Hủy
         </div>
     </div>

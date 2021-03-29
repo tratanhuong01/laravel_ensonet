@@ -16,7 +16,8 @@ function EventClickInputAbout(Name,Element,Condition) {
         url : "/ProcessShowDataAboutCorresponding",
         data : {
             Type : Condition,
-            Value : Element.value
+            Value : Element.value,
+            Name : Name,
         },
         success : function(response) {
             document.getElementsByClassName(Condition)[0].innerHTML = response;
@@ -157,7 +158,8 @@ function OninputValueInputAbout(Name,Element,Condition) {
         url : "/ProcessShowDataAboutCorresponding",
         data : {
             Type : Condition,
-            Value : Element.value
+            Value : Element.value,
+            Name : Name
         },
         success : function(response) {
             document.getElementsByClassName(Condition)[0].innerHTML = response;
@@ -215,7 +217,7 @@ function choose(IDInput,ID,Name,ValueInput,IDS,Value) {
 }
 function choose1(IDInput,ID,Name,ValueInput,IDS,Value) {
     if ($('#' + ValueInput).length > 0) {
-        $('#' + ValueInput).val(ID);
+        document.getElementById(ValueInput).value = ID;
         document.getElementById(IDS).innerHTML = Name;
         document.getElementsByClassName(Value)[0].classList.add('hidden');
     }
@@ -225,7 +227,7 @@ function choose1(IDInput,ID,Name,ValueInput,IDS,Value) {
         input.setAttribute('type','hidden');
         input.setAttribute('id',ValueInput);
         input.setAttribute('value',ID);
-        document.getElementById(IDS).value = Name;
+        document.getElementById(IDS).innerHTML = Name;
         document.getElementsByClassName(Value)[0].classList.add('hidden');
         document.getElementById('formTongQuan').append(input);
     }

@@ -161,4 +161,58 @@
 </div>
 @endforeach
 @break
+@case('RelationShip')
+@foreach($data as $key => $value)
+<div onclick="choose('IDRelationShip',
+    '{{ $value->TinhTrang }}',
+    '{{ $value->TinhTrang }}',
+    'RelationShipInput',
+    'IDRelationShips',
+    'RelationShip')" class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
+    dark:text-white flex rounded-lg flex font-bold">
+    <div class="mr-3">
+        <img src="/img/completed.png" class="w-10 h-10 object-cover rounded-full" alt="">
+    </div>
+    <div class="font-bold dark:text-white py-2">
+        {{ $value->TinhTrang }}
+    </div>
+</div>
+@endforeach
+@break
+@case('MemberFamily')
+@foreach($data as $key => $value)
+<div onclick="choose('IDMemberFamily',
+    '{{ $value->IDTaiKhoan }}',
+    '{{ $value->IDTaiKhoan }}',
+    'MemberFamilyInput',
+    'IDMemberFamilys',
+    'MemberFamily')" class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
+    dark:text-white flex rounded-lg flex font-bold">
+    <div class="mr-3">
+        <img src="/{{ $value->AnhDaiDien }}" class="w-10 h-10 object-cover rounded-full" alt="">
+    </div>
+    <div class="font-bold dark:text-white py-2">
+        {{ $value->Ho . ' ' . $value->Ten }}
+    </div>
+</div>
+@endforeach
+@break
+@case('RelationShipFamily')
+@foreach($data as $key => $value)
+<div onclick="choose('IDRelationShipFamily',
+    '{{ $value->MoiQuanHe }}',
+    '{{ $value->MoiQuanHe }}',
+    'RelationShipFamilyInput',
+    'IDRelationShipFamilys',
+    'RelationShipFamily')" class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
+    dark:text-white flex rounded-lg flex font-bold">
+    <div class="mr-3">
+        <img src="/img/completed.png" class="w-10 h-10 object-cover rounded-full" alt="">
+    </div>
+    <div class="font-bold dark:text-white py-2">
+        {{ $value->MoiQuanHe }}
+    </div>
+</div>
+@endforeach
+@break
 @endswitch
