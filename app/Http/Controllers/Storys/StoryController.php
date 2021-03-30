@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Storys;
 
 use App\Http\Controllers\Controller;
+use App\Models\Amthanh;
 use App\Models\Luotxemstory;
 use App\Models\Story;
 use App\Models\StringUtil;
@@ -24,6 +25,17 @@ class StoryController extends Controller
         $imageName = $request->IDTaiKhoan . $idStory . ".png"; //generating unique file name;
         Storage::disk('public')->put($imageName, base64_decode($image));
         rename(storage_path('app/public/') . $imageName, public_path('img/story/') . $imageName);
+        $music = Amthanh::where('amthanh.IDAmThanh', '=', $request->IDAmThanh)->get();
+        $jsonMusic = NULL;
+        if (count($music) > 0) {
+            $jsonMusic = [
+                'IDStory' => $idStory,
+                'IDAmThanh' => $music[0]->IDAmThanh,
+                'DuongDanAmThanh' => $music[0]->DuongDanAmThanh,
+                'TacGia' => $music[0]->TacGia,
+                'TenAmThanh' => $music[0]->TenAmThanh
+            ];
+        }
         Story::add(
             $idStory,
             'CHIBANBE',
@@ -31,7 +43,8 @@ class StoryController extends Controller
             $request->IDPhongNen,
             'img/story/' . $imageName,
             '0',
-            date("Y-m-d H:i:s")
+            date("Y-m-d H:i:s"),
+            json_encode($jsonMusic)
         );
         redirect()->to('index')->send();
     }
@@ -71,10 +84,13 @@ class StoryController extends Controller
     }
     public function loadAndAddViewStory(Request $request)
     {
+        $str = Story::where('IDStory', '=', $request->IDStory)->get()[0];
         $view = Luotxemstory::where('luotxemstory.IDStory', '=', $request->IDStory)
-            ->where('luotxemstory.IDXem', '=', $request->IDTaiKhoan)->get();
+            ->where('luotxemstory.IDXem', '=', $request->IDTaiKhoan)
+            ->join('story', 'luotxemstory.IDStory', 'story.IDStory')->get();
         if (count($view) > 0) {
             return response()->json([
+                'urlMp3' => $str->AmThanh == NULL ? '/' : json_decode($str->AmThanh)->DuongDanAmThanh,
                 'SoTheMoi' => '',
                 'Border' => '',
                 'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
@@ -87,14 +103,15 @@ class StoryController extends Controller
                 $request->IDTaiKhoan
             );
             $dt = DataProcessThird::checkIsViewStoryOfUser(
-                Story::where('IDStory', '=', $request->IDStory)->get()[0]->IDTaiKhoan,
+                $str->IDTaiKhoan,
                 $request->IDTaiKhoan
             );
             return response()->json([
+                'urlMp3' => $str->AmThanh == NULL ? '/' : json_decode($str->AmThanh)->DuongDanAmThanh,
                 'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
                 'Border' => $dt == 0 ? 'border-blue-500' : '',
                 'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
-                    ->with('viewStory', DataProcessThird::getViewStoryByIDStory($request->IDStory))
+                    ->with('viewStory', DataProcessThird::getViewStoryByIDStory($request->IDStory, $request->IDTaiKhoan))
             ]);
         }
     }

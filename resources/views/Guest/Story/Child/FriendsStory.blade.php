@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\Session;
                         </div>
                         <div class="w-1/3">
                             <ul class="w-full flex">
-                                <li onclick="Audio()" id="play" class=" py-2 px-2 cursor-pointer">
+                                <li id="play" class=" py-2 px-2 cursor-pointer">
                                     <i id="btnClickStart" class="far fa-play-circle text-white text-2xl"></i>
                                 </li>
                                 <li onclick="muteAudio()" class=" py-2 px-2 cursor-pointer">

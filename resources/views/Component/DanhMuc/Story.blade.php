@@ -31,7 +31,7 @@ $storys = DataProcessSecond::getAllStoryOfUsers($users->IDTaiKhoan)
                 {{ StringUtil::getChillDateTime($value->ThoiGianDangStory)[0] 
                 . ' tháng ' . StringUtil::getChillDateTime($value->ThoiGianDangStory)[1] }} <i class="fas fa-circle text-xm px-2" style="color: #1876F2;font-size: 12px;"></i></span>
             <span class="views-story absolute text-black" style="display: none;bottom: 15px;left: 24px;"><i class="fas fa-eye"></i>&nbsp;&nbsp;
-                {{ count(DataProcessThird::getViewStoryByIDStory($value->IDStory,$user->IDTaiKhoan)) }}</span>
+                {{ count(DataProcessThird::getViewStoryByIDStory($value->IDStory,$users->IDTaiKhoan)) }}</span>
         </div>
         @endforeach
     </div>

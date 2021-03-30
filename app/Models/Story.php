@@ -16,7 +16,8 @@ class Story extends Model
         'IDPhongNen',
         'DuongDan',
         'LoaiStory',
-        'ThoiGianDangStory'
+        'ThoiGianDangStory',
+        'AmThanh'
     ];
     public static function add(
         $IDStory,
@@ -25,7 +26,8 @@ class Story extends Model
         $IDPhongNen,
         $DuongDan,
         $LoaiStory,
-        $ThoiGianDangStory
+        $ThoiGianDangStory,
+        $amThanh
     ) {
         $story = new Story;
         $story->IDStory = $IDStory;
@@ -35,6 +37,7 @@ class Story extends Model
         $story->DuongDan = $DuongDan;
         $story->LoaiStory = $LoaiStory;
         $story->ThoiGianDangStory = $ThoiGianDangStory;
+        $story->AmThanh = $amThanh;
         $story->save();
     }
     public $timestamps = false;

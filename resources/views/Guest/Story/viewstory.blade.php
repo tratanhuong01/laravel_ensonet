@@ -141,6 +141,7 @@ $user = Session::get('user')
         if (countStory <= 0) {
 
         } else {
+            var url = '';
             $.ajax({
                 method: "POST",
                 url: "{{ route('ProcessLoadAndAddViewStory') }}",
@@ -150,34 +151,39 @@ $user = Session::get('user')
                 },
                 success: function(responses) {
                     $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
+                    document.getElementById('myAudio').src = '/' + responses.urlMp3;
+                    $('#play').on('click', function() {
+                        if ($('#btnClickStart').hasClass('far fa-play-circle')) {
+                            if (Math.round(data) == 100) {
+                                numberStory++;
+                                window.clearInterval(s);
+                                $('#btnClickStart').removeClass('far fa-stop-circle');
+                                $('#btnClickStart').addClass('far fa-play-circle');
+                                data = 0;
+                                document.getElementById('loadingAudio' + numberStory).style.width = data + 0.05 + "%";
+                                s = setIntervalLoad(s);
+                            } else {
+                                s = setIntervalLoad(s);
+                                document.getElementById('myAudio').play();
+                                document.getElementById("myAudio").muted = false;
+                                $('#btnClickStart').removeClass('far fa-play-circle');
+                                $('#btnClickStart').addClass('far fa-stop-circle');
+                            }
+                        } else {
+                            data = data;
+                            clearInterval(s);
+                            document.getElementById('myAudio').pause();
+                            $('#btnClickStart').removeClass('far fa-stop-circle');
+                            $('#btnClickStart').addClass('far fa-play-circle');
+                        }
+                    })
+                    $('#play').click();
                 },
                 error: function(err) {
                     console.log(err);
                 }
             });
-            if ($('#btnClickStart').hasClass('far fa-play-circle')) {
-                if (Math.round(data) == 100) {
-                    numberStory++;
-                    window.clearInterval(s);
-                    $('#btnClickStart').removeClass('far fa-stop-circle');
-                    $('#btnClickStart').addClass('far fa-play-circle');
-                    data = 0;
-                    document.getElementById('loadingAudio' + numberStory).style.width = data + 0.05 + "%";
-                    s = setIntervalLoad(s);
-                } else {
-                    s = setIntervalLoad(s);
-                }
-                document.getElementById('myAudio').play();
-                document.getElementById("myAudio").muted = false;
-                $('#btnClickStart').removeClass('far fa-play-circle');
-                $('#btnClickStart').addClass('far fa-stop-circle');
-            } else {
-                window.clearInterval(s);
-                $('#btnClickStart').removeClass('far fa-stop-circle');
-                $('#btnClickStart').addClass('far fa-play-circle');
-                document.getElementById('myAudio').pause();
-                document.getElementById("myAudio").muted = false;
-            }
+
         }
     }
     window.onload = function() {
@@ -193,18 +199,18 @@ $user = Session::get('user')
                 document.getElementsByClassName("img-story")[0].offsetHeight
         }
         document.getElementsByClassName("img-story")[0].style.margin = marginY = (marginY <= 0 ? 0 : ((marginY / 2) - 20)) + "px 0px";
-        document.getElementsByClassName("img-story")[0].style.maxHeight = document.getElementsByClassName("story-right")[1].offsetHeight + 10 + "px"
-        setTimeout(function() {
-            document.getElementById('play').click();
-        }, 500)
-
+        document.getElementsByClassName("img-story")[0].style.maxHeight = document.getElementsByClassName("story-right")[1].offsetHeight + 10 + "px";
+        Audio();
     }
 
     function setIntervalLoad(s) {
         s = window.setInterval(function() {
-            if (Math.round(data) === 100) {
+            if (Math.round(data) == 100) {
                 data = 0;
                 window.clearInterval(s);
+                document.getElementById('myAudio').src = document.getElementById('myAudio').src;
+                $('#btnClickStart').removeClass('far fa-stop-circle');
+                $('#btnClickStart').addClass('far fa-play-circle');
                 if (numberStory >= countStory - 1) {
                     window.clearInterval(s);
                     $.ajax({
@@ -212,10 +218,6 @@ $user = Session::get('user')
                     })
                 } else {
                     numberStory++;
-                    document.getElementById('myAudio').pause();
-                    s = setIntervalLoad(s);
-                    // $('#btnClickStart').removeClass('far fa-stop-circle');
-                    // $('#btnClickStart').addClass('far fa-play-circle');
                     $.ajax({
                         method: "POST",
                         url: '{{ url("ProcessLoadStory") }}',
@@ -224,6 +226,7 @@ $user = Session::get('user')
                             IDTaiKhoan: '@isset($story[0]->IDTaiKhoan) {{ ($story[0]->IDTaiKhoan) }} @endisset'
                         },
                         success: function(response) {
+                            s = setIntervalLoad(s);
                             $.ajax({
                                 method: "POST",
                                 url: "{{ route('ProcessLoadAndAddViewStory') }}",
@@ -239,8 +242,10 @@ $user = Session::get('user')
                                     if ($('#' + response.IDStory).length > 0)
                                         changeStoryImage(document.getElementById(response.IDStory), 0)
                                     $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
-                                    $('#myAudio').attr('src', '/mp3/Mood.mp3');
+                                    $('#myAudio').attr('src', '/' + responses.urlMp3);
                                     document.getElementById('myAudio').play();
+                                    $('#btnClickStart').removeClass('far fa-play-circle');
+                                    $('#btnClickStart').addClass('far fa-stop-circle');
                                 },
                                 error: function(err) {
                                     console.log(err);
@@ -253,7 +258,7 @@ $user = Session::get('user')
                 data += 0.1;
                 document.getElementById('loadingAudio' + numberStory).style.width = data + "%";
             }
-        }, 11)
+        }, 10)
         return s;
     }
 

@@ -532,3 +532,7 @@ Route::get('loadIndexVeriCheckpoint', function () {
     Session::forget('idcheckpoint');
     redirect()->to('index')->send();
 });
+
+Route::get('testAPI',function(){
+    return view('testAPI');
+});

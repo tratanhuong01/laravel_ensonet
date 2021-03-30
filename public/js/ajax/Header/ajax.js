@@ -7,7 +7,7 @@ function searchData() {
             IDTaiKhoan : '1000000001'
         },
         success: function(response) {
-            $('#loadDataSearch').html(response.view);
+            $('#loadDataSearch').html(response?.view);
         },
         error:function(response) {
             console.log(response)

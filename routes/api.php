@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gioithieu;
+use App\Models\Story;
 use App\Models\Taikhoan;
 use App\Process\DataProcessFour;
 use App\Process\DataProcessSecond;
@@ -178,8 +179,11 @@ Route::get('get', function () {
     echo "<pre>";
     print_r($json);
     echo "</pre>";
+    $json = Story::where('IDStory', '=', '3000041')->get();
     echo "<pre>";
-    print_r(DataProcessFour::sortImageByTagOfUser('1000000007'));
+    print_r(
+        json_decode($json[0]->AmThanh)->DuongDanAmThanh
+    );
     echo "</pre>";
 });
 

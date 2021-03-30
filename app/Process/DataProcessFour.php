@@ -2,12 +2,14 @@
 
 namespace App\Process;
 
+use App\Models\Amthanh;
 use App\Models\Baidang;
 use App\Models\Congty;
 use App\Models\Diachi;
 use App\Models\Functions;
 use App\Models\Gioithieu;
 use App\Models\Hinhanh;
+use App\Models\Taikhoan;
 use App\Models\Truonghoc;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -294,6 +296,55 @@ class DataProcessFour extends Model
         }
         return $newArray;
     }
+    public static function createColor()
+    {
+        $color = [
+            'WHITE' => 'white',
+            '#FFBF00' => '#FFBF00',
+            '#9966CC' => '#9966CC',
+            '#7FFFD4' => '#7FFFD4',
+            '#007FFF' => '#007FFF',
+            '#F5F5DC' => '#F5F5DC',
+            '#3D2B1F' => '#3D2B1F',
+            '#000000' => '#000000',
+            '#0000FF' => '#0000FF',
+            '#964B00' => '#964B00',
+            '#F0DC82' => '#F0DC82',
+            '#CC5500' => '#CC5500',
+            '#C41E3A' => '#C41E3A',
+            '#960018' => '#960018',
+            '#ACE1AF' => '#ACE1AF',
+            '#DE3163' => '#DE3163',
+            '#007BA7' => '#007BA7',
+            '#7FFF00' => '#7FFF00',
+            '#0047AB' => '#0047AB',
+            '#B87333' => '#B87333',
+            '#FF7F50' => '#FF7F50',
+            '#FFFDD0' => '#FFFDD0',
+            '#DC143C' => '#DC143C',
+            '#00FFFF' => '#00FFFF',
+            '#50C878' => '#50C878',
+            '#FFD700' => '#FFD700',
+            '#808080' => '#808080',
+            '#00FF00' => '#00FF00',
+            '#4B0082' => '#4B0082',
+            '#C3B091' => '#C3B091',
+            '#E6E6FA' => '#E6E6FA',
+            '#CCFF00' => '#CCFF00',
+            '#FF00FF' => '#FF00FF',
+            '#800000' => '#800000',
+            '#993366' => '#993366',
+            '#c8a2c8' => '#c8a2c8',
+            '#CC7722' => '#CC7722',
+            '#FF7F00' => '#FF7F00',
+            '#FFFF00' => '#FFFF00',
+            '#40826D' => '#40826D',
+            '#FF4D00' => '#FF4D00',
+            '#30D5C8' => '#30D5C8',
+            '#008080' => '#008080',
+        ];
+        return $color;
+    }
     public static function sortImageByTagOfUser($idTaiKhoan)
     {
         $friends = Functions::getListFriendsUser($idTaiKhoan);
@@ -332,7 +383,7 @@ class DataProcessFour extends Model
     public static function groupImage($idTaiKhoan)
     {
         $groupImage = DB::select('SELECT DISTINCT IDAlbumAnh FROM hinhanh WHERE 
-        baidang.IDTaiKhoan = ? INNER JOIN baidang ON hinhanh.IDBaiDang = baidang.IDBaiDang');
+        baidang.IDTaiKhoan = ? INNER JOIN baidang ON hinhanh.IDBaiDang = baidang.IDBaiDang ');
         $allImage = array();
         foreach ($groupImage as $key => $value) {
             $image = Hinhanh::where('hinhanh.IDAlbumAnh', '=', $value->IDAlbumAnh)->get();
@@ -340,6 +391,9 @@ class DataProcessFour extends Model
                 $allImage[$value->IDAlbumAnh][$key] = $value;
             }
         }
-        return $allImage;
+    }
+    public static function getMusic()
+    {
+        return Amthanh::get();
     }
 }

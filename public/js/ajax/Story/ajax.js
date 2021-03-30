@@ -7,21 +7,27 @@ function wraptext(text) {
     }
     return data;
 }
-function createStory(text) {
+function createStory(text,color) {
     var canvas = document.getElementById("myCanvas");
     var context = canvas.getContext("2d");
     context.drawImage(document.getElementById('myImage'), 0, 0, 345, 612);
     context.font = "20pt Tahoma";
-    context.fillStyle = "white";
+    context.fillStyle = color;
     context.textAlign = "center";
     var arr = wraptext(text).split('@');
     for (var index = 0; index < arr.length; index++) {
         context.fillText(arr[index], 172, ((canvas.height / 2) - ((arr.length * 28) / 2)) + (index + 1) * 28);
-        context.fillStyle = 'white';
+        context.fillStyle = color;
     }
 }
-function changeTexts() {
-    createStory(document.getElementsByClassName("place-type")[0].value)
+function changeColorContent(color) {
+    changeTexts(color);
+    document.getElementsByClassName('content-story-text')[0].style.color = color;
+    createStory(document.getElementsByClassName("place-type")[0].value,color);
+}
+function changeTexts(color) {
+    color = color ==  '' ? 'white' : color;
+    createStory(document.getElementsByClassName("place-type")[0].value,color);
     document.getElementsByClassName("content-story-text")[0].innerText = document.getElementsByClassName("place-type")[0].value;
 }
 function clickChangeBackground(IDPhongNen, DuongDanPN) {
@@ -50,4 +56,11 @@ function changeStoryImage(element, index) {
         element.childNodes[1].classList.remove('p-2')
         element.childNodes[1].classList.remove('opacity-40')
     }
+}
+function playMusicDemoStory(url) {
+    $('#myAudio').attr('src','/' + url);
+    document.getElementById('myAudio').play();
+}
+function chooseMusic(ID) {
+    $('#IDAmThanh').attr('value',ID);
 }
