@@ -38,6 +38,9 @@ use Illuminate\Support\Facades\Session;
                                 <li id="play" class=" py-2 px-2 cursor-pointer">
                                     <i id="btnClickStart" class="far fa-play-circle text-white text-2xl"></i>
                                 </li>
+                                <li id="stop" class=" py-2 px-2 cursor-pointer">
+                                    <i id="btnClickStop" class="far fa-stop-circle text-white text-2xl"></i>
+                                </li>
                                 <li onclick="muteAudio()" class=" py-2 px-2 cursor-pointer">
                                     <i id="muteOrUnMute" class="fas fa-volume-up text-white text-2xl"></i>
                                 </li>

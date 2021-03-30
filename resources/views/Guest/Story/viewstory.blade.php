@@ -160,7 +160,7 @@ $user = Session::get('user')
                                 $('#btnClickStart').removeClass('far fa-stop-circle');
                                 $('#btnClickStart').addClass('far fa-play-circle');
                                 data = 0;
-                                document.getElementById('loadingAudio' + numberStory).style.width = data + 0.05 + "%";
+                                document.getElementById('loadingAudio' + numberStory).style.width = data + "%";
                                 s = setIntervalLoad(s);
                             } else {
                                 s = setIntervalLoad(s);
@@ -170,7 +170,6 @@ $user = Session::get('user')
                                 $('#btnClickStart').addClass('far fa-stop-circle');
                             }
                         } else {
-                            data = data;
                             clearInterval(s);
                             document.getElementById('myAudio').pause();
                             $('#btnClickStart').removeClass('far fa-stop-circle');
