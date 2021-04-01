@@ -533,6 +533,4 @@ Route::get('loadIndexVeriCheckpoint', function () {
     redirect()->to('index')->send();
 });
 
-Route::get('testAPI',function(){
-    return view('testAPI');
-});
+Route::get('ProcessUpdateStateMessage', [TroChuyen\ChatController::class, 'updateStateMessage']);

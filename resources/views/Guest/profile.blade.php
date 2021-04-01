@@ -42,9 +42,10 @@ $user = Session::get('user');
     <script src="/js/ajax/Profile/ajax.js"></script>
     <script src="/js/ajax/GioiThieu/ajax.js"></script>
     <script src="/js/ajax/GioiThieu/ajax_second.js"></script>
+    <script src="/js/ajax/HinhAnh/ajax.js"></script>
 </head>
 
-<body>
+<body class="dark:bg-dark-main">
     <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second" style="z-index: 100;">
     </div>
     <div class="w-full dark:bg-dark-second" id="web">
@@ -52,8 +53,9 @@ $user = Session::get('user');
         @if (sizeof($users) == 0)
         @include('Component\KhongTimThay');
         @else
-        @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
-        <div class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
+        @include('Timeline/Profile')
+        <div class="hidden dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%" id="firstContentProfile">
+            @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
             <div class="w-full relative">
                 <div class="w-full mx-auto relative">
                     <div class="w-full relative h-60 lg:h-96">
@@ -91,42 +93,45 @@ $user = Session::get('user');
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="w-full relative">
-            <div class="mx-auto text-center w-63%" style="margin-top: 68px;">
-                <p class="outline-none text-center py-2 dark:text-white">{{ $user[0]->MoTa }}</p>
-                <div class="w-full pt-2">
-                    <a style="color: #1876F2;font-size: 18px;" href="">Chỉnh sửa</a>
-                </div>
-                <br>
-            </div>
-        </div>
-        @else
-        <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">>
             <div class="w-full relative">
-                <div class="w-full mx-auto relative">
-                    <div class="w-full relative h-60 lg:h-96">
-                        <a href="photo/"><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;" src="/{{ $users[0]->AnhBia}}" alt=""></a>
+                <div class="mx-auto text-center w-63%" style="margin-top: 68px;">
+                    <p class="outline-none text-center py-2 dark:text-white">{{ $user[0]->MoTa }}</p>
+                    <div class="w-full pt-2">
+                        <a style="color: #1876F2;font-size: 18px;" href="">Chỉnh sửa</a>
                     </div>
-                    <div class="w-full absolute text-center top-20 lg:top-6/10">
-                        <img class="w-44 h-44 rounded-full mx-auto
-                                border-4 border-solid border-white object-cover" src="/{{ $users[0]->AnhDaiDien}}" alt=""></a>
-                        <p class="font-bold text-center text-3xl py-2 dark:text-white" style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten}}</p>
-                    </div>
+                    <br>
                 </div>
             </div>
-        </form>
-        <div class="w-full relative">
-            <div class="mx-auto text-center py-4 dark:text-white w-63%" style="margin-top: 68px;">
-                <span class="outline-none">{{ $users[0]->MoTa}}</span>
-                <br>
+            <hr class="w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-full mb-2 bg-gray-200 
+            dark:bg-dark-second">
+            @else
+            <form action="action" class="dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-full">
+                <div class="w-full relative">
+                    <div class="w-full mx-auto relative">
+                        <div class="w-full relative h-60 lg:h-96">
+                            <a href="photo/"><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;" src="/{{ $users[0]->AnhBia}}" alt=""></a>
+                        </div>
+                        <div class="w-full absolute text-center top-20 lg:top-6/10">
+                            <img class="w-44 h-44 rounded-full mx-auto
+                                border-4 border-solid border-white object-cover" src="/{{ $users[0]->AnhDaiDien}}" alt=""></a>
+                            <p class="font-bold text-center text-3xl py-2 dark:text-white" style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten}}</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="w-full relative">
+                <div class="mx-auto text-center py-4 dark:text-white w-63%" style="margin-top: 68px;">
+                    <span class="outline-none">{{ $users[0]->MoTa}}</span>
+                    <br>
+                </div>
             </div>
+            <hr class="w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-full mb-2 bg-gray-200 
+            dark:border-dark-second border-solid border-t-2">
+            @endif
         </div>
-        @endif
-        <hr class="w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63% mb-2">
         <?php $moiQuanHe = DB::table('moiquanhe')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
             ->where('IDBanBe', '=', $users[0]->IDTaiKhoan)->get(); ?>
-        <div class="w-full relative py-2" id="moiQuanHe">
+        <div class=" w-full relative py-2 hidden" id="moiQuanHe">
             @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
             @include('Component/MoiQuanHe/ChinhChu')
             @elseif (sizeof($moiQuanHe) == 0)
@@ -141,10 +146,10 @@ $user = Session::get('user');
             @include('Component/MoiQuanHe/BanBe')
             @endif
         </div>
-        <div class="w-full relative bg-gray-100 dark:bg-dark-main pt-3">
+        <div class="w-full relative bg-gray-100 dark:bg-dark-main pt-3 hidden" id="mainContentProfile">
+
             <?php
             $paths = explode('/', parse_url(url()->current())['path']);
-
             ?>
             <div id="place_load_about" class="mx-auto relative w-full lg:flex xl:w-63% 
             md:w-4/5 lg:w-3/4 md:mx-auto lg:flex-wrap rounded-lg">
@@ -344,7 +349,9 @@ $user = Session::get('user');
         ml-auto fixed -bottom-1 right-20" id="placeChat">
         </div>
         @endif
+        <script src="/js/scrollbar.js"></script>
         <script>
+            var action = 'inactive';
             var config = {
                 routes: {
                     ProcessAjaxDashboardAbout: "{{ route('ProcessAjaxDashboardAbout') }}",
@@ -356,28 +363,31 @@ $user = Session::get('user');
                     ProcessAjaxEventLifeAbout: "{{ route('ProcessAjaxEventLifeAbout') }}"
                 }
             };
-        </script>
-        <script>
-            var action = 'inactive';
-            if ($('#activeLoadPost').length > 0) {
-                if (action == 'inactive') {
-                    loading();
-                    loadingPostProfile(0, '{{ $users[0]->IDTaiKhoan }}');
-                }
-                $(window).scroll(function() {
-                    if ($(window).scrollTop() + $(window).height() - 700 > $(".timeline").height() &&
-                        action == 'inactive') {
-                        action = 'active';
+            setTimeout(function() {
+                $('#timeLineFirstProfile').remove();
+                $('#firstContentProfile').removeClass('hidden');
+                setTimeout(function() {
+                    $('#moiQuanHe').removeClass('hidden');
+                    $('#mainContentProfile').removeClass('hidden');
+                }, 500)
+                if ($('#activeLoadPost').length > 0) {
+                    if (action == 'inactive') {
                         loading();
-                        setTimeout(function() {
-                            loadingPostProfile($('#indexPost').val(), '{{ $users[0]->IDTaiKhoan }}');
-                        }, 500);
+                        loadingPostProfile(0, '{{ $users[0]->IDTaiKhoan }}');
                     }
-                });
-            }
-        </script>
-        <script src="/js/scrollbar.js"></script>
-        <script>
+                    $(window).scroll(function() {
+                        if ($(window).scrollTop() + $(window).height() - 700 > $(".timeline").height() &&
+                            action == 'inactive') {
+                            action = 'active';
+                            loading();
+                            setTimeout(function() {
+                                loadingPostProfile($('#indexPost').val(), '{{ $users[0]->IDTaiKhoan }}');
+                            }, 500);
+                        }
+                    });
+                }
+            }, 400)
+
             $('#modalHeaderRight').html('')
             Pusher.logToConsole = true;
 

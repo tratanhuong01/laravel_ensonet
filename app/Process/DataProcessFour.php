@@ -371,9 +371,10 @@ class DataProcessFour extends Model
         }
         return $images;
     }
-    public static function sortImageByUser($idTaiKhoan)
+    public static function sortImageByUser($idTaiKhoan, $index)
     {
         return DB::table('hinhanh')
+            ->skip($index)->take(15)
             ->join('baidang', 'hinhanh.IDBaiDang', '=', 'baidang.IDBaiDang')
             ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
             ->where('baidang.IDTaiKhoan', '=', $idTaiKhoan)

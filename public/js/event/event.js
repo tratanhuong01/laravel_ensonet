@@ -50,3 +50,37 @@ function inputSearchEvent() {
         $('#searchDataEnsonet').addClass('hidden');
     }
 }
+function openModalSharePost(element,event) {
+    var y = event.clientY;
+    if ($('#' + element + 'Share').length > 0) {
+        if ( $('#' + element + 'Share').hasClass('hidden')) {
+            if (y < $(window).height()/2) {
+                $('#' + element + 'Share').addClass('top-14')
+                $('#' + element + 'Share').removeClass('bottom-14')
+            }
+            else {
+                $('#' + element + 'Share').addClass('bottom-14')
+                $('#' + element + 'Share').removeClass('top-14')
+            }
+            $('#' + element + 'Share').removeClass('hidden')
+        }
+        else {
+            $('#' + element + 'Share').addClass('hidden')
+            $('#' + element + 'Share').removeClass('bottom-14')
+            $('#' + element + 'Share').removeClass('top-14')
+        }
+    }
+    
+    
+}
+function copyLinkPost(element,IDBaiDang) {
+    var clipboard = new Clipboard('#' + element.id, {
+        text: function() {
+            return document.getElementById('post-shortlink' + IDBaiDang).value;
+        }
+    });
+    clipboard.on('success', function(event) {
+      alert("Copied!");
+      event.clearSelection();
+    });
+}

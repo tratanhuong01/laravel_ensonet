@@ -10,6 +10,9 @@ use Exception;
 
 class SharePostController extends Controller
 {
+    public function shareView(Request $request)
+    {
+    }
     public function share(Request $request)
     {
     }

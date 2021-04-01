@@ -1,3 +1,7 @@
+<?php
+
+use App\Process\DataProcess;
+?>
 <div id="{{ $message->IDTinNhan }}" class="mess-user w-full py-1 flex relative">
     <div class="mess-user-feel hidden h-auto relative">
         <div class="cursor-pointer color-word absolute top-1/2 pl-2" style="transform: translateY(-50%);">
@@ -22,9 +26,20 @@
     </div>
     <div class="mess-user-r2 " style="width: 4%;">
         <div class="w-full clear-both">
+            @if ($message->TrangThai == 0)
+            @else
+            @switch(explode('#',DataProcess::getState($message->TrangThai,$message->IDTaiKhoan))[1])
+            @case('0')
             <i class="far fa-check-circle img-mess-right absolute bottom-1.5 text-gray-300"></i>
-            <i class="fas fa-check-circle img-mess-right absolute hidden ml-2 "></i>
-            <img src="img/avatar.jpg" class="hidden img-mess-right absolute w-7 h-7 p-0.5 object-cover rounded-full" alt="">
+            @break
+            @case('1')
+            <i class="fas fa-check-circle img-mess-right absolute bottom-1.5 text-gray-300"></i>
+            @break
+            @case('2')
+            <img src="img/avatar.jpg" class=" img-mess-right absolute w-7 h-7 p-0.5 object-cover rounded-full" alt="">
+            @break
+            @endswitch
+            @endif
         </div>
     </div>
 </div>

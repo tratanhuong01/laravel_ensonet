@@ -261,3 +261,6 @@ Route::get('ProcessViewPrivacyAbout', function () {
 Route::get('ProcessPrivacyAbouts', function (Request $request) {
     return view('Component/Child/QuyenRiengTuGioiThieu')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
 });
+
+Route::get('ProcessLoadPictures', [HinhAnhs\PictureController::class, 'load']);
+Route::get('ProcessLoadTimeLineAndViewPictures', [HinhAnhs\PictureController::class, 'loadAndView']);

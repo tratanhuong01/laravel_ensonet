@@ -55,3 +55,5 @@ function sendMessageGroup(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                 }
             });
 }
+function seenAllMessage(IDNhomTinNhan,IDTaiKhoan) {
+}

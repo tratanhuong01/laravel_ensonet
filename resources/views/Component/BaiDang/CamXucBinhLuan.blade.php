@@ -56,10 +56,52 @@ use App\Models\Process;
             text-center w-1/3 font-bold py-4 cursor-pointer justify-items-center">
             <i class="far fa-comment-alt dark:text-gray-300"></i> &nbsp; Bình Luận
         </li>
-        <li class="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200 
-            text-center w-1/3 font-bold py-4 cursor-pointer justify-items-center">
-            <i class="fas fa-share dark:text-gray-300"></i> &nbsp; Chia sẻ
-        </li>
+        <div class="w-1/3 z-40 
+        relative cursor-pointer justify-items-center">
+            <li onclick="openModalSharePost('{{ $item[0]->IDBaiDang }}',event)" class="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200
+            text-center w-full font-bold py-4 ">
+                <i class="fas fa-share dark:text-gray-300"></i> &nbsp; Chia sẻ
+            </li>
+            <div id="{{ $item[0]->IDBaiDang }}Share" class="hidden bg-white my-2 absolute w-80 
+            p-1 border-2 border-solid rounded-lg dark:bg-dark-second">
+                <ul class="w-full">
+                    <li class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+                    hover:bg-gray-300">
+                        <i class='bx bx-share text-2xl pr-2 rotate-90'></i>
+                        Chia sẽ ngay (Công khai)
+                    </li>
+                    <li class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+                    hover:bg-gray-300">
+                        <i class='bx bx-share text-2xl pr-2 rotate-90'></i>
+                        Chia sẽ ngay (Bạn bè)
+                    </li>
+                    <li class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+                    hover:bg-gray-300">
+                        <i class='bx bx-share text-2xl pr-2 rotate-90'></i>
+                        Chia sẽ ngay (Chỉ mình tôi)
+                    </li>
+                    <li class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+                    hover:bg-gray-300">
+                        <i class="fas fa-user-edit text-xl pr-2"></i>
+                        Chia sẽ lên bản tin
+                    </li>
+                    <li id="btnCopyLink{{ $item[0]->IDBaiDang }}" onclick="copyLinkPost(this,'{{ $item[0]->IDBaiDang }}')" class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+                    hover:bg-gray-300" data-clipboard-target="#post-shortlink{{$item[0]->IDBaiDang}}">
+                        <i class='bx bx-copy  text-xl pr-2'></i>
+                        Sao chép liên kết
+                    </li>
+                    <li class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+                    hover:bg-gray-300">
+                        <i class='bx bxl-messenger text-xl pr-2'></i>
+                        Gửi qua messenger
+                    </li>
+                    <li class="">
+                        <input type="hidden" id="post-shortlink{{$item[0]->IDBaiDang}}" value="{{ parse_url(url()->current())['host'] }}:{{ parse_url(url()->current())['port'] }}/post/{{ $item[0]->IDBaiDang }}">
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         @elseif ($item[0]->IDQuyenRiengTu == 'CHIBANBE')
         <div class="w-1/2 dark:hover:bg-dark-third hover:bg-gray-200 feels">
             <li class="dark:text-gray-300 dark:hover:bg-dark-third hover:bg-gray-200 

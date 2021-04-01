@@ -1,7 +1,7 @@
 function loadingPost(indexPost) {
     $.ajax({
         method: "GET",
-        url: "ProcessLoadingPost",
+        url: "/ProcessLoadingPost",
         data: {
             indexPost: $('#indexPost').val()
         },
@@ -23,7 +23,7 @@ function loadingPost(indexPost) {
 function loadingPostProfile(indexPost, IDTaiKhoan) {
     $.ajax({
         method: "GET",
-        url: "ProcessLoadingPostProfile",
+        url: "/ProcessLoadingPostProfile",
         data: {
             indexPost: $('#indexPost').val(),
             IDTaiKhoan: IDTaiKhoan
@@ -46,7 +46,7 @@ function loadingPostProfile(indexPost, IDTaiKhoan) {
 function loading() {
     $.ajax({
         method: "GET",
-        url: "ProcessLoading",
+        url: "/ProcessLoading",
         success: function (response) {
             $('.timeline').append(response);
         }
