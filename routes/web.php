@@ -536,6 +536,11 @@ Route::get('loadIndexVeriCheckpoint', function () {
 Route::get('ProcessUpdateStateMessage', [TroChuyen\ChatController::class, 'updateStateMessage']);
 
 Route::get('setting/change-name', function () {
+    Session::forget('verify');
+    Session::forget('emailSend');
+    Session::forget('passWordOld');
+    Session::forget('passWordNew');
+    Session::forget('typePassWordNew');
     return view('Guest/Setting');
 });
 
@@ -544,6 +549,11 @@ Route::get('setting/change-password', function () {
 });
 
 Route::get('setting/delete-account', function () {
+    Session::forget('passWordOld');
+    Session::forget('passWordNew');
+    Session::forget('typePassWordNew');
+    Session::forget('verify');
+    Session::forget('emailSend');
     return view('Guest/Setting');
 });
 
@@ -555,3 +565,6 @@ Route::post('ProcessChangePasswordAccount', [SettingController::class, 'changePa
 
 Route::post('ProcessDeleteAccount', [SettingController::class, 'deleteAccount'])
     ->name('ProcessDeleteAccount');
+
+Route::post('ProcessVerifyChangePassword', [SettingController::class, 'verifyChangePassword'])
+    ->name('ProcessVerifyChangePassword');

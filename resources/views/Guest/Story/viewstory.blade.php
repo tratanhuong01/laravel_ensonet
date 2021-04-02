@@ -91,7 +91,7 @@ $user = Session::get('user')
                     </div>
                     @endfor
             </div>
-            <div class="w-3/4 bg-gray-200 dark:bg-dark-main story-right ">
+            <div class="w-3/4 bg-gray-200 dark:bg-dark-main story-right" id="story-right">
                 @if (count($story) == 0)
                 <div class="w-full flex relative h-full">
                     <div class="w-40 h-32 text-center absolute left-1/2" style="top:40%;transform: translate(-50%,-50%);">
@@ -129,10 +129,12 @@ $user = Session::get('user')
             </div>
         </div>
     </div>
-    <audio class="hidden" src="/mp3/VivaLaVida.mp3" id="myAudio"></audio>
+    <audio class="hidden" src="" id="myAudio"></audio>
 </body>
 <script>
+    var numerStoryDisplay = Number('{{ $numberStoryDisplay }}');
     var countStory = Number('{{ count($story) }}');
+    var indexStory = Number('{{ $indexOfStory }}');
     var data = 0;
     var s
     var numberStory = 0;
@@ -211,10 +213,7 @@ $user = Session::get('user')
                 $('#btnClickStart').removeClass('far fa-stop-circle');
                 $('#btnClickStart').addClass('far fa-play-circle');
                 if (numberStory >= countStory - 1) {
-                    window.clearInterval(s);
-                    $.ajax({
-
-                    })
+                    nextStory('1000000001')
                 } else {
                     numberStory++;
                     $.ajax({
@@ -271,6 +270,106 @@ $user = Session::get('user')
             $('#muteOrUnMute').addClass('fas fa-volume-up');
             $('#myAudio').prop('muted', false);
         }
+    }
+
+    function nextStory(IDTaiKhoan) {
+        document.getElementById('loadingAudio' + numberStory).style.width = '100%';
+        data = 100;
+        window.clearInterval(s);
+        if (numberStory == countStory - 1) {
+            indexStory++;
+            numberStory = 0;
+        } else {
+            numberStory++;
+        }
+        $.ajax({
+            method: "GET",
+            url: "/ProcessNextStory",
+            data: {
+                indexStory: indexStory,
+                numberStory: numberStory,
+                IDTaiKhoan: IDTaiKhoan
+            },
+            success: function(response) {
+                if (typeof response.end !== 'undefined') {
+                    document.getElementById('myAudio').pause();
+                    window.clearInterval(s);
+                    $('#story-right').html(response.end);
+                } else {
+                    countStory = response.countStory;
+                    data = 0;
+                    s = setIntervalLoad(s);
+                    if (response.user == 'undefined') {
+
+                    } else {
+                        $('#story-right').html(response.viewMain);
+                    }
+                    $('#img' + response.IDTaiKhoanStory).removeClass(response.Border)
+                    $('#tag' + response.IDTaiKhoanStory).html(response.SoTheMoi)
+                    $('#img' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').removeClass(response.Border)
+                    $('#tag' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').html(response.SoTheMoi)
+                    $('.img-story').attr('src', "/" + response.DuongDan);
+                    $('#timeStory').html(response.ThoiGianDangStory)
+                    if ($('#' + response.IDStory).length > 0)
+                        changeStoryImage(document.getElementById(response.IDStory), 0)
+                    $('#viewStoryDetailFull').html(response.ViewStoryDetail);
+                    $('#myAudio').attr('src', '/' + response.urlMp3);
+                    document.getElementById('myAudio').play();
+                    $('#btnClickStart').removeClass('far fa-play-circle');
+                    $('#btnClickStart').addClass('far fa-stop-circle');
+                }
+            }
+        });
+    }
+
+    function previousStory(IDTaiKhoan) {
+        document.getElementById('loadingAudio' + numberStory).style.width = '0%';
+        data = 0;
+        window.clearInterval(s);
+        if (numberStory == 0) {
+            indexStory--;
+            numberStory = countStory - 1;
+        } else {
+            numberStory--;
+        }
+        $.ajax({
+            method: "GET",
+            url: "/ProcessNextStory",
+            data: {
+                indexStory: indexStory,
+                numberStory: numberStory,
+                IDTaiKhoan: IDTaiKhoan
+            },
+            success: function(response) {
+                if (typeof response.end !== 'undefined') {
+                    document.getElementById('myAudio').pause();
+                    window.clearInterval(s);
+                    $('#story-right').html(response.end);
+                } else {
+                    countStory = response.countStory;
+                    data = 0;
+                    s = setIntervalLoad(s);
+                    if (response.user == 'undefined') {
+
+                    } else {
+                        $('#story-right').html(response.viewMain);
+                    }
+                    $('#img' + response.IDTaiKhoanStory).removeClass(response.Border)
+                    $('#tag' + response.IDTaiKhoanStory).html(response.SoTheMoi)
+                    $('#img' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').removeClass(response.Border)
+                    $('#tag' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').html(response.SoTheMoi)
+                    $('.img-story').attr('src', "/" + response.DuongDan);
+                    $('#timeStory').html(response.ThoiGianDangStory)
+                    if ($('#' + response.IDStory).length > 0)
+                        changeStoryImage(document.getElementById(response.IDStory), 0)
+                    $('#viewStoryDetailFull').html(response.ViewStoryDetail);
+                    $('#myAudio').attr('src', '/' + response.urlMp3);
+                    document.getElementById('myAudio').play();
+                    $('#btnClickStart').removeClass('far fa-play-circle');
+                    $('#btnClickStart').addClass('far fa-stop-circle');
+                }
+            }
+        });
     }
 </script>
 

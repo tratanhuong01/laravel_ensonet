@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
     <div class="w-2/3">
         <div class="w-11/12 mx-auto relative top-2 left-20 flex">
             <div class="w-1/12 pr-4">
-                <i class="fas fa-chevron-left cursor-pointer px-5 py-3 bg-gray-300 relative 
+                <i onclick="previousStory('{{ 1000000001 }}')" class="fas fa-chevron-left cursor-pointer px-5 py-3 bg-gray-300 relative 
                         top-1/2 left-1/2 rounded-full  hover:bg-white text-xl" style="transform: translate(-50%,-50%);"></i>
             </div>
             <div class="w-7/12 story-right bg-gray-400 relative m-2 rounded-lg relative">
@@ -76,7 +76,7 @@ use Illuminate\Support\Facades\Session;
                 </div>
             </div>
             <div class="w-1/12 pl-4">
-                <i class="fas fa-chevron-right cursor-pointer px-5 py-3 bg-gray-300 relative 
+                <i onclick="nextStory('{{ 1000000001 }}')" class="fas fa-chevron-right cursor-pointer px-5 py-3 bg-gray-300 relative 
                         top-1/2 left-1/2 rounded-full  hover:bg-white text-xl" style="transform: translate(-50%,-50%);"></i>
             </div>
         </div>

@@ -182,7 +182,7 @@ Route::get('get', function () {
     $json = Story::where('IDStory', '=', '3000041')->get();
     echo "<pre>";
     print_r(
-        json_decode($json[0]->AmThanh)->DuongDanAmThanh
+        count(DataProcessThird::sortStoryByID('1000000001'))
     );
     echo "</pre>";
 });
@@ -264,3 +264,7 @@ Route::get('ProcessPrivacyAbouts', function (Request $request) {
 
 Route::get('ProcessLoadPictures', [HinhAnhs\PictureController::class, 'load']);
 Route::get('ProcessLoadTimeLineAndViewPictures', [HinhAnhs\PictureController::class, 'loadAndView']);
+
+Route::get('ProcessNextStory', [Storys\StoryController::class, 'nextStory']);
+
+Route::get('ProcessPreviousStory', [Storys\StoryController::class, 'previousStory']);

@@ -10,4 +10,13 @@ use Illuminate\Support\Facades\Session;
 
 class DataProcessFive extends Model
 {
+    public static function getIndexOfStory($allStory, $story)
+    {
+        foreach ($allStory as $key => $value) {
+            if ($value[0]->IDTaiKhoan ==  $story[0]->IDTaiKhoan) {
+                return $key;
+                break;
+            }
+        }
+    }
 }

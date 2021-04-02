@@ -31,33 +31,43 @@ use Illuminate\Support\Facades\Session;
 <div class="interface w-full dark:bg-dark-second">
     <p class="font-bold p-2.5 dark:text-white text-2xl">Đổi mật khẩu</p>
     <div class="w-full p-2.5 dark:text-white">
-        <form action="{{ route('ProcessChangePasswordAccount') }}" method="POST" id="formChangePassword">
+        @if (session()->has('verify'))
+        <form action="{{ route('ProcessVerifyChangePassword') }}" method="POST">
             {{ csrf_field() }}
-            @if (session()->has('verify'))
-            <div class="w-1/2 dark:text-white">
+            <div class="w-3/4 dark:text-white">
                 <p class="font-bold p-2.5 dark:text-white text-2xl">Nhập mã bảo mật</p>
                 <hr class="my-3">
                 <p class="p-2.5 dark:text-white text-xm">
                     Vui lòng kiểm tra mã trong email của bạn. Mã này gồm 8 số.</p>
                 <div class="w-full py-2 flex">
                     <div class="w-1/2 py-3">
-                        <input type="text" class="text-2xl font-bold dark:text-white 
+                        <input type="text" name="MaDoi" class="text-2xl font-bold dark:text-white 
                         p-3.5 dark:bg-dark-third bg-gray-200 rounded-lg" placeholder="Nhập mã">
+                        <br>
+                        <span class="text-red-500">
+                            {{ Session::get('err') }}
+                        </span>
                     </div>
                     <div class="w-1/2">
                         <p class="font-bold dark:text-white">Chúng tôi đã gửi cho bạn mã đến:</p>
-                        <p>{{ Session::forget('emailVeri') }}</p>
+                        <p>{{ Session::get('emailSend') }}</p>
                     </div>
+                    <input type="hidden" name="MaDoiRe" value="{{ Session::get('verify') }}">
+                    <input type="hidden" name="MatKhau" value="{{ Session::get('typePassWordNew') }}">
+                    <input type="hidden" name="IDTaiKhoan" value="{{ Session::get('user')[0]->IDTaiKhoan }}">
                 </div>
                 <hr class="my-2">
                 <div class="w-full py-2 text-right">
-                    <input type="button" onclick="submitFormVerify()" class="cursor-pointer w-1/5 p-2 bg-1877F2 border-none font-bold 
+                    <input type="submit" class="cursor-pointer w-1/5 p-2 bg-1877F2 border-none font-bold 
                     text-white rounded-lg" value="Xác nhận" id="btn-submit-veri">
                     <span onclick="sendCodeAgain()" class="cursor-pointer w-1/4 p-2.5 bg-1877F2 border-none font-bold 
                     text-white rounded-lg" id="btn-send-code">Gửi lại</span>
                 </div>
             </div>
-            @else
+        </form>
+        @else
+        <form action="{{ route('ProcessChangePasswordAccount') }}" method="POST" id="formChangePassword">
+            {{ csrf_field() }}
             <table class="w-1/2 text-center mx-auto">
                 <tr>
                     <td class="py-2"><label for="">Mật khẩu cũ</label></td>
@@ -91,8 +101,9 @@ use Illuminate\Support\Facades\Session;
                                     rounded-lg font-bold mx-28 my-2 justify-center">Đổi mật khẩu</button></td>
                 </tr>
             </table>
-            @endif
         </form>
+        @endif
+
     </div>
 </div>
 <div class="interface w-full dark:text-white py-3">
@@ -128,15 +139,6 @@ use Illuminate\Support\Facades\Session;
         </div>
     </div>
 </div>
-<?php
-
-Session::forget('passWordOld');
-Session::forget('passWordNew');
-Session::forget('typePassWordNew');
-Session::forget('verify');
-Session::forget('emailVeri');
-
-?>
 <script>
     var data = document.getElementsByClassName('interface');
     var number = new Number('{{$index}}');

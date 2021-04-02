@@ -7,6 +7,7 @@ use App\Models\Amthanh;
 use App\Models\Luotxemstory;
 use App\Models\Story;
 use App\Models\StringUtil;
+use App\Process\DataProcessFive;
 use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -80,7 +81,9 @@ class StoryController extends Controller
             );
         }
         return view('Guest/Story/viewstory')->with('story', $story)
-            ->with('allStory', $allStory);
+            ->with('allStory', $allStory)
+            ->with('numberStoryDisplay', count($allStory))
+            ->with('indexOfStory', DataProcessFive::getIndexOfStory($allStory, $story));
     }
     public function loadAndAddViewStory(Request $request)
     {
@@ -113,6 +116,213 @@ class StoryController extends Controller
                 'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
                     ->with('viewStory', DataProcessThird::getViewStoryByIDStory($request->IDStory, $request->IDTaiKhoan))
             ]);
+        }
+    }
+    public function nextStory(Request $request)
+    {
+        if (
+            $request->indexStory ==
+            count(DataProcessThird::sortStoryByID($request->IDTaiKhoan))
+        ) {
+            return response()->json([
+                'end' => "" . view('Guest/Story/Child/HetTin')
+            ]);
+        } else {
+            $strMain = DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory][$request->numberStory];
+            $view = Luotxemstory::where('luotxemstory.IDStory', '=', $strMain->IDStory)
+                ->where('luotxemstory.IDXem', '=', $request->IDTaiKhoan)
+                ->join('story', 'luotxemstory.IDStory', 'story.IDStory')->get();
+            if ($strMain->IDTaiKhoan == $request->IDTaiKhoan) {
+                if (count($view) > 0) {
+                    return response()->json([
+                        'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
+                        'user' => 'user',
+                        'IDStory' => $strMain->IDStory,
+                        'DuongDan' => $strMain->DuongDan,
+                        'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
+                        'SoTheMoi' => '',
+                        'Border' => '',
+                        'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
+                            ->with(
+                                'viewStory',
+                                DataProcessThird::getViewStoryByIDStory(
+                                    $strMain->IDStory,
+                                    $request->IDTaiKhoan
+                                )
+                            )
+                    ]);
+                } else {
+                    Luotxemstory::add(
+                        NULL,
+                        $strMain->IDStory,
+                        $request->IDTaiKhoan
+                    );
+                    $dt = DataProcessThird::checkIsViewStoryOfUser(
+                        $strMain->IDTaiKhoan,
+                        $request->IDTaiKhoan
+                    );
+                    return response()->json([
+                        'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
+                        'user' => 'user',
+                        'IDStory' => $strMain->IDStory,
+                        'DuongDan' => $strMain->DuongDan,
+                        'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
+                        'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
+                        'Border' => $dt == 0 ? 'border-blue-500' : '',
+                        'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
+                            ->with('viewStory', DataProcessThird::getViewStoryByIDStory($strMain->IDStory, $request->IDTaiKhoan))
+                    ]);
+                }
+            } else {
+                if (count($view) > 0) {
+                    return response()->json([
+                        'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
+                        'IDStory' => $strMain->IDStory,
+                        'DuongDan' => $strMain->DuongDan,
+                        'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
+                        'SoTheMoi' => '',
+                        'Border' => '',
+                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
+                            ->with(
+                                'viewStory',
+                                DataProcessThird::getViewStoryByIDStory(
+                                    $strMain->IDStory,
+                                    $request->IDTaiKhoan
+                                )
+                            )
+                    ]);
+                } else {
+                    Luotxemstory::add(
+                        NULL,
+                        $strMain->IDStory,
+                        $request->IDTaiKhoan
+                    );
+                    $dt = DataProcessThird::checkIsViewStoryOfUser(
+                        $strMain->IDTaiKhoan,
+                        $request->IDTaiKhoan
+                    );
+                    return response()->json([
+                        'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
+                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'IDStory' => $strMain->IDStory,
+                        'DuongDan' => $strMain->DuongDan,
+                        'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
+                        'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
+                        'Border' => $dt == 0 ? 'border-blue-500' : '',
+                        'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
+                            ->with('viewStory', DataProcessThird::getViewStoryByIDStory($strMain->IDStory, $request->IDTaiKhoan))
+                    ]);
+                }
+            }
+        }
+    }
+    public function previousStory(Request $request)
+    {
+        if (
+            $request->indexStory < 0
+        ) {
+            return response()->json([
+                'end' => "" . view('Guest/Story/Child/HetTin')
+            ]);
+        } else {
+            $strMain = DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory][$request->numberStory];
+            $view = Luotxemstory::where('luotxemstory.IDStory', '=', $strMain->IDStory)
+                ->where('luotxemstory.IDXem', '=', $request->IDTaiKhoan)
+                ->join('story', 'luotxemstory.IDStory', 'story.IDStory')->get();
+            if ($strMain->IDTaiKhoan == $request->IDTaiKhoan) {
+                if (count($view) > 0) {
+                    return response()->json([
+                        'viewMain' => "" . view('Guest/Story/Child/UserStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
+                        'user' => 'user',
+                        'IDStory' => $strMain->IDStory,
+                        'DuongDan' => $strMain->DuongDan,
+                        'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
+                        'SoTheMoi' => '',
+                        'Border' => '',
+                        'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
+                            ->with(
+                                'viewStory',
+                                DataProcessThird::getViewStoryByIDStory(
+                                    $strMain->IDStory,
+                                    $request->IDTaiKhoan
+                                )
+                            )
+                    ]);
+                } else {
+                    Luotxemstory::add(
+                        NULL,
+                        $strMain->IDStory,
+                        $request->IDTaiKhoan
+                    );
+                    $dt = DataProcessThird::checkIsViewStoryOfUser(
+                        $strMain->IDTaiKhoan,
+                        $request->IDTaiKhoan
+                    );
+                    return response()->json([
+                        'viewMain' => "" . view('Guest/Story/Child/UserStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
+                        'user' => 'user',
+                        'IDStory' => $strMain->IDStory,
+                        'DuongDan' => $strMain->DuongDan,
+                        'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
+                        'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
+                        'Border' => $dt == 0 ? 'border-blue-500' : '',
+                        'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
+                            ->with('viewStory', DataProcessThird::getViewStoryByIDStory($strMain->IDStory, $request->IDTaiKhoan))
+                    ]);
+                }
+            } else {
+                if (count($view) > 0) {
+                    return response()->json([
+                        'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
+                        'IDStory' => $strMain->IDStory,
+                        'DuongDan' => $strMain->DuongDan,
+                        'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
+                        'SoTheMoi' => '',
+                        'Border' => '',
+                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
+                            ->with(
+                                'viewStory',
+                                DataProcessThird::getViewStoryByIDStory(
+                                    $strMain->IDStory,
+                                    $request->IDTaiKhoan
+                                )
+                            )
+                    ]);
+                } else {
+                    Luotxemstory::add(
+                        NULL,
+                        $strMain->IDStory,
+                        $request->IDTaiKhoan
+                    );
+                    $dt = DataProcessThird::checkIsViewStoryOfUser(
+                        $strMain->IDTaiKhoan,
+                        $request->IDTaiKhoan
+                    );
+                    return response()->json([
+                        'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
+                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'IDStory' => $strMain->IDStory,
+                        'DuongDan' => $strMain->DuongDan,
+                        'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
+                        'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
+                        'Border' => $dt == 0 ? 'border-blue-500' : '',
+                        'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
+                            ->with('viewStory', DataProcessThird::getViewStoryByIDStory($strMain->IDStory, $request->IDTaiKhoan))
+                    ]);
+                }
+            }
         }
     }
 }

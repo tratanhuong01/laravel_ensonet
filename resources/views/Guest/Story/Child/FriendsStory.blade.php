@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Session;
     <div class="w-full">
         <div class="w-3/5 mx-auto relative top-2 left-20 flex">
             <div class="w-1/12 pr-4">
-                <i class="fas fa-chevron-left cursor-pointer px-5 py-3 bg-gray-300 relative 
+                <i onclick="previousStory('{{ 1000000001 }}')" class="fas fa-chevron-left cursor-pointer px-5 py-3 bg-gray-300 relative 
                         top-1/2 left-1/2 rounded-full  hover:bg-white text-xl" style="transform: translate(-50%,-50%);"></i>
             </div>
             <div class="w-7/12 story-right bg-gray-400 relative m-2 rounded-lg relative">
@@ -37,9 +37,6 @@ use Illuminate\Support\Facades\Session;
                             <ul class="w-full flex">
                                 <li id="play" class=" py-2 px-2 cursor-pointer">
                                     <i id="btnClickStart" class="far fa-play-circle text-white text-2xl"></i>
-                                </li>
-                                <li id="stop" class=" py-2 px-2 cursor-pointer">
-                                    <i id="btnClickStop" class="far fa-stop-circle text-white text-2xl"></i>
                                 </li>
                                 <li onclick="muteAudio()" class=" py-2 px-2 cursor-pointer">
                                     <i id="muteOrUnMute" class="fas fa-volume-up text-white text-2xl"></i>
@@ -71,7 +68,7 @@ use Illuminate\Support\Facades\Session;
                 </div>
             </div>
             <div class="w-1/12 pl-4">
-                <i class="fas fa-chevron-right cursor-pointer px-5 py-3 bg-gray-300 relative 
+                <i onclick="nextStory('{{ 1000000001 }}')" class="fas fa-chevron-right cursor-pointer px-5 py-3 bg-gray-300 relative 
                         top-1/2 left-1/2 rounded-full  hover:bg-white text-xl" style="transform: translate(-50%,-50%);"></i>
             </div>
         </div>
