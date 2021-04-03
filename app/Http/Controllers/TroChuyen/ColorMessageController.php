@@ -51,7 +51,7 @@ class ColorMessageController extends Controller
                     '0',
                     date("Y-m-d H:i:s")
                 );
-                event(new ChatNorlEvent($value->IDTaiKhoan));
+                event(new ChatNorlEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
             } else {
                 Thongbao::add(
                     StringUtil::ID('thongbao', 'IDThongBao'),
@@ -62,7 +62,7 @@ class ColorMessageController extends Controller
                     '0',
                     date("Y-m-d H:i:s")
                 );
-                event(new ChatGroupEvent($value->IDTaiKhoan));
+                event(new ChatGroupEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
             }
         }
 

@@ -55,5 +55,16 @@ function sendMessageGroup(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                 }
             });
 }
-function seenAllMessage(IDNhomTinNhan,IDTaiKhoan) {
+function seenMessage(IDNhomTinNhan, IDTaiKhoan) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessSeenMessage",
+        data: {
+            IDNhomTinNhan: IDNhomTinNhan,
+            IDTaiKhoan: IDTaiKhoan
+        },
+        success: function(response) {
+
+        }
+    })
 }

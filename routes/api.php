@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gioithieu;
 use App\Models\Story;
 use App\Models\Taikhoan;
+use App\Process\DataProcessFive;
 use App\Process\DataProcessFour;
 use App\Process\DataProcessSecond;
 use App\Process\DataProcessThird;
@@ -179,16 +180,19 @@ Route::get('save/{id}', function ($id) {
 });
 
 Route::get('get', function () {
-    $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')->get();
-    $json = json_decode($json[0]->JsonGioiThieu);
-    echo count($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh);
-    echo "<pre>";
-    print_r($json);
-    echo "</pre>";
-    $json = Story::where('IDStory', '=', '3000041')->get();
+    // $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')->get();
+    // $json = json_decode($json[0]->JsonGioiThieu);
+    // echo count($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh);
+    // echo "<pre>";
+    // print_r($json);
+    // echo "</pre>";
+    // $json = Story::where('IDStory', '=', '3000041')->get();
     echo "<pre>";
     print_r(
-        count(DataProcessThird::sortStoryByID('1000000001'))
+        DataProcessFive::checkShowOrHideMessageRight(
+            '10003',
+            '1000000001'
+        )
     );
     echo "</pre>";
 });
@@ -264,13 +268,20 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
 Route::get('ProcessViewPrivacyAbout', function () {
     return view('Component/GioiThieu/Modal/QuyenRiengTu');
 });
+
 Route::get('ProcessPrivacyAbouts', function (Request $request) {
     return view('Component/Child/QuyenRiengTuGioiThieu')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
 });
 
 Route::get('ProcessLoadPictures', [HinhAnhs\PictureController::class, 'load']);
+
 Route::get('ProcessLoadTimeLineAndViewPictures', [HinhAnhs\PictureController::class, 'loadAndView']);
 
 Route::get('ProcessNextStory', [Storys\StoryController::class, 'nextStory']);
 
 Route::get('ProcessPreviousStory', [Storys\StoryController::class, 'previousStory']);
+
+Route::get('ProcessLoadingChatTypingMessenge', [TroChuyen\ChatController::class, 'loadingTypingMessage']);
+
+Route::get('ProcessLoadingTypingOn', [TroChuyen\ChatController::class, 'loadingTypingOn']);
+Route::get('ProcessLoadingTypingOff', [TroChuyen\ChatController::class, 'loadingTypingOff']);

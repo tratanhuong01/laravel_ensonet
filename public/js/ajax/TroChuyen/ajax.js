@@ -5,6 +5,7 @@ function openMessenger() {
             method: "GET",
             url: "/ProcessOpenMessenger",
             success: function (response) {
+                $('#numMessager').html('')
                 $('#modalHeaderRight').html(response);
             }
         });
@@ -97,6 +98,23 @@ function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                     if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
                 }
             });
+}
+function sendMessageIcon(IDNguoiNhan, IDNhomTinNhan,Element) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessSendMessages",
+        data: {
+            IDNguoiNhan: IDNguoiNhan,
+            NoiDungTinNhan: Element.innerText,
+            IDNhomTinNhan: IDNhomTinNhan
+        },
+        success: function (response) {
+            $('#' + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(response);
+            $("#" + IDNguoiNhan + "PlaceTypeText").html('');
+            var objDiv = document.getElementById(IDNhomTinNhan + IDNguoiNhan + "Messenges");
+            if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+        }
+    });
 }
 function viewRemoveMessage(IDTinNhan, IDTaiKhoan, IDNhomTinNhan) {
     $.ajax({

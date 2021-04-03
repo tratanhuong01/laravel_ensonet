@@ -22,4 +22,34 @@ class DataProcessFive extends Model
             }
         }
     }
+    public static function checkShowOrHideMessageRight($idNhomTinNhan, $idTaiKhoan)
+    {
+        $allMessage = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
+            ->orderBy('tinnhan.ThoiGianNhanTin', 'DESC')->get();
+        foreach ($allMessage as $key => $value) {
+            if ($value->LoaiTinNhan == 2) {
+            } else {
+                $bool = DataProcessFive::checkMessageIsSeen($value->IDTinNhan, $idTaiKhoan);
+                if ($value->IDTaiKhoan != $idTaiKhoan && $bool == 1) {
+                    return $value->IDTinNhan;
+                    break;
+                }
+            }
+        }
+    }
+    public static function checkMessageIsSeen($idTinNhan, $idTaiKhoan)
+    {
+        $trangThai = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)->get()[0]->TrangThai;
+        $array = explode('@', $trangThai);
+        for ($i = 0; $i < count($array) - 1; $i++) {
+            if (
+                explode('#', $array[$i])[0] == $idTaiKhoan &&
+                explode('#', $array[$i])[1] == '2'
+            ) {
+                return 1;
+                break;
+            }
+        }
+        return 0;
+    }
 }

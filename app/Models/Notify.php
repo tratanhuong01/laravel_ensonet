@@ -103,4 +103,7 @@ class Notify extends Model
             ->where('binhluan.ThoiGianBinhLuan', '=', $time)
             ->get();
     }
+    public static function countNotifyMessenger()
+    {
+    }
 }

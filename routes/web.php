@@ -15,6 +15,7 @@ use App\Process\DataProcess;
 use Illuminate\Support\Facades\Session;
 use App\Models\Functions;
 use App\Models\Story;
+use App\Process\DataProcessFive;
 use App\Process\DataProcessThird;
 use Illuminate\Database\Eloquent\Model;
 
@@ -572,3 +573,18 @@ Route::post('ProcessDeleteAccount', [SettingController::class, 'deleteAccount'])
 
 Route::post('ProcessVerifyChangePassword', [SettingController::class, 'verifyChangePassword'])
     ->name('ProcessVerifyChangePassword');
+
+Route::get('ProcessSeenMessage', [TroChuyen\ChatController::class, 'seenMessage']);
+
+Route::get('ProcessSeenMessageEvent', function (Request $request) {
+    $acc = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+    return response()->json([
+        'idgroup' => $request->IDNhomTinNhan,
+        'id' => DataProcessFive::checkShowOrHideMessageRight(
+            $request->IDNhomTinNhan,
+            $request->IDTaiKhoan
+        ),
+        'view' => '<img src="/' . $acc[0]->AnhDaiDien . '" class="img-mess-right absolute 
+        right-3 w-6 h-6 p-0.5 mt-1 mr-7 object-cover rounded-full bottom-2 -right-8" alt="">'
+    ]);
+});

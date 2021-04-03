@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Session;
 $user = Session::get('user');
 
 ?>
+<?php
+echo "<style>
+    .mess-right {
+        background-color: #" . (count($messages) == 0 ? '65676B' : $messages[0]->IDMauTinNhan) . ";
+    }
+</style>";
+?>
 <div class="w-2/3">
     <div class="w-full" style="height: 718px;max-height: 718px;">
         <div class="w-full py-3 flex shadow">
@@ -26,7 +33,10 @@ $user = Session::get('user');
                 </div>
                 <div class="pl-3">
                     <b class="block dark:text-white">{{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}</b>
-                    <span class="text-gray-700 dark:text-gray-300 text-sm">Đang hoạt động</span>
+                    <span class="text-gray-700 dark:text-gray-300 text-sm">@php
+                        $timeAcitivity = StringUtil::CheckDateTimeUserActivity($chater[0]->ThoiGianHoatDong)
+                        @endphp
+                        {{ $timeAcitivity }}</span>
                 </div>
             </div>
             <div class="w-1/2 ml-auto">
@@ -141,9 +151,9 @@ $user = Session::get('user');
             <div class="three-exten1" style="width: 76%;">
                 <?php $user = Session::get('user'); ?>
                 <div onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',
-                            '{{ $idNhomTinNhan }}',
-                            '{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
-                            bg-gray-200 py-1.5 break-all w-full dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" contenteditable placeholder="Aa">
+                '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none
+                 rounded-2xl pl-2 outline-none bg-gray-200 py-1.5 break-all w-full dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" onclick="seenMessage(
+                '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" contenteditable placeholder="Aa">
 
                 </div>
                 <script>
@@ -153,9 +163,8 @@ $user = Session::get('user');
                 </script>
             </div>
             <div class="ml-3 pt-1 zoom">
-                <p class="cursor-pointer zoom text-2xl">
-                    🤝
-                </p>
+                <p onclick="sendMessageIcon('{{ $chater[0]->IDTaiKhoan }}',
+            '{{ $idNhomTinNhan }}',this)" class="cursor-pointer zoom text-xl">{{(count($messages)==0?'🤝':$messages[0]->BieuTuong)}}</p>
             </div>
         </div>
     </div>
@@ -247,3 +256,90 @@ $user = Session::get('user');
         </li>
     </ul>
 </div>
+<script>
+    var objDiv = document.getElementById('{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges');
+    if (objDiv.scrollHeight > 400) objDiv.scrollTop = objDiv.scrollHeight;
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('5064fc09fcd20f23d5c1', {
+        cluster: 'ap1'
+    });
+    var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}' +
+        '{{ $idNhomTinNhan }}');
+    channel.bind('chatNorl', function() {
+        var aud = new Audio("/mp3/ring-mess.mp3");
+        aud.play();
+        $.ajax({
+            method: "GET",
+            url: "/ProcessChatEvent",
+            data: {
+                IDNhomTinNhan: '{{ $idNhomTinNhan }}',
+                IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
+            },
+            success: function(response) {
+                if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').length > 0)
+                    $('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').append(response.viewSmall);
+                else
+                    $('#placeChat').append(response.viewBig)
+                if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+                // changeColorSVG('{{$idNhomTinNhan}}', )
+            }
+        });
+    });
+    channel.bind('seenMessage', function() {
+        $.ajax({
+            method: "GET",
+            url: "/ProcessSeenMessageEvent",
+            data: {
+                IDNhomTinNhan: '{{ $idNhomTinNhan }}',
+                IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
+            },
+            success: function(response) {
+                if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').length > 0) {
+                    $('.mess-user-r2' + response.idgroup).html('');
+                    if ($('#' + response.id + 'right').length > 0) {
+                        $('#' + response.id + 'right').html(response.view)
+                    }
+                }
+            }
+        });
+    });
+    channel.bind('loadingTypingOn', function() {
+        $.ajax({
+            method: "GET",
+            url: "/ProcessLoadingTypingOn",
+            data: {
+                IDNhomTinNhan: '{{ $idNhomTinNhan }}',
+                IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
+            },
+            success: function(response) {
+                if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').length > 0) {
+
+                    if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Typing').length > 0) {
+
+                    } else {
+                        $('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').append(response.view);
+                        if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+                    }
+
+                }
+            }
+        });
+    });
+    channel.bind('loadingTypingOff', function() {
+        $.ajax({
+            method: "GET",
+            url: "/ProcessLoadingTypingOff",
+            data: {
+                IDNhomTinNhan: '{{ $idNhomTinNhan }}',
+                IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
+            },
+            success: function(response) {
+                if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Typing').length > 0) {
+                    $('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Typing').remove();
+                    if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+                }
+            }
+        });
+    });
+</script>

@@ -7,6 +7,13 @@ use App\Models\StringUtil;
 ?>
 <div id="{{ $chater[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
 dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
+    <?php
+    echo "<style>
+    .mess-right-child-" . $idNhomTinNhan . " {
+            background-color: #" . (count($messages) == 0 ? '65676B' : $messages[0]->IDMauTinNhan) . ";
+        }
+    </style>";
+    ?>
     <div class="w-full flex py-1 border-b-2 border-solid border-gray-200  dark:border-dark-third">
         <div class=" pb-0.5">
             <div class="w-10 h-10 relative">
@@ -190,9 +197,10 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         <div class="three-exten1 w-8/12">
             <?php $user = Session::get('user'); ?>
             <div onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',
-            '{{ $idNhomTinNhan }}',
-            '{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
-             bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" contenteditable placeholder="Aa">
+            '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none 
+            rounded-2xl pl-2 outline-none bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third 
+            dark:text-white" style="min-height: 20px;" onclick="seenMessage(
+                '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" contenteditable placeholder="Aa">
 
             </div>
             <script>
@@ -202,9 +210,8 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             </script>
         </div>
         <div class="w-1/12 pt-1 zoom">
-            <p class="cursor-pointer zoom text-xl">
-                {{ (count($messages)==0?'🤝': $messages[0]->BieuTuong) }}
-            </p>
+            <p onclick="sendMessageIcon('{{ $chater[0]->IDTaiKhoan }}',
+            '{{ $idNhomTinNhan }}',this)" class="cursor-pointer zoom text-xl">{{(count($messages)==0?'🤝':$messages[0]->BieuTuong)}}</p>
         </div>
     </div>
     <div style="display: none;right:101%;top:0;" id="{{ $chater[0]->IDTaiKhoan }}SettingChat" class="setting-chat w-full absolute top-2 bg-white rounded-lg border-2 rounded-lg dark:bg-dark-second 
@@ -253,6 +260,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
 
     </div>
     <script>
+        var count = 0;
         var objDiv = document.getElementById('{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges');
         if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
         Pusher.logToConsole = true;
@@ -260,7 +268,8 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         var pusher = new Pusher('5064fc09fcd20f23d5c1', {
             cluster: 'ap1'
         });
-        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
+        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}' +
+            '{{ $idNhomTinNhan }}');
         channel.bind('chatNorl', function() {
             var aud = new Audio("/mp3/ring-mess.mp3");
             aud.play();
@@ -278,6 +287,62 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                         $('#placeChat').append(response.viewBig)
                     if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
                     // changeColorSVG('{{$idNhomTinNhan}}', )
+                }
+            });
+        });
+        channel.bind('seenMessage', function() {
+            $.ajax({
+                method: "GET",
+                url: "/ProcessSeenMessageEvent",
+                data: {
+                    IDNhomTinNhan: '{{ $idNhomTinNhan }}',
+                    IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
+                },
+                success: function(response) {
+                    if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').length > 0) {
+                        $('.mess-user-r2' + response.idgroup).html('');
+                        if ($('#' + response.id + 'right').length > 0) {
+                            $('#' + response.id + 'right').html(response.view)
+                        }
+                    }
+                }
+            });
+        });
+        channel.bind('loadingTypingOn', function() {
+            $.ajax({
+                method: "GET",
+                url: "/ProcessLoadingTypingOn",
+                data: {
+                    IDNhomTinNhan: '{{ $idNhomTinNhan }}',
+                    IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
+                },
+                success: function(response) {
+                    if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').length > 0) {
+
+                        if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Typing').length > 0) {
+
+                        } else {
+                            $('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').append(response.view);
+                            if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+
+                    }
+                }
+            });
+        });
+        channel.bind('loadingTypingOff', function() {
+            $.ajax({
+                method: "GET",
+                url: "/ProcessLoadingTypingOff",
+                data: {
+                    IDNhomTinNhan: '{{ $idNhomTinNhan }}',
+                    IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
+                },
+                success: function(response) {
+                    if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Typing').length > 0) {
+                        $('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Typing').remove();
+                        if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+                    }
                 }
             });
         });

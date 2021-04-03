@@ -109,7 +109,7 @@ use Illuminate\Support\Facades\Session;
 <div class="interface w-full dark:text-white py-3">
     <p class="font-bold p-2.5 dark:text-white text-2xl">Xóa tài khoản</p>
     <p class="font-bold text-xl p-2">Điều gì xảy ra nếu tôi xóa tài khoản Facebook của mình?</p>
-    <ul class="list-disc w-11/12 mx-auto text-xm text-gray-100">
+    <ul class="list-disc w-11/12 mx-auto text-xm dark:text-white">
         <li class="p-2">Bạn sẽ không thể kích hoạt lại tài khoản của mình.
             Trang cá nhân, ảnh, bài viết, video và tất cả nội dung khác bạn đã
             thêm đều bị xóa vĩnh viễn. Bạn sẽ không thể lấy lại bất kỳ nội dung

@@ -50,7 +50,7 @@ class SendMessageController extends Controller
                     '0',
                     date("Y-m-d H:i:s")
                 );
-                event(new ChatNorlEvent($value->IDTaiKhoan));
+                event(new ChatNorlEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
             } else {
                 Thongbao::add(
                     StringUtil::ID('thongbao', 'IDThongBao'),
@@ -61,7 +61,7 @@ class SendMessageController extends Controller
                     '0',
                     date("Y-m-d H:i:s")
                 );
-                event(new ChatGroupEvent($value->IDTaiKhoan));
+                event(new ChatGroupEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
             }
         }
         return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0]);
@@ -78,7 +78,6 @@ class SendMessageController extends Controller
             return 'not have id nhom tin nhan';
         } else {
             $num = 0;
-
             $userGroup = DataProcess::getUserOfGroupMessage($request->IDNhomTinNhan);
             $chater = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $userGroup[0]->IDTaiKhoan)->get();
             $messages = DataProcess::getMessageByNhomTinNhan($request->IDNhomTinNhan);

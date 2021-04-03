@@ -15,14 +15,16 @@ class ChatGroupEvent implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $ids;
-    public function __construct($ids)
+    public $idn;
+    public function __construct($ids, $idn)
     {
         $this->ids = $ids;
+        $this->idn = $idn;
     }
 
     public function broadcastOn()
     {
-        return new Channel('test.' . $this->ids);
+        return new Channel('test.' . $this->ids . $this->idn);
     }
 
     public function broadcastAs()

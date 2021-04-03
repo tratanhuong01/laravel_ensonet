@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\TroChuyen;
 
 use App\Events\ChatGroupEvent;
+use App\Events\LoadingTypingMessageOnEvent;
+use App\Events\LoadingTypingMessageOffEvent;
+use App\Events\SeenMessageEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Nhomtinnhan;
+use App\Models\Notify;
 use App\Models\StringUtil;
 use App\Models\Taikhoan;
 use App\Models\Thongbao;
@@ -39,6 +43,18 @@ class ChatController extends Controller
     }
     public function openMessenger()
     {
+        $notify = Thongbao::where('thongbao.IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)
+            ->where('thongbao.IDLoaiThongBao', '=', 'TINNHAN001')->get();
+        $count = 0;
+        for ($i = 0; $i < count($notify); $i++) {
+            if ($notify[$i]->TinhTrang == 2 || $notify[$i]->TinhTrang == 1)
+                $count++;
+        }
+        if ($count == count($notify)) {
+        } else {
+            DB::update("UPDATE thongbao SET TinhTrang = ? 
+        WHERE IDTaiKhoan = ? AND IDLoaiThongBao = 'TINNHAN001' ", ['1', Session::get('user')[0]->IDTaiKhoan]);
+        }
         return view('Modal/ModalHeader/ModalMessenger');
     }
     public function createChat()
@@ -172,7 +188,7 @@ class ChatController extends Controller
                         '0',
                         date("Y-m-d H:i:s")
                     );
-                    event(new ChatGroupEvent($value->IDTaiKhoan));
+                    event(new ChatGroupEvent($value->IDTaiKhoan, $idNhomTinNhan));
                 }
                 $messages = DataProcess::getMessageByID($sender, $receiver);
                 return view('Modal\ModalTroChuyen\ModalChat')->with('chater', $chater)
@@ -228,7 +244,7 @@ class ChatController extends Controller
                     '0',
                     date("Y-m-d H:i:s")
                 );
-                event(new ChatGroupEvent($value->IDTaiKhoan));
+                event(new ChatGroupEvent($value->IDTaiKhoan, $idNhomTinNhan));
             }
             DB::update(
                 'UPDATE tinnhan SET tinnhan.TinhTrang = ?  WHERE tinnhan.IDTinNhan = ? ',
@@ -252,5 +268,58 @@ class ChatController extends Controller
             return view('Modal\ModalTroChuyen\ModalGroupChat')->with('chater', $chater)
                 ->with('messages', DataProcess::getMessageByNhomTinNhan($request->IDNhomTinNhan))
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan);
+    }
+    public function seenMessage(Request $request)
+    {
+        $member = DataProcess::getUserOfGroupMessage($request->IDNhomTinNhan);
+        $message = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $request->IDNhomTinNhan)
+            ->get();
+        foreach ($message as $key => $value) {
+            if ($value->TrangThai == '0') {
+            } else {
+                $arr = explode('@', $value->TrangThai);
+                $data = '';
+                for ($i = 0; $i < count($arr) -  1; $i++) {
+                    if (explode('#', $arr[$i])[0] == $request->IDTaiKhoan) {
+                        $data .= $request->IDTaiKhoan . '#2@';
+                    } else {
+                        $data .= $arr[$i] . '@';
+                    }
+                }
+                DB::update('UPDATE tinnhan SET tinnhan.TrangThai = ? WHERE 
+                tinnhan.IDTinNhan = ? ', [$data, $value->IDTinNhan]);
+            }
+        }
+        foreach ($member as $key => $value) {
+            event(new SeenMessageEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
+        }
+    }
+    public function loadingTypingMessage(Request $request)
+    {
+        $member = DataProcess::getUserOfGroupMessageAPI($request->IDNhomTinNhan, $request->IDTaiKhoan);
+        if ($request->state == 'ON') {
+            foreach ($member as $key => $value) {
+                event(new LoadingTypingMessageOnEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
+            }
+        } else {
+            foreach ($member as $key => $value) {
+                event(new LoadingTypingMessageOffEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
+            }
+        }
+    }
+    public function loadingTypingOn(Request $request)
+    {
+        $user = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()[0];
+        return response()->json([
+            'view' => "" . view('Modal/ModalTroChuyen/Child/ChatTyping')
+                ->with('user', $user)
+                ->with('idNhomTinNhan', $request->IDNhomTinNhan)
+        ]);
+    }
+    public function loadingTypingOff(Request $request)
+    {
+        return response()->json([
+            'view' => ''
+        ]);
     }
 }

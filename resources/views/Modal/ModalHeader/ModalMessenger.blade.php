@@ -109,7 +109,7 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
                     @endisset
                 </div>
                 <div class="w-1/5">
-                    <img class="float-right w-5 h-5 rounded-full" src="/img/avatar.jpg" alt="">
+                    <!-- <img class="float-right w-5 h-5 rounded-full" src="/img/avatar.jpg" alt=""> -->
                 </div>
             </div>
             <span class="mess-edit top-4 right-8 text-center absolute rounded-full bg-white">
@@ -120,7 +120,7 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
     </div>
     @else
     @php
-    $sws = $value[count($value) - 1]->TinhTrang == 0 ? '0' : explode('#',DataProcess::getState($value[count($value) - 1]->TinhTrang,
+    $sws = $value[count($value) - 1]->TinhTrang == 0 ? '0' : explode('#',DataProcess::getTrangThaiTinNhan($value[count($value) - 1]->TinhTrang,
     Session::get('user')[0]->IDTaiKhoan))[1];
     @endphp
     <div onclick="openChatGroup('{{ $value[0]->IDNhomTinNhan }}')" class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
@@ -153,7 +153,6 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
             </div>
             <div class="w-full flex py-1 text-sm flex">
                 <div class="w-4/5 ">
-
                     @isset($value[count($value) - 1])
                     @if ($value[count($value) - 1]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
                     @switch($sws)
@@ -203,7 +202,7 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
                     @endisset
                 </div>
                 <div class="w-1/5">
-                    <img class="float-right w-5 h-5 rounded-full" src="/img/avatar.jpg" alt="">
+                    <!-- <img class="float-right w-5 h-5 rounded-full" src="/img/avatar.jpg" alt=""> -->
                 </div>
             </div>
             <span class="mess-edit top-4 right-8 text-center absolute rounded-full bg-white">

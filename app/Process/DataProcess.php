@@ -124,6 +124,19 @@ class DataProcess extends Model
             }
         }
     }
+    public static function getUserOfGroupMessageAPI($idNhomTinNhan, $idTaiKhoan)
+    {
+        $usersOfGroupMessages = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan ,AnhDaiDien,Ho,Ten,ThoiGianHoatDong FROM tinnhan INNER JOIN 
+        taikhoan ON tinnhan.IDTaiKhoan = taikhoan.IDTaiKhoan
+        WHERE tinnhan.IDNhomTinNhan = ? ', [$idNhomTinNhan]);
+        foreach ($usersOfGroupMessages as $key => $value) {
+            if ($usersOfGroupMessages[$key]->IDTaiKhoan == $idTaiKhoan) {
+                unset($usersOfGroupMessages[$key]);
+                return array_values($usersOfGroupMessages);
+                break;
+            }
+        }
+    }
     public static function getNotificationMessage($idTaiKhoan, $tinhTrang)
     {
         $post = DB::select(
@@ -234,5 +247,20 @@ class DataProcess extends Model
             ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
             ->get();
+    }
+    public static function getTrangThaiTinNhan($trangThai, $idTaiKhoan)
+    {
+        if ($trangThai == '0') {
+            return '1#p';
+        } else {
+            $arr = explode('@', $trangThai);
+            foreach ($arr as $key => $value) {
+                if (explode('#', $value)[0] == $idTaiKhoan) {
+                } else {
+                    return $value;
+                    break;
+                }
+            }
+        }
     }
 }

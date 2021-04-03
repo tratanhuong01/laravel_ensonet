@@ -80,21 +80,53 @@ for (var a = 0; a < mess_right.length; a++) {
   mess_user_r1[a].style.width = mess_right[a].offsetWidth + "px";
   mess_user_r[a].style.width = mess_user[a].offsetWidth - 50 - mess_user_r1[a].offsetWidth + mess_user_r2[a].offsetWidth + "px";
 }
-
-function typeChat(index) {
+function typeKeyDown(IDNhomTinNhan,IDTaiKhoan) {
+  count++;
+  if (count == 1) {
+    $.ajax({
+      method: "GET",
+      url : "/ProcessLoadingChatTypingMessenge",
+      data : {
+        state : 'ON',
+        IDNhomTinNhan : IDNhomTinNhan,
+        IDTaiKhoan : IDTaiKhoan
+      },
+      success : function(response) {
+      }
+    })
+  }
+}
+function typeKeyUp(IDNhomTinNhan,IDTaiKhoan) {
+  count = 0;
+  if (count == 0) {
+    $.ajax({
+      method: "GET",
+      url : "/ProcessLoadingChatTypingMessenge",
+      data : {
+        state : 'OFF',
+        IDNhomTinNhan : IDNhomTinNhan,
+        IDTaiKhoan : IDTaiKhoan
+      },
+      success : function(response) {
+      }
+    })
+  }
+  
+}
+function typeChat(index,IDNhomTinNhan,IDTaiKhoan,count) {
   var three_exten = document.getElementsByClassName("three-exten");
   var three_exten1 = document.getElementsByClassName("three-exten1");
   var place_input_type = document.getElementsByClassName("place-input-type");
-  if (place_input_type[index].innerText.length > 0) {
-    three_exten[index].style.display = 'none';
-    three_exten1[index].style.width = "83%";
-    three_exten1[index].style.paddingLeft = "1em";
+  if (count == 1) {
+        three_exten[index].style.display = 'none';
+        three_exten1[index].style.width = "83%";
+        three_exten1[index].style.paddingLeft = "1em";
   }
   else {
-    three_exten1[index].style.width = "66%";
-    three_exten1[index].style.paddingLeft = "0em";
-    three_exten[index].style.display = 'block';
-  }
+        three_exten1[index].style.width = "66%";
+        three_exten1[index].style.paddingLeft = "0em";
+        three_exten[index].style.display = 'block';
+      }
 }
 function showEmojii(name) {
   $("#emojis").disMojiPicker();

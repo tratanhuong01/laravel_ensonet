@@ -1,8 +1,13 @@
 <?php
 
+use App\Models\Taikhoan;
 use App\Process\DataProcess;
+use App\Process\DataProcessFive;
+
+$member = DataProcess::getUserOfGroupMessage($message->IDNhomTinNhan);
+
 ?>
-<div id="{{ $message->IDTinNhan }}" class="mess-user w-full py-1 flex relative">
+<div id="{{ $message->IDTinNhan }}" class="mess-user chat-rights w-full py-1 flex relative">
     <div class="mess-user-feel hidden h-auto relative">
         <div class="cursor-pointer color-word absolute top-1/2 pl-2" style="transform: translateY(-50%);">
             <ul class="w-full flex relative">
@@ -19,16 +24,19 @@ use App\Process\DataProcess;
         </div>
     </div>
     <div class="mess-user-r1 pl-2 flex mr-4" style="width: inherit;">
-        <div class="mess-right break-all ml-auto border-none outline-none bg-blue-500 p-1.5 rounded-lg 
+        <div class="mess-right mess-right-child-{{$message->IDNhomTinNhan}} break-all ml-auto border-none outline-none bg-blue-500 p-1.5 rounded-lg 
                 text-white " style="max-width:65%;font-size: 15px;">
             {{ $message->NoiDung }}
         </div>
     </div>
-    <div class="mess-user-r2 " style="width: 4%;">
+    <div class=" mess-user-r2 mess-user-r2{{$message->IDNhomTinNhan}} " id="{{ $message->IDTinNhan }}right" style=" width: 4%;">
         <div class="w-full clear-both">
             @if ($message->TrangThai == 0)
             @else
-            @switch(explode('#',DataProcess::getState($message->TrangThai,$message->IDTaiKhoan))[1])
+            @php
+            $trangThais = explode('#',DataProcess::getTrangThaiTinNhan($message->TrangThai,$message->IDTaiKhoan));
+            @endphp
+            @switch($trangThais[1])
             @case('0')
             <i class="far fa-check-circle img-mess-right absolute bottom-1.5 text-gray-300"></i>
             @break
@@ -36,7 +44,11 @@ use App\Process\DataProcess;
             <i class="fas fa-check-circle img-mess-right absolute bottom-1.5 text-gray-300"></i>
             @break
             @case('2')
-            <img src="img/avatar.jpg" class=" img-mess-right absolute w-7 h-7 p-0.5 object-cover rounded-full" alt="">
+            @if (DataProcessFive::checkShowOrHideMessageRight($message->IDNhomTinNhan,
+            $member[0]->IDTaiKhoan) != $message->IDTinNhan)
+            @else
+            <img src="/{{ Taikhoan::where('IDTaiKhoan','=',$trangThais[0])->get()[0]->AnhDaiDien }}" class="img-mess-right absolute right-3 w-6 h-6 p-0.5 mt-1 mr-7 object-cover rounded-full bottom-2 -right-8" alt="">
+            @endif
             @break
             @endswitch
             @endif

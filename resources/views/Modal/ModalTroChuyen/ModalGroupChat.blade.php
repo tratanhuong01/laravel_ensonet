@@ -195,7 +195,8 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             <div onkeyup="sendMessageGroup('{{ $chater[0]->IDTaiKhoan }}',
             '{{ $idNhomTinNhan }}',
             '{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $idNhomTinNhan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
-             bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" contenteditable placeholder="Aa">
+             bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" onclick="seenMessage(
+                '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" contenteditable placeholder="Aa">
 
             </div>
             <script>
@@ -260,7 +261,8 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         var pusher = new Pusher('5064fc09fcd20f23d5c1', {
             cluster: 'ap1'
         });
-        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
+        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}' +
+            '{{ $idNhomTinNhan }}');
         channel.bind('chatGroup', function() {
             var aud = new Audio("/mp3/ring-mess.mp3");
             $.ajax({
