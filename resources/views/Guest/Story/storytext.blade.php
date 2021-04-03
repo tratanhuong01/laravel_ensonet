@@ -94,7 +94,9 @@ $user = Session::get('user')[0];
 
                 </div>
                 <div class="w-full my-6 pl-9">
-                    <span class="text-center font-bold w-48per mr-4 py-3 bg-gray-300 rounded-lg cursor-pointer" type="button">Bỏ</span>
+                    <a href="{{ url('index') }}">
+                        <span class="text-center font-bold w-48per mr-4 py-3 bg-gray-300 rounded-lg cursor-pointer" type="button">Bỏ</span>
+                    </a>
                     <button onclick="postStory()" type="button" class="font-bold w-1/2 bg-1877F2 py-3 rounded-lg 
                         text-white" type="submit">Chia sẻ lên tin</button>
                 </div>

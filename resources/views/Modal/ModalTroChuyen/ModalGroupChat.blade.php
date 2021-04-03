@@ -252,30 +252,30 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         </ul>
 
     </div>
-</div>
-<script>
-    var objDiv = document.getElementById('{{ $idNhomTinNhan }}Messenges');
-    if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
-    Pusher.logToConsole = true;
+    <script>
+        var objDiv = document.getElementById('{{ $idNhomTinNhan }}Messenges');
+        if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+        Pusher.logToConsole = true;
 
-    var pusher = new Pusher('5064fc09fcd20f23d5c1', {
-        cluster: 'ap1'
-    });
-    var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
-    channel.bind('chatGroup', function() {
-        var aud = new Audio("/mp3/ring-mess.mp3");
-        $.ajax({
-            method: "GET",
-            url: "/ProcessChatEvent",
-            data: {
-                IDNhomTinNhan: '{{ $idNhomTinNhan }}',
-                Num: '{{ count(DataProcess::getUserOfGroupMessage($idNhomTinNhan)) }}'
-            },
-            success: function(response) {
-                aud.play();
-                $('#{{ $idNhomTinNhan }}Messenges').append(response);
-                if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
-            }
+        var pusher = new Pusher('5064fc09fcd20f23d5c1', {
+            cluster: 'ap1'
         });
-    });
-</script>
+        var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
+        channel.bind('chatGroup', function() {
+            var aud = new Audio("/mp3/ring-mess.mp3");
+            $.ajax({
+                method: "GET",
+                url: "/ProcessChatEvent",
+                data: {
+                    IDNhomTinNhan: '{{ $idNhomTinNhan }}',
+                    Num: '{{ count(DataProcess::getUserOfGroupMessage($idNhomTinNhan)) }}'
+                },
+                success: function(response) {
+                    aud.play();
+                    $('#{{ $idNhomTinNhan }}Messenges').append(response.viewSmall);
+                    if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+                }
+            });
+        });
+    </script>
+</div>

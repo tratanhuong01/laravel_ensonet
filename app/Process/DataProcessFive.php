@@ -13,9 +13,12 @@ class DataProcessFive extends Model
     public static function getIndexOfStory($allStory, $story)
     {
         foreach ($allStory as $key => $value) {
-            if ($value[0]->IDTaiKhoan ==  $story[0]->IDTaiKhoan) {
-                return $key;
-                break;
+            if (count($value) == 0) {
+            } else {
+                if ($value[0]->IDTaiKhoan ==  $story[0]->IDTaiKhoan) {
+                    return $key;
+                    break;
+                }
             }
         }
     }

@@ -481,6 +481,10 @@ Route::get('stories/create/text', function () {
     return view('Guest/Story/storytext');
 });
 
+Route::get('stories/create/picture', function () {
+    return view('Guest/Story/storypicture');
+});
+
 Route::get('stories', function () {
     $story = array();
     $allStory = DataProcessThird::sortStoryByID(Session::get('user')[0]->IDTaiKhoan);

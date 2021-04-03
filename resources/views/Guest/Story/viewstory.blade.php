@@ -4,6 +4,7 @@ use App\Models\StringUtil;
 use Illuminate\Support\Facades\Session;
 use App\Process\DataProcessThird;
 
+
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +37,7 @@ $user = Session::get('user')
                 @if (count($allStory[0]) == 0)
                 @php
                 $pathMainUs = 'stories/create'
+
                 @endphp
                 <div onclick="window.location.href='{{ url($pathMainUs) }}'" class="cursor-pointer w-full flex pb-2.5">
                     <div class="w-2/12">
@@ -93,6 +95,10 @@ $user = Session::get('user')
             </div>
             <div class="w-3/4 bg-gray-200 dark:bg-dark-main story-right" id="story-right">
                 @if (count($story) == 0)
+                @php
+                $numberStoryDisplay = 0;
+                $indexOfStory = 0;
+                @endphp
                 <div class="w-full flex relative h-full">
                     <div class="w-40 h-32 text-center absolute left-1/2" style="top:40%;transform: translate(-50%,-50%);">
                         <svg style="width: 100px;height: 100px;margin: auto;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112">
@@ -117,12 +123,14 @@ $user = Session::get('user')
                 @if ($story[0]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
                 @include('Guest/Story/Child/UserStory',[
                 'story' => $story,
-                'allStory' => $allStory
+                'allStory' => $allStory,
+                'user' => $user
                 ])
                 @else
                 @include('Guest/Story/Child/FriendsStory',[
                 'story' => $story,
-                'allStory' => $allStory
+                'allStory' => $allStory,
+                'user' => $user
                 ])
                 @endif
                 @endif
@@ -213,7 +221,7 @@ $user = Session::get('user')
                 $('#btnClickStart').removeClass('far fa-stop-circle');
                 $('#btnClickStart').addClass('far fa-play-circle');
                 if (numberStory >= countStory - 1) {
-                    nextStory('1000000001')
+                    nextStory('{{$user[0]->IDTaiKhoan}}')
                 } else {
                     numberStory++;
                     $.ajax({

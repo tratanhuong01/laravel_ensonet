@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 Route::post('ProcessSaveCanvasStory', [Storys\StoryController::class, 'create'])
     ->name('ProcessSaveCanvasStorys');
 
+Route::post('ProcessViewPictureStory', [Storys\StoryController::class, 'createPicView'])
+    ->name('ProcessViewPictureStory');
+
+Route::post('ProcessSavePictureStory', [Storys\StoryController::class, 'createPic'])
+    ->name('ProcessSavePictureStory');
+
 Route::post('ProcessLoadStory', [Storys\StoryController::class, 'load'])
     ->name('ProcessLoadStory');
 

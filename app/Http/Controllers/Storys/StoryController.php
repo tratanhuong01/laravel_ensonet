@@ -7,6 +7,7 @@ use App\Models\Amthanh;
 use App\Models\Luotxemstory;
 use App\Models\Story;
 use App\Models\StringUtil;
+use App\Models\Taikhoan;
 use App\Process\DataProcessFive;
 use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
@@ -45,7 +46,47 @@ class StoryController extends Controller
             'img/story/' . $imageName,
             '0',
             date("Y-m-d H:i:s"),
-            json_encode($jsonMusic)
+            $jsonMusic == NULL ? NULL : json_encode($jsonMusic)
+        );
+        redirect()->to('index')->send();
+    }
+    public function createPicView(Request $request)
+    {
+        $user = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()[0];
+        return view('Guest/Story/storypicture')->with('user', $user);
+    }
+    public function createPic(Request $request)
+    {
+        $idStory = StringUtil::ID('story', 'IDStory');
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $image = $request->dataURI; // image base64 encoded
+        preg_match("/data:image\/(.*?);/", $image, $image_extension); // extract the image extension
+        $image = preg_replace('/data:image\/(.*?);base64,/', '', $image); // remove the type part
+        $image = str_replace(' ', '+', $image);
+        $imageName = $request->IDTaiKhoan . $idStory . ".png"; //generating unique file name;
+        Storage::disk('public')->put($imageName, base64_decode($image));
+        rename(storage_path('app/public/') . $imageName, public_path('img/story/') . $imageName);
+        $music = Amthanh::where('amthanh.IDAmThanh', '=', $request->IDAmThanh)->get();
+        $jsonMusic = NULL;
+        if (count($music) > 0) {
+            $jsonMusic = [
+                'IDStory' => $idStory,
+                'IDAmThanh' => $music[0]->IDAmThanh,
+                'DuongDanAmThanh' => $music[0]->DuongDanAmThanh,
+                'TacGia' => $music[0]->TacGia,
+                'TenAmThanh' => $music[0]->TenAmThanh
+            ];
+        } else {
+        }
+        Story::add(
+            $idStory,
+            'CHIBANBE',
+            $request->IDTaiKhoan,
+            NULL,
+            'img/story/' . $imageName,
+            '0',
+            date("Y-m-d H:i:s"),
+            $jsonMusic == NULL ? NULL : json_encode($jsonMusic)
         );
         redirect()->to('index')->send();
     }
@@ -185,7 +226,15 @@ class StoryController extends Controller
                         'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
                         'SoTheMoi' => '',
                         'Border' => '',
-                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')
+                            ->with(
+                                'story',
+                                DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]
+                            )
+                            ->with(
+                                'user',
+                                Taikhoan::where('taikhoan.IDTaiKhoan', $request->IDTaiKhoan)->get()
+                            ),
                         'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
                             ->with(
                                 'viewStory',
@@ -208,14 +257,25 @@ class StoryController extends Controller
                     return response()->json([
                         'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
                         'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
-                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')
+                            ->with(
+                                'story',
+                                DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]
+                            )
+                            ->with(
+                                'user',
+                                Taikhoan::where('taikhoan.IDTaiKhoan', $request->IDTaiKhoan)->get()
+                            ),
                         'IDStory' => $strMain->IDStory,
                         'DuongDan' => $strMain->DuongDan,
                         'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
                         'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
                         'Border' => $dt == 0 ? 'border-blue-500' : '',
                         'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
-                            ->with('viewStory', DataProcessThird::getViewStoryByIDStory($strMain->IDStory, $request->IDTaiKhoan))
+                            ->with(
+                                'viewStory',
+                                DataProcessThird::getViewStoryByIDStory($strMain->IDStory, $request->IDTaiKhoan)
+                            )
                     ]);
                 }
             }
