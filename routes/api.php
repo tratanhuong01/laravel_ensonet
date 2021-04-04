@@ -179,24 +179,6 @@ Route::get('save/{id}', function ($id) {
     ]);
 });
 
-Route::get('get', function () {
-    // $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')->get();
-    // $json = json_decode($json[0]->JsonGioiThieu);
-    // echo count($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh);
-    // echo "<pre>";
-    // print_r($json);
-    // echo "</pre>";
-    // $json = Story::where('IDStory', '=', '3000041')->get();
-    echo "<pre>";
-    print_r(
-        DataProcessFive::checkShowOrHideMessageRight(
-            '10003',
-            '1000000001'
-        )
-    );
-    echo "</pre>";
-});
-
 Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
     switch ($request->Type) {
         case 'Companies':
@@ -284,4 +266,5 @@ Route::get('ProcessPreviousStory', [Storys\StoryController::class, 'previousStor
 Route::get('ProcessLoadingChatTypingMessenge', [TroChuyen\ChatController::class, 'loadingTypingMessage']);
 
 Route::get('ProcessLoadingTypingOn', [TroChuyen\ChatController::class, 'loadingTypingOn']);
+
 Route::get('ProcessLoadingTypingOff', [TroChuyen\ChatController::class, 'loadingTypingOff']);

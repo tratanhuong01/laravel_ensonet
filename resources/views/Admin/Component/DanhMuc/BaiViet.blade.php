@@ -1,3 +1,8 @@
+<?php
+
+use App\Admin\Query;
+
+?>
 <p class="text-2xl font-bold pb-3">Quản lí bài viết người dùng</p>
 <div class="w-full flex py-3">
     <div class="w-1/2 flex">
@@ -27,6 +32,7 @@
 </div>
 <div class="w-full wrapper-content-right overflow-x-auto max-w-full py-3">
     <table class="w-full bg-white">
+        <?php $account = Query::getAllAccount(10, 0) ?>;
         <tr>
             <td class="p-2">STT</td>
             <th class="p-2">ID Bài Viết</th>
@@ -65,35 +71,7 @@
                 <i class="far fa-trash-alt text-2xl text-gray-500 cursor-pointer"></i>
             </td>
             <td class="p-2">
-                <button class="py-1.5 px-3 rounded-2xl bg-blue-500 text-sm font-bold text-white">
-                    Xem chi tiết</button>
-            </td>
-        </tr>
-        <tr>
-            <td class="p-2">1</td>
-            <td class="p-2">2000000001</td>
-            <td class="p-2"><span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
-                                font-bold text-white">Ảnh đại diện</span>
-            </td>
-            <td class="p-2"></td>
-            <td class="p-2">1000000001</td>
-            <td class="p-2">Trà Tấn Hưởng</td>
-            <td class="p-2"><span class="bg-pink-500 px-3 py-1.5 text-sm rounded-3xl 
-                                font-bold text-white">Công khai</span></td>
-            <td class="p-2">
-                01/10/2021 13:33:21
-            </td>
-            <td class="p-2">
-                40
-            </td>
-            <td class="p-2">
-                100
-            </td>
-            <td class="p-2">
-                <i class="far fa-trash-alt text-2xl text-gray-500 cursor-pointer"></i>
-            </td>
-            <td class="p-2">
-                <button class="py-1.5 px-3 rounded-2xl bg-blue-500 text-sm font-bold text-white">
+                <button type="button" class="py-1.5 px-3 rounded-2xl bg-blue-500 text-sm font-bold text-white">
                     Xem chi tiết</button>
             </td>
         </tr>

@@ -522,10 +522,6 @@ Route::get('change-password', function () {
 Route::post('ProcessSendRequestUser', [DangNhap\RequestUserContrller::class, 'send'])
     ->name('ProcessSendRequestUser');
 
-Route::get('admin', function () {
-    return view('Admin/index');
-});
-
 Route::get('loadIndexVeriCheckpoint', function () {
     Session::put('user', Taikhoan::where(
         'taikhoan.IDTaiKhoan',

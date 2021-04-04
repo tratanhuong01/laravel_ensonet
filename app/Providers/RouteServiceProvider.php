@@ -45,9 +45,16 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+            Route::prefix('admin')
+                ->namespace('App\Http\Controllers\Admin')
+                ->group(base_path('routes/adminApi.php'));
+
+            Route::prefix('admin')
+                ->namespace('App\Http\Controllers\Admin')
+                ->group(base_path('routes/adminWeb.php'));
         });
     }
-
     /**
      * Configure the rate limiters for the application.
      *

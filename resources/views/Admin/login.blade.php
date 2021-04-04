@@ -32,19 +32,19 @@
                 <img src="/img/logo.png" class="w-20 h-20 object-cover rounded-full" alt="">
             </div>
             <div class="w-full px-4 py-6 bg-white">
-                <form action="" method="get">
+                <form action="{{ route('ProcessLogin') }}" method="post">
                     <p class="my-2">Tên đăng nhập</p>
                     <input type="text" class="w-full mx-auto border-2 border-gray-100 p-2.5 
-                    border-solid" placeholder="Tên đăng nhập"><br>
+                    border-solid" placeholder="Tên đăng nhập" name="username"><br>
                     <p class="my-2">Mật khẩu</p>
                     <input type="password" class="w-full mx-auto border-2 border-gray-100 p-2.5 
-                    border-solid" placeholder="Mật khẩu"><br>
+                    border-solid" placeholder="Mật khẩu" name="password"><br>
                     <div class="w-full flex py-4">
                         <div class="w-1/2">
                             <input type="checkbox" name="" id="" class="mr-3 my-3">Lưu đăng nhập
                         </div>
                         <div class="w-1/2 text-right">
-                            <button type="button" onclick="window.location.href='index.html'" class="p-2 bg-blue-500 font-bold 
+                            <button type="submit" class="p-2 bg-blue-500 font-bold 
                             text-white">Đăng nhập</button>
                         </div>
                     </div>

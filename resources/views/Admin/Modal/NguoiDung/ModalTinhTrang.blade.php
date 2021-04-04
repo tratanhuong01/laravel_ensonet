@@ -18,8 +18,7 @@
                 <p class="">Người dùng sẽ không thể truy cập được tài khoản</p>
             </div>
             <div class="w-1/12 p-6">
-                <input onchange="handelOnChangeInputPost('CONGKHAI')" type="radio" class="text-3xl h-4" name="state"
-                    style="transform: scale(1.5);">
+                <input onchange="handelOnChangeInputPost('CONGKHAI')" type="radio" class="text-3xl h-4" name="state" style="transform: scale(1.5);">
             </div>
         </li>
         <li class="w-full flex p-2 cursor-pointer">
@@ -32,8 +31,7 @@
                 <p class="">Người dùng sẽ có thể sử dụng đầy đủ chức năng của mạng xã hội</p>
             </div>
             <div class="w-1/12 p-6">
-                <input onchange="handelOnChangeInputPost('CHIBANBE')" type="radio" class="text-3xl h-4" name="state"
-                    style="transform: scale(1.5);">
+                <input onchange="handelOnChangeInputPost('CHIBANBE')" type="radio" class="text-3xl h-4" name="state" style="transform: scale(1.5);">
             </div>
         </li>
         <li class="w-full flex p-2 cursor-pointer">
@@ -46,8 +44,7 @@
                     dụng mạng xã hội</p>
             </div>
             <div class="w-1/12 p-6">
-                <input onchange="handelOnChangeInputPost('RIENGTU')" type="radio" class="text-3xl h-4" name="state"
-                    style="transform: scale(1.5);">
+                <input onchange="handelOnChangeInputPost('RIENGTU')" type="radio" class="text-3xl h-4" name="state" style="transform: scale(1.5);">
             </div>
         </li>
     </ul>
