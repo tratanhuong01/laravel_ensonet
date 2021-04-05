@@ -116,6 +116,23 @@ function sendMessageIcon(IDNguoiNhan, IDNhomTinNhan,Element) {
         }
     });
 }
+function sendMessageIconGroup(IDNguoiNhan, IDNhomTinNhan,Element) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessSendMessages",
+        data: {
+            IDNguoiNhan: IDNguoiNhan,
+            NoiDungTinNhan: Element.innerText,
+            IDNhomTinNhan: IDNhomTinNhan
+        },
+        success: function (response) {
+            $('#' + IDNhomTinNhan + "Messenges").append(response);
+            $("#" + IDNguoiNhan + "PlaceTypeText").html('');
+            var objDiv = document.getElementById(IDNhomTinNhan  + "Messenges");
+            if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+        }
+    });
+}
 function viewRemoveMessage(IDTinNhan, IDTaiKhoan, IDNhomTinNhan) {
     $.ajax({
         method: "GET",

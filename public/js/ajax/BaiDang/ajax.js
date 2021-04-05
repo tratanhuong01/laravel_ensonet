@@ -269,3 +269,28 @@ function viewUserTagOfPost(IDBaiDang) {
         }
     });
 }
+
+function postTimeLine(IDNhan) {
+    $('#button-post').html('');
+    $('#button-post').prop("disabled", true);
+    $('#button-post').css('cursor', 'not-allowed');
+    $('#button-post').append('<i class="fas fa-cog fa-spin text-xl"></i>');
+    let formData = new FormData($('#formPost')[0]);
+    formData.append('IDNhan',IDNhan);
+    $.ajax({
+        method : "POST",
+        url : "/ProcessPostTimeLine",
+        data : formData,
+        contentType: false,
+        processData: false,
+        success : function(response) {
+            $('.timeline').prepend(response.view);
+            second.innerHTML = '';
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
+        },
+        error: function(response) {
+            console.log(response)
+        }
+    }); 
+}

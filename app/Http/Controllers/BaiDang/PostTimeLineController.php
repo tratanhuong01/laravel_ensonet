@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\BaiDang;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Baidang;
 use App\Models\Hinhanh;
 use App\Models\StringUtil;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
-class PostNormalController extends Controller
+class PostTimeLineController extends Controller
 {
     public function post(Request $request)
     {
@@ -37,22 +36,29 @@ class PostNormalController extends Controller
                 }
                 Baidang::add(
                     $idBaiDang,
-                    $user[0]->IDTaiKhoan,
+                    $request->IDNhan,
                     $request->IDQuyenRiengTu,
                     $request->content,
                     $tag,
                     $idCamXuc,
                     NULL,
                     $datetime,
-                    2,
-                    NULL
+                    4,
+                    $user[0]->IDTaiKhoan
                 );
                 foreach ($files as $file) {
                     $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
                     $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
-                    Hinhanh::add($idHinhAnh, 'THONGTHUON', $idBaiDang, 'img/PosTT/' . $nameFile, NULL);
-                    $file->move(public_path('img/PosTT'), $nameFile);
+                    Hinhanh::add($idHinhAnh, 'TIMELINE', $idBaiDang, 'img/timelineImage/' . $nameFile, NULL);
+                    $file->move(public_path('img/timelineImage'), $nameFile);
                 }
+                return response()->json([
+                    'view' => "" . view('Component/BaiDang/DongThoiGian')
+                        ->with('item', Baidang::where('baidang.IDBaiDang', '=', $idBaiDang)
+                            ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->leftjoin('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')->get())
+                        ->with('user', Session::get('user'))
+                ]);
             } else {
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
@@ -71,16 +77,23 @@ class PostNormalController extends Controller
                 }
                 Baidang::add(
                     $idBaiDang,
-                    $user[0]->IDTaiKhoan,
+                    $request->IDNhan,
                     $request->IDQuyenRiengTu,
                     $request->content,
                     $tag,
                     $idCamXuc,
                     NULL,
                     $datetime,
-                    2,
-                    NULL
+                    4,
+                    $user[0]->IDTaiKhoan
                 );
+                return response()->json([
+                    'view' => "" . view('Component/BaiDang/DongThoiGian')
+                        ->with('item', Baidang::where('baidang.IDBaiDang', '=', $idBaiDang)
+                            ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->leftjoin('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')->get())
+                        ->with('user', Session::get('user'))
+                ]);
             }
         } catch (Exception $e) {
             $e->Error;

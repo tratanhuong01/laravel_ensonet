@@ -1,8 +1,9 @@
-function openPost() {
+function openPost(type) {
   $.ajax({
     method: "GET",
     url: 'ProcessOpenPostDialog',
     data: {
+      type : type
     },
     success: function (response) {
       $('#modal-one').show();

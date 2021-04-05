@@ -39,7 +39,8 @@ class UpdateAvatarController extends Controller
                     NULL,
                     NULL,
                     date("Y-m-d H:i:s"),
-                    0
+                    0,
+                    NULL,
                 );
                 $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
                 Hinhanh::add($idHinhAnh, 'ANHDAIDIEN', $idBaiDang, 'img/avatarImage/' . $nameFile, NULL);

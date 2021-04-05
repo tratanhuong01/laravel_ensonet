@@ -16,7 +16,7 @@ class Data extends Model
         $friends = Functions::getListFriendsUser($idTaiKhoan);
         $k = 0;
         for ($i = 0; $i < count($friends); $i++) {
-            $post = Functions::countPost($friends[$i][0]->IDTaiKhoan);
+            $post = Functions::countPostMain($friends[$i][0]->IDTaiKhoan);
             for ($j = 0; $j < count($post); $j++) {
                 $postAll[$k] = Functions::getPost($post[$j]);
                 $k++;

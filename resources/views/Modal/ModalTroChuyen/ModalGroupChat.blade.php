@@ -206,7 +206,8 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             </script>
         </div>
         <div class="w-1/12 pt-1 zoom">
-            <p class="cursor-pointer zoom text-xl">
+            <p onclick="sendMessageIconGroup('{{ $chater[0]->IDTaiKhoan }}',
+            '{{ $idNhomTinNhan }}',this)" class="cursor-pointer zoom text-xl">
                 {{ (count($messages)==0?'🤝': $messages[0]->BieuTuong) }}
             </p>
         </div>

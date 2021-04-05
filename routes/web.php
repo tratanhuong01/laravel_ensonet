@@ -161,8 +161,9 @@ Route::get('ProcessRepCommentPost', [BaiDang\RepCommentController::class, 'rep']
     ->name('ProcessRepCommentPost');
 
 // ajax xử lí chia sẽ bài viết
-Route::post('ProcessSharePost', [BaiDang\SharePostController::class, 'share'])
-    ->name('ProcessSharePost');
+Route::get('ProcessShareViewPost', [BaiDang\SharePostController::class, 'shareView']);
+
+Route::get('ProcessSharePost', [BaiDang\SharePostController::class, 'share']);
 
 // ajax xử lí xem thông tin người dùng
 Route::get('ProcessViewInfo', [ViewInfoHoverController::class, 'view']);
@@ -186,8 +187,11 @@ Route::get('/{value1}/{value2}/{value3}/ProcessViewDetailFeel', [BaiDang\ViewDet
 Route::get('/{value1}/{value2}/{value3}/ProcessViewOnlyDetailFeel', [BaiDang\ViewDetailFeelController::class, 'viewOnly']);
 
 // ajax mở hộp thoại bài đăng
-Route::get('ProcessOpenPostDialog', function () {
-    return view('Modal\ModalBaiDang\ModalTaoBaiViet');
+Route::get('ProcessOpenPostDialog', function (Request $request) {
+    if ($request->type == NULL)
+        return view('Modal\ModalBaiDang\ModalTaoBaiViet');
+    else
+        return view('Modal\ModalBaiDang\ModalVietGiDo');
 });
 
 // ajax chọn quyền riêng tư bài đăng
@@ -430,6 +434,11 @@ Route::get('ProcessLoadingPost', function (Request $request) {
                         ->with('item', $value)
                         ->with('user', Session::get('user'));
                     break;
+                case '3':
+                    $data .= view('Component/BaiDang/ShareBaiViet')
+                        ->with('item', $value)
+                        ->with('user', Session::get('user'));
+                    break;
             }
         }
         $num += 3;
@@ -460,6 +469,16 @@ Route::get('ProcessLoadingPostProfile', function (Request $request) {
                     break;
                 case '2':
                     $data .= view('Component/BaiDang/BaiDangTT')
+                        ->with('item', $post)
+                        ->with('user', Session::get('user'));
+                    break;
+                case '3':
+                    $data .= view('Component/BaiDang/ShareBaiViet')
+                        ->with('item', $post)
+                        ->with('user', Session::get('user'));
+                    break;
+                case '4':
+                    $data .= view('Component/BaiDang/DongThoiGian')
                         ->with('item', $post)
                         ->with('user', Session::get('user'));
                     break;
@@ -584,3 +603,6 @@ Route::get('ProcessSeenMessageEvent', function (Request $request) {
         right-3 w-6 h-6 p-0.5 mt-1 mr-7 object-cover rounded-full bottom-2 -right-8" alt="">'
     ]);
 });
+
+Route::post('ProcessPostTimeLine', [BaiDang\PostTimeLineController::class, 'post'])
+    ->name('ProcessPostTimeLine');

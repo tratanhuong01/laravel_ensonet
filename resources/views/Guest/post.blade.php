@@ -50,6 +50,10 @@ use Illuminate\Support\Facades\Session;
                 @include('Component/BaiDang/BaiDangTT',['item' => $post])
                 @break
 
+                @case('3')
+                @include('Component/BaiDang/ShareBaiViet',['item' => $post])
+                @break
+
                 @endswitch
             </div>
             @endif

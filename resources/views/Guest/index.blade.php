@@ -152,7 +152,7 @@ use Illuminate\Support\Facades\Session;
                         </div>
                         <?php $birthDay = DataProcessFive::getBirthdayCurrent($user[0]->IDTaiKhoan); ?>
                         @if (count($birthDay) > 0)
-                        @include('Component/TrangChu/SinhNhat')
+                        @include('Component/TrangChu/SinhNhat',['birthDay' => $birthDay])
                         @endif
                         <div class="w-full pt-3">
                             <div class="w-full flex">

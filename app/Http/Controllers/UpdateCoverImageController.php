@@ -29,7 +29,8 @@ class UpdateCoverImageController extends Controller
                     NULL,
                     NULL,
                     date("Y-m-d H:i:s"),
-                    1
+                    1,
+                    NULL
                 );
                 $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
                 Hinhanh::add($idHinhAnh, 'ANHBIA', $idBaiDang, 'img/imageBia/' . $nameFile, NULL);

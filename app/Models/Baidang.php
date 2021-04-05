@@ -18,7 +18,8 @@ class Baidang extends Model
         'IDCamXuc',
         'IDViTri',
         'NgayDang',
-        'LoaiBaiDang'
+        'LoaiBaiDang',
+        'ChiaSe'
     ];
     public static function add(
         $IDBaiDang,
@@ -29,7 +30,8 @@ class Baidang extends Model
         $IDCamXuc,
         $IDViTri,
         $NgayDang,
-        $LoaiBaiDang
+        $LoaiBaiDang,
+        $ChiaSe
     ) {
         $baidang = new Baidang;
         $baidang->IDBaiDang = $IDBaiDang;
@@ -41,6 +43,7 @@ class Baidang extends Model
         $baidang->IDViTri = $IDViTri;
         $baidang->NgayDang = $NgayDang;
         $baidang->LoaiBaiDang = $LoaiBaiDang;
+        $baidang->ChiaSe = $ChiaSe;
         $baidang->save();
     }
     public $timestamps = false;

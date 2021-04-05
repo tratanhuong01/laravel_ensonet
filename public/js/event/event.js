@@ -52,26 +52,52 @@ function inputSearchEvent() {
 }
 function openModalSharePost(element,event) {
     var y = event.clientY;
-    if ($('#' + element + 'Share').length > 0) {
-        if ( $('#' + element + 'Share').hasClass('hidden')) {
-            if (y < $(window).height()/2) {
-                $('#' + element + 'Share').addClass('top-14')
-                $('#' + element + 'Share').removeClass('bottom-14')
+    $.ajax({
+        method : "GET",
+        url : "/ProcessShareViewPost",
+        data : {
+            IDBaiDang : element
+        },
+        success : function(response) {
+            if ($('#' + element + 'Share').length > 0) {
+                if ( $('#' + element + 'Share').hasClass('hidden')) {
+                    if (y < $(window).height()/2) {
+                        $('#' + element + 'Share').addClass('top-14')
+                        $('#' + element + 'Share').removeClass('bottom-14')
+                    }
+                    else {
+                        $('#' + element + 'Share').addClass('bottom-14')
+                        $('#' + element + 'Share').removeClass('top-14')
+                    }
+                    $('#' + element + 'Share').html(response.view)
+                    $('#' + element + 'Share').removeClass('hidden')
+                }
+                else {
+                    $('#' + element + 'Share').html('')
+                    $('#' + element + 'Share').addClass('hidden')
+                    $('#' + element + 'Share').removeClass('bottom-14')
+                    $('#' + element + 'Share').removeClass('top-14')
+                }
             }
-            else {
-                $('#' + element + 'Share').addClass('bottom-14')
-                $('#' + element + 'Share').removeClass('top-14')
-            }
-            $('#' + element + 'Share').removeClass('hidden')
         }
-        else {
-            $('#' + element + 'Share').addClass('hidden')
-            $('#' + element + 'Share').removeClass('bottom-14')
-            $('#' + element + 'Share').removeClass('top-14')
+    });
+}
+function sharePost(IDBaiDang,IDQuyenRiengTu) {
+    $.ajax({
+        method : "GET",
+        url : "/ProcessSharePost",
+        data : {
+            IDBaiDang : IDBaiDang,
+            IDQuyenRiengTu: IDQuyenRiengTu
+        },
+        success : function(response) {
+            $('#' + IDBaiDang + 'Share').html('');
+            $('#' + IDBaiDang + 'Share').html('')
+            $('#' + IDBaiDang + 'Share').addClass('hidden')
+            $('#' + IDBaiDang + 'Share').removeClass('bottom-14')
+            $('#' + IDBaiDang + 'Share').removeClass('top-14')
         }
-    }
-    
-    
+    });
 }
 function copyLinkPost(element,IDBaiDang) {
     var clipboard = new Clipboard('#' + element.id, {

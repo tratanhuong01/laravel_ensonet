@@ -57,6 +57,18 @@ class Functions extends Model
                 ->where('IDQuyenRiengTu', '!=', 'RIENGTU')
                 ->orderBy('NgayDang', 'desc')->get();
     }
+    public static function countPostMain($idTaiKhoan)
+    {
+        if (Session::get('user')[0]->IDTaiKhoan == $idTaiKhoan)
+            return DB::table('baidang')->where('baidang.IDTaiKhoan', '=', $idTaiKhoan)
+                ->where('LoaiBaiDang', '!=', '4')
+                ->orderBy('NgayDang', 'desc')->get();
+        else
+            return DB::table('baidang')->where('baidang.IDTaiKhoan', '=', $idTaiKhoan)
+                ->where('IDQuyenRiengTu', '!=', 'RIENGTU')
+                ->where('LoaiBaiDang', '!=', '4')
+                ->orderBy('NgayDang', 'desc')->get();
+    }
     public static function getPost($post)
     {
         return DB::table('baidang')->select('*', 'baidang.IDBaiDang')

@@ -1,15 +1,15 @@
 <ul class="w-full">
-    <li class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+    <li onclick="sharePost('{{ $item[0]->IDBaiDang }}','CONGKHAI')" class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
                     hover:bg-gray-300">
         <i class='bx bx-share text-2xl pr-2 rotate-90'></i>
         Chia sẽ ngay (Công khai)
     </li>
-    <li class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+    <li onclick="sharePost('{{ $item[0]->IDBaiDang }}','CHIBANBE')" class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
                     hover:bg-gray-300">
         <i class='bx bx-share text-2xl pr-2 rotate-90'></i>
         Chia sẽ ngay (Bạn bè)
     </li>
-    <li class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+    <li onclick="sharePost('{{ $item[0]->IDBaiDang }}','RIENGTU')" class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
                     hover:bg-gray-300">
         <i class='bx bx-share text-2xl pr-2 rotate-90'></i>
         Chia sẽ ngay (Chỉ mình tôi)

@@ -1,23 +1,22 @@
 <?php
 
-use App\Models\Baidang;
-use App\Models\Process;
 use App\Models\StringUtil;
-use App\Process\DataProcess;
+use App\Models\Functions;
 use Illuminate\Support\Facades\Session;
+use App\Models\Process;
+use App\Models\Taikhoan;
+use App\Process\DataProcess;
 
 $u = Session::get('user');
 
-$postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
-    ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-    ->leftjoin('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')->get();
+$per = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $item[0]->ChiaSe)->get();
 ?>
 <div onclick="" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Main" class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
         <div class="mr-2">
             <div class="w-14 h-14 relative">
-                <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 
-                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
+                <a href="profile.{{ $per[0]->IDTaiKhoan }}"><img class="w-12 h-12 
+                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $per[0]->AnhDaiDien }}"></a>
                 @include('Component\Child\HoatDong',
                 [
                 'padding' => 'p-1.5',
@@ -28,11 +27,22 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
             </div>
         </div>
         <div class="relative pl-1 w-4/5">
-            <p class="dark:text-gray-300"><a href="profile.{{ $item[0]->IDTaiKhoan }}"><b class="dark:text-white">
-                        {{ $item[0]->Ho . ' ' . $item[0]->Ten }} &nbsp;đã chia sẽ bài viết</b>
-                </a>
+            <div class="flex">
+                <div class="mr-3">
+                    <a href="profile.{{ $item[0]->IDTaiKhoan }}">
+                        <b class="dark:text-white">{{ $per[0]->Ho . ' ' . $per[0]->Ten }}</b>
+                    </a>
+                </div>
+                <div class="mx-1.5 flex ">
+                    <i class="fas fa-caret-right items-center text-xl dark:text-white"></i>
+                </div>
+                <div class="ml-3">
+                    <a href="profile.{{ $item[0]->IDTaiKhoan }}">
+                        <b class="dark:text-white">{{ $item[0]->Ho . ' ' . $item[0]->Ten }}</b>
+                    </a>
+                </div>
 
-            </p>
+            </div>
             <div class="w-full flex">
                 <div class="text-xs pt-0.5 pr-2">
                     <ul class="flex">
@@ -77,84 +87,28 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
         <p class="dark:text-white">{!! $item[0]->NoiDung !!}</p>
     </div>
     <div class="w-full mx-0 my-4">
-        @switch($postShare[0]->LoaiBaiDang)
-        @case('0')
-        @include('Component/BaiDang/Child/AnhDaiDien',['item' => $postShare])
-        @break
-        @case('1')
-        @include('Component/BaiDang/Child/AnhBia',['item' => $postShare])
-        @break
-        @case('2')
-        @include('Component/BaiDang/Child/TT',['item' => $postShare])
-        @break
-        @case('3')
-        @include('Component/BaiDang/Child/ChiaSe',['item' => $postShare])
-        @break
-        @endswitch
-    </div>
-    <div class="w-full mx-0 my-4">
-        <div class="w-11/12  p-4 mb-4 ml-4 bg-white dark:bg-dark-second" style="border: 1px solid #ccc;">
-            <div class="w-full flex">
-                <div class="mr-2">
-                    <div class="w-14 h-14 relative">
-                        <a href="profile.{{ $postShare[0]->IDTaiKhoan }}"><img class="w-12 h-12 
-                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $postShare[0]->AnhDaiDien }}"></a>
-                        @include('Component\Child\HoatDong',
-                        [
-                        'padding' => 'p-1.5',
-                        'bottom' => 'bottom-2',
-                        'right' => 'right-1.5',
-                        'IDTaiKhoan' => $postShare[0]->IDTaiKhoan
-                        ])
+        <ul class="w-full flex flex-wrap relative">
+            @for ($i = 0 ; $i < sizeof($item) ; $i++) @if ($item[$i]->DuongDan == NULL)
+                @elseif (sizeof($item) == 1 && $item[$i]->DuongDan != NULL)
+                <li class="w-full">
+                    <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
+                        <img class="w-full p-1 object-cover" style="max-height:650px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a>
+                </li>
+                @else
+                @if (sizeof($item) > 4 && $i == 3)
+                <li class="relative"><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
+                <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
+                    <div class="rounded-lg absolute bottom-1 left-1/2" style="width:273px;height:280px;background:rgba(0, 0, 0, 0.5);">
+                        <span class="text-5xl font-bold absolute top-1/2 left-1/2 text-white" style="transform:translate(-50%,-50%);">{{ '+'. (sizeof($item) - 4) }}</span>
                     </div>
-                </div>
-                <div class="relative pl-1 w-4/5">
-                    <p class="dark:text-gray-300"><a href="profile.{{ $postShare[0]->IDTaiKhoan }}"><b class="dark:text-white">
-                                {{ $postShare[0]->Ho . ' ' . $postShare[0]->Ten }}
-                        </a>
-                        <?php $tag = array();
-                        $feelCur[$postShare[0]->IDCamXuc] = $postShare[0]->IDCamXuc;
-                        $tags = explode('&', $postShare[0]->GanThe);
-                        ?>
-                        @if (count($tags) == 0)
-                        @else
-                        <?php $tags = explode('&', $postShare[0]->GanThe) ?>
-                        @foreach($tags as $key => $value)
-                        <?php $tag[$value] = $value ?>
-                        @endforeach
-                        <?php unset($tag['']); ?>
-                        <span class="font-bold dark:text-white">
-                            @if($postShare[0]->IDCamXuc != NULL)
-                            {{ DataProcess::getFeel($feelCur) }}
-                            @else
-                            @endif
-                        </span>
-                        <span class="font-bold dark:text-white">{{ DataProcess::getFriendTags($tag,$postShare[0]->IDBaiDang) }}
-                        </span>
-                        @endif
-                    </p>
-                    <div class="w-full flex">
-                        <div class="text-xs pt-0.5 pr-2">
-                            <ul class="flex">
-                                <li class="pt-1">
-                                    <a href="" class="dark:text-gray-300 font-bold">
-                                        {{ StringUtil::CheckDateTime($postShare[0]->NgayDang) }}</a>
-                                </li>
-                                <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
-                                    @include('Component\BaiDang\QuyenRiengTuBD',['idQuyenRiengTu' => $postShare[0]->IDQuyenRiengTu])
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative text-center" style="width: 10%;">
-                    <i class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
-                </div>
-            </div>
-            <div class="w-full py-1.5 dark:text-white">
-                {{ $postShare[0]->NoiDung }}
-            </div>
-        </div>
+                </a>
+                @break;
+                @else
+                <li class=""><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
+                @endif
+                @endif
+                @endfor
+        </ul>
     </div>
     @include('Component\BaiDang\CamXucBinhLuan',['item' => $item])
     <div class="w-full" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}CommentLv1">

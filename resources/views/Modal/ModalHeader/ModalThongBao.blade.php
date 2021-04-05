@@ -21,7 +21,71 @@ use App\Models\Notify;
 @foreach($notify as $key => $value)
 <?php $path = "/post" . "/" . explode('&', $value[0][0]->IDContent)[0]; ?>
 @switch($value[0][0]->IDLoaiThongBao)
+@case('CSBVCB123')
+<div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
+    <div class="relative pl-2">
+        <div class="w-16 h-16 rounded-full relative">
+            <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+            border-2 border-white" alt="">
+            <span class="absolute bottom-0 dark:bg-gray-300 right-0 text-xl">
+                <i class='bx bxs-share text-2xl dark:text-white'></i>
+            </span>
+        </div>
+    </div>
+    <div class="w-9/12 dark:text-white pl-3">
+        @if (count($value[$key]) <= 1) <b>
+            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b>
+            {{ $value[0][0]->TenLoaiThongBao }}.
+            @else
+            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và
+                {{ count($value[$key]) - 1 }} người khác </b>
+            {{ $value[0][0]->TenLoaiThongBao }}.
+            @endif
+            <br>
+            <p class="text-xs font-bold">{{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+                &nbsp;&nbsp;&nbsp;</p>
+    </div>
+    <div class="w-1/12 relative text-center dotNotView">
+        @if ($value[0][0]->TinhTrang != 2)
+        <span class="bg-blue-400 rounded-full p-1.5 absolute top-1/2" style="transform: translateY(-50%);"></span>
+        @else
+        @endif
+    </div>
+</div>
+@break
 @case('CXP1234567')
+<div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
+    <div class="relative pl-2">
+        <div class="w-16 h-16 rounded-full relative">
+            <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+            border-2 border-white" alt="">
+            <span class="absolute bottom-0 right-0 text-xl">
+                {{ Functions::getFeelMain($value['loaiCamXuc']) }}
+            </span>
+        </div>
+    </div>
+    <div class="w-9/12 dark:text-white pl-3">
+        @if (count($value[$key]) <= 1) <b>
+            {{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} </b>
+            {{ $value[0][0]->TenLoaiThongBao . ' ' . $value['noiDung']}}.
+            @else
+            <b>{{ $value[0][0]->Ho . ' ' . $value[0][0]->Ten }} và
+                {{ count($value[$key]) - 1 }} người khác </b>
+            {{ $value[0][0]->TenLoaiThongBao . ' ' . $value['noiDung']}}.
+            @endif
+            <br>
+            <p class="text-xs font-bold">{{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+                &nbsp;&nbsp;&nbsp;</p>
+    </div>
+    <div class="w-1/12 relative text-center dotNotView">
+        @if ($value[0][0]->TinhTrang != 2)
+        <span class="bg-blue-400 rounded-full p-1.5 absolute top-1/2" style="transform: translateY(-50%);"></span>
+        @else
+        @endif
+    </div>
+</div>
+@break;
+@case('CXVBVCS123')
 <div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer dark:hover:bg-dark-third">
     <div class="relative pl-2">
         <div class="w-16 h-16 rounded-full relative">
