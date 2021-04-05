@@ -59,7 +59,7 @@ use App\Admin\Query;
             <td class="p-2">{{ $value->Ten }}</td>
             <td class="p-2">{{ $value->Email }}</td>
             <td class="p-2">{{ $value->SoDienThoai }}</td>
-            <td class="p-2">{{ $value->NgaySinh }}</td>
+            <td class="p-2">{{ explode(' ',$value->NgaySinh)[0] }}</td>
             <td class="p-2">
                 @switch($value->XacMinh)
                 @case('0')
@@ -125,9 +125,10 @@ use App\Admin\Query;
 </div>
 <div class="w-full py-3">
     <ul class="flex justify-center" id="pageMain">
-        @include('Admin/Component/Child/PhanTrangNguoiDung',[
+        @include('Admin/Component/Child/PhanTrang',[
         'index' => 0,
-        'num' => count($accountFull)/10
+        'num' => count($accountFull)/10,
+        'name' => 'user'
         ])
     </ul>
 </div>

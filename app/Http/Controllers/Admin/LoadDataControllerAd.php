@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin\Query;
 use App\Http\Controllers\Controller;
+use App\Models\Baidang;
+use App\Models\Story;
 use App\Models\Taikhoan;
 use Illuminate\Http\Request;
 
@@ -62,13 +64,17 @@ class LoadDataControllerAd extends Controller
                 ]);
                 break;
             case 'post':
+                $post = Baidang::where('baidang.IDBaiDang', '=', $request->IDTaiKhoan)->get();
                 return response()->json([
-                    'view' => "" . view('Admin/Modal/NguoiDung/ModalChiTiet')
+                    'view' => "" . view('Admin/Modal/BaiViet/ModalChiTiet')
+                        ->with('post', $post)
                 ]);
                 break;
             case 'story':
+                $story = Story::where('story.IDStory', '=', $request->IDTaiKhoan)->get();
                 return response()->json([
-                    'view' => "" . view('Admin/Modal/NguoiDung/ModalChiTiet')
+                    'view' => "" . view('Admin/Modal/Story/ModalChiTiet')
+                        ->with('story', $story)
                 ]);
                 break;
             case 'reply':
@@ -94,12 +100,36 @@ class LoadDataControllerAd extends Controller
                     'viewTable' => "" . view('Admin/Component/Child/BangNguoiDung')
                         ->with('account', $account)
                         ->with('index', $request->index * 10),
-                    'viewPage' => "" . view('Admin/Component/Child/PhanTrangNguoiDung')
+                    'viewPage' => "" . view('Admin/Component/Child/PhanTrang')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllAccountFull()) / 10)
+                        ->with('name', 'user')
                 ]);
                 break;
-
+            case 'post':
+                $post = Query::getAllPost(10, $request->index * 10);
+                return response()->json([
+                    'viewTable' => "" . view('Admin/Component/Child/BangBaiViet')
+                        ->with('post', $post)
+                        ->with('index', $request->index * 10),
+                    'viewPage' => "" . view('Admin/Component/Child/PhanTrang')
+                        ->with('index', $request->index * 10)
+                        ->with('num', count(Query::getAllPostFull()) / 10)
+                        ->with('name', 'post')
+                ]);
+                break;
+            case 'story':
+                $post = Query::getAllStory(10, $request->index * 10);
+                return response()->json([
+                    'viewTable' => "" . view('Admin/Component/Child/BangStory')
+                        ->with('story', $post)
+                        ->with('index', $request->index * 10),
+                    'viewPage' => "" . view('Admin/Component/Child/PhanTrang')
+                        ->with('index', $request->index * 10)
+                        ->with('num', count(Query::getAllStoryFull()) / 10)
+                        ->with('name', 'story')
+                ]);
+                break;
             default:
                 # code...
                 break;

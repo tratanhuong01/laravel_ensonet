@@ -29,7 +29,7 @@ $data = $index == 0 ? $index : round($index/10)*10
         <td class="p-2">{{ $value->Ten }}</td>
         <td class="p-2">{{ $value->Email }}</td>
         <td class="p-2">{{ $value->SoDienThoai }}</td>
-        <td class="p-2">{{ $value->NgaySinh }}</td>
+        <td class="p-2">{{ explode(' ',$value->NgaySinh)[0] }}</td>
         <td class="p-2">
                 @switch($value->XacMinh)
                 @case('0')

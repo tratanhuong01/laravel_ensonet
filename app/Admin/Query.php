@@ -3,6 +3,10 @@
 namespace App\Admin;
 
 use App\Models\Baidang;
+use App\Models\Binhluan;
+use App\Models\Camxucbaidang;
+use App\Models\Camxucbinhluan;
+use App\Models\Luotxemstory;
 use App\Models\Story;
 use App\Models\Taikhoan;
 use App\Models\Yeucaunguoidung;
@@ -59,5 +63,39 @@ class Query extends Model
         if (strtotime(date("Y-m-d H:i:s")) - strtotime($timeUser) < 60) {
             return true;
         }
+    }
+    public static function getAllPost($take, $skip)
+    {
+        return Baidang::join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->skip($skip)->take($take)->get();
+    }
+    public static function getAllPostFull()
+    {
+        return Baidang::join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->get();
+    }
+    public static function getCommentOfPost($idBaiDang)
+    {
+        return Binhluan::where('binhluan.IDBaiDang', '=', $idBaiDang)->get();
+    }
+    public static function getFeelOfPost($idBaiDang)
+    {
+        return count(Camxucbaidang::where('camxucbaidang.IDBaiDang', '=', $idBaiDang)->get())
+            + count(Camxucbinhluan::where('baidang.IDBaiDang', '=', $idBaiDang)
+                ->join('binhluan', 'camxucbinhluan.IDBinhLuan', 'binhluan.IDBinhLuan')
+                ->join('baidang', 'binhluan.IDBaiDang', 'baidang.IDBaiDang')
+                ->get());
+    }
+    public static function getAllStory($take, $skip)
+    {
+        return Story::skip($skip)->take($take)->get();
+    }
+    public static function getAllStoryFull()
+    {
+        return Story::get();
+    }
+    public static function getViewStoryByStory($idStory)
+    {
+        return Luotxemstory::where('luotxemstory.IDStory', '=', $idStory)->get();
     }
 }

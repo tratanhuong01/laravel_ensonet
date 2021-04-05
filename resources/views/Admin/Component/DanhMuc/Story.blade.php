@@ -1,3 +1,8 @@
+<?php
+
+use App\Admin\Query;
+
+?>
 <p class="text-2xl font-bold pb-3">Quản lí story người dùng</p>
 <div class="w-full flex py-3">
     <div class="w-1/2 flex">
@@ -26,7 +31,11 @@
     </div>
 </div>
 <div class="w-full wrapper-content-right overflow-x-auto max-w-full py-3">
-    <table class="w-full bg-white">
+    <?php
+    $story = Query::getAllStory(10, 0);
+    $storyFull = Query::getAllStoryFull();
+    ?>
+    <table class="w-full bg-white" id="tableMain">
         <tr>
             <td class="p-2">STT</td>
             <th class="p-2">ID Story</th>
@@ -35,88 +44,65 @@
             <th class="p-2">Họ tên</th>
             <th class="p-2">Quyền riêng tư</th>
             <th class="p-2">Thời gian đăng</th>
+            <th class="p-2">Lượt xem</th>
             <th class="p-2">Xóa</th>
             <th class="p-2">Xem</th>
         </tr>
+        @foreach($story as $key => $value)
         <tr>
-            <td class="p-2">1</td>
-            <td class="p-2">2000000001</td>
-            <td class="p-2"><span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
-                            font-bold text-white">Ảnh đại diện</span>
-            </td>
-            <td class="p-2"></td>
-            <td class="p-2">1000000001</td>
-            <td class="p-2">Trà Tấn Hưởng</td>
-            <td class="p-2"><span class="bg-pink-500 px-3 py-1.5 text-sm rounded-3xl 
-                            font-bold text-white">Công khai</span></td>
+            <td class="p-2">{{ $key + 1 }}</td>
+            <td class="p-2">{{ $value->IDStory }}</td>
             <td class="p-2">
-                01/10/2021 13:33:21
+                @switch($value->LoaiStory)
+                @case('0')
+                <span class="bg-blue-500 px-3 py-1.5 text-sm rounded-3xl 
+                font-bold text-white">Chữ</span>
+                @break
+                @case('1')
+                <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
+                font-bold text-white">Ảnh</span>
+                @break
+                @endswitch
             </td>
+            <td class="p-2">{{ $value->IDTaiKhoan }}</td>
+            <td class="p-2">{{ $value->Ho . ' ' . $value->Ten }}</td>
+            <td class="p-2">
+                @switch($value->IDQuyenRiengTu)
+                @case('CONGKHAI')
+                <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
+                font-bold text-white">Công khai</span>
+                @break
+                @case('CHIBANBE')
+                <span class="bg-yellow-500 px-3 py-1.5 text-sm rounded-3xl 
+                font-bold text-white">Bạn bè</span>
+                @break
+                @case('RIENGTU')
+                <span class="bg-red-500 px-3 py-1.5 text-sm rounded-3xl 
+                font-bold text-white">Chỉ mình tôi</span>
+                @break
+                @endswitch
+            </td>
+            <td class="p-2">
+                {{ $value->ThoiGianDangStory }}
+            </td>
+            <td class="p-2">{{ count(Query::getViewStoryByStory($value->IDStory)) }}</td>
             <td class="p-2">
                 <i class="far fa-trash-alt text-2xl text-gray-500 cursor-pointer"></i>
             </td>
             <td class="p-2">
-                <button class="py-1.5 px-3 rounded-2xl bg-blue-500 text-sm font-bold text-white">
+                <button onclick="openModalViewDetailAd('story','{{ $value->IDStory }}')" class="py-1.5 px-3 rounded-2xl bg-blue-500 text-sm font-bold text-white">
                     Xem chi tiết</button>
             </td>
         </tr>
-        <tr>
-            <td class="p-2">1</td>
-            <td class="p-2">2000000001</td>
-            <td class="p-2"><span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
-                            font-bold text-white">Ảnh đại diện</span>
-            </td>
-            <td class="p-2"></td>
-            <td class="p-2">1000000001</td>
-            <td class="p-2">Trà Tấn Hưởng</td>
-            <td class="p-2"><span class="bg-pink-500 px-3 py-1.5 text-sm rounded-3xl 
-                            font-bold text-white">Công khai</span></td>
-            <td class="p-2">
-                01/10/2021 13:33:21
-            </td>
-            <td class="p-2">
-                <i class="far fa-trash-alt text-2xl text-gray-500 cursor-pointer"></i>
-            </td>
-            <td class="p-2">
-                <button class="py-1.5 px-3 rounded-2xl bg-blue-500 text-sm font-bold text-white">
-                    Xem chi tiết</button>
-            </td>
-        </tr>
+        @endforeach
     </table>
 </div>
 <div class="w-full py-3">
-    <ul class="flex justify-center">
-        <li class="w-7 h-9 m-0.5 bg-gray-500 justify-center cursor-pointer
-                                font-bold text-white text-center flex items-center">
-            <i class="fas fa-caret-left"></i>
-        </li>
-        <li class="w-7 h-9 m-0.5 bg-green-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">0</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">1</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">2</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">3</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">4</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">5</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">6</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">7</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">8</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">9</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">10</li>
-        <li class="w-7 h-9 m-0.5 bg-yellow-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">...</li>
-        <li class="w-7 h-9 m-0.5 bg-gray-500 justify-center cursor-pointer
-                font-bold text-white text-center flex items-center">
-            <i class="fas fa-caret-right"></i>
-        </li>
+    <ul class="flex justify-center" id="pageMain">
+        @include('Admin/Component/Child/PhanTrang',[
+        'index' => 0,
+        'num' => count($storyFull)/10,
+        'name' => 'story'
+        ])
     </ul>
 </div>

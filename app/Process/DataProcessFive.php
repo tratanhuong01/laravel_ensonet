@@ -2,6 +2,8 @@
 
 namespace App\Process;
 
+use App\Models\Moiquanhe;
+use App\Models\Taikhoan;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
 use Illuminate\Database\Eloquent\Model;
@@ -51,5 +53,23 @@ class DataProcessFive extends Model
             }
         }
         return 0;
+    }
+    public static function getBirthdayCurrent($idTaiKhoan)
+    {
+        $acc =  Taikhoan::whereRaw('DAY(taikhoan.NgaySinh) = DAY(NOW()) AND MONTH(taikhoan.NgaySinh) = MONTH(NOW())')
+            ->get();
+        $array = array();
+        $num = 0;
+        foreach ($acc as $key => $value) {
+            $relation = Moiquanhe::where('moiquanhe.IDTaiKhoan', '=', $idTaiKhoan)
+                ->where('moiquanhe.IDBanBe', '=', $value->IDTaiKhoan)
+                ->where('moiquanhe.TinhTrang', '=', 3)
+                ->get();
+            if (count($relation) > 0) {
+                $array[$num] = $value;
+                $num++;
+            }
+        }
+        return $array;
     }
 }

@@ -3,6 +3,7 @@
 
 use App\Models\Functions;
 use App\Models\Data;
+use App\Process\DataProcessFive;
 use App\Process\DataProcessThird;
 use Illuminate\Support\Facades\Session;
 ?>
@@ -149,6 +150,10 @@ use Illuminate\Support\Facades\Session;
                                 @endif
                             </div>
                         </div>
+                        <?php $birthDay = DataProcessFive::getBirthdayCurrent($user[0]->IDTaiKhoan); ?>
+                        @if (count($birthDay) > 0)
+                        @include('Component/TrangChu/SinhNhat')
+                        @endif
                         <div class="w-full pt-3">
                             <div class="w-full flex">
                                 <div class="w-1/2 py-2.5 px-0">
