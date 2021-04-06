@@ -25,7 +25,8 @@ $u = Session::get('user');
             </div>
         </div>
         <div class="relative pl-1 w-4/5">
-            <p class="dark:text-gray-300"><a href="profile.{{ $item[0]->IDTaiKhoan }}"><b class="dark:text-white">
+            <p class="dark:text-gray-300"><a href="profile.{{ $item[0]->IDTaiKhoan }}">
+                    <b class="dark:text-white">
                         {{ $item[0]->Ho . ' ' . $item[0]->Ten }}</b>
                 </a>
                 <?php $tag = array();
@@ -56,7 +57,7 @@ $u = Session::get('user');
                             <a href="" class="dark:text-gray-300 font-bold">
                                 {{ StringUtil::CheckDateTime($item[0]->NgayDang) }}</a>
                         </li>
-                        <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
+                        <li onclick="changeObjectPrivacyPost('{{ $item[0]->IDBaiDang }}')" class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
                             @include('Component\BaiDang\QuyenRiengTuBD',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                         </li>
                     </ul>
