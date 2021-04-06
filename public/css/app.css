@@ -1,1 +1,108 @@
+.bg-size\:5\:4 {
+    background-size: 500% 400%;
+}
+.bg-size\:3\:3 {
+    background-size: 300% 300%;
+}
+.bg-size\:6\:5 {
+    background-size: 600% 500%;
+}
+.stickerAnimation\:5\:4 {
+    animation: playv5vs4 1s steps(5) infinite,
+        playh5vs4 0.666s steps(4) infinite;
+}
 
+@keyframes playv5vs4 {
+    0% {
+        background-position-y: 0%;
+    }
+
+    100% {
+        background-position-y: 500%;
+    }
+}
+
+@keyframes playh5vs4 {
+    0% {
+        background-position-x: 0%;
+    }
+
+    100% {
+        background-position-x: 400%;
+    }
+}
+
+.stickerAnimation\:3\:3 {
+    animation: playv3vs3 1s steps(3) infinite,
+        playh3vs3 0.666s steps(3) infinite;
+}
+
+@keyframes playv3vs3 {
+    0% {
+        background-position-y: 0%;
+    }
+
+    100% {
+        background-position-y: 300%;
+    }
+}
+
+@keyframes playh3vs3 {
+    0% {
+        background-position-x: 0%;
+    }
+
+    100% {
+        background-position-x: 300%;
+    }
+}
+
+.stickerAnimation\:6\:5 {
+    animation: playv6vs5 1s steps(6) infinite,
+        playh6vs5 0.666s steps(5) infinite;
+}
+
+@keyframes playv6vs6 {
+    0% {
+        background-position-y: 0%;
+    }
+
+    100% {
+        background-position-y: 600%;
+    }
+}
+
+@keyframes playh6vs5 {
+    0% {
+        background-position-x: 0%;
+    }
+
+    100% {
+        background-position-x: 500%;
+    }
+}
+
+.stickerAnimation\:1\:1 {
+    animation: playv1vs1 1s steps(2) infinite,
+        playh1vs1 0.666s steps(1) infinite;
+}
+
+@keyframes playv2vs1 {
+    0% {
+        background-position-y: 0%;
+    }
+
+    100% {
+        background-position-y: 200%;
+    }
+}
+
+@keyframes playh2vs1 {
+    0% {
+        background-position-x: 0%;
+    }
+
+    100% {
+        background-position-x: 100%;
+    }
+}

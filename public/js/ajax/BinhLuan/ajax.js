@@ -156,7 +156,6 @@ function viewDetailFeelCmt(IDBinhLuan, Path) {
         }
     });
 }
-
 //xem số lượng mỗi cảm xúc của bài đăng 
 function viewOnlyDetailFeelCmt(IDBinhLuan, LoaiCamXuc, Path) {
     $.ajax({
@@ -168,6 +167,72 @@ function viewOnlyDetailFeelCmt(IDBinhLuan, LoaiCamXuc, Path) {
         },
         success: function (response) {
             $('#all').html(response);
+        }
+    });
+}
+function openStickerComment(IDBaiDang,IDTaiKhoan,event) {
+    var y = event.clientY;
+    $.ajax({
+        method : "GET",
+        url : "/ProcessOpenViewStickerCommnet",
+        data : {
+            IDBaiDang : IDBaiDang,
+            IDTaiKhoan : IDTaiKhoan
+        },
+        success : function(response) {
+            if ($('#modalComment').length > 0) {
+                if ( $('#modalComment').hasClass('hidden')) {
+                    if (y < $(window).height()/2) {
+                        $('#modalComment').addClass('top-14')
+                        $('#modalComment').removeClass('bottom-14')
+                    }
+                    else {
+                        $('#modalComment').addClass('bottom-14')
+                        $('#modalComment').removeClass('top-14')
+                    }
+                    $('#modalComment').html(response)
+                    $('#modalComment').removeClass('hidden')
+                }
+                else {
+                    $('#modalComment').html('')
+                    $('#modalComment').addClass('hidden')
+                    $('#modalComment').removeClass('bottom-14')
+                    $('#modalComment').removeClass('top-14')
+                }
+            }
+        }
+    });
+}
+function openGifComment(IDBaiDang,IDTaiKhoan,event) {
+    var y = event.clientY;
+    $.ajax({
+        method : "GET",
+        url : "/ProcessOpenViewGifCommnet",
+        data : {
+            IDBaiDang : IDBaiDang,
+            IDTaiKhoan : IDTaiKhoan
+        },
+        success : function(response) {
+            if ($('#modalComment').length > 0) {
+                if ( $('#modalComment').hasClass('hidden')) {
+                    if (y < $(window).height()/2) {
+                        $('#modalComment').addClass('top-14')
+                        $('#modalComment').removeClass('bottom-14')
+                    }
+                    else {
+                        $('#modalComment').addClass('bottom-14')
+                        $('#modalComment').removeClass('top-14')
+                    }
+                    $('#modalComment').html(response)
+                    $('#modalComment').removeClass('hidden')
+                }
+                else {
+                    $('#modalComment').html('')
+                    $('#modalComment').addClass('hidden')
+                    $('#modalComment').removeClass('bottom-14')
+                    $('#modalComment').removeClass('top-14')
+                }
+            }
         }
     });
 }

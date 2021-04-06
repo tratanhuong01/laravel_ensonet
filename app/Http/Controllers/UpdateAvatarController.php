@@ -9,6 +9,8 @@ use App\Models\StringUtil;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Cloudder;
+use Cloudinary\Cloudinary;
 
 class UpdateAvatarController extends Controller
 {

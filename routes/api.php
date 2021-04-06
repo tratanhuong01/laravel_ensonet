@@ -268,3 +268,7 @@ Route::get('ProcessLoadingChatTypingMessenge', [TroChuyen\ChatController::class,
 Route::get('ProcessLoadingTypingOn', [TroChuyen\ChatController::class, 'loadingTypingOn']);
 
 Route::get('ProcessLoadingTypingOff', [TroChuyen\ChatController::class, 'loadingTypingOff']);
+
+Route::get('ProcessOpenViewStickerCommnet', [BaiDang\CommentController::class, 'openStickComment']);
+
+Route::get('ProcessOpenViewGifCommnet', [BaiDang\CommentController::class, 'openGifComment']);

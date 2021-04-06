@@ -111,4 +111,12 @@ class CommentController extends Controller
                 ->with('idTaiKhoan', $request->IDTaiKhoan)
                 ->with('idBaiDang', $request->IDBaiDang);
     }
+    public function openStickComment(Request $request)
+    {
+        return view('Component/Child/NhanDan');
+    }
+    public function openGifComment(Request $request)
+    {
+        return view('Component/Child/Gif');
+    }
 }

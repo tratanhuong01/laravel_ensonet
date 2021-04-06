@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="">
+<html class="dark">
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -8,44 +8,97 @@ use Illuminate\Support\Facades\Route;
 
 <head>
     <title>Ensonet</title>
-    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     @include('Head/css')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/js/jquery.animateSprite.min.js"></script>
 </head>
 
 <body>
-    <div class="dark:bg-dark-main w-full h-screen">
-        <div class="w-3/4 bg-gray-200 dark:bg-dark-main story-right shadow-3xl">
-            <div class="w-11/12 p-1.5 top-6 mx-auto rounded-2xl dark:bg-dark-main bg-white relative 
-                border-4 border-solid border-gray-200 dark:border-dark-third mt-1" style="height: 665px;">
-                <canvas class="mx-auto bg-gray-300" id="myCanvas" width="345" height="612">
-
-                </canvas>
-                <img id="myImage" class="w-1/3 top-1/2 left-1/2 mt-1 rounded-lg" style="transform: translate(-50%,-50%); height: 612px;" src="/img/bgText/3.jpg" alt="">
-            </div>
-        </div>
-    </div>
-    <script>
-        function wraptext(text) {
-            var data = "";
-            var num = Math.round(text.length / 25 + 1);
-            for (var j = 0; j <= num; j++) {
-                data += text.substring((j == 0 || j == 1 ? 1 : j) * 25,
-                    (j == 0 ? 0 : (j + 1)) * 25) + "@";
-            }
-            return data;
+    <style>
+        #stick {
+            animation: playv 1s steps(5) infinite, playh 0.666s steps(4) infinite;
         }
-        window.onload = function() {
-            var canvas = document.getElementById("myCanvas");
-            var context = canvas.getContext("2d");
-            context.drawImage(document.getElementById('myImage'), 0, 0, 345, 612);
-            context.font = "20pt Tahoma";
-            context.textAlign = "center";
-            var arr = wraptext(text).split('@');
-            for (var index = 0; index < arr.length; index++) {
-                context.fillText(arr[index], 172, ((canvas.height / 2) - ((arr.length * 28) / 2)) + (index + 1) * 28);
+
+        .sticks {
+            animation: playvs 1s steps(5) infinite, playhs 0.666s steps(4) infinite;
+        }
+
+        @keyframes playv {
+            0% {
+                background-position-y: 0%;
             }
-            var dataURI = canvas.toDataURL("image/png")
-        };
+
+            100% {
+                background-position-y: 500%;
+            }
+        }
+
+        @keyframes playh {
+            0% {
+                background-position-x: 0%;
+            }
+
+            100% {
+                background-position-x: 400%;
+            }
+        }
+
+        @keyframes playvs {
+            0% {
+                background-position-y: 0%;
+            }
+
+            100% {
+                background-position-y: 500%;
+            }
+        }
+
+        @keyframes playhs {
+            0% {
+                background-position-x: 0%;
+            }
+
+            100% {
+                background-position-x: 400%;
+            }
+        }
+    </style>
+
+    <div id="modalComment" class="absolute top-0 right-1/2 bg-white my-2 absolute w-72 
+            p-1 border-2 border-solid rounded-lg dark:bg-dark-second">
+        @include('Component/Child/NhanDan')
+    </div>
+    <div id="modalComments" class="absolute top-0 left-0 bg-white my-2 absolute w-72 
+            p-1 border-2 border-solid rounded-lg dark:bg-dark-second">
+        @include('Component/Child/Gif')
+    </div>
+    <!-- <img src="" id="myImage" alt="" class="w-32 h-32 object-cover">
+    <div id="stick" style="width: 80px;max-width: 80px;padding: 2px;max-height: 80px;
+    height: 80px;overflow: hidden;position: relative;
+    background-image: url('https://res.cloudinary.com/tratahuong01/image/upload/v1617693340/sticker/17640357_2041011572792983_353566758688260096_n_maxymp.png');background-size: 500% 400%;">
+
+    </div>
+    <div id="sticks" style="width: 80px;max-width: 80px;padding: 2px;max-height: 80px;
+    height: 80px;overflow: hidden;position: relative;object-fit: cover;
+    background-image: url('https://res.cloudinary.com/tratahuong01/image/upload/v1617697177/17633084_2041011739459633_7391660925691887616_n_szaems.png');background-size: 500% 400%;">
+
+    </div> -->
+
+    <script>
+        //javascript, jQuery
+
+        var xhr = $.get("https://api.giphy.com/v1/gifs/search?api_key=HJsBIegcLMTaOmm57ToYEZYEQdFqKPzT&limit=5&q=a");
+        xhr.done(function(res) {
+            console.log("success got data", res);
+            for (let index = 0; index < res.data.length; index++) {
+                var img = document.createElement('img')
+                img.setAttribute('src', res.data[index].images.original.url);
+                img.style.width = '100%';
+                img.style.height = '150px';
+                img.style.margin = '8px 0px';
+                document.getElementById('gifMain').appendChild(img);
+            }
+        });
     </script>
 </body>
 
