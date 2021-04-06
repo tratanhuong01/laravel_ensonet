@@ -6,6 +6,70 @@ use Illuminate\Database\Eloquent\Model;
 
 class JsonGioiThieu extends Model
 {
+    public static function get($user)
+    {
+        $json = [
+            'ThongTinCoBanVaLienHe' => [
+                'NgaySinh' => [
+                    'Ngay' => [
+                        'IDNgay' => '10000',
+                        'Ngay' => explode('-', $user->NgaySinh)[2],
+                        'IDQuyenRiengTu' => 'CHIBANBE'
+                    ],
+                    'Thang' => [
+                        'IDThang' => '10000',
+                        'Thang' => explode('-', $user->NgaySinh)[1],
+                        'IDQuyenRiengTu' => 'CHIBANBE'
+                    ],
+                    'Nam' => [
+                        'IDNam' => '10000',
+                        'Nam' => explode('-', $user->NgaySinh)[0],
+                        'IDQuyenRiengTu' => 'CHIBANBE'
+                    ]
+                ],
+                'DiaChi' => [],
+                'Email' => [
+                    'IDEmail' => '10000',
+                    'Email' => $user->Email,
+                    'IDQuyenRiengTu' => 'CHIBANBE'
+                ],
+                'GioiTinh' => [
+                    'IDGioiTinh' => '10000',
+                    'IDQuyenRiengTu' => 'CHIBANBE',
+                    'TenGioiTinh' => $user->GioiTinh
+                ],
+                'SoDienThoai' => [
+                    'IDSoDienThoai' => '10000',
+                    'SoDienThoai' => $user->SoDienThoai,
+                    'IDQuyenRiengTu' => 'CHIBANBE'
+                ],
+            ],
+            'CongViecHocVan' => [
+                'CongViec' => [],
+                'HocVan' => [],
+            ],
+            'NoiTungSong' => [
+                'QueQuan' => [],
+                'NoiOHienTai' => [],
+                'NoiTungSong' => []
+            ],
+            'GiaDinhVaCacMoiQuanHe' => [
+                'HonNhan' => [
+                    'IDHonNhan' => '10000',
+                    'IDQuyenRiengTu' => 'CHIBANBE',
+                    'TinhTrang' => 'Độc Thân'
+                ],
+                'ThanhVienGiaDinh' => []
+            ],
+            'ChiTietBanThan' => [
+                'GioiThieu' => [],
+                'PhatAm' => [],
+                'BietDanh' => [],
+                'TrichDanYeuThich' => []
+            ]
+        ];
+        return $json;
+    }
     public static function CongViec()
     {
         return [

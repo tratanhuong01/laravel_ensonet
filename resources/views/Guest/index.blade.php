@@ -77,7 +77,7 @@ use Illuminate\Support\Facades\Session;
                 @if (count($allStory) == 0)
                 @include('Component/TrangChu/StoryNewUser')
                 @else
-                @include('Component/TrangChu/Story',['allStory' => $allStory])
+                @include('Component/TrangChu/Story',['allStory'=> $allStory])
                 @endif
                 <div class="w-full bg-white mb-3 mt-2 dark:bg-dark-second m-auto rounded-lg mb-2">
                     <div class="w-full flex p-2.5 ">

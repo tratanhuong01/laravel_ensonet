@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\BaiDang;
 
+use App\Events\NotificationEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Baidang;
 use App\Models\Hinhanh;
 use App\Models\StringUtil;
+use App\Models\Thongbao;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -32,6 +34,18 @@ class PostNormalController extends Controller
                         $tags = Session::get('tag');
                         foreach ($tags as $key => $value) {
                             $tag .= $key . '&';
+                        }
+                        foreach ($tags as $key => $value) {
+                            Thongbao::add(
+                                StringUtil::ID('thongbao', 'IDThongBao'),
+                                $value,
+                                'DGTBTMBV1',
+                                $idBaiDang . '&' . 'DGTBTMBV1',
+                                $user[0]->IDTaiKhoan,
+                                '0',
+                                date("Y-m-d H:i:s")
+                            );
+                            event(new NotificationEvent($value));
                         }
                     }
                 }
@@ -66,6 +80,18 @@ class PostNormalController extends Controller
                         $tags = Session::get('tag');
                         foreach ($tags as $key => $value) {
                             $tag .= $key . '&';
+                        }
+                        foreach ($tags as $key => $value) {
+                            Thongbao::add(
+                                StringUtil::ID('thongbao', 'IDThongBao'),
+                                $value,
+                                'DGTBTMBV1',
+                                $idBaiDang . '&' . 'DGTBTMBV1',
+                                $user[0]->IDTaiKhoan,
+                                '0',
+                                date("Y-m-d H:i:s")
+                            );
+                            event(new NotificationEvent($value));
                         }
                     }
                 }

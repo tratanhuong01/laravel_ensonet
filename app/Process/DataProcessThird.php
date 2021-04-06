@@ -96,11 +96,13 @@ class DataProcessThird extends Model
     {
         $allStory = DataProcessThird::getAllStoryByID($idTaiKhoan);
         $newAllStory = array();
-        $newAllStory[0] = Story::where('story.IDTaiKhoan', '=', $idTaiKhoan)
+        $storyMain = Story::where('story.IDTaiKhoan', '=', $idTaiKhoan)
             ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
             ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderBy('story.ThoiGianDangStory', 'ASC')
             ->get();
+        if (count($storyMain) != 0)
+            $newAllStory[0] = $storyMain;
         for ($i = 1; $i <= count($allStory); $i++) {
             $newAllStory[$i] = $allStory[$i - 1];
         }

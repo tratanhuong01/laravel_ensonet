@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\BaiDang;
 
+use App\Events\NotificationEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Baidang;
 use App\Models\Hinhanh;
 use App\Models\StringUtil;
+use App\Models\Thongbao;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -32,6 +34,18 @@ class PostTimeLineController extends Controller
                         foreach ($tags as $key => $value) {
                             $tag .= $key . '&';
                         }
+                        foreach ($tags as $key => $value) {
+                            Thongbao::add(
+                                StringUtil::ID('thongbao', 'IDThongBao'),
+                                $value,
+                                'DGTBTMBV1',
+                                $idBaiDang . '&' . 'DGTBTMBV1',
+                                $user[0]->IDTaiKhoan,
+                                '0',
+                                date("Y-m-d H:i:s")
+                            );
+                            event(new NotificationEvent($value));
+                        }
                     }
                 }
                 Baidang::add(
@@ -52,6 +66,7 @@ class PostTimeLineController extends Controller
                     Hinhanh::add($idHinhAnh, 'TIMELINE', $idBaiDang, 'img/timelineImage/' . $nameFile, NULL);
                     $file->move(public_path('img/timelineImage'), $nameFile);
                 }
+
                 return response()->json([
                     'view' => "" . view('Component/BaiDang/DongThoiGian')
                         ->with('item', Baidang::where('baidang.IDBaiDang', '=', $idBaiDang)
@@ -72,6 +87,18 @@ class PostTimeLineController extends Controller
                         $tags = Session::get('tag');
                         foreach ($tags as $key => $value) {
                             $tag .= $key . '&';
+                        }
+                        foreach ($tags as $key => $value) {
+                            Thongbao::add(
+                                StringUtil::ID('thongbao', 'IDThongBao'),
+                                $value,
+                                'DGTBTMBV1',
+                                $idBaiDang . '&' . 'DGTBTMBV1',
+                                $user[0]->IDTaiKhoan,
+                                '0',
+                                date("Y-m-d H:i:s")
+                            );
+                            event(new NotificationEvent($value));
                         }
                     }
                 }

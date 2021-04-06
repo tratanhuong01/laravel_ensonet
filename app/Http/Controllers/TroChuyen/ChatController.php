@@ -172,7 +172,7 @@ class ChatController extends Controller
                     $idNhomTinNhan,
                     Session::get('user')[0]->IDTaiKhoan,
                     $request->NoiDungTinNhan,
-                    DataProcess::createState($request->IDNhomTinNhan, '1'),
+                    DataProcess::createState($idNhomTinNhan, '1'),
                     $trangThai,
                     '1',
                     date("Y-m-d H:i:s")
@@ -254,7 +254,14 @@ class ChatController extends Controller
                 'UPDATE tinnhan SET tinnhan.TrangThai = ?  WHERE tinnhan.IDTinNhan = ? ',
                 [$trangThai, $idTinNhan]
             );
-            return view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0]);
+            $chater = (DataProcess::getUserOfGroupMessage($idNhomTinNhan));
+            return response()->json([
+                'viewGroup' => "" . view('Modal/ModalTroChuyen/ModalGroupChat')
+                    ->with('chater', $chater)
+                    ->with('messages', DataProcess::getMessageByNhomTinNhan($idNhomTinNhan))
+                    ->with('idNhomTinNhan', $idNhomTinNhan),
+                'viewMessage' => "" . view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0])
+            ]);
         }
     }
     public function openMessageGroup(Request $request)

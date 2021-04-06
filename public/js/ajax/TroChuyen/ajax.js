@@ -353,7 +353,7 @@ function sendMessageGroups(event) {
             },
             success: function (response) {
                 $('#CreateNewChatChat').remove();
-                $('#placeChat').append(response);
+                $('#placeChat').append(response.viewGroup);
             }
         });
 }

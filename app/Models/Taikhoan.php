@@ -30,7 +30,9 @@ class Taikhoan extends Model
         'TinhTrang',
         'NgayTao',
         'DarkMode',
-        'TinhTrang'
+        'TinhTrang',
+        'ThoiGianHoatDong',
+        'DarkMode'
     ];
     public static function add(
         $IDTaiKhoan,
