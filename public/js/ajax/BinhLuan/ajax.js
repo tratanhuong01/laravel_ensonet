@@ -1,17 +1,23 @@
 function CommentPost(IDTaiKhoan, IDBaiDang, event) {
     if (event.keyCode === 13) {
-        $.ajax({
-            method: "GET",
-            url: '/ProcessCommentPost',
-            data: {
-                IDBaiDang: IDBaiDang,
-                NoiDungBinhLuan: $('#' + IDTaiKhoan + IDBaiDang + "Write").html()
-            },
-            success: function (response) {
-                $('#' + IDTaiKhoan + IDBaiDang + "CommentLv1").prepend(response);
-                $('#' + IDTaiKhoan + IDBaiDang + "Write").html('');
-            }
-        });
+        var formData = new FormData($('#' + IDBaiDang + 'FormComment')[0]);
+        formData.append('IDBaiDang',IDBaiDang);
+        formData.append('NoiDungBinhLuan', $('#' + IDTaiKhoan + IDBaiDang + "Write").html())
+            $.ajax({
+                method: "POST",
+                url: '/ProcessCommentPost',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $('#' + IDTaiKhoan + IDBaiDang + "CommentLv1").prepend(response);
+                    $('#' + IDTaiKhoan + IDBaiDang + "Write").html('');
+                    $('#' + IDBaiDang + 'FormComment').html('');
+                    $('#' + IDBaiDang + 'modalComment').html('');
+                    $('#' + IDBaiDang + 'modalComment').addClass('hidden');
+                    $('#' + IDBaiDang + 'CommentImage').html('');
+                }
+            }); 
     }
 }
 function ViewMoreCommentPost(IDTaiKhoan, IDBaiDang, Index, Num, Count) {
@@ -73,21 +79,32 @@ function RepViewCommentPost2(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDBinhLuanRep) {
 }
 function RepCommentPost(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDBinhLuanRep, event) {
     if (event.keyCode === 13) {
-        $.ajax({
-            method: "GET",
-            url: '/ProcessRepCommentPost',
-            data: {
-                IDTaiKhoan: IDTaiKhoan,
-                IDBaiDang: IDBaiDang,
-                IDBinhLuan: IDBinhLuan,
-                IDBinhLuanRep: IDBinhLuanRep,
-                NoiDungBinhLuan: $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "Write").html()
-            },
-            success: function (response) {
-                $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuanRep + "CommentLv2").prepend(response);
-                $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "Write").html('');
-            }
-        });
+        var formData = new FormData($('#' + IDBaiDang + IDBinhLuan + 'FormComment')[0]);
+        formData.append('IDBaiDang',IDBaiDang);
+        formData.append('IDBinhLuan',IDBinhLuan);
+        formData.append('IDBinhLuanRep',IDBinhLuanRep);
+        formData.append('IDTaiKhoan',IDTaiKhoan);
+        formData.append('NoiDungBinhLuan', 
+        $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "Write").html());
+        if ($('#' + IDBaiDang + IDBinhLuan + 'IDNhanDan').length > 0) {
+            postStickerRep(IDTaiKhoan,IDBaiDang,IDBinhLuan,IDBinhLuanRep,
+            $('#' + IDBaiDang + IDBinhLuan + 'IDNhanDan').val());     
+        }
+        else {
+            $.ajax({
+                method: "POST",
+                url: '/ProcessRepCommentPost',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuanRep + "CommentLv2").prepend(response);
+                    $('#' + IDTaiKhoan + IDBaiDang + IDBinhLuan + "Write").html('');
+                    $('#' + IDBaiDang + IDBinhLuan +'FormComment').html('');
+                    $('#' + IDBaiDang + IDBinhLuan + 'CommentImage').html('');
+                }
+            });
+        }
     }
 }
 function FeelCommentPost(IDBinhLuan, LoaiCamXuc) {
@@ -170,69 +187,92 @@ function viewOnlyDetailFeelCmt(IDBinhLuan, LoaiCamXuc, Path) {
         }
     });
 }
-function openStickerComment(IDBaiDang,IDTaiKhoan,event) {
-    var y = event.clientY;
+
+function editCommentView(IDBaiDang,IDBinhLuan,LoaiBinhLuan) {
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+    let formData = new FormData();
+    formData.append('IDBinhLuan',IDBinhLuan);
+    formData.append('IDBaiDang',IDBaiDang);
+    formData.append('type',0);
+    formData.append('LoaiBinhLuan',LoaiBinhLuan)
     $.ajax({
-        method : "GET",
-        url : "/ProcessOpenViewStickerCommnet",
-        data : {
-            IDBaiDang : IDBaiDang,
-            IDTaiKhoan : IDTaiKhoan
-        },
+        method : "POST",
+        url : "/ProcessEditViewComment",
+        data : formData,
+        contentType: false,
+        processData: false,
         success : function(response) {
-            if ($('#modalComment').length > 0) {
-                if ( $('#modalComment').hasClass('hidden')) {
-                    if (y < $(window).height()/2) {
-                        $('#modalComment').addClass('top-14')
-                        $('#modalComment').removeClass('bottom-14')
-                    }
-                    else {
-                        $('#modalComment').addClass('bottom-14')
-                        $('#modalComment').removeClass('top-14')
-                    }
-                    $('#modalComment').html(response)
-                    $('#modalComment').removeClass('hidden')
-                }
-                else {
-                    $('#modalComment').html('')
-                    $('#modalComment').addClass('hidden')
-                    $('#modalComment').removeClass('bottom-14')
-                    $('#modalComment').removeClass('top-14')
-                }
-            }
+            $('#' + IDBaiDang + IDBinhLuan).html(response.view);
         }
     });
 }
-function openGifComment(IDBaiDang,IDTaiKhoan,event) {
-    var y = event.clientY;
-    $.ajax({
-        method : "GET",
-        url : "/ProcessOpenViewGifCommnet",
-        data : {
-            IDBaiDang : IDBaiDang,
-            IDTaiKhoan : IDTaiKhoan
-        },
-        success : function(response) {
-            if ($('#modalComment').length > 0) {
-                if ( $('#modalComment').hasClass('hidden')) {
-                    if (y < $(window).height()/2) {
-                        $('#modalComment').addClass('top-14')
-                        $('#modalComment').removeClass('bottom-14')
-                    }
-                    else {
-                        $('#modalComment').addClass('bottom-14')
-                        $('#modalComment').removeClass('top-14')
-                    }
-                    $('#modalComment').html(response)
-                    $('#modalComment').removeClass('hidden')
-                }
-                else {
-                    $('#modalComment').html('')
-                    $('#modalComment').addClass('hidden')
-                    $('#modalComment').removeClass('bottom-14')
-                    $('#modalComment').removeClass('top-14')
-                }
+function escapeEditComment(event,IDBaiDang,IDBinhLuan,LoaiBinhLuan) {
+    
+    if(event.key === "Escape") {
+        $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+          });
+        let formData = new FormData();
+        formData.append('IDBinhLuan',IDBinhLuan);
+        formData.append('type',1);
+        formData.append('LoaiBinhLuan',LoaiBinhLuan)
+        $.ajax({
+            method : "POST",
+            url : "/ProcessEditViewComment",
+            data : formData,
+            contentType: false,
+            processData: false,
+            success : function(response) {
+                $('#' + IDBaiDang + IDBinhLuan).html(response.view);
+            }
+        });
+    }
+}
+
+function editComments(event,IDBaiDang,IDBinhLuan,Level) {
+    if (event.keyCode === 13) {
+        $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+        let formData = new FormData($('#' + IDBinhLuan + 'FormComment')[0]);
+        formData.append('IDBinhLuan',IDBinhLuan);
+        var LoaiBinhLuan = 0;
+        if ($('#' + IDBaiDang + IDBinhLuan + 'DuongDanHinhAnh').length > 0 || 
+        checkIDForm(IDBinhLuan) == true)
+            LoaiBinhLuan = 1;
+        else if ($('#' + IDBinhLuan + 'IDNhanDan').length >0)
+            LoaiBinhLuan = 2;
+        else 
+            LoaiBinhLuan = 0;
+        formData.append('NoiDungBinhLuan',$('#' + IDBinhLuan + 'Write').html())
+        formData.append('LoaiBinhLuan',LoaiBinhLuan);
+        formData.append('Level',Level);
+        $.ajax({
+            method : "POST",
+            url : "/ProcessEditComment",
+            data : formData,
+            contentType: false,
+            processData: false,
+            success : function(response) {
+                $('#' + IDBaiDang + IDBinhLuan).html(response.view);
+            }
+        })
+    }
+}
+function checkIDForm(IDBinhLuan) {
+    for (let index = 0; index < document.getElementById(IDBinhLuan + 'FormComment').children.length; index++) {
+        if (document.getElementById(IDBinhLuan + 'FormComment').children[index].id == 
+        IDBinhLuan + 'fileImagess') {
+            return true;
+            break;
         }
-    });
+    }
 }

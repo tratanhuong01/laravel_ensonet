@@ -159,3 +159,36 @@ function requestFriendsM(IDTaiKhoan) {
         }
     });
 }
+function editDescribeUser(IDTaiKhoan,Element) {
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+    if (Element.state != 'true') {
+        Element.state = 'true';
+        Element.innerHTML = 'Lưu';
+        $('#DescribeUser').attr('contenteditable','true');
+    }
+    else {
+        Element.state = 'true';
+        let formData = new FormData();
+        formData.append('IDTaiKhoan',IDTaiKhoan);
+        formData.append('NoiDung',$('#DescribeUser').html());
+        $.ajax({
+            method : "POST",
+            url : "/ProcessEditDescribeUser",
+            data : formData,
+            contentType: false,
+            processData: false,
+            success : function(response) {
+                console.log(formData)
+                $('#DescribeUser').removeAttr('contenteditable');
+                Element.innerHTML = 'Chỉnh sửa';
+            },
+            error : function(response) {
+                console.log(response);
+            }
+        });
+    }
+}

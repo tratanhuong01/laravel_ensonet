@@ -103,6 +103,8 @@ class DataProcessThird extends Model
             ->get();
         if (count($storyMain) != 0)
             $newAllStory[0] = $storyMain;
+        else
+            $newAllStory[0] = array();
         for ($i = 1; $i <= count($allStory); $i++) {
             $newAllStory[$i] = $allStory[$i - 1];
         }

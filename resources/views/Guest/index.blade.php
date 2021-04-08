@@ -207,32 +207,6 @@ use Illuminate\Support\Facades\Session;
     <?php redirect()->to('login')->send(); ?>
     @endif
     <script>
-        var config = {
-            routes: {
-                ProcessSearchData: "{{ route('ProcessSearchData') }}"
-            }
-        };
-    </script>
-    <script>
-        var action = 'inactive';
-        if (action == 'inactive') {
-            loading();
-            loadingPost(0);
-        }
-        $(window).scroll(function() {
-            if ($(window).scrollTop() + $(window).height() > $(".timeline").height() &&
-                action == 'inactive') {
-                action = 'active';
-                loading();
-                setTimeout(function() {
-                    loadingPost($('#indexPost').val());
-                }, 500);
-            }
-        });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
-    <script>
         $('#modalHeaderRight').html('')
         Pusher.logToConsole = true;
         var pusher = new Pusher('5064fc09fcd20f23d5c1', {
@@ -249,6 +223,27 @@ use Illuminate\Support\Facades\Session;
                     $('#numNotification').html(response);
                 }
             });
+        });
+        var config = {
+            routes: {
+                ProcessSearchData: "{{ route('ProcessSearchData') }}",
+                ProcessCommentPost: "{{ route('ProcessCommentPost') }}"
+            }
+        };
+        var action = 'inactive';
+        if (action == 'inactive') {
+            loading();
+            loadingPost(0);
+        }
+        $(window).scroll(function() {
+            if ($(window).scrollTop() + $(window).height() > $(".timeline").height() &&
+                action == 'inactive') {
+                action = 'active';
+                loading();
+                setTimeout(function() {
+                    loadingPost($('#indexPost').val());
+                }, 500);
+            }
         });
     </script>
 </body>

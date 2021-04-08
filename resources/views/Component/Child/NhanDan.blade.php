@@ -39,7 +39,7 @@ wrapper-content-right px-2" style="max-height: 300px;">
 
     ?>
     @foreach($sticker as $key => $value)
-    <div class="w-20 mr-1">
+    <div onclick="postMain('{{ $idTaiKhoan }}','{{ $idBaiDang }}' ,'{{$idBinhLuan}}','{{$value->IDNhanDan}}','{{ $loaiBinhLuan }}')" class="w-20 mr-1 cursor-pointer">
         <div class="w-20 h-20 max-w-20 max-h-20 p-1 overflow-hidden bg-size:{{ $value->Cot }}:{{ $value->Hang }} 
          stickerAnimation:{{ $value->Cot }}:{{ $value->Hang }} relative" style="background-image: url('/{{ $value->DuongDanNhanDan }}');">
         </div>

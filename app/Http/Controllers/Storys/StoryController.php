@@ -11,8 +11,10 @@ use App\Models\Taikhoan;
 use App\Process\DataProcessFive;
 use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class StoryController extends Controller
 {
@@ -84,7 +86,7 @@ class StoryController extends Controller
             $request->IDTaiKhoan,
             NULL,
             'img/story/' . $imageName,
-            '0',
+            '1',
             date("Y-m-d H:i:s"),
             $jsonMusic == NULL ? NULL : json_encode($jsonMusic)
         );
@@ -384,5 +386,20 @@ class StoryController extends Controller
                 }
             }
         }
+    }
+    public function deleteStory(Request $request)
+    {
+        $story = Story::where('story.IDStory', '=', $request->IDStory)->get();
+        Story::where('story.IDStory', '=', $request->IDStory)->delete();
+        if (File::exists(public_path($story[0]->DuongDan)))
+            File::delete(public_path($story[0]->DuongDan));
+        $story =  Story::where('story.IDTaiKhoan', '=', $request->IDTaiKhoan)
+            ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+            ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->orderBy('story.ThoiGianDangStory', 'ASC')
+            ->get();
+        return response()->json([
+            'num' => count($story)
+        ]);
     }
 }

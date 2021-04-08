@@ -212,7 +212,6 @@ function tagFriends(IDTaiKhoan) {
         }
     });
 }
-
 //tâm trạng hiện tại
 function viewFeelCurrent() {
     $.ajax({

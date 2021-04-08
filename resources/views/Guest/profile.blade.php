@@ -22,6 +22,7 @@ $user = Session::get('user');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>
         @if (sizeof($users) == 0)
         {{'Ensonet'}}
@@ -95,9 +96,11 @@ $user = Session::get('user');
             </div>
             <div class="w-full relative">
                 <div class="mx-auto text-center w-63%" style="margin-top: 68px;">
-                    <p class="outline-none text-center py-2 dark:text-white">{{ $user[0]->MoTa }}</p>
+                    <p id="DescribeUser" class="outline-none text-center py-2 dark:text-white">
+                        {!! $user[0]->MoTa !!}
+                    </p>
                     <div class="w-full pt-2">
-                        <a style="color: #1876F2;font-size: 18px;" href="">Chỉnh sửa</a>
+                        <button onclick="editDescribeUser('{{ $user[0]->IDTaiKhoan }}',this)" style="color: #1876F2;font-size: 18px;" state='true'>Chỉnh sửa</button>
                     </div>
                     <br>
                 </div>
@@ -147,7 +150,6 @@ $user = Session::get('user');
             @endif
         </div>
         <div class="w-full relative bg-gray-100 dark:bg-dark-main pt-3 hidden" id="mainContentProfile">
-
             <?php
             $paths = explode('/', parse_url(url()->current())['path']);
             ?>
@@ -280,7 +282,7 @@ $user = Session::get('user');
                         <div class="pl-2.5 bg-white m-2.5 rounded-lg dark:bg-dark-third" style="width: 95%;">
                             <div class="w-full flex">
                                 <?php
-                                $friendsGet = Functions::getListFriendsUser($users[0]->IDTaiKhoan);
+                                $friendsGet = Functions::getListFriendsUserLimit($users[0]->IDTaiKhoan);
                                 ?>
                                 <div class="w-1/2">
                                     <p class="dark:text-white font-bold pt-2">Bạn bè <br></p>

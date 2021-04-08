@@ -35,16 +35,22 @@ $u = Session::get('user');
                             <a href="" class="dark:text-gray-300 font-bold">
                                 {{ StringUtil::CheckDateTime($item[0]->NgayDang) }}</a>
                         </li>
+                        @if ($u[0]->IDTaiKhoan == $item[0]->IDTaiKhoan)
+                        <li onclick="changeObjectPrivacyPost('{{ $item[0]->IDBaiDang }}')" class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
+                            @include('Component\BaiDang\QuyenRiengTuBD',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
+                        </li>
+                        @else
                         <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
                             @include('Component\BaiDang\QuyenRiengTuBD',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                         </li>
+                        @endif
                     </ul>
                 </div>
             </div>
         </div>
         <div class="text-center relative" style="width: 10%;">
             @if ($item[0]->IDTaiKhoan != $u[0]->IDTaiKhoan)
-            <i class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
+            <!-- <i class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i> -->
             @else
             <i onclick="openEditPost('{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}')" class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
             <div class="w-72 z-40 dark:bg-dark-second bg-gray-100 border-2 absolute top-10 right-4 

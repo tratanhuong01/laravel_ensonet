@@ -114,4 +114,14 @@ class ProfileController extends Controller
             }
         }
     }
+    public function editDescribeUser(Request $request)
+    {
+        DB::update('UPDATE taikhoan SET taikhoan.MoTa = ? WHERE 
+        taikhoan.IDTaiKhoan = ? ', [$request->NoiDung, $request->IDTaiKhoan]);
+        $user = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+        Session::forget('user');
+        Session::put('user', $user);
+        Session::forget('users');
+        Session::put('users', $user);
+    }
 }

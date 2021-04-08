@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\BaiDang\CommentController;
+use App\Http\Controllers\BaiDang\RepCommentController;
 use App\Models\Gioithieu;
 use App\Models\Story;
 use App\Models\Taikhoan;
@@ -13,105 +15,182 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
-Route::post('ProcessSaveCanvasStory', [Storys\StoryController::class, 'create'])
-    ->name('ProcessSaveCanvasStorys');
 
-Route::post('ProcessViewPictureStory', [Storys\StoryController::class, 'createPicView'])
-    ->name('ProcessViewPictureStory');
+Route::group(['namespace' => 'TroChuyen'], function () {
+    //
+    Route::get('ProcessLoadPictures', [HinhAnhs\PictureController::class, 'load'])
+        ->name('ProcessLoadPictures');
 
-Route::post('ProcessSavePictureStory', [Storys\StoryController::class, 'createPic'])
-    ->name('ProcessSavePictureStory');
+    //
+    Route::get('ProcessLoadTimeLineAndViewPictures', [HinhAnhs\PictureController::class, 'loadAndView'])
+        ->name('ProcessLoadTimeLineAndViewPictures');
+});
 
-Route::post('ProcessLoadStory', [Storys\StoryController::class, 'load'])
-    ->name('ProcessLoadStory');
+Route::group(['namespace' => 'TroChuyen'], function () {
+    //
+    Route::get('ProcessLoadingChatTypingMessenge', [TroChuyen\ChatController::class, 'loadingTypingMessage'])
+        ->name('ProcessLoadingChatTypingMessenge');
 
-Route::post('ProcessLoadAndAddViewStory', [Storys\StoryController::class, 'loadAndAddViewStory'])
-    ->name('ProcessLoadAndAddViewStory');
+    //
+    Route::get('ProcessLoadingTypingOn', [TroChuyen\ChatController::class, 'loadingTypingOn'])
+        ->name('ProcessLoadingTypingOn');
 
-Route::post('ProcessSearchData', [SearchController::class, 'search'])
-    ->name('ProcessSearchData');
+    //
+    Route::get('ProcessLoadingTypingOff', [TroChuyen\ChatController::class, 'loadingTypingOff'])
+        ->name('ProcessLoadingTypingOff');
+});
 
-Route::get('ProcessOpenRequestFriendsMain', function (Request $request) {
-    $data = DataProcessSecond::getRequestSend($request->IDTaiKhoan);
-    return response()->json([
-        'view' => "" . view('Modal/ModalProfile/GuiKetBan')->with('requests', $data)
-            ->with('idTaiKhoan', $request->IDTaiKhoan)
-    ]);
+Route::group(['namespace' => 'BaiDang'], function () {
+    //
+    Route::get('ProcessLoadViewCommentImage', [BaiDang\CommentController::class, 'loadViewCommentImage'])
+        ->name('ProcessLoadViewCommentImage');
+
+    //
+    Route::get('ProcessOpenViewStickerCommnet', [BaiDang\CommentController::class, 'openStickComment'])
+        ->name('ProcessOpenViewStickerCommnet');
+
+    //
+    Route::get('ProcessOpenViewGifCommnet', [BaiDang\CommentController::class, 'openGifComment'])
+        ->name('ProcessOpenViewGifCommnet');
+
+    //
+    Route::get('ProcessWarnDeleteComment', [BaiDang\CommentController::class, 'warn'])
+        ->name('ProcessWarnDeleteComment');
+
+    //
+    Route::get('ProcessDeleteComment', [BaiDang\CommentController::class, 'delete'])
+        ->name('ProcessDeleteComment');
 });
 
 Route::group(['namespace' => 'GioiThieus'], function () {
-
+    //
     Route::post('ProcessAjaxDashboardAbout', [GioiThieus\AboutController::class, 'dashboard'])
         ->name('ProcessAjaxDashboardAbout');
 
+    //
     Route::post('ProcessAjaxWorkAndStudyAbout', [GioiThieus\AboutController::class, 'workAndStudy'])
         ->name('ProcessAjaxWorkAndStudyAbout');
 
+    //
     Route::post('ProcessAjaxPlaceLivedAbout', [GioiThieus\AboutController::class, 'placeLived'])
         ->name('ProcessAjaxPlaceLivedAbout');
 
+    //
     Route::post('ProcessAjaxInfoSimpleAndContactAbout', [GioiThieus\AboutController::class, 'infoSimpleAndContact'])
         ->name('ProcessAjaxInfoSimpleAndContactAbout');
 
+    //
     Route::post('ProcessAjaxFamilyAndRelationshipAbout', [GioiThieus\AboutController::class, 'familyAndRelatioship'])
         ->name('ProcessAjaxFamilyAndRelationshipAbout');
 
+    //
     Route::post('ProcessAjaxDetailAboutUserAbout', [GioiThieus\AboutController::class, 'detailAboutUser'])
         ->name('ProcessAjaxDetailAboutUserAbout');
 
+    //
     Route::post('ProcessAjaxEventLifeAbout', [GioiThieus\AboutController::class, 'eventLife'])
         ->name('ProcessAjaxEventLifeAbout');
 
     // Add
 
+    //
     Route::post('ProccessAddPlaceWorkAbout', [GioiThieus\AddAboutController::class, 'addPlaceWorks'])
         ->name('ProccessAddPlaceWorkAbout');
 
+    //
     Route::post('ProcessAddSchoolAbout', [GioiThieus\AddAboutController::class, 'addSchool'])
         ->name('ProcessAddSchoolAbout');
 
+    //
     Route::post('ProcessAddPlaceLiveCurrent', [GioiThieus\AddAboutController::class, 'addPlaceLiveCurrent'])
         ->name('ProcessAddPlaceLiveCurrent');
 
+    //
     Route::post('ProcessAddHomeTown', [GioiThieus\AddAboutController::class, 'addHomeTown'])
         ->name('ProcessAddHomeTown');
 
+    //
     Route::post('ProcessAddPlaceLived', [GioiThieus\AddAboutController::class, 'addPlaceLived'])
         ->name('ProcessAddPlaceLived');
 
+    //
     Route::post('ProcessAddIntroYouSelf', [GioiThieus\AddAboutController::class, 'addIntroYourSelf'])
         ->name('ProcessAddIntroYouSelf');
 
+    //
     Route::post('ProcessAddWayReadName', [GioiThieus\AddAboutController::class, 'AddWayReadName'])
         ->name('ProcessAddWayReadName');
 
+    //
     Route::post('ProcessAddNickName', [GioiThieus\AddAboutController::class, 'addNickName'])
         ->name('ProcessAddNickName');
 
+    //
     Route::post('ProcessAddFavoriteQuote', [GioiThieus\AddAboutController::class, 'addFavoriteQuote'])
         ->name('ProcessAddFavoriteQuote');
 
+    //
     Route::post('ProcessAddMemberFamilyAbout', [GioiThieus\AddAboutController::class, 'addMemberFamily'])
         ->name('ProcessAddMemberFamilyAbout');
 
     //Delete
 
+    //
     Route::get('ProcessDeleteAbout', [GioiThieus\DeleteAboutController::class, 'delete']);
 
+    //
     Route::get('ProcessDeleteAboutMain', [GioiThieus\DeleteAboutController::class, 'deleteMain']);
 
     //Edit
 
+    //
     Route::get('ProcessEditViewAbout', [GioiThieus\EditAboutController::class, 'editView']);
 
+    //
     Route::post('ProcessEditAboutMain', [GioiThieus\EditAboutController::class, 'edit'])
         ->name('ProcessEditAboutMain');
 
+    //
     Route::get('ProcessChangePrivacyAboutViewMain', [GioiThieus\ChangePrivacyAboutController::class, 'changeView']);
 
+    //
     Route::get('ProcessChangePrivacyAboutMain', [GioiThieus\ChangePrivacyAboutController::class, 'change']);
 });
 
+Route::group(['namespace' => 'Storys'], function () {
+    //
+    Route::post('ProcessSaveCanvasStory', [Storys\StoryController::class, 'create'])
+        ->name('ProcessSaveCanvasStorys');
+
+    //
+    Route::post('ProcessViewPictureStory', [Storys\StoryController::class, 'createPicView'])
+        ->name('ProcessViewPictureStory');
+
+    //
+    Route::post('ProcessSavePictureStory', [Storys\StoryController::class, 'createPic'])
+        ->name('ProcessSavePictureStory');
+    //
+    Route::post('ProcessLoadStory', [Storys\StoryController::class, 'load'])
+        ->name('ProcessLoadStory');
+
+    //
+    Route::post('ProcessLoadAndAddViewStory', [Storys\StoryController::class, 'loadAndAddViewStory'])
+        ->name('ProcessLoadAndAddViewStory');
+
+    //
+    Route::get('ProcessNextStory', [Storys\StoryController::class, 'nextStory'])
+        ->name('ProcessNextStory');
+
+    //
+    Route::get('ProcessPreviousStory', [Storys\StoryController::class, 'previousStory'])
+        ->name('ProcessPreviousStory');
+
+    //
+    Route::get('ProcessDeleteStory', [Storys\StoryController::class, 'deleteStory'])
+        ->name('ProcessDeleteStory');
+});
+
+//
 Route::get('save/{id}', function ($id) {
     $json = [
         'ThongTinCoBanVaLienHe' => [
@@ -179,6 +258,20 @@ Route::get('save/{id}', function ($id) {
     ]);
 });
 
+//
+Route::post('ProcessSearchData', [SearchController::class, 'search'])
+    ->name('ProcessSearchData');
+
+//
+Route::get('ProcessOpenRequestFriendsMain', function (Request $request) {
+    $data = DataProcessSecond::getRequestSend($request->IDTaiKhoan);
+    return response()->json([
+        'view' => "" . view('Modal/ModalProfile/GuiKetBan')->with('requests', $data)
+            ->with('idTaiKhoan', $request->IDTaiKhoan)
+    ]);
+})->name('ProcessOpenRequestFriendsMain');
+
+//
 Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
     switch ($request->Type) {
         case 'Companies':
@@ -245,30 +338,14 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
             # code...
             break;
     }
-});
+})->name('ProcessShowDataAboutCorresponding');
 
+//
 Route::get('ProcessViewPrivacyAbout', function () {
     return view('Component/GioiThieu/Modal/QuyenRiengTu');
-});
+})->name('ProcessViewPrivacyAbout');
 
+//
 Route::get('ProcessPrivacyAbouts', function (Request $request) {
     return view('Component/Child/QuyenRiengTuGioiThieu')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
-});
-
-Route::get('ProcessLoadPictures', [HinhAnhs\PictureController::class, 'load']);
-
-Route::get('ProcessLoadTimeLineAndViewPictures', [HinhAnhs\PictureController::class, 'loadAndView']);
-
-Route::get('ProcessNextStory', [Storys\StoryController::class, 'nextStory']);
-
-Route::get('ProcessPreviousStory', [Storys\StoryController::class, 'previousStory']);
-
-Route::get('ProcessLoadingChatTypingMessenge', [TroChuyen\ChatController::class, 'loadingTypingMessage']);
-
-Route::get('ProcessLoadingTypingOn', [TroChuyen\ChatController::class, 'loadingTypingOn']);
-
-Route::get('ProcessLoadingTypingOff', [TroChuyen\ChatController::class, 'loadingTypingOff']);
-
-Route::get('ProcessOpenViewStickerCommnet', [BaiDang\CommentController::class, 'openStickComment']);
-
-Route::get('ProcessOpenViewGifCommnet', [BaiDang\CommentController::class, 'openGifComment']);
+})->name('ProcessPrivacyAbouts');

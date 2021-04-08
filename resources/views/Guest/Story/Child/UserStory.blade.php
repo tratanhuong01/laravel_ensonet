@@ -42,16 +42,36 @@ use Illuminate\Support\Facades\Session;
                             <p class="text-white text-sm">Mod(Remix) </p>
                         </div>
                         <div class="w-1/3">
-                            <ul class="w-full flex">
+                            <ul class="w-full flex relative">
                                 <li id="play" class=" py-2 px-2 cursor-pointer">
                                     <i id="btnClickStart" class="far fa-play-circle text-white text-2xl"></i>
                                 </li>
                                 <li onclick="muteAudio()" class=" py-2 px-2 cursor-pointer">
                                     <i id="muteOrUnMute" class="fas fa-volume-up text-white text-2xl"></i>
                                 </li>
-                                <li class=" py-2 px-2 cursor-pointer">
+                                <li onclick="openEditStory()" class="py-2 px-2 cursor-pointer">
                                     <i class="fas fa-ellipsis-h text-white text-2xl"></i>
                                 </li>
+                                <div id="ModalEditStory" class="w-80 right-2 top-12 absolute bg-gray-200 border-2
+                                dark:bg-dark-third dark:text-white font-bold border-solid 
+                                border-gray-300 dark:border-dark-second z-50 rounded-lg hidden">
+                                    <ul class="w-full">
+                                        <li onclick="deleteStoryUser('{{$story[0]->IDTaiKhoan}}')" class="w-full px-2.5 py-2 dark:bg-dark-third bg-gray-200 
+                                        hover:bg-gray-300 dark:hover:bg-dark-second cursor-pointer">
+                                            <div class="flex items-center">
+                                                <i class="far fa-trash-alt text-2xl mr-3"></i>
+                                                Xóa ảnh
+                                            </div>
+                                        </li>
+                                        <li class="w-full px-2.5 py-2 dark:bg-dark-third bg-gray-200 
+                                        hover:bg-gray-300 dark:hover:bg-dark-second cursor-pointer">
+                                            <div class="flex items-center">
+                                                <i class="fas fa-exclamation-triangle text-2xl mr-3"></i>
+                                                Đã xảy ra lỗi
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </ul>
                         </div>
                     </div>

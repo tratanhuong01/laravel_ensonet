@@ -93,6 +93,20 @@ class Functions extends Model
         }
         return $newListFriend;
     }
+    public static function getListFriendsUserLimit($idTaiKhoan)
+    {
+        $listFriend = DB::table('moiquanhe')
+            ->skip(0)->take(9)
+            ->where('moiquanhe.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('moiquanhe.TinhTrang', '=', '3')
+            ->orderBy('moiquanhe.NgayChapNhan', 'desc')
+            ->get();
+        $newListFriend = array();
+        for ($i = 0; $i < sizeof($listFriend); $i++) {
+            $newListFriend[$i] = DB::table('taikhoan')->where('taikhoan.IDTaiKhoan', '=', $listFriend[$i]->IDBanBe)->get();;
+        }
+        return $newListFriend;
+    }
     public static function getMutualFriend($idBanBe, $idTaiKhoan)
     {
         $listFriend = DB::table('moiquanhe')

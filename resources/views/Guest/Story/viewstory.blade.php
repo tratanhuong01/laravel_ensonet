@@ -28,6 +28,7 @@ $user = Session::get('user')
 <body>
     <div class="w-full bg-gray-100 dark:bg-dark-main h-screen relative" id="main">
         @include('Header')
+        <input type="hidden" name="" id="IDStoryCurrent" value="{{ $story[0]->IDStory}}">
         <div class="w-full flex z-10 pt-16 bg-gray-100 dark:bg-dark-main lg:w-full lg:mx-auto xl:w-full" id="content">
             <div class="w-1/4 bg-white dark:bg-dark-second p-4 shadow-2xl wrapper-content-right overflow-y-auto">
                 <div class="w-full flex">
@@ -241,6 +242,7 @@ $user = Session::get('user')
                                     IDTaiKhoan: '{{ Session::get("user")[0]->IDTaiKhoan }}'
                                 },
                                 success: function(responses) {
+                                    $('#IDStoryCurrent').val(response.IDStory)
                                     $('#img' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').removeClass(responses.Border)
                                     $('#tag' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').html(responses.SoTheMoi)
                                     $('.img-story').attr('src', "/" + response.DuongDan);
@@ -299,6 +301,7 @@ $user = Session::get('user')
                 IDTaiKhoan: IDTaiKhoan
             },
             success: function(response) {
+                $('#IDStoryCurrent').val(response.IDStory)
                 if (typeof response.end !== 'undefined') {
                     document.getElementById('myAudio').pause();
                     window.clearInterval(s);
@@ -349,6 +352,7 @@ $user = Session::get('user')
                 IDTaiKhoan: IDTaiKhoan
             },
             success: function(response) {
+                $('#IDStoryCurrent').val(response.IDStory)
                 if (typeof response.end !== 'undefined') {
                     document.getElementById('myAudio').pause();
                     window.clearInterval(s);
@@ -375,6 +379,73 @@ $user = Session::get('user')
                     document.getElementById('myAudio').play();
                     $('#btnClickStart').removeClass('far fa-play-circle');
                     $('#btnClickStart').addClass('far fa-stop-circle');
+                }
+            }
+        });
+    }
+
+    function openEditStory() {
+        if ($('#ModalEditStory').hasClass('hidden')) {
+            window.clearInterval(s);
+            $('#ModalEditStory').removeClass('hidden')
+            $('#btnClickStart').removeClass('far fa-stop-circle');
+            $('#btnClickStart').addClass('far fa-play-circle');
+            document.getElementById('myAudio').pause();
+        } else {
+            s = setIntervalLoad(s);
+            $('#ModalEditStory').addClass('hidden')
+            $('#btnClickStart').removeClass('far fa-play-circle');
+            $('#btnClickStart').addClass('far fa-stop-circle');
+            document.getElementById('myAudio').play();
+
+        }
+    }
+
+    function deleteStoryUser(IDTaiKhoan) {
+        $.ajax({
+            method: "GET",
+            url: "/ProcessDeleteStory",
+            data: {
+                IDStory: $('#IDStoryCurrent').val(),
+                IDTaiKhoan: IDTaiKhoan
+            },
+            success: function(response) {
+                console.log($('#IDStoryCurrent').val())
+                var number = new Number(response.num);
+                if (number == 0) {
+
+                } else {
+                    var data = 100 / number;
+                    for (let index = 0; index < number; index++) {
+                        document.getElementById('loadingAudio' + index).parentElement.classList.add('w-' + Math.round(data) + '%')
+                    }
+                    document.getElementById('loadingAudio' + number).parentElement.remove();
+                    s = setIntervalLoad(s);
+                    $.ajax({
+                        method: "POST",
+                        url: "{{ route('ProcessLoadAndAddViewStory') }}",
+                        data: {
+                            IDStory: response.IDStory,
+                            IDTaiKhoan: '{{ Session::get("user")[0]->IDTaiKhoan }}'
+                        },
+                        success: function(responses) {
+                            $('#IDStoryCurrent').val(response.IDStory)
+                            $('#img' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').removeClass(responses.Border)
+                            $('#tag' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').html(responses.SoTheMoi)
+                            $('.img-story').attr('src', "/" + response.DuongDan);
+                            $('#timeStory').html(response.ThoiGianDangStory)
+                            if ($('#' + response.IDStory).length > 0)
+                                changeStoryImage(document.getElementById(response.IDStory), 0)
+                            $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
+                            $('#myAudio').attr('src', '/' + responses.urlMp3);
+                            document.getElementById('myAudio').play();
+                            $('#btnClickStart').removeClass('far fa-play-circle');
+                            $('#btnClickStart').addClass('far fa-stop-circle');
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        }
+                    });
                 }
             }
         });
