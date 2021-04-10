@@ -5,7 +5,7 @@ function AcceptFriendIndex(UserMain, UserOther) {
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var i = document.createElement('i');
-            i.className = 'fas fa-circle-notch fa-spin text-black text-xl';
+            i.className = 'fas fa-circle-notch fa-spin text-gray-300 text-xl';
             nhanYeuCau[0].innerHTML = '';
             nhanYeuCau[0].appendChild(i);
             var documents = this.responseText;
@@ -18,6 +18,51 @@ function AcceptFriendIndex(UserMain, UserOther) {
     xmlhttp.open("GET", '/ProcessAcceptFriendIndex?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
     xmlhttp.send();
 
+}
+
+function AcceptFriendThis(UserMain, UserOther,Element) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var i = document.createElement('i');
+            i.className = 'fas fa-circle-notch fa-spin text-gray-500 text-xm';
+            Element.innerHTML = '';
+            Element.appendChild(i);
+            setTimeout(function () {
+                $('#' + UserOther + 'profile').remove();
+                if ($('#numberRequestwww').length > 0) {
+                    var number = new Number($('#numberRequestwww').html());
+                    number--;
+                    $('#numberRequestwww').html(number);
+                 }
+            }, 1500);
+            
+        }
+    };
+    xmlhttp.open("GET", '/ProcessAcceptFriendIndex?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
+    xmlhttp.send();
+}
+function CancelRequestFriendThis(UserMain, UserOther,Element) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var i = document.createElement('i');
+            i.className = 'fas fa-circle-notch fa-spin text-gray-500 text-xm';
+            Element.innerHTML = '';
+            Element.appendChild(i);
+            setTimeout(function () {
+                $('#' + UserOther + 'profile').remove();
+                if ($('#numberRequestwww').length > 0) {
+                    var number = new Number($('#numberRequestwww').html());
+                    number--;
+                    $('#numberRequestwww').html(number);
+                 }
+            }, 1500);
+            
+        }
+    };
+    xmlhttp.open("GET", '/ProcessCancelRequestFriendIndex?UserMain=' + UserMain + '&UserOther=' + UserOther, true);
+    xmlhttp.send();
 }
 
 // hủy yêu cầu kết bạn

@@ -124,4 +124,16 @@ class ProfileController extends Controller
         Session::forget('users');
         Session::put('users', $user);
     }
+    public function loadAjaxProfileFriendRequest(Request $request)
+    {
+        $users = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+        return response()->json([
+            'view' => "" . view('Component/profile')->with('users', $users)
+        ]);
+    }
+    public function loadProfileFriendRequest($id)
+    {
+        $users = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $id)->get();
+        return view('Guest/FriendRequest')->with('users', $users);
+    }
 }

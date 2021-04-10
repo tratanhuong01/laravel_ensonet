@@ -192,3 +192,17 @@ function editDescribeUser(IDTaiKhoan,Element) {
         });
     }
 }
+function loadAjaxProfileFriendsRequest(IDTaiKhoan) {
+    $.ajax({
+        method: "GET",
+        url : "/ProcessLoadProfileFriendRequest",
+        data : {
+            IDTaiKhoan : IDTaiKhoan
+        },
+        success : function(response) {
+            window.history.pushState('','','/friends/' + IDTaiKhoan);
+            $('#profileRight').html(response.view);
+            $('#' + IDTaiKhoan + 'profile').addClass('bg-gray-200 dark:bg-dark-third');
+        }
+    });
+}

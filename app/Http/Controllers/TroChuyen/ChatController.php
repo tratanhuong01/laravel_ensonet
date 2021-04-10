@@ -7,13 +7,17 @@ use App\Events\LoadingTypingMessageOnEvent;
 use App\Events\LoadingTypingMessageOffEvent;
 use App\Events\SeenMessageEvent;
 use App\Http\Controllers\Controller;
+use App\Models\Camxuctinnhan;
+use App\Models\Functions;
 use App\Models\Nhomtinnhan;
 use App\Models\Notify;
+use App\Models\Process;
 use App\Models\StringUtil;
 use App\Models\Taikhoan;
 use App\Models\Thongbao;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
+use App\Process\DataProcessFive;
 use App\Process\DataProcessSecond;
 use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
@@ -287,20 +291,17 @@ class ChatController extends Controller
         $message = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $request->IDNhomTinNhan)
             ->get();
         foreach ($message as $key => $value) {
-            if ($value->TrangThai == '0') {
-            } else {
-                $arr = explode('@', $value->TrangThai);
-                $data = '';
-                for ($i = 0; $i < count($arr) -  1; $i++) {
-                    if (explode('#', $arr[$i])[0] == $request->IDTaiKhoan) {
-                        $data .= $request->IDTaiKhoan . '#2@';
-                    } else {
-                        $data .= $arr[$i] . '@';
-                    }
+            $arr = explode('@', $value->TrangThai);
+            $data = '';
+            for ($i = 0; $i < count($arr) -  1; $i++) {
+                if (explode('#', $arr[$i])[0] == $request->IDTaiKhoan) {
+                    $data .= $request->IDTaiKhoan . '#2@';
+                } else {
+                    $data .= $arr[$i] . '@';
                 }
-                DB::update('UPDATE tinnhan SET tinnhan.TrangThai = ? WHERE 
-                tinnhan.IDTinNhan = ? ', [$data, $value->IDTinNhan]);
             }
+            DB::update('UPDATE tinnhan SET tinnhan.TrangThai = ? WHERE 
+                tinnhan.IDTinNhan = ? ', [$data, $value->IDTinNhan]);
         }
         foreach ($member as $key => $value) {
             event(new SeenMessageEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
@@ -333,5 +334,56 @@ class ChatController extends Controller
         return response()->json([
             'view' => ''
         ]);
+    }
+    public function feelMessage(Request $request)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $user = Session::get('user');
+        $rs = Camxuctinnhan::where('camxuctinnhan.IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
+            ->where('camxuctinnhan.IDTinNhan', '=', $request->IDTinNhan)
+            ->get();
+        if (count($rs) == 0) {
+            $idCamXucTinNhan = StringUtil::ID('camxuctinnhan', 'IDCamXucTinNhan');
+            Camxuctinnhan::add(
+                $idCamXucTinNhan,
+                $user[0]->IDTaiKhoan,
+                $request->IDTinNhan,
+                $request->LoaiCamXuc,
+                date("Y-m-d H:i:s")
+            );
+            return response()->json([
+                'view' => "" . Process::getFeelMesage($request->IDTinNhan)
+            ]);
+        } else {
+            DB::update(
+                'UPDATE camxuctinnhan SET camxuctinnhan.LoaiCamXuc = ? WHERE 
+                camxuctinnhan.IDTaiKhoan = ? AND camxuctinnhan.IDTinNhan = ?',
+                [$request->LoaiCamXuc, $user[0]->IDTaiKhoan, $request->IDTinNhan]
+            );
+            return response()->json([
+                'view' => "" . Process::getFeelMesage($request->IDTinNhan)
+            ]);
+        }
+    }
+    public function viewFeel(Request $request)
+    {
+        Session::put('IDTinNhan', $request->IDTinNhan);
+        return view('Modal\ModalTroChuyen\ModalCamXuc')->with(
+            'data',
+            DataProcessFive::getDetailFeelMesage($request->IDTinNhan)
+        );
+    }
+    public function viewFeelOnly(Request $request)
+    {
+        if ($request->LoaiCamXuc == 'NULL')
+            return view('Modal\ModalTroChuyen\Child\ViewCamXuc')->with(
+                'data',
+                DataProcessFive::getDetailFeelMesage($request->IDTinNhan)
+            );
+        else
+            return view('Modal\ModalTroChuyen\Child\ViewCamXuc')->with(
+                'data',
+                DataProcessFive::getOnlyDetailFeelPost($request->IDTinNhan, $request->LoaiCamXuc)
+            );
     }
 }

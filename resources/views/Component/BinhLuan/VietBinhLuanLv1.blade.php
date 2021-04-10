@@ -8,9 +8,7 @@
     </form>
     <div class="w-11/12 ml-2 relative bg-gray-100 dark:bg-dark-third px-3 overflow-hidden" style="border-radius: 30px;">
         <div onkeyup="CommentPost('{{$item[0]->IDTaiKhoan}}',
-        '{{$item[0]->IDBaiDang}}',event)" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Write" class="border-none outline-none bg-gray-100 dark:bg-dark-third dark:text-white py-3" style="min-height: 30px;width: 96%;" contenteditable>
-            Viết bình luận....
-        </div>
+        '{{$item[0]->IDBaiDang}}',event)" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Write" class="border-none outline-none bg-gray-100 dark:bg-dark-third dark:text-white py-3" style="min-height: 30px;width: 96%;" contenteditable placeholder="Viết bình luận..."></div>
         <script>
             $("#{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Write").keypress(function(e) {
                 return e.which != 13;

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Session;
 
 $user = Session::get('user');
 ?>
-<div class="w-full mx-auto flex py-2 md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
+<div class="w-full py-2  flex">
     @include('Component/MoiQuanHe/DanhMuc')
     <div class="w-4/5 xl:w-2/5 pb-1.5  text-right mr-3 pt-2">
         <span onclick="RequestFriend('{{ $user[0]->IDTaiKhoan }}','{{ $users[0]->IDTaiKhoan }}')" class="p-3 mr-2  cursor-pointer dark:bg-dark-third dark:text-white bg-gray-200 font-bold 
@@ -19,7 +19,7 @@ $user = Session::get('user');
         <span class="p-3 cursor-pointer dark:bg-dark-third dark:text-white bg-gray-200 font-bold rounded-lg"><i class="fas fa-ellipsis-h dark:text-white"></i></span>
     </div>
 </div>
-<div class="w-full hidden sm:flex mx-auto py-2 md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
+<div class="w-full py-2  hidden sm:flex">
     <div class="w-3/4">
         <p class="text-2xl font-bold dark:text-white" style="font-family: system-ui;">
             Bạn có biết {{ $users[0]->Ten }} không ? </p>

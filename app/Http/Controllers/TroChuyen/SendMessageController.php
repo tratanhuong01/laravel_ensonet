@@ -140,4 +140,60 @@ class SendMessageController extends Controller
                 return 'sai';
         }
     }
+    public function sendStickerMessage(Request $request)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
+        $trangThai = DataProcessThird::checkChatUserActivity($request->IDNhomTinNhan) == true ?
+            DataProcessThird::createTrangThai($request->IDNhomTinNhan, 1) :
+            DataProcessThird::createTrangThai($request->IDNhomTinNhan, 0);
+        $json[0] = (object)[
+            'IDNoiDungTinNhan' => '100001',
+            'LoaiTinNhan' => '2',
+            'DuongDan' => $request->IDNhanDan,
+            'NoiDungTinNhan' => ''
+        ];
+        Tinnhan::add(
+            $idTinNhan,
+            $request->IDNhomTinNhan,
+            Session::get('user')[0]->IDTaiKhoan,
+            json_encode($json),
+            DataProcess::createState($request->IDNhomTinNhan, '1'),
+            $trangThai,
+            '1',
+            date("Y-m-d H:i:s")
+        );
+        $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)
+            ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->get();
+        $getUserOfGroupMessage = DataProcess::getUserOfGroupMessage($request->IDNhomTinNhan);
+        foreach ($getUserOfGroupMessage as $key => $value) {
+            if (count($getUserOfGroupMessage) == 1) {
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $value->IDTaiKhoan,
+                    'TINNHAN001',
+                    $request->IDNhomTinNhan,
+                    Session::get('user')[0]->IDTaiKhoan,
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+                event(new ChatNorlEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
+            } else {
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $value->IDTaiKhoan,
+                    'TINNHAN001',
+                    $request->IDNhomTinNhan,
+                    Session::get('user')[0]->IDTaiKhoan,
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+                event(new ChatGroupEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
+            }
+        }
+        return response()->json([
+            'view' => "" . view('Modal/ModalTroChuyen/Child/ChatRight')->with('message', $message[0])
+        ]);
+    }
 }

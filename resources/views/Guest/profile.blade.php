@@ -133,7 +133,7 @@ $user = Session::get('user');
         </div>
         <?php $moiQuanHe = DB::table('moiquanhe')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
             ->where('IDBanBe', '=', $users[0]->IDTaiKhoan)->get(); ?>
-        <div class=" w-full relative py-2 hidden" id="moiQuanHe">
+        <div class="w-full relative mx-auto md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63% hidden" id="moiQuanHe">
             @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
             @include('Component/MoiQuanHe/ChinhChu')
             @elseif (sizeof($moiQuanHe) == 0)

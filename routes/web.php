@@ -374,6 +374,17 @@ Route::group(['namespace' => 'TroChuyen'], function () {
     //
     Route::get('ProcessSeenMessage', [TroChuyen\ChatController::class, 'seenMessage'])
         ->name('ProcessSeenMessage');
+
+    // ajax view lượt cảm xúc
+    Route::get('ProcessViewDetailFeelMessage', [TroChuyen\ChatController::class, 'viewFeel'])
+        ->name('ProcessViewDetailFeelMessage');
+
+    // ajax view lượt cảm xúc
+    Route::get('ProcessViewOnlyDetailFeelMessage', [TroChuyen\ChatController::class, 'viewFeelOnly'])
+        ->name('ProcessViewOnlyDetailFeelMessage');
+
+    Route::get('ProcessSendStickerMessage', [TroChuyen\SendMessageController::class, 'sendStickerMessage'])
+        ->name('ProcessSendStickerMessage');
 });
 
 //ajax xác nhận thành công
@@ -479,6 +490,13 @@ Route::get('ProcessTickAllIsRead', function () {
 //
 Route::post('ProcessEditDescribeUser', [ProfileController::class, 'editDescribeUser'])
     ->name('ProcessEditDescribeUser');
+
+//
+Route::get('ProcessLoadProfileFriendRequest', [ProfileController::class, 'loadAjaxProfileFriendRequest'])
+    ->name('ProcessLoadProfileFriendRequest');
+
+//
+Route::get('friends/{id}', [ProfileController::class, 'loadProfileFriendRequest']);
 
 //dark mode
 Route::get('ProcessDarkMode', function () {
@@ -752,3 +770,6 @@ Route::get('ProcessLoadMessageLimit', function (Request $request) {
         'index' => $request->index - 15
     ]);
 })->name('ProcessLoadMessageLimit');
+
+Route::get('ProcessFeelMessage', [TroChuyen\ChatController::class, 'feelMessage'])
+    ->name('ProcessFeelMessage');

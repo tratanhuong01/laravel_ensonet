@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Session;
 $user = Session::get('user');
 
 ?>
-<div class="w-full mx-auto flex py-2 md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%">
+<div class="w-full py-2  flex">
     @include('Component/MoiQuanHe/DanhMuc')
     <div class="w-5/12 py-1.5 text-right">
         <span onclick="openChat('{{ $users[0]->IDTaiKhoan }}')" class="p-3 mr-2 cursor-pointer dark:bg-dark-third dark:text-white bg-gray-200 font-bold rounded-lg" style="line-height: 24px;"><i class="fab fa-facebook-messenger dark:text-white" style="font-size: 20px;"></i>&nbsp;&nbsp;Nhắn tin</span>

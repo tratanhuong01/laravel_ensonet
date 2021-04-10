@@ -17,13 +17,7 @@ $user = Session::get('user');
     <div class="w-11/12 ml-2 relative bg-gray-100 dark:bg-dark-third px-3 overflow-hidden" style="border-radius: 30px;">
         <div onkeyup="RepCommentPost('{{ $cmt[0]->IDTaiKhoan }}',
         '{{ $comment->IDBaiDang }}','{{ $comment->IDBinhLuan }}',
-        '{{ $cmt[0]->IDBinhLuan }}',event)" id="{{ $cmt[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write" class="border-none outline-none bg-gray-100 dark:bg-dark-third dark:text-white py-3" style="min-height: 30px;width: 96%;" contenteditable>
-            @if ($idTag == $user[0]->IDTaiKhoan)
-            @else
-            {!! $name !!}
-            @endif
-
-        </div>
+        '{{ $cmt[0]->IDBinhLuan }}',event)" id="{{ $cmt[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write" class="border-none outline-none bg-gray-100 dark:bg-dark-third dark:text-white py-3" style="min-height: 30px;width: 96%;" contenteditable placeholder="Viết bình luận...">@if ($idTag == $user[0]->IDTaiKhoan)@else{!! $name !!}@endif</div>
         <script>
             $("#{{ $cmt[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write").keypress(function(e) {
                 return e.which != 13;

@@ -137,7 +137,7 @@ use Illuminate\Support\Facades\Session;
                                     <p class="font-bold dark:text-white">Lời mời kết bạn</p>
                                 </div>
                                 <div class="w-1/2 text-right">
-                                    <a href="" class="font-bold dark:text-white">Xem tất cả</a>
+                                    <a href="{{ url('friends') }}" class="font-bold dark:text-white">Xem tất cả</a>
                                 </div>
                             </div>
                             <div class="w-full" id="loiMoi">

@@ -57,11 +57,18 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
                 <div class="w-4/5 text-sm">
                     @isset($value[count($value) - 1])
                     @php
-                    $sws = $value[count($value) - 1]->TinhTrang == 0 ? '0' : explode('#',DataProcess::getState($value[count($value) - 1]->TinhTrang,
+                    $sws = explode('#',DataProcess::getState($value[count($value) - 1]->TinhTrang,
                     Session::get('user')[0]->IDTaiKhoan))[1];
                     @endphp
                     @if ($value[count($value) - 1]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
                     @switch($sws)
+                    @case('0')
+                    <span class="font-bold text-gray-500">
+                        You : {{ 'Bạn ' . $value[count($value) - 1]->NoiDung  }}
+                        &nbsp;&nbsp;
+                        {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}
+                        @break
+                    </span>
                     @case('1')
                     <span class="text-gray-500 dark:text-white">
                         You :
@@ -92,6 +99,14 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
                     @endswitch
                     @else
                     @switch($sws)
+                    @case('0')
+                    <span class="font-bold {{ DataProcessFive::checkMessageIsSeen($value[count($value) - 1]->IDTinNhan,
+                    Session::get('user')[0]->IDTaiKhoan) == 1 ? 'text-gray-500 ' : 'text-blue-500 '}}">
+                        {{$el[0]->Ten }} : {{ $value[count($value) - 1]->NoiDung  }}
+                        &nbsp;&nbsp;
+                        {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}
+                    </span>
+                    @break
                     @case('1')
                     <span class="{{ DataProcessFive::checkMessageIsSeen($value[count($value) - 1]->IDTinNhan,
                     Session::get('user')[0]->IDTaiKhoan) == 1 ? 'text-gray-500 ' : 'text-blue-500 '}}  font-bold">

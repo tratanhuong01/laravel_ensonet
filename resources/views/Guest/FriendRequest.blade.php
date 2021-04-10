@@ -41,7 +41,7 @@ $requestFriend = DataProcessSecond::getListRequestFriendNew($user[0]->IDTaiKhoan
                 <div class="wrapper-content-right mt-16 w-full overflow-x-hidden overflow-y-auto" style="height:750px;max-height: 750px;">
                     <div class="w-full ">
                         <span class="dark:text-white">
-                            <b>{{ count($requestFriend) }} lời mời kết bạn</b> <br>
+                            <b><span id="numberRequestwww">{{ count($requestFriend) }}</span> lời mời kết bạn</b> <br>
                         </span>
                         <span class="pr-4">
                             <p href="" onclick="requestFriendsM('{{ $user[0]->IDTaiKhoan }}')" class="text-1877F2 text-sm cursor-pointer">Xem lời mời đã gửi</p>
@@ -52,8 +52,8 @@ $requestFriend = DataProcessSecond::getListRequestFriendNew($user[0]->IDTaiKhoan
                         </p>
                         @else
                         @foreach($requestFriend as $key => $value)
-                        <div onclick="window.location.href=''" class="w-full flex py-2.5 px-0 cursor-pointer">
-                            <div class="w-1/5">
+                        <div id="{{$value->IDTaiKhoan}}profile" class="w-full flex py-2.5 px-0 cursor-pointer">
+                            <div class="w-1/5 " onclick="loadAjaxProfileFriendsRequest('{{$value->IDTaiKhoan}}')">
                                 <a href=""><img class="w-16 h-16 object-cover" src="/{{ $value->AnhDaiDien }}" alt=""></a>
                             </div>
                             <div class="w-4/5 pl-2 pr-4">
@@ -63,11 +63,15 @@ $requestFriend = DataProcessSecond::getListRequestFriendNew($user[0]->IDTaiKhoan
                                     <span class="float-right text-xs dark:text-white">{{ StringUtil::CheckDateTimeRequest($value->NgayGui) }}</span>
                                 </div>
                                 <div class="w-full flex py-2.5 px-0 text-sm font-bold">
-                                    <span class="w-7/12 text-center h-10 leading-10 mr-4 cursor-pointer" style="border-radius: 10px;background-color: #1877F2;">
-                                        <a class="text-white" href="">Xác Nhận</a>
+                                    <span onclick="AcceptFriendThis('{{ $user[0]->IDTaiKhoan }}',
+                                    '{{$value->IDTaiKhoan}}',this)" class="w-7/12 text-center h-10 leading-10 mr-4 
+                                    cursor-pointer text-white" style="border-radius: 10px;background-color: #1877F2;">
+                                        Xác Nhận
                                     </span>
-                                    <span class="w-7/12 text-center h-10 leading-10 cursor-pointer" style="background-color: #D8DADF;border-radius: 10px;">
-                                        <a class="color-black" href="">Xóa</a>
+                                    <span onclick="CancelRequestFriendThis('{{ $user[0]->IDTaiKhoan }}',
+                                    '{{$value->IDTaiKhoan }}',this)" class="w-7/12 text-center h-10 leading-10 cursor-pointer 
+                                     text-gray-700" style="background-color: #D8DADF;border-radius: 10px;">
+                                        Xóa
                                     </span>
                                 </div>
                             </div>
@@ -78,13 +82,20 @@ $requestFriend = DataProcessSecond::getListRequestFriendNew($user[0]->IDTaiKhoan
                         <br>
                 </div>
             </div>
-            <div class="w-3/4 fixed right-0 " style="max-height:876px;overflow-y: auto;">
+            <div class="w-3/4 fixed right-0 dark:bg-dark-main" id="profileRight" style="max-height:876px;overflow-y: auto;">
+                @if(isset($users))
+                @include('Component/profile',[
+                'user' => $user,
+                'users' => $users
+                ])
+                @else
                 <div class="text-center w-full py-96 dark:bg-dark-main">
                     <i class="fas fa-user-friends dark:text-white text-6xl"></i>
                     <p class="font-bold text-3xl py-2 dark:text-white" style="font-family: system-ui;">
                         Chọn tên người mà bạn muốn xem trước trang cá nhân
                     </p>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -103,7 +114,7 @@ $requestFriend = DataProcessSecond::getListRequestFriendNew($user[0]->IDTaiKhoan
         var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
         channel.bind('tests', function() {
             $.ajax({
-                method: "GET",
+                method: " GET",
                 url: "/ProcessNotificationShow",
                 success: function(response) {
                     $('#numNotification').html(response);

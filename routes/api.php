@@ -356,6 +356,8 @@ Route::get('ProcessOpenModalStickerChat', function (Request $request) {
         case 'Sticker':
             return response()->json([
                 'view' => "" . view('Modal/ModalTroChuyen/Child/NhanDan')
+                    ->with('IDNhomTinNhan', $request->IDNhomTinNhan)
+                    ->with('IDTaiKhoan', $request->IDTaiKhoan)
             ]);
             break;
         case 'Gif':

@@ -164,4 +164,44 @@ class Process extends Model
         $detailFeel[$loaiCamXuc] = $user;
         return $detailFeel;
     }
+    public static function getFeelMesage($idTinNhan)
+    {
+        $userFeel = Camxuctinnhan::where('camxuctinnhan.IDTinNhan', '=', $idTinNhan)->get();
+        $typeFeel = DB::select(
+            'SELECT DISTINCT  `LoaiCamXuc` FROM `camxuctinnhan` WHERE 
+                camxuctinnhan.IDTinNhan = ? ',
+            [$idTinNhan]
+        );
+        $countFeel1 = 0;
+        $countFeel2 = 0;
+        for ($i = 0; $i < count($typeFeel); $i++) {
+            if ($typeFeel[$i]->LoaiCamXuc == '0@1')
+                $countFeel1++;
+            else if ($typeFeel[$i]->LoaiCamXuc == '0@0')
+                $countFeel2++;
+        }
+        for ($i = 0; $i < count($typeFeel); $i++) {
+            if ($countFeel1 != 0 && $countFeel2 != 0) {
+                if ($typeFeel[$i]->LoaiCamXuc == '0@1')
+                    unset($typeFeel[$i]);
+            }
+        }
+        $typeFeel = array_values($typeFeel);
+        if (count($typeFeel) == 0) {
+            $camxuc = new Camxucbinhluan;
+            $camxuc->LoaiCamXuc = '0@1';
+            $typeFeel = array('0' => $camxuc);
+        }
+        $all = '';
+        for ($i = 0; $i < count($typeFeel); $i++) {
+            $all .= Functions::getFeelMain($typeFeel[$i]->LoaiCamXuc);
+        }
+        $arr[0] = $all;
+        $arr[1] = count($userFeel);
+        $arr[2] = $userFeel;
+        if ($arr[1] == 0)
+            return '';
+        else
+            return view('Modal\ModalTroChuyen\Child\SoLuongCamXuc')->with('arr', $arr);
+    }
 }

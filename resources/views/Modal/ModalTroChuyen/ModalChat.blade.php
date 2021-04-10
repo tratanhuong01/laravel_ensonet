@@ -81,6 +81,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         @else
         @include('Modal/ModalTroChuyen/Child/NewChat',['chater' => $chater])
         @foreach($messages as $key => $value)
+        @include('Modal/ModalTroChuyen/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin])
         @if(Session::get('user')[0]->IDTaiKhoan == $value->IDTaiKhoan)
         @if($value->LoaiTinNhan == 2)
         @include('Modal\ModalTroChuyen\Child\ChatCenter',['message' => $value])
@@ -190,7 +191,8 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                     </svg>
                 </li>
             </label>
-            <li onclick="openModalElementChildChat('Sticker','{{ $chater[0]->IDTaiKhoan }}')" class="float-left cursor-pointer p-1 fill-65676B  hover:bg-gray-200 rounded-full 
+            <li onclick="openModalElementChildChat('Sticker','{{ $chater[0]->IDTaiKhoan }}',
+            '{{$idNhomTinNhan}}')" class="float-left cursor-pointer p-1 fill-65676B  hover:bg-gray-200 rounded-full 
                 dark:hover:bg-dark-third">
                 <svg id="sticker{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" class="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji" height="20px" width="20px" viewBox="0 0 17 16" x="0px" y="0px">
                     <g fill-rule="evenodd">
@@ -215,11 +217,9 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             <?php $user = Session::get('user'); ?>
             <div oninput="typeChat('{{ $chater[0]->IDTaiKhoan }}')" onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',
             '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none 
-            rounded-2xl pl-2 outline-none py-1.5 break-all w-11/12  bg-gray-200  dark:bg-dark-third 
+            rounded-2xl pl-2 outline-none py-1.5 break-all w-11/12  bg-gray-200 dark:bg-dark-third 
             dark:text-white" style="min-height: 20px;" onclick="seenMessage(
-                '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" contenteditable placeholder="Aa">
-
-            </div>
+                '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" contenteditable placeholder="Aa"></div>
             <script>
                 $("#{{ $chater[0]->IDTaiKhoan }}PlaceTypeText").keypress(function(e) {
                     return e.which != 13;

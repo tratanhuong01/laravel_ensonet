@@ -2,6 +2,8 @@
 
 namespace App\Process;
 
+use App\Models\Camxuctinnhan;
+use App\Models\Functions;
 use App\Models\Moiquanhe;
 use App\Models\Taikhoan;
 use App\Models\Tinnhan;
@@ -71,5 +73,66 @@ class DataProcessFive extends Model
             }
         }
         return $array;
+    }
+    public static function getDetailFeelMesage($idTinNhan)
+    {
+        $typeFeel = DB::select(
+            'SELECT DISTINCT  `LoaiCamXuc` FROM `camxuctinnhan` WHERE camxuctinnhan.IDTinNhan = ? ',
+            [$idTinNhan]
+        );
+        $countFeel1 = 0;
+        $countFeel2 = 0;
+        for ($i = 0; $i < count($typeFeel); $i++) {
+            if ($typeFeel[$i]->LoaiCamXuc == '0@1')
+                $countFeel1++;
+            else if ($typeFeel[$i]->LoaiCamXuc == '0@0')
+                $countFeel2++;
+        }
+        for ($i = 0; $i < count($typeFeel); $i++) {
+            if ($countFeel1 != 0 && $countFeel2 != 0) {
+                if ($typeFeel[$i]->LoaiCamXuc == '0@1')
+                    unset($typeFeel[$i]);
+            }
+        }
+        $typeFeel = array_values($typeFeel);
+        if (count($typeFeel) == 0) {
+            $camxuc = new Camxuctinnhan;
+            $camxuc->LoaiCamXuc = '0@1';
+            $typeFeel = array('0' => $camxuc);
+        }
+        $user = array();
+        $k = 0;
+        for ($i = 0; $i < count($typeFeel); $i++) {
+            $data = Camxuctinnhan::where('camxuctinnhan.LoaiCamXuc', 'LIKE', '%' .
+                explode('@', $typeFeel[$i]->LoaiCamXuc)[0] . '@' . '%')
+                ->where('camxuctinnhan.IDTinNhan', '=', $idTinNhan)->get();
+            for ($j = 0; $j < count($data); $j++) {
+                $u = DB::table('taikhoan')
+                    ->where('taikhoan.IDTaiKhoan', '=', $data[$j]->IDTaiKhoan)
+                    ->get();
+                $user[$k] = $u;
+                $k++;
+            }
+            $k = 0;
+            $detailFeel[$typeFeel[$i]->LoaiCamXuc] = $user;
+            $user = NULL;
+        }
+        return $detailFeel;
+    }
+    public static function getOnlyDetailFeelPost($idTinNhan, $loaiCamXuc)
+    {
+        $user = array();
+        $k = 0;
+        $data = Camxuctinnhan::where('camxuctinnhan.LoaiCamXuc', 'LIKE', '%' . explode('@', $loaiCamXuc)[0] . '@' . '%')
+            ->where('camxuctinnhan.IDTinNhan', '=', $idTinNhan)->get();
+        for ($j = 0; $j < count($data); $j++) {
+            $u = DB::table('taikhoan')
+                ->where('taikhoan.IDTaiKhoan', '=', $data[$j]->IDTaiKhoan)
+                ->get();
+            $user[$k] = $u;
+            $k++;
+        }
+        $detailFeel[$loaiCamXuc] = $user;
+        return $detailFeel;
     }
 }

@@ -9,6 +9,7 @@ use App\Models\StringUtil;
 use App\Models\Thongbao;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
+use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -27,13 +28,16 @@ class ColorMessageController extends Controller
         WHERE IDNhomTinNhan = ? ', [$request->IDMauTinNhan, $request->IDNhomTinNhan]);
         $getUserOfGroupMessage = DataProcess::getUserOfGroupMessage($request->IDNhomTinNhan);
         $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
+        $trangThai = DataProcessThird::checkChatUserActivity($request->IDNhomTinNhan) == true ?
+            DataProcessThird::createTrangThai($request->IDNhomTinNhan, 1) :
+            DataProcessThird::createTrangThai($request->IDNhomTinNhan, 0);
         Tinnhan::add(
             $idTinNhan,
             $request->IDNhomTinNhan,
             Session::get('user')[0]->IDTaiKhoan,
             "đã thay đổi màu sắc cuộc trò chuyện",
-            '0',
-            '0',
+            DataProcess::createState($request->IDNhomTinNhan, '0'),
+            $trangThai,
             '2',
             date("Y-m-d H:i:s")
         );

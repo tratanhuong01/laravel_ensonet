@@ -230,4 +230,28 @@ class StringUtil extends Model
         $s = explode(':', explode(' ', $datetime)[1])[2];
         return array($d, $n, $y, $h, $m, $s);
     }
+    public static function getTimeChat($datetime)
+    {
+        $d = explode('-', explode(' ', $datetime)[0])[2];
+        $t = explode('-', explode(' ', $datetime)[0])[1];
+        $y = explode('-', explode(' ', $datetime)[0])[0];
+        $h = explode(':', explode(' ', $datetime)[1])[0];
+        $m = explode(':', explode(' ', $datetime)[1])[1];
+        $s = explode(':', explode(' ', $datetime)[1])[2];
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $timeInput = strtotime($datetime);
+        $timeCenter = strtotime(explode(' ', date("Y-m-d H:i:s"))[0] . ' 00:00:00');
+        $timeCurrent = time();
+        $timeDived = $timeCurrent - $timeCenter;
+        $time = $timeCurrent - $timeInput;
+        $sec = $time;
+        $day = round($sec / (86400));
+        $week = round($sec / 604800);
+        $month = round($sec / 2629440);
+        $year = round($sec / 31553280);
+        if ($time < $timeDived)
+            return $h . ' : ' . $m;
+        else
+            return $h . ' : ' . $m . ' , ' . $d . ' Tháng ' . $t . ' , ' . $y;
+    }
 }
