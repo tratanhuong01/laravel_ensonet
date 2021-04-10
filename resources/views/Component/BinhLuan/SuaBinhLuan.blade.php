@@ -16,7 +16,7 @@ use App\Models\Nhandan;
             <input id="{{ $comment->IDBaiDang.$comment->IDBinhLuan }}DuongDanHinhAnh" class="hidden" value="{{ json_decode($comment->NoiDungBinhLuan)->DuongDan }}">
             @break
             @case('2')
-            <input id="{{ $comment->IDBaiDang.$comment->IDBinhLuan }}IDNhanDan" class="hidden" name="IDNhanDan" value="{{ json_decode($comment->NoiDungBinhLuan)->DuongDan }}">
+            <input id="{{ $comment->IDBinhLuan }}IDNhanDan" class="hidden" name="IDNhanDan" value="{{ json_decode($comment->NoiDungBinhLuan)->DuongDan }}">
             @break
             @endswitch
         </form>

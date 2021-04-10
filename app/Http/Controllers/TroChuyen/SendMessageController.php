@@ -25,16 +25,50 @@ class SendMessageController extends Controller
         $trangThai = DataProcessThird::checkChatUserActivity($request->IDNhomTinNhan) == true ?
             DataProcessThird::createTrangThai($request->IDNhomTinNhan, 1) :
             DataProcessThird::createTrangThai($request->IDNhomTinNhan, 0);
-        Tinnhan::add(
-            $idTinNhan,
-            $request->IDNhomTinNhan,
-            Session::get('user')[0]->IDTaiKhoan,
-            $request->NoiDungTinNhan,
-            DataProcess::createState($request->IDNhomTinNhan, '1'),
-            $trangThai,
-            '1',
-            date("Y-m-d H:i:s")
-        );
+        $json = [];
+        if ($request->hasFile('image_0')) {
+            $id = 10000;
+            $json = [];
+            for ($i = 0; $i < (int)$request->numberArray; $i++) {
+                $file = $request->file('image_' . $i);
+                $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . '_' . $i . '.jpg';
+                $file->move(public_path('img/ImageMessage'), $nameFile);
+                $json[$i] = (object)[
+                    'IDNoiDungTinNhan' => $id,
+                    'LoaiTinNhan' => '1',
+                    'DuongDan' => 'img/ImageMessage/' . $nameFile,
+                    'NoiDungTinNhan' => ''
+                ];
+                $id++;
+            }
+            Tinnhan::add(
+                $idTinNhan,
+                $request->IDNhomTinNhan,
+                Session::get('user')[0]->IDTaiKhoan,
+                json_encode($json),
+                DataProcess::createState($request->IDNhomTinNhan, '1'),
+                $trangThai,
+                '1',
+                date("Y-m-d H:i:s")
+            );
+        } else {
+            $json[0] = (object)[
+                'IDNoiDungTinNhan' => '10001',
+                'LoaiTinNhan' => '0',
+                'DuongDan' => '',
+                'NoiDungTinNhan' => $request->NoiDungTinNhan
+            ];
+            Tinnhan::add(
+                $idTinNhan,
+                $request->IDNhomTinNhan,
+                Session::get('user')[0]->IDTaiKhoan,
+                json_encode($json),
+                DataProcess::createState($request->IDNhomTinNhan, '1'),
+                $trangThai,
+                '1',
+                date("Y-m-d H:i:s")
+            );
+        }
         $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)
             ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->get();

@@ -393,13 +393,13 @@ class StoryController extends Controller
         Story::where('story.IDStory', '=', $request->IDStory)->delete();
         if (File::exists(public_path($story[0]->DuongDan)))
             File::delete(public_path($story[0]->DuongDan));
-        $story =  Story::where('story.IDTaiKhoan', '=', $request->IDTaiKhoan)
+        $storys =  Story::where('story.IDTaiKhoan', '=', $request->IDTaiKhoan)
             ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
             ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderBy('story.ThoiGianDangStory', 'ASC')
             ->get();
         return response()->json([
-            'num' => count($story)
+            'num' => count($storys)
         ]);
     }
 }

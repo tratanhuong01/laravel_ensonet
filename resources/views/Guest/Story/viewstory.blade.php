@@ -28,7 +28,8 @@ $user = Session::get('user')
 <body>
     <div class="w-full bg-gray-100 dark:bg-dark-main h-screen relative" id="main">
         @include('Header')
-        <input type="hidden" name="" id="IDStoryCurrent" value="{{ $story[0]->IDStory}}">
+        <input type="hidden" name="" id="IDStoryCurrent" value="{{ count($story) == 0 
+        ? '' : $story[0]->IDStory }}">
         <div class="w-full flex z-10 pt-16 bg-gray-100 dark:bg-dark-main lg:w-full lg:mx-auto xl:w-full" id="content">
             <div class="w-1/4 bg-white dark:bg-dark-second p-4 shadow-2xl wrapper-content-right overflow-y-auto">
                 <div class="w-full flex">
@@ -196,6 +197,7 @@ $user = Session::get('user')
 
         }
     }
+
     window.onload = function() {
         var heightScreen = window.innerHeight - 64;
         document.getElementsByClassName("story-right")[0].style.height = heightScreen + "px";
@@ -410,42 +412,30 @@ $user = Session::get('user')
                 IDTaiKhoan: IDTaiKhoan
             },
             success: function(response) {
-                console.log($('#IDStoryCurrent').val())
+                window.clearInterval(s);
+                $('#ModalEditStory').addClass('hidden');
                 var number = new Number(response.num);
                 if (number == 0) {
 
                 } else {
-                    var data = 100 / number;
-                    for (let index = 0; index < number; index++) {
-                        document.getElementById('loadingAudio' + index).parentElement.classList.add('w-' + Math.round(data) + '%')
-                    }
-                    document.getElementById('loadingAudio' + number).parentElement.remove();
-                    s = setIntervalLoad(s);
-                    $.ajax({
-                        method: "POST",
-                        url: "{{ route('ProcessLoadAndAddViewStory') }}",
-                        data: {
-                            IDStory: response.IDStory,
-                            IDTaiKhoan: '{{ Session::get("user")[0]->IDTaiKhoan }}'
-                        },
-                        success: function(responses) {
-                            $('#IDStoryCurrent').val(response.IDStory)
-                            $('#img' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').removeClass(responses.Border)
-                            $('#tag' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').html(responses.SoTheMoi)
-                            $('.img-story').attr('src', "/" + response.DuongDan);
-                            $('#timeStory').html(response.ThoiGianDangStory)
-                            if ($('#' + response.IDStory).length > 0)
-                                changeStoryImage(document.getElementById(response.IDStory), 0)
-                            $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
-                            $('#myAudio').attr('src', '/' + responses.urlMp3);
-                            document.getElementById('myAudio').play();
-                            $('#btnClickStart').removeClass('far fa-play-circle');
-                            $('#btnClickStart').addClass('far fa-stop-circle');
-                        },
-                        error: function(err) {
-                            console.log(err);
+                    var datas = 100 / number;
+                    document.getElementById('loadingAudio' + numberStory).parentElement.remove();
+                    var st = 0;
+                    for (let index = 0; index <= number; index++)
+                        if (numberStory != index) {
+                            document.getElementById('loadingAudio' + index).id = 'loadingAudio' + st;
+                            st++;
                         }
-                    });
+                    for (let index = 0; index < number; index++) {
+                        document.getElementById('loadingAudio' + index).parentElement.classList.add('w-' + Math.round(datas) + '%')
+                        // document.getElementById('loadingAudio' + index).parentElement.classList.remove('w-' + Math.round(100 / (number + 1)) + '%')
+                    }
+                    data = 100;
+                    countStory = response.num;
+                    numberStory = numberStory == 0 ? numberStory - 1 : numberStory - 2;
+                    $('#btnClickStart').removeClass('far fa-play-circle');
+                    $('#btnClickStart').addClass('far fa-stop-circle');
+                    s = setIntervalLoad(s);
                 }
             }
         });

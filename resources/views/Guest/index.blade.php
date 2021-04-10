@@ -207,6 +207,19 @@ use Illuminate\Support\Facades\Session;
     <?php redirect()->to('login')->send(); ?>
     @endif
     <script>
+        var store = (function() {
+            var map = {};
+
+            return {
+                set: function(name, value) {
+                    map[name] = value;
+                },
+                get: function(name) {
+                    return map[name];
+                }
+            };
+        })();
+        var arrayImage = new Array();
         $('#modalHeaderRight').html('')
         Pusher.logToConsole = true;
         var pusher = new Pusher('5064fc09fcd20f23d5c1', {

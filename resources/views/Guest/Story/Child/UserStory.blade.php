@@ -20,9 +20,7 @@ use Illuminate\Support\Facades\Session;
                             @foreach($allStory[0] as $key => $value)
                             @php
                             $width = 'w-' . round(100/count($allStory[0])) . '%';
-                            $widthChild = count(DataProcessThird::checkUserViewThisStory($user[0]->IDTaiKhoan,$value->IDStory)) == 0
-                            ? 'w-0'
-                            : 'w-' . count($allStory[0]) * round(100/count($allStory[0])) . '%'
+                            $widthChild = 'w-0';
                             @endphp
                             <li class="{{ $width }} bg-gray-300 mr-1 cursor-pointer">
                                 <div id="loadingAudio{{$key}}" class="bg-white py-0.5 {{ $widthChild }}"></div>

@@ -32,7 +32,10 @@ class ChatController extends Controller
             ->get();
         $chater = DataProcess::getUserOfGroupMessage(DataProcess::checkIsSimilarGroupMessage($sender, $receiver));
         $messages = DataProcess::getMessageByID($sender, $receiver);
+        $index = count($messages);
+        $messages = DataProcess::getMessageByID($sender, $receiver);
         return view('Modal\ModalTroChuyen\ModalChat')->with('chater', $chater)
+            ->with('index',  $index - 15)
             ->with('messages', $messages)
             ->with('idNhomTinNhan', DataProcess::checkIsSimilarGroupMessage($sender, $receiver));
     }
@@ -267,11 +270,13 @@ class ChatController extends Controller
     public function openMessageGroup(Request $request)
     {
         $chater = (DataProcess::getUserOfGroupMessage($request->IDNhomTinNhan));
-        if (count($chater) == 1)
+        if (count($chater) == 1) {
+            $messages = DataProcess::getMessageByNhomTinNhan($request->IDNhomTinNhan);
             return view('Modal\ModalTroChuyen\ModalChat')->with('chater', $chater)
-                ->with('messages', DataProcess::getMessageByNhomTinNhan($request->IDNhomTinNhan))
+                ->with('index', count($messages))
+                ->with('messages', DataProcess::getMessageByNhomTinNhanLimit($request->IDNhomTinNhan, count($messages) - 15))
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan);
-        else
+        } else
             return view('Modal\ModalTroChuyen\ModalGroupChat')->with('chater', $chater)
                 ->with('messages', DataProcess::getMessageByNhomTinNhan($request->IDNhomTinNhan))
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan);

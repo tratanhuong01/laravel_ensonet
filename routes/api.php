@@ -7,6 +7,7 @@ use App\Http\Controllers\BaiDang\RepCommentController;
 use App\Models\Gioithieu;
 use App\Models\Story;
 use App\Models\Taikhoan;
+use App\Process\DataProcess;
 use App\Process\DataProcessFive;
 use App\Process\DataProcessFour;
 use App\Process\DataProcessSecond;
@@ -349,3 +350,21 @@ Route::get('ProcessViewPrivacyAbout', function () {
 Route::get('ProcessPrivacyAbouts', function (Request $request) {
     return view('Component/Child/QuyenRiengTuGioiThieu')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
 })->name('ProcessPrivacyAbouts');
+
+Route::get('ProcessOpenModalStickerChat', function (Request $request) {
+    switch ($request->type) {
+        case 'Sticker':
+            return response()->json([
+                'view' => "" . view('Modal/ModalTroChuyen/Child/NhanDan')
+            ]);
+            break;
+        case 'Gif':
+            // return response()->json([
+            //     'view' => "" . view('Modal/ModalTroChuyen/Child/Gif')
+            // ]);
+            break;
+        default:
+            # code...
+            break;
+    }
+});

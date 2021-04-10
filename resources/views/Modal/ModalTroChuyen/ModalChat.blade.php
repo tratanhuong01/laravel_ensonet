@@ -8,12 +8,11 @@ use App\Models\StringUtil;
 <div id="{{ $chater[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
 dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     <?php
-    echo "<style>
-    .mess-right-child-" . $idNhomTinNhan . " {
-            background-color: #" . (count($messages) == 0 ? '65676B' : $messages[0]->IDMauTinNhan) . ";
-        }
-    </style>";
+    echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
+        (count($messages) == 0 ? '65676B' :
+            $messages[0]->IDMauTinNhan) . ";}</style>";
     ?>
+    <input type="hidden" name="indexMessage" id="indexMessage" value="{{ $index - 30 == 0 ? 0 : $index - 30 }}">
     <div class="w-full flex py-1 border-b-2 border-solid border-gray-200  dark:border-dark-third">
         <div class=" pb-0.5">
             <div class="w-10 h-10 relative">
@@ -148,6 +147,20 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 </li>
             </ul>
         </div>
+        <div id="{{ $chater[0]->IDTaiKhoan }}imageChat" class=" absolute rounded-2xl z-10 bg-white 
+        dark:bg-dark-second hidden" style="bottom: 102%;width: 335px;">
+            <ul class="flex p-2 overflow-x-auto" style="max-width: 335px;width: 335px;">
+                <li id="{{$chater[0]->IDTaiKhoan}}liLoadAdd" class="w-16 h-16 rounded-lg text-center mr-2 bg-gray-300  flex-shrink-0 dark:bg-dark-third flex justify-center">
+                    <input onchange="loadAddImageChat(this,'{{$chater[0]->IDTaiKhoan}}')" type="file" name="fileImageAdd[]" class="hidden" id="{{ $chater[0]->IDTaiKhoan }}fileImageChatMainAdd" multiple="multiple">
+                    <label for="{{ $chater[0]->IDTaiKhoan }}fileImageChatMainAdd" class="flex items-center">
+                        <i class="fas fa-file-image text-2xl dark:text-white flex items-center"></i>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div id="{{ $chater[0]->IDTaiKhoan }}modalChatElement" class="bg-white my-2 absolute w-72 dark:border-dark-second 
+        shadow-lg border-gray-300 p-1 border-2 border-solid rounded-lg dark:bg-dark-second hidden" style="bottom: 102%;max-height: 365px;height: 360px;">
+        </div>
         <div class="w-1/12 flex py-1">
             <div class="cursor-pointer fill-65676B ">
                 <div class="hover:bg-gray-200 rounded-full 
@@ -162,19 +175,22 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 </div>
             </div>
         </div>
-        <ul class="three-exten w-1/3 py-1" style="display: block;">
-            <li class="float-left cursor-pointer p-1 fill-65676B hover:bg-gray-200 rounded-full 
-                dark:hover:bg-dark-third">
-                <svg class="a8c37x1j ms05siws hr662l2t b7h9ocf4" height="20px" width="20px" viewBox="0 -1 17 17">
-                    <g fill="gray" fill-rule="evenodd">
-                        <path id="picture1{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" d="M2.882 13.13C3.476 4.743 3.773.48 3.773.348L2.195.516c-.7.1-1.478.647-1.478 1.647l1.092 11.419c0 .5.2.9.4 1.3.4.2.7.4.9.4h.4c-.6-.6-.727-.951-.627-2.151z" fill="gray"></path>
-                        <circle cx="8.5" cy="4.5" r="1.5" fill="gray"></circle>
-                        <path id="picture2{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" d="M14 6.2c-.2-.2-.6-.3-.8-.1l-2.8 2.4c-.2.1-.2.4 0 .6l.6.7c.2.2.2.6-.1.8-.1.1-.2.1-.4.1s-.3-.1-.4-.2L8.3 8.3c-.2-.2-.6-.3-.8-.1l-2.6 2-.4 3.1c0 .5.2 1.6.7 1.7l8.8.6c.2 0 .5 0 .7-.2.2-.2.5-.7.6-.9l.6-5.9L14 6.2z" fill="#{{ (count($messages)==0?0:$messages[0]->IDMauTinNhan) }}"></path>
-                        <path id="picture3{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" d="M13.9 15.5l-8.2-.7c-.7-.1-1.3-.8-1.3-1.6l1-11.4C5.5 1 6.2.5 7 .5l8.2.7c.8.1 1.3.8 1.3 1.6l-1 11.4c-.1.8-.8 1.4-1.6 1.3z" stroke-linecap="round" stroke-linejoin="round" stroke="#{{ (count($messages)==0?0:$messages[0]->IDMauTinNhan) }}"></path>
-                    </g>
-                </svg>
-            </li>
-            <li class="float-left cursor-pointer p-1 fill-65676B  hover:bg-gray-200 rounded-full 
+        <ul class="three-exten w-1/3 py-1" id="{{ $chater[0]->IDTaiKhoan }}threeexten" style="display: block;">
+            <input onchange="onchangeViewSendImageChat(this,'{{ $chater[0]->IDTaiKhoan }}')" class="hidden" type="file" name="fileImage[]" id="{{ $chater[0]->IDTaiKhoan }}fileImageChatMain" multiple="multiple">
+            <label for="{{ $chater[0]->IDTaiKhoan }}fileImageChatMain">
+                <li class="float-left cursor-pointer p-1 fill-65676B hover:bg-gray-200 rounded-full 
+                    dark:hover:bg-dark-third">
+                    <svg class="a8c37x1j ms05siws hr662l2t b7h9ocf4" height="20px" width="20px" viewBox="0 -1 17 17">
+                        <g fill="gray" fill-rule="evenodd">
+                            <path id="picture1{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" d="M2.882 13.13C3.476 4.743 3.773.48 3.773.348L2.195.516c-.7.1-1.478.647-1.478 1.647l1.092 11.419c0 .5.2.9.4 1.3.4.2.7.4.9.4h.4c-.6-.6-.727-.951-.627-2.151z" fill="gray"></path>
+                            <circle cx="8.5" cy="4.5" r="1.5" fill="gray"></circle>
+                            <path id="picture2{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" d="M14 6.2c-.2-.2-.6-.3-.8-.1l-2.8 2.4c-.2.1-.2.4 0 .6l.6.7c.2.2.2.6-.1.8-.1.1-.2.1-.4.1s-.3-.1-.4-.2L8.3 8.3c-.2-.2-.6-.3-.8-.1l-2.6 2-.4 3.1c0 .5.2 1.6.7 1.7l8.8.6c.2 0 .5 0 .7-.2.2-.2.5-.7.6-.9l.6-5.9L14 6.2z" fill="#{{ (count($messages)==0?0:$messages[0]->IDMauTinNhan) }}"></path>
+                            <path id="picture3{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" d="M13.9 15.5l-8.2-.7c-.7-.1-1.3-.8-1.3-1.6l1-11.4C5.5 1 6.2.5 7 .5l8.2.7c.8.1 1.3.8 1.3 1.6l-1 11.4c-.1.8-.8 1.4-1.6 1.3z" stroke-linecap="round" stroke-linejoin="round" stroke="#{{ (count($messages)==0?0:$messages[0]->IDMauTinNhan) }}"></path>
+                        </g>
+                    </svg>
+                </li>
+            </label>
+            <li onclick="openModalElementChildChat('Sticker','{{ $chater[0]->IDTaiKhoan }}')" class="float-left cursor-pointer p-1 fill-65676B  hover:bg-gray-200 rounded-full 
                 dark:hover:bg-dark-third">
                 <svg id="sticker{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" class="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji" height="20px" width="20px" viewBox="0 0 17 16" x="0px" y="0px">
                     <g fill-rule="evenodd">
@@ -194,11 +210,12 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 </svg>
             </li>
         </ul>
-        <div class="three-exten1 w-8/12">
+        <div class="three-exten1 w-8/12" id="{{$chater[0]->IDTaiKhoan}}threeexten1">
+
             <?php $user = Session::get('user'); ?>
-            <div onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',
+            <div oninput="typeChat('{{ $chater[0]->IDTaiKhoan }}')" onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',
             '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $chater[0]->IDTaiKhoan }}PlaceTypeText" class="place-input-type border-none 
-            rounded-2xl pl-2 outline-none bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third 
+            rounded-2xl pl-2 outline-none py-1.5 break-all w-11/12  bg-gray-200  dark:bg-dark-third 
             dark:text-white" style="min-height: 20px;" onclick="seenMessage(
                 '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" contenteditable placeholder="Aa">
 
@@ -260,6 +277,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
 
     </div>
     <script>
+        store.set('{{$chater[0]->IDTaiKhoan}}arrayImage', arrayImage);
         var count = 0;
         var objDiv = document.getElementById('{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges');
         if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
@@ -346,5 +364,42 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 }
             });
         });
+        var actionMess = 'inactive';
+        if (actionMess == 'inactive') {
+
+        }
+        $("#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges").scroll(function() {
+            // if ($("#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges").scrollTop() == 0 &&
+            //     actionMess == 'inactive') {
+            //     actionMess = 'active';
+            //     var div = document.createElement('div');
+            //     div.setAttribute('class', 'w-full text-center my-1.5')
+            //     var i = document.createElement('i');
+            //     i.setAttribute('class', 'fas fa-circle-notch fa-spin text-2xl dark:text-white');
+            //     div.appendChild(i);
+            //     $("#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges").prepend(div)
+            //     setTimeout(function() {
+            //         $.ajax({
+            //             method: "GET",
+            //             url: "/ProcessLoadMessageLimit",
+            //             data: {
+            //                 index: $('#indexMessage').val(),
+            //                 IDNhomTinNhan: '{{ $idNhomTinNhan }}'
+            //             },
+            //             success: function(response) {
+            //                 div.remove();
+            //                 actionMess = 'inactive';
+            //                 $("#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges").prepend(
+            //                     response.view
+            //                 )
+            //                 $('#indexMessage').val(response.index);
+            //             }
+            //         })
+
+            //     }, 500)
+
+            // }
+        });
+        console.log(store.get('{{$chater[0]->IDTaiKhoan}}arrayImage').length)
     </script>
 </div>

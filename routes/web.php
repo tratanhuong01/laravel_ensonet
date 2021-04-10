@@ -316,7 +316,7 @@ Route::group(['namespace' => 'TroChuyen'], function () {
         ->name('ProcessOpenMessenger');
 
     //
-    Route::get('ProcessSendMessages', [TroChuyen\SendMessageController::class, 'send'])
+    Route::post('ProcessSendMessages', [TroChuyen\SendMessageController::class, 'send'])
         ->name('ProcessSendMessages');
 
     //
@@ -742,3 +742,13 @@ Route::get('index', function () {
     session()->forget('users');
     return view('Guest/index');
 });
+
+Route::get('ProcessLoadMessageLimit', function (Request $request) {
+    $message = DataProcess::getMessageByNhomTinNhanLimit($request->IDNhomTinNhan, $request->index);
+
+    return response()->json([
+        'view' => "" . view('Modal/ModalTroChuyen/Child/Message')
+            ->with('messages', $message),
+        'index' => $request->index - 15
+    ]);
+})->name('ProcessLoadMessageLimit');

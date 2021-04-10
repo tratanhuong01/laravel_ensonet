@@ -26,7 +26,16 @@ $member = DataProcess::getUserOfGroupMessage($message->IDNhomTinNhan);
     <div class="mess-user-r1 pl-2 flex mr-4" style="width: inherit;">
         <div class="mess-right break-all ml-auto border-none outline-none bg-blue-500 p-1.5 rounded-lg 
                 text-white " style="max-width:65%;font-size: 15px;">
-            {{ $message->NoiDung }}
+            @switch(json_decode($message->NoiDung)[0]->LoaiTinNhan)
+            @case('0')
+            {{json_decode($message->NoiDung)[0]->NoiDungTinNhan}}
+            @break
+            @case('1')
+            @include('Modal/ModalTroChuyen/Child/Anh',['json' => json_decode($message->NoiDung)])
+            @break
+            @case('2')
+            @break
+            @endswitch
         </div>
     </div>
     <div class="mess-user-r2 mess-user-r2{{$message->IDNhomTinNhan}} " id="{{ $message->IDTinNhan }}right" style=" width: 4%;">

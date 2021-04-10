@@ -4,7 +4,16 @@
     </div>
     <div class=" pl-2 flex" style="width: inherit;">
         <div class="border-none outline-none bg-gray-200 bg-1877F2 p-1.5 rounded-lg" style="max-width:65%;font-size: 15px;word-break: break-all;">
-            {{ $message->NoiDung }}
+            @switch(json_decode($message->NoiDung)[0]->LoaiTinNhan)
+            @case('0')
+            {{json_decode($message->NoiDung)[0]->NoiDungTinNhan}}
+            @break
+            @case('1')
+            @include('Modal/ModalTroChuyen/Child/Anh',['json' => json_decode($message->NoiDung)])
+            @break
+            @case('2')
+            @break
+            @endswitch
         </div>
         <div class="mess-user-feel hidden h-auto relative">
             <div class="cursor-pointer color-word absolute top-1/2 pl-2" style="transform: translateY(-50%);">

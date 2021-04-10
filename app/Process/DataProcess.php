@@ -111,6 +111,18 @@ class DataProcess extends Model
             ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
             ->get();
     }
+    public static function getMessageByIDLimit($sender, $receiver, $skip)
+    {
+        $idNhomTinNhan = DataProcess::checkIsSimilarGroupMessage($sender, $receiver);
+        return Tinnhan::select('*', 'tinnhan.TinhTrang')
+            ->take(15)->skip($skip)
+            ->where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
+            ->where('tinnhan.LoaiTinNhan', '!=', '0')
+            ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
+            ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
+            ->get();
+    }
     public static function getUserOfGroupMessage($idNhomTinNhan)
     {
         $usersOfGroupMessages = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan ,AnhDaiDien,Ho,Ten,ThoiGianHoatDong FROM tinnhan INNER JOIN 
@@ -174,15 +186,17 @@ class DataProcess extends Model
             }
         }
         $temp = array();
-        // for ($i = 0; $i < count($newArrMess); $i++) {
-        //     for ($j = $i + 1; $j < count($newArrMess) - 1; $j++) {
-        //         if (
-        //             strtotime($newArrMess[$i][count($newArrMess[$i]) - 1]->ThoiGianNhanTin)
-        //             < strtotime($newArrMess[$j][count($newArrMess[$j]) - 1]->ThoiGianNhanTin)
-        //         ) {
-        //             $temp = $newArrMess[$i];
-        //             $newArrMess[$i] = $newArrMess[$j];
-        //             $newArrMess[$j] = $temp;
+        // if (count($newArrMess) >= 2) {
+        //     for ($i = 0; $i < count($newArrMess); $i++) {
+        //         for ($j = $i + 1; $j < count($newArrMess) - 1; $j++) {
+        //             if (
+        //                 strtotime($newArrMess[$i][count($newArrMess[$i]) - 1]->ThoiGianNhanTin)
+        //                 < strtotime($newArrMess[$j][count($newArrMess[$j]) - 1]->ThoiGianNhanTin)
+        //             ) {
+        //                 $temp = $newArrMess[$i];
+        //                 $newArrMess[$i] = $newArrMess[$j];
+        //                 $newArrMess[$j] = $temp;
+        //             }
         //         }
         //     }
         // }
@@ -241,6 +255,17 @@ class DataProcess extends Model
     public static function getMessageByNhomTinNhan($idNhomTinNhan)
     {
         return Tinnhan::select('*', 'tinnhan.TinhTrang')
+            ->where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
+            ->where('tinnhan.LoaiTinNhan', '!=', '0')
+            ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
+            ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
+            ->get();
+    }
+    public static function getMessageByNhomTinNhanLimit($idNhomTinNhan, $skip)
+    {
+        return Tinnhan::select('*', 'tinnhan.TinhTrang')
+            ->take(15)->skip($skip)
             ->where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
             ->where('tinnhan.LoaiTinNhan', '!=', '0')
             ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')

@@ -114,20 +114,19 @@ function typeKeyUp(IDNhomTinNhan,IDTaiKhoan) {
   }
   
 }
-function typeChat(index,IDNhomTinNhan,IDTaiKhoan,count) {
-  var three_exten = document.getElementsByClassName("three-exten");
-  var three_exten1 = document.getElementsByClassName("three-exten1");
-  var place_input_type = document.getElementsByClassName("place-input-type");
-  if (count == 1) {
-        three_exten[index].style.display = 'none';
-        three_exten1[index].style.width = "83%";
-        three_exten1[index].style.paddingLeft = "1em";
+function typeChat(IDTaiKhoan) {
+  if ($('#' + IDTaiKhoan + 'PlaceTypeText').html().length > 0) {
+    document.getElementById(IDTaiKhoan + 'threeexten1').classList.remove('w-8/12')
+    document.getElementById(IDTaiKhoan + 'threeexten1').classList.add('w-11/12')
+    document.getElementById(IDTaiKhoan + 'threeexten1').classList.add('pl-4')
+    $('#' + IDTaiKhoan + 'threeexten').hide();
   }
   else {
-        three_exten1[index].style.width = "66%";
-        three_exten1[index].style.paddingLeft = "0em";
-        three_exten[index].style.display = 'block';
-      }
+    document.getElementById(IDTaiKhoan + 'threeexten1').classList.remove('w-11/12')
+    document.getElementById(IDTaiKhoan + 'threeexten1').classList.add('w-8/12')
+    document.getElementById(IDTaiKhoan + 'threeexten1').classList.remove('pl-4')
+    $('#' + IDTaiKhoan + 'threeexten').show();
+  }
 }
 function showEmojii(name) {
   $("#emojis").disMojiPicker();

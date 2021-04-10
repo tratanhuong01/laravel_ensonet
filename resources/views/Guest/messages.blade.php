@@ -43,10 +43,10 @@ use App\Models\StringUtil;
     $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
     ?>
     <div class="w-full bg-gray-100 dark:bg-dark-main relative" id="main">
-        @include('Header');
+        @include('Header')
         <div class="w-full flex pt-6 z-10 bg-white dark:bg-dark-main lg:w-full 
         lg:mx-auto xl:w-full" id="content" style="max-height: 741px;height: 741px;">
-            <div class="w-1/4 border-r-2 border-solid dark:border-dark-second
+            <div class="w-1/4 border-r-2 mt-5 border-solid dark:border-dark-second
              border-gray-100 shadow-xl">
                 <div class="w-full flex py-2">
                     <div class="w-1/2 font-bold text-2xl py-0.5 ml-5 dark:text-white">
@@ -74,7 +74,7 @@ use App\Models\StringUtil;
                     bg-gray-300 dark:bg-dark-third dark:text-white" placeholder="Tìm kiếm trên messenger">
                 </div>
 
-                <div class="w-full pt-3 wrapper-scrollbar overflow-y-auto my-1" id="mess-right-messenger" style="max-height: 615px;height: 615px;">
+                <div class="w-full pt-3 wrapper-scrollbar overflow-y-auto my-1" id="mess-right-messenger" style="max-height: 595px;height:595px;">
                     @if(count($allMess) == 0)
                     <p class="text-center font-bold dark:text-white">
                         Không có tin nhắn nào để hiển thị.

@@ -2,7 +2,6 @@
 
 use App\Models\StringUtil;
 use App\Process\DataProcess;
-use App\Process\DataProcessFive;
 use Illuminate\Support\Facades\Session;
 
 $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
@@ -62,22 +61,15 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
                     @endphp
                     @if ($value[count($value) - 1]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
                     @switch($sws)
+                    @case('0')
+                    <span class="text-blue-500 dark:text-blue-500 font-bold">
+                        {{ $el[0]->Ten }} : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
+                        {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}
+                    </span>
+                    @break
                     @case('1')
                     <span class="text-gray-500 dark:text-white">
-                        You :
-                        @switch(json_decode($value[count($value) - 1]->NoiDung)[0]->LoaiTinNhan)
-                        @case('0')
-                        {{ substr(json_decode($value[count($value) - 1]->
-                        NoiDung)[0]->NoiDungTinNhan,0,20) . '...' }}
-                        @break
-                        @case('1')
-                        {{ 'Bạn đã gửi ' . count(json_decode($value[count($value) - 1]->NoiDung)) . ' ảnh .' }}
-                        @break
-                        @case('2')
-                        {{ 'Bạn đã gửi ' . ' một nhãn dán .' }}
-                        @break
-                        @endswitch
-                        &nbsp;&nbsp;
+                        You : {{ substr($value[count($value) - 1]->NoiDung,0,20) . '...' }} &nbsp;&nbsp;
                         {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}
                     </span>
                     @break
@@ -92,30 +84,20 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
                     @endswitch
                     @else
                     @switch($sws)
+                    @case('0')
+                    <span class="text-blue-500 dark:text-blue-500 font-bold">
+                        {{ $el[0]->Ten }} : {{ $value[count($value) - 1]->NoiDung }} &nbsp;&nbsp;
+                        {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}
+                    </span>
+                    @break
                     @case('1')
-                    <span class="{{ DataProcessFive::checkMessageIsSeen($value[count($value) - 1]->IDTinNhan,
-                    Session::get('user')[0]->IDTaiKhoan) == 1 ? 'text-gray-500 ' : 'text-blue-500 '}}  font-bold">
-
-                        {{$el[0]->Ten }} :
-                        @switch(json_decode($value[count($value) - 1]->NoiDung)[0]->LoaiTinNhan)
-                        @case('0')
-                        {{ substr(json_decode($value[count($value) - 1]->
-                        NoiDung)[0]->NoiDungTinNhan,0,20) . '...' }}
-                        @break
-                        @case('1')
-                        {{ ' đã gửi ' . count(json_decode($value[count($value) - 1]->NoiDung)) . ' ảnh .' }}
-                        @break
-                        @case('2')
-                        {{ ' đã gửi ' . ' một nhãn dán .' }}
-                        @break
-                        @endswitch
-                        &nbsp;&nbsp;
+                    <span class="text-blue-500 dark:text-blue-500 font-bold">
+                        {{$el[0]->Ten }} : {{ substr($value[count($value) - 1]->NoiDung,0,20) .'...' }} &nbsp;&nbsp;
                         {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}
                     </span>
                     @break
                     @case('2')
-                    <span class="{{ DataProcessFive::checkMessageIsSeen($value[count($value) - 1]->IDTinNhan,
-                    Session::get('user')[0]->IDTaiKhoan) == 1 ? 'text-gray-500 ' : 'text-blue-500 '}}  font-bold">
+                    <span class="text-blue-500 dark:text-blue-500 font-bold">
                         {{$el[0]->Ten}} : {{ $el[0]->Ten .' đã thu hồi tin nhắn' }} &nbsp;&nbsp;
                         {{ StringUtil::CheckDateTimeRequest($value[count($value) - 1]->ThoiGianNhanTin) }}
                     </span>

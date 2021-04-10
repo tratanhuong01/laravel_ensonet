@@ -82,22 +82,67 @@ function openSettingChat(IDTaiKhoan) {
 }
 function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
     if (event.keyCode === 13)
-        if ($("#" + IDNguoiNhan + "PlaceTypeText").html().length > 0)
+        if (store.get(IDNguoiNhan + 'arrayImage').length > 0) {
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+            var formData = new FormData();
+            formData.append('IDNguoiNhan',IDNguoiNhan);
+            formData.append('NoiDungTinNhan',$("#" + IDNguoiNhan + "PlaceTypeText").html());
+            formData.append('IDNhomTinNhan',IDNhomTinNhan);
+            for (let index = 0; index < store.get(IDNguoiNhan + 'arrayImage').length; index++) {
+                const element = store.get(IDNguoiNhan + 'arrayImage')[index];
+                formData.append('image_'+ index,element);
+            }
+            formData.append('numberArray',store.get(IDNguoiNhan + 'arrayImage').length);
             $.ajax({
-                method: "GET",
+                method: "POST",
                 url: "/ProcessSendMessages",
-                data: {
-                    IDNguoiNhan: IDNguoiNhan,
-                    NoiDungTinNhan: $("#" + IDNguoiNhan + "PlaceTypeText").html(),
-                    IDNhomTinNhan: IDNhomTinNhan
-                },
+                data: formData,
+                contentType: false,
+                processData: false,
                 success: function (response) {
                     $('#' + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(response);
                     $("#" + IDNguoiNhan + "PlaceTypeText").html('');
                     var objDiv = document.getElementById(IDNhomTinNhan + IDNguoiNhan + "Messenges");
                     if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+                },
+                error: function(response) {
+                    console.log(response)
                 }
-            });
+            });       
+        }    
+        else 
+            if ($("#" + IDNguoiNhan + "PlaceTypeText").html().length > 0) {
+                $.ajaxSetup({
+                    headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                  });
+                var formData = new FormData();
+                formData.append('IDNguoiNhan',IDNguoiNhan);
+                formData.append('NoiDungTinNhan',$("#" + IDNguoiNhan + "PlaceTypeText").html());
+                formData.append('IDNhomTinNhan',IDNhomTinNhan);
+                $.ajax({
+                    method: "POST",
+                    url: "/ProcessSendMessages",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        $('#' + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(response);
+                        $("#" + IDNguoiNhan + "PlaceTypeText").html('');
+                        var objDiv = document.getElementById(IDNhomTinNhan + IDNguoiNhan + "Messenges");
+                        if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
+                    },
+                    error : function(response) {
+                        console.log(response)
+                    }
+                });  
+            }
+                      
 }
 function sendMessageIcon(IDNguoiNhan, IDNhomTinNhan,Element) {
     $.ajax({
