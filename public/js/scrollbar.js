@@ -9,6 +9,11 @@ function openPost(type) {
       $('#modal-one').show();
       second.innerHTML = response;
       second.className += ' fixed h-screen';
+      new MeteorEmoji(
+        document.getElementById('textarea-post'),
+        document.getElementById('myTriggers'),
+        document.getElementById('myEmojis')
+    )
     }
   });
 

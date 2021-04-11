@@ -7,16 +7,17 @@ use App\Process\DataProcessThird;
 <ul class="flex whitespace-nowrap overflow-x-hidden" id="storyView" style="max-width: 368px;">
     @foreach($allStory[0] as $key => $value)
     @if ($key == 0)
-    <li onclick="changeStoryImage(this,0)" id="{{$value->IDStory}}" class="mr-2 cursor-pointer flex-shrink-0 showLi" style="width: 120px;">
+    <li onclick="changeStoryImage(this,0)" id="{{$value->IDStory}}" class="mr-2 cursor-pointer flex-shrink-0 showLi " style="width: 120px;">
         <img class="w-32 h-40 object-cover showImg" src="/{{ $value->DuongDan }}">
     </li>
     @else
-    <li id="{{$value->IDStory}}" onclick="changeStoryImage(this,1)" class="cursor-pointer flex-shrink-0 " style="width: 120px;">
-        <img class="w-32 h-40 p-2 opacity-40 object-cover " src="/{{ $value->DuongDan }}">
+    <li id="{{$value->IDStory}}" onclick="changeStoryImage(this,1)" class="cursor-pointer 
+    flex-shrink-0 mx-2" style="width: 120px;">
+        <img class="w-32 h-40  opacity-40 object-cover " src="/{{ $value->DuongDan }}">
     </li>
     @endif
     @endforeach
-    <li class="cursor-pointer flex-shrink-0 " style="width: 120px;">
+    <li onclick="window.location.href='{{ url('stories/create') }}'" class="cursor-pointer flex-shrink-0 " style="width: 120px;">
         <div class="w-32 h-40 p-2">
             <div class="w-full dark:bg-dark-third bg-gray-100 h-36 py-8">
                 <div class=" dark:bg-dark-main bg-gray-300 w-10 h-10 rounded-full mx-auto text-center cursor-pointer pt-1">

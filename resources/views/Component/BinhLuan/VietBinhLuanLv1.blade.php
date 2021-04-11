@@ -15,9 +15,16 @@
             });
         </script>
         <ul class="flex absolute bottom-1 right-0">
-            <li class="py-2 pr-3 cursor-pointer">
+            <li id="emojiiss{{$item[0]->IDBaiDang}}" class=" py-2 pr-3 cursor-pointer">
                 <i class="far fa-smile dark:text-white text-gray-600"></i>
             </li>
+            <script>
+                new MeteorEmoji(
+                    document.getElementById('{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Write'),
+                    document.getElementById('emojiiss{{$item[0]->IDBaiDang}}'),
+                    document.getElementById('{{ $item[0]->IDBaiDang }}modalEmoji')
+                )
+            </script>
             <li class="py-2 pr-3 cursor-pointer">
                 <input onchange="processCommentImage('{{ $item[0]->IDBaiDang }}','',event)" name="fileImage" type="file" accept="image" id="{{ $item[0]->IDBaiDang }}fileImagess" style="display: none" enctype="multipart/form-data">
                 <label for="{{ $item[0]->IDBaiDang }}fileImagess">
@@ -35,6 +42,9 @@
     </div>
     <div id="{{ $item[0]->IDBaiDang }}modalComment" class="z-50 hidden absolute right-0 bg-white my-2 absolute w-72 dark:border-dark-second 
     shadow-lg border-gray-300 p-1 border-2 border-solid rounded-lg dark:bg-dark-second" style="max-height: 365px;height: 360px;">
+    </div>
+    <div id="{{ $item[0]->IDBaiDang }}modalEmoji" class="z-50 absolute right-0 bg-white hidden w-80 
+    shadow-lg rounded-lg dark:bg-dark-second" style="max-height: 265px;height: 265px;">
     </div>
 </div>
 

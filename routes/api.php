@@ -370,3 +370,7 @@ Route::get('ProcessOpenModalStickerChat', function (Request $request) {
             break;
     }
 });
+
+Route::get('emo', function () {
+    return view('SocketIOTest');
+});

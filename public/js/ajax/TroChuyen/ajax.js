@@ -25,7 +25,6 @@ function openChat(IDTaiKhoan) {
                 $("#" + IDTaiKhoan + "Minize").remove();
             }
             $('#placeChat').append(response);
-
         }
     });
 }
@@ -106,6 +105,8 @@ function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                 success: function (response) {
                     $('#' + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(response);
                     $("#" + IDNguoiNhan + "PlaceTypeText").html('');
+                    $('#' + IDNguoiNhan + 'imageChat').html('');
+                    $('#' + IDNguoiNhan + 'imageChat').addClass('hidden');
                     var objDiv = document.getElementById(IDNhomTinNhan + IDNguoiNhan + "Messenges");
                     if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
                 },

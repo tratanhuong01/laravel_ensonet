@@ -162,6 +162,9 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         <div id="{{ $chater[0]->IDTaiKhoan }}modalChatElement" class="bg-white my-2 absolute w-72 dark:border-dark-second 
         shadow-lg border-gray-300 p-1 border-2 border-solid rounded-lg dark:bg-dark-second hidden" style="bottom: 102%;max-height: 365px;height: 360px;">
         </div>
+        <div id="{{ $chater[0]->IDTaiKhoan }}modalEmoji" class="bg-white absolute w-80 dark:border-dark-second 
+        shadow-lg border-gray-300 rounded-lg dark:bg-dark-second hidden" style="bottom: 102%;max-height: 265;height: 265px;">
+        </div>
         <div class="w-1/12 flex py-1">
             <div class="cursor-pointer fill-65676B ">
                 <div class="hover:bg-gray-200 rounded-full 
@@ -212,7 +215,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 </svg>
             </li>
         </ul>
-        <div class="three-exten1 w-8/12" id="{{$chater[0]->IDTaiKhoan}}threeexten1">
+        <div class="three-exten1 w-8/12 relative" id="{{$chater[0]->IDTaiKhoan}}threeexten1">
 
             <?php $user = Session::get('user'); ?>
             <div oninput="typeChat('{{ $chater[0]->IDTaiKhoan }}')" onkeyup="sendMessage('{{ $chater[0]->IDTaiKhoan }}',
@@ -224,6 +227,16 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 $("#{{ $chater[0]->IDTaiKhoan }}PlaceTypeText").keypress(function(e) {
                     return e.which != 13;
                 });
+            </script>
+            <div id="{{$idNhomTinNhan.$chater[0]->IDTaiKhoan}}emojiiss" class="absolute right-6 bottom-1 flex cursor-pointer z-50">
+                <i class="far fa-smile dark:text-white text-gray-600 text-2xl"></i>
+            </div>
+            <script>
+                new MeteorEmoji(
+                    document.getElementById('{{ $chater[0]->IDTaiKhoan }}PlaceTypeText'),
+                    document.getElementById('{{$idNhomTinNhan.$chater[0]->IDTaiKhoan}}emojiiss'),
+                    document.getElementById('{{ $chater[0]->IDTaiKhoan }}modalEmoji')
+                )
             </script>
         </div>
         <div class="w-1/12 pt-1 zoom">
@@ -278,6 +291,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     </div>
     <script>
         store.set('{{$chater[0]->IDTaiKhoan}}arrayImage', arrayImage);
+        store.set('imageAndVideoPost', arrayImageAndVideoPost);
         var count = 0;
         var objDiv = document.getElementById('{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges');
         if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
@@ -400,6 +414,5 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
 
             // }
         });
-        console.log(store.get('{{$chater[0]->IDTaiKhoan}}arrayImage').length)
     </script>
 </div>

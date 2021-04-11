@@ -20,8 +20,7 @@ class PostNormalController extends Controller
         try {
             date_default_timezone_set('Asia/Ho_Chi_Minh');
             $user = Session::get('user');
-            if ($request->hasFile('files')) {
-                $files = $request->file('files');
+            if ($request->hasFile('files_0')) {
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
                 $tag = "";
@@ -61,11 +60,11 @@ class PostNormalController extends Controller
                     2,
                     NULL
                 );
-                foreach ($files as $file) {
+                for ($i = 0; $i < (int)$request->numberImage; $i++) {
                     $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
                     $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
                     Hinhanh::add($idHinhAnh, 'THONGTHUON', $idBaiDang, 'img/PosTT/' . $nameFile, NULL);
-                    $file->move(public_path('img/PosTT'), $nameFile);
+                    $request->file('files_' . $i)->move(public_path('img/PosTT'), $nameFile);
                 }
             } else {
                 $datetime = date("Y-m-d H:i:s");
@@ -109,7 +108,6 @@ class PostNormalController extends Controller
                 );
             }
         } catch (Exception $e) {
-            $e->Error;
         }
     }
 }

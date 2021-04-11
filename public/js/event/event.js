@@ -1,8 +1,8 @@
 function checkValueTextAre() {
     var textarea_post = document.getElementById("textarea-post");
-    var main_textarea_post = document.getElementById("main_textarea-post");
+    var main_textarea_post = document.getElementById("main-textarea-post");
     var button_post = document.getElementById("button-post");
-    if (textarea_post.value.length == 0) {
+    if (textarea_post.value.length <= 0) {
         button_post.style.cursor = 'not-allowed';
         button_post.disabled = true;
         button_post.style.backgroundColor = 'gray';

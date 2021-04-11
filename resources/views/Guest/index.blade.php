@@ -220,6 +220,8 @@ use Illuminate\Support\Facades\Session;
             };
         })();
         var arrayImage = new Array();
+        var arrayImageAndVideoPost = new Array();
+        store.set('imageAndVideoPost', arrayImageAndVideoPost);
         $('#modalHeaderRight').html('')
         Pusher.logToConsole = true;
         var pusher = new Pusher('5064fc09fcd20f23d5c1', {

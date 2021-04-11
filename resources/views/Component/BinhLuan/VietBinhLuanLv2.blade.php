@@ -24,9 +24,16 @@ $user = Session::get('user');
             });
         </script>
         <ul class="flex absolute bottom-1 right-0">
-            <li class="py-2 pr-3 cursor-pointer">
+            <li id="emojiiss{{ $cmt[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}" class=" py-2 pr-3 cursor-pointer">
                 <i class="far fa-smile dark:text-white text-gray-600"></i>
             </li>
+            <script>
+                new MeteorEmoji(
+                    document.getElementById('{{ $cmt[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}Write'),
+                    document.getElementById('emojiiss{{ $cmt[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}'),
+                    document.getElementById('{{ $cmt[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}modalEmoji')
+                )
+            </script>
             <li class="py-2 pr-3 cursor-pointer">
                 <input onchange="processCommentImage('{{ $comment->IDBaiDang }}',
                 '{{ $comment->IDBinhLuan }}',event)" name="fileImage" type="file" accept="image" id="{{ $comment->IDBaiDang.$comment->IDBinhLuan }}fileImagess" style="display: none" enctype="multipart/form-data">
@@ -47,6 +54,9 @@ $user = Session::get('user');
     </div>
     <div id="{{ $comment->IDBaiDang.$comment->IDBinhLuan }}modalComment" class="z-50 hidden absolute right-0 bg-white my-2 absolute w-72 dark:border-dark-second 
     shadow-lg border-gray-300 p-1 border-2 border-solid rounded-lg dark:bg-dark-second" style="max-height: 365px;height: 360px;">
+    </div>
+    <div id="{{ $cmt[0]->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}modalEmoji" class="z-50 absolute right-0 bg-white hidden w-80 
+    shadow-lg rounded-lg dark:bg-dark-second" style="max-height: 265px;height: 265px;">
     </div>
 </div>
 <div class="w-full" id="{{ $comment->IDBaiDang.$comment->IDBinhLuan }}CommentImage">

@@ -1,4 +1,4 @@
-<ul class="flex flex-wrap pl-1" style="width: 200px;">
+<ul class="flex flex-wrap pl-1 z-20" style="width: 200px;">
     @if (count($json) == 1)
     <li class="w-full">
         <img src="/{{$json[0]->DuongDan}}" class="object-cover rounded-lg" alt="" style="width: 200px;">

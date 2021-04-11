@@ -335,6 +335,20 @@ $user = Session::get('user');
         @endif
         <script src="/js/scrollbar.js"></script>
         <script>
+            var store = (function() {
+                var map = {};
+
+                return {
+                    set: function(name, value) {
+                        map[name] = value;
+                    },
+                    get: function(name) {
+                        return map[name];
+                    }
+                };
+            })();
+            var arrayImage = new Array();
+            var arrayImageAndVideoPost = new Array();
             var action = 'inactive';
             var config = {
                 routes: {
