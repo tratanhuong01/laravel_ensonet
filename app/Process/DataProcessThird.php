@@ -39,12 +39,13 @@ class DataProcessThird extends Model
     {
         $userGroup = DataProcess::getUserOfGroupMessage($idNhomTinNhan);
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        foreach ($userGroup as $key => $value) {
-            if (strtotime(date("Y-m-d H:i:s")) - strtotime($value->ThoiGianHoatDong) < 60) {
-                return true;
-                break;
+        if (count($userGroup) > 0)
+            foreach ($userGroup as $key => $value) {
+                if (strtotime(date("Y-m-d H:i:s")) - strtotime($value->ThoiGianHoatDong) < 60) {
+                    return true;
+                    break;
+                }
             }
-        }
     }
     public static function createTrangThai($idNhomTinNhan, $trangThai)
     {

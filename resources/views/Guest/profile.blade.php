@@ -349,6 +349,7 @@ $user = Session::get('user');
             })();
             var arrayImage = new Array();
             var arrayImageAndVideoPost = new Array();
+            store.set('imageAndVideoPost', arrayImageAndVideoPost);
             var action = 'inactive';
             var config = {
                 routes: {

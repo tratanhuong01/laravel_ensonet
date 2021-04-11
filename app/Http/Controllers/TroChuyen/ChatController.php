@@ -161,6 +161,30 @@ class ChatController extends Controller
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $userGroup = Session::get('userGroup');
         if (count($userGroup) == 1) {
+            $json = [];
+            $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
+            if ($request->hasFile('image_0')) {
+                $id = 10000;
+                for ($i = 0; $i < (int)$request->numberArray; $i++) {
+                    $file = $request->file('image_' . $i);
+                    $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . '_' . $i . '.jpg';
+                    $file->move(public_path('img/ImageMessage'), $nameFile);
+                    $json[$i] = (object)[
+                        'IDNoiDungTinNhan' => $id,
+                        'LoaiTinNhan' => '1',
+                        'DuongDan' => 'img/ImageMessage/' . $nameFile,
+                        'NoiDungTinNhan' => ''
+                    ];
+                    $id++;
+                }
+            } else {
+                $json[0] = (object)[
+                    'IDNoiDungTinNhan' => '10001',
+                    'LoaiTinNhan' => '0',
+                    'DuongDan' => '',
+                    'NoiDungTinNhan' => $request->NoiDungTinNhan
+                ];
+            }
             foreach ($userGroup as $key => $value) {
                 $chater = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $value)->get();
                 $sender = Tinnhan::where('tinnhan.IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)
@@ -170,15 +194,15 @@ class ChatController extends Controller
                     ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
                     ->get();
                 $idNhomTinNhan = DataProcess::checkIsSimilarGroupMessage($sender, $receiver);
-                $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
                 $trangThai = DataProcessThird::checkChatUserActivity($idNhomTinNhan) == true ?
                     DataProcessThird::createTrangThai($idNhomTinNhan, 1) :
                     DataProcessThird::createTrangThai($idNhomTinNhan, 0);
+
                 Tinnhan::add(
                     $idTinNhan,
                     $idNhomTinNhan,
                     Session::get('user')[0]->IDTaiKhoan,
-                    $request->NoiDungTinNhan,
+                    json_encode($json),
                     DataProcess::createState($idNhomTinNhan, '1'),
                     $trangThai,
                     '1',
@@ -203,6 +227,7 @@ class ChatController extends Controller
                     ->with('idNhomTinNhan', $idNhomTinNhan);
             }
         } else {
+            $json = [];
             $idNhomTinNhan = StringUtil::ID('nhomtinnhan', 'IDNhomTinNhan');
             Nhomtinnhan::add(
                 $idNhomTinNhan,
@@ -212,11 +237,33 @@ class ChatController extends Controller
                 '0'
             );
             $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
+            if ($request->hasFile('image_0')) {
+                $id = 10000;
+                for ($i = 0; $i < (int)$request->numberArray; $i++) {
+                    $file = $request->file('image_' . $i);
+                    $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . '_' . $i . '.jpg';
+                    $file->move(public_path('img/ImageMessage'), $nameFile);
+                    $json[$i] = (object)[
+                        'IDNoiDungTinNhan' => $id,
+                        'LoaiTinNhan' => '1',
+                        'DuongDan' => 'img/ImageMessage/' . $nameFile,
+                        'NoiDungTinNhan' => ''
+                    ];
+                    $id++;
+                }
+            } else {
+                $json[0] = (object)[
+                    'IDNoiDungTinNhan' => '10001',
+                    'LoaiTinNhan' => '0',
+                    'DuongDan' => '',
+                    'NoiDungTinNhan' => $request->NoiDungTinNhan
+                ];
+            }
             Tinnhan::add(
                 $idTinNhan,
                 $idNhomTinNhan,
                 Session::get('user')[0]->IDTaiKhoan,
-                $request->NoiDungTinNhan,
+                json_encode($json),
                 '',
                 '',
                 '1',
