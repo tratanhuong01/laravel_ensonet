@@ -99,7 +99,7 @@ class Process extends Model
             $arr[0] = $all;
             $arr[1] = count($userFeel);
             $arr[2] = $userFeel;
-            return view('Component\BinhLuan\SoLuongCamXuc')->with('arr', $arr);
+            return view('Component\Comment\NumberFeel')->with('arr', $arr);
         }
     }
     public static function getDetailFeelPost($idBinhLuan)
@@ -202,6 +202,6 @@ class Process extends Model
         if ($arr[1] == 0)
             return '';
         else
-            return view('Modal\ModalTroChuyen\Child\SoLuongCamXuc')->with('arr', $arr);
+            return view('Modal\ModalChat\Child\NumberFeel')->with('arr', $arr);
     }
 }

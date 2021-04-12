@@ -18,7 +18,7 @@ class UpdateAvatarController extends Controller
     {
         try {
             if ($request->hasFile('fileAvatar')) {
-                return view('Modal/ModalProfile/XemTruocAnhDaiDien');
+                return view('Modal/ModalProfile/ViewAvatarImage');
             }
         } catch (Exception $e) {
             $e->Error;
@@ -53,7 +53,7 @@ class UpdateAvatarController extends Controller
                 );
                 $users = DB::table('taikhoan')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)->get();
                 $request->session()->put('user', $users);
-                return view('Modal/ModalProfile/AnhDaiDien')->with('path', '/img/avatarImage/' . $nameFile);
+                return view('Modal/ModalProfile/AvatarImage')->with('path', '/img/avatarImage/' . $nameFile);
             } else
                 echo "khong co file";
         } catch (Exception $e) {

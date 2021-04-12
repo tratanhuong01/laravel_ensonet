@@ -19,7 +19,7 @@ class ProfileController extends Controller
         } else {
             $user = DB::table('taikhoan')->where('taikhoan.IDTaiKhoan', '=', $id)->get();
             if (sizeof($user) == 0)
-                return view('Guest/Profile')->with('users', $user);
+                return view('Guest/Profile')->with('users', []);
             else {
                 session()->put('users', $user);
                 return view('Guest/Profile')->with('users', $user);
@@ -29,7 +29,7 @@ class ProfileController extends Controller
     public function viewAjaxFriends(Request $request)
     {
         $data = Functions::getListFriendsUser($request->IDView);
-        return view('Component\DanhMuc\BanBe')->with('data', $data);
+        return view('Component\Category\Friends')->with('data', $data);
     }
     public function viewFriends($idTaiKhoan)
     {
@@ -64,13 +64,13 @@ class ProfileController extends Controller
             . view('Component\GioiThieu\TongQuan')->with('idTaiKhoan', $request->IDView)
             . "</div> </div>"
             . '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg">'
-            . view('Component\DanhMuc\Anh')->with('data', $data)
+            . view('Component\Category\Pictures')->with('data', $data)
             . "</div>"
             . '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg">'
-            . view('Component\DanhMuc\Video')->with('data', $data)
+            . view('Component\Category\Video')->with('data', $data)
             . "</div>"
             . '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg flex-wrap">'
-            . view('Component\DanhMuc\Story')->with('data', $data)
+            . view('Component\Category\Story')->with('data', $data)
             . "</div>";
     }
     public function viewAbout($idTaiKhoan)
@@ -94,7 +94,7 @@ class ProfileController extends Controller
     public function viewAjaxPicture(Request $request)
     {
         $data = Functions::getListFriendsUser($request->IDView);
-        return view('Component\DanhMuc\Anh') . view('Component\DanhMuc\Video');
+        return view('Component\Category\Pictures') . view('Component\Category\Video');
     }
     public function viewPicture($idTaiKhoan)
     {
@@ -130,10 +130,5 @@ class ProfileController extends Controller
         return response()->json([
             'view' => "" . view('Component/profile')->with('users', $users)
         ]);
-    }
-    public function loadProfileFriendRequest($id)
-    {
-        $users = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $id)->get();
-        return view('Guest/FriendRequest')->with('users', $users);
     }
 }

@@ -11,7 +11,7 @@ class NotificationController extends Controller
 {
     public function notify()
     {
-        return view('Component/Child/SoLuongThongBao')
+        return view('Component/Child/NumberNotify')
             ->with('num', Notify::countNotify(Session::get('user')[0]->IDTaiKhoan, 0));
     }
     public function moreNotify()

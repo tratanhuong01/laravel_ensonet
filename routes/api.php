@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\BaiDang\CommentController;
-use App\Http\Controllers\BaiDang\RepCommentController;
 use App\Models\Gioithieu;
 use App\Models\Story;
 use App\Models\Taikhoan;
@@ -17,145 +15,145 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['namespace' => 'TroChuyen'], function () {
+Route::group(['namespace' => 'Image'], function () {
     //
-    Route::get('ProcessLoadPictures', [HinhAnhs\PictureController::class, 'load'])
+    Route::get('ProcessLoadPictures', [Image\PictureController::class, 'load'])
         ->name('ProcessLoadPictures');
 
     //
-    Route::get('ProcessLoadTimeLineAndViewPictures', [HinhAnhs\PictureController::class, 'loadAndView'])
+    Route::get('ProcessLoadTimeLineAndViewPictures', [Image\PictureController::class, 'loadAndView'])
         ->name('ProcessLoadTimeLineAndViewPictures');
 });
 
-Route::group(['namespace' => 'TroChuyen'], function () {
+Route::group(['namespace' => 'Chat'], function () {
     //
-    Route::get('ProcessLoadingChatTypingMessenge', [TroChuyen\ChatController::class, 'loadingTypingMessage'])
+    Route::get('ProcessLoadingChatTypingMessenge', [Chat\ChatController::class, 'loadingTypingMessage'])
         ->name('ProcessLoadingChatTypingMessenge');
 
     //
-    Route::get('ProcessLoadingTypingOn', [TroChuyen\ChatController::class, 'loadingTypingOn'])
+    Route::get('ProcessLoadingTypingOn', [Chat\ChatController::class, 'loadingTypingOn'])
         ->name('ProcessLoadingTypingOn');
 
     //
-    Route::get('ProcessLoadingTypingOff', [TroChuyen\ChatController::class, 'loadingTypingOff'])
+    Route::get('ProcessLoadingTypingOff', [Chat\ChatController::class, 'loadingTypingOff'])
         ->name('ProcessLoadingTypingOff');
 });
 
-Route::group(['namespace' => 'BaiDang'], function () {
+Route::group(['namespace' => 'Post'], function () {
     //
-    Route::get('ProcessLoadViewCommentImage', [BaiDang\CommentController::class, 'loadViewCommentImage'])
+    Route::get('ProcessLoadViewCommentImage', [Post\CommentController::class, 'loadViewCommentImage'])
         ->name('ProcessLoadViewCommentImage');
 
     //
-    Route::get('ProcessOpenViewStickerCommnet', [BaiDang\CommentController::class, 'openStickComment'])
+    Route::get('ProcessOpenViewStickerCommnet', [Post\CommentController::class, 'openStickComment'])
         ->name('ProcessOpenViewStickerCommnet');
 
     //
-    Route::get('ProcessOpenViewGifCommnet', [BaiDang\CommentController::class, 'openGifComment'])
+    Route::get('ProcessOpenViewGifCommnet', [Post\CommentController::class, 'openGifComment'])
         ->name('ProcessOpenViewGifCommnet');
 
     //
-    Route::get('ProcessWarnDeleteComment', [BaiDang\CommentController::class, 'warn'])
+    Route::get('ProcessWarnDeleteComment', [Post\CommentController::class, 'warn'])
         ->name('ProcessWarnDeleteComment');
 
     //
-    Route::get('ProcessDeleteComment', [BaiDang\CommentController::class, 'delete'])
+    Route::get('ProcessDeleteComment', [Post\CommentController::class, 'delete'])
         ->name('ProcessDeleteComment');
 });
 
-Route::group(['namespace' => 'GioiThieus'], function () {
+Route::group(['namespace' => 'About'], function () {
     //
-    Route::post('ProcessAjaxDashboardAbout', [GioiThieus\AboutController::class, 'dashboard'])
+    Route::post('ProcessAjaxDashboardAbout', [About\AboutController::class, 'dashboard'])
         ->name('ProcessAjaxDashboardAbout');
 
     //
-    Route::post('ProcessAjaxWorkAndStudyAbout', [GioiThieus\AboutController::class, 'workAndStudy'])
+    Route::post('ProcessAjaxWorkAndStudyAbout', [About\AboutController::class, 'workAndStudy'])
         ->name('ProcessAjaxWorkAndStudyAbout');
 
     //
-    Route::post('ProcessAjaxPlaceLivedAbout', [GioiThieus\AboutController::class, 'placeLived'])
+    Route::post('ProcessAjaxPlaceLivedAbout', [About\AboutController::class, 'placeLived'])
         ->name('ProcessAjaxPlaceLivedAbout');
 
     //
-    Route::post('ProcessAjaxInfoSimpleAndContactAbout', [GioiThieus\AboutController::class, 'infoSimpleAndContact'])
+    Route::post('ProcessAjaxInfoSimpleAndContactAbout', [About\AboutController::class, 'infoSimpleAndContact'])
         ->name('ProcessAjaxInfoSimpleAndContactAbout');
 
     //
-    Route::post('ProcessAjaxFamilyAndRelationshipAbout', [GioiThieus\AboutController::class, 'familyAndRelatioship'])
+    Route::post('ProcessAjaxFamilyAndRelationshipAbout', [About\AboutController::class, 'familyAndRelatioship'])
         ->name('ProcessAjaxFamilyAndRelationshipAbout');
 
     //
-    Route::post('ProcessAjaxDetailAboutUserAbout', [GioiThieus\AboutController::class, 'detailAboutUser'])
+    Route::post('ProcessAjaxDetailAboutUserAbout', [About\AboutController::class, 'detailAboutUser'])
         ->name('ProcessAjaxDetailAboutUserAbout');
 
     //
-    Route::post('ProcessAjaxEventLifeAbout', [GioiThieus\AboutController::class, 'eventLife'])
+    Route::post('ProcessAjaxEventLifeAbout', [About\AboutController::class, 'eventLife'])
         ->name('ProcessAjaxEventLifeAbout');
 
     // Add
 
     //
-    Route::post('ProccessAddPlaceWorkAbout', [GioiThieus\AddAboutController::class, 'addPlaceWorks'])
+    Route::post('ProccessAddPlaceWorkAbout', [About\AddAboutController::class, 'addPlaceWorks'])
         ->name('ProccessAddPlaceWorkAbout');
 
     //
-    Route::post('ProcessAddSchoolAbout', [GioiThieus\AddAboutController::class, 'addSchool'])
+    Route::post('ProcessAddSchoolAbout', [About\AddAboutController::class, 'addSchool'])
         ->name('ProcessAddSchoolAbout');
 
     //
-    Route::post('ProcessAddPlaceLiveCurrent', [GioiThieus\AddAboutController::class, 'addPlaceLiveCurrent'])
+    Route::post('ProcessAddPlaceLiveCurrent', [About\AddAboutController::class, 'addPlaceLiveCurrent'])
         ->name('ProcessAddPlaceLiveCurrent');
 
     //
-    Route::post('ProcessAddHomeTown', [GioiThieus\AddAboutController::class, 'addHomeTown'])
+    Route::post('ProcessAddHomeTown', [About\AddAboutController::class, 'addHomeTown'])
         ->name('ProcessAddHomeTown');
 
     //
-    Route::post('ProcessAddPlaceLived', [GioiThieus\AddAboutController::class, 'addPlaceLived'])
+    Route::post('ProcessAddPlaceLived', [About\AddAboutController::class, 'addPlaceLived'])
         ->name('ProcessAddPlaceLived');
 
     //
-    Route::post('ProcessAddIntroYouSelf', [GioiThieus\AddAboutController::class, 'addIntroYourSelf'])
+    Route::post('ProcessAddIntroYouSelf', [About\AddAboutController::class, 'addIntroYourSelf'])
         ->name('ProcessAddIntroYouSelf');
 
     //
-    Route::post('ProcessAddWayReadName', [GioiThieus\AddAboutController::class, 'AddWayReadName'])
+    Route::post('ProcessAddWayReadName', [About\AddAboutController::class, 'AddWayReadName'])
         ->name('ProcessAddWayReadName');
 
     //
-    Route::post('ProcessAddNickName', [GioiThieus\AddAboutController::class, 'addNickName'])
+    Route::post('ProcessAddNickName', [About\AddAboutController::class, 'addNickName'])
         ->name('ProcessAddNickName');
 
     //
-    Route::post('ProcessAddFavoriteQuote', [GioiThieus\AddAboutController::class, 'addFavoriteQuote'])
+    Route::post('ProcessAddFavoriteQuote', [About\AddAboutController::class, 'addFavoriteQuote'])
         ->name('ProcessAddFavoriteQuote');
 
     //
-    Route::post('ProcessAddMemberFamilyAbout', [GioiThieus\AddAboutController::class, 'addMemberFamily'])
+    Route::post('ProcessAddMemberFamilyAbout', [About\AddAboutController::class, 'addMemberFamily'])
         ->name('ProcessAddMemberFamilyAbout');
 
     //Delete
 
     //
-    Route::get('ProcessDeleteAbout', [GioiThieus\DeleteAboutController::class, 'delete']);
+    Route::get('ProcessDeleteAbout', [About\DeleteAboutController::class, 'delete']);
 
     //
-    Route::get('ProcessDeleteAboutMain', [GioiThieus\DeleteAboutController::class, 'deleteMain']);
+    Route::get('ProcessDeleteAboutMain', [About\DeleteAboutController::class, 'deleteMain']);
 
     //Edit
 
     //
-    Route::get('ProcessEditViewAbout', [GioiThieus\EditAboutController::class, 'editView']);
+    Route::get('ProcessEditViewAbout', [About\EditAboutController::class, 'editView']);
 
     //
-    Route::post('ProcessEditAboutMain', [GioiThieus\EditAboutController::class, 'edit'])
+    Route::post('ProcessEditAboutMain', [About\EditAboutController::class, 'edit'])
         ->name('ProcessEditAboutMain');
 
     //
-    Route::get('ProcessChangePrivacyAboutViewMain', [GioiThieus\ChangePrivacyAboutController::class, 'changeView']);
+    Route::get('ProcessChangePrivacyAboutViewMain', [About\ChangePrivacyAboutController::class, 'changeView']);
 
     //
-    Route::get('ProcessChangePrivacyAboutMain', [GioiThieus\ChangePrivacyAboutController::class, 'change']);
+    Route::get('ProcessChangePrivacyAboutMain', [About\ChangePrivacyAboutController::class, 'change']);
 });
 
 Route::group(['namespace' => 'Storys'], function () {
@@ -267,7 +265,7 @@ Route::post('ProcessSearchData', [SearchController::class, 'search'])
 Route::get('ProcessOpenRequestFriendsMain', function (Request $request) {
     $data = DataProcessSecond::getRequestSend($request->IDTaiKhoan);
     return response()->json([
-        'view' => "" . view('Modal/ModalProfile/GuiKetBan')->with('requests', $data)
+        'view' => "" . view('Modal/ModalProfile/SendRequest')->with('requests', $data)
             ->with('idTaiKhoan', $request->IDTaiKhoan)
     ]);
 })->name('ProcessOpenRequestFriendsMain');
@@ -348,21 +346,21 @@ Route::get('ProcessViewPrivacyAbout', function () {
 
 //
 Route::get('ProcessPrivacyAbouts', function (Request $request) {
-    return view('Component/Child/QuyenRiengTuGioiThieu')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
+    return view('Component/Child/PrivacyAbout')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
 })->name('ProcessPrivacyAbouts');
 
 Route::get('ProcessOpenModalStickerChat', function (Request $request) {
     switch ($request->type) {
         case 'Sticker':
             return response()->json([
-                'view' => "" . view('Modal/ModalTroChuyen/Child/NhanDan')
+                'view' => "" . view('Modal/ModalChat/Child/Sticker')
                     ->with('IDNhomTinNhan', $request->IDNhomTinNhan)
                     ->with('IDTaiKhoan', $request->IDTaiKhoan)
             ]);
             break;
         case 'Gif':
             // return response()->json([
-            //     'view' => "" . view('Modal/ModalTroChuyen/Child/Gif')
+            //     'view' => "" . view('Modal/ModalChat/Child/Gif')
             // ]);
             break;
         default:
@@ -371,6 +369,14 @@ Route::get('ProcessOpenModalStickerChat', function (Request $request) {
     }
 });
 
-Route::get('emo', function () {
-    return view('SocketIOTest');
+Route::get('videos', function () {
+    return view('demo');
 });
+
+Route::get('ProcessPreviewBeforeUploadFile', function (Request $request) {
+    return response()->json([
+        'view' => "" . view('Modal/ModalPost/ModalPreviewPost')
+            ->with('url', $request->url)
+            ->with('type', $request->type)
+    ]);
+})->name('ProcessPreviewBeforeUploadFile');

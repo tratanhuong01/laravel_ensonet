@@ -17,7 +17,7 @@ use App\Process\DataProcess;
         <i class="bx bxl-messenger text-xl"></i>
         <span id="numMessager" class="absolute
                                 -top-2 -right-1">
-            @include('Component\Child\SoLuongThongBao',
+            @include('Component\Child\NumberNotify',
             ['num' => DataProcess::getNotificationMessage(Session::get('user')[0]->IDTaiKhoan,0)])
         </span>
     </div>
@@ -29,7 +29,7 @@ use App\Process\DataProcess;
         <i class="far fa-bell text-xm"></i>
         <span id="numNotification" class="absolute
                                 -top-2 -right-1">
-            @include('Component\Child\SoLuongThongBao',
+            @include('Component\Child\NumberNotify',
             ['num' => Notify::countNotify(Session::get('user')[0]->IDTaiKhoan,0)])
         </span>
     </div>

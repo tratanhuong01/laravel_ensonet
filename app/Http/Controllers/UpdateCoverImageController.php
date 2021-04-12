@@ -41,7 +41,7 @@ class UpdateCoverImageController extends Controller
                 );
                 $users = DB::table('taikhoan')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)->get();
                 $request->session()->put('user', $users);
-                return view('Modal/ModalProfile/AnhBia')->with('path', '/img/imageBia/' . $nameFile);
+                return view('Modal/ModalProfile/CoverImage')->with('path', '/img/imageBia/' . $nameFile);
             } else
                 echo "khong co file";
         } catch (Exception $e) {

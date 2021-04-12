@@ -1,29 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+@include('Head/document')
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ensonet - Login Or Register</title>
     @include('Head/css')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="js/Login/login.js"></script>
-    <script src="js/event/event.js"></script>
-    <script src="js/ajax.js"></script>
+    <script src="/js/login/login.js"></script>
 </head>
 
 <body>
-    <?php
-
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Session;
-
-    ?>
-    @if (session()->has('user'))
-    <?php redirect()->to('index')->send(); ?>
-    @else
-    <div id="register" class="w-full">
-    </div>
+    <!-- main -->
     <div id="web" class="w-full bg-gray-100">
         <div class="w-full mx-auto sm:w-full md:w-full lg:w-full xl:w-3/4 2xl:w-3/4">
             <div class="w-full flex flex-col py-2 mx-auto sm:flex-col sm:pt-4 lg:flex-row lg:pt-20">
@@ -125,7 +109,11 @@
             </div>
         </div>
     </div>
-    @endif
+    <!-- main -->
+
+    <!-- place show modal -->
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second"></div>
+    <!-- place show modal -->
 </body>
 
 </html>

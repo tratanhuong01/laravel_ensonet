@@ -6,30 +6,41 @@ use App\Models\Data;
 use App\Process\DataProcessFive;
 use App\Process\DataProcessThird;
 use Illuminate\Support\Facades\Session;
+
+$user = Session::get('user');
+
+$allStory = DataProcessThird::sortStoryByID($user[0]->IDTaiKhoan);
+
+$post = Data::sortAllPost($user[0]->IDTaiKhoan);
+
 ?>
 
-<!DOCTYPE html>
-@if (session()->has('user'))
-<html lang="en" class="{{ Session::get('user')[0]->DarkMode == '0' ? '' : 'dark' }}">
-@else
-<html lang="en">
-@endif
+@include('Head/document')
 
 <head>
     <title>Ensonet</title>
     @include('Head/css')
     <script src="/js/index.js"></script>
-    <script src="/js/ajax/Header/ajax.js"></script>
+    <style>
+        .dataTwoImage {
+            height: 93px;
+        }
+
+        .dataThreeImage {
+            height: 63px;
+        }
+    </style>
 </head>
 
 <body class="dark:bg-dark-main">
-    @if (session()->has('user'))
-    <?php
-    $user = Session::get('user');
-    ?>
+    <!-- main -->
     <div class="w-full bg-gray-100 dark:bg-dark-main h-screen relative" id="main">
+        <!-- header -->
         @include('Header')
-        <div class="w-full flex z-10 pt-16 bg-gray-100 dark:bg-dark-main lg:w-full lg:mx-auto xl:w-full" id="content">
+        <!-- header -->
+        <div class="w-full flex z-10 pt-16 bg-gray-100 dark:bg-dark-main lg:w-full 
+        lg:mx-auto xl:w-full" id="content">
+            <!-- left -->
             <div class="fixed pt-3 hidden sm:hidden xl:block xl:w-1/4">
                 <div id="wrapper-scrollbar" class="pl-1.5 w-4/6 overflow-x-hidden overflow-y-auto 
                 xl:w-full">
@@ -71,42 +82,32 @@ use Illuminate\Support\Facades\Session;
 
                 </div>
             </div>
+            <!-- left -->
+
+            <!-- center -->
             <div class="center-content relative left-0 px-2 sm:w-full sm:mx-auto md:w-3/4 lg:mx-0 
             lg:w-4/6 lg:left-0! xl:w-2/5 xl:left-3/10">
-                <?php $allStory = DataProcessThird::sortStoryByID($user[0]->IDTaiKhoan); ?>
-                @if (count($allStory) == 0)
-                @include('Component/TrangChu/StoryNewUser')
+                <!-- story -->
+                @if(count($allStory) == 0)
+                @include('Component/Index/StoryNewUser')
                 @else
-                @include('Component/TrangChu/Story',['allStory'=> $allStory])
+                @include('Component/Index/Story', ['allStory' => $allStory])
                 @endif
-                <div class="w-full bg-white mb-3 mt-2 dark:bg-dark-second m-auto rounded-lg mb-2">
-                    <div class="w-full flex p-2.5 ">
-                        <div class="w-2/12 md:w-1/12 mr-3 pt-1">
-                            <a href=""><img class="w-12 rounded-full h-12 object-cover " src="/{{ $user[0]->AnhDaiDien }}"></a>
-                        </div>
-                        <div class="w-11/12">
-                            <input class="w-full p-3 border-none outline-none bg-gray-200 
-                            dark:bg-dark-third" style="border-radius: 40px;" onclick="openPost()" type="text" placeholder="{{ $user[0]->Ten }} ơi, Bạn Đang Nghĩ Gì Thế?">
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="w-full">
-                        <ul class="w-full flex">
-                            <li class="w-1/2 md:w-1/3 xl:w-1/3 cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #E42645;font-size: 18px;" class="fas fa-video"></i>
-                                &nbsp;<b class="dark:text-white">Video Trực Tiếp</b></li>
-                            <li class="w-1/2 md:w-1/3 xl:w-1/3  cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #41B35D;font-size: 18px;" class="far fa-image"></i>
-                                &nbsp;<b class="dark:text-white">Ảnh / Video</b>
-                            </li>
-                            <li class="w-1/3 md:w-1/3 xl:w-1/3 md:block hidden cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200 pr-0"><i style="color: #F7B928;font-size: 18px;" class="fas fa-smile"></i>
-                                &nbsp;<b class="dark:text-white">Cảm Xúc / Hoạt Động</b></li>
-                        </ul>
-                    </div>
-                </div>
-                <?php $post = Data::sortAllPost($user[0]->IDTaiKhoan); ?>
+                <!-- story -->
+
+                <!-- write post -->
+                @include('Component/Post/Child/WritePost' , ['users' => $user])
+                <!-- write post -->
+
+                <!-- show post  -->
                 <div class="timeline">
                     <input type="hidden" name="indexPost" id="indexPost" value="0">
                 </div>
+                <!-- show post -->
             </div>
+            <!-- center -->
+
+            <!-- right -->
             <div class="fixed hidden lg:block lg:w-1/3 lg:left-2/3 xl:left-7/10 xl:w-3/10">
                 <div id="content-right-ok" class="w-full flex">
                     <div class="w-1/5 hidden sm:hidden xl:block">
@@ -146,13 +147,13 @@ use Illuminate\Support\Facades\Session;
                                 <p class="mx-auto py-3 dark:text-white text-center font-bold dark:text-white">
                                     Không có lời mời kết bạn</p>
                                 @else
-                                @include('Component/TrangChu/LoiMoiKetBan',['requestFriend',$requestFriend])
+                                @include('Component/Index/FriendRequest',['requestFriend',$requestFriend])
                                 @endif
                             </div>
                         </div>
                         <?php $birthDay = DataProcessFive::getBirthdayCurrent($user[0]->IDTaiKhoan); ?>
                         @if (count($birthDay) > 0)
-                        @include('Component/TrangChu/SinhNhat',['birthDay' => $birthDay])
+                        @include('Component/Index/Birthday',['birthDay' => $birthDay])
                         @endif
                         <div class="w-full pt-3">
                             <div class="w-full flex">
@@ -177,7 +178,7 @@ use Illuminate\Support\Facades\Session;
                             </div>
                             @else
                             @foreach($listFriend as $key => $value)
-                            @include('Component\TrangChu\NguoiDungHoatDong',['data'=> $value[0]])
+                            @include('Component\Index\UserActivity',['data'=> $value[0]])
                             @endforeach
                             @endif
                             <div id="friends-online-info" class="absolute bg-white 
@@ -187,7 +188,10 @@ use Illuminate\Support\Facades\Session;
                     </div>
                 </div>
             </div>
+            <!-- right -->
         </div>
+
+        <!-- create chat -->
         <div class="h-auto p-3 w-20">
             <div class="text-center cursor-pointer py-2 pl-2 pr-1.5 fixed right-3 bottom-4 " id="chatMinize">
                 <div onclick="openCreateChat()" class="cursor-pointer">
@@ -196,16 +200,20 @@ use Illuminate\Support\Facades\Session;
                 </div>
             </div>
         </div>
+        <!-- create chat -->
+
+        <!-- place show chat -->
         <div class="w-full px-4 flex z-50 md:w-full lg:w-full xl:w-1/2
         ml-auto fixed -bottom-1 right-20" id="placeChat">
         </div>
+        <!-- place show chat -->
     </div>
-    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
+    <!-- main -->
 
-    </div>
-    @else
-    <?php redirect()->to('login')->send(); ?>
-    @endif
+    <!-- place show modal -->
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second"></div>
+    <!-- place show modal -->
+
     <script>
         var store = (function() {
             var map = {};
@@ -219,15 +227,20 @@ use Illuminate\Support\Facades\Session;
                 }
             };
         })();
+        var config = {
+            routes: {
+                ProcessSearchData: "{{ route('ProcessSearchData') }}",
+                ProcessCommentPost: "{{ route('ProcessCommentPost') }}"
+            }
+        };
+        var action = 'inactive';
         var arrayImage = new Array();
         var arrayImageAndVideoPost = new Array();
         store.set('imageAndVideoPost', arrayImageAndVideoPost);
-        $('#modalHeaderRight').html('')
-        Pusher.logToConsole = true;
         var pusher = new Pusher('5064fc09fcd20f23d5c1', {
             cluster: 'ap1'
         });
-        // common.js
+        $('#modalHeaderRight').html('');
         const userID = getUserID();
         var channel = pusher.subscribe('test.' + userID);
         channel.bind('tests', function() {
@@ -239,13 +252,6 @@ use Illuminate\Support\Facades\Session;
                 }
             });
         });
-        var config = {
-            routes: {
-                ProcessSearchData: "{{ route('ProcessSearchData') }}",
-                ProcessCommentPost: "{{ route('ProcessCommentPost') }}"
-            }
-        };
-        var action = 'inactive';
         if (action == 'inactive') {
             loading();
             loadingPost(0);
@@ -261,6 +267,7 @@ use Illuminate\Support\Facades\Session;
             }
         });
     </script>
+
 </body>
 
 </html>

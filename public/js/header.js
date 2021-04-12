@@ -1,4 +1,3 @@
-
 function openNotifications() {
     if ($('#modalHeaderRight').html() == '') {
         $.ajax({

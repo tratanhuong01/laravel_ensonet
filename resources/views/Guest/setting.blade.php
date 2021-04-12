@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-@if (session()->has('user'))
-<html lang="en" class="{{ Session::get('user')[0]->DarkMode == '0' ? '' : 'dark' }}">
-@else
-<html lang="en">
-@endif
+@include('Head/document')
 
 <head>
     <title>Ensonet</title>
     @include('Head/css')
-    <script src="/js/ajax/Header/ajax.js"></script>
-    <script src="/js/ajax/CaiDat/ajax.js"></script>
+    <script src="/js/ajax/header/ajax.js"></script>
+    <script src="/js/ajax/setting/ajax.js"></script>
 </head>
 
 <body class="dark:bg-dark-main">
@@ -48,13 +43,13 @@
                 <div class="w-3/4 pt-3 px-2.5 dark:bg-dark-main rounded-lg shadow-lg font-bold">
                     @switch($paths[count($paths)-1])
                     @case('change-name')
-                    @include('Guest/Child/CaiDat',['index' => 0])
+                    @include('Guest/Child/Setting',['index' => 0])
                     @break
                     @case('change-password')
-                    @include('Guest/Child/CaiDat',['index' => 1])
+                    @include('Guest/Child/Setting',['index' => 1])
                     @break
                     @case('delete-account')
-                    @include('Guest/Child/CaiDat',['index' => 2])
+                    @include('Guest/Child/Setting',['index' => 2])
                     @break
                     @endswitch
                 </div>

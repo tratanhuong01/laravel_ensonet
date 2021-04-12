@@ -55,335 +55,335 @@ Route::group(['namespace' => 'Displays'], function () {
     Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewOut', [Displays\ViewImageController::class, 'zoomOut']);
 });
 
-Route::group(['namespace' => 'DangKi'], function () {
+Route::group(['namespace' => 'Register'], function () {
     // xử lí đăng kí
-    Route::get('ProcessRegister', [DangKi\RegisterController::class, 'register'])
+    Route::get('ProcessRegister', [Register\RegisterController::class, 'register'])
         ->name('ProcessRegister');
 
     //ajax xác nhận code
-    Route::get('ProcessVerify', [DangKi\VerifyMailController::class, 'verify'])
+    Route::get('ProcessVerify', [Register\VerifyMailController::class, 'verify'])
         ->name('ProcessVerify');
 });
 
-Route::group(['namespace' => 'TaiKhoans'], function () {
+Route::group(['namespace' => 'Account'], function () {
     //ajax quên mật khẩu
-    Route::get('ProcessForgetAccount', [TaiKhoans\ForgetAccountController::class, 'get'])
+    Route::get('ProcessForgetAccount', [Account\ForgetAccountController::class, 'get'])
         ->name('ProcessForgetAccount');
 
     // ajax gửi lại code
-    Route::get('ProcessSendCodeAgain', [TaiKhoans\SendCodeAgainController::class, 'send'])
+    Route::get('ProcessSendCodeAgain', [Account\SendCodeAgainController::class, 'send'])
         ->name('ProcessSendCodeAgain');
 
     // tìm kiếm bạn bè
-    Route::get('ProcessSearchFriend', [TaiKhoans\SearchFriendController::class, 'search'])
+    Route::get('ProcessSearchFriend', [Account\SearchFriendController::class, 'search'])
         ->name('ProcessSearchFriend');
 
     //
-    Route::get('ProcessStateUsersOnline', [TaiKhoans\StateUserController::class, 'online'])
+    Route::get('ProcessStateUsersOnline', [Account\StateUserController::class, 'online'])
         ->name('ProcessStateUsersOnline');
 
     //
-    Route::get('ProcessStateUsersOnlineOther', [TaiKhoans\StateUserController::class, 'onlineOther'])
+    Route::get('ProcessStateUsersOnlineOther', [Account\StateUserController::class, 'onlineOther'])
         ->name('ProcessStateUsersOnlineOther');
 
     //
-    Route::get('ProcessSearchUserChat', [TaiKhoans\SearchFriendController::class, 'searchUserChat'])
+    Route::get('ProcessSearchUserChat', [Account\SearchFriendController::class, 'searchUserChat'])
         ->name('ProcessSearchUserChat');
 });
 
-Route::group(['namespace' => 'DangNhap'], function () {
+Route::group(['namespace' => 'Login'], function () {
     // ajax đăng nhập
-    Route::post('ProcessLogin', [DangNhap\LoginController::class, 'login'])
+    Route::post('ProcessLogin', [Login\LoginController::class, 'login'])
         ->name('ProcessLogin');
 
     //
-    Route::post('ProcessSendRequestUser', [DangNhap\RequestUserContrller::class, 'send'])
+    Route::post('ProcessSendRequestUser', [Login\RequestUserContrller::class, 'send'])
         ->name('ProcessSendRequestUser');
 
     // xử lí người dùng mới
-    Route::post('NewBieLogin', [DangNhap\NewBieController::class, 'login'])
+    Route::post('NewBieLogin', [Login\NewBieController::class, 'login'])
         ->name('NewBieLogin');
 
     //xử lí đăng xuất
-    Route::get('logout', [DangNhap\LogoutController::class, 'logout'])
+    Route::get('logout', [Login\LogoutController::class, 'logout'])
         ->name('logout');
 });
 
-Route::group(['namespace' => 'MoiQuanHe'], function () {
+Route::group(['namespace' => 'Relationship'], function () {
     // ajax yêu cầu kết bạn
-    Route::get('ProcessRequestFriend', [MoiQuanHe\RequestFriendController::class, 'send'])
+    Route::get('ProcessRequestFriend', [Relationship\RequestFriendController::class, 'send'])
         ->name('ProcessRequestFriend');
 
     // ajax hủy yêu cầu kết bạn
-    Route::get('ProcessCancelRequestRFriend', [MoiQuanHe\CancelRequestFriendController::class, 'cancelRequest'])
+    Route::get('ProcessCancelRequestRFriend', [Relationship\CancelRequestFriendController::class, 'cancelRequest'])
         ->name('ProcessCancelRequestRFriend');
 
     // ajax hủy yêu cầu kết bạn
-    Route::get('ProcessCancelRequestFriend', [MoiQuanHe\CancelRequestFriendController::class, 'cancel'])
+    Route::get('ProcessCancelRequestFriend', [Relationship\CancelRequestFriendController::class, 'cancel'])
         ->name('ProcessCancelRequestFriend');
 
     // ajax hủy yêu cầu kết bạn
-    Route::get('ProcessCancelRequestFriendIndex', [MoiQuanHe\CancelRequestFriendController::class, 'cancelIndex'])
+    Route::get('ProcessCancelRequestFriendIndex', [Relationship\CancelRequestFriendController::class, 'cancelIndex'])
         ->name('ProcessCancelRequestFriendIndex');
 
     // ajax chấp nhận kết bạn
-    Route::get('ProcessAcceptFriend', [MoiQuanHe\AcceptFriendController::class, 'accept'])
+    Route::get('ProcessAcceptFriend', [Relationship\AcceptFriendController::class, 'accept'])
         ->name('ProcessAcceptFriend');
 
     // ajax chấp nhận kết bạn index
-    Route::get('ProcessAcceptFriendIndex', [MoiQuanHe\AcceptFriendController::class, 'acceptIndex'])
+    Route::get('ProcessAcceptFriendIndex', [Relationship\AcceptFriendController::class, 'acceptIndex'])
         ->name('ProcessAcceptFriendIndex');
 
     // ajax xóa kết bạn
-    Route::get('ProcessDeleteFriend', [MoiQuanHe\DeleteFriendController::class, 'delete'])
+    Route::get('ProcessDeleteFriend', [Relationship\DeleteFriendController::class, 'delete'])
         ->name('ProcessDeleteFriend');
 });
 
-Route::group(['namespace' => 'BaiDang'], function () {
+Route::group(['namespace' => 'Post'], function () {
     //
-    Route::post('ProcessPostCommentSticker', [BaiDang\CommentController::class, 'postCommentSticker'])
+    Route::post('ProcessPostCommentSticker', [Post\CommentController::class, 'postCommentSticker'])
         ->name('ProcessPostCommentSticker');
 
     //
-    Route::post('ProcessPostCommentStickerRep', [BaiDang\RepCommentController::class, 'repPostCommentSticker'])
+    Route::post('ProcessPostCommentStickerRep', [Post\RepCommentController::class, 'repPostCommentSticker'])
         ->name('ProcessPostCommentStickerRep');
 
     // xử lí bài đăng thông thường
-    Route::post('ProcessPostNormal', [BaiDang\PostNormalController::class, 'post'])
+    Route::post('ProcessPostNormal', [Post\PostNormalController::class, 'post'])
         ->name('ProcessPostNormal');
 
     // ajax bày tỏ cảm xúc bài đăng
-    Route::get('ProcessFeelPost', [BaiDang\FeelController::class, 'feel'])
+    Route::get('ProcessFeelPost', [Post\FeelController::class, 'feel'])
         ->name('ProcessFeelPost');
 
     // ajax xử lí lượt cảm xúc bài đăng
-    Route::get('ProcessViewFeelPost', [BaiDang\FeelController::class, 'view'])
+    Route::get('ProcessViewFeelPost', [Post\FeelController::class, 'view'])
         ->name('ProcessViewFeelPost');
 
     //
-    Route::get('ProcessViewFeelCurrent', [BaiDang\FeelController::class, 'viewFeel'])
+    Route::get('ProcessViewFeelCurrent', [Post\FeelController::class, 'viewFeel'])
         ->name('ProcessViewFeelCurrent');
 
     //
-    Route::get('ProcessTickFeelCurrent', [BaiDang\FeelController::class, 'tickFeel'])
+    Route::get('ProcessTickFeelCurrent', [Post\FeelController::class, 'tickFeel'])
         ->name('ProcessTickFeelCurrent');
 
     //
-    Route::get('ProcessSearchFeelCurrent', [BaiDang\FeelController::class, 'searchFeel'])
+    Route::get('ProcessSearchFeelCurrent', [Post\FeelController::class, 'searchFeel'])
         ->name('ProcessSearchFeelCurrent');
 
     // ajax xử lí bình luận
-    Route::post('ProcessCommentPost', [BaiDang\CommentController::class, 'comment'])
+    Route::post('ProcessCommentPost', [Post\CommentController::class, 'comment'])
         ->name('ProcessCommentPost');
 
     // ajax xử lí xem thêm bình luận
-    Route::get('ProcessViewMoreCommentPost', [BaiDang\CommentController::class, 'viewmore'])
+    Route::get('ProcessViewMoreCommentPost', [Post\CommentController::class, 'viewmore'])
         ->name('ProcessViewMoreCommentPost');
 
     // ajax xử lí xem thêm bình luận
-    Route::get('ProcessLoadViewMoreComment', [BaiDang\CommentController::class, 'numcomment'])
+    Route::get('ProcessLoadViewMoreComment', [Post\CommentController::class, 'numcomment'])
         ->name('ProcessLoadViewMoreComment');
 
     // ajax xử lí phản hồi bình luận
-    Route::get('ProcessRepViewCommentPost', [BaiDang\RepCommentController::class, 'repview'])
+    Route::get('ProcessRepViewCommentPost', [Post\RepCommentController::class, 'repview'])
         ->name('ProcessRepViewCommentPost');
 
     // ajax xử lí phản hồi bình luận
-    Route::get('ProcessRepViewCommentPost2', [BaiDang\RepCommentController::class, 'repview2'])
+    Route::get('ProcessRepViewCommentPost2', [Post\RepCommentController::class, 'repview2'])
         ->name('ProcessRepViewCommentPost2');
 
     // ajax xử lí phản hồi bình luận
-    Route::post('ProcessRepCommentPost', [BaiDang\RepCommentController::class, 'rep'])
+    Route::post('ProcessRepCommentPost', [Post\RepCommentController::class, 'rep'])
         ->name('ProcessRepCommentPost');
 
     // ajax xử lí chia sẽ bài viết
-    Route::get('ProcessShareViewPost', [BaiDang\SharePostController::class, 'shareView'])
+    Route::get('ProcessShareViewPost', [Post\SharePostController::class, 'shareView'])
         ->name('ProcessShareViewPost');
 
     //
-    Route::get('ProcessSharePost', [BaiDang\SharePostController::class, 'share'])
+    Route::get('ProcessSharePost', [Post\SharePostController::class, 'share'])
         ->name('ProcessSharePost');
 
     // ajax view lượt cảm xúc
-    Route::get('ProcessViewDetailFeel', [BaiDang\ViewDetailFeelController::class, 'view'])
+    Route::get('ProcessViewDetailFeel', [Post\ViewDetailFeelController::class, 'view'])
         ->name('ProcessViewDetailFeel');
 
     // ajax view lượt cảm xúc
-    Route::get('ProcessViewOnlyDetailFeel', [BaiDang\ViewDetailFeelController::class, 'viewOnly'])
+    Route::get('ProcessViewOnlyDetailFeel', [Post\ViewDetailFeelController::class, 'viewOnly'])
         ->name('ProcessViewOnlyDetailFeel');
 
     // ajax view lượt cảm xúc cmt
-    Route::get('ProcessViewDetailFeelCmt', [BaiDang\ViewDetailFeelController::class, 'viewCmt'])
+    Route::get('ProcessViewDetailFeelCmt', [Post\ViewDetailFeelController::class, 'viewCmt'])
         ->name('ProcessViewDetailFeelCmt');
 
     // ajax view lượt cảm xúc cmt
-    Route::get('ProcessViewOnlyDetailFeelCmt', [BaiDang\ViewDetailFeelController::class, 'viewOnlyCmt'])
+    Route::get('ProcessViewOnlyDetailFeelCmt', [Post\ViewDetailFeelController::class, 'viewOnlyCmt'])
         ->name('ProcessViewOnlyDetailFeelCmt');
 
     // ajax view lượt cảm xúc path khác
-    Route::get('/{value1}/{value2}/{value3}/ProcessViewDetailFeel', [BaiDang\ViewDetailFeelController::class, 'view']);
+    Route::get('/{value1}/{value2}/{value3}/ProcessViewDetailFeel', [Post\ViewDetailFeelController::class, 'view']);
 
     // ajax view lượt cảm xúc path khác
-    Route::get('/{value1}/{value2}/{value3}/ProcessViewOnlyDetailFeel', [BaiDang\ViewDetailFeelController::class, 'viewOnly']);
+    Route::get('/{value1}/{value2}/{value3}/ProcessViewOnlyDetailFeel', [Post\ViewDetailFeelController::class, 'viewOnly']);
 
     // ajax xóa bài đăng
-    Route::get('ProcessDeletePost', [BaiDang\DeletePostController::class, 'delete'])
+    Route::get('ProcessDeletePost', [Post\DeletePostController::class, 'delete'])
         ->name('ProcessDeletePost');
 
     // ajax xác nhận xóa bài đăng
-    Route::get('ProcessWarnDeletePost', [BaiDang\DeletePostController::class, 'warn'])
+    Route::get('ProcessWarnDeletePost', [Post\DeletePostController::class, 'warn'])
         ->name('ProcessWarnDeletePost');
 
     // ajax chỉnh sửa bài đăng
-    Route::get('ProcessEditPost', [BaiDang\EditPostController::class, 'edit'])
+    Route::get('ProcessEditPost', [Post\EditPostController::class, 'edit'])
         ->name('ProcessEditPost');
 
     // ajax view chỉnh sửa bài đăng
-    Route::get('ProcessViewEditPost', [BaiDang\EditPostController::class, 'view'])
+    Route::get('ProcessViewEditPost', [Post\EditPostController::class, 'view'])
         ->name('ProcessViewEditPost');
 
     // ajax chỉnh sửa đối tượng bài đăng view
-    Route::get('ProcessViewObjectPrivacyPost', [BaiDang\EditObjectPrivacyController::class, 'view'])
+    Route::get('ProcessViewObjectPrivacyPost', [Post\EditObjectPrivacyController::class, 'view'])
         ->name('ProcessViewObjectPrivacyPost');
 
     // ajax chỉnh sửa đối tượng bài đăng view
-    Route::get('ProcessEditObjectPrivacyPost', [BaiDang\EditObjectPrivacyController::class, 'edit'])
+    Route::get('ProcessEditObjectPrivacyPost', [Post\EditObjectPrivacyController::class, 'edit'])
         ->name('ProcessEditObjectPrivacyPost');
 
     //ajax thả cảm xúc cho bình luận
-    Route::get('ProcessFeelCommentPost', [BaiDang\FeelCommentPostController::class, 'feel'])
+    Route::get('ProcessFeelCommentPost', [Post\FeelCommentPostController::class, 'feel'])
         ->name('ProcessFeelCommentPost');
 
     //ajax số lượng cảm xúc của bình luận
-    Route::get('ProcessLoadNumFeelCommentPost', [BaiDang\FeelCommentPostController::class, 'loadnumfeel'])
+    Route::get('ProcessLoadNumFeelCommentPost', [Post\FeelCommentPostController::class, 'loadnumfeel'])
         ->name('ProcessLoadNumFeelCommentPost');
 
     //ajax thả cảm xúc cho bình luận
-    Route::get('ProcessLoadNumRepComment', [BaiDang\RepCommentController::class, 'load'])
+    Route::get('ProcessLoadNumRepComment', [Post\RepCommentController::class, 'load'])
         ->name('ProcessLoadNumRepComment');
 
     //ajax 
-    Route::get('ProcessViewRepComment', [BaiDang\RepCommentController::class, 'view'])
+    Route::get('ProcessViewRepComment', [Post\RepCommentController::class, 'view'])
         ->name('ProcessViewRepComment');
 
     //post
-    Route::get('/post/{idBaiDang}', [BaiDang\PostController::class, 'view']);
+    Route::get('/post/{idPost}', [Post\PostController::class, 'view']);
 
     //
-    Route::get('ProcessSearchTagFriend', [BaiDang\TagFriendController::class, 'search'])
+    Route::get('ProcessSearchTagFriend', [Post\TagFriendController::class, 'search'])
         ->name('ProcessSearchTagFriend');
 
     //
-    Route::get('ProcesViewTagFriend', [BaiDang\TagFriendController::class, 'view'])
+    Route::get('ProcesViewTagFriend', [Post\TagFriendController::class, 'view'])
         ->name('ProcesViewTagFriend');
 
     //
-    Route::get('ProcesViewCreatePost', [BaiDang\PostController::class, 'viewCreatePost'])
+    Route::get('ProcesViewCreatePost', [Post\PostController::class, 'viewCreatePost'])
         ->name('ProcesViewTagFriend');
 
     //
-    Route::get('ProcessTagFriend', [BaiDang\TagFriendController::class, 'tag'])
+    Route::get('ProcessTagFriend', [Post\TagFriendController::class, 'tag'])
         ->name('ProcessTagFriend');
 
     //
-    Route::get('ProcessViewUserTagOfPost', [BaiDang\TagFriendController::class, 'viewUserTagOfPost'])
+    Route::get('ProcessViewUserTagOfPost', [Post\TagFriendController::class, 'viewUserTagOfPost'])
         ->name('ProcessViewUserTagOfPost');
 
     //
-    Route::post('ProcessPostTimeLine', [BaiDang\PostTimeLineController::class, 'post'])
+    Route::post('ProcessPostTimeLine', [Post\PostTimeLineController::class, 'post'])
         ->name('ProcessPostTimeLine');
 
     //
-    Route::post('ProcessEditViewComment', [BaiDang\EditCommentController::class, 'editView'])
+    Route::post('ProcessEditViewComment', [Post\EditCommentController::class, 'editView'])
         ->name('ProcessEditViewComment');
 
     //
-    Route::post('ProcessEditComment', [BaiDang\EditCommentController::class, 'edit'])
+    Route::post('ProcessEditComment', [Post\EditCommentController::class, 'edit'])
         ->name('ProcessEditComment');
 });
 
-Route::group(['namespace' => 'TroChuyen'], function () {
+Route::group(['namespace' => 'Chat'], function () {
     //
-    Route::get('ProcessOpenChat', [TroChuyen\ChatController::class, 'view'])
+    Route::get('ProcessOpenChat', [Chat\ChatController::class, 'view'])
         ->name('ProcessOpenChat');
 
     //
-    Route::get('ProcessMinizeChat', [TroChuyen\ChatController::class, 'minize'])
+    Route::get('ProcessMinizeChat', [Chat\ChatController::class, 'minize'])
         ->name('ProcessMinizeChat');
 
     //
-    Route::get('ProcessOpenMessenger', [TroChuyen\ChatController::class, 'openMessenger'])
+    Route::get('ProcessOpenMessenger', [Chat\ChatController::class, 'openMessenger'])
         ->name('ProcessOpenMessenger');
 
     //
-    Route::post('ProcessSendMessages', [TroChuyen\SendMessageController::class, 'send'])
+    Route::post('ProcessSendMessages', [Chat\SendMessageController::class, 'send'])
         ->name('ProcessSendMessages');
 
     //
-    Route::get('ProcessChatEvent', [TroChuyen\SendMessageController::class, 'chatEvent'])
+    Route::get('ProcessChatEvent', [Chat\SendMessageController::class, 'chatEvent'])
         ->name('ProcessChatEvent');
 
     //
-    Route::get('ProcessViewRemoveMessage', [TroChuyen\DeleteMessageController::class, 'view'])
+    Route::get('ProcessViewRemoveMessage', [Chat\DeleteMessageController::class, 'view'])
         ->name('ProcessViewRemoveMessage');
 
     //
-    Route::get('ProcessRemoveMessage', [TroChuyen\DeleteMessageController::class, 'remove'])
+    Route::get('ProcessRemoveMessage', [Chat\DeleteMessageController::class, 'remove'])
         ->name('ProcessRemoveMessage');
 
     //
-    Route::get('ProcessOpenChangeColor', [TroChuyen\ColorMessageController::class, 'open'])
+    Route::get('ProcessOpenChangeColor', [Chat\ColorMessageController::class, 'open'])
         ->name('ProcessOpenChangeColor');
 
     //
-    Route::get('ProcessChangeColor', [TroChuyen\ColorMessageController::class, 'change'])
+    Route::get('ProcessChangeColor', [Chat\ColorMessageController::class, 'change'])
         ->name('ProcessChangeColor');
 
     //
-    Route::get('ProcessOpenCreateChat', [TroChuyen\ChatController::class, 'createChat'])
+    Route::get('ProcessOpenCreateChat', [Chat\ChatController::class, 'createChat'])
         ->name('ProcessOpenCreateChat');
 
     //
-    Route::get('ProcessAddViewUserChatting', [TroChuyen\ChatController::class, 'addUser'])
+    Route::get('ProcessAddViewUserChatting', [Chat\ChatController::class, 'addUser'])
         ->name('ProcessAddViewUserChatting');
 
     //
-    Route::get('ProcessRemoveUserSelectedGroup', [TroChuyen\ChatController::class, 'removeUser'])
+    Route::get('ProcessRemoveUserSelectedGroup', [Chat\ChatController::class, 'removeUser'])
         ->name('ProcessRemoveUserSelectedGroup');
 
     //
-    Route::get('ProcessLoadGUINewChatRemove', [TroChuyen\ChatController::class, 'loadRemove'])
+    Route::get('ProcessLoadGUINewChatRemove', [Chat\ChatController::class, 'loadRemove'])
         ->name('ProcessLoadGUINewChatRemove');
 
     //
-    Route::get('ProcessLoadGUINewChatAdd', [TroChuyen\ChatController::class, 'loadAdd'])
+    Route::get('ProcessLoadGUINewChatAdd', [Chat\ChatController::class, 'loadAdd'])
         ->name('ProcessLoadGUINewChatAdd');
 
     //
-    Route::get('ProcessSendMessageGroup', [TroChuyen\ChatController::class, 'sendMessageGroup'])
+    Route::get('ProcessSendMessageGroup', [Chat\ChatController::class, 'sendMessageGroup'])
         ->name('ProcessSendMessageGroup');
 
     //
-    Route::get('ProcessOpenMessageGroup', [TroChuyen\ChatController::class, 'openMessageGroup'])
+    Route::get('ProcessOpenMessageGroup', [Chat\ChatController::class, 'openMessageGroup'])
         ->name('ProcessOpenMessageGroup');
 
     //
-    Route::get('ProcessUpdateStateMessage', [TroChuyen\ChatController::class, 'updateStateMessage'])
+    Route::get('ProcessUpdateStateMessage', [Chat\ChatController::class, 'updateStateMessage'])
         ->name('ProcessUpdateStateMessage');
 
     //
-    Route::get('ProcessSeenMessage', [TroChuyen\ChatController::class, 'seenMessage'])
+    Route::get('ProcessSeenMessage', [Chat\ChatController::class, 'seenMessage'])
         ->name('ProcessSeenMessage');
 
     // ajax view lượt cảm xúc
-    Route::get('ProcessViewDetailFeelMessage', [TroChuyen\ChatController::class, 'viewFeel'])
+    Route::get('ProcessViewDetailFeelMessage', [Chat\ChatController::class, 'viewFeel'])
         ->name('ProcessViewDetailFeelMessage');
 
     // ajax view lượt cảm xúc
-    Route::get('ProcessViewOnlyDetailFeelMessage', [TroChuyen\ChatController::class, 'viewFeelOnly'])
+    Route::get('ProcessViewOnlyDetailFeelMessage', [Chat\ChatController::class, 'viewFeelOnly'])
         ->name('ProcessViewOnlyDetailFeelMessage');
 
-    Route::get('ProcessSendStickerMessage', [TroChuyen\SendMessageController::class, 'sendStickerMessage'])
+    Route::get('ProcessSendStickerMessage', [Chat\SendMessageController::class, 'sendStickerMessage'])
         ->name('ProcessSendStickerMessage');
 });
 
@@ -432,19 +432,19 @@ Route::post('ProcessVerifyChangePassword', [SettingController::class, 'verifyCha
 // ajax mở hộp thoại bài đăng
 Route::get('ProcessOpenPostDialog', function (Request $request) {
     if ($request->type == NULL)
-        return view('Modal\ModalBaiDang\ModalTaoBaiViet');
+        return view('Modal\ModalPost\ModalCreatePost');
     else
-        return view('Modal\ModalBaiDang\ModalVietGiDo');
+        return view('Modal\ModalPost\ModalWriteAnyThing');
 })->name('ProcessOpenPostDialog');
 
 // ajax chọn quyền riêng tư bài đăng
 Route::get('ProcessSelecPrivacyPost', function () {
-    return view('Modal\ModalQuyenRiengTu\ModalQuyenRiengTu');
+    return view('Modal\ModalPrivacy\ModalPrivacy');
 })->name('ProcessSelecPrivacyPost');
 
 // ajax chọn quyền riêng tư bài đăng
 Route::get('ProcessOnChangeInputPrivacy', function (Request $request) {
-    return view('Component\Child\QuyenRiengTu')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
+    return view('Component\Child\Privacy')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
 })->name('ProcessOnChangeInputPrivacy');
 
 // 
@@ -454,13 +454,13 @@ Route::get('ProcessModalLast', function () {
 
 // ajax quên tài khoản
 Route::get('LoadQuenTaiKhoan', function () {
-    return view('Modal\ModalDangNhap\ModalNhapTT');
+    return view('Modal\ModalLogin\ModalTypeInfo');
 });
 
 //xử lí show modal notifications
 Route::get('ProcessShowModalNotifications', function () {
     $notify = Notify::getNotify(Session::get('user')[0]->IDTaiKhoan);
-    return view('Modal\ModalHeader\ModalThongBao')->with('notify', $notify);
+    return view('Modal\ModalHeader\ModalNotify')->with('notify', $notify);
 })->name('ProcessShowModalNotifications');
 
 //Cập nhật trạng thái của thông báo
@@ -475,7 +475,7 @@ Route::get('ProcessUpdateStateNotifications', function () {
     } else {
         DB::update("UPDATE thongbao SET TinhTrang = ? 
         WHERE IDTaiKhoan = ? AND IDLoaiThongBao != 'TINNHAN001' ", ['1', Session::get('user')[0]->IDTaiKhoan]);
-        return view('Component/Child/SoLuongThongBao')
+        return view('Component/Child/NumberNotify')
             ->with('num', Notify::countNotify(Session::get('user')[0]->IDTaiKhoan, 0));
     }
 })->name('ProcessUpdateStateNotifications');
@@ -494,9 +494,6 @@ Route::post('ProcessEditDescribeUser', [ProfileController::class, 'editDescribeU
 //
 Route::get('ProcessLoadProfileFriendRequest', [ProfileController::class, 'loadAjaxProfileFriendRequest'])
     ->name('ProcessLoadProfileFriendRequest');
-
-//
-Route::get('friends/{id}', [ProfileController::class, 'loadProfileFriendRequest']);
 
 //dark mode
 Route::get('ProcessDarkMode', function () {
@@ -532,14 +529,24 @@ Route::get('ProcessDarkMode', function () {
 
 //
 Route::get('friends', function () {
-    return view('Guest/FriendRequest');
+    return view('Guest/friend-request')
+        ->with('users', []);
+});
+
+//
+Route::get('friends/{id}', function ($id) {
+    $users = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $id)->get();
+    if (count($users) > 0)
+        return view('Guest/friend-request')->with('users', $users);
+    else
+        return view('Guest/friend-request')->with('users', []);
 });
 
 //
 Route::get('messages/{idNhomTinNhan}', function ($idNhomTinNhan) {
     $chater = DataProcess::getUserOfGroupMessage($idNhomTinNhan);
     $messages = DataProcess::getMessageByNhomTinNhan($idNhomTinNhan);
-    return view('Guest/messages')->with('chater', $chater)
+    return view('Guest/messager')->with('chater', $chater)
         ->with('messages', $messages)
         ->with('idNhomTinNhan', $idNhomTinNhan);
 });
@@ -561,22 +568,22 @@ Route::get('ProcessLoadingPost', function (Request $request) {
         foreach ($arrayNew as $key => $value) {
             switch ($value[0]->LoaiBaiDang) {
                 case '0':
-                    $data .= view('Component/BaiDang/CapNhatAvatar')
+                    $data .= view('Component/Post/UpdateAvatarImage')
                         ->with('item', $value)
                         ->with('user', Session::get('user'));
                     break;
                 case '1':
-                    $data .= view('Component/BaiDang/CapNhatAnhBia')
+                    $data .= view('Component/Post/UpdateCoverImage')
                         ->with('item', $value)
                         ->with('user', Session::get('user'));
                     break;
                 case '2':
-                    $data .= view('Component/BaiDang/BaiDangTT')
+                    $data .= view('Component/Post/PostNormal')
                         ->with('item', $value)
                         ->with('user', Session::get('user'));
                     break;
                 case '3':
-                    $data .= view('Component/BaiDang/ShareBaiViet')
+                    $data .= view('Component/Post/SharePost')
                         ->with('item', $value)
                         ->with('user', Session::get('user'));
                     break;
@@ -600,27 +607,27 @@ Route::get('ProcessLoadingPostProfile', function (Request $request) {
             $post = Functions::getPost($value);
             switch ($value->LoaiBaiDang) {
                 case '0':
-                    $data .= view('Component/BaiDang/CapNhatAvatar')
+                    $data .= view('Component/Post/UpdateAvatarImage')
                         ->with('item', $post)
                         ->with('user', Session::get('user'));
                     break;
                 case '1':
-                    $data .= view('Component/BaiDang/CapNhatAnhBia')
+                    $data .= view('Component/Post/UpdateCoverImage')
                         ->with('item', $post)
                         ->with('user', Session::get('user'));
                     break;
                 case '2':
-                    $data .= view('Component/BaiDang/BaiDangTT')
+                    $data .= view('Component/Post/PostNormal')
                         ->with('item', $post)
                         ->with('user', Session::get('user'));
                     break;
                 case '3':
-                    $data .= view('Component/BaiDang/ShareBaiViet')
+                    $data .= view('Component/Post/SharePost')
                         ->with('item', $post)
                         ->with('user', Session::get('user'));
                     break;
                 case '4':
-                    $data .= view('Component/BaiDang/DongThoiGian')
+                    $data .= view('Component/Post/Timeline')
                         ->with('item', $post)
                         ->with('user', Session::get('user'));
                     break;
@@ -633,7 +640,7 @@ Route::get('ProcessLoadingPostProfile', function (Request $request) {
 
 //
 Route::get('ProcessLoading', function () {
-    return view('TimeLine/BaiDang') . view('TimeLine/BaiDang');
+    return view('TimeLine/Post') . view('TimeLine/Post');
 })->name('ProcessLoading');
 
 //
@@ -664,22 +671,22 @@ Route::get('stories', function () {
 
 //
 Route::get('verify-user-identity', function () {
-    return view('Guest/VeriAcc');
+    return view('Guest/verify-account');
 });
 
 Route::get('verify-success', function () {
     Session::flush();
-    return view('Component/Child/GuiYeuCauThanhCong');
+    return view('Component/Child/SendRequestSuccess');
 });
 
 //
 Route::get('checkpoint', function () {
-    return view('Guest/Block');
+    return view('Guest/block');
 });
 
 //
 Route::get('activity', function () {
-    return view('Guest/Activity')->with(
+    return view('Guest/activity')->with(
         'data',
         DataProcessThird::getActivityByIDTaiKhoan(Session::get('idcheckpoint'))
     );
@@ -687,7 +694,7 @@ Route::get('activity', function () {
 
 //
 Route::get('change-password', function () {
-    return view('Guest/ChangePass');
+    return view('Guest/change-pass');
 });
 
 //
@@ -710,12 +717,12 @@ Route::get('setting/change-name', function () {
     Session::forget('passWordOld');
     Session::forget('passWordNew');
     Session::forget('typePassWordNew');
-    return view('Guest/Setting');
+    return view('Guest/setting');
 });
 
 //
 Route::get('setting/change-password', function () {
-    return view('Guest/Setting');
+    return view('Guest/setting');
 });
 
 //
@@ -725,7 +732,7 @@ Route::get('setting/delete-account', function () {
     Session::forget('typePassWordNew');
     Session::forget('verify');
     Session::forget('emailSend');
-    return view('Guest/Setting');
+    return view('Guest/setting');
 });
 
 //
@@ -742,11 +749,6 @@ Route::get('ProcessSeenMessageEvent', function (Request $request) {
     ]);
 });
 
-// Đăng Nhập
-Route::get('/login', function (Request $request) {
-    return view('Guest/login');
-});
-
 //
 Route::get('/', function () {
     if (session()->has('user'))
@@ -755,21 +757,32 @@ Route::get('/', function () {
         redirect()->to('index')->send();
 });
 
+// Đăng Nhập
+Route::get('/login', function (Request $request) {
+    if (session()->has('user'))
+        return redirect()->to('index')->send();
+    else
+        return redirect()->to('login')->send();
+});
+
 // redriect sang index
 Route::get('index', function () {
     session()->forget('users');
-    return view('Guest/index');
+    if (session()->has('user'))
+        return view('Guest/index');
+    else
+        return redirect()->to('login')->send();
 });
 
 Route::get('ProcessLoadMessageLimit', function (Request $request) {
     $message = DataProcess::getMessageByNhomTinNhanLimit($request->IDNhomTinNhan, $request->index);
 
     return response()->json([
-        'view' => "" . view('Modal/ModalTroChuyen/Child/Message')
+        'view' => "" . view('Modal/ModalChat/Child/Message')
             ->with('messages', $message),
         'index' => $request->index - 15
     ]);
 })->name('ProcessLoadMessageLimit');
 
-Route::get('ProcessFeelMessage', [TroChuyen\ChatController::class, 'feelMessage'])
+Route::get('ProcessFeelMessage', [Chat\ChatController::class, 'feelMessage'])
     ->name('ProcessFeelMessage');

@@ -4,26 +4,27 @@ use App\Models\StringUtil;
 use App\Models\Taikhoan;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
+use App\Process\DataProcessFive;
 use Illuminate\Support\Facades\Session;
 
 $user = Session::get('user');
 
+$imageAndVideo = DataProcessFive::getAllImageAndVideo($idNhomTinNhan);
+
 ?>
 <?php
-echo "<style>
-    .mess-right {
-        background-color: #" . (count($messages) == 0 ? '65676B' : $messages[0]->IDMauTinNhan) . ";
-    }
-</style>";
+echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
+    (count($messages) == 0 ? '65676B' :
+        $messages[0]->IDMauTinNhan) . ";}</style>";
 ?>
 <div class="w-2/3">
-    <div class="w-full" style="height: 718px;max-height: 718px;">
+    <div class="w-full" style="height: 701px;max-height: 701px;">
         <div class="w-full py-3 flex shadow">
             <div class="w-1/2 pl-3 flex">
                 <div class="pt-1">
                     <div class="w-10 h-10 relative">
                         <img src="/{{ $chater[0]->AnhDaiDien }}" alt="" class="w-10 h-10 object-cover rounded-full">
-                        @include('Component\Child\HoatDong',[
+                        @include('Component\Child\Activity',[
                         'padding' => 'p-1',
                         'right' => 'right-0',
                         'bottom' => 'bottom-0',
@@ -66,28 +67,28 @@ echo "<style>
             </div>
         </div>
         <div id='{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges' class="w-full p-1 
-        wrapper-content-right overflow-y-auto overflow-x-hidden relative" style="height: 588px;">
+        wrapper-content-right overflow-y-auto overflow-x-hidden relative" style="height: 560px;">
             @if (count($messages) == 0)
-            @include('Modal/ModalTroChuyen/Child/NewChat',['chater' => $chater])
+            @include('Modal/ModalChat/Child/NewChat',['chater' => $chater])
             @else
-            @include('Modal/ModalTroChuyen/Child/NewChat',['chater' => $chater])
+            @include('Modal/ModalChat/Child/NewChat',['chater' => $chater])
             @foreach($messages as $key => $value)
             @if(Session::get('user')[0]->IDTaiKhoan == $value->IDTaiKhoan)
             @if($value->LoaiTinNhan == 2)
-            @include('Modal\ModalTroChuyen\Child\ChatCenter',['message' => $value])
+            @include('Modal\ModalChat\Child\ChatCenter',['message' => $value])
             @else
             @switch(explode('#',DataProcess::getState($value->TinhTrang,Session::get('user')[0]->IDTaiKhoan))[1])
             @case('1')
             @include('Component\Messenger\ChatRight',['message' => $value])
             @break
             @case('2')
-            @include('Modal\ModalTroChuyen\Child\ThuHoiTinNhanR',['message' => $value])
+            @include('Modal\ModalChat\Child\ThuHoiTinNhanR',['message' => $value])
             @break
             @endswitch
             @endif
             @else
             @if($value->LoaiTinNhan == 2)
-            @include('Modal\ModalTroChuyen\Child\ChatCenter',['message' => $value])
+            @include('Modal\ModalChat\Child\ChatCenter',['message' => $value])
             @else
             @switch(explode('#',DataProcess::getState($value->TinhTrang,Session::get('user')[0]->IDTaiKhoan))[1])
             @case('1')
@@ -169,11 +170,11 @@ echo "<style>
         </div>
     </div>
 </div>
-<div class="w-1/3 pr-2 wrapper-content-right" style="height: 718px;max-height: 718px;overflow-y: auto;">
+<div class="w-1/3 pr-2 wrapper-content-right" style="height: 701px;max-height: 701px;overflow-y: auto;">
     <div class="w-full">
         <div class="w-16 h-16 object-cover rounded-full mx-auto my-2 relative">
             <img src="/{{ $chater[0]->AnhDaiDien }}" alt="" class="w-16 h-16 object-cover rounded-full mx-auto">
-            @include('Component\Child\HoatDong',[
+            @include('Component\Child\Activity',[
             'padding' => 'p-1.5',
             'right' => 'right-0',
             'bottom' => 'bottom-0',
@@ -237,22 +238,14 @@ echo "<style>
             File phương tiện được chia sẽ <i class="fas fa-chevron-down float-right absolute right-5 top-3.5"></i>
         </li>
         <li class="w-full py-1 flex flex-wrap pl-2.5">
+            @if(count($imageAndVideo) > 0)
+            @foreach($imageAndVideo as $key => $value)
             <a href="">
-                <img src="img/gai1.jpg" class="object-cover rounded-lg m-0.5
+                <img src="/{{ $value }}" class="object-cover rounded-lg m-0.5
                 " alt="" style="width: 115px;height:115px;">
             </a>
-            <a href="">
-                <img src="img/gai1.jpg" class="object-cover rounded-lg m-0.5
-                " alt="" style="width: 115px;height:115px;">
-            </a>
-            <a href="">
-                <img src="img/gai1.jpg" class="object-cover rounded-lg m-0.5
-                " alt="" style="width: 115px;height:115px;">
-            </a>
-            <a href="">
-                <img src="img/gai1.jpg" class="object-cover rounded-lg m-0.5
-                " alt="" style="width: 115px;height:115px;">
-            </a>
+            @endforeach
+            @endif
         </li>
     </ul>
 </div>

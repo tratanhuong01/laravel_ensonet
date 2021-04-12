@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-@if (session()->has('user'))
-<html lang="en" class="{{ Session::get('user')[0]->DarkMode == '0' ? '' : 'dark' }}">
-@else
-<html lang="en">
-@endif
 <?php
 
 use App\Models\StringUtil;
@@ -13,30 +7,11 @@ use Illuminate\Support\Facades\DB;
 $u = Session::get('user');
 
 ?>
+@include('Head/document')
 
 <head>
     <title>Ensonet</title>
-    <link rel="stylesheet" href="/../../css/style.css" />
-    <link rel="stylesheet" href="/../../css/tailwind_second.css" />
-    <link rel="stylesheet" href="/../../tailwind/tailwind.css" />
-    <link rel="stylesheet" href="/../../tailwind/tailwind.custom.css" />
-    <script src="/../../js/event/event.js"></script>
-    <script src="/../../js/ajax/BaiDang/ajax.js"></script>
-    <script src="/../../js/ajax/MoiQuanHe/ajax.js"></script>
-    <script src="/../../js/ajax.js"></script>
-    <script src="/../../js/scrollbar.js"></script>
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script src="/../../js/header.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Lato', sans-serif;
-        }
-    </style>
+    @include('Head/css')
 </head>
 
 <body>
@@ -53,7 +28,7 @@ $u = Session::get('user');
     }
     ?>
     @if (count($dataNew) == 0 && $indexImage == -1)
-    @include('Component\KhongTimThay')
+    @include('Component\NotFound')
     @else
     <div class="w-full dark:bg-dark-main" id="main">
         <div class="w-full flex h-screen bg-gray-100" id="content">
@@ -131,7 +106,7 @@ $u = Session::get('user');
                                                 {{ StringUtil::CheckDateTime($data[0]->NgayDang) }}</a></a>
                                         </li>
                                         <li class="pl-3 pt-0.5" id="{{ $data[0]->IDBaiDang }}QRT">
-                                            @include('Component\BaiDang\QuyenRiengTuBD',['idQuyenRiengTu' => $data[0]->IDQuyenRiengTu])
+                                            @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $data[0]->IDQuyenRiengTu])
                                         </li>
                                     </ul>
                                 </div>
@@ -141,7 +116,7 @@ $u = Session::get('user');
                             <i class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
                         </div>
                     </div>
-                    @include('Component\Child\CamXucBinhLuan',['item' => $data])
+                    @include('Component\Child\FeelComment',['item' => $data])
                 </div>
             </div>
         </div>

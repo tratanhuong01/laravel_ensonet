@@ -11,49 +11,49 @@ use App\Models\Gioithieu;
 
 $user = Session::get('user');
 
+$user_id =  $user[0]->IDTaiKhoan;
+
+$users_id =  count($users) > 0 ? $users[0]->IDTaiKhoan : "";
+
+$friendsGet = $users_id == "" ? [] :
+    Functions::getListFriendsUserLimit($users[0]->IDTaiKhoan);
+
+$images = $users_id == "" ? [] :
+    DataProcess::getAllImage($users[0]->IDTaiKhoan);
+
+$relationShip = $users_id == "" ? [] :
+    DB::table('moiquanhe')->where('IDTaiKhoan', '=', $user_id)
+    ->where('IDBanBe', '=', $users_id)->get();
+
+$paths = explode('/', parse_url(url()->current())['path']);
+
 ?>
-<!DOCTYPE html>
-@if (session()->has('user'))
-<html lang="en" class="{{ Session::get('user')[0]->DarkMode == '0' ? '' : 'dark' }}">
-@else
-<html lang="en">
-@endif
+@include('Head/document')
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        @if (sizeof($users) == 0)
+        @if (count($users) == 0)
         {{'Ensonet'}}
         @else
         {{$users[0]->Ho . ' ' . $users[0]->Ten . ' | Ensonet'}}
         @endif
     </title>
     @include('Head/css')
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/js/Login/login.js"></script>
-    <script src="/js/event/event.js"></script>
-    <script src="/js/ajax.js"></script>
-    <script src="/js/ajax/BaiDang/ajax.js"></script>
-    <script src="/js/ajax/BinhLuan/ajax.js"></script>
-    <script src="/js/realtime/notification.js"></script>
-    <script src="/js/header.js"></script>
-    <script src="/js/ajax/Profile/ajax.js"></script>
-    <script src="/js/ajax/GioiThieu/ajax.js"></script>
-    <script src="/js/ajax/GioiThieu/ajax_second.js"></script>
-    <script src="/js/ajax/HinhAnh/ajax.js"></script>
 </head>
 
 <body class="dark:bg-dark-main">
-    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second" style="z-index: 100;">
-    </div>
-    <div class="w-full dark:bg-dark-second" id="web">
-        @include('Header');
-        @if (sizeof($users) == 0)
-        @include('Component\KhongTimThay');
+    <!-- main -->
+    <div class="w-full dark:bg-dark-second" id="main">
+        <!-- header -->
+        @include('Header')
+        <!-- header -->
+
+        @if (count($users) == 0)
+        @include('Component/NotFound')
         @else
         @include('Timeline/Profile')
+
+        <!-- head profile -->
         <div class="hidden dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%" id="firstContentProfile">
             @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
             <div class="w-full relative">
@@ -131,33 +131,37 @@ $user = Session::get('user');
             dark:border-dark-second border-solid border-t-2">
             @endif
         </div>
-        <?php $moiQuanHe = DB::table('moiquanhe')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
-            ->where('IDBanBe', '=', $users[0]->IDTaiKhoan)->get(); ?>
+        <!-- head profile -->
+
+        <!-- relationship -->
         <div class="w-full relative mx-auto md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63% hidden" id="moiQuanHe">
             @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
-            @include('Component/MoiQuanHe/ChinhChu')
-            @elseif (sizeof($moiQuanHe) == 0)
-            @include('Component/MoiQuanHe/ChuaKetBan')
-            @elseif ($moiQuanHe[0]->TinhTrang == 0)
-            @include('Component/MoiQuanHe/ChuaKetBan')
-            @elseif ($moiQuanHe[0]->TinhTrang == 1)
-            @include('Component/MoiQuanHe/GuiYeuCau')
-            @elseif ($moiQuanHe[0]->TinhTrang == 2)
-            @include('Component/MoiQuanHe/NhanYeuCau')
-            @elseif ($moiQuanHe[0]->TinhTrang == 3)
-            @include('Component/MoiQuanHe/BanBe')
+            @include('Component/Relationship/Owner')
+            @elseif (sizeof($relationShip) == 0)
+            @include('Component/Relationship/NotFriend')
+            @elseif ($relationShip[0]->TinhTrang == 0)
+            @include('Component/Relationship/NotFriend')
+            @elseif ($relationShip[0]->TinhTrang == 1)
+            @include('Component/Relationship/SendRequest')
+            @elseif ($relationShip[0]->TinhTrang == 2)
+            @include('Component/Relationship/ReciviceRequest')
+            @elseif ($relationShip[0]->TinhTrang == 3)
+            @include('Component/Relationship/Friend')
             @endif
         </div>
+        <!-- relationship -->
+
+        <!-- main -->
         <div class="w-full relative bg-gray-100 dark:bg-dark-main pt-3 hidden" id="mainContentProfile">
-            <?php
-            $paths = explode('/', parse_url(url()->current())['path']);
-            ?>
             <div id="place_load_about" class="mx-auto relative w-full lg:flex xl:w-63% 
             md:w-4/5 lg:w-3/4 md:mx-auto lg:flex-wrap rounded-lg">
+                <!-- content -->
                 @switch($paths[count($paths) - 1])
+
                 @case('friends')
-                @include('Component\DanhMuc\BanBe',['data' => $data])
+                @include('Component\Category\Friends',['data' => $data])
                 @break
+
                 @case('about')
                 <div class="w-full dark:bg-dark-second flex my-4 rounded-lg">
                     @include('Component\GioiThieu\DanhMuc',['data' => $users,
@@ -166,202 +170,129 @@ $user = Session::get('user');
                         @include('Component\GioiThieu\TongQuan',['idTaiKhoan' => $users[0]->IDTaiKhoan])
                     </div>
                 </div>
-                @include('Component\DanhMuc\BanBe',['data' => $data])
-                @include('Component\DanhMuc\Anh')
-                @include('Component\DanhMuc\Video')
-                @include('Component\DanhMuc\Story')
+                @include('Component\Category\Friends',['data' => $data])
+                @include('Component\Category\Pictures')
+                @include('Component\Category\Video')
+                @include('Component\Category\Story')
                 @break
+
                 @case('pictures')
-                @include('Component\DanhMuc\Anh')
-                @include('Component\DanhMuc\Video')
-                @include('Component\DanhMuc\Story')
+                @include('Component\Category\Pictures')
+                @include('Component\Category\Video')
+                @include('Component\Category\Story')
                 @break;
+
                 @default
+
                 @php
                 $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $users[0]->IDTaiKhoan)->get()[0]->JsonGioiThieu;
                 $json = json_decode($json);
                 @endphp
+
                 <div class="w-full lg:flex" id="activeLoadPost">
+
+                    <!-- left -->
                     <div id="profileLeft" class="w-full lg:w-2/5">
-                        <div class="mx-2.5 mt-4 bg-white p-2.5 pt-0 rounded-lg dark:bg-dark-third" style="width:95%;">
-                            <p class="font-bold text-xl py-2 dark:text-white" style="font-family: system-ui;">Giới thiệu</p>
-                            <ul class="w-full ">
-                                @if (count($json->CongViecHocVan->CongViec) == 0)
-                                @else
-                                <li class="w-full pb-3" style="font-size: 15px;">
-                                    <p class="dark:text-gray-300"><i class="fas fa-briefcase 
-                                text-gray-600 text-xl dark:text-gray-300"></i>&nbsp;&nbsp;&nbsp;
-                                        @if ($json->CongViecHocVan->CongViec[0]->NamKetThuc == NULL)
-                                        {{ 'Làm việc tại ' }}
-                                        @else
-                                        {{ 'Từng làm việc tại ' }}
-                                        @endif
-                                        <b class="dark:text-gray-300">{{ $json->CongViecHocVan->CongViec[0]->TenCongTy }}</b>
-                                    </p>
-                                </li>
-                                @endif
-                                @if (count($json->CongViecHocVan->HocVan) == 0)
-                                @else
-                                <li class="w-full pb-3" style="font-size: 15px;">
-                                    <p class="dark:text-gray-300"><i class="fas fa-graduation-cap text-gray-600 dark:text-gray-300 text-xl"></i>&nbsp;
-                                        Học tại <b class="dark:text-gray-300">
-                                            {{ $json->CongViecHocVan->HocVan[0]->TenTruongHoc }}
-                                        </b>
-                                    </p>
-                                </li>
-                                @endif
-                                @if (count($json->NoiTungSong->NoiOHienTai) == 0)
-                                @else
-                                <li class="w-full pb-3" style="font-size: 15px;">
-                                    <p class="dark:text-gray-300"><i class="fas fa-home text-gray-600 dark:text-gray-300
-                                     text-xl"></i>&nbsp;&nbsp;Sống tại
-                                        <b class="dark:text-gray-300">
-                                            {{ $json->NoiTungSong->NoiOHienTai[0]->TenDiaChi }}</b>
-                                    </p>
-                                </li>
-                                @endif
-                                @if (count($json->NoiTungSong->QueQuan) == 0)
-                                @else
-                                <li class="w-full pb-3" style="font-size: 15px;">
-                                    <p class="dark:text-gray-300">&nbsp;<i class="fas fa-map-marker-alt text-gray-600 dark:text-gray-300 text-xl"></i>&nbsp;&nbsp;
-                                        Đến từ <b class="dark:text-gray-300">
-                                            {{ $json->NoiTungSong->NoiOHienTai[0]->TenDiaChi }}</b></p>
-                                </li>
-                                @endif
-                                <li class="w-full pb-3" style="font-size: 15px;">
-                                    <p class="dark:text-gray-300"><i class="fas fa-heart text-gray-600 dark:text-gray-300
-                                text-xl"></i></i>&nbsp;&nbsp; Độc Thân</p>
-                                </li>
-                                <li class="w-full pb-3" style="font-size: 15px;">
-                                    <p class="dark:text-gray-300"><i class="fas fa-clock text-gray-600 text-xl 
-                                dark:text-gray-300"></i>&nbsp;&nbsp;
-                                        {{ StringUtil::getDateUse($users[0]->NgayTao) }}
-                                    </p>
-                                </li>
-                                @php
-                                $numberUserFollow = DataProcessSecond::getUserFollowByID($users[0]->IDTaiKhoan)
-                                @endphp
-                                @if (count($numberUserFollow) == 0)
-                                @else
-                                <li class="w-full pb-3 flex" style="font-size: 15px;">
-                                    <p class="dark:text-gray-300">&nbsp;<i class="fab fa-foursquare text-gray-600 text-xl 
-                                dark:text-gray-300"></i>&nbsp;&nbsp;
-                                        <span>Có &nbsp;<b class="dark:text-gray-300">{{ count($numberUserFollow) }}</b>&nbsp; người theo dõi</span>
-                                    </p>
-                                </li>
-                                @endif
 
-                            </ul>
-                        </div>
-                        <div class="pl-2.5 bg-white m-2.5 rounded-lg  dark:bg-dark-third" style="width: 95%;">
-                            <div class="w-full flex">
-                                <div class="w-full mt-2.5 mr-2.5">
-                                    <p class="font-bold dark:text-white">Ảnh<br></p>
-                                </div>
-                                <div class="w-full text-right mt-2.5 mr-2.5">
-                                    <a href=""><b style="color: #1876F2;">Xem tất cả</b></a>
-                                </div>
-                            </div>
-                            <div class="w-full pt-4 pl-0.5 flex flex-wrap">
-                                <?php $images = DataProcess::getAllImage($users[0]->IDTaiKhoan); ?>
-                                @if (count($images) == 0)
-                                <p class="text-center font-bold dark:text-white py-3">
-                                    Không có bất kì ảnh nào.
-                                </p>
-                                @else
-                                @foreach($images as $key => $value)
-                                <?php $pathImg = 'photo/' . $value->IDBaiDang . '/' . $value->IDHinhAnh; ?>
-                                <div class="fr-us">
-                                    <a href="{{ url($pathImg) }}"><img class="object-cover rounded-lg" src="{{ $value->DuongDan }}" alt=""></a>
-                                </div>
-                                @endforeach
-                                @endif
-                            </div>
-                        </div>
-                        <div class="pl-2.5 bg-white m-2.5 rounded-lg dark:bg-dark-third" style="width: 95%;">
-                            <div class="w-full flex">
-                                <?php
-                                $friendsGet = Functions::getListFriendsUserLimit($users[0]->IDTaiKhoan);
-                                ?>
-                                <div class="w-1/2">
-                                    <p class="dark:text-white font-bold pt-2">Bạn bè <br></p>
-                                    <span class="color-word">{{count($friendsGet)}} người bạn</span>
-                                </div>
-                                <div class="w-1/2 mt-2.5 mr-2.5 text-right">
-                                    <?php $viewAllImage = "profile." . $users[0]->IDTaiKhoan . '/friends'; ?>
-                                    <a href="{{ url($viewAllImage) }}"><b style="color: #1876F2;">Xem tất cả</b></a>
-                                </div>
-                            </div>
-                            <div class="w-full pt-4 flex flex-wrap">
+                        <!-- about -->
+                        @include('Component/Profile/About' , ['json' => $json])
+                        <!-- about -->
 
-                                @if (count($friendsGet) == 0)
-                                <p class="text-center font-bold dark:text-white py-3">
-                                    Không có bất kì bạn bè nào.
-                                </p>
-                                @else
-                                @foreach($friendsGet as $key => $value)
-                                <?php $pathProfile = 'profile.' . $value[0]->IDTaiKhoan; ?>
-                                <div class="fr-us">
-                                    <a href="{{ url($pathProfile) }}"><img src="/{{ $value[0]->AnhDaiDien }}" alt=""></a>
-                                    <p class="font-bold py-2 dark:text-white text-sm">
-                                        <a href="{{ url($pathProfile) }}">
-                                            {{ $value[0]->Ho . ' ' . $value[0]->Ten }}
-                                        </a>
-                                    </p>
-                                </div>
-                                @endforeach
-                                @endif
-                            </div>
-                        </div>
+                        <!-- images -->
+                        @include('Component/Profile/Images' , ['images' => $images])
+                        <!-- images -->
+
+                        <!-- friends -->
+                        @include('Component/Profile/Friends' , ['friendsGet' => $friendsGet])
+                        <!-- friends -->
+
                     </div>
+                    <!-- left -->
+
+                    <!-- right -->
                     <div class="w-full bg-white dark:bg-dark-main mx-auto my-4 rounded-lg lg:w-3/5">
+
+                        <!-- load post -->
                         @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
-                        @include('Component/BaiDang/Child/VietBaiViet',['users' => $users])
+                        @include('Component/Post/Child/WritePost',['users' => $users])
                         @else
-                        @include('Component/BaiDang/Child/VietGiDo',['users' => $users])
+                        @include('Component/Post/Child/WriteAnyThing',['users' => $users])
                         @endif
+                        <!-- load post -->
+
+                        <!-- load post -->
                         <div class="timeline">
                             <input type="hidden" name="indexPost" id="indexPost" value="0">
                         </div>
+                        <!-- load post -->
+
                     </div>
+                    <!-- right -->
+
                 </div>
                 @break
                 @endswitch
+                <!-- content -->
+
             </div>
         </div>
+        <!-- main -->
+
+        <!-- create chat -->
+        <div class="h-auto p-3 w-20">
+            <div class="text-center cursor-pointer py-2 pl-2 pr-1.5 fixed right-3 bottom-4 " id="chatMinize">
+                <div onclick="openCreateChat()" class="cursor-pointer">
+                    <i class="far fa-edit text-2xl py-2 px-3 pr-2 rounded-full bg-white dark:bg-dark-second 
+                    dark:text-white"></i>
+                </div>
+            </div>
+        </div>
+        <!-- create chat -->
+
+        <!-- place show chat -->
         <div class="w-full px-4 flex z-50 md:w-full lg:w-full xl:w-1/2
         ml-auto fixed -bottom-1 right-20" id="placeChat">
         </div>
+        <!-- place show chat -->
         @endif
-        <script src="/js/scrollbar.js"></script>
-        <script>
-            var store = (function() {
-                var map = {};
 
-                return {
-                    set: function(name, value) {
-                        map[name] = value;
-                    },
-                    get: function(name) {
-                        return map[name];
-                    }
-                };
-            })();
-            var arrayImage = new Array();
-            var arrayImageAndVideoPost = new Array();
-            store.set('imageAndVideoPost', arrayImageAndVideoPost);
-            var action = 'inactive';
-            var config = {
-                routes: {
-                    ProcessAjaxDashboardAbout: "{{ route('ProcessAjaxDashboardAbout') }}",
-                    ProcessAjaxWorkAndStudyAbout: "{{ route('ProcessAjaxWorkAndStudyAbout') }}",
-                    ProcessAjaxPlaceLivedAbout: "{{ route('ProcessAjaxPlaceLivedAbout') }}",
-                    ProcessAjaxInfoSimpleAndContactAbout: "{{ route('ProcessAjaxInfoSimpleAndContactAbout') }}",
-                    ProcessAjaxFamilyAndRelationshipAbout: "{{ route('ProcessAjaxFamilyAndRelationshipAbout') }}",
-                    ProcessAjaxDetailAboutUserAbout: "{{ route('ProcessAjaxDetailAboutUserAbout') }}",
-                    ProcessAjaxEventLifeAbout: "{{ route('ProcessAjaxEventLifeAbout') }}"
+    </div>
+    <!-- main -->
+
+    <!-- place show modal -->
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second"></div>
+    <!-- place show modal -->
+
+    <script>
+        var store = (function() {
+            var map = {};
+
+            return {
+                set: function(name, value) {
+                    map[name] = value;
+                },
+                get: function(name) {
+                    return map[name];
                 }
             };
+        })();
+        var users_id = '{{ $users_id }}';
+        var arrayImage = new Array();
+        var arrayImageAndVideoPost = new Array();
+        store.set('imageAndVideoPost', arrayImageAndVideoPost);
+        var action = 'inactive';
+        var config = {
+            routes: {
+                ProcessAjaxDashboardAbout: "{{ route('ProcessAjaxDashboardAbout') }}",
+                ProcessAjaxWorkAndStudyAbout: "{{ route('ProcessAjaxWorkAndStudyAbout') }}",
+                ProcessAjaxPlaceLivedAbout: "{{ route('ProcessAjaxPlaceLivedAbout') }}",
+                ProcessAjaxInfoSimpleAndContactAbout: "{{ route('ProcessAjaxInfoSimpleAndContactAbout') }}",
+                ProcessAjaxFamilyAndRelationshipAbout: "{{ route('ProcessAjaxFamilyAndRelationshipAbout') }}",
+                ProcessAjaxDetailAboutUserAbout: "{{ route('ProcessAjaxDetailAboutUserAbout') }}",
+                ProcessAjaxEventLifeAbout: "{{ route('ProcessAjaxEventLifeAbout') }}"
+            }
+        };
+        if (users_id != "")
             setTimeout(function() {
                 $('#timeLineFirstProfile').remove();
                 $('#firstContentProfile').removeClass('hidden');
@@ -372,7 +303,7 @@ $user = Session::get('user');
                 if ($('#activeLoadPost').length > 0) {
                     if (action == 'inactive') {
                         loading();
-                        loadingPostProfile(0, '{{ $users[0]->IDTaiKhoan }}');
+                        loadingPostProfile(0, '{{ $users_id }}');
                     }
                     $(window).scroll(function() {
                         if ($(window).scrollTop() + $(window).height() - 700 > $(".timeline").height() &&
@@ -380,31 +311,30 @@ $user = Session::get('user');
                             action = 'active';
                             loading();
                             setTimeout(function() {
-                                loadingPostProfile($('#indexPost').val(), '{{ $users[0]->IDTaiKhoan }}');
+                                loadingPostProfile($('#indexPost').val(), '{{ $users_id }}');
                             }, 500);
                         }
                     });
                 }
             }, 400)
 
-            $('#modalHeaderRight').html('')
-            Pusher.logToConsole = true;
+        $('#modalHeaderRight').html('')
 
-            var pusher = new Pusher('5064fc09fcd20f23d5c1', {
-                cluster: 'ap1'
-            });
+        var pusher = new Pusher('5064fc09fcd20f23d5c1', {
+            cluster: 'ap1'
+        });
 
-            var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}');
-            channel.bind('tests', function() {
-                $.ajax({
-                    method: "GET",
-                    url: "/ProcessNotificationShow",
-                    success: function(response) {
-                        $('#numNotification').html(response);
-                    }
-                });
+        var channel = pusher.subscribe('test.' + '{{ $user_id }}');
+        channel.bind('tests', function() {
+            $.ajax({
+                method: "GET",
+                url: "/ProcessNotificationShow",
+                success: function(response) {
+                    $('#numNotification').html(response);
+                }
             });
-        </script>
+        });
+    </script>
 </body>
 
 </html>

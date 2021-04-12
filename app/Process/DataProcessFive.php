@@ -135,4 +135,19 @@ class DataProcessFive extends Model
         $detailFeel[$loaiCamXuc] = $user;
         return $detailFeel;
     }
+    public static function getAllImageAndVideo($idNhomTinNhan)
+    {
+        $messages = DataProcess::getMessageByNhomTinNhan($idNhomTinNhan);
+        $images = array();
+        $index = 0;
+        foreach ($messages as $key => $value) {
+            $content = json_decode($value->NoiDung);
+            if ($content[0]->LoaiTinNhan == 1)
+                foreach ($content as $keys => $values) {
+                    $images[$index] = $values->DuongDan;
+                    $index++;
+                }
+        }
+        return $images;
+    }
 }

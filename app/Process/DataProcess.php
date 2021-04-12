@@ -48,7 +48,7 @@ class DataProcess extends Model
                 $new[$num] = $tager;
                 $num++;
             }
-            return view('Component\BaiDang\Child\Tag')->with(
+            return view('Component\Post\Child\Tag')->with(
                 'hoTen1',
                 $new[0]->Ho . ' ' . $new[0]->Ten
             )->with(
