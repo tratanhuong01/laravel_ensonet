@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Chat;
 use App\Events\ChatGroupEvent;
 use App\Events\ChatNorlEvent;
 use App\Http\Controllers\Controller;
+use App\Models\Hinhanh;
 use App\Models\Nhomtinnhan;
 use App\Models\StringUtil;
 use App\Models\Taikhoan;
@@ -27,19 +28,28 @@ class SendMessageController extends Controller
             DataProcessThird::createTrangThai($request->IDNhomTinNhan, 0);
         $json = [];
         if ($request->hasFile('image_0')) {
-            $id = 10000;
             $json = [];
             for ($i = 0; $i < (int)$request->numberArray; $i++) {
                 $file = $request->file('image_' . $i);
                 $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . '_' . $i . '.jpg';
+                $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
+                $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . $idHinhAnh . '.jpg';
+                Hinhanh::add(
+                    $idHinhAnh,
+                    'IMAGEMESS',
+                    NULL,
+                    'img/ImageMessage/' . $nameFile,
+                    $request->NoiDungBinhLuan,
+                    3,
+                    $idTinNhan
+                );
                 $file->move(public_path('img/ImageMessage'), $nameFile);
                 $json[$i] = (object)[
-                    'IDNoiDungTinNhan' => $id,
+                    'IDNoiDungTinNhan' => $idHinhAnh,
                     'LoaiTinNhan' => '1',
                     'DuongDan' => 'img/ImageMessage/' . $nameFile,
                     'NoiDungTinNhan' => ''
                 ];
-                $id++;
             }
             Tinnhan::add(
                 $idTinNhan,

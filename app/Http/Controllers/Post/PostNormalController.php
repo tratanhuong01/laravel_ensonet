@@ -26,6 +26,7 @@ class PostNormalController extends Controller
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
                 $tag = "";
                 $idCamXuc = NULL;
+                $idViTri = NULL;
                 if (session()->has('feelCur'))
                     foreach (Session::get('feelCur') as $key => $value)
                         $idCamXuc = $value;
@@ -49,6 +50,9 @@ class PostNormalController extends Controller
                         }
                     }
                 }
+                if (session()->has('localU'))
+                    foreach (Session::get('localU') as $key => $value)
+                        $idViTri = $value->ID . '@' . $value->Loai;
                 Baidang::add(
                     $idBaiDang,
                     $user[0]->IDTaiKhoan,
@@ -56,7 +60,7 @@ class PostNormalController extends Controller
                     $request->content,
                     $tag,
                     $idCamXuc,
-                    NULL,
+                    $idViTri,
                     $datetime,
                     2,
                     NULL
@@ -66,11 +70,27 @@ class PostNormalController extends Controller
                     $nameFile = $request->file('files_' . $i)->getClientOriginalName();
                     if (DataProcessSix::CheckIsVideo($nameFile)) {
                         $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.mp4';
-                        Hinhanh::add($idHinhAnh, 'VIDEO0001', $idBaiDang, 'video/' . $nameFile, NULL, 1);
+                        Hinhanh::add(
+                            $idHinhAnh,
+                            'VIDEO0001',
+                            $idBaiDang,
+                            'video/' . $nameFile,
+                            NULL,
+                            1,
+                            NULL
+                        );
                         $request->file('files_' . $i)->move(public_path('video'), $nameFile);
                     } else if (DataProcessSix::CheckIsImage($nameFile)) {
                         $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
-                        Hinhanh::add($idHinhAnh, 'THONGTHUON', $idBaiDang, 'img/PosTT/' . $nameFile, NULL, 0);
+                        Hinhanh::add(
+                            $idHinhAnh,
+                            'THONGTHUON',
+                            $idBaiDang,
+                            'img/PosTT/' . $nameFile,
+                            NULL,
+                            0,
+                            NULL
+                        );
                         $request->file('files_' . $i)->move(public_path('img/PosTT'), $nameFile);
                     } else {
                     }
@@ -117,6 +137,36 @@ class PostNormalController extends Controller
                 );
             }
         } catch (Exception $es) {
+        }
+    }
+    public function tickLocal(Request $request)
+    {
+        if (session()->has('localU')) {
+            $localU = Session::get('localU');
+            if (isset($localU[$request->ID])) {
+                Session::forget('localU');
+                return '';
+            } else {
+                Session::forget('localU');
+                $localU = NULL;
+                $localU[$request->ID] = (object)[
+                    'ID' => $request->ID,
+                    'Loai' => $request->Loai
+                ];
+                Session::put('localU', $localU);
+                return response()->json([
+                    'view' => "" .  '<i class="fas fa-check text-green-400 text-xm"></i>'
+                ]);
+            }
+        } else {
+            $localU[$request->ID] = (object)[
+                'ID' => $request->ID,
+                'Loai' => $request->Loai
+            ];
+            Session::put('localU', $localU);
+            return response()->json([
+                'view' => "" .  '<i class="fas fa-check text-green-400 text-xm"></i>'
+            ]);
         }
     }
 }

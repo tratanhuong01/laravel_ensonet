@@ -44,6 +44,9 @@ Route::group(['namespace' => 'Displays'], function () {
     // 
     Route::get('/photo/{idBaiDang}/{idHinhAnh}', [Displays\ViewImageController::class, 'views']);
 
+    // 
+    Route::get('/comment/{idBinhLuan}/{idHinhAnh}', [Displays\ViewImageController::class, 'viewsComment']);
+
     //
     Route::get('/{value1}/{value2}/{value3}/backpage', [Displays\ViewImageController::class, 'backPage'])
         ->name('backpage');
@@ -215,6 +218,10 @@ Route::group(['namespace' => 'Post'], function () {
     // ajax view lượt cảm xúc cmt
     Route::get('ProcessViewDetailFeelCmt', [Post\ViewDetailFeelController::class, 'viewCmt'])
         ->name('ProcessViewDetailFeelCmt');
+
+    //
+    Route::get('ProcessTickLocal', [Post\PostNormalController::class, 'tickLocal'])
+        ->name('ProcessTickLocal');
 
     // ajax view lượt cảm xúc cmt
     Route::get('ProcessViewOnlyDetailFeelCmt', [Post\ViewDetailFeelController::class, 'viewOnlyCmt'])

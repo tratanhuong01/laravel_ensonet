@@ -9,6 +9,7 @@ use App\Events\SeenMessageEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Camxuctinnhan;
 use App\Models\Functions;
+use App\Models\Hinhanh;
 use App\Models\Nhomtinnhan;
 use App\Models\Notify;
 use App\Models\Process;
@@ -168,14 +169,24 @@ class ChatController extends Controller
                 for ($i = 0; $i < (int)$request->numberArray; $i++) {
                     $file = $request->file('image_' . $i);
                     $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . '_' . $i . '.jpg';
+                    $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
+                    $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . $idHinhAnh . '.jpg';
+                    Hinhanh::add(
+                        $idHinhAnh,
+                        'IMAGEMESS',
+                        NULL,
+                        'img/ImageMessage/' . $nameFile,
+                        $request->NoiDungBinhLuan,
+                        3,
+                        $idTinNhan
+                    );
                     $file->move(public_path('img/ImageMessage'), $nameFile);
                     $json[$i] = (object)[
-                        'IDNoiDungTinNhan' => $id,
+                        'IDNoiDungTinNhan' => $idHinhAnh,
                         'LoaiTinNhan' => '1',
                         'DuongDan' => 'img/ImageMessage/' . $nameFile,
                         'NoiDungTinNhan' => ''
                     ];
-                    $id++;
                 }
             } else {
                 $json[0] = (object)[
@@ -238,18 +249,27 @@ class ChatController extends Controller
             );
             $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
             if ($request->hasFile('image_0')) {
-                $id = 10000;
                 for ($i = 0; $i < (int)$request->numberArray; $i++) {
                     $file = $request->file('image_' . $i);
                     $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . '_' . $i . '.jpg';
+                    $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
+                    $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . $idHinhAnh . '.jpg';
+                    Hinhanh::add(
+                        $idHinhAnh,
+                        'IMAGEMESS',
+                        NULL,
+                        'img/ImageMessage/' . $nameFile,
+                        $request->NoiDungBinhLuan,
+                        3,
+                        $idTinNhan
+                    );
                     $file->move(public_path('img/ImageMessage'), $nameFile);
                     $json[$i] = (object)[
-                        'IDNoiDungTinNhan' => $id,
+                        'IDNoiDungTinNhan' => $idHinhAnh,
                         'LoaiTinNhan' => '1',
                         'DuongDan' => 'img/ImageMessage/' . $nameFile,
                         'NoiDungTinNhan' => ''
                     ];
-                    $id++;
                 }
             } else {
                 $json[0] = (object)[

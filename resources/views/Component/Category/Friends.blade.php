@@ -5,6 +5,7 @@ use App\Models\Functions;
 use Illuminate\Support\Facades\DB;
 
 $users = Session::get('users');
+
 ?>
 <div class="w-full mx-auto py-2 pt-3 dark:bg-dark-second rounded-lg">
     <div class="w-full flex py-4">
@@ -20,7 +21,7 @@ $users = Session::get('users');
         <div class="w-5/12 pr-2 pl-2">
             {{ csrf_field() }}
             <input class="w-7/12 p-2 border-none outline-none bg-gray-100 
-                dark:bg-dark-third rounded-lg" type="text" name="hoTen" id="hoTen" placeholder="Tìm kiếm">
+                dark:bg-dark-third rounded-lg dark:text-white" type="text" name="hoTen" id="hoTen" placeholder="Tìm kiếm">
             <button onclick="searchFriend('{{ $users[0]->IDTaiKhoan }}',event)" type="button" class="w-4/12 p-2 border-none font-bold text-white rounded-lg" style="background-color: #139DF7;">Tìm bạn bè</button>
         </div>
         @else
@@ -31,7 +32,7 @@ $users = Session::get('users');
         <div class="w-5/12 pr-2 pl-2">
             {{ csrf_field() }}
             <input class="w-7/12 p-2 border-none outline-none bg-gray-100 
-                dark:bg-dark-third rounded-lg" type="text" name="hoTen" id="hoTen" placeholder="Tìm kiếm">
+                dark:bg-dark-third rounded-lg dark:text-white" type="text" name="hoTen" id="hoTen" placeholder="Tìm kiếm">
             <button onclick="searchFriend('{{ $users[0]->IDTaiKhoan }}',event)" type="button" class="w-4/12 p-2 border-none font-bold text-white rounded-lg" style="background-color: #139DF7;">Tìm bạn bè</button>
         </div>
         @endif
@@ -46,13 +47,16 @@ $users = Session::get('users');
             <div class="w-1/4">
                 <a href="{{ url($path) }}"><img class="w-24 h-24 rounded-lg object-cover" src="/{{ $data[$i][0]->AnhDaiDien }}" alt=""></a>
             </div>
-            <div class="w-5/12 py-4 pl-4">
-                <div>
+            <div class="w-5/12 flex pl-4">
+                <div class="flex flex-wrap items-center">
                     <p style="font-family: Arial, Helvetica, sans-serif"><b>
                             <a style="font-size: 17px;" class="dark:text-white" href="{{ url($path) }}">
-                                {{ $data[$i][0]->Ho . ' ' .  $data[$i][0]->Ten }}</a></b></p>
-                    <p style="color: #65687B;font-size: 14px;">
-                        {{ count(Functions::getMutualFriend($data[$i][0]->IDTaiKhoan,$users[0]->IDTaiKhoan)) }} bạn chung
+                                {{ $data[$i][0]->Ho . ' ' .  $data[$i][0]->Ten }}</a></b><br>
+                        <span style="color: #65687B;font-size: 14px;">
+                            @php
+                            $number = count(Functions::getMutualFriend($data[$i][0]->IDTaiKhoan,$users[0]->IDTaiKhoan))
+                            @endphp
+                            {{ $number == 0 ? '' : $number . ' bạn chung' }} </span>
                     </p>
                 </div>
             </div>

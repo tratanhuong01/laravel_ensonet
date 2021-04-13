@@ -9,6 +9,8 @@
     height: 40px !important;
     line-height: 40px !important;
     border-radius: 50% !important;
+    border: 0.06666em solid red;
+    background-color: red;
 }
 .header-center {
     width: 50%;

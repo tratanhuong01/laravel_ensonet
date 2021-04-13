@@ -16,15 +16,37 @@ $u = Session::get('user');
 
 <body>
     <?php
+    $paths = explode('/', parse_url(url()->current())['path']);
+
     $dataNew = array();
+    $urlNext = '';
+    $urlPrevious = '';
     $indexImage = -1;
-    if (count($data) != 0) {
-        for ($i = 0; $i < count($data); $i++)
-            $dataNew[$i][$data[$i]->IDHinhAnh] = $data[$i]->DuongDan;
-        for ($i = 0; $i < count($dataNew); $i++)
-            foreach ($dataNew[$i] as $key => $value)
-                if ($key == $idHinhAnh)
-                    $indexImage = $i;
+    switch ($paths[1]) {
+        case 'photo':
+            if (count($data) != 0) {
+                for ($i = 0; $i < count($data); $i++)
+                    $dataNew[$i][$data[$i]->IDHinhAnh] = $data[$i]->DuongDan;
+                for ($i = 0; $i < count($dataNew); $i++)
+                    foreach ($dataNew[$i] as $key => $value)
+                        if ($key == $idHinhAnh)
+                            $indexImage = $i;
+                $urlNext = 'photo/' . $data[0]->IDBaiDang . '/' .
+                    $data[$indexImage == count($data) - 1 ? $indexImage : $indexImage + 1]->IDHinhAnh;
+                $urlPrevious = 'photo/' . $data[0]->IDBaiDang . '/'
+                    . $data[$indexImage == 0 ? $indexImage : $indexImage - 1]->IDHinhAnh;
+            }
+
+            break;
+        case 'comment':
+            if (count($data) != 0)
+                $dataNew = $data;
+
+            break;
+
+        default:
+            # code...
+            break;
     }
     ?>
     @if (count($dataNew) == 0 && $indexImage == -1)
@@ -35,10 +57,7 @@ $u = Session::get('user');
             <div class="w-9/12 flex bg-black relative" id="leftImage">
                 <?php
                 $numLoad = Session::get('numLoad');
-                $urlNext = 'photo/' . $data[0]->IDBaiDang . '/' .
-                    $data[$indexImage == count($data) - 1 ? $indexImage : $indexImage + 1]->IDHinhAnh;
-                $urlPrevious = 'photo/' . $data[0]->IDBaiDang . '/'
-                    . $data[$indexImage == 0 ? $indexImage : $indexImage - 1]->IDHinhAnh;
+
                 ?>
                 <div onclick="backpage('{{ $numLoad }}')" class="w-10 h-10 rounded-full
                 absolute top-2 left-4 bg-gray-100 text-4xl font-bold text-center cursor-pointer">&times;</div>
@@ -55,11 +74,18 @@ $u = Session::get('user');
                 </div>
                 <div class="w-10/12">
                     <div class="mx-auto relative ">
+                        @switch($paths[1])
+                        @case('photo')
                         @if ($data[0]->LoaiBaiDang == 1)
                         <img class="w-full mx-auto object-cover absolute object-cover" style="transform: translateY(45%); height: 400px;" src="/../../{{ $dataNew[$indexImage][$idHinhAnh] }}" alt="">
                         @else
                         <img style="max-width: 90%;" class="mx-auto object-cover h-screen" src="/../../{{ $dataNew[$indexImage][$idHinhAnh] }}" alt="">
                         @endif
+                        @break
+                        @case('comment')
+                        <img style="max-width: 90%;" class="mx-auto object-cover h-screen" style="transform: translateY(45%); height: 400px;" src="/../../{{ $dataNew[0]->DuongDan }}" alt="">
+                        @break
+                        @endswitch
                     </div>
                 </div>
                 <div class="w-1/12">
@@ -86,37 +112,11 @@ $u = Session::get('user');
                     <hr>
                     <br>
                     <div class="pt-16"></div>
-                    <div class="w-full flex">
-                        <hr>
-                        <br>
-                        <div class="mr-2">
-                            <a href="">
-                                <img class="w-12 h-12 object-cover rounded-full 
-                                border-4 border-solid border-gray-200" src="/../../{{ $data[0]->AnhDaiDien }}"></a>
-                        </div>
-                        <div class="relative pl-1 w-3/4">
-                            <div class="dark:text-gray-300 text-left"><a href=""><b class="dark:text-white">
-                                        {{ $data[0]->Ho . ' ' . $data[0]->Ten }}</b>
-                                    &nbsp;</a></div>
-                            <div class="w-full flex">
-                                <div class="text-xs pt-0.5 pr-2">
-                                    <ul class="flex">
-                                        <li class="pt-1">
-                                            <a href="" class="dark:text-gray-300 font-bold">
-                                                {{ StringUtil::CheckDateTime($data[0]->NgayDang) }}</a></a>
-                                        </li>
-                                        <li class="pl-3 pt-0.5" id="{{ $data[0]->IDBaiDang }}QRT">
-                                            @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $data[0]->IDQuyenRiengTu])
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative text-center pr-4" style="width: 10%;">
-                            <i class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
-                        </div>
-                    </div>
-                    @include('Component\Child\FeelComment',['item' => $data])
+                    @switch($paths[1])
+                    @case('photo')
+                    @include('Guest/Child/ImageVideo-Photo',['data' => $dataNew])
+                    @break
+                    @endswitch
                 </div>
             </div>
         </div>

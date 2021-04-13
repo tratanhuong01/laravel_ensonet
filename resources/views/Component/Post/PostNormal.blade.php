@@ -46,9 +46,15 @@ $u = Session::get('user');
                     @else
                     @endif
                 </span>
-                <span class="font-bold dark:text-white">{{ DataProcess::getFriendTags($tag,$item[0]->IDBaiDang) }}
+                <span class="font-bold dark:text-white">
+                    {{ DataProcess::getFriendTags($tag,$item[0]->IDBaiDang) }}
                 </span>
                 @endif
+                <span class="font-bold dark:text-white">
+                    @if ($item[0]->IDViTri != NULL)
+                    {!! DataProcess::getLocal($item[0]->IDViTri) !!}
+                    @endif
+                </span>
             </p>
             <div class="w-full flex">
                 <div class="text-xs pt-0.5 pr-2">

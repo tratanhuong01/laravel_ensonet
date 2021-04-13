@@ -5,20 +5,12 @@ use App\Process\DataProcessThird;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-?>
-<!DOCTYPE html>
-@if (session()->has('user'))
-<html lang="en" class="{{ Session::get('user')[0]->DarkMode == '0' ? '' : 'dark' }}">
-@else
-<html lang="en">
-@endif
-@php
 $user = Session::get('user')[0];
-@endphp
+
+?>
+@include('Head/document')
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tạo tin</title>
     @include('Head/css')
     <script src="/js/ajax/Story/ajax.js"></script>
@@ -36,8 +28,8 @@ $user = Session::get('user')[0];
                     <span class="font-bold text-xl dark:text-white">Tin Của Bạn</span>
                 </p>
                 <div class="w-full flex pb-3">
-                    <a href=""><img class="w-20 h-20 p-1.5 shadow-xl rounded-full " src="/img/avatar.jpg" alt=""></a>
-                    <a href="" class="py-7 px-3.5 dark:text-white font-bold">Trà Hưởng</a>
+                    <a href=""><img class="w-20 h-20 p-1.5 shadow-xl rounded-full " src="/{{ $user[0]->AnhDaiDien }}" alt=""></a>
+                    <a href="" class="py-7 px-3.5 dark:text-white font-bold">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</a>
                 </div>
                 <hr>
                 <div class="w-full pt-4 pb-2">

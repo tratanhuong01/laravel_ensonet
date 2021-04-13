@@ -45,7 +45,15 @@ class UpdateAvatarController extends Controller
                     NULL,
                 );
                 $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
-                Hinhanh::add($idHinhAnh, 'ANHDAIDIEN', $idBaiDang, 'img/avatarImage/' . $nameFile, NULL);
+                Hinhanh::add(
+                    $idHinhAnh,
+                    'ANHDAIDIEN',
+                    $idBaiDang,
+                    'img/avatarImage/' . $nameFile,
+                    $request->content,
+                    '0',
+                    NULL
+                );
                 $request->file('fileAvatar')->move(public_path('img/avatarImage'), $nameFile);
                 DB::update(
                     'UPDATE taikhoan SET AnhDaiDien = ? WHERE IDTaiKhoan = ? ',

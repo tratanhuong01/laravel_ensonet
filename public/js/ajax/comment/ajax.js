@@ -1,5 +1,10 @@
 function CommentPost(IDTaiKhoan, IDBaiDang, event) {
     if (event.keyCode === 13) {
+        $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
         var formData = new FormData($('#' + IDBaiDang + 'FormComment')[0]);
         formData.append('IDBaiDang',IDBaiDang);
         formData.append('NoiDungBinhLuan', $('#' + IDTaiKhoan + IDBaiDang + "Write").html())

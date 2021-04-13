@@ -33,7 +33,15 @@ class UpdateCoverImageController extends Controller
                     NULL
                 );
                 $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
-                Hinhanh::add($idHinhAnh, 'ANHBIA', $idBaiDang, 'img/imageBia/' . $nameFile, NULL);
+                Hinhanh::add(
+                    $idHinhAnh,
+                    'ANHBIA',
+                    $idBaiDang,
+                    'img/imageBia/' . $nameFile,
+                    $request->content,
+                    0,
+                    NULL
+                );
                 $request->file('fileBia')->move(public_path('img/imageBia'), $nameFile);
                 DB::update(
                     'UPDATE taikhoan SET AnhBia = ? WHERE IDTaiKhoan = ? ',

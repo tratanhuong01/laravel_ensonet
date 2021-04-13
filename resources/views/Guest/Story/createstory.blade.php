@@ -10,8 +10,6 @@ $user = Session::get('user');
 @endif
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tạo tin | Ensonet</title>
     @include('Head/css')
     <script src="/js/ajax/Story/ajax.js"></script>
@@ -36,7 +34,7 @@ $user = Session::get('user');
                 <div class="w-43per mx-auto relative top-1/4 flex">
                     <form class="w-1/2 m-2 h-80 relative" action="" method="post" id="formPictureStory">
                         <input type="hidden" name="IDTaiKhoan" value="{{ $user[0]->IDTaiKhoan }}">
-                        <input onchange="openPictureStory(event)" type="file" class="hidden" name="myPictueStory" id="createStoryImage">
+                        <input onchange="openPictureStory(event,'{{ $user[0]->IDTaiKhoan }}')" type="file" class="hidden" name="myPictueStory" id="createStoryImage">
                         <label class="w-full h-80" for="createStoryImage">
                             <div class="w-full h-80 bg-blue-400 rounded-lg">
                                 <div class="w-full absolute top-1/2 left-1/2 text-center cursor-pointer" style="transform: translate(-50%,-50%);">

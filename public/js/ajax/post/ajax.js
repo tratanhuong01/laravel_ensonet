@@ -13,7 +13,6 @@ function viewDetailFeel(IDBaiDang, Path) {
         }
     });
 }
-
 //xem số lượng mỗi cảm xúc của bài đăng 
 function viewOnlyDetailFeel(IDBaiDang, LoaiCamXuc, Path) {
     $.ajax({
@@ -28,7 +27,6 @@ function viewOnlyDetailFeel(IDBaiDang, LoaiCamXuc, Path) {
         }
     });
 }
-
 // mở hộp thoại chỉnh sửa bài đăng  
 function openEditPost(ids) {
     $('#' + ids).show();
@@ -62,7 +60,6 @@ function selectPrivacy() {
         }
     });
 }
-
 // event onchange chọn quyền riêng tư của bài đăng
 function handelOnChangeInput(IDQuyenRiengTu) {
     $.ajax({
@@ -79,7 +76,6 @@ function handelOnChangeInput(IDQuyenRiengTu) {
         }
     });
 }
-
 //chỉnh sửa bài đăng 
 function editPost(IDBaiDang) {
     $.ajax({
@@ -99,7 +95,6 @@ function editPost(IDBaiDang) {
         }
     });
 }
-
 //thay đổi đối tượng quyền riêng tư của bài đăng
 function changeObjectPrivacyPost(IDBaiDang) {
     $.ajax({
@@ -114,7 +109,6 @@ function changeObjectPrivacyPost(IDBaiDang) {
         }
     });
 }
-
 // event onchange bài đăng dialog
 function handelOnChangeInputPost(IDQuyenRiengTu) {
     $.ajax({
@@ -132,7 +126,6 @@ function handelOnChangeInputPost(IDQuyenRiengTu) {
         }
     });
 }
-
 //xóa bài đăng
 function deleteWarnPost(IDBaiDang, IDMain) {
     $.ajax({
@@ -167,7 +160,6 @@ function deleteWarnPost(IDBaiDang, IDMain) {
         }
     });
 }
-
 //gắn thẻ bạn bè
 function viewTagFriends() {
     $.ajax({
@@ -197,6 +189,11 @@ function returnViewCreatePost() {
         url: "/ProcesViewCreatePost",
         success: function (response) {
             $('#second').html(response);
+            new MeteorEmoji(
+                document.getElementById('textarea-post'),
+                document.getElementById('myTriggers'),
+                document.getElementById('myEmojis')
+            )
         }
     });
 }
@@ -218,7 +215,19 @@ function viewFeelCurrent() {
         method: "GET",
         url: "/ProcessViewFeelCurrent",
         success: function (response) {
+            second.innerHTML = response;
+            second.className += ' fixed h-screen';
             $('#second').html(response);
+        }
+    });
+}
+function viewLocal() {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessViewLocalPost",
+        success: function (response) {
+            $('#second').html(response.view);
+            $('#modal-one').show();
         }
     });
 }
@@ -248,7 +257,6 @@ function tickFeel(IDCamXuc) {
         }
     });
 }
-
 function viewUserTagOfPost(IDBaiDang) {
     $.ajaxSetup({
         headers: {
@@ -268,7 +276,33 @@ function viewUserTagOfPost(IDBaiDang) {
         }
     });
 }
-
+function searchLocal() {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessSearchLocal",
+        data: {
+            Ten: $('#localInputPost').val()
+        },
+        success: function (response) {
+            $('#localPost').html(response.view);
+        }
+    });
+}
+function tickLocal(ID,Loai) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessTickLocal",
+        data: {
+            ID: ID,
+            Loai : Loai
+        },
+        success: function (response) {
+            $('#' + $('#IDViTriPrev').val() + "Tick").html('');
+            $('#' + ID + "Tick").html(response.view);
+            $('#IDViTriPrev').val(ID);
+        }
+    });
+}
 function postTimeLine(IDNhan) {
     $('#button-post').html('');
     $('#button-post').prop("disabled", true);

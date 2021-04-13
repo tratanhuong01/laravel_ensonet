@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Exception;
 use App\Models\Binhluan;
+use App\Models\Hinhanh;
 use App\Models\Nhandan;
 use App\Models\Notify;
 use App\Models\StringUtil;
@@ -26,13 +27,23 @@ class CommentController extends Controller
         $idBinhLuan = StringUtil::ID('binhluan', 'IDBinhLuan');
         $date = date("Y-m-d H:i:s");
         if ($request->hasFile('fileImage')) {
-            $nameFile = $user[0]->IDTaiKhoan . $idBinhLuan . '.jpg';
+            $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
+            $nameFile = $user[0]->IDTaiKhoan . $idBinhLuan . $idHinhAnh . '.jpg';
             $json = (object)[
-                'ID' => '10000',
+                'ID' => $idHinhAnh,
                 'LoaiBinhLuan' => '1',
                 'DuongDan' => 'img/CommentImage/' . $nameFile,
                 'NoiDungBinhLuan' => $request->NoiDungBinhLuan
             ];
+            Hinhanh::add(
+                $idHinhAnh,
+                'IMAGECMT',
+                NULL,
+                'img/CommentImage/' . $nameFile,
+                $request->NoiDungBinhLuan,
+                2,
+                $idBinhLuan
+            );
             Binhluan::add(
                 $idBinhLuan,
                 $request->IDBaiDang,

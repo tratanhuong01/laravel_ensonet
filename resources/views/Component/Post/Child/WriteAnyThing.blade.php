@@ -13,11 +13,17 @@
         <ul class="w-full flex">
             <li class="w-1/2 md:w-1/3 xl:w-1/3 cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #E42645;font-size: 18px;" class="fas fa-video"></i>
                 &nbsp;<b class="dark:text-white">Video Trực Tiếp</b></li>
-            <li class="w-1/2 md:w-1/3 xl:w-1/3  cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200"><i style="color: #41B35D;font-size: 18px;" class="far fa-image"></i>
-                &nbsp;<b class="dark:text-white">Ảnh / Video</b>
+            <input type="file" onchange="changeUploadFileMain(this,'Have')" id="uploadFileS" name="files[]" accept="image/*,video/*" multiple="multiple" class="hidden">
+            <label for="uploadFileS" class="w-1/2 md:w-1/3 xl:w-1/3  cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200">
+                <li class=""><i style="color: #41B35D;font-size: 18px;" class="far fa-image"></i>
+                    &nbsp;<b class="dark:text-white">Ảnh / Video</b>
+                </li>
+            </label>
+            <li onclick="viewFeelCurrent()" class="w-1/3 md:w-1/3 xl:w-1/3 md:block hidden 
+            cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200 pr-0">
+                <i style="color: #F7B928;font-size: 18px;" class="fas fa-smile"></i>
+                &nbsp;<b class="dark:text-white">Cảm Xúc / Hoạt Động</b>
             </li>
-            <li class="w-1/3 md:w-1/3 xl:w-1/3 md:block hidden cursor-pointer py-4 text-center dark:hover:bg-dark-third hover:bg-gray-200 pr-0"><i style="color: #F7B928;font-size: 18px;" class="fas fa-smile"></i>
-                &nbsp;<b class="dark:text-white">Cảm Xúc / Hoạt Động</b></li>
         </ul>
     </div>
 </div>

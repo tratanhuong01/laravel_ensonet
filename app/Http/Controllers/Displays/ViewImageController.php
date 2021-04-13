@@ -40,6 +40,36 @@ class ViewImageController extends Controller
             }
         }
     }
+    public function viewsComment($idBinhLuan, $idHinhAnh)
+    {
+        $comment = DB::table('binhluan')
+            ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->join('hinhanh', 'binhluan.IDBinhLuan', 'hinhanh.Khac')
+            ->where('hinhanh.Khac', '=', $idBinhLuan)->get();
+        if (count($comment) == 0)
+            return view('Guest\view')->with('data', $comment);
+        else {
+            $posts = DB::table('hinhanh')
+                ->where('hinhanh.IDHinhAnh', '=', $idHinhAnh)
+                ->where('hinhanh.Khac', '=', $idBinhLuan)
+                ->get();
+            if (count($posts) == 0)
+                return view('Guest\view')->with('data', $comment);
+            else {
+                if (session()->has('numLoad'))
+                    if (url()->current() == url()->previous())
+                        Session::forget('first');
+                    else {
+                        $numLoad = Session::get('numLoad');
+                        $numLoad--;
+                        Session::put('numLoad', $numLoad);
+                    }
+                else
+                    Session::put('numLoad', -1);
+                return view('Guest\view')->with('data', $comment)->with('idHinhAnh', $idHinhAnh);
+            }
+        }
+    }
     public function backPage($value1, $value2, $value3)
     {
         Session::forget('numLoad');

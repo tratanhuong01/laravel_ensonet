@@ -54,7 +54,7 @@ $paths = explode('/', parse_url(url()->current())['path']);
         @include('Timeline/Profile')
 
         <!-- head profile -->
-        <div class="hidden dark:bg-dark-second w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%" id="firstContentProfile">
+        <div class="hidden dark:bg-dark-second pt-10 w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%" id="firstContentProfile">
             @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
             <div class="w-full relative">
                 <div class="w-full mx-auto relative">
@@ -69,7 +69,7 @@ $paths = explode('/', parse_url(url()->current())['path']);
                         <label for="changeB" class="flex"><i class="fas fa-camera text-2xl pl-1">
                             </i>&nbsp;&nbsp;<span class="hidden lg:inline pt-1">Chỉnh sửa ảnh bìa</span></label>
                     </div>
-                    <div id="showSubmitBia" class="w-full h-16 absolute left-0 top-10 p-2 text-right 
+                    <div id="showSubmitBia" class="w-full h-16 absolute left-0 top-6 p-2 text-right 
                         " style="background: rgba(0,0,0,0.5);display:none;">
                         <form action="" method="post" id="formUpdateCover" enctype="multipart/form-data">
                             {{ csrf_field() }}

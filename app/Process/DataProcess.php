@@ -3,8 +3,11 @@
 namespace App\Process;
 
 use App\Models\Camxuc;
+use App\Models\Congty;
+use App\Models\Diachi;
 use App\Models\Taikhoan;
 use App\Models\Tinnhan;
+use App\Models\Truonghoc;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -17,6 +20,7 @@ class DataProcess extends Model
             ->skip(0)->take(9)
             ->join('baidang', 'hinhanh.IDBaiDang', '=', 'baidang.IDBaiDang')
             ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
+            ->where('hinhanh.Loai', '=', 0)
             ->where('taikhoan.IDTaiKhoan', '=', $idTaiKhoan)
             ->where('baidang.LoaiBaiDang', '!=', '1')
             ->where('baidang.IDQuyenRiengTu', '!=', 'RIENGTU')
@@ -57,6 +61,9 @@ class DataProcess extends Model
             )->with(
                 'idBaiDang',
                 $idBaiDang
+            )->with(
+                'idTaiKhoan',
+                $new[0]->IDTaiKhoan
             );
         } else
             return '';
@@ -251,6 +258,25 @@ class DataProcess extends Model
                 break;
             }
         }
+    }
+    public static function getLocal($local)
+    {
+        $name = '';
+        switch (explode('@', $local)[1]) {
+            case '0':
+                $name = Diachi::where('diachi.IDDiaChi', '=', explode('@', $local)[0])->get()[0]->TenDiaChi;
+                break;
+            case '1':
+                $name = Truonghoc::where('truonghoc.IDTruongHoc', '=', explode('@', $local)[0])->get()[0]->TenTruongHoc;
+                break;
+            case '2':
+                $name = Congty::where('congty.IDCongTy', '=', explode('@', $local)[0])->get()[0]->TenCongTy;
+                break;
+            default:
+                # code...
+                break;
+        }
+        return ' tại <b class="dark:text-white">' . $name . '</b>';
     }
     public static function getMessageByNhomTinNhan($idNhomTinNhan)
     {

@@ -65,10 +65,11 @@ function playMusicDemoStory(url) {
 function chooseMusic(ID) {
     $('#IDAmThanh').attr('value',ID);
 }
-function openPictureStory(event) {
+function openPictureStory(event,IDTaiKhoan) {
     event.preventDefault();
     var path = URL.createObjectURL(event.target.files[0]);
     let formData = new FormData($('#formPictureStory')[0]);
+    formData.append('IDTaiKhoan',IDTaiKhoan)
     $.ajax({
         method: "POST",
         url: config.routes.ProcessViewPictureStory,

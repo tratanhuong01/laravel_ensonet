@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Baidang;
 use App\Models\Gioithieu;
 use App\Models\Story;
+use App\Models\StringUtil;
 use App\Models\Taikhoan;
 use App\Process\DataProcess;
 use App\Process\DataProcessFive;
 use App\Process\DataProcessFour;
 use App\Process\DataProcessSecond;
+use App\Process\DataProcessSix;
 use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -369,10 +372,6 @@ Route::get('ProcessOpenModalStickerChat', function (Request $request) {
     }
 });
 
-Route::get('videos', function () {
-    return view('demo');
-});
-
 Route::get('ProcessPreviewBeforeUploadFile', function (Request $request) {
     return response()->json([
         'view' => "" . view('Modal/ModalPost/ModalPreviewPost')
@@ -380,3 +379,19 @@ Route::get('ProcessPreviewBeforeUploadFile', function (Request $request) {
             ->with('type', $request->type)
     ]);
 })->name('ProcessPreviewBeforeUploadFile');
+
+Route::get('ProcessSearchLocal', function (Request $request) {
+    $array = DataProcessSix::createAllAddress();
+    return response()->json([
+        'view' => "" . view('Modal/ModalPost/Child/Local')->with(
+            'local',
+            DataProcessSix::searchAllAddress($array, $request->Ten)
+        )
+    ]);
+});
+Route::get('ProcessViewLocalPost', function (Request $request) {
+    return response()->json([
+        'view' => "" . view('Modal/ModalPost/ModalLocal')
+            ->with('local', DataProcessSix::createAllAddress())
+    ]);
+});

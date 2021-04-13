@@ -16,7 +16,7 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
     </div>
     <div id="all" class="w-full dark:bg-dark-second px-2 pt-16 wrapper-content-right overflow-y-auto" style="max-height: 420px;height: 420px;">
         @foreach($data as $key => $value)
-        @if ($value->IDTaiKhoan == Session::get('users')[0]->IDTaiKhoan)
+        @if ($value->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
         <div class="w-full py-2 flex">
             <div class="w-3/5 flex">
                 <div class="w-14 h-14 relative">
@@ -50,7 +50,7 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
             </div>
             <?php $datas = DB::table('moiquanhe')->where('IDTaiKhoan', '=', Session::get('users')[0]->IDTaiKhoan)
                 ->where('IDBanBe', '=', $value->IDTaiKhoan)->get(); ?>
-            @if (count($data) == 0)
+            @if (count($datas) == 0)
             <div class="w-2/5 text-right">
                 <ul class="flex pt-1.5 float-right">
                     <li onclick="RequestFriend('','')" class="p-2.5 mr-2  cursor-pointer dark:bg-dark-third dark:text-white bg-gray-200 font-bold 

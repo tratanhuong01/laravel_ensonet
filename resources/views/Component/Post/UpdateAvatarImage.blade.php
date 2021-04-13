@@ -24,7 +24,7 @@ $u = Session::get('user');
             </div>
         </div>
         <div class="relative pl-1" style="width: 80%;">
-            <p class="mb-2 dark:text-gray-300"><a href="profile.{{ $item[0]->IDTaiKhoan }}"><b class="dark:text-white">
+            <p class="dark:text-gray-300"><a href="profile.{{ $item[0]->IDTaiKhoan }}"><b class="dark:text-white">
                         {{ $item[0]->Ho . ' ' . $item[0]->Ten }}</b>
                     &nbsp;</a> đã cập nhật ảnh đại diện của anh ấy.</p>
             <div class="w-full flex">

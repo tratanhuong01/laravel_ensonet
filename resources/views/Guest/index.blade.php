@@ -47,32 +47,31 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
                     <div class="w-full left-category">
                         <ul>
                             <li class="cursor-pointer flex p-2.5 font-bold cursor-pointer dark:hover:bg-dark-third">
-                                <img class="w-9 h-9 rounded-full object-cover" src="{{ $user[0]->AnhDaiDien }}" alt="">&nbsp;&nbsp;
-                                <span class="pl-1.5 pt-1.5 text-sm font-bold dark:text-white">{{ $user[0]->Ho . ' ' .$user[0]->Ten }}</span>
+                                <img class="w-11 h-11 rounded-full object-cover mr-4" src="{{ $user[0]->AnhDaiDien }}" alt="">
+                                <span class="text-sm flex text-gray-900 items-center font-bold dark:text-white">{{ $user[0]->Ho . ' ' .$user[0]->Ten }}</span>
                             </li>
                             <li onclick="window.location.href='profile.{{ $user[0]->IDTaiKhoan }}/friends'" class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
-                                &nbsp;<img class="w-8 h-8" src="img/friends.png" alt="" srcset="">&nbsp;&nbsp;
-                                <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Bạn Bè</span>
+                                <img class="w-10 h-10 mr-4" src="img/friends.png" alt="" srcset="">
+                                <span class="font-bold flex items-center dark:text-white">Bạn Bè</span>
                             </li>
                             <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
-                                &nbsp;<img class="w-8 h-8" src="img/memory.png" alt="" srcset="">&nbsp;&nbsp;
-                                <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Kỉ Niệm</span>
+                                <img class="w-10 h-10 mr-4" src="img/memory.png" alt="" srcset="">
+                                <span class="font-bold flex items-center dark:text-white">Kỉ Niệm</span>
                             </li>
                             <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
-                                &nbsp;<img class="w-8 h-8" src="img/messager.png" alt="" srcset="">&nbsp;&nbsp;
-                                <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Messenger</span>
+                                <img class="w-10 h-10 mr-4" src="img/messager.png" alt="" srcset="">
+                                <span class="font-bold flex items-center dark:text-white">Messenger</span>
                             </li>
                             <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
-                                &nbsp;<img class="w-8 h-8" src="img/groups.png" alt="" srcset="">&nbsp;&nbsp;
-                                <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Nhóm</span>
+                                <img class="w-10 h-10 mr-4" src="img/groups.png" alt="" srcset="">
+                                <span class="font-bold flex items-center dark:text-white">Nhóm</span>
                             </li>
                             <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
-                                <span class="bg-gray-200 dark:bg-dark-third px-2 py-1 
-                                rounded-full dark:text-white">
+                                <span class="bg-gray-300 dark:bg-dark-third px-2 py-1 
+                                rounded-full dark:text-white mr-4">
                                     <i class="bx bxs-chevron-down text-xl"></i>
                                 </span>
-                                &nbsp;
-                                <span class="pl-2.5 pt-0.5 font-bold dark:text-white">Xem thêm</span>
+                                <span class="font-bold flex items-center dark:text-white">Xem thêm</span>
                             </li>
 
                         </ul>

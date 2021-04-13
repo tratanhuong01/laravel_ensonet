@@ -26,13 +26,17 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                 <p class="p-1 pt-0 font-bold dark:text-white">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}
                     @if (session()->has('feelCur'))
                     {{ DataProcess::getFeel(Session::get('feelCur')) }}
-                    @else
                     @endif
                     @if (session()->has('tag') && count(Session::get('tag')) > 0)
                     {{ DataProcess::getFriendTag(Session::get('tag')) }}
-                    @else
                     @endif
-
+                    @if (session()->has('localU') && count(Session::get('localU')) > 0)
+                    @foreach(Session::get('localU') as $key => $value)
+                    {!!
+                    DataProcess::getLocal($value->ID.'@'.$value->Loai)
+                    !!}
+                    @endforeach
+                    @endif
                 </p>
                 <div class="py-0 px-1 w-auto w-1/4 bg-gray-300 dark:bg-dark-third" style="border-radius: 30px;">
                     <ul onclick="selectPrivacy()" id="selectPrivacyMain" class="flex text-xs relative cursor-pointer">
@@ -51,7 +55,6 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                 <button type="button" id="myTriggers" class=" absolute right-2 bottom-2 bg-white outline-none dark:bg-dark-second">
                     <i class="far fa-smile text-gray-600 text-2xl dark:text-gray-300"></i>
                 </button>
-
             </div>
             <div class="w-full mt-2.5 px-2 flex flex-wrap relative" id="imagePost">
                 <img src="" alt="" id="imgPost1">
@@ -61,25 +64,38 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
 
             </div>
         </div>
-        <div class="w-full p-2 border-2 border-solid border-gray-300 mt-4">
-            <ul class="w-full flex">
-                <li onclick="clickOpenModal(0)" class="cursor-pointer pr-16 w-40">
-                    <p class="pl-2.5 dark:text-white font-bold text-sm">Thêm vào bài viết</p>
-                </li>
-                <li class="cursor-pointer "><i style="color: #9567EF;font-size: 25px;padding: 2px 4px;" class="fas fa-video"></i>
-                    &nbsp;&nbsp;</li>
+        <div class="w-full flex p-2 border-2 border-solid border-gray-300 mt-4">
+            <div onclick="" class="cursor-pointer w-40 flex">
+                <p class="pl-2.5 dark:text-white font-bold text-sm flex items-center">Thêm vào bài viết</p>
+            </div>
+            <ul class="ml-auto flex" id="placeSelection">
                 <input type="file" onchange="changeUploadFiles(this)" id="uploadFileS" name="files[]" accept="image/*,video/*" multiple="multiple" class="hidden">
                 <label for="uploadFileS">
-                    <li class="cursor-pointer "><i style="color: #45B560;font-size: 25px;padding: 2px 4px;" class="far fa-image"></i>
-                        &nbsp;&nbsp;
+                    <li class="cursor-pointer flex w-10 h-10 mx-1 rounded-full hover:bg-gray-200 
+                    dark:hover:bg-dark-third justify-center  
+                    ">
+                        <i class="far fa-image text-2xl text-green-500 flex items-center"></i>
                     </li>
                 </label>
-                <li onclick="viewFeelCurrent()" class="eOpenModal cursor-pointer "><i style="color: #EAB026;font-size: 25px;padding: 2px 4px;" class="fas fa-smile"></i> &nbsp;&nbsp;
+                <li onclick="viewFeelCurrent()" class="cursor-pointer flex w-10 h-10 mx-1 rounded-full 
+                hover:bg-gray-200 dark:hover:bg-dark-third justify-center  
+                {{ session()->has('feelCur') ? 'dark:bg-dark-main bg-gray-300 ' : '' }}">
+                    <i class="fas fa-smile text-2xl text-yellow-500 flex items-center"></i>
                 </li>
-                <li onclick="viewTagFriends()" class="eOpenModal cursor-pointer "><i style="color: #1771E6;font-size: 25px;padding: 2px 4px;" class="fas fa-user-tag"></i>
-                    &nbsp;&nbsp;</li>
-                <li onclick="clickOpenModal(2)" class="eOpenModal cursor-pointer "><i style="color: #E94F3A;padding-right: 9px;font-size: 25px;padding: 2px 4px;" class="fas fa-map-marker-alt"></i></li>
-                <li onclick="clickOpenModal(4)" class="eOpenModal cursor-pointer "><i style="color: #28B19E;font-size: 25px;padding: 2px 4px;" class="fas fa-radiation"></i>
+                <li onclick="viewTagFriends()" class="cursor-pointer flex w-10 h-10 mx-1 rounded-full 
+                hover:bg-gray-200 dark:hover:bg-dark-third justify-center 
+                {{ session()->has('tag') ? 'dark:bg-dark-main bg-gray-300 ' : '' }}">
+                    <i class="fas fa-user-tag text-2xl text-blue-500 flex items-center"></i>
+                </li>
+                <li onclick="viewLocal()" class="cursor-pointer flex w-10 h-10 mx-1 rounded-full 
+                hover:bg-gray-200 dark:hover:bg-dark-third justify-center 
+                {{ session()->has('localU') ? 'dark:bg-dark-main bg-gray-300 ' : '' }}">
+                    <i class="fas fa-map-marker-alt text-2xl text-red-500 flex items-center"></i>
+                </li>
+                <li onclick="" class="cursor-pointer flex w-10 h-10 mx-1 rounded-full 
+                hover:bg-gray-200 dark:hover:bg-dark-third justify-center 
+                ">
+                    <i class="far fa-question-circle text-2xl text-pink-600 flex items-center"></i>
                 </li>
             </ul>
         </div>

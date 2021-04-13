@@ -19,6 +19,27 @@ function changeUploadFiles(el) {
     }
     store.get('arrayImageAndVideo',array);
 }
+function changeUploadFileMain(el,type) {
+    $.ajax({
+        method: "GET",
+        url: 'ProcessOpenPostDialog',
+        data: {
+          type : type
+        },
+        success: function (response) {
+          second.innerHTML = response;
+          second.className += ' fixed h-screen';
+          $('#modal-one').show();
+          new MeteorEmoji(
+            document.getElementById('textarea-post'),
+            document.getElementById('myTriggers'),
+            document.getElementById('myEmojis')
+          )
+        $('#placeSelection').prepend(el);
+        changeUploadFiles(el);
+        }
+      });
+}
 function loadUICreatePostMain1(arr) {
     console.log(arr)
     document.getElementById('imagePost').innerHTML = ''
