@@ -12,7 +12,7 @@
     </li>
     @else
     @foreach($json as $key => $value)
-    <li class="w-1/3 text-center mb-2">
+    <li class="w-32% text-center mb-2 mr-0.5">
         <img src="/{{$value->DuongDan}}" class="object-cover rounded-lg dataThreeImage" alt="">
     </li>
     @endforeach

@@ -63,7 +63,3 @@ Session::get('user')[0]->IDTaiKhoan : '' }}" />
     }
 </style>
 <!-- style general -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet" href="css/videre.css" />
-<script src="/js/library/videre.js"></script>
-<script src="/js/library/data.js"></script>

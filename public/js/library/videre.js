@@ -33,11 +33,10 @@ if (typeof Object.create !== "function") {
 	}
 
 	var Video = {
-		
 		init : function (options, el) {
 			var base = this;
 				el = el[0];
-
+			
             base.options = $.extend({}, $.fn.videre.options, options);
 
 			if ($.inArray(base.options.dimensions, dimensions[base.options.dimensions]) === 0) {
@@ -48,7 +47,6 @@ if (typeof Object.create !== "function") {
 			};
 
 		},
-
 		wrapPlayer : function (el) {
 			var base = this;
 				if (base.options.video.viewCount) {
@@ -58,57 +56,57 @@ if (typeof Object.create !== "function") {
 				}
 				pluralizeView = pluralize('view', base.options.video.viewCount);
 				template = $(
-								'<div class="vid-html5">'+
-									'<video src="'+base.options.video.quality[0].src+'" id="html-player" style="width: '+dimensions[base.options.dimensions][0]+'px; height: '+dimensions[base.options.dimensions][1]+'px;"></video>'+
+								'<div class="vid-html5" id="vid-html5' + base.options.video.IDBaiDang + base.options.video.IDHinhAnh  + '">'+
+									'<video src="'+base.options.video.quality[0].src+'" id="html-player'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh  +'" style="width: '+dimensions[base.options.dimensions][0]+'px; height: '+dimensions[base.options.dimensions][1]+'px;"></video>'+
 								'</div>'+
-								'<div class="vid-toggle-layer"></div>'+
-								'<div class="vid-shadow-layer"></div>'+
-								'<div class="vid-info-layer">'+
-									'<div class="vid-info-wrapper flex align-end">'+
+								'<div class="vid-toggle-layer'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh  + '"></div>'+
+								'<div class="vid-shadow-layer vid-shadow-layer'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh  +'"></div>'+
+								'<div class="vid-info-layer vid-info-layer'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh  +'">'+
+									'<div class="vid-info-wrapper vid-info-wrapper'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh  +' flex align-end">'+
 										'<div class="main-info">'+
 											'<p>You\'re watching</p>'+
 											'<h1>'+base.options.video.title+'</h1>'+
 										'</div>'+
-										'<div class="view-count">'+
+										'<div class="view-count '+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' vid-info-wrapper'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh  +' ">'+
 											(viewCount != '' ?('<h2>'+viewCount.toLocaleString()+' '+pluralizeView+'</h2>') : '')+
 										'</div>'+
 									'</div>'+
 								'</div>'+
-								'<div class="vid-controls-bottom flex align-center justify-center">'+
-									'<div class="vid-controls-wrapper">'+
-										'<div class="vid-controls-contents flex align-center justify-center">'+
-											'<button class="vid-play-btn item"><i class="ion-ios-play flex align-center"></i></button>'+
-											'<div class="vid-volume-container flex align-center">'+
-												'<button class="vid-volume-control item"><i class="ion-android-volume-up flex align-center"></i></button>'+
-												'<div id="vol-control" class="vid-volume-slider"></div>'+
+								'<div class="vid-controls-bottom vid-controls-bottom'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' flex align-center justify-center">'+
+									'<div class="vid-controls-wrapper vid-controls-wrapper'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'">'+
+										'<div class="vid-controls-contents vid-controls-contents'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' flex align-center justify-center">'+
+											'<button class="vid-play-btn vid-play-btn'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' item"><i class="ion-ios-play flex align-center"></i></button>'+
+											'<div class="vid-volume-container vid-volume-container'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' flex align-center">'+
+												'<button class="vid-volume-control vid-volume-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' item"><i class="ion-android-volume-up flex align-center"></i></button>'+
+												'<div id="vol-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'" class="vid-volume-slider"></div>'+
 											'</div>'+
-											'<span class="vid-current-time"></span>'+
-											'<div class="vid-progress">'+
-												'<div class="progress-bg"></div>'+
-												'<div class="progress-loaded"></div>'+
-												'<div class="progress-fg"></div>'+
-												'<div class="progress-hovertime"></div>'+
+											'<span class="vid-current-time vid-current-time'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'"></span>'+
+											'<div class="vid-progress vid-progress'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'">'+
+												'<div class="progress-bg progress-bg'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'"></div>'+
+												'<div class="progress-loaded progress-loaded'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'"></div>'+
+												'<div class="progress-fg progress-fg'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'"></div>'+
+												'<div class="progress-hovertime progress-hovertime'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'"></div>'+
 											'</div>'+
-											'<span class="vid-duration"></span>'+
-											'<button class="vid-request-fullscreen item"><i class="ion-android-expand flex align-center"></i></button>'+
+											'<span class="vid-duration vid-duration'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'"></span>'+
+											'<button class="vid-request-fullscreen vid-request-fullscreen'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' item"><i class="ion-android-expand flex align-center"></i></button>'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
-								'<div class="vid-bottom-progress-bar">'+
-									'<div class="progress-fg"></div>'+
+								'<div class="vid-bottom-progress-bar vid-bottom-progress-bar'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'">'+
+									'<div class="progress-fg progress-fg'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+'"></div>'+
 								'</div>'
 							);
 			
 			currentQuality = base.options.video.quality.indexOf(base.options.video.quality[0]);
 			$(el).css('width', dimensions[base.options.dimensions][0]+'px');
-			$(el).addClass('vid-wrapper videre-container mouse-entered');
+			$(el).addClass('vid-wrapper vid-wrapper'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' videre-container'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' mouse-entered'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh);
 			$(el).append(template);
 			base.decodeMedia(el);
 		},
 
 		decodeMedia : function (el) {
 			var base = this;
-				media = document.getElementById('html-player');
+				media = document.getElementById('html-player'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh);
 				el = el;
 
 			media.onloadedmetadata = function() {
@@ -119,8 +117,8 @@ if (typeof Object.create !== "function") {
 			};
 			media.onended = function() {
 				// while video has ended
-				$('.vid-wrapper').addClass('paused');
-				$('.vid-play-btn').find('i').addClass('ion-ios-play').removeClass('ion-ios-pause');
+				$('.vid-wrapper' +base.options.video.IDBaiDang + base.options.video.IDHinhAnh).addClass('paused');
+				$('.vid-play-btn'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).find('i').addClass('ion-ios-play').removeClass('ion-ios-pause');
 			};
 			media.oncanplaythrough = function() {
 				// while video has loaded the next frame
@@ -132,7 +130,7 @@ if (typeof Object.create !== "function") {
 		renderMediaData : function(el) {
 			var base = this;
 				duration = base.toHHMMSS(media.duration);
-				qualitySelectorTemplate = $('<div class="vid-quality-selector flex"></div>');
+				qualitySelectorTemplate = $('<div class="vid-quality-selector vid-quality-selector'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' flex"></div>');
 
 			for (let i = 0; base.options.video.quality.length > i; i++){
 				var qualityArray = $(
@@ -144,7 +142,7 @@ if (typeof Object.create !== "function") {
 			media.volume = 0.5;
 
 			$(el).append(qualitySelectorTemplate);
-			$(el).find('.vid-duration').text(duration);
+			$('.vid-duration'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).text(duration);
 
 			setInterval(function(){
 				base.renderProgress();
@@ -157,18 +155,18 @@ if (typeof Object.create !== "function") {
 		setQuality : function () {
 			var base = this;
 
-			$('.vid-quality-selector button').click(function(){
+			$('.vid-quality-selector' +base.options.video.IDBaiDang + base.options.video.IDHinhAnh +' button').click(function(){
 				var index = $(this).data('index');
 
-				$('video').attr('src', base.options.video.quality[index].src);
+				$('#html-player'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh).attr('src', base.options.video.quality[index].src);
 				currentQuality = base.options.video.quality.indexOf(base.options.video.quality[index]);
 				media.currentTime = base.options.currentTime;
 				base.decodeMedia();
 			});
 			base.togglePlay();
 			// set an active class for the current quality in buttons
-			$('.vid-quality-selector button').removeClass();
-			$('.vid-quality-selector button[data-index="'+currentQuality+'"]').addClass('active');
+			$('.vid-quality-selector'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' button').removeClass();
+			$('.vid-quality-selector'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' button[data-index="'+currentQuality+'"]').addClass('active');
 		},
 
 		renderProgress : function ( ) {
@@ -176,25 +174,26 @@ if (typeof Object.create !== "function") {
 				currentTime = base.toHHMMSS(media.currentTime);
 
 		 	base.options.currentTime = media.currentTime;
-			$('.vid-current-time').text(currentTime);
-			$('.progress-fg').css('width', (100 / media.duration) * media.currentTime+'%');
+			$('.vid-current-time'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh).text('00:00');
+			$('.progress-fg'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).css('width', (100 / media.duration) * media.currentTime+'%');
 			if (media.duration)
-				$('.progress-loaded').css('width', (100 / media.duration) * media.buffered.end(0)+'%');
+				$('.progress-loaded'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).css('width', (100 / media.duration) * media.buffered.end(0)+'%');
 		},
 
 		setControls : function () {
 			var base = this;
 
-			$('.vid-play-btn').unbind().click(function(){
+			$('.vid-play-btn'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).unbind().click(function(){
 				console.log('clicked')
 				base.togglePlay();
 			});
 
-			$('.vid-toggle-layer').unbind()
+			$('.vid-toggle-layer'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).unbind()
 
-			$('.vid-toggle-layer').unbind().click(function(){
+			$('.vid-toggle-layer'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).unbind().click(function(){
 				base.togglePlay();
 			}).dblclick(function(){
+				var base = this;
 				if ( media.requestFullscreen ) {
 					media.requestFullscreen();
 				} else if ( media.mozRequestFullScreen ) {
@@ -205,7 +204,7 @@ if (typeof Object.create !== "function") {
 				base.isFullscreen();
 			});
 
-			$('.vid-request-fullscreen').unbind().click(function(){
+			$('.vid-request-fullscreen'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).unbind().click(function(){
 				if ( media.requestFullscreen ) {
 					media.requestFullscreen();
 				} else if ( media.mozRequestFullScreen ) {
@@ -217,43 +216,44 @@ if (typeof Object.create !== "function") {
 			});
 
 
-			$('.vid-volume-control').unbind().mouseenter(function(){
+			$('.vid-volume-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).unbind().mouseenter(function(){
 				base.setVolume();
 			}).click(function(){
 				base.toggleVolumeMute($(this));
 			});
             
-            $('.vid-progress').unbind().on('click', function(e){
+            $('.vid-progress'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).unbind().on('click', function(e){
                 var position = base.seek(e);
                 media.currentTime = position.value;
             });
 
-            $('.progress-bg').unbind().mousemove(function(e){
+            $('.progress-bg'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).unbind().mousemove(function(e){
                 
                 var hoverX, startX, width, result, offset;
                 hoverX = e.clientX;
-                offset = $('.progress-fg').offset();
-                width = $('.vid-progress').width();
+                offset = $('.progress-fg'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).offset();
+                width = $('.vid-progress'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).width();
                 result = (  base.toHHMMSS(base.seek(e).value));
 
-                $('.progress-hovertime').addClass('hover');
+                $('.progress-hovertime'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).addClass('hover');
 
-                $('.progress-hovertime').css('left', hoverX - offset.left + 'px');
-                $('.progress-hovertime').text(result);
+                $('.progress-hovertime'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).css('left', hoverX - offset.left + 'px');
+                $('.progress-hovertime'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).text(result);
             
             }).unbind().mouseleave(function(){
-                $('.progress-hovertime').removeClass('hover');
+                $('.progress-hovertime'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).removeClass('hover');
             });
 
 			base.mouseMovement();
 		},
 
 		seek : function ( event ) {
-            var offset = $('.progress-fg').offset();
+			var base = this;
+            var offset = $('.progress-fg'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).offset();
                 x = event.pageX - offset.left;
                 y = event.pageY - offset.top;
                 max = media.duration;
-                value = x * max / $('.vid-progress').width();
+                value = x * max / $('.vid-progress'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).width();
             return {x: x, y: y, max: max, value: value};
 		},
 
@@ -264,7 +264,7 @@ if (typeof Object.create !== "function") {
 
 				media.volume = 0;
 				element.find('i').removeClass().addClass('ion-android-volume-off flex align-center');
-				$('#vol-control').slider({value: 0});
+				$('#vol-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).slider({value: 0});
 
 			} else {
 
@@ -274,7 +274,7 @@ if (typeof Object.create !== "function") {
 					element.find('i').removeClass().addClass('ion-android-volume-up flex align-center');
 				}
 				media.volume = base.options.audio.volume / 100;
-				$('#vol-control').slider({value: base.options.audio.volume});
+				$('#vol-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).slider({value: base.options.audio.volume});
 
 			}
 		},
@@ -282,8 +282,8 @@ if (typeof Object.create !== "function") {
 		setVolume : function() {
 			var base = this;
 
-			$('#vol-control').css('width', '100px');
-			$('#vol-control').slider({
+			$('#vol-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).css('width', '100px');
+			$('#vol-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).slider({
 			    min: 0,
 			    max: 100,
 			    value: media.volume === 0 ? 0 : base.options.audio.volume,
@@ -293,21 +293,21 @@ if (typeof Object.create !== "function") {
 			      	media.volume = ui.value / 100;
 			      	base.options.audio.volume = ui.value;
 			      	if ( ui.value >= 50) {
-			      		$('.vid-volume-control i').removeClass().addClass('ion-android-volume-up flex align-center');
+			      		$('.vid-volume-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' i').removeClass().addClass('ion-android-volume-up flex align-center');
 			      		currentVolumeIcon = 'ion-android-volume-up flex align-center';
 			      	} else if ( ui.value <= 50 ) {
-			      		$('.vid-volume-control i').removeClass().addClass('ion-android-volume-down flex align-center');
+			      		$('.vid-volume-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' i').removeClass().addClass('ion-android-volume-down flex align-center');
 			      		currentVolumeIcon = 'ion-android-volume-down flex align-center';
 			      		if (ui.value === 0) {
-			      			$('.vid-volume-control i').removeClass().addClass('ion-android-volume-mute flex align-center');
+			      			$('.vid-volume-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' i').removeClass().addClass('ion-android-volume-mute flex align-center');
 			      			currentVolumeIcon = 'ion-android-volume-mute flex align-center';
 			      		}
 			      	};
 			    }
 			});
 
-			$('.vid-volume-container').mouseleave(function(){
-				$('#vol-control').css('width', '0');
+			$('.vid-volume-container'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).mouseleave(function(){
+				$('#vol-control'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).css('width', '0');
 			});
 
 		},
@@ -323,7 +323,7 @@ if (typeof Object.create !== "function") {
 		        base.toggleControls();
 		    }, 2500);
 			$(this).addClass('mouse-entered');
-			$('.vid-wrapper').on('mousemove', function() {
+			$('.vid-wrapper'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).on('mousemove', function() {
 			    clearTimeout(timeout);
 
 			    timeout = setTimeout(function() {
@@ -343,25 +343,26 @@ if (typeof Object.create !== "function") {
 
 		toggleControls : function() {
 			var base = this;
-	        $('.vid-wrapper').removeClass('mouse-entered');
+	        $('.vid-wrapper'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).removeClass('mouse-entered');
 		},
 
 		isFullscreen : function () {
 			var base = this;
 			if (!window.screenTop && !window.screenY) {
-				$('.vid-wrapper').addClass('is-fullscreen');
-				$('.vid-wrapper button.vid-request-fullscreen i').removeClass('.ion-android-expand').addClass('ion-arrow-shrink')
+				$('.vid-wrapper'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).addClass('is-fullscreen');
+				$('.vid-wrapper'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' button.vid-request-fullscreen i').removeClass('.ion-android-expand').addClass('ion-arrow-shrink')
 				base.exitFullscreen();
 			} else {
 				// if not fullscreen
-				$('.vid-wrapper button.vid-request-fullscreen i').addClass('.ion-android-expand').removeClass('ion-arrow-shrink')
-				$('.vid-wrapper').removeClass('is-fullscreen');
+				$('.vid-wrapper'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh+' button.vid-request-fullscreen i').addClass('.ion-android-expand').removeClass('ion-arrow-shrink')
+				$('.vid-wrapper'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).removeClass('is-fullscreen');
 			};
 
 		},
 
 		exitFullscreen : function ( ) {
-			$('.vid-request-fullscreen').click(function(){
+			var base = this;
+			$('.vid-request-fullscreen'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).click(function(){
 		        if (media.exitFullscreen) {
 		            media.exitFullscreen();
 		        } else if (media.webkitExitFullscreen) {
@@ -372,7 +373,7 @@ if (typeof Object.create !== "function") {
 		            media.msExitFullscreen();
 		        };
 			});
-			$('.vid-toggle-layer').dblclick(function(){
+			$('.vid-toggle-layer'+base.options.video.IDBaiDang + base.options.video.IDHinhAnh).dblclick(function(){
 		        if (media.exitFullscreen) {
 		            media.exitFullscreen();
 		        } else if (media.webkitExitFullscreen) {
@@ -386,16 +387,15 @@ if (typeof Object.create !== "function") {
 		},
 
 		togglePlay : function() {
+			var base = this;
 			var isPlaying = media.currentTime > 0 && !media.paused && !media.ended && media.readyState > 2;
 			if (!isPlaying){
 				media.play();
-
-				$('.vid-wrapper').removeClass('paused');
-				$('.vid-play-btn').find('i').removeClass('ion-ios-play').addClass('ion-ios-pause');
+				$('.vid-wrapper'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh).removeClass('paused');
+				$('.vid-play-btn'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh).find('i').removeClass('ion-ios-play').addClass('ion-ios-pause');
 			} else {
-
-				$('.vid-wrapper').addClass('paused').addClass('mouse-entered');
-				$('.vid-play-btn').find('i').addClass('ion-ios-play').removeClass('ion-ios-pause');
+				$('.vid-wrapper'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh).addClass('paused').addClass('mouse-entered');
+				$('.vid-play-btn'+ base.options.video.IDBaiDang + base.options.video.IDHinhAnh).find('i').addClass('ion-ios-play').removeClass('ion-ios-pause');
 				media.pause();
 			}
 		},
@@ -420,7 +420,9 @@ if (typeof Object.create !== "function") {
 				src: null
 			}],
 			title: null,
-			viewCount: null
+			viewCount: null,
+			IDBaiDang : null,
+			IDHinhAnh : null,
 		},
 		currentTime: null,
 		audio: {

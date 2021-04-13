@@ -9,6 +9,7 @@ use App\Models\Baidang;
 use App\Models\Hinhanh;
 use App\Models\StringUtil;
 use App\Models\Thongbao;
+use App\Process\DataProcessSix;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -62,9 +63,17 @@ class PostNormalController extends Controller
                 );
                 for ($i = 0; $i < (int)$request->numberImage; $i++) {
                     $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
-                    $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
-                    Hinhanh::add($idHinhAnh, 'THONGTHUON', $idBaiDang, 'img/PosTT/' . $nameFile, NULL);
-                    $request->file('files_' . $i)->move(public_path('img/PosTT'), $nameFile);
+                    $nameFile = $request->file('files_' . $i)->getClientOriginalName();
+                    if (DataProcessSix::CheckIsVideo($nameFile)) {
+                        $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.mp4';
+                        Hinhanh::add($idHinhAnh, 'VIDEO0001', $idBaiDang, 'video/' . $nameFile, NULL, 1);
+                        $request->file('files_' . $i)->move(public_path('video'), $nameFile);
+                    } else if (DataProcessSix::CheckIsImage($nameFile)) {
+                        $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
+                        Hinhanh::add($idHinhAnh, 'THONGTHUON', $idBaiDang, 'img/PosTT/' . $nameFile, NULL, 0);
+                        $request->file('files_' . $i)->move(public_path('img/PosTT'), $nameFile);
+                    } else {
+                    }
                 }
             } else {
                 $datetime = date("Y-m-d H:i:s");

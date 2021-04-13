@@ -1,6 +1,8 @@
-function loadVideo(url,id,dimen){
+function loadVideo(url,id,dimen,IDBaiDang,IDHinhAnh){
 	$('#' + id).videre({
 		video: {
+			IDBaiDang : IDBaiDang,
+			IDHinhAnh : IDHinhAnh,
 			quality: [
 				{
 					label: '720p',
@@ -13,8 +15,10 @@ function loadVideo(url,id,dimen){
 				{
 					label: '240p',
 					src: url
-				}
+				},
+				
 			],
+			
 			title: ''
 		},
 		dimensions: dimen

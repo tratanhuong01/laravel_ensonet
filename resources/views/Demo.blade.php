@@ -7,19 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     @include('Head/css')
-
 </head>
 
 <body>
-    <span class="bg-gray-200 rounded-full px-2">
-        <i class="far fa-play-circle text-2xl text-gray-900"></i>
-    </span>
-    <!-- <div id="player">
 
-    </div> -->
-    <!-- <script>
-        loadVideo('/video/review.mp4')
-    </script> -->
+    <video id="my-videos" class="video-js" controls preload="auto" width="640" height="264" poster="/video/review.mp4" data-setup="{}">
+        <source src="/video/review.mp4" type="video/mp4" />
+    </video>
 </body>
 
 </html>

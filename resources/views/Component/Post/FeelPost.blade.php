@@ -36,7 +36,7 @@ use App\Models\Process;
             text-center w-full font-bold py-3 cursor-pointer justify-items-center" id="{{ $item[0]->IDBaiDang }}" onclick="FeelPost('{{ $item[0]->IDBaiDang }}','0@0')">
                 {!! Functions::checkIsFeel($u[0]->IDTaiKhoan,$item[0]->IDBaiDang) !!}
             </li>
-            <ul class=" show-feels absolute bottom-full flex flex-column dark:bg-dark-second bg-white rounded-lg border-solid 
+            <ul class="z-50 show-feels absolute bottom-full flex flex-column dark:bg-dark-second bg-white rounded-lg border-solid 
             dark:border-dark-third border-gray-300 border rounded-3xl">
                 <li class="px-2 py-2 text-3xl cursor-pointer rounded-full hover:bg-gray-300 
                 dark:hover:bg-dark-third" onclick="FeelPost('{{ $item[0]->IDBaiDang }}','0@1')">👍</li>

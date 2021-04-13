@@ -79,10 +79,10 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
             @else
             @switch(explode('#',DataProcess::getState($value->TinhTrang,Session::get('user')[0]->IDTaiKhoan))[1])
             @case('1')
-            @include('Component\Messenger\ChatRight',['message' => $value])
+            @include('Modal\ModalChat\Child\ChatRight',['message' => $value])
             @break
             @case('2')
-            @include('Modal\ModalChat\Child\ThuHoiTinNhanR',['message' => $value])
+            @include('Modal\ModalChat\Child\RetrievalMessageR',['message' => $value])
             @break
             @endswitch
             @endif
@@ -92,10 +92,10 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
             @else
             @switch(explode('#',DataProcess::getState($value->TinhTrang,Session::get('user')[0]->IDTaiKhoan))[1])
             @case('1')
-            @include('Component\Messenger\ChatLeft',['message' => $value])
+            @include('Modal\ModalChat\Child\ChatLeft',['message' => $value])
             @break
             @case('2')
-            @include('Component\Messenger\ThuHoiTinNhanL',['message' => $value])
+            @include('Modal\ModalChat\Child\RetrievalMessageL',['message' => $value])
             @break
             @endswitch
             @endif
@@ -242,7 +242,7 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
             @foreach($imageAndVideo as $key => $value)
             <a href="">
                 <img src="/{{ $value }}" class="object-cover rounded-lg m-0.5
-                " alt="" style="width: 115px;height:115px;">
+                " alt="" style="width: 110px;height:110px;">
             </a>
             @endforeach
             @endif

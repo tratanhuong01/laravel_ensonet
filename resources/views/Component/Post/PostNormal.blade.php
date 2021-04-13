@@ -101,12 +101,22 @@ $u = Session::get('user');
     </div>
     <div class="w-full mx-0 my-4">
         <ul class="w-full flex flex-wrap relative">
+            <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+            <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
             @for ($i = 0 ; $i < sizeof($item) ; $i++) @if ($item[$i]->DuongDan == NULL)
                 @elseif (sizeof($item) == 1 && $item[$i]->DuongDan != NULL)
+                @if ($item[$i]->Loai == 0)
                 <li class="w-full">
                     <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
-                        <img class="w-full p-1 object-cover" style="max-height:650px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a>
+                        <img class="w-full p-1 object-cover" style="max-height:350px;height: 350px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a>
                 </li>
+                @else
+                <li class="w-full relative" id="{{$item[0]->IDBaiDang.$item[0]->IDHinhAnh}}Video">
+                    <video id="my-video" class="video-js" controls preload="auto" poster="/video/review.mp4" data-setup="{}" style="width: 100%;max-height:350px;height: 350px;">
+                        <source src="/{{ $item[$i]->DuongDan }}" type="video/mp4" />
+                    </video>
+                </li>
+                @endif
                 @else
                 @if (sizeof($item) > 4 && $i == 3)
                 <li class="relative"><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>

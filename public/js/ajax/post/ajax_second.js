@@ -1,5 +1,6 @@
 function changeUploadFiles(el) {
     document.getElementById('imagePost').innerHTML = ''
+    store.set('imageAndVideoPost',new Array());
     var files = el.files;
     var arr = Array.from(files);
     var array = store.get('imageAndVideoPost');
@@ -216,7 +217,7 @@ function addImageVideoContinues(indexMain,array,divContent) {
             videoChild.setAttribute('src',url);
             videoChild.setAttribute('class','max-w-full mx-auto h-52 object-cover');
             var divChilds = document.createElement('div');
-            divChilds.classList = 'bg-transparent cursor-pointer w-10 h-10 left-48% rounded-full flex justify-center absolute top-45per ml-5 ';
+            divChilds.classList = 'bg-transparent cursor-pointer z-50 w-10 h-10 left-48% rounded-full flex justify-center absolute top-45per ml-5 ';
             divChilds.style.transform = 'translate(-50%, -28%)';
             var iChilds = document.createElement('i');
             iChilds.classList = 'far fa-play-circle text-4xl flex items-center text-white';
@@ -247,7 +248,7 @@ function addImageVideoContinues(indexMain,array,divContent) {
             imgChild.setAttribute('class','max-w-full mx-auto h-52 object-cover');
             data = imgChild;
         }
-        divChild.classList = 'w-full text-center bg-gray-100 dark:bg-dark-second relative';
+        divChild.classList = 'w-full text-center bg-gray-100 dark:bg-dark-second  relative';
         var spanChild = document.createElement('span');
         spanChild.classList = 'font-bold text-xl absolute top-2 right-2  px-2 ' +
         ' rounded-full bg-gray-300 dark:bg-dark-third cursor-pointer dark:text-white ' +
@@ -334,6 +335,10 @@ function FeelPost(nameID, loaiCamXuc) {
             $('#' + nameID + 'post').html(response);
         }
     });
+}
+function returnCreatePosts(first,second) {
+    $('#' + first).show();
+    $('#' + second).remove();
 }
 function returnCreatePost() {
     $('#modal-one').show();

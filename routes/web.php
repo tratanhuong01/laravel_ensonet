@@ -762,7 +762,7 @@ Route::get('/login', function (Request $request) {
     if (session()->has('user'))
         return redirect()->to('index')->send();
     else
-        return redirect()->to('login')->send();
+        return view('Guest/login');
 });
 
 // redriect sang index

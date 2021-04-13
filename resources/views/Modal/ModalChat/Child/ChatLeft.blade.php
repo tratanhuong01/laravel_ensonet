@@ -8,7 +8,7 @@ use App\Process\DataProcessFive;
 
 ?>
 <div id="{{ $message->IDTinNhan }}" onmouseleave="onleaveHoverFeelHide('{{ $message->IDTinNhan }}')" class="mess-user chat-lefts w-full py-2 flex relative">
-    <div class="w-15per relative">
+    <div class="w-12 relative">
         <a href=""><img class="absolute bottom-1 w-9 h-9 object-cover rounded-full" src="/{{ $message->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
     <div class=" pl-2 flex z-50" style="width: inherit;">
@@ -34,10 +34,10 @@ use App\Process\DataProcessFive;
             </span>
         </div>
 
-        <div class="mess-user-feel hidden h-auto relative ml-7">
+        <div class="mess-user-feel hidden h-auto relative ml-2">
             <div class="cursor-pointer color-word absolute top-1/2 pl-2" style="transform: translateY(-50%);">
                 <ul class="w-full flex relative">
-                    <ul id="{{$message->IDTinNhan}}Feel" class="-left-20 absolute bottom-full flex flex-column 
+                    <ul id="{{$message->IDTinNhan}}Feel" class="-left-52 absolute bottom-full flex flex-column 
                     dark:bg-dark-second bg-white rounded-lg border-solid dark:border-dark-third 
                     border-gray-300 border rounded-3xl hidden">
                         <li class="px-2 py-2 text-xl cursor-pointer rounded-full hover:bg-gray-300 

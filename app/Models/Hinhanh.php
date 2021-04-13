@@ -14,14 +14,16 @@ class Hinhanh extends Model
         'IDAlbumAnh',
         'IDBaiDang',
         'DuongDan',
-        'NoiDungIMg'
+        'NoiDungIMg',
+        'Loai'
     ];
     public static function add(
         $IDHinhAnh,
         $IDAlbumAnh,
         $IDBaiDang,
         $DuongDan,
-        $NoiDungIMg
+        $NoiDungIMg,
+        $Loai
     ) {
         $hinhanh = new Hinhanh;
         $hinhanh->IDHinhAnh = $IDHinhAnh;
@@ -29,6 +31,7 @@ class Hinhanh extends Model
         $hinhanh->IDBaiDang = $IDBaiDang;
         $hinhanh->DuongDan = $DuongDan;
         $hinhanh->NoiDungIMg = $NoiDungIMg;
+        $hinhanh->Loai = $Loai;
         $hinhanh->save();
     }
     public $timestamps = false;

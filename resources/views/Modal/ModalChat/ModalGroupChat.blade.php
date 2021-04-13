@@ -93,7 +93,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         @include('Modal\ModalChat\Child\ChatRight',['message' => $value])
         @break
         @case('2')
-        @include('Modal\ModalChat\Child\ThuHoiTinNhanR',['message' => $value])
+        @include('Modal\ModalChat\Child\RetrievalMessageR',['message' => $value])
         @break
         @endswitch
         @endif
@@ -106,7 +106,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         @include('Modal\ModalChat\Child\ChatLeft',['message' => $value])
         @break
         @case('2')
-        @include('Modal\ModalChat\Child\ThuHoiTinNhanL',['message' => $value])
+        @include('Modal\ModalChat\Child\RetrievalMessageL',['message' => $value])
         @break
         @endswitch
         @endif
