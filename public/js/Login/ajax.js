@@ -2,8 +2,8 @@ function loadajax(value, nameID) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            $("#web").css("opacity", "0.2");
-            document.getElementById(nameID).innerHTML = this.responseText;
+            second.innerHTML = this.responseText;
+            $('#second').addClass('fixed h-screen');
         }
     };
     xmlhttp.open("GET", value, true);
@@ -22,7 +22,8 @@ function submitFormRegister() {
         url: '/ProcessRegister',
         data: $('#formRegister').serialize(),
         success: function (response) {
-            $('#register').html(response);
+            second.className += ' fixed h-screen';
+            $('#second').html(response);
         }
     });
 }
@@ -30,8 +31,8 @@ function submitFormVerify() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            $("#web").css("opacity", "0.1");
-            document.getElementById('register').innerHTML = this.responseText;
+            second.className += ' fixed h-screen';
+            second.innerHTML = this.responseText;
         }
     };
     xmlhttp.open("GET", '/ProcessVerify?emailOrPhone=' + value('emailOrPhone') + '&code_veri=' + value('code_veri'), true);
@@ -47,18 +48,18 @@ function sendCodeAgain() {
         url: '/ProcessSendCodeAgain',
         data: $('#formSendAgainCode').serialize(),
         success: function (response) {
-            $('#register').html(response);
+            $('#second').html(response);
         }
     });
 }
 function forgetAccount() {
-    $("#web").css("opacity", "0.2");
     $.ajax({
         method: "GET",
         url: '/ProcessForgetAccount',
         data: $('#formNhapTT').serialize(),
         success: function (response) {
-            $('#register').html(response);
+            $('#second').html(response);
+            second.className += ' fixed h-screen';
         }
     });
 }

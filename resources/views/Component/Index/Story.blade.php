@@ -5,7 +5,7 @@ use App\Process\DataProcessThird;
 $allStory = array_slice($allStory, 0, 4);
 
 ?>
-<div class="flex mt-4 relative" id="fourStoryDemo">
+<div class="flex my-4 relative" id="fourStoryDemo">
     <?php $pathSS = 'stories/create' ?>
     <div onclick="window.location.href = '{{ url($pathSS) }}'" class=" flex-shrink-0 w-1/4 md:w-1/5 p-2 pl-0 relative text-center h-44 cursor-pointer">
         <div class="w-full">

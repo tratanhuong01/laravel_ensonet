@@ -19,7 +19,7 @@ $user = Session::get('user'); ?>
     </div>
 </div>
 </div>
-<div class="w-full py-2  hidden sm:flex">
+<div class="w-full relative flex mx-auto md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%  hidden sm:flex">
     <div class="w-3/4">
         <p class="text-2xl font-bold dark:text-white" style="font-family: system-ui;">
             Bạn có biết {{ $users[0]->Ten }} không ? </p>

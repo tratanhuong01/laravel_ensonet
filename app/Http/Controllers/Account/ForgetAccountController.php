@@ -16,6 +16,6 @@ class ForgetAccountController extends Controller
         if (sizeof($user) == 0)
             return view('Modal/ModalLogin/ModalTypeInfo')->with('errors', "Không tìm thấy tài khoản");
         else
-            return view('Modal/ModalLogin/ModalSelectded')->with('user', $user);
+            return view('Modal/ModalLogin/ModalSelected')->with('user', $user);
     }
 }

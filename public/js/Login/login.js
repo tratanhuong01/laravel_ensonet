@@ -1,11 +1,3 @@
-function openRegister() {
-    $("#form-register").show();
-    $("#web").css("opacity", "0.2");
-}
-function closeRegister() {
-    $("#form-register").hide();
-    $("#web").css("opacity", "1");
-}
 function checkEmail() {
     var regex_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     var regex_phone = /((09|03|07|08|05)+([0-9]{8})\b)/g;

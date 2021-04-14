@@ -460,8 +460,8 @@ Route::get('ProcessModalLast', function () {
 })->name('ProcessModalLast');
 
 // ajax quên tài khoản
-Route::get('LoadQuenTaiKhoan', function () {
-    return view('Modal\ModalLogin\ModalTypeInfo');
+Route::get('LoadForgetAccount', function () {
+    return view('Modal\ModalLogin\ModalTypeInfo')->with('errors', '');
 });
 
 //xử lí show modal notifications
@@ -770,6 +770,10 @@ Route::get('/login', function (Request $request) {
         return redirect()->to('index')->send();
     else
         return view('Guest/login');
+});
+
+Route::get('LoadFormRegister', function () {
+    return view('Modal/ModalLogin/ModalFormRegister');
 });
 
 // redriect sang index

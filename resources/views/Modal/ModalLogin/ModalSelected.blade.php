@@ -2,7 +2,7 @@
         p-4 opacity-100 bg-white z-50 border-2 border-solid border-gray-300 sm:w-4/5 sm:mt-12 
         lg:w-3/5 xl:w-5/12 xl:mt-4">
     <div class="w-full">
-        <span onclick="closeGetAcc()" class="cursor-pointer absolute text-4xl top-4 right-4">&times;</span>
+        <span onclick="closePost()" class="cursor-pointer absolute text-4xl top-4 right-4">&times;</span>
         <p class="py-2.5 text-xl text-center font-bold">Lấy lại tài khoản</p>
     </div>
     <div class="w-full flex">
@@ -30,7 +30,7 @@
                     <p class="">@isset($user){{$user[0]->SoDienThoai}}@endisset</p>
                 </div>
             </div>
-            @else 
+            @else
             <div class="w-full flex py-2.5">
                 <input type="radio" name="getacc" id="" class="m-2.5">
                 <div class="px-2.5">

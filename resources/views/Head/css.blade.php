@@ -49,7 +49,9 @@ Session::get('user')[0]->IDTaiKhoan : '' }}" />
 <script src="/js/header.js"></script>
 <script src="/js/ajax/profile/ajax.js"></script>
 <script src="/js/ajax/story/ajax.js"></script>
+@if (session()->has('user'))
 <script src="/js/realtime/state.js"></script>
+@endif
 <!-- js general -->
 
 <!-- icon website general -->

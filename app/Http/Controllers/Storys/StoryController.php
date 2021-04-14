@@ -95,7 +95,7 @@ class StoryController extends Controller
     public function load(Request $request)
     {
         $story =  Story::where('story.IDTaiKhoan', '=', $request->IDTaiKhoan)
-            ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+            ->whereRaw(" DATE_SUB(NOW(), INTERVAL 24 HOUR) < story.ThoiGianDangStory ")
             ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderBy('story.ThoiGianDangStory', 'ASC')
             ->get()[$request->Index];
@@ -109,7 +109,7 @@ class StoryController extends Controller
     {
         $allStory = DataProcessThird::sortStoryByID(Session::get('user')[0]->IDTaiKhoan);
         $story = Story::where('story.IDTaiKhoan', '=', $idTaiKhoan)
-            ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+            ->whereRaw(" DATE_SUB(NOW(), INTERVAL 24 HOUR) < story.ThoiGianDangStory ")
             ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderBy('story.ThoiGianDangStory', 'ASC')
             ->get();
@@ -394,7 +394,7 @@ class StoryController extends Controller
         if (File::exists(public_path($story[0]->DuongDan)))
             File::delete(public_path($story[0]->DuongDan));
         $storys =  Story::where('story.IDTaiKhoan', '=', $request->IDTaiKhoan)
-            ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+            ->whereRaw(" DATE_SUB(NOW(), INTERVAL 24 HOUR) < story.ThoiGianDangStory ")
             ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderBy('story.ThoiGianDangStory', 'ASC')
             ->get();

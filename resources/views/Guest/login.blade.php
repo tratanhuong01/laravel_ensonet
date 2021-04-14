@@ -4,11 +4,12 @@
     <title>Ensonet - Login Or Register</title>
     @include('Head/css')
     <script src="/js/login/login.js"></script>
+    <script src="/js/login/ajax.js"></script>
 </head>
 
 <body>
     <!-- main -->
-    <div id="web" class="w-full bg-gray-100">
+    <div class="w-full bg-gray-100 dark:bg-dark-main h-screen relative" id="web">
         <div class="w-full mx-auto sm:w-full md:w-full lg:w-full xl:w-3/4 2xl:w-3/4">
             <div class="w-full flex flex-col py-2 mx-auto sm:flex-col sm:pt-4 lg:flex-row lg:pt-20">
                 <div class="w-full p-8 sm:w-11/12 sm:mx-auto lg:w-7/12 ">
@@ -40,13 +41,15 @@
                                     @isset($message){{$message}}@endisset
                                 </p>
                                 <button class="mx-auto ml-2 w-93per p-3 my-2.5 border-none rounded-lg bg-1877F2 text-sm text-white font-bold" type="submit">Đăng Nhập</button>
-                                <p class="p-4 bg-white cursor-pointer"><a onclick="loadajax('LoadQuenTaiKhoan','register')" class="text-1877F2 bg-white">Quên Tài khoản</a></p>
+                                <p onclick="loadajax('LoadForgetAccount','second')" class="text-1877F2 bg-white p-4 bg-white cursor-pointer">
+                                    Quên Tài khoản
+                                </p>
                             </form>
                         </div>
                         <hr class="w-90%;mx-auto mb-4">
                         <div class="w-full">
                             <div class="bg-white mb-4">
-                                <input type="button" onclick="loadajax('LoadFromRegister','register')" value="Tạo Tài Khoản" class="outline-none mb-8 px-8 py-3 bg-36A420 text-15px
+                                <input type="button" onclick="loadajax('LoadFormRegister','second')" value="Tạo Tài Khoản" class="outline-none mb-8 px-8 py-3 bg-36A420 text-15px
                              font-bold text-white rounded-lg cursor-pointer">
                             </div>
                         </div>

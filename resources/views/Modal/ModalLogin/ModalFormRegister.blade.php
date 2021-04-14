@@ -7,7 +7,7 @@ use Illuminate\Support\MessageBag;
         lg:w-4/5 xl:w-1/3 xl:mt-4">
 
     <div class="w-full">
-        <span onclick="closeRegister()" class="cursor-pointer absolute text-4xl top-4 right-2">&times;</span>
+        <span onclick="closePost()" class="cursor-pointer absolute text-4xl top-4 right-2">&times;</span>
         <h1 class="py-2.5 text-3xl font-bold">Đăng Kí</h1>
     </div>
     <?php

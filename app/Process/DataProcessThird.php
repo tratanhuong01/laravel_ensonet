@@ -69,7 +69,7 @@ class DataProcessThird extends Model
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         foreach ($friends as $key => $value) {
             $story = Story::where('story.IDTaiKhoan', '=', $value[0]->IDTaiKhoan)
-                ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+                ->whereRaw(" DATE_SUB(NOW(), INTERVAL 24 HOUR) < story.ThoiGianDangStory ")
                 ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                 ->orderBy('story.ThoiGianDangStory', 'ASC')
                 ->get();
@@ -98,7 +98,7 @@ class DataProcessThird extends Model
         $allStory = DataProcessThird::getAllStoryByID($idTaiKhoan);
         $newAllStory = array();
         $storyMain = Story::where('story.IDTaiKhoan', '=', $idTaiKhoan)
-            ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+            ->whereRaw(" DATE_SUB(NOW(), INTERVAL 24 HOUR) < story.ThoiGianDangStory ")
             ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderBy('story.ThoiGianDangStory', 'ASC')
             ->get();
@@ -115,7 +115,7 @@ class DataProcessThird extends Model
     public static function checkIsViewStoryOfUser($storyTaiKhoan, $idTaiKhoan)
     {
         $story = Story::where('story.IDTaiKhoan', '=', $storyTaiKhoan)
-            ->whereRaw('DATEDIFF(NOW(),story.ThoiGianDangStory) = 0')
+            ->whereRaw(" DATE_SUB(NOW(), INTERVAL 24 HOUR) < story.ThoiGianDangStory ")
             ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->orderBy('story.ThoiGianDangStory', 'ASC')
             ->get();
