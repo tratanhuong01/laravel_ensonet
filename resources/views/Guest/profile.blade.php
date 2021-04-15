@@ -250,7 +250,7 @@ $paths = explode('/', parse_url(url()->current())['path']);
         <!-- create chat -->
 
         <!-- place show chat -->
-        <div class="w-full px-4 flex z-50 md:w-full lg:w-full xl:w-1/2
+        <div class="w-full px-4 flex z-0 md:w-full lg:w-full xl:w-1/2
         ml-auto fixed -bottom-1 right-20" id="placeChat">
         </div>
         <!-- place show chat -->

@@ -87,11 +87,12 @@ function editPost(IDBaiDang) {
         success: function (response) {
             second.innerHTML = response;
             second.className += ' fixed h-screen';
-            $('#dongSuaBaiViet').click(function () {
-                second.innerHTML = '';
-                second.classList.remove("fixed");
-                second.classList.remove("h-screen");
-            });
+            document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
+            new MeteorEmoji(
+                document.getElementById('textarea-post'),
+                document.getElementById('myTriggers'),
+                document.getElementById('myEmojis')
+            )
         }
     });
 }
@@ -166,7 +167,9 @@ function viewTagFriends() {
         method: "GET",
         url: "/ProcesViewTagFriend",
         success: function (response) {
-            $('#second').html(response);
+            $('#second').append(response);
+            $('#modal-one').hide();
+            $('#modal-two').show();
         }
     });
 }
@@ -205,7 +208,28 @@ function tagFriends(IDTaiKhoan) {
             IDTaiKhoan: IDTaiKhoan,
         },
         success: function (response) {
-            $('#' + IDTaiKhoan + "Check").html(response);
+            $('#' + IDTaiKhoan + "Check").html(response.check);
+            $('#usersTagPost').append(response.view);
+            $('#tag').html(response.tag);
+            if (response.view == '') {
+                $('#' + IDTaiKhoan + "Check").html('');
+                $('#' + IDTaiKhoan + "SelectedTagPost").remove();
+                $('#tag').html(response.tag);
+            }
+        }
+    });
+}
+function removeUserSelectedPostTag(IDTaiKhoan) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessRemoveTagFriendPost",
+        data: {
+            IDTaiKhoan: IDTaiKhoan,
+        },
+        success: function (response) {
+            $('#' + IDTaiKhoan + "Check").html(response.check);
+            $('#' + IDTaiKhoan + "SelectedTagPost").remove();
+            $('#tag').html(response.tag);
         }
     });
 }
@@ -215,9 +239,9 @@ function viewFeelCurrent() {
         method: "GET",
         url: "/ProcessViewFeelCurrent",
         success: function (response) {
-            second.innerHTML = response;
-            second.className += ' fixed h-screen';
-            $('#second').html(response);
+            $('#second').append(response);
+            $('#modal-one').hide();
+            $('#modal-two').show();
         }
     });
 }
@@ -226,8 +250,9 @@ function viewLocal() {
         method: "GET",
         url: "/ProcessViewLocalPost",
         success: function (response) {
-            $('#second').html(response.view);
-            $('#modal-one').show();
+            $('#second').append(response.view);
+            $('#modal-one').hide();
+            $('#modal-two').show();
         }
     });
 }
@@ -252,8 +277,9 @@ function tickFeel(IDCamXuc) {
         },
         success: function (response) {
             $('#' + $('#IDCamXucPrev').val() + "Tick").html('');
-            $('#' + IDCamXuc + "Tick").html(response);
+            $('#' + IDCamXuc + "Tick").html(response.view);
             $('#IDCamXucPrev').val(IDCamXuc);
+            $('#feelCur').html(response.feelCur)
         }
     });
 }
@@ -300,6 +326,7 @@ function tickLocal(ID,Loai) {
             $('#' + $('#IDViTriPrev').val() + "Tick").html('');
             $('#' + ID + "Tick").html(response.view);
             $('#IDViTriPrev').val(ID);
+            $('#local').html(response.local);
         }
     });
 }

@@ -389,9 +389,3 @@ Route::get('ProcessSearchLocal', function (Request $request) {
         )
     ]);
 });
-Route::get('ProcessViewLocalPost', function (Request $request) {
-    return response()->json([
-        'view' => "" . view('Modal/ModalPost/ModalLocal')
-            ->with('local', DataProcessSix::createAllAddress())
-    ]);
-});

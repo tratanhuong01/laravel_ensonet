@@ -118,6 +118,7 @@ class SendMessageController extends Controller
             ->get();
         $u = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan FROM tinnhan WHERE tinnhan.IDNhomTinNhan = ? 
         AND tinnhan.IDTaiKhoan != ? ', [$request->IDNhomTinNhan, Session::get('user')[0]->IDTaiKhoan]);
+        $groupMessage = Nhomtinnhan::where('nhomtinnhan.IDNhomTinNhan', '=', $request->IDNhomTinNhan)->get();
         if (count($message) == 0) {
             return 'not have id nhom tin nhan';
         } else {
@@ -129,6 +130,7 @@ class SendMessageController extends Controller
                 if ($u[$i]->IDTaiKhoan == $userGroup[$i]->IDTaiKhoan)
                     $num++;
             }
+            $index = count($messages);
             if ($num == count($u))
                 if ($message[0]->LoaiTinNhan == 2)
                     return response()->json([
@@ -137,6 +139,9 @@ class SendMessageController extends Controller
                         'viewBig' => "" . view('Modal\ModalChat\ModalChat')->with('chater', $chater)
                             ->with('messages', $messages)
                             ->with('idNhomTinNhan', $request->IDNhomTinNhan)
+                            ->with('index',  $index - 15),
+                        'typeMessage' => 2,
+                        'color' => $groupMessage[0]->IDMauTinNhan
                     ]);
                 else
                     return response()->json([
@@ -145,6 +150,7 @@ class SendMessageController extends Controller
                         'viewBig' => "" . view('Modal\ModalChat\ModalChat')->with('chater', $chater)
                             ->with('messages', $messages)
                             ->with('idNhomTinNhan', $request->IDNhomTinNhan)
+                            ->with('index',  $index - 15)
                     ]);
             else
                 return 'sai';

@@ -30,7 +30,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto" style="hei
                 Đến :
             </div>
             <div class="w-10/12">
-                <div class="w-auto  flex flex-wrap" id="usersChats">
+                <div class="w-auto flex flex-wrap" id="usersChats">
 
                 </div>
                 <div oninput="searchUserChating()" id="valueSearchUChat" class="py-2 dark:text-white" contenteditable>

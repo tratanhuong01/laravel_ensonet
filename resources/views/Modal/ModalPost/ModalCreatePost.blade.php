@@ -11,10 +11,10 @@ bg-white w-full fixed z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg
 sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-index:10;">
     <form action="" id="formPost" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <input type="hidden" name="IDQuyenRiengTu" id="IDQuyenRiengTu" value="CHIBANBE">
+        <input type="hidden" name="IDQuyenRiengTu" id="IDQuyenRiengTu" value="{{ $user[0]->IDQuyenRiengTu }}">
         <div class="w-full text-center">
             <p class="text-2xl font-bold p-2.5 dark:text-white">Tạo bài viết</p>
-            <span onclick="closePost()" class=" rounded-full bg-aliceblue px-3 py-1 text-2xl font-bold
+            <span onclick="askBeforeClose()" class=" rounded-full bg-aliceblue px-3 py-1 text-2xl font-bold
                 absolute right-4 top-2 cursor-pointer dark:text-gray-300">&times;</span>
             <hr>
         </div>
@@ -24,19 +24,25 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
             </div>
             <div class="w-11/12">
                 <p class="p-1 pt-0 font-bold dark:text-white">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}
-                    @if (session()->has('feelCur'))
-                    {{ DataProcess::getFeel(Session::get('feelCur')) }}
-                    @endif
-                    @if (session()->has('tag') && count(Session::get('tag')) > 0)
-                    {{ DataProcess::getFriendTag(Session::get('tag')) }}
-                    @endif
-                    @if (session()->has('localU') && count(Session::get('localU')) > 0)
-                    @foreach(Session::get('localU') as $key => $value)
-                    {!!
-                    DataProcess::getLocal($value->ID.'@'.$value->Loai)
-                    !!}
-                    @endforeach
-                    @endif
+                    <span id="feelCur">
+                        @if (session()->has('feelCur'))
+                        {{ DataProcess::getFeel(Session::get('feelCur')) }}
+                        @endif
+                    </span>
+                    <span id="tag">
+                        @if (session()->has('tag') && count(Session::get('tag')) > 0)
+                        {{ DataProcess::getFriendTag(Session::get('tag')) }}
+                        @endif
+                    </span>
+                    <span id="local">
+                        @if (session()->has('localU') && count(Session::get('localU')) > 0)
+                        @foreach(Session::get('localU') as $key => $value)
+                        {!!
+                        DataProcess::getLocal($value->ID.'@'.$value->Loai)
+                        !!}
+                        @endforeach
+                        @endif
+                    </span>
                 </p>
                 <div class="py-0 px-1 w-auto w-1/4 bg-gray-300 dark:bg-dark-third" style="border-radius: 30px;">
                     <ul onclick="selectPrivacy()" id="selectPrivacyMain" class="flex text-xs relative cursor-pointer">
@@ -100,7 +106,9 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
             </ul>
         </div>
         <div class="w-full text-center my-2.5 mx-0">
-            <button onclick="postFiles()" class="w-full p-2.5 border-none text-white cursor-pointer" id="button-post" style="background-color: gray;border-radius: 20px;cursor:not-allowed;" type="button"><b>Đăng</b></button>
+            <button onclick="postFiles()" class="w-full p-2.5 border-none text-white 
+            cursor-pointer" id="button-post" style="background-color: gray;border-radius: 20px;
+            cursor:not-allowed;" type="button" disabled><b>Đăng</b></button>
         </div>
     </form>
 </div>

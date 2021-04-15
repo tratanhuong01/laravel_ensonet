@@ -56,7 +56,9 @@ use App\Models\Gioithieu;
         @endif
         <li class="w-full pb-3" style="font-size: 15px;">
             <p class="dark:text-gray-300"><i class="fas fa-heart text-gray-600 dark:text-gray-300
-                                text-xl"></i></i>&nbsp;&nbsp; Độc Thân</p>
+                                text-xl"></i></i>&nbsp;&nbsp;
+                {{ $json->GiaDinhVaCacMoiQuanHe->HonNhan->TinhTrang }}
+            </p>
         </li>
         <li class="w-full pb-3" style="font-size: 15px;">
             <p class="dark:text-gray-300"><i class="fas fa-clock text-gray-600 text-xl 

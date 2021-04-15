@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Chat;
 
+use App\Events\ChatGroupEvent;
+use App\Events\ChatNorlEvent;
+use App\Events\RetrievalMessageEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,9 +16,14 @@ class DeleteMessageController extends Controller
 {
     public function view(Request $request)
     {
-        if ($request->IDTaiKhoan ==  Session::get('user')[0]->IDTaiKhoan)
-            return view('Modal/ModalChat/ModalDeleteMessageR')->with('IDTinNhan', $request->IDTinNhan);
-        else
+        if ($request->IDTaiKhoan ==  Session::get('user')[0]->IDTaiKhoan) {
+            $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $request->IDTinNhan)->get();
+            $tinhTrang = explode('#', DataProcess::getState($message[0]->TinhTrang, Session::get('user')[0]->IDTaiKhoan))[1];
+            if ($tinhTrang == 1)
+                return view('Modal/ModalChat/ModalDeleteMessageR')->with('IDTinNhan', $request->IDTinNhan);
+            else
+                return view('Modal/ModalChat/ModalDeleteMessageL')->with('IDTinNhan', $request->IDTinNhan);
+        } else
             return view('Modal/ModalChat/ModalDeleteMessageL')->with('IDTinNhan', $request->IDTinNhan);
     }
     public function remove(Request $request)
@@ -30,8 +38,27 @@ class DeleteMessageController extends Controller
                         '2'
                     ), $request->IDTinNhan]
                 );
-                return view('Modal/ModalChat/Child/RetrievalMessageR')
-                    ->with('message', Tinnhan::where('tinnhan.IDTinNhan', '=', $request->IDTinNhan)->get()[0]);
+                $userGroup = DataProcess::getUserOfGroupMessage($request->IDNhomTinNhan);
+                if (count($userGroup) == 1)
+                    event(new RetrievalMessageEvent(
+                        $userGroup[0]->IDTaiKhoan,
+                        $request->IDTinNhan
+                    ));
+                else
+                    foreach ($userGroup as $key => $value)
+                        event(new RetrievalMessageEvent(
+                            $value->IDTaiKhoan,
+                            $request->IDTinNhan
+                        ));
+                return response()->json([
+                    'right' => "" . view('Modal/ModalChat/Child/RetrievalMessageR')
+                        ->with(
+                            'message',
+                            Tinnhan::where('tinnhan.IDTinNhan', '=', $request->IDTinNhan)
+                                ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                                ->get()[0]
+                        )
+                ]);
             } else {
                 DB::update(
                     'UPDATE tinnhan SET TinhTrang = ? WHERE IDTinNhan = ? ',
@@ -54,5 +81,18 @@ class DeleteMessageController extends Controller
             );
             return '';
         }
+    }
+    public function retrievalMessageEvent(Request $request)
+    {
+        return response()->json([
+            'left' => "" .  view('Modal/ModalChat/Child/RetrievalMessageL')
+                ->with(
+                    'message',
+                    Tinnhan::where('tinnhan.IDTinNhan', '=', $request->IDTinNhan)
+                        ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                        ->get()[0]
+                ),
+            'IDTinNhan' => $request->IDTinNhan
+        ]);
     }
 }

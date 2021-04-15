@@ -111,7 +111,7 @@ class RepCommentController extends Controller
                         StringUtil::ID('thongbao', 'IDThongBao'),
                         explode('!@#$%', $request->NoiDungBinhLuan)[1],
                         'NDBTBLCH12',
-                        $request->IDBaiDang . '&' . 'NDBTBLCH12' . '&' . $idBinhLuan,
+                        $request->IDBaiDang . '&' . 'NDBTBLCH12' . '&' . $idBinhLuan . '&' . $request->IDBinhLuanRep,
                         Session::get('user')[0]->IDTaiKhoan,
                         '0',
                         date("Y-m-d H:i:s")
@@ -121,7 +121,7 @@ class RepCommentController extends Controller
                         StringUtil::ID('thongbao', 'IDThongBao'),
                         explode('!@#$%', $request->NoiDungBinhLuan)[1],
                         'NDBTBLC123',
-                        $request->IDBaiDang . '&' . 'NDBTBLC123' . '&' . $idBinhLuan,
+                        $request->IDBaiDang . '&' . 'NDBTBLC123' . '&' . $idBinhLuan . '&' . $request->IDBinhLuanRep,
                         Session::get('user')[0]->IDTaiKhoan,
                         '0',
                         date("Y-m-d H:i:s")
@@ -144,7 +144,7 @@ class RepCommentController extends Controller
                         StringUtil::ID('thongbao', 'IDThongBao'),
                         Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)->get()[0]->IDTaiKhoan,
                         'TLBLC12345',
-                        $request->IDBaiDang . '&' . 'TLBLC12345' . $idBinhLuan,
+                        $request->IDBaiDang . '&' . 'TLBLC12345' . $idBinhLuan . '&' . $request->IDBinhLuanRep,
                         Session::get('user')[0]->IDTaiKhoan,
                         '0',
                         date("Y-m-d H:i:s")
@@ -190,7 +190,7 @@ class RepCommentController extends Controller
                         StringUtil::ID('thongbao', 'IDThongBao'),
                         explode('!@#$%', $request->NoiDungBinhLuan)[1],
                         'NDBTBLCH12',
-                        $request->IDBaiDang . '&' . 'NDBTBLCH12' . '&' . $idBinhLuan,
+                        $request->IDBaiDang . '&' . 'NDBTBLCH12' . '&' . $idBinhLuan . '&' . $request->IDBinhLuanRep,
                         Session::get('user')[0]->IDTaiKhoan,
                         '0',
                         date("Y-m-d H:i:s")
@@ -200,7 +200,7 @@ class RepCommentController extends Controller
                         StringUtil::ID('thongbao', 'IDThongBao'),
                         explode('!@#$%', $request->NoiDungBinhLuan)[1],
                         'NDBTBLC123',
-                        $request->IDBaiDang . '&' . 'NDBTBLC123' . '&' . $idBinhLuan,
+                        $request->IDBaiDang . '&' . 'NDBTBLC123' . '&' . $idBinhLuan . '&' . $request->IDBinhLuanRep,
                         Session::get('user')[0]->IDTaiKhoan,
                         '0',
                         date("Y-m-d H:i:s")
@@ -229,7 +229,7 @@ class RepCommentController extends Controller
                         StringUtil::ID('thongbao', 'IDThongBao'),
                         Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)->get()[0]->IDTaiKhoan,
                         'TLBLC12345',
-                        $request->IDBaiDang . '&' . 'TLBLC12345' . $idBinhLuan,
+                        $request->IDBaiDang . '&' . 'TLBLC12345' . $idBinhLuan . '&' . $request->IDBinhLuanRep,
                         Session::get('user')[0]->IDTaiKhoan,
                         '0',
                         date("Y-m-d H:i:s")

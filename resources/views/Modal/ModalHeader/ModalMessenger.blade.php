@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Session;
 $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
 
 ?>
-<div class="w-full flex">
+<div class="w-full p-1 flex">
     <div class="w-1/2 text-left pl-2 py-2">
         <b class="dark:text-white font-bold text-xm">Messenger</b>
     </div>
@@ -16,7 +16,7 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
         <a href=""><b class="dark:text-white font-bold text-xm">Vào Messenger</b></a>
     </div>
 </div>
-<div class="w-full">
+<div class="w-full p-1">
     <div class="w-full p-1">
         <input type="text" name="" class="w-full py-2.5 px-4 my-2 bg-gray-200 dark:bg-dark-third rounded-3xl" placeholder="Tìm kiếm trên messenger">
     </div>

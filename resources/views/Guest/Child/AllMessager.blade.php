@@ -18,21 +18,19 @@ use App\Process\DataProcessFive;
 $el = DataProcess::getUserOfGroupMessage($value[0]->IDNhomTinNhan)
 @endphp
 @if(count($el) == 1)
-<div onclick="openChatGroup('{{ $value[0]->IDNhomTinNhan }}')" class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
+<div onclick="openChat('{{ $value[0]->IDTaiKhoan }}')" class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
     hover:bg-gray-200 py-2 px-1">
     <div class="w-1/5">
-        <a href="">
-            <div class="w-14 h-14 rounded-full relative">
-                <img src="/{{ $el[0]->AnhDaiDien }}" alt="" class="w-14 h-14 rounded-full object-cover p-0.5">
-                @include('Component\Child\Activity',
-                [
-                'padding' => 'p-1.5',
-                'bottom' => 'bottom-0',
-                'right' => 'right-0',
-                'IDTaiKhoan' => $el[0]->IDTaiKhoan
-                ])
-            </div>
-        </a>
+        <div class="w-14 h-14 rounded-full relative">
+            <img src="/{{ $el[0]->AnhDaiDien }}" alt="" class="w-14 h-14 rounded-full object-cover p-0.5">
+            @include('Component\Child\Activity',
+            [
+            'padding' => 'p-1.5',
+            'bottom' => 'bottom-0',
+            'right' => 'right-0',
+            'IDTaiKhoan' => $el[0]->IDTaiKhoan
+            ])
+        </div>
     </div>
     <div class="w-4/5">
         <div class="w-full">

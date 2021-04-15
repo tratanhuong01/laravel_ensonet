@@ -9,6 +9,7 @@ use App\Models\Baidang;
 use App\Models\Hinhanh;
 use App\Models\StringUtil;
 use App\Models\Thongbao;
+use App\Process\DataProcess;
 use App\Process\DataProcessSix;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
@@ -145,17 +146,23 @@ class PostNormalController extends Controller
             $localU = Session::get('localU');
             if (isset($localU[$request->ID])) {
                 Session::forget('localU');
-                return '';
+                return response()->json([
+                    'view' => '',
+                    'local' => ''
+                ]);
             } else {
                 Session::forget('localU');
-                $localU = NULL;
-                $localU[$request->ID] = (object)[
+                $localUser[$request->ID] = (object)[
                     'ID' => $request->ID,
                     'Loai' => $request->Loai
                 ];
-                Session::put('localU', $localU);
+                Session::put('localU', $localUser);
+                $view = "";
+                foreach ($localUser as $key => $value)
+                    $view .= DataProcess::getLocal($value->ID . '@' . $value->Loai);
                 return response()->json([
-                    'view' => "" .  '<i class="fas fa-check text-green-400 text-xm"></i>'
+                    'view' => "" .  '<i class="fas fa-check text-green-400 text-xm"></i>',
+                    'local' => "" . $view
                 ]);
             }
         } else {
@@ -164,8 +171,12 @@ class PostNormalController extends Controller
                 'Loai' => $request->Loai
             ];
             Session::put('localU', $localU);
+            $view = "";
+            foreach ($localU as $key => $value)
+                $view .= DataProcess::getLocal($value->ID . '@' . $value->Loai);
             return response()->json([
-                'view' => "" .  '<i class="fas fa-check text-green-400 text-xm"></i>'
+                'view' => "" .  '<i class="fas fa-check text-green-400 text-xm"></i>',
+                'local' => "" . $view
             ]);
         }
     }

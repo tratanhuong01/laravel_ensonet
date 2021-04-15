@@ -65,7 +65,7 @@ class CommentController extends Controller
                         StringUtil::ID('thongbao', 'IDThongBao'),
                         $idTaiKhoan,
                         $typeNotify,
-                        $request->IDBaiDang . '&' . $typeNotify,
+                        $request->IDBaiDang . '&' . $typeNotify . '&' . $idBinhLuan . '&' . $idBinhLuan,
                         $user[0]->IDTaiKhoan,
                         '0',
                         $date
@@ -78,7 +78,7 @@ class CommentController extends Controller
                         StringUtil::ID('thongbao', 'IDThongBao'),
                         $idTaiKhoan,
                         $typeNotify,
-                        $request->IDBaiDang . '&' . $typeNotify,
+                        $request->IDBaiDang . '&' . $typeNotify . '&' . $idBinhLuan . '&' . $idBinhLuan,
                         $user[0]->IDTaiKhoan,
                         '0',
                         $date
@@ -91,7 +91,7 @@ class CommentController extends Controller
                                 StringUtil::ID('thongbao', 'IDThongBao'),
                                 $arrTag[$i],
                                 $typeNotify,
-                                $request->IDBaiDang . '&' . $typeNotify,
+                                $request->IDBaiDang . '&' . $typeNotify . '&' . $idBinhLuan . '&' . $idBinhLuan,
                                 $user[0]->IDTaiKhoan,
                                 '0',
                                 $date
@@ -140,7 +140,7 @@ class CommentController extends Controller
                         StringUtil::ID('thongbao', 'IDThongBao'),
                         $idTaiKhoan,
                         $typeNotify,
-                        $request->IDBaiDang . '&' . $typeNotify,
+                        $request->IDBaiDang . '&' . $typeNotify . '&' . $idBinhLuan . '&' . $idBinhLuan,
                         $user[0]->IDTaiKhoan,
                         '0',
                         $date
@@ -153,7 +153,7 @@ class CommentController extends Controller
                         StringUtil::ID('thongbao', 'IDThongBao'),
                         $idTaiKhoan,
                         $typeNotify,
-                        $request->IDBaiDang . '&' . $typeNotify,
+                        $request->IDBaiDang . '&' . $typeNotify . '&' . $idBinhLuan . '&' . $idBinhLuan,
                         $user[0]->IDTaiKhoan,
                         '0',
                         $date
@@ -166,7 +166,7 @@ class CommentController extends Controller
                                 StringUtil::ID('thongbao', 'IDThongBao'),
                                 $arrTag[$i],
                                 $typeNotify,
-                                $request->IDBaiDang . '&' . $typeNotify,
+                                $request->IDBaiDang . '&' . $typeNotify . '&' . $idBinhLuan . '&' . $idBinhLuan,
                                 $user[0]->IDTaiKhoan,
                                 '0',
                                 $date
@@ -327,7 +327,7 @@ class CommentController extends Controller
     }
     public function warn(Request $request)
     {
-        return view('Modal/ModalComment/ModalDeleleComment');
+        return view('Modal/ModalComment/ModalDeleteComment');
     }
     public function delete(Request $request)
     {
@@ -346,6 +346,7 @@ class CommentController extends Controller
                         }
                     }
                     Binhluan::where('binhluan.IDBinhLuan', '=', $value->IDBinhLuan)->delete();
+                    Thongbao::whereRaw("thongbao.IDContent LIKE '%" . $request->IDBinhLuan . "%'")->delete();
                 }
             } else {
             }
@@ -354,7 +355,7 @@ class CommentController extends Controller
             if (json_decode($commentMain[0]->NoiDungBinhLuan)->LoaiBinhLuan == '1')
                 if (File::exists(public_path(json_decode($commentMain[0]->NoiDungBinhLuan)->DuongDan)))
                     File::delete(public_path(json_decode($commentMain[0]->NoiDungBinhLuan)->DuongDan));
-
+            Thongbao::whereRaw("thongbao.IDContent LIKE '%" . $request->IDBinhLuan . "%'")->delete();
             Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)->delete();
         }
     }

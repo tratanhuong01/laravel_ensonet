@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Baidang;
+use App\Models\Thongbao;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 
@@ -25,6 +26,7 @@ class DeletePostController extends Controller
             }
         }
         Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)->delete();
+        Thongbao::whereRaw("thongbao.IDContent LIKE '%" . $request->IDBaiDang . "%'")->delete();
         return '';
     }
 }

@@ -31,7 +31,8 @@ $allStory = array_slice($allStory, 0, 4);
     $pathStorys = 'stories/'.$value[0]->IDTaiKhoan
     @endphp
     <div onclick="window.location.href = '{{ url($pathStorys) }}'" class="w-1/4 md:w-1/5 p-1.5">
-        <div class="h-44 rounded-xl overflow-hidden relative cursor-pointer flex-shrink-0">
+        <div class="h-44 rounded-xl overflow-hidden relative cursor-pointer flex-shrink-0 
+        bg-black">
             <div class="relative h-full group cursor-pointer">
                 <img class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover " src="/{{ $value[0]->DuongDan }}" alt="">
             </div>

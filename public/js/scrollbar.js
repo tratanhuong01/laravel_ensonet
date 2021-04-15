@@ -19,11 +19,24 @@ function openPost(type) {
 
 }
 function closePost() {
-  $('#modal-one').hide();
+  body.classList.remove('overflow-hidden');
   second.innerHTML = '';
   second.classList.remove("fixed");
   second.classList.remove("h-screen");
 }
+function askBeforeClose() {
+  // $.ajax({
+  //   method : "GET",
+  //   url : "/ProcessResetSession",
+  //   success : function() {
+      document.getElementsByTagName('body')[0].classList.remove('overflow-hidden');
+      second.innerHTML = '';
+      second.classList.remove("fixed");
+      second.classList.remove("h-screen");
+  //   }
+  // })
+}
+
 function viewInfoHover(IDTaiKhoan, event) {
   var d = document.getElementById("friends-online-info");
   var topPos = event.clientY;
@@ -157,4 +170,11 @@ function guiVeri(index) {
     content_veri[index].style.display = 'block';
   else
     content_veri[index].style.display = 'none';
+}
+function createElementFromHTML(htmlString) {
+  var div = document.createElement('div');
+  div.innerHTML = htmlString.trim();
+
+  // Change this to div.childNodes to support multiple top-level nodes
+  return div.firstChild; 
 }

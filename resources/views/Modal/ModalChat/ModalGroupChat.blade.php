@@ -28,8 +28,8 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             </div>
         </div>
         <div class="w-2/5 pl-2">
-            <p onclick="openSettingChatGroup('{{ $chater[0]->IDTaiKhoan }}')" class="dark:text-white 
-            cursor-pointer text-sm font-bold whitespace-nowrap">
+            <p onclick="openSettingChatGroup('{{ $chater[0]->IDTaiKhoan }}')" class="dark:text-white cursor-pointer 
+            text-sm font-bold whitespace-nowrap overflow-ellipsis overflow-hidden">
                 @php
                 $name = "";
                 @endphp
@@ -83,29 +83,40 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         @else
         @include('Modal/ModalChat/Child/GUICreateGroup',['users' => $chater])
         @foreach($messages as $key => $value)
-        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin])
         @if(Session::get('user')[0]->IDTaiKhoan == $value->IDTaiKhoan)
         @if($value->LoaiTinNhan == 2)
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\ChatCenter',['message' => $value])
         @else
         @switch(explode('#',DataProcess::getState($value->TinhTrang,Session::get('user')[0]->IDTaiKhoan))[1])
         @case('1')
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\ChatRight',['message' => $value])
         @break
         @case('2')
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\RetrievalMessageR',['message' => $value])
         @break
         @endswitch
         @endif
         @else
         @if($value->LoaiTinNhan == 2)
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\ChatCenter',['message' => $value])
         @else
         @switch(explode('#',DataProcess::getState($value->TinhTrang,Session::get('user')[0]->IDTaiKhoan))[1])
         @case('1')
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\ChatLeft',['message' => $value])
         @break
         @case('2')
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\RetrievalMessageL',['message' => $value])
         @break
         @endswitch
@@ -181,7 +192,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 </div>
             </div>
         </div>
-        <ul class="three-exten w-1/3 py-1" style="display: block;">
+        <ul class="three-exten w-1/3 py-1" id="{{ $idNhomTinNhan }}threeexten" style="display: block;">
             <input onchange="onchangeViewSendImageChat(this,'{{ $idNhomTinNhan }}')" class="hidden" type="file" name="fileImage[]" id="{{ $chater[0]->IDTaiKhoan }}fileImageChatMain" multiple="multiple">
             <label for="{{ $chater[0]->IDTaiKhoan }}fileImageChatMain">
                 <li class="float-left cursor-pointer p-1 fill-65676B hover:bg-gray-200 rounded-full 
@@ -217,12 +228,12 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 </svg>
             </li>
         </ul>
-        <div class="three-exten1 w-8/12">
+        <div class="three-exten1 w-8/12" id="{{$idNhomTinNhan}}threeexten1">
             <?php $user = Session::get('user'); ?>
             <div onkeyup="sendMessageGroup('{{ $chater[0]->IDTaiKhoan }}',
             '{{ $idNhomTinNhan }}',
             '{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $idNhomTinNhan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
-             bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" onclick="seenMessage(
+             bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat('{{ $idNhomTinNhan }}')" onclick="seenMessage(
                 '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" contenteditable placeholder="Aa">
 
             </div>
@@ -245,12 +256,6 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer dark:text-white">
                 <i class="fab fa-facebook-messenger pr-1.5"></i> Mở
                 messager
-            </li>
-            @php
-            $pathsss = "profile.".$chater[0]->IDTaiKhoan
-            @endphp
-            <li onclick="window.location.href='{{ url($pathsss) }}'" class="w-full p-1.5 text-lg hover:bg-gray-300 text-lg hover:bg-gray-100 dark:hover:bg-dark-third cursor-pointer dark:text-white"><i class="far fa-user-circle pr-1.5"></i>
-                Xem trang cá nhân
             </li>
         </ul>
         <ul class="dark:border-dark-third w-full border-b-2 border-gray-200 border-solid p-2">
@@ -303,6 +308,9 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 },
                 success: function(response) {
                     aud.play();
+                    if (response.typeMessage == 2) {
+                        changeColorSVG('{{ $idNhomTinNhan }}', '#' + response.color);
+                    }
                     $('#{{ $idNhomTinNhan }}Messenges').append(response.viewSmall);
                     if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
                 }

@@ -1,3 +1,9 @@
+<?php
+
+use Illuminate\Support\Facades\Session;
+
+?>
+
 @foreach($local as $key => $value)
 <div onclick="tickLocal('{{ $value->ID }}','{{ $value->Loai }}')" class="w-full pl-4  dark:hover:bg-dark-third rounded-lg
          cursor-pointer relative flex  py-3" id="localUser">
@@ -9,9 +15,9 @@
         <p class="dark:text-white flex items-center">{{ $value->Ten }}</p>
     </div>
     <span class="absolute top-4 right-6" id="{{ $value->ID }}Tick">
-        @isset(Session::get('localU')[$value->ID])
+        @if(isset(Session::get('localU')[$value->ID]))
         <i class="fas fa-check text-green-400 text-xm"></i>
-        @endisset
+        @endif
     </span>
 </div>
 @endforeach

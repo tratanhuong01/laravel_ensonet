@@ -132,7 +132,8 @@ class DataProcess extends Model
     }
     public static function getUserOfGroupMessage($idNhomTinNhan)
     {
-        $usersOfGroupMessages = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan ,AnhDaiDien,Ho,Ten,ThoiGianHoatDong FROM tinnhan INNER JOIN 
+        $usersOfGroupMessages = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan ,AnhDaiDien,Ho,
+        Ten,ThoiGianHoatDong FROM tinnhan INNER JOIN 
         taikhoan ON tinnhan.IDTaiKhoan = taikhoan.IDTaiKhoan
         WHERE tinnhan.IDNhomTinNhan = ? ', [$idNhomTinNhan]);
         foreach ($usersOfGroupMessages as $key => $value) {

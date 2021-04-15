@@ -15,7 +15,9 @@ use App\Process\DataProcess;
 use Illuminate\Support\Facades\Session;
 use App\Models\Functions;
 use App\Models\Story;
+use App\Models\StringUtil;
 use App\Process\DataProcessFive;
+use App\Process\DataProcessSix;
 use App\Process\DataProcessThird;
 use Illuminate\Database\Eloquent\Model;
 
@@ -289,6 +291,10 @@ Route::group(['namespace' => 'Post'], function () {
         ->name('ProcesViewTagFriend');
 
     //
+    Route::get('ProcessRemoveTagFriendPost', [Post\TagFriendController::class, 'removeTagFriend'])
+        ->name('ProcessRemoveTagFriendPost');
+
+    //
     Route::get('ProcessTagFriend', [Post\TagFriendController::class, 'tag'])
         ->name('ProcessTagFriend');
 
@@ -310,6 +316,10 @@ Route::group(['namespace' => 'Post'], function () {
 });
 
 Route::group(['namespace' => 'Chat'], function () {
+    //
+    Route::get('ProcessRetrievalMessageEvent', [Chat\DeleteMessageController::class, 'retrievalMessageEvent'])
+        ->name('ProcessRetrievalMessageEvent');
+
     //
     Route::get('ProcessOpenChat', [Chat\ChatController::class, 'view'])
         ->name('ProcessOpenChat');
@@ -797,3 +807,22 @@ Route::get('ProcessLoadMessageLimit', function (Request $request) {
 
 Route::get('ProcessFeelMessage', [Chat\ChatController::class, 'feelMessage'])
     ->name('ProcessFeelMessage');
+
+Route::get('ProcessResetSession', function () {
+    Session::forget('tag');
+    Session::forget('feelCur');
+    Session::forget('userGroup');
+    Session::forget('localU');
+});
+
+Route::get('aa', function () {
+    echo "<pre>";
+    print_r(Session::get('localU'));
+    echo "</pre>";
+});
+Route::get('ProcessViewLocalPost', function (Request $request) {
+    return response()->json([
+        'view' => "" . view('Modal/ModalPost/ModalLocal')
+            ->with('local', DataProcessSix::createAllAddress())
+    ]);
+});

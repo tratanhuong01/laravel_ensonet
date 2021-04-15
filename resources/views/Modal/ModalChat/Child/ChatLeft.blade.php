@@ -7,7 +7,7 @@ use App\Process\DataProcess;
 use App\Process\DataProcessFive;
 
 ?>
-<div id="{{ $message->IDTinNhan }}" onmouseleave="onleaveHoverFeelHide('{{ $message->IDTinNhan }}')" class="mess-user chat-lefts w-full py-2 flex relative">
+<div id="{{ $message->IDTinNhan }}" onmouseleave="onleaveHoverFeelHide('{{ $message->IDTinNhan }}')" class="mess-user z-0 chat-lefts w-full py-2 flex relative">
     <div class="w-12 relative">
         <a href=""><img class="absolute bottom-1 w-9 h-9 object-cover rounded-full" src="/{{ $message->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
@@ -67,3 +67,20 @@ use App\Process\DataProcessFive;
         </div>
     </div>
 </div>
+<script>
+    var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}' +
+        '{{ $message->IDTinNhan }}');
+    channel.bind('retrievalMessage', function() {
+        $.ajax({
+            method: "GET",
+            url: "/ProcessRetrievalMessageEvent",
+            data: {
+                IDNhomTinNhan: '{{ $message->IDNhomTinNhan }}',
+                IDTinNhan: '{{ $message->IDTinNhan }}'
+            },
+            success: function(response) {
+                $('#' + response.IDTinNhan).replaceWith(createElementFromHTML(response.left))
+            }
+        });
+    });
+</script>

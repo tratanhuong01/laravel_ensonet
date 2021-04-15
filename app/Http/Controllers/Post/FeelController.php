@@ -16,6 +16,7 @@ use Exception;
 use App\Models\Functions;
 use App\Models\Notify;
 use App\Models\Thongbao;
+use App\Process\DataProcess;
 
 class FeelController extends Controller
 {
@@ -111,18 +112,27 @@ class FeelController extends Controller
             $feelCur = Session::get('feelCur');
             if (isset($feelCur[$request->IDCamXuc])) {
                 Session::forget('feelCur');
-                return '';
+                return response()->json([
+                    'view' => '',
+                    'feelCur' => ''
+                ]);
             } else {
                 Session::forget('feelCur');
                 $feelCur = NULL;
                 $feelCur[$request->IDCamXuc] = $request->IDCamXuc;
                 Session::put('feelCur', $feelCur);
-                return '<i class="fas fa-check text-green-400 text-xm"></i>';
+                return response()->json([
+                    'view' => "" . '<i class="fas fa-check text-green-400 text-xm"></i>',
+                    'feelCur' => "" . DataProcess::getFeel(Session::get('feelCur'))
+                ]);
             }
         } else {
             $feelCur[$request->IDCamXuc] = $request->IDCamXuc;
             Session::put('feelCur', $feelCur);
-            return '<i class="fas fa-check text-green-400 text-xm"></i>';
+            return response()->json([
+                'view' => "" . '<i class="fas fa-check text-green-400 text-xm"></i>',
+                'feelCur' => "" . DataProcess::getFeel(Session::get('feelCur'))
+            ]);
         }
     }
 }

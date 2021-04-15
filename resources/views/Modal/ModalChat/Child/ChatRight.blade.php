@@ -10,7 +10,7 @@ $member = DataProcess::getUserOfGroupMessage($message->IDNhomTinNhan);
 
 ?>
 
-<div id="{{ $message->IDTinNhan }}" onmouseleave="onleaveHoverFeelHide('{{ $message->IDTinNhan }}')" class="mess-user chat-rights w-full py-1 flex relative">
+<div id="{{ $message->IDTinNhan }}" onmouseleave="onleaveHoverFeelHide('{{ $message->IDTinNhan }}')" class="mess-user chat-rights z-0 w-full py-1 flex relative">
     <div class="mess-user-feel z-50 hidden h-auto relative">
         <div class="cursor-pointer color-word absolute top-1/2 pl-2" style="transform: translateY(-50%);">
             <ul class="w-full flex relative">

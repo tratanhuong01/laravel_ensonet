@@ -85,7 +85,8 @@ $user = Session::get('user');
                 </ul>
             </div>
             <div id="modalHeaderRight" class="w-92 rounded-lg absolute dark:bg-dark-second bg-white z-50 top-16
-            wrapper-scrollbar w-full overflow-x-hidden overflow-y-auto" style="max-height: 675px !important;">
+            wrapper-scrollbar w-full overflow-x-hidden overflow-y-auto border-solid border-gray-200 
+            border-2 shadow-xl dark:border-dark-main" style="max-height: 675px !important;">
             </div>
         </div>
     </div>

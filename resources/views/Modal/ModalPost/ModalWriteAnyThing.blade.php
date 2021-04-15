@@ -52,7 +52,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
             <div class="w-full relative" id="main-textarea-post">
                 <textarea data-meteor-emoji="true" id="textarea-post" oninput="checkValueTextAre()" class="w-full border-none dark:text-white text-xm px-2 pt-2 py-6 outline-none overflow-hidden dark:bg-dark-second
             resize-none" name="content" placeholder="{{ $users[0]->Ten }} ơi, Bạn đang nghĩ gì thế?"></textarea>
-                <button type="button" class="trigger absolute right-2 bottom-2 bg-white outline-none dark:bg-dark-second">
+                <button type="button" id="myTriggers" class=" absolute right-2 bottom-2 bg-white outline-none dark:bg-dark-second">
                     <i class="far fa-smile text-gray-600 text-2xl dark:text-gray-300"></i>
                 </button>
             </div>

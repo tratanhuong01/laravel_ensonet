@@ -183,7 +183,7 @@ class StringUtil extends Model
         $sec = $time;
         $min = round($sec / 60);
         $hour = round($sec / (3600));
-        if ($hour > 23) {
+        if ($hour > 24) {
             $result = "";
         } else if ($min <= 60) {
             if ($min == 1) {

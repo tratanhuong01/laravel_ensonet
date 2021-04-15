@@ -6,8 +6,10 @@ function checkValueTextAre() {
         button_post.style.cursor = 'not-allowed';
         button_post.disabled = true;
         button_post.style.backgroundColor = 'gray';
+        button_post.setAttribute('disabled','false');
     }
     else {
+        button_post.setAttribute('disabled','true');
         button_post.style.backgroundColor = '#1771E6';
         button_post.style.cursor = 'pointer';
         button_post.disabled = false;

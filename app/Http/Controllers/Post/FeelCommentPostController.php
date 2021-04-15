@@ -24,10 +24,8 @@ class FeelCommentPostController extends Controller
         $rs = Camxucbinhluan::where('camxucbinhluan.IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
             ->where('camxucbinhluan.IDBinhLuan', '=', $request->IDBinhLuan)
             ->get();
-        $idTaiKhoan = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)
-            ->get()[0]->IDTaiKhoan;
-        $idBaiDang = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)
-            ->get()[0]->IDBaiDang;
+        $comment = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)
+            ->get()[0];
         if (count($rs) == 0) {
             $idCamXucBinhLuan = StringUtil::ID('camxucbinhluan', 'IDCamXucBinhLuan');
             Camxucbinhluan::add(
@@ -37,18 +35,18 @@ class FeelCommentPostController extends Controller
                 $request->LoaiCamXuc,
                 date("Y-m-d H:i:s")
             );
-            if ($user[0]->IDTaiKhoan == $idTaiKhoan) {
+            if ($user[0]->IDTaiKhoan == $comment->IDTaiKhoan) {
             } else {
                 Thongbao::add(
                     StringUtil::ID('thongbao', 'IDThongBao'),
-                    $idTaiKhoan,
+                    $comment->IDTaiKhoan,
                     'BTCXVBLC12',
-                    $idBaiDang . '&' . 'BTCXVBLC12' . '&' . $request->IDBinhLuan,
+                    $comment->IDBaiDang . '&' . 'BTCXVBLC12' . '&' . $request->IDBinhLuan . '&' . $comment->PhanHoi,
                     $user[0]->IDTaiKhoan,
                     '0',
                     date("Y-m-d H:i:s")
                 );
-                event(new NotificationEvent($idTaiKhoan));
+                event(new NotificationEvent($comment->IDTaiKhoan));
             }
             return Functions::getFeelCmt($request->LoaiCamXuc);
         } else {
@@ -56,6 +54,7 @@ class FeelCommentPostController extends Controller
                 Camxucbinhluan::where('camxucbinhluan.IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
                     ->where('camxucbinhluan.IDBinhLuan', '=', $request->IDBinhLuan)
                     ->delete();
+                Thongbao::whereRaw("thongbao.IDContent LIKE '%" . $request->IDBinhLuan . "%'")->delete();
                 return '<span class="text-sm font-bold">Thích</span>';
             } else {
                 DB::update(

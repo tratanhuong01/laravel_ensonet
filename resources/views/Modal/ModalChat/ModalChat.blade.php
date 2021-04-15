@@ -84,29 +84,40 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         @else
         @include('Modal/ModalChat/Child/NewChat',['chater' => $chater])
         @foreach($messages as $key => $value)
-        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin])
         @if(Session::get('user')[0]->IDTaiKhoan == $value->IDTaiKhoan)
         @if($value->LoaiTinNhan == 2)
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\ChatCenter',['message' => $value])
         @else
         @switch(explode('#',DataProcess::getState($value->TinhTrang,Session::get('user')[0]->IDTaiKhoan))[1])
         @case('1')
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\ChatRight',['message' => $value])
         @break
         @case('2')
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\RetrievalMessageR',['message' => $value])
         @break
         @endswitch
         @endif
         @else
         @if($value->LoaiTinNhan == 2)
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\ChatCenter',['message' => $value])
         @else
         @switch(explode('#',DataProcess::getState($value->TinhTrang,Session::get('user')[0]->IDTaiKhoan))[1])
         @case('1')
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\ChatLeft',['message' => $value])
         @break
         @case('2')
+        @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+        'idTinNhan' => $value->IDTinNhan])
         @include('Modal\ModalChat\Child\RetrievalMessageL',['message' => $value])
         @break
         @endswitch
@@ -162,7 +173,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 </li>
             </ul>
         </div>
-        <div id="{{ $chater[0]->IDTaiKhoan }}modalChatElement" class="bg-white my-2 absolute w-72 dark:border-dark-second 
+        <div id="{{ $chater[0]->IDTaiKhoan }}modalChatElement" class="z-40 bg-white my-2 absolute w-72 dark:border-dark-second 
         shadow-lg border-gray-300 p-1 border-2 border-solid rounded-lg dark:bg-dark-second hidden" style="bottom: 102%;max-height: 365px;height: 360px;">
         </div>
         <div id="{{ $chater[0]->IDTaiKhoan }}modalEmoji" class="bg-white absolute w-80 dark:border-dark-second 
@@ -313,6 +324,9 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                     IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
                 },
                 success: function(response) {
+                    if (response.typeMessage == 2) {
+                        changeColorSVG(IDNhomTinNhan, '#' + response.color);
+                    }
                     if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').length > 0)
                         $('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').append(response.viewSmall);
                     else
