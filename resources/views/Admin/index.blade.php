@@ -168,7 +168,7 @@
             </div>
             <div class="w-full p-5 bg-gray-100 overflow-y-auto 
             wrapper-content-right" style="height: 685px;max-height: 685px;" id="content">
-                @include('Admin/Component/DanhMuc/TongQuan')
+                @include('Admin/Component/Category/Dashboard')
             </div>
         </div>
     </div>

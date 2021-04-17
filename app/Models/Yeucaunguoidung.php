@@ -17,7 +17,8 @@ class Yeucaunguoidung extends Model
         'DuongDanHinhAnh',
         'NoiDungYeuCau',
         'TinhTrangYeuCau',
-        'ThoiGianYeuCau'
+        'ThoiGianYeuCau',
+        'LoaiYeuCau'
     ];
     public static function add(
         $IDYeuCauNguoiDung,
@@ -27,7 +28,8 @@ class Yeucaunguoidung extends Model
         $DuongDanHinhAnh,
         $NoiDungYeuCau,
         $TinhTrangYeuCau,
-        $ThoiGianYeuCau
+        $ThoiGianYeuCau,
+        $LoaiYeuCau
     ) {
         $yeucaunguoidung = new Yeucaunguoidung;
         $yeucaunguoidung->IDYeuCauNguoiDung = $IDYeuCauNguoiDung;
@@ -38,6 +40,7 @@ class Yeucaunguoidung extends Model
         $yeucaunguoidung->NoiDungYeuCau = $NoiDungYeuCau;
         $yeucaunguoidung->TinhTrangYeuCau = $TinhTrangYeuCau;
         $yeucaunguoidung->ThoiGianYeuCau = $ThoiGianYeuCau;
+        $yeucaunguoidung->LoaiYeuCau = $LoaiYeuCau;
         $yeucaunguoidung->save();
     }
     public $timestamps = false;

@@ -43,7 +43,8 @@ class RequestUserContrller extends Controller
                     $nameFile,
                     $request->noiDung,
                     '0',
-                    date("Y-m-d H:i:s")
+                    date("Y-m-d H:i:s"),
+                    0
                 );
                 DB::update('UPDATE taikhoan SET taikhoan.TinhTrang = ? WHERE 
                 taikhoan.IDTaiKhoan = ? ', ['5', $request->IDTaiKhoan]);

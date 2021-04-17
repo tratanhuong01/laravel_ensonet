@@ -14,4 +14,3 @@
     </span>
 </div>
 @endforeach
-<input type="hidden" name="IDCamXucPrev" id="IDCamXucPrev" value="">

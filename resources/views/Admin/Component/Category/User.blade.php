@@ -125,7 +125,7 @@ use App\Admin\Query;
 </div>
 <div class="w-full py-3">
     <ul class="flex justify-center" id="pageMain">
-        @include('Admin/Component/Child/PhanTrang',[
+        @include('Admin/Component/Child/Pagination',[
         'index' => 0,
         'num' => count($accountFull)/10,
         'name' => 'user'

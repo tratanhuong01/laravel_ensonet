@@ -5,7 +5,7 @@ function changeUploadFiles(el) {
     var arr = Array.from(files);
     var array = store.get('imageAndVideoPost');
     var edit = document.createElement('div');
-    edit.classList = 'w-24 absolute top-3 z-50 cursor-pointer left-4 p-1.5 bg-gray-200 rounded-lg dark:bg-dark-third text-center font-bold';
+    edit.classList = 'w-24 absolute dark:text-white top-3 z-50 cursor-pointer left-4 p-1.5 bg-gray-200 rounded-lg dark:bg-dark-third text-center font-bold';
     edit.innerHTML = 'Chỉnh sửa';
     edit.addEventListener('click',function() {
         $('#modal-one').hide();
@@ -41,7 +41,6 @@ function changeUploadFileMain(el,type) {
       });
 }
 function loadUICreatePostMain1(arr) {
-    console.log(arr)
     document.getElementById('imagePost').innerHTML = ''
     for (var i = 0; i < arr.length; i++) {
         var div = document.createElement('div');

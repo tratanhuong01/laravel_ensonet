@@ -94,6 +94,21 @@ class Query extends Model
     {
         return Story::get();
     }
+    public static function getAllReply($take, $skip)
+    {
+        return Yeucaunguoidung::skip($skip)->take($take)
+            ->join('taikhoan', 'yeucaunguoidung.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->get();
+    }
+    public static function getAllReplyFull()
+    {
+        return Yeucaunguoidung::join(
+            'taikhoan',
+            'yeucaunguoidung.IDTaiKhoan',
+            'taikhoan.IDTaiKhoan'
+        )
+            ->get();
+    }
     public static function getViewStoryByStory($idStory)
     {
         return Luotxemstory::where('luotxemstory.IDStory', '=', $idStory)->get();

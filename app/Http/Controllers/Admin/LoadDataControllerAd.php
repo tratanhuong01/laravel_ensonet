@@ -16,32 +16,32 @@ class LoadDataControllerAd extends Controller
         switch ($request->name) {
             case 'dashboard':
                 return response()->json([
-                    'view' => "" . view('Admin/Component/DanhMuc/TongQuan')
+                    'view' => "" . view('Admin/Component/Category/Dashboard')
                 ]);
                 break;
             case 'user':
                 return response()->json([
-                    'view' => "" . view('Admin/Component/DanhMuc/NguoiDung')
+                    'view' => "" . view('Admin/Component/Category/User')
                 ]);
                 break;
             case 'post':
                 return response()->json([
-                    'view' => "" . view('Admin/Component/DanhMuc/BaiViet')
+                    'view' => "" . view('Admin/Component/Category/Post')
                 ]);
                 break;
             case 'story':
                 return response()->json([
-                    'view' => "" . view('Admin/Component/DanhMuc/Story')
+                    'view' => "" . view('Admin/Component/Category/Story')
                 ]);
                 break;
             case 'reply':
                 return response()->json([
-                    'view' => "" . view('Admin/Component/DanhMuc/PhanHoi')
+                    'view' => "" . view('Admin/Component/Category/Reply')
                 ]);
                 break;
             case 'category':
                 return response()->json([
-                    'view' => "" . view('Admin/Component/DanhMuc/DanhMuc')
+                    'view' => "" . view('Admin/Component/Category/Category')
                 ]);
                 break;
             default:
@@ -51,40 +51,35 @@ class LoadDataControllerAd extends Controller
     public function loadViewDetail(Request $request)
     {
         switch ($request->name) {
-            case 'dashboard':
-                return response()->json([
-                    'view' => "" . view('Admin/Modal/NguoiDung/ModalChiTiet')
-                ]);
-                break;
             case 'user':
                 $user = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
                 return response()->json([
-                    'view' => "" . view('Admin/Modal/NguoiDung/ModalChiTiet')
+                    'view' => "" . view('Admin/Modal/User/ModalDetail')
                         ->with('user', $user)
                 ]);
                 break;
             case 'post':
-                $post = Baidang::where('baidang.IDBaiDang', '=', $request->IDTaiKhoan)->get();
+                $post = Baidang::where('baidang.IDBaiDang', '=', $request->IDTaiKhoan)
+                    ->leftjoin('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')
+                    ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                    ->get();
                 return response()->json([
-                    'view' => "" . view('Admin/Modal/BaiViet/ModalChiTiet')
+                    'view' => "" . view('Admin/Modal/Post/ModalDetail')
                         ->with('post', $post)
                 ]);
                 break;
             case 'story':
-                $story = Story::where('story.IDStory', '=', $request->IDTaiKhoan)->get();
+                $story = Story::where('story.IDStory', '=', $request->IDTaiKhoan)
+                    ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                    ->get();
                 return response()->json([
-                    'view' => "" . view('Admin/Modal/Story/ModalChiTiet')
+                    'view' => "" . view('Admin/Modal/Story/ModalDetail')
                         ->with('story', $story)
                 ]);
                 break;
             case 'reply':
                 return response()->json([
-                    'view' => "" . view('Admin/Modal/NguoiDung/ModalChiTiet')
-                ]);
-                break;
-            case 'category':
-                return response()->json([
-                    'view' => "" . view('Admin/Modal/NguoiDung/ModalChiTiet')
+                    'view' => "" . view('Admin/Modal/Reply/ModalDetail')
                 ]);
                 break;
             default:
@@ -97,10 +92,10 @@ class LoadDataControllerAd extends Controller
             case 'user':
                 $account = Query::getAllAccount(10, $request->index * 10);
                 return response()->json([
-                    'viewTable' => "" . view('Admin/Component/Child/BangNguoiDung')
+                    'viewTable' => "" . view('Admin/Component/Child/TableUser')
                         ->with('account', $account)
                         ->with('index', $request->index * 10),
-                    'viewPage' => "" . view('Admin/Component/Child/PhanTrang')
+                    'viewPage' => "" . view('Admin/Component/Child/Pagination')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllAccountFull()) / 10)
                         ->with('name', 'user')
@@ -109,10 +104,10 @@ class LoadDataControllerAd extends Controller
             case 'post':
                 $post = Query::getAllPost(10, $request->index * 10);
                 return response()->json([
-                    'viewTable' => "" . view('Admin/Component/Child/BangBaiViet')
+                    'viewTable' => "" . view('Admin/Component/Child/TablePost')
                         ->with('post', $post)
                         ->with('index', $request->index * 10),
-                    'viewPage' => "" . view('Admin/Component/Child/PhanTrang')
+                    'viewPage' => "" . view('Admin/Component/Child/Pagination')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllPostFull()) / 10)
                         ->with('name', 'post')
@@ -121,12 +116,24 @@ class LoadDataControllerAd extends Controller
             case 'story':
                 $post = Query::getAllStory(10, $request->index * 10);
                 return response()->json([
-                    'viewTable' => "" . view('Admin/Component/Child/BangStory')
+                    'viewTable' => "" . view('Admin/Component/Child/TableStory')
                         ->with('story', $post)
                         ->with('index', $request->index * 10),
-                    'viewPage' => "" . view('Admin/Component/Child/PhanTrang')
+                    'viewPage' => "" . view('Admin/Component/Child/Pagination')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllStoryFull()) / 10)
+                        ->with('name', 'story')
+                ]);
+                break;
+            case 'reply':
+                $post = Query::getAllReply(10, $request->index * 10);
+                return response()->json([
+                    'viewTable' => "" . view('Admin/Component/Child/TableReply')
+                        ->with('story', $post)
+                        ->with('index', $request->index * 10),
+                    'viewPage' => "" . view('Admin/Component/Child/Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('num', count(Query::getAllReplyFull()) / 10)
                         ->with('name', 'story')
                 ]);
                 break;

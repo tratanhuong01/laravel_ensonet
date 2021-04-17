@@ -18,7 +18,7 @@ use App\Process\DataProcessFive;
 $el = DataProcess::getUserOfGroupMessage($value[0]->IDNhomTinNhan)
 @endphp
 @if(count($el) == 1)
-<div onclick="openChat('{{ $value[0]->IDTaiKhoan }}')" class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
+<div onclick="openChat('{{ $el[0]->IDTaiKhoan }}')" class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
     hover:bg-gray-200 py-2 px-1">
     <div class="w-1/5">
         <div class="w-14 h-14 rounded-full relative">

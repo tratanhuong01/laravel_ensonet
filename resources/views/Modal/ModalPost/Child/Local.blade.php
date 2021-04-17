@@ -21,4 +21,3 @@ use Illuminate\Support\Facades\Session;
     </span>
 </div>
 @endforeach
-<input type="hidden" name="IDViTriPrev" id="IDViTriPrev" value="">

@@ -17,6 +17,7 @@ Session::get('user')[0]->IDTaiKhoan : '' }}" />
 <!-- css general -->
 
 <!-- cdn general -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />

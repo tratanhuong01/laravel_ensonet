@@ -234,14 +234,36 @@ function removeUserSelectedPostTag(IDTaiKhoan) {
     });
 }
 //tâm trạng hiện tại
-function viewFeelCurrent() {
+function viewFeelCurrent(type) {
     $.ajax({
         method: "GET",
         url: "/ProcessViewFeelCurrent",
         success: function (response) {
-            $('#second').append(response);
-            $('#modal-one').hide();
-            $('#modal-two').show();
+            if (!$('#second').hasClass('fixed h-screen')) {
+                $.ajax({
+                    method: "GET",
+                    url: 'ProcessOpenPostDialog',
+                    data: {
+                      type : type
+                    },
+                    success: function (responses) {
+                        $('#second').append(responses);
+                        $('#second').addClass('fixed h-screen')
+                        new MeteorEmoji(
+                            document.getElementById('textarea-post'),
+                            document.getElementById('myTriggers'),
+                            document.getElementById('myEmojis')
+                        )
+                        $('#second').append(response);
+                        
+                    }
+                  });
+            }
+            else {
+                $('#second').append(response);
+                $('#modal-one').hide();
+                $('#modal-two').show();
+            }
         }
     });
 }

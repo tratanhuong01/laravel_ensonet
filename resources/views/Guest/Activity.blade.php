@@ -9,7 +9,8 @@
     <div class="w-1/2 mx-auto p-3 bg-white relative rounded-lg mt-20">
         <div class="w-full py-4">
             <p class="font-bold text-xm" style="font-family: system-ui;">Vui lòng xác minh tài khoản tất cả
-                các hoạt động gần đây là của bạn.</p>
+                các hoạt động gần đây là của bạn .
+            </p>
         </div>
         <hr>
         <div class="w-full py-2 max-h-80 overflow-y-auto wrapper-content-right">

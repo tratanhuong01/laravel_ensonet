@@ -26,7 +26,6 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
             <div class="tac-user-2">
                 <p class="dark:text-white">{{ $value->TenCamXuc }}</p>
             </div>
-            <input type="hidden" name="IDCamXucPrev" id="IDCamXucPrev" value="">
             <span class="absolute top-4 right-6" id="{{ $value->IDCamXuc }}Tick">
                 @isset(Session::get('feelCur')[$value->IDCamXuc])
                 <i class="fas fa-check text-green-400 text-xm"></i>
@@ -35,4 +34,5 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
         </div>
         @endforeach
     </div>
+
 </div>
