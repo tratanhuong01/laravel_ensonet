@@ -100,6 +100,10 @@ class Query extends Model
             ->join('taikhoan', 'yeucaunguoidung.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
             ->get();
     }
+    public static function getAllShareOfPost($idBaiDang)
+    {
+        return Baidang::where('baidang.ChiaSe', '=', $idBaiDang)->get();
+    }
     public static function getAllReplyFull()
     {
         return Yeucaunguoidung::join(

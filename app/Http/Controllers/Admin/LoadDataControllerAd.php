@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Baidang;
 use App\Models\Story;
 use App\Models\Taikhoan;
+use App\Models\Yeucaunguoidung;
 use Illuminate\Http\Request;
 
 class LoadDataControllerAd extends Controller
@@ -78,8 +79,17 @@ class LoadDataControllerAd extends Controller
                 ]);
                 break;
             case 'reply':
+                $reply = Yeucaunguoidung::where(
+                    'yeucaunguoidung.IDYeuCauNguoiDung',
+                    '=',
+                    $request->IDTaiKhoan
+                )
+                    ->join('taikhoan', 'yeucaunguoidung.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                    ->get();
                 return response()->json([
                     'view' => "" . view('Admin/Modal/Reply/ModalDetail')
+                        ->with('reply', $reply)
+
                 ]);
                 break;
             default:
@@ -126,10 +136,10 @@ class LoadDataControllerAd extends Controller
                 ]);
                 break;
             case 'reply':
-                $post = Query::getAllReply(10, $request->index * 10);
+                $reply = Query::getAllReply(10, $request->index * 10);
                 return response()->json([
                     'viewTable' => "" . view('Admin/Component/Child/TableReply')
-                        ->with('story', $post)
+                        ->with('reply', $reply)
                         ->with('index', $request->index * 10),
                     'viewPage' => "" . view('Admin/Component/Child/Pagination')
                         ->with('index', $request->index * 10)

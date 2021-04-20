@@ -1,3 +1,8 @@
+<?php
+
+use App\Admin\Query;
+
+?>
 <div id="modal-one" class=" w-11/12 fixed top-50per left-50per transform-translate-50per pb-2 pt-2 
 opacity-100 bg-white z-50 border-2 border-solid border-gray-300 sm:w-4/5 sm:mt-12 lg:w-3/4 xl:w-2/3
 xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
@@ -69,26 +74,56 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
                     @endif
                 </li>
                 <li class="w-full p-2">Quyền Riêng Tư :
-                    <span class="font-bold"></span>
+                    @switch($post[0]->IDQuyenRiengTu)
+                    @case('CONGKHAI')
+                    <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
+                    font-bold text-white">Công khai</span>
+                    @break
+                    @case('CHIBANBE')
+                    <span class="bg-yellow-500 px-3 py-1.5 text-sm rounded-3xl 
+                    font-bold text-white">Bạn bè</span>
+                    @break
+                    @case('RIENGTU')
+                    <span class="bg-red-500 px-3 py-1.5 text-sm rounded-3xl 
+                    font-bold text-white">Chỉ mình tôi</span>
+                    @break
+                    @endswitch
                 </li>
                 <li class="w-full p-2">Loại Bài Đăng:
-                    <span class="font-bold"></span>
+                    @switch($post[0]->LoaiBaiDang)
+                    @case('0')
+                    <span class="bg-purple-500 px-3 py-1.5 text-sm rounded-3xl 
+                                font-bold text-white">Ảnh đại diện</span>
+                    @break
+                    @case('1')
+                    <span class="bg-blue-500 px-3 py-1.5 text-sm rounded-3xl 
+                                font-bold text-white">Ảnh bìa</span>
+                    @break
+                    @case('2')
+                    <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
+                                font-bold text-white">Thông thường</span>
+                    @break
+                    @case('3')
+                    <span class="bg-gray-500 px-3 py-1.5 text-sm rounded-3xl 
+                                font-bold text-white">Chia sẽ</span>
+                    @break
+                    @endswitch
                 </li>
                 <li class="w-full p-2 max-h-32 overflow-y-auto border-gray-200 shadow-lg
                 wrapper-content-right border-2 border-solid">Nội Dung :
-                    <span class="font-bold">chào ae </span>
+                    <span class="font-bold">{{ $post[0]->NoiDung }}</span>
                 </li>
                 <li class="w-full mt-2 p-2">Số Lượt Cảm Xúc :
                     <span class="cursor-pointer bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
-                        font-bold text-white">1.022</span>
+                        font-bold text-white">{{ Query::getFeelOfPost($post[0]->IDBaiDang) }}</span>
                 </li>
                 <li class="w-full p-2">Số Lượt Bình Luận :
                     <span class="cursor-pointer bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
-                        font-bold text-white">210</span>
+                        font-bold text-white">{{count(Query::getCommentOfPost($post[0]->IDBaiDang))}}</span>
                 </li>
                 <li class="w-full p-2">Số Lượt Chia Sẽ :
                     <span class="cursor-pointer bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
-                        font-bold text-white">32</span>
+                        font-bold text-white">{{ count(Query::getAllShareOfPost($post[0]->IDBaiDang)) }}</span>
                 </li>
             </ul>
             <div class="w-full my-10 text-center">

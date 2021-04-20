@@ -27,9 +27,14 @@ class RequestUserContrller extends Controller
             if ($request->hasFile('cmnd')) {
                 $files = $request->file('cmnd');
                 $id = StringUtil::ID('yeucaunguoidung', 'IDYeuCauNguoiDung');
+                $json = array();
                 $nameFile = '';
                 foreach ($files as $key => $file) {
-                    $nameFile .= 'img/RequestUserImage/' . StringUtil::createNameFileCMND($id, $key) . '.png' . '@';
+                    $nameFile .= 'img/RequestUserImage/' . StringUtil::createNameFileCMND($id, $key) . '.png';
+                    $json[$key] = (object)[
+                        'IDHinhAnh' => StringUtil::createNameFileCMND($id, $key),
+                        'DuongDan' => $nameFile
+                    ];
                     $file->move(
                         public_path('img/RequestUserImage'),
                         StringUtil::createNameFileCMND($id, $key) . '.png'
@@ -40,7 +45,7 @@ class RequestUserContrller extends Controller
                     $request->IDTaiKhoan,
                     $request->email,
                     $request->ngaySinh,
-                    $nameFile,
+                    json_encode($json),
                     $request->noiDung,
                     '0',
                     date("Y-m-d H:i:s"),

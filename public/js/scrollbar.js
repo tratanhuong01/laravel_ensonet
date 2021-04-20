@@ -6,6 +6,7 @@ function openPost(type) {
       type : type
     },
     success: function (response) {
+      document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
       $('#modal-one').show();
       second.innerHTML = response;
       second.className += ' fixed h-screen';
@@ -19,7 +20,7 @@ function openPost(type) {
 
 }
 function closePost() {
-  body.classList.remove('overflow-hidden');
+  document.getElementsByTagName('body')[0].classList.remove('overflow-hidden');
   second.innerHTML = '';
   second.classList.remove("fixed");
   second.classList.remove("h-screen");

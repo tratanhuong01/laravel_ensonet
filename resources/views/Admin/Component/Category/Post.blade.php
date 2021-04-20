@@ -68,6 +68,10 @@ use App\Admin\Query;
                 <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
                                 font-bold text-white">Thông thường</span>
                 @break
+                @case('3')
+                <span class="bg-gray-500 px-3 py-1.5 text-sm rounded-3xl 
+                                font-bold text-white">Chia sẽ</span>
+                @break
                 @endswitch
             </td>
             <td class="p-2 break-all">{{ substr($value->NoiDung,0,60)  }}</td>

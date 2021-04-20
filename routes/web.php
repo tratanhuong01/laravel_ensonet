@@ -707,7 +707,7 @@ Route::get('activity', function () {
         'data',
         DataProcessThird::getActivityByIDTaiKhoan(Session::get('idcheckpoint'))
     );
-});
+})->name('activity');
 
 //
 Route::get('change-password', function () {

@@ -62,17 +62,35 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
                         @endswitch
                     </p>
                     <p class="text-xm font-bold py-1.5 text-gray-700">Trạng thái :
-                        @switch($user[0]->TinhTrang)
-                        @case('0')
-                        <span class="cursor-pointer  bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
+                        <span id="stateUser">
+                            @switch($user[0]->TinhTrang)
+                            @case('0')
+                            <span class="cursor-pointer  bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
                         font-bold text-white">Bình thường</span>
-                        @break
-                        @default
-                        <span class="cursor-pointer  bg-red-500 px-3 py-1.5 text-sm rounded-3xl 
+                            @break
+                            @case('1')
+                            <span class="cursor-pointer  bg-red-500 px-3 py-1.5 text-sm rounded-3xl 
+                        font-bold text-white">Checkpoint</span>
+                            @break
+                            @case('2')
+                            <span class="cursor-pointer  bg-red-500 px-3 py-1.5 text-sm rounded-3xl 
+                        font-bold text-white">Xác minh</span>
+                            @break
+                            @case('4')
+                            <span class="cursor-pointer  bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
+                        font-bold text-white">Hạn chế</span>
+                            @break
+                            @case('5')
+                            <span class="cursor-pointer  bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
+                        font-bold text-white">Đang chờ duyệt</span>
+                            @break
+                            @default
+                            <span class="cursor-pointer  bg-red-500 px-3 py-1.5 text-sm rounded-3xl 
                         font-bold text-white">Khóa</span>
-                        @break
-                        @endswitch&nbsp;&nbsp;
-                        <button class="bg-yellow-100 font-bold p-1 text-sm">Thay đổi</button>
+                            @break
+                            @endswitch
+                        </span>&nbsp;&nbsp;
+                        <button onclick="openModalUpdateStateUserChange('{{ $user[0]->IDTaiKhoan }}')" class="bg-yellow-100 font-bold p-1 text-sm">Thay đổi</button>
                     </p>
                 </li>
             </ul>

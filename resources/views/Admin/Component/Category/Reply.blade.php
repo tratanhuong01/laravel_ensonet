@@ -84,7 +84,7 @@ use App\Admin\Query;
                 @endswitch
             </td>
             <td class="p-2">
-                <button class="py-1.5 px-3 rounded-2xl bg-blue-500 text-sm font-bold text-white">
+                <button onclick="openModalViewDetailAd('reply','{{ $value->IDYeuCauNguoiDung }}')" class="py-1.5 px-3 rounded-2xl bg-blue-500 text-sm font-bold text-white">
                     Xem chi tiết</button>
             </td>
         </tr>

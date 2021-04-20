@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Session;
 
 ?>
-@include('Head/document')
 
 <head>
     <title>Ensonet</title>

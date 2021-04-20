@@ -1,5 +1,3 @@
-@include('Head/document')
-
 <head>
     <title>Khóa Tài Khoản</title>
     @include('Head/css')

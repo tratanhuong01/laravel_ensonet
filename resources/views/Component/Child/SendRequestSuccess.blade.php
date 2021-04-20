@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Session;
                 bạn sớm nhất có thể .
             </p>
             <p class="text-center py-4">
-                <a href="{{ route('login') }}" class="text-blue-600">Đi đến trang chủ</a>
+                <a href="{{ url('login') }}" class="text-blue-600">Đi đến trang chủ</a>
             </p>
         </div>
     </div>
