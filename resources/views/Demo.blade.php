@@ -10,10 +10,7 @@
 </head>
 
 <body>
-
-    <video id="my-videos" class="video-js" controls preload="auto" width="640" height="264" poster="/video/review.mp4" data-setup="{}">
-        <source src="/video/review.mp4" type="video/mp4" />
-    </video>
+    @include('Modal/ModalChat/Nickname')
 </body>
 
 </html>

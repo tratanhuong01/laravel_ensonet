@@ -20,6 +20,7 @@ class PostNormalController extends Controller
     public function post(Request $request)
     {
         try {
+
             date_default_timezone_set('Asia/Ho_Chi_Minh');
             $user = Session::get('user');
             if ($request->hasFile('files_0')) {
@@ -66,6 +67,7 @@ class PostNormalController extends Controller
                     2,
                     NULL
                 );
+
                 for ($i = 0; $i < (int)$request->numberImage; $i++) {
                     $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
                     $nameFile = $request->file('files_' . $i)->getClientOriginalName();
@@ -99,8 +101,9 @@ class PostNormalController extends Controller
             } else {
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
-                $tag = "";
-                $idCamXuc = "";
+                $tag = NULL;
+                $idCamXuc = NULL;
+                $idViTri = NULL;
                 if (session()->has('feelCur'))
                     foreach (Session::get('feelCur') as $key => $value)
                         $idCamXuc = $value;
@@ -124,6 +127,9 @@ class PostNormalController extends Controller
                         }
                     }
                 }
+                if (session()->has('localU'))
+                    foreach (Session::get('localU') as $key => $value)
+                        $idViTri = $value->ID . '@' . $value->Loai;
                 Baidang::add(
                     $idBaiDang,
                     $user[0]->IDTaiKhoan,
@@ -131,7 +137,7 @@ class PostNormalController extends Controller
                     $request->content,
                     $tag,
                     $idCamXuc,
-                    NULL,
+                    $idViTri,
                     $datetime,
                     2,
                     NULL

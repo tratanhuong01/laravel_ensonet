@@ -1,57 +1,33 @@
-function changeUploadFiles(el) {
+function loadUIEditPostMain(json) {
     document.getElementById("imagePost").innerHTML = "";
-    store.set("imageAndVideoPost", new Array());
-    var files = el.files;
-    var arr = Array.from(files);
-    var array = store.get("imageAndVideoPost");
     var edit = document.createElement("div");
     edit.classList =
         "w-24 absolute dark:text-white top-3 z-50 cursor-pointer left-4 p-1.5 bg-gray-200 rounded-lg dark:bg-dark-third text-center font-bold";
     edit.innerHTML = "Chỉnh sửa";
     edit.addEventListener("click", function () {
         $("#modal-one").hide();
-        second.appendChild(editFileUplopad());
+        second.appendChild(editFileUploadMainEdit());
     });
-    loadUICreatePostMain(arr);
+    var arrayImageAndVideoPostEdit = new Array();
+    for (let index = 0; index < json.length; index++) {
+        arrayImageAndVideoPostEdit[index] = {
+            Loai: 0,
+            DuongDan: json[index].DuongDan,
+            IDHinhAnh: json[index].ID,
+        };
+    }
     document.getElementById("imagePost").classList.add("relative");
     document.getElementById("imagePost").appendChild(edit);
-    for (let index = 0; index < arr.length; index++) {
-        array[index] = arr[index];
-    }
-    store.get("arrayImageAndVideo", array);
-}
-function changeUploadFileMain(el, type) {
-    $.ajax({
-        method: "GET",
-        url: "ProcessOpenPostDialog",
-        data: {
-            type: type,
-        },
-        success: function (response) {
-            second.innerHTML = response;
-            second.className += " fixed h-screen";
-            $("#modal-one").show();
-            new MeteorEmoji(
-                document.getElementById("textarea-post"),
-                document.getElementById("myTriggers"),
-                document.getElementById("myEmojis")
-            );
-            $("#placeSelection").prepend(el);
-            changeUploadFiles(el);
-        },
-    });
-}
-function loadUICreatePostMain1(arr) {
-    document.getElementById("imagePost").innerHTML = "";
-    for (var i = 0; i < arr.length; i++) {
+    store.set("imageAndVideoPostEdit", arrayImageAndVideoPostEdit);
+    for (var i = 0; i < json.length; i++) {
         var div = document.createElement("div");
         div.classList = "divImage relative";
         var img = document.createElement("img");
         img.style.objectFit = "cover";
-        if (arr.length <= 1) {
+        if (json.length <= 1) {
             div.className = "w-full";
             img.className = "w-full";
-            img.src = URL.createObjectURL(arr[i]);
+            img.src = json[i].DuongDan;
             div.appendChild(img);
             document.getElementById("imagePost").appendChild(div);
         } else {
@@ -60,14 +36,14 @@ function loadUICreatePostMain1(arr) {
             div.style.height = "250px";
             img.style.width = "241px";
             img.style.height = "248px";
-            img.src = URL.createObjectURL(arr[i]);
+            img.src = json[i].DuongDan;
             div.appendChild(img);
             document.getElementById("imagePost").appendChild(div);
-            if (arr.length > 4 && i == 3) {
+            if (json.length > 4 && i == 3) {
                 var divs = document.createElement("div");
                 divs.className = "relative";
                 var span = document.createElement("span");
-                var num = arr.length - 4;
+                var num = json.length - 4;
                 span.innerHTML = "+ " + num;
                 span.className =
                     "text-3xl font-bold absolute top-1/2 left-1/2 text-white";
@@ -83,14 +59,31 @@ function loadUICreatePostMain1(arr) {
         }
     }
 }
-function loadUICreatePostMain(arr) {
+function checkTypeEditPostImgVid(arr) {
+    if (arr.Loai === 1) return arr.DuongDan.name.split(".")[1];
+    else return arr.DuongDan.split("/")[1].split(".")[1];
+}
+function returnUrlImageVideoEdit(arr) {
+    if (arr.Loai === 1) return URL.createObjectURL(arr.DuongDan);
+    else return arr.DuongDan;
+}
+function loadUIPostMainEdit(arr) {
+    var edit = document.createElement("div");
+    edit.classList =
+        "w-24 absolute dark:text-white top-3 z-50 cursor-pointer left-4 p-1.5 bg-gray-200 rounded-lg dark:bg-dark-third text-center font-bold";
+    edit.innerHTML = "Chỉnh sửa";
+    edit.addEventListener("click", function () {
+        $("#modal-one").hide();
+        second.appendChild(editFileUploadMainEdit());
+    });
     document.getElementById("imagePost").innerHTML = "";
     for (var i = 0; i < arr.length; i++) {
         var data;
         var div;
         if (
-            arr[i].name.split(".")[1] == "MOV" ||
-            arr[i].name.split(".")[1] == "MP4"
+            checkTypeEditPostImgVid(arr[i]) === "MOV" ||
+            checkTypeEditPostImgVid(arr[i]) === "MP4" ||
+            checkTypeEditPostImgVid(arr[i]) === "mp4"
         ) {
             div = document.createElement("div");
             div.classList = "divImage relative flex justify-center";
@@ -112,7 +105,7 @@ function loadUICreatePostMain(arr) {
         if (arr.length <= 1) {
             div.className = "w-full";
             data.className = "w-full";
-            data.src = URL.createObjectURL(arr[i]);
+            data.src = returnUrlImageVideoEdit(arr[i]);
             div.appendChild(data);
             document.getElementById("imagePost").appendChild(div);
         } else {
@@ -121,7 +114,7 @@ function loadUICreatePostMain(arr) {
             div.style.height = "250px";
             data.style.width = "241px";
             data.style.height = "248px";
-            data.src = URL.createObjectURL(arr[i]);
+            data.src = returnUrlImageVideoEdit(arr[i]);
             div.appendChild(data);
             document.getElementById("imagePost").appendChild(div);
             if (arr.length > 4 && i == 3) {
@@ -143,8 +136,10 @@ function loadUICreatePostMain(arr) {
             }
         }
     }
+    document.getElementById("imagePost").classList.add("relative");
+    document.getElementById("imagePost").appendChild(edit);
 }
-function editFileUplopad() {
+function editFileUploadMainEdit() {
     var divMain = document.createElement("div");
     divMain.classList =
         "shadow-sm border border-solid border-gray-500 py-3 pl-1.5 pr-1.5 pt-0 " +
@@ -161,9 +156,9 @@ function editFileUplopad() {
     divContent.classList = "w-full py-3 wrapper-content-right overflow-y-auto";
     divContent.style.maxHeight = "576px";
     divMain.append(divContent);
-    var array = store.get("imageAndVideoPost");
+    var array = store.get("imageAndVideoPostEdit");
     if (array.length <= 0) divContent.append(endImageVideo());
-    else addImageVideoContinues(0, array, divContent);
+    else addImageVideoEdit(0, array, divContent);
     var divFooter = document.createElement("div");
     divFooter.classList = "w-full flex justify-end mr-1";
     var ulFooter = document.createElement("ul");
@@ -187,16 +182,27 @@ function editFileUplopad() {
     inputFileAdd.addEventListener("change", function () {
         var files = this.files;
         var arr = Array.from(files);
-        var indexs = store.get("imageAndVideoPost").length;
-        var array = store.get("imageAndVideoPost");
-        addImageVideoContinues(indexs, arr, divContent);
+        var indexs = store.get("imageAndVideoPostEdit").length;
+        var array = store.get("imageAndVideoPostEdit");
         for (let index = 0; index < arr.length; index++) {
-            array[indexs] = arr[index];
+            array[indexs] = {
+                Loai: 1,
+                DuongDan: arr[index],
+            };
             indexs++;
         }
-        store.set("imageAndVideoPost", array);
+        var newArr = new Array();
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            newArr[index] = {
+                Loai: 1,
+                DuongDan: element,
+            };
+        }
+        addImageVideoEdit(indexs, newArr, divContent);
+        store.set("imageAndVideoPostEdit", array);
         divContent.scrollTop = divContent.scrollHeight;
-        loadUICreatePostMain(array);
+        loadUIPostMainEdit(array);
     });
     var liFooterRight = document.createElement("li");
     liFooterRight.innerHTML =
@@ -212,41 +218,19 @@ function editFileUplopad() {
     divMain.append(divFooter);
     return divMain;
 }
-function endImageVideo() {
-    var div = document.createElement("div");
-    div.classList = " w-full text-center h-40 py-2 ";
-    div.innerHTML =
-        '<svg class="mx-auto w-24 h-24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112"> ' +
-        "<defs>" +
-        '<clipPath id="a">' +
-        '<rect width="81.38" height="68.11" x="12.34" y="18.4" fill="none" rx="6.69"/>' +
-        "</clipPath>" +
-        "</defs>" +
-        '<rect width="81.38" height="68.11" x="20.91" y="27.89" fill="#7a7d81" rx="6.69"/>' +
-        '<g clip-path="url(#a)">' +
-        '<rect width="81.38" height="68.11" x="12.34" y="18.4" fill="#bcc0c4" rx="6.69"/>' +
-        '<path fill="#fff" d="M7.44 89.57l32.5-42.76 13.09 13.04 27.89-31.9 21.42 27.71 1.06 37.49H8.5l-1.06-3.58z"/>' +
-        "</g>" +
-        '<circle cx="27.57" cy="35.69" r="6.65" fill="#1876f2"/>' +
-        "</svg>";
-    var p = document.createElement("p");
-    p.classList = "font-bold text-gray-500 text-center";
-    p.innerHTML = "Thêm ảnh/video để bắt đầu";
-    div.append(p);
-    return div;
-}
-function addImageVideoContinues(indexMain, array, divContent) {
+function addImageVideoEdit(indexMain, array, divContent) {
     for (let index = 0; index < array.length; index++) {
         const element = array[index];
-        var url = URL.createObjectURL(element);
+        var url = element.DuongDan;
         var divChild = document.createElement("div");
         var data;
         if (
-            array[index].name.split(".")[1] == "MOV" ||
-            array[index].name.split(".")[1] == "MP4"
+            checkTypeEditPostImgVid(element) === "MOV" ||
+            checkTypeEditPostImgVid(element) === "MP4" ||
+            checkTypeEditPostImgVid(element) === "mp4"
         ) {
             var videoChild = document.createElement("video");
-            videoChild.setAttribute("src", url);
+            videoChild.setAttribute("src", returnUrlImageVideoEdit(element));
             videoChild.setAttribute(
                 "class",
                 "max-w-full mx-auto h-52 object-cover"
@@ -280,7 +264,7 @@ function addImageVideoContinues(indexMain, array, divContent) {
             });
         } else {
             var imgChild = document.createElement("img");
-            imgChild.setAttribute("src", url);
+            imgChild.setAttribute("src", returnUrlImageVideoEdit(element));
             imgChild.setAttribute(
                 "class",
                 "max-w-full mx-auto h-52 object-cover"
@@ -298,7 +282,7 @@ function addImageVideoContinues(indexMain, array, divContent) {
         spanChild.innerHTML = "&times;";
         spanChild.addEventListener("click", function () {
             this.parentElement.parentElement.remove();
-            var newArray = store.get("imageAndVideoPost");
+            var newArray = store.get("imageAndVideoPostEdit");
             newArray = removeElement(
                 newArray,
                 newArray[this.getAttribute("data-index")]
@@ -310,7 +294,7 @@ function addImageVideoContinues(indexMain, array, divContent) {
             }
             if (newArray.length == 0) divContent.append(endImageVideo());
             store.set("imageAndVideoPost", newArray);
-            loadUICreatePostMain(newArray);
+            loadUIPostMainEdit(newArray);
         });
         var input = document.createElement("input");
         input.classList =
@@ -328,7 +312,29 @@ function addImageVideoContinues(indexMain, array, divContent) {
         indexMain++;
     }
 }
-function postFiles() {
+function changeUploadFileEdit(el) {
+    document.getElementById("imagePost").innerHTML = "";
+    store.set("imageAndVideoPostEdit", new Array());
+    var files = el.files;
+    var arr = Array.from(files);
+    var array = store.get("imageAndVideoPostEdit");
+    var edit = document.createElement("div");
+    edit.classList =
+        "w-24 absolute dark:text-white top-3 z-50 cursor-pointer left-4 p-1.5 bg-gray-200 rounded-lg dark:bg-dark-third text-center font-bold";
+    edit.innerHTML = "Chỉnh sửa";
+    edit.addEventListener("click", function () {
+        $("#modal-one").hide();
+        second.appendChild(editFileUploadMainEdit());
+    });
+    loadUIPostMainEdit(arr);
+    document.getElementById("imagePost").classList.add("relative");
+    document.getElementById("imagePost").appendChild(edit);
+    for (let index = 0; index < arr.length; index++) {
+        array[index] = arr[index];
+    }
+    store.get("arrayImageAndVideoEdit", array);
+}
+function EditPostMain(IDTaiKhoan, IDBaiDang) {
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -339,53 +345,37 @@ function postFiles() {
     $("#button-post").css("cursor", "not-allowed");
     $("#button-post").append('<i class="fas fa-cog fa-spin text-xl"></i>');
     let formData = new FormData($("#formPost")[0]);
-    var array = store.get("imageAndVideoPost");
+    var array = store.get("imageAndVideoPostEdit");
+    var countAdd = 0;
+    var countIsset = 0;
+    var newArray = new Array();
     for (let index = 0; index < array.length; index++) {
-        formData.append("files_" + index, array[index]);
+        if (array[index].Loai === 1) {
+            formData.append("files_" + countAdd, array[index].DuongDan);
+            countAdd++;
+        } else {
+            newArray[countIsset] = array[index];
+            countIsset++;
+        }
     }
-    formData.append("numberImage", array.length);
+    formData.append("fileIsset", JSON.stringify(newArray));
+    formData.append("numberImage", countAdd);
+    formData.append("IDBaiDang", IDBaiDang);
     $.ajax({
         method: "POST",
-        url: "/ProcessPostNormal",
+        url: "/ProcessEditPost",
         data: formData,
         contentType: false,
         processData: false,
         success: function (response) {
-            console.log("posted");
-            $("#second").html(response);
+            $("#" + IDTaiKhoan + IDBaiDang + "Main").replaceWith(response.view);
+            document
+                .getElementsByTagName("body")[0]
+                .classList.remove("overflow-hidden");
+            second.innerHTML = "";
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
             store.set("imageAndVideoPost", new Array());
         },
     });
-}
-function FeelPost(nameID, loaiCamXuc) {
-    $.ajax({
-        method: "GET",
-        url: "/ProcessFeelPost",
-        data: {
-            IDBaiDang: nameID,
-            LoaiCamXuc: loaiCamXuc,
-        },
-        success: function (response) {
-            $("#" + nameID).html(response);
-        },
-    });
-    $.ajax({
-        method: "GET",
-        url: "/ProcessViewFeelPost",
-        data: {
-            IDBaiDang: nameID,
-            LoaiCamXuc: loaiCamXuc,
-        },
-        success: function (response) {
-            $("#" + nameID + "post").html(response);
-        },
-    });
-}
-function returnCreatePosts(first, second) {
-    $("#" + first).show();
-    $("#" + second).remove();
-}
-function returnCreatePost() {
-    $("#modal-one").show();
-    $("#modal-two").remove();
 }

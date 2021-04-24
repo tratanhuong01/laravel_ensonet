@@ -1,164 +1,170 @@
-//xem tất cả số lượng cảm xúc của bài đăng 
+//xem tất cả số lượng cảm xúc của bài đăng
 function viewDetailFeel(IDBaiDang, Path) {
     $.ajax({
         method: "GET",
-        url: Path + '/' + 'ProcessViewDetailFeel',
+        url: Path + "/" + "ProcessViewDetailFeel",
         data: {
             IDBaiDang: IDBaiDang,
         },
         success: function (response) {
-            $('#second').html(response);
-            $('#modal-one').show();
-            second.className += ' fixed h-screen';
-        }
+            $("#second").html(response);
+            $("#modal-one").show();
+            second.className += " fixed h-screen";
+        },
     });
 }
-//xem số lượng mỗi cảm xúc của bài đăng 
+//xem số lượng mỗi cảm xúc của bài đăng
 function viewOnlyDetailFeel(IDBaiDang, LoaiCamXuc, Path) {
     $.ajax({
         method: "GET",
-        url: '/' + 'ProcessViewOnlyDetailFeel',
+        url: "/" + "ProcessViewOnlyDetailFeel",
         data: {
             IDBaiDang: IDBaiDang,
-            LoaiCamXuc: LoaiCamXuc
+            LoaiCamXuc: LoaiCamXuc,
         },
         success: function (response) {
-            $('#all').html(response);
-        }
+            $("#all").html(response);
+        },
     });
 }
-// mở hộp thoại chỉnh sửa bài đăng  
+// mở hộp thoại chỉnh sửa bài đăng
 function openEditPost(ids) {
-    $('#' + ids).show();
-    document.getElementById(ids + "Main").addEventListener("click", function () {
-        $('#' + ids).hide();
-    }, true);
+    $("#" + ids).show();
+    document.getElementById(ids + "Main").addEventListener(
+        "click",
+        function () {
+            $("#" + ids).hide();
+        },
+        true
+    );
 }
 // chọn quyền riêng tư
 function selectPrivacy() {
     $.ajax({
         method: "GET",
-        url: '/ProcessSelecPrivacyPost',
-        data: {
-        },
+        url: "/ProcessSelecPrivacyPost",
+        data: {},
         success: function (response) {
-            var div = document.createElement('div');
-            div.id = 'modal-two';
-            div.className = "shadow-sm border border-solid border-gray-500 py-3 pl-1.5 pr-1.5 pt-0" +
+            var div = document.createElement("div");
+            div.id = "modal-two";
+            div.className =
+                "shadow-sm border border-solid border-gray-500 py-3 pl-1.5 pr-1.5 pt-0" +
                 " bg-white w-full fixed z-50 top-1/2 left-1/2 dark:bg-dark-second rounded-lg " +
                 " sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3";
-            div.style.zIndex = '10';
-            div.style.transform = 'translate(-50%,-50%)';
+            div.style.zIndex = "10";
+            div.style.transform = "translate(-50%,-50%)";
             div.innerHTML = response;
-            $('#second').append(div);
-            $('#modal-one').hide();
-            second.className += ' fixed h-screen';
-            $('#closeModalSelectPrivacy').click(function () {
-                $('#modal-two').remove();
-                $('#modal-one').show();
+            $("#second").append(div);
+            $("#modal-one").hide();
+            second.className += " fixed h-screen";
+            $("#closeModalSelectPrivacy").click(function () {
+                $("#modal-two").remove();
+                $("#modal-one").show();
             });
-        }
+        },
     });
 }
 // event onchange chọn quyền riêng tư của bài đăng
 function handelOnChangeInput(IDQuyenRiengTu) {
     $.ajax({
         method: "GET",
-        url: '/ProcessOnChangeInputPrivacy',
+        url: "/ProcessOnChangeInputPrivacy",
         data: {
             IDQuyenRiengTu: IDQuyenRiengTu,
         },
         success: function (response) {
-            $('#selectPrivacyMain').html(response);
-            $('#modal-two').remove();
-            $('#modal-one').show();
-            $('#IDQuyenRiengTu').val(IDQuyenRiengTu);
-        }
+            $("#selectPrivacyMain").html(response);
+            $("#modal-two").remove();
+            $("#modal-one").show();
+            $("#IDQuyenRiengTu").val(IDQuyenRiengTu);
+        },
     });
 }
-//chỉnh sửa bài đăng 
+//chỉnh sửa bài đăng
 function editPost(IDBaiDang) {
     $.ajax({
         method: "GET",
-        url: '/ProcessViewEditPost',
+        url: "/ProcessViewEditPost",
         data: {
-            IDBaiDang: IDBaiDang
+            IDBaiDang: IDBaiDang,
         },
         success: function (response) {
-            second.innerHTML = response;
-            second.className += ' fixed h-screen';
-            document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
+            second.innerHTML = response.view;
+            second.className += " fixed h-screen";
+            document
+                .getElementsByTagName("body")[0]
+                .classList.add("overflow-hidden");
             new MeteorEmoji(
-                document.getElementById('textarea-post'),
-                document.getElementById('myTriggers'),
-                document.getElementById('myEmojis')
-            )
-        }
+                document.getElementById("textarea-post"),
+                document.getElementById("myTriggers"),
+                document.getElementById("myEmojis")
+            );
+            if (response.json !== "") loadUIEditPostMain(response.json);
+        },
     });
 }
 //thay đổi đối tượng quyền riêng tư của bài đăng
 function changeObjectPrivacyPost(IDBaiDang) {
     $.ajax({
         method: "GET",
-        url: '/ProcessViewObjectPrivacyPost',
-        data: {
-        },
+        url: "/ProcessViewObjectPrivacyPost",
+        data: {},
         success: function (response) {
             second.innerHTML = response;
-            second.className += ' fixed h-screen';
-            $('#IDBaiDangs').val(IDBaiDang)
-        }
+            second.className += " fixed h-screen";
+            $("#IDBaiDangs").val(IDBaiDang);
+        },
     });
 }
 // event onchange bài đăng dialog
 function handelOnChangeInputPost(IDQuyenRiengTu) {
     $.ajax({
         method: "GET",
-        url: '/ProcessEditObjectPrivacyPost',
+        url: "/ProcessEditObjectPrivacyPost",
         data: {
             IDQuyenRiengTu: IDQuyenRiengTu,
-            IDBaiDang: $('#IDBaiDangs').val(),
+            IDBaiDang: $("#IDBaiDangs").val(),
         },
         success: function (response) {
-            $('#' + $('#IDBaiDangs').val() + "QRT").html(response);
-            second.innerHTML = '';
+            $("#" + $("#IDBaiDangs").val() + "QRT").html(response);
+            second.innerHTML = "";
             second.classList.remove("fixed");
             second.classList.remove("h-screen");
-        }
+        },
     });
 }
 //xóa bài đăng
 function deleteWarnPost(IDBaiDang, IDMain) {
     $.ajax({
         method: "GET",
-        url: '/ProcessWarnDeletePost',
+        url: "/ProcessWarnDeletePost",
         data: {
-            IDBaiDang: IDBaiDang
+            IDBaiDang: IDBaiDang,
         },
         success: function (response) {
             second.innerHTML = response;
-            second.className += ' fixed h-screen';
-            $('#huyXoaBaiDang').click(function () {
-                second.innerHTML = '';
+            second.className += " fixed h-screen";
+            $("#huyXoaBaiDang").click(function () {
+                second.innerHTML = "";
                 second.classList.remove("fixed");
                 second.classList.remove("h-screen");
             });
-            $('#btnXoaBaiDang').click(function () {
+            $("#btnXoaBaiDang").click(function () {
                 $.ajax({
                     method: "GET",
-                    url: 'ProcessDeletePost',
+                    url: "ProcessDeletePost",
                     data: {
-                        IDBaiDang: IDBaiDang
+                        IDBaiDang: IDBaiDang,
                     },
                     success: function (response) {
-                        $('#' + IDMain).remove();
-                        second.innerHTML = '';
+                        $("#" + IDMain).remove();
+                        second.innerHTML = "";
                         second.classList.remove("fixed");
                         second.classList.remove("h-screen");
-                    }
+                    },
                 });
             });
-        }
+        },
     });
 }
 //gắn thẻ bạn bè
@@ -167,10 +173,10 @@ function viewTagFriends() {
         method: "GET",
         url: "/ProcesViewTagFriend",
         success: function (response) {
-            $('#second').append(response);
-            $('#modal-one').hide();
-            $('#modal-two').show();
-        }
+            $("#second").append(response);
+            $("#modal-one").hide();
+            $("#modal-two").show();
+        },
     });
 }
 function searchTagFriends(IDTaiKhoan) {
@@ -179,11 +185,11 @@ function searchTagFriends(IDTaiKhoan) {
         url: "/ProcessSearchTagFriend",
         data: {
             IDTaiKhoan: IDTaiKhoan,
-            HoTen: $('#searchTagFriends').val()
+            HoTen: $("#searchTagFriends").val(),
         },
         success: function (response) {
-            $('#tag-users').html(response);
-        }
+            $("#tag-users").html(response);
+        },
     });
 }
 function returnViewCreatePost() {
@@ -191,13 +197,13 @@ function returnViewCreatePost() {
         method: "GET",
         url: "/ProcesViewCreatePost",
         success: function (response) {
-            $('#second').html(response);
+            $("#second").html(response);
             new MeteorEmoji(
-                document.getElementById('textarea-post'),
-                document.getElementById('myTriggers'),
-                document.getElementById('myEmojis')
-            )
-        }
+                document.getElementById("textarea-post"),
+                document.getElementById("myTriggers"),
+                document.getElementById("myEmojis")
+            );
+        },
     });
 }
 function tagFriends(IDTaiKhoan) {
@@ -208,15 +214,15 @@ function tagFriends(IDTaiKhoan) {
             IDTaiKhoan: IDTaiKhoan,
         },
         success: function (response) {
-            $('#' + IDTaiKhoan + "Check").html(response.check);
-            $('#usersTagPost').append(response.view);
-            $('#tag').html(response.tag);
-            if (response.view == '') {
-                $('#' + IDTaiKhoan + "Check").html('');
-                $('#' + IDTaiKhoan + "SelectedTagPost").remove();
-                $('#tag').html(response.tag);
+            $("#" + IDTaiKhoan + "Check").html(response.check);
+            $("#usersTagPost").append(response.view);
+            $("#tag").html(response.tag);
+            if (response.view == "") {
+                $("#" + IDTaiKhoan + "Check").html("");
+                $("#" + IDTaiKhoan + "SelectedTagPost").remove();
+                $("#tag").html(response.tag);
             }
-        }
+        },
     });
 }
 function removeUserSelectedPostTag(IDTaiKhoan) {
@@ -227,10 +233,10 @@ function removeUserSelectedPostTag(IDTaiKhoan) {
             IDTaiKhoan: IDTaiKhoan,
         },
         success: function (response) {
-            $('#' + IDTaiKhoan + "Check").html(response.check);
-            $('#' + IDTaiKhoan + "SelectedTagPost").remove();
-            $('#tag').html(response.tag);
-        }
+            $("#" + IDTaiKhoan + "Check").html(response.check);
+            $("#" + IDTaiKhoan + "SelectedTagPost").remove();
+            $("#tag").html(response.tag);
+        },
     });
 }
 //tâm trạng hiện tại
@@ -239,32 +245,30 @@ function viewFeelCurrent(type) {
         method: "GET",
         url: "/ProcessViewFeelCurrent",
         success: function (response) {
-            if (!$('#second').hasClass('fixed h-screen')) {
+            if (!$("#second").hasClass("fixed h-screen")) {
                 $.ajax({
                     method: "GET",
-                    url: 'ProcessOpenPostDialog',
+                    url: "ProcessOpenPostDialog",
                     data: {
-                      type : type
+                        type: type,
                     },
                     success: function (responses) {
-                        $('#second').append(responses);
-                        $('#second').addClass('fixed h-screen')
+                        $("#second").append(responses);
+                        $("#second").addClass("fixed h-screen");
                         new MeteorEmoji(
-                            document.getElementById('textarea-post'),
-                            document.getElementById('myTriggers'),
-                            document.getElementById('myEmojis')
-                        )
-                        $('#second').append(response);
-                        
-                    }
-                  });
+                            document.getElementById("textarea-post"),
+                            document.getElementById("myTriggers"),
+                            document.getElementById("myEmojis")
+                        );
+                        $("#second").append(response);
+                    },
+                });
+            } else {
+                $("#second").append(response);
+                $("#modal-one").hide();
+                $("#modal-two").show();
             }
-            else {
-                $('#second').append(response);
-                $('#modal-one').hide();
-                $('#modal-two').show();
-            }
-        }
+        },
     });
 }
 function viewLocal() {
@@ -272,10 +276,10 @@ function viewLocal() {
         method: "GET",
         url: "/ProcessViewLocalPost",
         success: function (response) {
-            $('#second').append(response.view);
-            $('#modal-one').hide();
-            $('#modal-two').show();
-        }
+            $("#second").append(response.view);
+            $("#modal-one").hide();
+            $("#modal-two").show();
+        },
     });
 }
 function searchFeelCurrent() {
@@ -283,11 +287,11 @@ function searchFeelCurrent() {
         method: "GET",
         url: "/ProcessSearchFeelCurrent",
         data: {
-            TenCamXuc: $('#searchFeelCurrent').val()
+            TenCamXuc: $("#searchFeelCurrent").val(),
         },
         success: function (response) {
-            $('#feelUserCurrent').html(response);
-        }
+            $("#feelUserCurrent").html(response);
+        },
     });
 }
 function tickFeel(IDCamXuc) {
@@ -298,30 +302,30 @@ function tickFeel(IDCamXuc) {
             IDCamXuc: IDCamXuc,
         },
         success: function (response) {
-            $('#' + $('#IDCamXucPrev').val() + "Tick").html('');
-            $('#' + IDCamXuc + "Tick").html(response.view);
-            $('#IDCamXucPrev').val(IDCamXuc);
-            $('#feelCur').html(response.feelCur)
-        }
+            $("#" + $("#IDCamXucPrev").val() + "Tick").html("");
+            $("#" + IDCamXuc + "Tick").html(response.view);
+            $("#IDCamXucPrev").val(IDCamXuc);
+            $("#feelCur").html(response.feelCur);
+        },
     });
 }
 function viewUserTagOfPost(IDBaiDang) {
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
     });
     $.ajax({
         method: "GET",
         url: "/ProcessViewUserTagOfPost",
         data: {
-            IDBaiDang: IDBaiDang
+            IDBaiDang: IDBaiDang,
         },
         success: function (response) {
-            $('#second').html(response);
-            $('#modal-one').show();
-            second.className += ' fixed h-screen';
-        }
+            $("#second").html(response);
+            $("#modal-one").show();
+            second.className += " fixed h-screen";
+        },
     });
 }
 function searchLocal() {
@@ -329,50 +333,50 @@ function searchLocal() {
         method: "GET",
         url: "/ProcessSearchLocal",
         data: {
-            Ten: $('#localInputPost').val()
+            Ten: $("#localInputPost").val(),
         },
         success: function (response) {
-            $('#localPost').html(response.view);
-        }
+            $("#localPost").html(response.view);
+        },
     });
 }
-function tickLocal(ID,Loai) {
+function tickLocal(ID, Loai) {
     $.ajax({
         method: "GET",
         url: "/ProcessTickLocal",
         data: {
             ID: ID,
-            Loai : Loai
+            Loai: Loai,
         },
         success: function (response) {
-            $('#' + $('#IDViTriPrev').val() + "Tick").html('');
-            $('#' + ID + "Tick").html(response.view);
-            $('#IDViTriPrev').val(ID);
-            $('#local').html(response.local);
-        }
+            $("#" + $("#IDViTriPrev").val() + "Tick").html("");
+            $("#" + ID + "Tick").html(response.view);
+            $("#IDViTriPrev").val(ID);
+            $("#local").html(response.local);
+        },
     });
 }
 function postTimeLine(IDNhan) {
-    $('#button-post').html('');
-    $('#button-post').prop("disabled", true);
-    $('#button-post').css('cursor', 'not-allowed');
-    $('#button-post').append('<i class="fas fa-cog fa-spin text-xl"></i>');
-    let formData = new FormData($('#formPost')[0]);
-    formData.append('IDNhan',IDNhan);
+    $("#button-post").html("");
+    $("#button-post").prop("disabled", true);
+    $("#button-post").css("cursor", "not-allowed");
+    $("#button-post").append('<i class="fas fa-cog fa-spin text-xl"></i>');
+    let formData = new FormData($("#formPost")[0]);
+    formData.append("IDNhan", IDNhan);
     $.ajax({
-        method : "POST",
-        url : "/ProcessPostTimeLine",
-        data : formData,
+        method: "POST",
+        url: "/ProcessPostTimeLine",
+        data: formData,
         contentType: false,
         processData: false,
-        success : function(response) {
-            $('.timeline').prepend(response.view);
-            second.innerHTML = '';
+        success: function (response) {
+            $(".timeline").prepend(response.view);
+            second.innerHTML = "";
             second.classList.remove("fixed");
             second.classList.remove("h-screen");
         },
-        error: function(response) {
-            console.log(response)
-        }
-    }); 
+        error: function (response) {
+            console.log(response);
+        },
+    });
 }

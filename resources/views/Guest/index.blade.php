@@ -101,6 +101,8 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
                 <!-- show post  -->
                 <div class="timeline">
                     <input type="hidden" name="indexPost" id="indexPost" value="0">
+                    @include('TimeLine/Post')
+                    @include('TimeLine/Post')
                 </div>
                 <!-- show post -->
             </div>
@@ -252,7 +254,6 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
             });
         });
         if (action == 'inactive') {
-            loading();
             loadingPost(0);
         }
         $(window).scroll(function() {

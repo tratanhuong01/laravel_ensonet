@@ -3,21 +3,19 @@ function loadingPost(indexPost) {
         method: "GET",
         url: "/ProcessLoadingPost",
         data: {
-            indexPost: $('#indexPost').val()
+            indexPost: $("#indexPost").val(),
         },
         success: function (response) {
             setTimeout(function () {
-                $('#indexPost').remove();
-                $('.removeTimeline').remove();
-                if (response == '') {
-
-                }
-                else {
-                    $('.timeline').append(response);
-                    action = 'inactive';
+                $("#indexPost").remove();
+                $(".removeTimeline").remove();
+                if (response === "") {
+                } else {
+                    $(".timeline").append(response);
+                    action = "inactive";
                 }
             }, 1000);
-        }
+        },
     });
 }
 function loadingPostProfile(indexPost, IDTaiKhoan) {
@@ -25,22 +23,20 @@ function loadingPostProfile(indexPost, IDTaiKhoan) {
         method: "GET",
         url: "/ProcessLoadingPostProfile",
         data: {
-            indexPost: $('#indexPost').val(),
-            IDTaiKhoan: IDTaiKhoan
+            indexPost: $("#indexPost").val(),
+            IDTaiKhoan: IDTaiKhoan,
         },
         success: function (response) {
             setTimeout(function () {
-                $('#indexPost').remove();
-                $('.removeTimeline').remove();
-                if (response == '') {
-
-                }
-                else {
-                    $('.timeline').append(response);
-                    action = 'inactive';
+                $("#indexPost").remove();
+                $(".removeTimeline").remove();
+                if (response === "") {
+                } else {
+                    $(".timeline").append(response);
+                    action = "inactive";
                 }
             }, 1000);
-        }
+        },
     });
 }
 function loading() {
@@ -48,7 +44,7 @@ function loading() {
         method: "GET",
         url: "/ProcessLoading",
         success: function (response) {
-            $('.timeline').append(response);
-        }
+            $(".timeline").append(response);
+        },
     });
 }

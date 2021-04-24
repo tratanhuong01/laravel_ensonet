@@ -61,7 +61,7 @@ $paths = explode('/', parse_url(url()->current())['path']);
                     <div class="w-full relative h-60 lg:h-96">
                         <a href="" id="ajaxCover"><img class="w-full h-60 object-cover lg:h-96 rounded-lg" id="anhBia" src="/{{ $user[0]->AnhBia}}" alt=""></a>
                     </div>
-                    <div class="z-30 p-2 bg-gray-100 absolute text-center rounded-lg bottom-3 right-3">
+                    <div class="z-0 p-2 bg-gray-100 absolute text-center rounded-lg bottom-3 right-3">
                         <form id="form">
                             {{ csrf_field() }}
                             <input onchange="changeBia(event)" name="fileBia" type="file" accept="image" id="changeB" style="display: none" enctype="multipart/form-data">
@@ -278,8 +278,8 @@ $paths = explode('/', parse_url(url()->current())['path']);
         })();
         var users_id = '{{ $users_id }}';
         var arrayImage = new Array();
-        var arrayImageAndVideoPost = new Array();
-        store.set('imageAndVideoPost', arrayImageAndVideoPost);
+        store.set('imageAndVideoPost', new Array());
+        store.set('imageAndVideoPostEdit', new Array());
         var action = 'inactive';
         var config = {
             routes: {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Chat\SettingChatController;
 use App\Models\Baidang;
 use App\Models\Gioithieu;
 use App\Models\Story;
@@ -389,3 +390,6 @@ Route::get('ProcessSearchLocal', function (Request $request) {
         )
     ]);
 });
+
+Route::get('ProcessViewChangeNickName', [SettingChatController::class, 'viewNickName'])
+    ->name('ProcessViewChangeNickName');

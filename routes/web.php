@@ -244,7 +244,7 @@ Route::group(['namespace' => 'Post'], function () {
         ->name('ProcessWarnDeletePost');
 
     // ajax chỉnh sửa bài đăng
-    Route::get('ProcessEditPost', [Post\EditPostController::class, 'edit'])
+    Route::post('ProcessEditPost', [Post\EditPostController::class, 'edit'])
         ->name('ProcessEditPost');
 
     // ajax view chỉnh sửa bài đăng
