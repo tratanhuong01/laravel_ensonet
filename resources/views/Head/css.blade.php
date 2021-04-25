@@ -47,12 +47,14 @@ Session::get('user')[0]->IDTaiKhoan : '' }}" />
 <script src="/js/ajax/comment/ajax_second.js"></script>
 <script src="/js/library/common.js"></script>
 <script src="/js/library/emojii.js"></script>
+<script src="/js/library/emojii_chat.js"></script>
 <script src="/js/ajax/main/ajax.js"></script>
 <script src="/js/realtime/notification.js"></script>
 <script src="/js/header.js"></script>
 <script src="/js/ajax/profile/ajax.js"></script>
 <script src="/js/ajax/story/ajax.js"></script>
 <script src="/js/ajax/post/ajax_third.js"></script>
+<script src="/js/ajax/chat/ajax_third.js"></script>
 @if (session()->has('user'))
 <script src="/js/realtime/state.js"></script>
 @endif

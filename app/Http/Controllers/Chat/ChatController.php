@@ -233,9 +233,13 @@ class ChatController extends Controller
                     event(new ChatGroupEvent($value->IDTaiKhoan, $idNhomTinNhan));
                 }
                 $messages = DataProcess::getMessageByID($sender, $receiver);
-                return view('Modal\ModalChat\ModalChat')->with('chater', $chater)
-                    ->with('messages', $messages)
-                    ->with('idNhomTinNhan', $idNhomTinNhan);
+                $index = count($messages);
+                return response()->json([
+                    'viewGroup' => "" . view('Modal\ModalChat\ModalChat')->with('chater', $chater)
+                        ->with('messages', $messages)
+                        ->with('index', $index - 15)
+                        ->with('idNhomTinNhan', $idNhomTinNhan)
+                ]);
             }
         } else {
             $json = [];

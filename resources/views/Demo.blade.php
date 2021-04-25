@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    @include('Modal/ModalChat/Nickname')
+    @include('Modal/ModalChat/IconFeelChange')
 </body>
 
 </html>

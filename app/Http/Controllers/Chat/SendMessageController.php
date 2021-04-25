@@ -212,4 +212,138 @@ class SendMessageController extends Controller
             'view' => "" . view('Modal/ModalChat/Child/ChatRight')->with('message', $message[0])
         ]);
     }
+    public function sendStickerMessageNewChat(Request $request)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $userGroup = Session::get('userGroup');
+        if (count($userGroup) == 1) {
+            $json = [];
+            $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
+            $json[0] = (object)[
+                'IDNoiDungTinNhan' => '100001',
+                'LoaiTinNhan' => '2',
+                'DuongDan' => $request->IDNhanDan,
+                'NoiDungTinNhan' => ''
+            ];
+            foreach ($userGroup as $key => $value) {
+                $chater = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $value)->get();
+                $sender = Tinnhan::where('tinnhan.IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)
+                    ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
+                    ->get();
+                $receiver = Tinnhan::where('tinnhan.IDTaiKhoan', '=', $value)
+                    ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
+                    ->get();
+                $idNhomTinNhan = DataProcess::checkIsSimilarGroupMessage($sender, $receiver);
+                $trangThai = DataProcessThird::checkChatUserActivity($idNhomTinNhan) == true ?
+                    DataProcessThird::createTrangThai($idNhomTinNhan, 1) :
+                    DataProcessThird::createTrangThai($idNhomTinNhan, 0);
+
+                Tinnhan::add(
+                    $idTinNhan,
+                    $idNhomTinNhan,
+                    Session::get('user')[0]->IDTaiKhoan,
+                    json_encode($json),
+                    DataProcess::createState($idNhomTinNhan, '1'),
+                    $trangThai,
+                    '1',
+                    date("Y-m-d H:i:s")
+                );
+                $getUserOfGroupMessage = DataProcess::getUserOfGroupMessage($idNhomTinNhan);
+                foreach ($getUserOfGroupMessage as $key => $value) {
+                    Thongbao::add(
+                        StringUtil::ID('thongbao', 'IDThongBao'),
+                        $value->IDTaiKhoan,
+                        'TINNHAN001',
+                        $idNhomTinNhan,
+                        Session::get('user')[0]->IDTaiKhoan,
+                        '0',
+                        date("Y-m-d H:i:s")
+                    );
+                    event(new ChatGroupEvent($value->IDTaiKhoan, $idNhomTinNhan));
+                }
+                $messages = DataProcess::getMessageByID($sender, $receiver);
+                $index = count($messages);
+                return response()->json([
+                    'viewGroup' => "" . view('Modal\ModalChat\ModalChat')->with('chater', $chater)
+                        ->with('messages', $messages)
+                        ->with('index', $index - 15)
+                        ->with('idNhomTinNhan', $idNhomTinNhan)
+                ]);
+            }
+        } else {
+            $json = [];
+            $idNhomTinNhan = StringUtil::ID('nhomtinnhan', 'IDNhomTinNhan');
+            Nhomtinnhan::add(
+                $idNhomTinNhan,
+                '',
+                '5B5B5B',
+                "👍",
+                '0'
+            );
+            $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
+            $json[0] = (object)[
+                'IDNoiDungTinNhan' => '100001',
+                'LoaiTinNhan' => '2',
+                'DuongDan' => $request->IDNhanDan,
+                'NoiDungTinNhan' => ''
+            ];
+            Tinnhan::add(
+                $idTinNhan,
+                $idNhomTinNhan,
+                Session::get('user')[0]->IDTaiKhoan,
+                json_encode($json),
+                '',
+                '',
+                '1',
+                date("Y-m-d H:i:s")
+            );
+            foreach ($userGroup as $key => $value) {
+                Tinnhan::add(
+                    StringUtil::ID('tinnhan', 'IDTinNhan'),
+                    $idNhomTinNhan,
+                    $value,
+                    '',
+                    '0',
+                    '0',
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+            }
+            $trangThai = DataProcessThird::checkChatUserActivity($idNhomTinNhan) == true ?
+                DataProcessThird::createTrangThai($idNhomTinNhan, 1) :
+                DataProcessThird::createTrangThai($idNhomTinNhan, 0);
+            $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)
+                ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                ->get();
+            $getUserOfGroupMessage = DataProcess::getUserOfGroupMessage($idNhomTinNhan);
+            foreach ($getUserOfGroupMessage as $key => $value) {
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $value->IDTaiKhoan,
+                    'TINNHAN001',
+                    $idNhomTinNhan,
+                    Session::get('user')[0]->IDTaiKhoan,
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+                event(new ChatGroupEvent($value->IDTaiKhoan, $idNhomTinNhan));
+            }
+            DB::update(
+                'UPDATE tinnhan SET tinnhan.TinhTrang = ?  WHERE tinnhan.IDTinNhan = ? ',
+                [DataProcess::createState($idNhomTinNhan, '1'), $idTinNhan]
+            );
+            DB::update(
+                'UPDATE tinnhan SET tinnhan.TrangThai = ?  WHERE tinnhan.IDTinNhan = ? ',
+                [$trangThai, $idTinNhan]
+            );
+            $chater = (DataProcess::getUserOfGroupMessage($idNhomTinNhan));
+            return response()->json([
+                'viewGroup' => "" . view('Modal/ModalChat/ModalGroupChat')
+                    ->with('chater', $chater)
+                    ->with('messages', DataProcess::getMessageByNhomTinNhan($idNhomTinNhan))
+                    ->with('idNhomTinNhan', $idNhomTinNhan),
+                'viewMessage' => "" . view('Modal/ModalChat/Child/ChatRight')->with('message', $message[0])
+            ]);
+        }
+    }
 }

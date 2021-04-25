@@ -393,3 +393,16 @@ Route::get('ProcessSearchLocal', function (Request $request) {
 
 Route::get('ProcessViewChangeNickName', [SettingChatController::class, 'viewNickName'])
     ->name('ProcessViewChangeNickName');
+
+Route::get('ProcessEditNickNameUserChat', [SettingChatController::class, 'editNickName'])
+    ->name('ProcessEditNickNameUserChat');
+
+Route::get('ProcessViewChangeIconFeelChat', [SettingChatController::class, 'viewIconFeel'])
+    ->name('ProcessViewChangeIconFeelChat');
+
+Route::get('ProcessChangeIconFeelChat', [SettingChatController::class, 'changeIconFeel'])
+    ->name('ProcessChangeIconFeelChat');
+
+Route::get('demo', function () {
+    return view('Demo');
+});

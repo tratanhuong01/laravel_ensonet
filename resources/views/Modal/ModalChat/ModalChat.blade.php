@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Session;
 use App\Process\DataProcess;
 use App\Models\StringUtil;
+use App\Process\DataProcessSix;
 
 $user = Session::get('user');
 
@@ -35,11 +36,21 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             @endphp
             @if ($timeAcitivity == "")
             <p onclick="openSettingChat('{{ $chater[0]->IDTaiKhoan }}')" class="py-2.5 dark:text-white cursor-pointer text-sm font-bold">
-                {{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}&nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
+                <span id="{{ $chater[0]->IDTaiKhoan }}nameChat">
+                    {{ DataProcessSix::getNickNameByUser($idNhomTinNhan,$chater[0]->IDTaiKhoan) 
+                        == "" ? $chater[0]->Ho . ' ' . $chater[0]->Ten : 
+                        DataProcessSix::getNickNameByUser($idNhomTinNhan,$chater[0]->IDTaiKhoan) }}
+                </span>
+                &nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
             </p>
             @else
             <p onclick="openSettingChat('{{ $chater[0]->IDTaiKhoan }}')" class="dark:text-white cursor-pointer text-sm font-bold">
-                {{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}&nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
+                <span id="{{ $chater[0]->IDTaiKhoan }}nameChat">
+                    {{ DataProcessSix::getNickNameByUser($idNhomTinNhan,$chater[0]->IDTaiKhoan) 
+                        == "" ? $chater[0]->Ho . ' ' . $chater[0]->Ten : 
+                        DataProcessSix::getNickNameByUser($idNhomTinNhan,$chater[0]->IDTaiKhoan) }}
+                </span>
+                &nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
                 <span class="text-gray-700 text-xs">{{ $timeAcitivity }}</span>
             </p>
             @endif
@@ -252,7 +263,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             </script>
         </div>
         <div class="w-1/12 pt-1 zoom">
-            <p onclick="sendMessageIcon('{{ $chater[0]->IDTaiKhoan }}',
+            <p id="{{ $idNhomTinNhan }}IconFeel" onclick="sendMessageIcon('{{ $chater[0]->IDTaiKhoan }}',
             '{{ $idNhomTinNhan }}',this)" class="cursor-pointer zoom text-xl">{{(count($messages)==0?'🤝':$messages[0]->BieuTuong)}}</p>
         </div>
     </div>
@@ -278,28 +289,18 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             '{{ $chater[0]->IDTaiKhoan }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third  
             cursor-pointer dark:text-white"><i class="fas fa-palette pr-1.5"></i> Màu
             </li>
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
+            <li onclick="openModalIconFeelChange('{{ $idNhomTinNhan }}',
+            '{{ json_encode($user[0]) }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
             cursor-pointer dark:text-white"><i class="far fa-smile pr-1.5"></i> Biểu
                 tượng cảm xúc</li>
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
+            <li onclick="openModalNickName('{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
             cursor-pointer dark:text-white"><i class="fas fa-pen-alt pr-1.5"></i> Biệt
                 danh</li>
-        </ul>
-        <ul class="dark:border-dark-third w-full border-b-2 border-gray-200 border-solid p-2">
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="fas fa-users pr-1.5"></i> Tạo nhóm
-            </li>
-        </ul>
-        <ul class="dark:border-dark-third w-full border-b-2 border-gray-200 border-solid p-2">
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="far fa-bell pr-1.5"></i> Tắt cuộc
-                trò chuyện</li>
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="fab fa-rev pr-1.5"></i> Bỏ qua tin
-                nhắn</li>
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="fas fa-ban pr-1.5"></i> Chặn</li>
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="far fa-trash-alt pr-1.5"></i> Xóa
+            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third 
+              cursor-pointer dark:text-white"><i class="far fa-trash-alt pr-1.5"></i> Xóa
                 cuộc trò chuyện
             </li>
         </ul>
-
     </div>
     <script>
         store.set('{{$chater[0]->IDTaiKhoan}}arrayImage', arrayImage);
@@ -324,7 +325,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                     IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
                 },
                 success: function(response) {
-                    if (response.typeMessage == 2) {
+                    if (response.typeMessage == 2 && response.color !== "") {
                         changeColorSVG(IDNhomTinNhan, '#' + response.color);
                     }
                     if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').length > 0)
@@ -332,7 +333,6 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                     else
                         $('#placeChat').append(response.viewBig)
                     if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
-                    // changeColorSVG('{{$idNhomTinNhan}}', )
                 }
             });
         });

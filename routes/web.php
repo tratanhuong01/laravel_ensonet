@@ -377,7 +377,7 @@ Route::group(['namespace' => 'Chat'], function () {
         ->name('ProcessLoadGUINewChatAdd');
 
     //
-    Route::get('ProcessSendMessageGroup', [Chat\ChatController::class, 'sendMessageGroup'])
+    Route::post('ProcessSendMessageGroup', [Chat\ChatController::class, 'sendMessageGroup'])
         ->name('ProcessSendMessageGroup');
 
     //
@@ -402,6 +402,9 @@ Route::group(['namespace' => 'Chat'], function () {
 
     Route::get('ProcessSendStickerMessage', [Chat\SendMessageController::class, 'sendStickerMessage'])
         ->name('ProcessSendStickerMessage');
+
+    Route::get('ProcessSendStickerMessageNewChat', [Chat\SendMessageController::class, 'sendStickerMessageNewChat'])
+        ->name('ProcessSendStickerMessageNewChat');
 });
 
 //ajax xác nhận thành công

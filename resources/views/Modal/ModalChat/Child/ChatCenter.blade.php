@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Session;
 
-$user = Session::get('user');
+$user = session()->has('user') ? Session::get('user') : $user;
 
 ?>
 

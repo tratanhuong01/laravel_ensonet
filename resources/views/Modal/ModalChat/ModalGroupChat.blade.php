@@ -244,7 +244,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             </script>
         </div>
         <div class="w-1/12 pt-1 zoom">
-            <p onclick="sendMessageIconGroup('{{ $chater[0]->IDTaiKhoan }}',
+            <p id="{{ $idNhomTinNhan }}IconFeel" onclick="sendMessageIconGroup('{{ $chater[0]->IDTaiKhoan }}',
             '{{ $idNhomTinNhan }}',this)" class="cursor-pointer zoom text-xl">
                 {{ (count($messages)==0?'🤝': $messages[0]->BieuTuong) }}
             </p>
@@ -263,28 +263,17 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             '{{ $chater[0]->IDTaiKhoan }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third  
             cursor-pointer dark:text-white"><i class="fas fa-palette pr-1.5"></i> Màu
             </li>
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
+            <li onclick="openModalIconFeelChange('{{ $idNhomTinNhan }}',
+            '{{ json_encode($user[0]) }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
             cursor-pointer dark:text-white"><i class="far fa-smile pr-1.5"></i> Biểu
                 tượng cảm xúc</li>
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
+            <li onclick="openModalNickName('{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
             cursor-pointer dark:text-white"><i class="fas fa-pen-alt pr-1.5"></i> Biệt
                 danh</li>
-        </ul>
-        <ul class="dark:border-dark-third w-full border-b-2 border-gray-200 border-solid p-2">
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="fas fa-users pr-1.5"></i> Tạo nhóm
-            </li>
-        </ul>
-        <ul class="dark:border-dark-third w-full border-b-2 border-gray-200 border-solid p-2">
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="far fa-bell pr-1.5"></i> Tắt cuộc
-                trò chuyện</li>
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="fab fa-rev pr-1.5"></i> Bỏ qua tin
-                nhắn</li>
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="fas fa-ban pr-1.5"></i> Chặn</li>
             <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="far fa-trash-alt pr-1.5"></i> Xóa
                 cuộc trò chuyện
             </li>
         </ul>
-
     </div>
     <script>
         store.set('{{$idNhomTinNhan}}arrayImage', arrayImage);

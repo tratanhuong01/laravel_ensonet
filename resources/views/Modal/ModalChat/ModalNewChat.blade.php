@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Session;
 use App\Process\DataProcess;
 
+$idNhomTinNhan = "newChat";
+
 ?>
 <div id="CreateNewChatChat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
 dark:border-dark-third border-2 border-solid border-gray-300 ml-auto" style="height: 486px;">
@@ -41,6 +43,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto" style="hei
 
         </div>
     </div>
+    <!-- #65676B -->
     <div id="typeChatNewChat" class="w-full bg-white dark:bg-dark-second relative z-20 pb-2 pt-4 px-1 flex dark:border-dark-third border-t-2 border-solid border-gray-300">
         <div id="newExcen" class="w-auto px-1 absolute -top-full rounded-2xl py-2 z-10 bg-white 
         dark:bg-dark-second" style="display: none;">
@@ -77,11 +80,28 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto" style="hei
                 </li>
             </ul>
         </div>
+        <div id="imageChat" class=" absolute rounded-2xl z-10 bg-white 
+        dark:bg-dark-second hidden" style="bottom: 102%;width: 335px;">
+            <ul class="flex p-2 overflow-x-auto" style="max-width: 335px;width: 335px;">
+                <li id="liLoadAdd" class="w-16 h-16 rounded-lg text-center mr-2 bg-gray-300  flex-shrink-0 dark:bg-dark-third flex justify-center">
+                    <input onchange="loadAddImageChat(this,'')" type="file" name="fileImageAdd[]" class="hidden" id="fileImageChatMainAdd" multiple="multiple">
+                    <label for="fileImageChatMainAdd" class="flex items-center">
+                        <i class="fas fa-file-image text-2xl dark:text-white flex items-center"></i>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div id="modalChatElement" class="bg-white my-2 absolute w-72 dark:border-dark-second 
+        shadow-lg border-gray-300 p-1 border-2 border-solid rounded-lg dark:bg-dark-second hidden" style="bottom: 102%;max-height: 365px;height: 360px;">
+        </div>
+        <div id="modalEmoji" class="bg-white absolute w-80 dark:border-dark-second 
+        shadow-lg border-gray-300 rounded-lg dark:bg-dark-second hidden" style="bottom: 102%;max-height: 265;height: 265px;">
+        </div>
         <div class="w-1/12 flex py-1">
             <div class="cursor-pointer fill-65676B ">
                 <div class="hover:bg-gray-200 rounded-full 
                 dark:hover:bg-dark-third  p-1 ">
-                    <svg id="addOrCancel" fill="#65676B" id="addOrCancel" onclick="loadTextBoxType()" class="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji tftn3vyl" height="20px" width="20px" viewBox="0 0 24 24">
+                    <svg fill="#65676B" id="addOrCancel" onclick="loadTextBoxType()" class="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji tftn3vyl" height="20px" width="20px" viewBox="0 0 24 24">
                         <g fill-rule="evenodd">
                             <polygon fill="none" points="-6,30 30,30 30,-6 -6,-6 "></polygon>
                             <path d="m18,11l-5,0l0,-5c0,-0.552 -0.448,-1 -1,-1c-0.5525,0 -1,0.448 -1,1l0,5l-5,0c-0.5525,0 -1,0.448 -1,1c0,0.552 0.4475,1 1,1l5,0l0,5c0,0.552 0.4475,1 1,1c0.552,0 1,-0.448 1,-1l0,-5l5,0c0.552,0 1,-0.448 1,-1c0,-0.552 -0.448,-1 -1,-1m-6,13c-6.6275,0 -12,-5.3725 -12,-12c0,-6.6275 5.3725,-12 12,-12c6.627,0 12,5.3725 12,12c0,6.6275 -5.373,12 -12,12">
@@ -91,19 +111,23 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto" style="hei
                 </div>
             </div>
         </div>
-        <ul class="three-exten w-1/3 py-1" style="display: block;">
-            <li class="float-left cursor-pointer p-1 fill-65676B hover:bg-gray-200 rounded-full 
-                dark:hover:bg-dark-third">
-                <svg class="a8c37x1j ms05siws hr662l2t b7h9ocf4" height="20px" width="20px" viewBox="0 -1 17 17">
-                    <g fill="gray" fill-rule="evenodd">
-                        <path id="picture1" fill="#65676B" d="M2.882 13.13C3.476 4.743 3.773.48 3.773.348L2.195.516c-.7.1-1.478.647-1.478 1.647l1.092 11.419c0 .5.2.9.4 1.3.4.2.7.4.9.4h.4c-.6-.6-.727-.951-.627-2.151z" fill="gray"></path>
-                        <circle cx="8.5" cy="4.5" r="1.5" fill="gray"></circle>
-                        <path id="picture2" fill="#65676B" d="M14 6.2c-.2-.2-.6-.3-.8-.1l-2.8 2.4c-.2.1-.2.4 0 .6l.6.7c.2.2.2.6-.1.8-.1.1-.2.1-.4.1s-.3-.1-.4-.2L8.3 8.3c-.2-.2-.6-.3-.8-.1l-2.6 2-.4 3.1c0 .5.2 1.6.7 1.7l8.8.6c.2 0 .5 0 .7-.2.2-.2.5-.7.6-.9l.6-5.9L14 6.2z" fill="#65676B"></path>
-                        <path id="picture3" fill="#65676B" d="M13.9 15.5l-8.2-.7c-.7-.1-1.3-.8-1.3-1.6l1-11.4C5.5 1 6.2.5 7 .5l8.2.7c.8.1 1.3.8 1.3 1.6l-1 11.4c-.1.8-.8 1.4-1.6 1.3z" stroke-linecap="round" stroke-linejoin="round" stroke="#65676B"></path>
-                    </g>
-                </svg>
-            </li>
-            <li class="float-left cursor-pointer p-1 fill-65676B  hover:bg-gray-200 rounded-full 
+        <ul class="three-exten w-1/3 py-1" id="threeexten" style="display: block;">
+            <input onchange="onchangeViewSendImageChat(this,'')" class="hidden" type="file" name="fileImage[]" id="fileImageChatMain" multiple="multiple">
+            <label for="fileImageChatMain">
+                <li class="float-left cursor-pointer p-1 fill-65676B hover:bg-gray-200 rounded-full 
+                    dark:hover:bg-dark-third">
+                    <svg class="a8c37x1j ms05siws hr662l2t b7h9ocf4" height="20px" width="20px" viewBox="0 -1 17 17">
+                        <g fill="gray" fill-rule="evenodd">
+                            <path id="picture1" fill="#65676B" d="M2.882 13.13C3.476 4.743 3.773.48 3.773.348L2.195.516c-.7.1-1.478.647-1.478 1.647l1.092 11.419c0 .5.2.9.4 1.3.4.2.7.4.9.4h.4c-.6-.6-.727-.951-.627-2.151z" fill="gray"></path>
+                            <circle cx="8.5" cy="4.5" r="1.5" fill="gray"></circle>
+                            <path id="picture2" fill="#65676B" d="M14 6.2c-.2-.2-.6-.3-.8-.1l-2.8 2.4c-.2.1-.2.4 0 .6l.6.7c.2.2.2.6-.1.8-.1.1-.2.1-.4.1s-.3-.1-.4-.2L8.3 8.3c-.2-.2-.6-.3-.8-.1l-2.6 2-.4 3.1c0 .5.2 1.6.7 1.7l8.8.6c.2 0 .5 0 .7-.2.2-.2.5-.7.6-.9l.6-5.9L14 6.2z" fill="#65676B"></path>
+                            <path id="picture3" fill="#65676B" d="M13.9 15.5l-8.2-.7c-.7-.1-1.3-.8-1.3-1.6l1-11.4C5.5 1 6.2.5 7 .5l8.2.7c.8.1 1.3.8 1.3 1.6l-1 11.4c-.1.8-.8 1.4-1.6 1.3z" stroke-linecap="round" stroke-linejoin="round" stroke="#65676B"></path>
+                        </g>
+                    </svg>
+                </li>
+            </label>
+            <li onclick="openModalElementChildChat('Sticker','',
+            '')" class="float-left cursor-pointer p-1 fill-65676B  hover:bg-gray-200 rounded-full 
                 dark:hover:bg-dark-third">
                 <svg id="sticker" fill="#65676B" class="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji" height="20px" width="20px" viewBox="0 0 17 16" x="0px" y="0px">
                     <g fill-rule="evenodd">
@@ -123,10 +147,10 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto" style="hei
                 </svg>
             </li>
         </ul>
-        <div class="three-exten1 w-8/12">
+        <div class="three-exten1 w-8/12" id="threeexten1">
             <?php $user = Session::get('user'); ?>
             <div onkeyup="sendMessageGroups(event)" id="PlaceTypeTextNewChat" class="place-input-type border-none rounded-2xl pl-2 outline-none
-             bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat(0)" contenteditable placeholder="Aa">
+             bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat('')" contenteditable placeholder="Aa">
 
             </div>
             <script>
@@ -136,9 +160,10 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto" style="hei
             </script>
         </div>
         <div class="w-1/12 pt-1 zoom">
-            <p class="cursor-pointer zoom text-xl">
-                🖤
-            </p>
+            <p id="IconFeel" onclick="sendMessageGroups(event)" class="cursor-pointer zoom text-xl">🤝</p>
         </div>
     </div>
 </div>
+<script>
+    store.set('arrayImage', arrayImage);
+</script>

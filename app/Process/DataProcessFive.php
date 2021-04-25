@@ -142,11 +142,13 @@ class DataProcessFive extends Model
         $index = 0;
         foreach ($messages as $key => $value) {
             $content = json_decode($value->NoiDung);
-            if ($content[0]->LoaiTinNhan == 1)
-                foreach ($content as $keys => $values) {
-                    $images[$index] = $values->DuongDan;
-                    $index++;
-                }
+            if (isset($content[0])) {
+                if ($content[0]->LoaiTinNhan == 1)
+                    foreach ($content as $keys => $values) {
+                        $images[$index] = $values->DuongDan;
+                        $index++;
+                    }
+            }
         }
         return $images;
     }

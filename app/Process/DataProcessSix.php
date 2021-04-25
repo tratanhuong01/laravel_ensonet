@@ -4,6 +4,7 @@ namespace App\Process;
 
 use App\Models\Congty;
 use App\Models\Diachi;
+use App\Models\Tinnhan;
 use App\Models\Truonghoc;
 use Illuminate\Database\Eloquent\Model;
 
@@ -69,5 +70,14 @@ class DataProcessSix extends Model
             }
         }
         return $newArray;
+    }
+    public static function getNickNameByUser($idNhomTinNhan, $idTaiKhoan)
+    {
+        $message = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
+            ->where('tinnhan.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('tinnhan.LoaiTinNhan', '=', 0)
+            ->get();
+        return $message[0]->NoiDung == NULL || $message[0] == ""
+            ? "" : $message[0]->NoiDung;
     }
 }
