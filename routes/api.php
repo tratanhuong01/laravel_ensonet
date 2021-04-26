@@ -392,27 +392,39 @@ Route::get('ProcessSearchLocal', function (Request $request) {
     ]);
 });
 
-Route::get('ProcessViewChangeNickName', [SettingChatController::class, 'viewNickName'])
+Route::get('ProcessViewChangeNickName', [Chat\SettingChatController::class, 'viewNickName'])
     ->name('ProcessViewChangeNickName');
 
-Route::get('ProcessEditNickNameUserChat', [SettingChatController::class, 'editNickName'])
+Route::get('ProcessEditNickNameUserChat', [Chat\SettingChatController::class, 'editNickName'])
     ->name('ProcessEditNickNameUserChat');
 
-Route::get('ProcessViewChangeIconFeelChat', [SettingChatController::class, 'viewIconFeel'])
+Route::get('ProcessViewChangeIconFeelChat', [Chat\SettingChatController::class, 'viewIconFeel'])
     ->name('ProcessViewChangeIconFeelChat');
 
-Route::get('ProcessChangeIconFeelChat', [SettingChatController::class, 'changeIconFeel'])
+Route::get('ProcessChangeIconFeelChat', [Chat\SettingChatController::class, 'changeIconFeel'])
     ->name('ProcessChangeIconFeelChat');
 
-Route::get('ProcessViewChangeNameChat', [SettingChatController::class, 'viewChangeNameChat'])
+Route::get('ProcessViewChangeNameChat', [Chat\SettingChatController::class, 'viewChangeNameChat'])
     ->name('ProcessViewChangeNameChat');
 
-Route::get('ProcessChangeNameChat', [SettingChatController::class, 'changeNameChat'])
+Route::get('ProcessChangeNameChat', [Chat\SettingChatController::class, 'changeNameChat'])
     ->name('ProcessChangeNameChat');
 
 Route::get('demo', function () {
-    return view('Demo');
+    return DataProcessSix::numberMessageNot('1000000007', '10010');
 });
 
-Route::get('ProcessViewMemberGroupChat', [GroupChatSettingController::class, 'viewMember'])
+Route::get('ProcessViewMemberGroupChat', [Chat\GroupChatSettingController::class, 'viewMember'])
     ->name('ProcessViewMemberGroupChat');
+
+Route::get('ProcessViewOutGroupChat', [Chat\GroupChatSettingController::class, 'viewOutGroupChat'])
+    ->name('ProcessViewOutGroupChat');
+
+Route::get('ProcessOutGroupChat', [Chat\GroupChatSettingController::class, 'outGroupChat'])
+    ->name('ProcessOutGroupChat');
+
+Route::get('ProcessViewDeleteAllChat', [Chat\DeleteMessageController::class, 'viewDeleteChat'])
+    ->name('ProcessViewDeleteAllChat');
+
+Route::get('ProcessDeleteAllChat', [Chat\DeleteMessageController::class, 'deleteChat'])
+    ->name('ProcessDeleteAllChat');

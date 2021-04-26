@@ -168,6 +168,12 @@ function changeNameChat(IDNhomTinNhan, user) {
                     (response.numberMembers === 1 ? response.IDMain : "") +
                     "Messenges"
             ).append(response.view);
+            document
+                .getElementsByTagName("body")[0]
+                .classList.remove("overflow-hidden");
+            second.innerHTML = "";
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
             var objDiv = document.getElementById(
                 IDNhomTinNhan +
                     (response.numberMembers === 1 ? response.IDMain : "") +
@@ -194,6 +200,94 @@ function openModalMemberChatGroup(IDNhomTinNhan, user) {
             document
                 .getElementsByTagName("body")[0]
                 .classList.add("overflow-hidden");
+        },
+    });
+}
+function outGroupChatMain(IDNhomTinNhan, user) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessViewOutGroupChat",
+        data: {
+            IDNhomTinNhan: IDNhomTinNhan,
+            user: user,
+        },
+        success: function (response) {
+            document
+                .getElementsByTagName("body")[0]
+                .classList.add("overflow-hidden");
+            $("#modal-one").show();
+            second.innerHTML = response.view;
+            second.className += " fixed h-screen";
+            document
+                .getElementById("btnOutGroup")
+                .addEventListener("click", function () {
+                    $.ajax({
+                        method: "GET",
+                        url: "/ProcessOutGroupChat",
+                        data: {
+                            IDNhomTinNhan: IDNhomTinNhan,
+                            user: user,
+                        },
+                        success: function (responses) {
+                            document
+                                .getElementsByTagName("body")[0]
+                                .classList.remove("overflow-hidden");
+                            second.innerHTML = "";
+                            second.classList.remove("fixed");
+                            second.classList.remove("h-screen");
+                            $(
+                                "#" +
+                                    IDNhomTinNhan +
+                                    JSON.parse(user).IDTaiKhoan +
+                                    "Chat"
+                            ).remove();
+                        },
+                    });
+                });
+        },
+    });
+}
+function deleteAllChatByUser(IDNhomTinNhan, user) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessViewDeleteAllChat",
+        data: {
+            IDNhomTinNhan: IDNhomTinNhan,
+            user: user,
+        },
+        success: function (response) {
+            document
+                .getElementsByTagName("body")[0]
+                .classList.add("overflow-hidden");
+            $("#modal-one").show();
+            second.innerHTML = response.view;
+            second.className += " fixed h-screen";
+            document
+                .getElementById("btnDeleteAllChat")
+                .addEventListener("click", function () {
+                    $.ajax({
+                        method: "GET",
+                        url: "/ProcessDeleteAllChat",
+                        data: {
+                            IDNhomTinNhan: IDNhomTinNhan,
+                            user: user,
+                        },
+                        success: function (responses) {
+                            document
+                                .getElementsByTagName("body")[0]
+                                .classList.remove("overflow-hidden");
+                            second.innerHTML = "";
+                            second.classList.remove("fixed");
+                            second.classList.remove("h-screen");
+                            $(
+                                "#" +
+                                    IDNhomTinNhan +
+                                    JSON.parse(user).IDTaiKhoan +
+                                    "Chat"
+                            ).remove();
+                        },
+                    });
+                });
         },
     });
 }

@@ -80,4 +80,38 @@ class DataProcessSix extends Model
         return $message[0]->NoiDung == NULL || $message[0] == ""
             ? "" : $message[0]->NoiDung;
     }
+    public static function checkOutOrKichGroup($idNhomTinNhan, $idTaiKhoan)
+    {
+        $message = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
+            ->where('tinnhan.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('tinnhan.LoaiTinNhan', '=', 0)
+            ->get();
+        $result = true;
+        if ($message[0]->TrangThai == 1 || $message[0]->TrangThai == 2)
+            $result = true;
+        else
+            $result = false;
+        return $result;
+    }
+    public static function numberMessageNot($idNhomTinNhan, $idTaiKhoan)
+    {
+        $message = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $idNhomTinNhan)
+            ->where('tinnhan.LoaiTinNhan', '!=', 0)
+            ->get();
+        $count = 0;
+        foreach ($message as $key => $value) {
+            $array = explode('@', $value->TinhTrang);
+            foreach ($array as $key => $value) {
+                if (
+                    explode('#', $value)[0] == $idTaiKhoan
+                    && explode('#', $value)[1] == 3
+                )
+                    $count++;
+            }
+        }
+        if ($count == count($message))
+            return true;
+        else
+            return false;
+    }
 }

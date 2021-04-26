@@ -296,7 +296,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             <li onclick="openModalNickName('{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
             cursor-pointer dark:text-white"><i class="fas fa-pen-alt pr-1.5"></i> Biệt
                 danh</li>
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third 
+            <li onclick="deleteAllChatByUser('{{ $idNhomTinNhan }}','{{ json_encode($user[0]) }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third 
               cursor-pointer dark:text-white"><i class="far fa-trash-alt pr-1.5"></i> Xóa
                 cuộc trò chuyện
             </li>

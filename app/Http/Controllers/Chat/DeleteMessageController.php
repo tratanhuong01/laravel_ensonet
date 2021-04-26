@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
+use Illuminate\Support\Facades\Redis;
 
 class DeleteMessageController extends Controller
 {
@@ -94,5 +95,32 @@ class DeleteMessageController extends Controller
                 ),
             'IDTinNhan' => $request->IDTinNhan
         ]);
+    }
+    public function viewDeleteChat(Request $request)
+    {
+        return response()->json([
+            'view' => "" . view('Modal/ModalChat/DeleteAllChat')
+                ->with('idNhomTinNhan', $request->IDNhomTinNhan)
+                ->with('json', $request->user)
+        ]);
+    }
+    public function deleteChat(Request $request)
+    {
+        $user = json_decode($request->user);
+        $message = Tinnhan::where('tinnhan.IDNhomTinNhan', '=', $request->IDNhomTinNhan)
+            ->where('tinnhan.LoaiTinNhan', '!=', 0)
+            ->get();
+        foreach ($message as $key => $value) {
+            DB::update('UPDATE tinnhan SET tinnhan.TinhTrang = ? 
+            WHERE tinnhan.IDTinNhan = ? ', [
+                DataProcess::updateStateAPI(
+                    $value->IDTinNhan,
+                    $value->IDNhomTinNhan,
+                    3,
+                    $user->IDTaiKhoan
+                ),
+                $value->IDTinNhan
+            ]);
+        }
     }
 }

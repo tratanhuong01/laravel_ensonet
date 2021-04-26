@@ -292,9 +292,19 @@ class SendMessageController extends Controller
                 $idNhomTinNhan,
                 Session::get('user')[0]->IDTaiKhoan,
                 json_encode($json),
-                '',
-                '',
+                0,
+                0,
                 '1',
+                date("Y-m-d H:i:s")
+            );
+            Tinnhan::add(
+                StringUtil::ID('tinnhan', 'IDTinNhan'),
+                $idNhomTinNhan,
+                Session::get('user')[0]->IDTaiKhoan,
+                NULL,
+                1,
+                0,
+                '0',
                 date("Y-m-d H:i:s")
             );
             foreach ($userGroup as $key => $value) {

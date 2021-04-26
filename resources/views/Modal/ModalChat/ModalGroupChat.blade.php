@@ -283,8 +283,9 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 Tên cuộc trò chuyện
             </li>
 
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="far fa-trash-alt pr-1.5"></i> Xóa
-                cuộc trò chuyện
+            <li onclick="deleteAllChatByUser('{{ $idNhomTinNhan }}','{{ json_encode($user[0]) }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third  
+             cursor-pointer dark:text-white"><i class="far fa-trash-alt pr-1.5"></i>
+                Xóa cuộc trò chuyện
             </li>
         </ul>
         <ul class="dark:border-dark-third w-full border-b-2 border-gray-200 border-solid p-2">
@@ -299,8 +300,8 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
                 <i class="fas fa-user-plus pr-1.5"></i>
                 Thêm thành viên
             </li>
-            <li onclick="" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
-            cursor-pointer dark:text-white">
+            <li onclick="outGroupChatMain('{{ $idNhomTinNhan }}',
+            '{{ json_encode($user[0]) }}')" class=" w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer dark:text-white">
                 <i class='bx bx-log-out pr-1.5'></i>
                 Rời khỏi nhóm
             </li>

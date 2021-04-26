@@ -67,7 +67,10 @@ class ChatController extends Controller
     }
     public function createChat()
     {
-        return view('Modal/ModalChat/ModalNewChat');
+        Session::forget('userGroup');
+        return response()->json([
+            'view' => "" . view('Modal/ModalChat/ModalNewChat')
+        ]);
     }
     public function addUser(Request $request)
     {
@@ -342,7 +345,7 @@ class ChatController extends Controller
                 'UPDATE tinnhan SET tinnhan.TrangThai = ?  WHERE tinnhan.IDTinNhan = ? ',
                 [$trangThai, $idTinNhan]
             );
-            $chater = (DataProcess::getUserOfGroupMessage($idNhomTinNhan));
+            $chater = (DataProcess::getUserOfGroupMessageReal($idNhomTinNhan));
             return response()->json([
                 'viewGroup' => "" . view('Modal/ModalChat/ModalGroupChat')
                     ->with('chater', $chater)
@@ -354,7 +357,7 @@ class ChatController extends Controller
     }
     public function openMessageGroup(Request $request)
     {
-        $chater = (DataProcess::getUserOfGroupMessage($request->IDNhomTinNhan));
+        $chater = (DataProcess::getUserOfGroupMessageReal($request->IDNhomTinNhan));
         if (count($chater) == 1) {
             $messages = DataProcess::getMessageByNhomTinNhan($request->IDNhomTinNhan);
             return view('Modal\ModalChat\ModalChat')->with('chater', $chater)

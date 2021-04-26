@@ -6,6 +6,7 @@ use App\Process\DataProcess;
 use Illuminate\Support\Facades\Session;
 use App\Models\StringUtil;
 use App\Process\DataProcessFive;
+use App\Process\DataProcessSix;
 
 ?>
 @if(count($allMess) == 0)
@@ -15,9 +16,13 @@ use App\Process\DataProcessFive;
 @else
 @foreach($allMess as $key => $value)
 @php
-$el = DataProcess::getUserOfGroupMessage($value[0]->IDNhomTinNhan)
+$el = DataProcess::getUserOfGroupMessage($value[0]->IDNhomTinNhan);
+$elMain = DataProcess::getUserOfGroupMessageReal($value[0]->IDNhomTinNhan);
 @endphp
 @if(count($el) == 1)
+@if (DataProcessSix::checkOutOrKichGroup($value[0]->IDNhomTinNhan,
+Session::get('user')[0]->IDTaiKhoan) == false && DataProcessSix::numberMessageNot($value[0]->IDNhomTinNhan,
+Session::get('user')[0]->IDTaiKhoan) == false)
 <div onclick="openChat('{{ $el[0]->IDTaiKhoan }}')" class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
     hover:bg-gray-200 py-2 px-1">
     <div class="w-1/5">
@@ -137,18 +142,22 @@ $el = DataProcess::getUserOfGroupMessage($value[0]->IDNhomTinNhan)
     </div>
 
 </div>
+@endif
 @else
 @php
 $sws = $value[count($value) - 1]->TinhTrang == 0 ? '0' : explode('#',DataProcess::getTrangThaiTinNhan($value[count($value) - 1]->TinhTrang,
 Session::get('user')[0]->IDTaiKhoan))[1];
 @endphp
+@if (DataProcessSix::checkOutOrKichGroup($value[0]->IDNhomTinNhan,
+Session::get('user')[0]->IDTaiKhoan) == false && DataProcessSix::numberMessageNot($value[0]->IDNhomTinNhan,
+Session::get('user')[0]->IDTaiKhoan) == false)
 <div onclick="openChatGroup('{{ $value[0]->IDNhomTinNhan }}')" class="mess-person cursor-pointer flex relative dark:hover:bg-dark-third 
     hover:bg-gray-200 py-2 px-1">
     <div class="w-1/5">
         <div class="w-14 h-14 relative mx-auto">
-            <img src="/{{ $el[0]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
+            <img src="/{{ $elMain[0]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
                 absolute top-0 right-0" alt="">
-            <img src="/{{ $el[1]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
+            <img src="/{{ $elMain[1]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
                 absolute bottom-0 left-0" alt="">
         </div>
     </div>
@@ -267,6 +276,7 @@ Session::get('user')[0]->IDTaiKhoan))[1];
         </span>
     </div>
 </div>
+@endif
 @endif
 @endforeach
 @endif

@@ -283,13 +283,13 @@ function viewRemoveMessage(IDTinNhan, IDTaiKhoan, IDNhomTinNhan) {
                         second.innerHTML = "";
                         second.classList.remove("fixed");
                         second.classList.remove("h-screen");
-                        if ($("#thuHoiOrXoa").val() != "ThuHoi") {
+                        if ($("#thuHoiOrXoa").val() !== "ThuHoi") {
+                            $("#" + IDTinNhan).remove();
+                            $("#" + IDTinNhan + "Time").remove();
+                        } else {
                             $("#" + IDTinNhan).replaceWith(
                                 createElementFromHTML(responses.right)
                             );
-                        } else {
-                            $("#" + IDTinNhan).remove();
-                            $("#" + IDTinNhan + "Time").remove();
                         }
                     },
                 });
@@ -471,7 +471,7 @@ function openCreateChat() {
             method: "GET",
             url: "/ProcessOpenCreateChat",
             success: function (response) {
-                $("#placeChat").append(response);
+                $("#placeChat").append(response.view);
                 $("#typeChatNewChat").css("opacity", "0.5");
                 $("#typeChatNewChat").css("pointerEvents", "none");
             },

@@ -135,7 +135,7 @@ class DataProcess extends Model
         $usersOfGroupMessages = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan ,AnhDaiDien,Ho,
         Ten,ThoiGianHoatDong FROM tinnhan INNER JOIN 
         taikhoan ON tinnhan.IDTaiKhoan = taikhoan.IDTaiKhoan
-        WHERE tinnhan.IDNhomTinNhan = ? ', [$idNhomTinNhan]);
+        WHERE tinnhan.IDNhomTinNhan = ?  ', [$idNhomTinNhan]);
         foreach ($usersOfGroupMessages as $key => $value) {
             if ($usersOfGroupMessages[$key]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan) {
                 unset($usersOfGroupMessages[$key]);
@@ -143,6 +143,15 @@ class DataProcess extends Model
                 break;
             }
         }
+    }
+    public static function getUserOfGroupMessageReal($idNhomTinNhan)
+    {
+        $usersOfGroupMessages = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan ,AnhDaiDien,Ho,
+        Ten,ThoiGianHoatDong FROM tinnhan INNER JOIN 
+        taikhoan ON tinnhan.IDTaiKhoan = taikhoan.IDTaiKhoan
+        WHERE tinnhan.IDNhomTinNhan = ? AND tinnhan.LoaiTinNhan = 0 
+        AND tinnhan.TrangThai = 0 ', [$idNhomTinNhan]);
+        return $usersOfGroupMessages;
     }
     public static function getUserOfGroupMessageAPI($idNhomTinNhan, $idTaiKhoan)
     {
@@ -315,5 +324,20 @@ class DataProcess extends Model
                 }
             }
         }
+    }
+    public static function updateStateAPI($idTinNhan, $idNhomTinNhan, $tinhTrang, $idTaiKhoan)
+    {
+        $users = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan FROM tinnhan 
+        WHERE tinnhan.IDNhomTinNhan = ? AND LoaiTinNhan = 0', [$idNhomTinNhan]);
+        $s = "";
+        $state = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)->get()[0]->TinhTrang;
+        $state = explode('@', $state);
+        for ($i = 0; $i < count($state) - 1; $i++) {
+            if (explode('#', $state[$i])[0] == $idTaiKhoan) {
+            } else {
+                $s .= $state[$i] . '@';
+            }
+        }
+        return $s . $idTaiKhoan . '#3@';
     }
 }
