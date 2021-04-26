@@ -207,4 +207,79 @@ class SettingChatController extends Controller
             'IDMain' => $getUserOfGroupMessage[0]->IDTaiKhoan
         ]);
     }
+    public function viewChangeNameChat(Request $request)
+    {
+        return response()->json([
+            'view' => "" . view('Modal/ModalChat/ChangeNameChat')
+                ->with('idNhomTinNhan', $request->IDNhomTinNhan)
+                ->with('user', $request->user)
+        ]);
+    }
+    public function changeNameChat(Request $request)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $user = json_decode($request->user);
+        $getUserOfGroupMessage = DataProcess::getUserOfGroupMessageAPI(
+            $request->IDNhomTinNhan,
+            $user->IDTaiKhoan
+        );
+        $idTinNhan = StringUtil::ID('tinnhan', 'IDTinNhan');
+        $trangThai = DataProcessThird::checkChatUserActivityAPI(
+            $request->IDNhomTinNhan,
+            $user->IDTaiKhoan
+        ) == true ?
+            DataProcessThird::createTrangThai($request->IDNhomTinNhan, 1) :
+            DataProcessThird::createTrangThai($request->IDNhomTinNhan, 0);
+        Tinnhan::add(
+            $idTinNhan,
+            $request->IDNhomTinNhan,
+            $user->IDTaiKhoan,
+            "đã đặt tên nhóm là " . $request->data,
+            DataProcess::createState($request->IDNhomTinNhan, '0'),
+            $trangThai,
+            '2',
+            date("Y-m-d H:i:s")
+        );
+        $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $idTinNhan)
+            ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->get();
+        foreach ($getUserOfGroupMessage as $key => $value) {
+            if (count($getUserOfGroupMessage) == 1) {
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $value->IDTaiKhoan,
+                    'TINNHAN001',
+                    $request->IDNhomTinNhan,
+                    $user->IDTaiKhoan,
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+                event(new ChatNorlEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
+            } else {
+                Thongbao::add(
+                    StringUtil::ID('thongbao', 'IDThongBao'),
+                    $value->IDTaiKhoan,
+                    'TINNHAN001',
+                    $request->IDNhomTinNhan,
+                    $user->IDTaiKhoan,
+                    '0',
+                    date("Y-m-d H:i:s")
+                );
+                event(new ChatGroupEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
+            }
+        }
+        $userCreateNew[0] = $user;
+        DB::update('UPDATE nhomtinnhan SET TenNhomTinNhan = ? WHERE IDNhomTinNhan = ? ', [
+            $request->data,
+            $request->IDNhomTinNhan,
+        ]);
+        return response()->json([
+            'view' => "" . view('Modal/ModalChat/Child/ChatCenter')
+                ->with('message', $message[0])
+                ->with('user', $userCreateNew),
+            'numberMembers' => count($getUserOfGroupMessage),
+            'nameChat' => $request->data,
+            'IDMain' => $getUserOfGroupMessage[0]->IDTaiKhoan
+        ]);
+    }
 }

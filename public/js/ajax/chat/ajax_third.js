@@ -120,3 +120,80 @@ function openModalIconFeelChange(IDNhomTinNhan, user) {
         },
     });
 }
+function openModalChangeNameChat(IDNhomTinNhan, user) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessViewChangeNameChat",
+        data: {
+            IDNhomTinNhan: IDNhomTinNhan,
+            user: user,
+        },
+        success: function (response) {
+            second.innerHTML = response.view;
+            second.className += " fixed h-screen";
+            document
+                .getElementsByTagName("body")[0]
+                .classList.add("overflow-hidden");
+        },
+    });
+}
+function onChangeInputChangeNameChat(element) {
+    if (element.value.length > 0) {
+        $("#btnChangeNameChat").removeClass("cursor-not-allowed");
+        $("#btnChangeNameChat").attr("disabled", false);
+        $("#btnChangeNameChat").removeClass("bg-gray-500");
+        $("#btnChangeNameChat").addClass("bg-blue-500");
+        $("#btnChangeNameChat").addClass("cursor-pointer");
+    } else {
+        $("#btnChangeNameChat").removeClass("cursor-pointer");
+        $("#btnChangeNameChat").addClass("cursor-not-allowed");
+        $("#btnChangeNameChat").attr("disabled", true);
+        $("#btnChangeNameChat").addClass("bg-gray-500");
+        $("#btnChangeNameChat").removeClass("bg-blue-500");
+    }
+}
+function changeNameChat(IDNhomTinNhan, user) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessChangeNameChat",
+        data: {
+            IDNhomTinNhan: IDNhomTinNhan,
+            data: $("#inputChangeNameChat").val(),
+            user: user,
+        },
+        success: function (response) {
+            $(
+                "#" +
+                    IDNhomTinNhan +
+                    (response.numberMembers === 1 ? response.IDMain : "") +
+                    "Messenges"
+            ).append(response.view);
+            var objDiv = document.getElementById(
+                IDNhomTinNhan +
+                    (response.numberMembers === 1 ? response.IDMain : "") +
+                    "Messenges"
+            );
+            if (objDiv.scrollHeight > 352)
+                objDiv.scrollTop = objDiv.scrollHeight;
+            // $("#" + response.IDMain + "SettingChat").addClass("hidden");
+            $("#" + IDNhomTinNhan + "nameChatGroup").html(response.nameChat);
+        },
+    });
+}
+function openModalMemberChatGroup(IDNhomTinNhan, user) {
+    $.ajax({
+        method: "GET",
+        url: "/ProcessViewMemberGroupChat",
+        data: {
+            IDNhomTinNhan: IDNhomTinNhan,
+            user: user,
+        },
+        success: function (response) {
+            second.innerHTML = response.view;
+            second.className += " fixed h-screen";
+            document
+                .getElementsByTagName("body")[0]
+                .classList.add("overflow-hidden");
+        },
+    });
+}

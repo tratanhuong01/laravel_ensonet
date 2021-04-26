@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Chat\GroupChatSettingController;
 use App\Http\Controllers\Chat\SettingChatController;
 use App\Models\Baidang;
 use App\Models\Gioithieu;
@@ -403,6 +404,15 @@ Route::get('ProcessViewChangeIconFeelChat', [SettingChatController::class, 'view
 Route::get('ProcessChangeIconFeelChat', [SettingChatController::class, 'changeIconFeel'])
     ->name('ProcessChangeIconFeelChat');
 
+Route::get('ProcessViewChangeNameChat', [SettingChatController::class, 'viewChangeNameChat'])
+    ->name('ProcessViewChangeNameChat');
+
+Route::get('ProcessChangeNameChat', [SettingChatController::class, 'changeNameChat'])
+    ->name('ProcessChangeNameChat');
+
 Route::get('demo', function () {
     return view('Demo');
 });
+
+Route::get('ProcessViewMemberGroupChat', [GroupChatSettingController::class, 'viewMember'])
+    ->name('ProcessViewMemberGroupChat');

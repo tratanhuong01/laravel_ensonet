@@ -187,6 +187,7 @@ class DataProcess extends Model
                 ->where('tinnhan.IDNhomTinNhan', '=', $value->IDNhomTinNhan)
                 ->where('tinnhan.LoaiTinNhan', '!=', '0')
                 ->join('taikhoan', 'tinnhan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
                 ->orderby('tinnhan.ThoiGianNhanTin', 'ASC')
                 ->get();
             foreach ($new as $keyM => $valueM) {

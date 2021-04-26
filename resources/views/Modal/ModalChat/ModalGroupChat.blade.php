@@ -30,15 +30,22 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
         <div class="w-2/5 pl-2">
             <p onclick="openSettingChatGroup('{{ $chater[0]->IDTaiKhoan }}')" class="dark:text-white cursor-pointer 
             text-sm font-bold whitespace-nowrap overflow-ellipsis overflow-hidden">
-                @php
-                $name = "";
-                @endphp
-                @foreach($chater as $key => $value)
-                @php
-                $name .= $value->Ten . ' , '
-                @endphp
-                @endforeach
-                {{ $name }}&nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
+                <span id="{{$idNhomTinNhan}}nameChatGroup">
+                    @if ($messages[0]->TenNhomTinNhan == NULL ||
+                    $messages[0]->TenNhomTinNhan == "")
+                    @php
+                    $name = "";
+                    @endphp
+                    @foreach($chater as $key => $value)
+                    @php
+                    $name .= $value->Ten . ' , '
+                    @endphp
+                    @endforeach
+                    {{ $name }}
+                    @else
+                    {{$messages[0]->TenNhomTinNhan}}
+                    @endif
+                </span>&nbsp;&nbsp;<i class="fas fa-angle-down"></i><br>
 
             </p>
             <span class="text-gray-300">Đang hoạt động</span>
@@ -270,8 +277,32 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
             <li onclick="openModalNickName('{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
             cursor-pointer dark:text-white"><i class="fas fa-pen-alt pr-1.5"></i> Biệt
                 danh</li>
+            <li onclick="openModalChangeNameChat('{{ $idNhomTinNhan }}',
+            '{{ json_encode($user[0]) }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
+            cursor-pointer dark:text-white"><i class="fas fa-pen-alt pr-1.5"></i>
+                Tên cuộc trò chuyện
+            </li>
+
             <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   cursor-pointer dark:text-white"><i class="far fa-trash-alt pr-1.5"></i> Xóa
                 cuộc trò chuyện
+            </li>
+        </ul>
+        <ul class="dark:border-dark-third w-full border-b-2 border-gray-200 border-solid p-2">
+            <li onclick="openModalMemberChatGroup('{{ $idNhomTinNhan }}',
+            '{{ json_encode($user[0]) }}')" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third  
+            cursor-pointer dark:text-white">
+                <i class="fas fa-users pr-1.5"></i>
+                Thành viên
+            </li>
+            <li onclick="" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
+            cursor-pointer dark:text-white">
+                <i class="fas fa-user-plus pr-1.5"></i>
+                Thêm thành viên
+            </li>
+            <li onclick="" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third   
+            cursor-pointer dark:text-white">
+                <i class='bx bx-log-out pr-1.5'></i>
+                Rời khỏi nhóm
             </li>
         </ul>
     </div>

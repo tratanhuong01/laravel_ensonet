@@ -293,6 +293,16 @@ class ChatController extends Controller
                 '1',
                 date("Y-m-d H:i:s")
             );
+            Tinnhan::add(
+                StringUtil::ID('tinnhan', 'IDTinNhan'),
+                $idNhomTinNhan,
+                Session::get('user')[0]->IDTaiKhoan,
+                '',
+                '0',
+                '0',
+                '0',
+                date("Y-m-d H:i:s")
+            );
             foreach ($userGroup as $key => $value) {
                 Tinnhan::add(
                     StringUtil::ID('tinnhan', 'IDTinNhan'),

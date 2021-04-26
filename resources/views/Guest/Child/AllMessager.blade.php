@@ -154,8 +154,9 @@ Session::get('user')[0]->IDTaiKhoan))[1];
     </div>
     <div class="w-4/5">
         <div class="w-full">
-            <span class="dark:text-white" style="float: left;font-weight: bold;">
-                @if ($value[0]->TenNhomTinNhan == '')
+            <span class="dark:text-white float-left font-bold">
+                @if ($value[0]->TenNhomTinNhan == "" ||
+                $value[0]->TenNhomTinNhan == NULL)
                 @php
                 $name = "";
                 @endphp
