@@ -18,7 +18,7 @@ class EditAboutController extends Controller
                 $json = json_decode($json);
                 foreach ($json->CongViecHocVan->CongViec as $key => $value) {
                     if ($value->IDCongViec ==  $request->ID) {
-                        $view =  view('Component/GioiThieu/Sua/SuaNoiLamViec')
+                        $view =  view('Component/About/Edit/EditPlaceWork')
                             ->with('data', $json->CongViecHocVan->CongViec[$key]);
                     }
                 }
@@ -27,7 +27,7 @@ class EditAboutController extends Controller
                 $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()[0]->JsonGioiThieu;
                 $json = json_decode($json);
                 if ($json->GiaDinhVaCacMoiQuanHe->HonNhan->IDHonNhan ==  $request->ID) {
-                    $view =  view('Component/GioiThieu/Sua/SuaMoiQuanHe')
+                    $view =  view('Component/About/Edit/EditRelationShip')
                         ->with('data', $json->GiaDinhVaCacMoiQuanHe->HonNhan);
                 }
                 break;
@@ -35,20 +35,20 @@ class EditAboutController extends Controller
                 $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()[0]->JsonGioiThieu;
                 $json = json_decode($json);
                 if ($json->ThongTinCoBanVaLienHe->GioiTinh->IDGioiTinh ==  $request->ID) {
-                    $view =  view('Component/GioiThieu/Sua/SuaGioiTinh')
+                    $view =  view('Component/About/Edit/EditSex')
                         ->with('data', $json->ThongTinCoBanVaLienHe->GioiTinh);
                 }
                 break;
             case 'BirthDay':
                 $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()[0]->JsonGioiThieu;
                 $json = json_decode($json);
-                $view =  view('Component/GioiThieu/Sua/SuaNgaySinh')
+                $view =  view('Component/About/Edit/EditBirthday')
                     ->with('data', $json->ThongTinCoBanVaLienHe->NgaySinh);
                 break;
             case 'RelationShip':
                 $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()[0]->JsonGioiThieu;
                 $json = json_decode($json);
-                $view =  view('Component/GioiThieu/Sua/SuaMoiQuanHe')
+                $view =  view('Component/About/Edit/EditRelationShip')
                     ->with('data', $json->GiaDinhVaCacMoiQuanHe->HonNhan);
                 break;
             default:
@@ -69,7 +69,7 @@ class EditAboutController extends Controller
                     $request->PrivacyInputSex == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputSex;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                return view('Component/GioiThieu/Main/GioiTinh')->with(
+                return view('Component/About/Main/Sex')->with(
                     'value',
                     $json->ThongTinCoBanVaLienHe->GioiTinh
                 )
@@ -90,7 +90,7 @@ class EditAboutController extends Controller
                     $request->PrivacyInputYearBirth == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputYearBirth;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                return view('Component/GioiThieu/Main/NgaySinh')->with(
+                return view('Component/About/Main/Birthday')->with(
                     'value',
                     $json->ThongTinCoBanVaLienHe->NgaySinh
                 )
@@ -105,7 +105,7 @@ class EditAboutController extends Controller
                     $request->PrivacyInputRelationShip == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputRelationShip;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                return view('Component/GioiThieu/Data/HonNhan')->with(
+                return view('Component/About/Data/Marriage')->with(
                     'data',
                     $json->GiaDinhVaCacMoiQuanHe->HonNhan
                 )

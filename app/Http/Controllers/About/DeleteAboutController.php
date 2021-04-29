@@ -11,7 +11,7 @@ class DeleteAboutController extends Controller
 {
     public function delete(Request $request)
     {
-        return view('Component/GioiThieu/Modal/XoaGioiThieu');
+        return view('Component/About/Modal/DeleteAbout');
     }
     public function deleteMain(Request $request)
     {
@@ -28,8 +28,8 @@ class DeleteAboutController extends Controller
                 $json->CongViecHocVan->CongViec = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
-                return view('Component/GioiThieu/Xoa/XoaNoiLamViec') .
-                    view('Component/GioiThieu/Them/ThemNoiLamViec');
+                return view('Component/About/Delete/DeletePlaceWork') .
+                    view('Component/About/Add/AddPlaceWork');
                 break;
             case 'School':
                 foreach ($json->CongViecHocVan->HocVan as $key => $value) {
@@ -41,8 +41,8 @@ class DeleteAboutController extends Controller
                 $json->CongViecHocVan->HocVan = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
-                return view('Component/GioiThieu/Xoa/XoaTruongHoc') .
-                    view('Component/GioiThieu/Them/ThemTruongHoc');
+                return view('Component/About/Delete/DeleteSchool') .
+                    view('Component/About/Add/AddSchool');
                 break;
             case 'PlaceLiveCurrent':
                 foreach ($json->NoiTungSong->NoiOHienTai as $key => $value) {
@@ -54,8 +54,8 @@ class DeleteAboutController extends Controller
                 $json->NoiTungSong->NoiOHienTai = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                             gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
-                return view('Component/GioiThieu/Xoa/XoaNoiOHienTai') .
-                    view('Component/GioiThieu/Them/ThemNoiOHienTai');
+                return view('Component/About/Delete/DeletePlaceCurrent') .
+                    view('Component/About/Add/AddPlaceCurrent');
                 break;
             case 'PlaceLived':
                 foreach ($json->NoiTungSong->NoiTungSong as $key => $value) {
@@ -67,8 +67,8 @@ class DeleteAboutController extends Controller
                 $json->NoiTungSong->NoiTungSong = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
-                return view('Component/GioiThieu/Xoa/XoaNoiOHienTai') .
-                    view('Component/GioiThieu/Them/ThemNoiOHienTai');
+                return view('Component/About/Delete/DeletePlaceLived') .
+                    view('Component/About/Add/AddPlaceLived');
                 break;
             case 'HomeTown':
                 foreach ($json->NoiTungSong->QueQuan as $key => $value) {
@@ -80,8 +80,8 @@ class DeleteAboutController extends Controller
                 $json->NoiTungSong->QueQuan = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
-                return view('Component/GioiThieu/Xoa/XoaQueQuan') .
-                    view('Component/GioiThieu/Them/ThemQueQuan');
+                return view('Component/About/Delete/DeleteHomeTown') .
+                    view('Component/About/Add/AddHomeTown');
                 break;
             case 'MemberFamily':
                 foreach ($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh as $key => $value) {
@@ -93,8 +93,8 @@ class DeleteAboutController extends Controller
                 $json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
-                return view('Component/GioiThieu/Xoa/XoaQueQuan') .
-                    view('Component/GioiThieu/Them/ThemQueQuan');
+                return view('Component/About/Delete/DeleteMemberFamily') .
+                    view('Component/About/Add/AddMemberFamily');
                 break;
             default:
                 # code...

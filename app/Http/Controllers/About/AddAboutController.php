@@ -61,14 +61,14 @@ class AddAboutController extends Controller
         if ($request->ActiveIn == 'Dashboard') {
             DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-            return view('Component/GioiThieu/Data/NoiLamViec')->with(
+            return view('Component/About/Data/PlaceWork')->with(
                 'data',
                 $get
             )->with('idTaiKhoan', $request->IDTaiKhoan);
         } else {
             DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-            return view('Component/GioiThieu/Main/NoiLamViec')->with(
+            return view('Component/About/Main/PlaceWork')->with(
                 'value',
                 $get
             )->with('idTaiKhoan', $request->IDTaiKhoan);
@@ -116,7 +116,7 @@ class AddAboutController extends Controller
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-        return view('Component/GioiThieu/Data/TruongHoc')->with(
+        return view('Component/About/Data/School')->with(
             'data',
             $get
         )->with('idTaiKhoan', $request->IDTaiKhoan);
@@ -160,12 +160,12 @@ class AddAboutController extends Controller
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
         if ($request->ActiveIn == 'Dashboard') {
-            return view('Component/GioiThieu/Data/NoiOHienTai')->with(
+            return view('Component/About/Data/PlaceCurrent')->with(
                 'data',
                 $get
             )->with('idTaiKhoan', $request->IDTaiKhoan);
         } else {
-            return view('Component/GioiThieu/Main/NoiOHienTai')->with(
+            return view('Component/About/Main/PlaceCurrent')->with(
                 'value',
                 $get
             )->with('idTaiKhoan', $request->IDTaiKhoan);
@@ -211,12 +211,12 @@ class AddAboutController extends Controller
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
         if ($request->ActiveIn == 'Dashboard')
-            return view('Component/GioiThieu/Data/QueQuan')->with(
+            return view('Component/About/Data/HomeTown')->with(
                 'data',
                 $get
             )->with('idTaiKhoan', $request->IDTaiKhoan);
         else
-            return view('Component/GioiThieu/Main/QueQuan')->with(
+            return view('Component/About/Main/HomeTown')->with(
                 'value',
                 $get
             )->with('idTaiKhoan', $request->IDTaiKhoan);
@@ -260,7 +260,7 @@ class AddAboutController extends Controller
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-        return view('Component/GioiThieu/Main/NoiTungSong')->with(
+        return view('Component/About/Main/PlaceLived')->with(
             'value',
             $get
         )->with('idTaiKhoan', $request->IDTaiKhoan);
@@ -297,7 +297,7 @@ class AddAboutController extends Controller
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-        return view('Component/GioiThieu/Main/GioiThieuBanThan')->with(
+        return view('Component/About/Main/IntroYourSelf')->with(
             'value',
             $get
         )->with('idTaiKhoan', $request->IDTaiKhoan);
@@ -335,7 +335,7 @@ class AddAboutController extends Controller
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-        return view('Component/GioiThieu/Main/CachPhatAm')->with(
+        return view('Component/About/Main/WaySpeak')->with(
             'value',
             $get
         )->with('idTaiKhoan', $request->IDTaiKhoan);
@@ -373,7 +373,7 @@ class AddAboutController extends Controller
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-        return view('Component/GioiThieu/Main/BietDanh')->with(
+        return view('Component/About/Main/Nickname')->with(
             'value',
             $get
         )->with('idTaiKhoan', $request->IDTaiKhoan);
@@ -409,7 +409,7 @@ class AddAboutController extends Controller
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-        return view('Component/GioiThieu/Main/TrichDanYeuThich')->with(
+        return view('Component/About/Main/FavoriteQuote')->with(
             'value',
             $get
         )->with('idTaiKhoan', $request->IDTaiKhoan);
@@ -456,7 +456,7 @@ class AddAboutController extends Controller
         }
         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-        return view('Component/GioiThieu/Main/ThanhVienGiaDinh')->with(
+        return view('Component/About/Main/MemberFamily')->with(
             'value',
             $get
         )->with('idTaiKhoan', $request->IDTaiKhoan);

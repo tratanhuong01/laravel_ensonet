@@ -82,6 +82,9 @@ function handelOnChangeInput(IDQuyenRiengTu) {
 }
 //chỉnh sửa bài đăng
 function editPost(IDBaiDang) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessViewEditPost",
@@ -90,10 +93,6 @@ function editPost(IDBaiDang) {
         },
         success: function (response) {
             second.innerHTML = response.view;
-            second.className += " fixed h-screen";
-            document
-                .getElementsByTagName("body")[0]
-                .classList.add("overflow-hidden");
             new MeteorEmoji(
                 document.getElementById("textarea-post"),
                 document.getElementById("myTriggers"),
@@ -105,13 +104,15 @@ function editPost(IDBaiDang) {
 }
 //thay đổi đối tượng quyền riêng tư của bài đăng
 function changeObjectPrivacyPost(IDBaiDang) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessViewObjectPrivacyPost",
         data: {},
         success: function (response) {
             second.innerHTML = response;
-            second.className += " fixed h-screen";
             $("#IDBaiDangs").val(IDBaiDang);
         },
     });
@@ -135,6 +136,9 @@ function handelOnChangeInputPost(IDQuyenRiengTu) {
 }
 //xóa bài đăng
 function deleteWarnPost(IDBaiDang, IDMain) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessWarnDeletePost",
@@ -143,7 +147,6 @@ function deleteWarnPost(IDBaiDang, IDMain) {
         },
         success: function (response) {
             second.innerHTML = response;
-            second.className += " fixed h-screen";
             $("#huyXoaBaiDang").click(function () {
                 second.innerHTML = "";
                 second.classList.remove("fixed");
@@ -315,6 +318,9 @@ function viewUserTagOfPost(IDBaiDang) {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
     });
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessViewUserTagOfPost",
@@ -323,8 +329,6 @@ function viewUserTagOfPost(IDBaiDang) {
         },
         success: function (response) {
             $("#second").html(response);
-            $("#modal-one").show();
-            second.className += " fixed h-screen";
         },
     });
 }

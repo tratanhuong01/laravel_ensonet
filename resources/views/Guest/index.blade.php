@@ -215,6 +215,10 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
     <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second"></div>
     <!-- place show modal -->
 
+    <!-- timeline -->
+    @include('TimeLine/DivMainTimeLine')
+    <!-- timeline -->
+
     <script>
         var store = (function() {
             var map = {};

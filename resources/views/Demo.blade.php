@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    @include('Modal/ModalChat/MemberGroupChat')
 </body>
 
 </html>

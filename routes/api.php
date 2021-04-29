@@ -280,62 +280,62 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
     switch ($request->Type) {
         case 'Companies':
             $data = DataProcessFour::getCompanies($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'CityAndTown':
             $data = DataProcessFour::getCityAndTown($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'NameSchool':
             $data = DataProcessFour::getSchool($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'TypeSchool':
             $data = DataProcessFour::getTypeSchool($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'LiveCurrents':
             $data = DataProcessFour::getCityAndTown($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'PlaceHomeTown':
             $data = DataProcessFour::getCityAndTown($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'PlaceLived':
             $data = DataProcessFour::getCityAndTown($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'NameOthers':
             $data = DataProcessFour::getNickName($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'Sexs':
             $data = DataProcessFour::getSex($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'RelationShip':
             $data = DataProcessFour::getMaritalStatus($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'MemberFamily':
             $data = Taikhoan::search($request->Value, $request->Name);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'RelationShipFamily':
             $data = DataProcessFour::getRelationShip($request->Value);
-            return view('Component/GioiThieu/Them/DuLieu')->with('data', $data)
+            return view('Component/About/Add/Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         default:
@@ -411,7 +411,7 @@ Route::get('ProcessChangeNameChat', [Chat\SettingChatController::class, 'changeN
     ->name('ProcessChangeNameChat');
 
 Route::get('demo', function () {
-    return DataProcessSix::numberMessageNot('1000000007', '10010');
+    return view('Demo');
 });
 
 Route::get('ProcessViewMemberGroupChat', [Chat\GroupChatSettingController::class, 'viewMember'])
@@ -428,3 +428,11 @@ Route::get('ProcessViewDeleteAllChat', [Chat\DeleteMessageController::class, 'vi
 
 Route::get('ProcessDeleteAllChat', [Chat\DeleteMessageController::class, 'deleteChat'])
     ->name('ProcessDeleteAllChat');
+
+Route::get('json', function () {
+    echo "<pre>";
+    print_r(
+        json_decode(Gioithieu::where('IDTaiKhoan', '=', '1000000001')->get()[0]->JsonGioiThieu)
+    );
+    echo "</pre>";
+});

@@ -21,6 +21,9 @@ function changeUploadFiles(el) {
     store.get("arrayImageAndVideo", array);
 }
 function changeUploadFileMain(el, type) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "ProcessOpenPostDialog",
@@ -29,8 +32,6 @@ function changeUploadFileMain(el, type) {
         },
         success: function (response) {
             second.innerHTML = response;
-            second.className += " fixed h-screen";
-            $("#modal-one").show();
             new MeteorEmoji(
                 document.getElementById("textarea-post"),
                 document.getElementById("myTriggers"),

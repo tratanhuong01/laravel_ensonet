@@ -13,7 +13,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
             Đổi tên đoạn chat
         </p>
         <span onclick="closePost()" class="rounded-full text-gray-300 px-3 py-1 text-2xl font-bold
-                absolute right-2 bg-gray-600 top-2 cursor-pointer dark:text-gray-300">&times;</span>
+        absolute right-2 bg-gray-600 top-2 cursor-pointer dark:text-gray-300">&times;</span>
         <hr>
     </div>
     <div class="w-full p-4">

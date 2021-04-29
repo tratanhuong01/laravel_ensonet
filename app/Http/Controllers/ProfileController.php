@@ -52,8 +52,9 @@ class ProfileController extends Controller
     public function viewAjaxAbout(Request $request)
     {
         $data = Functions::getListFriendsUser($request->IDView);
+        $idMain = Session::get('user')[0]->IDTaiKhoan;
         return '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg">' .
-            view('Component\GioiThieu\DanhMuc')->with(
+            view('Component\About\Category')->with(
                 'data',
                 Taikhoan::where('IDTaiKhoan', $request->IDView)
                     ->get()
@@ -61,7 +62,9 @@ class ProfileController extends Controller
             ->with('idTaiKhoan', Taikhoan::where('IDTaiKhoan', $request->IDView)
                 ->get()[0]->IDTaiKhoan)
             . '<div class="w-3/4 px-3" id="detailAbout">'
-            . view('Component\GioiThieu\TongQuan')->with('idTaiKhoan', $request->IDView)
+            . view('Component\About\Dashboard')->with('idTaiKhoan', $request->IDView)
+            ->with('idMain', $idMain)
+            ->with('idView', $request->IDView)
             . "</div> </div>"
             . '<div class="w-full dark:bg-dark-second flex my-4 rounded-lg">'
             . view('Component\Category\Pictures')->with('data', $data)

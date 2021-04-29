@@ -1,4 +1,7 @@
 function openPost(type) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "ProcessOpenPostDialog",
@@ -6,12 +9,7 @@ function openPost(type) {
             type: type,
         },
         success: function (response) {
-            document
-                .getElementsByTagName("body")[0]
-                .classList.add("overflow-hidden");
-            $("#modal-one").show();
             second.innerHTML = response;
-            second.className += " fixed h-screen";
             new MeteorEmoji(
                 document.getElementById("textarea-post"),
                 document.getElementById("myTriggers"),

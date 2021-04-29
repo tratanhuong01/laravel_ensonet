@@ -4,9 +4,13 @@
 .bg-size\:3\:3 {
     background-size: 300% 300%;
 }
+.bg-size\:4\:3 {
+    background-size: 400% 300%;
+}
 .bg-size\:6\:5 {
     background-size: 600% 500%;
 }
+
 .stickerAnimation\:5\:4 {
     animation: playv5vs4 1s steps(5) infinite,
         playh5vs4 0.666s steps(4) infinite;
@@ -56,7 +60,29 @@
         background-position-x: 300%;
     }
 }
+@keyframes playv4vs3 {
+    0% {
+        background-position-y: 0%;
+    }
 
+    100% {
+        background-position-y: 400%;
+    }
+}
+
+@keyframes playh4vs3 {
+    0% {
+        background-position-x: 0%;
+    }
+
+    100% {
+        background-position-x: 300%;
+    }
+}
+.stickerAnimation\:4\:3 {
+    animation: playv4vs3 1s steps(4) infinite,
+        playh4vs3 0.666s steps(3) infinite;
+}
 .stickerAnimation\:6\:5 {
     animation: playv6vs5 1s steps(6) infinite,
         playh6vs5 0.666s steps(5) infinite;

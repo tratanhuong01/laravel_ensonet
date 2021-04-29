@@ -11,8 +11,8 @@ use App\Process\DataProcess;
         <i class="bx bxs-moon text-xl"></i>
     </div>
 </li>
-<li class="">
-    <div onclick="openMessenger()" class="w-10 bg-gray-200 dark:bg-dark-third 
+<li class="relative">
+    <div onclick="openMessenger(this)" class="w-10 bg-gray-200 dark:bg-dark-third 
                         dark:text-white text-center rounded-full cursor-pointer h-10 ml-1 mr-1 pt-1.5 relative">
         <i class="bx bxl-messenger text-xl"></i>
         <span id="numMessager" class="absolute
@@ -23,7 +23,7 @@ use App\Process\DataProcess;
     </div>
 </li>
 <li class="relative">
-    <div onclick="openNotifications()" class="pt-1.5 relative w-10 bg-gray-200 
+    <div onclick="openNotifications(this)" class="pt-1.5 relative w-10 bg-gray-200 
                         dark:bg-dark-third dark:text-white text-center rounded-full cursor-pointer 
                         h-10 ml-1 mr-1">
         <i class="far fa-bell text-xm"></i>
@@ -35,7 +35,7 @@ use App\Process\DataProcess;
     </div>
 </li>
 <li class="relative">
-    <div onclick="eModalHeaderRight()" class="pt-1.5 w-10 bg-gray-200 dark:bg-dark-third dark:text-white text-center rounded-full cursor-pointer 
+    <div onclick="eModalHeaderRight(this)" class="pt-1.5 w-10 bg-gray-200 dark:bg-dark-third dark:text-white text-center rounded-full cursor-pointer 
                         h-10 ml-1 mr-1">
         <i class="fas fa-sort-down text-xl leading-4"></i>
     </div>

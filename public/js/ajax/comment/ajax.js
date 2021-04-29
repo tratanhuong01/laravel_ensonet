@@ -207,6 +207,9 @@ function ViewMoreCommentPostCmt(
 }
 //xem tất cả số lượng cảm xúc của bài đăng
 function viewDetailFeelCmt(IDBinhLuan, Path) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: Path + "/" + "ProcessViewDetailFeelCmt",
@@ -215,8 +218,6 @@ function viewDetailFeelCmt(IDBinhLuan, Path) {
         },
         success: function (response) {
             $("#second").html(response);
-            $("#modal-one").show();
-            second.className += " fixed h-screen";
         },
     });
 }

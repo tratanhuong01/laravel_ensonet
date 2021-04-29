@@ -1,4 +1,7 @@
 function openModalNickName(IDNhomTinNhan, IDTaiKhoan) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessViewChangeNickName",
@@ -8,10 +11,6 @@ function openModalNickName(IDNhomTinNhan, IDTaiKhoan) {
         },
         success: function (response) {
             second.innerHTML = response.view;
-            second.className += " fixed h-screen";
-            document
-                .getElementsByTagName("body")[0]
-                .classList.add("overflow-hidden");
         },
     });
 }
@@ -99,6 +98,9 @@ function saveNickName(
     }
 }
 function openModalIconFeelChange(IDNhomTinNhan, user) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessViewChangeIconFeelChat",
@@ -108,10 +110,6 @@ function openModalIconFeelChange(IDNhomTinNhan, user) {
         },
         success: function (response) {
             second.innerHTML = response.view;
-            second.className += " fixed h-screen";
-            document
-                .getElementsByTagName("body")[0]
-                .classList.add("overflow-hidden");
             new MeteorEmojiChat(
                 document.getElementById("idNhomTinNhanChatIconFeel"),
                 document.getElementById("button"),
@@ -121,6 +119,9 @@ function openModalIconFeelChange(IDNhomTinNhan, user) {
     });
 }
 function openModalChangeNameChat(IDNhomTinNhan, user) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessViewChangeNameChat",
@@ -130,10 +131,6 @@ function openModalChangeNameChat(IDNhomTinNhan, user) {
         },
         success: function (response) {
             second.innerHTML = response.view;
-            second.className += " fixed h-screen";
-            document
-                .getElementsByTagName("body")[0]
-                .classList.add("overflow-hidden");
         },
     });
 }
@@ -187,6 +184,9 @@ function changeNameChat(IDNhomTinNhan, user) {
     });
 }
 function openModalMemberChatGroup(IDNhomTinNhan, user) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessViewMemberGroupChat",
@@ -196,14 +196,13 @@ function openModalMemberChatGroup(IDNhomTinNhan, user) {
         },
         success: function (response) {
             second.innerHTML = response.view;
-            second.className += " fixed h-screen";
-            document
-                .getElementsByTagName("body")[0]
-                .classList.add("overflow-hidden");
         },
     });
 }
 function outGroupChatMain(IDNhomTinNhan, user) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessViewOutGroupChat",
@@ -212,12 +211,7 @@ function outGroupChatMain(IDNhomTinNhan, user) {
             user: user,
         },
         success: function (response) {
-            document
-                .getElementsByTagName("body")[0]
-                .classList.add("overflow-hidden");
-            $("#modal-one").show();
             second.innerHTML = response.view;
-            second.className += " fixed h-screen";
             document
                 .getElementById("btnOutGroup")
                 .addEventListener("click", function () {
@@ -248,6 +242,9 @@ function outGroupChatMain(IDNhomTinNhan, user) {
     });
 }
 function deleteAllChatByUser(IDNhomTinNhan, user) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessViewDeleteAllChat",
@@ -256,12 +253,7 @@ function deleteAllChatByUser(IDNhomTinNhan, user) {
             user: user,
         },
         success: function (response) {
-            document
-                .getElementsByTagName("body")[0]
-                .classList.add("overflow-hidden");
-            $("#modal-one").show();
             second.innerHTML = response.view;
-            second.className += " fixed h-screen";
             document
                 .getElementById("btnDeleteAllChat")
                 .addEventListener("click", function () {

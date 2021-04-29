@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 ?>
-<form action="" method="post" id="formCreatePicture" class="w-full flex">
+<form action="{{ route('ProcessSavePictureStory') }}" method="post" id="formCreatePicture" class="w-full flex">
     <audio src="" class="hidden" id="myAudio" autoplay loop='true'></audio>
     <input type="hidden" name="IDAmThanh" id="IDAmThanh">
+    <input type="text" name="IDTaiKhoan" value="{{ $user->IDTaiKhoan }}" class="hidden">
+    <textarea name="dataURI" id="dataURI" cols="30" rows="10" class="hidden"></textarea>
     <div class="w-1/4 p-4 pt-0 border-t-2 border-solid border-gray-300 shadow-md 
             dark:border-dark-third">
         <p class="w-full flex py-6">
@@ -60,7 +62,7 @@ use Illuminate\Support\Facades\Session;
         </div>
         <div class="w-full my-6 pl-9">
             <span class="text-center font-bold w-48per mr-4 py-3 bg-gray-300 rounded-lg cursor-pointer" type="button">Bỏ</span>
-            <button onclick="postStoryPicture('{{ $user->IDTaiKhoan }}')" type="button" class="font-bold w-1/2 bg-1877F2 py-3 rounded-lg 
+            <button onclick="postStoryPicture(event)" type="button" class="font-bold w-1/2 bg-1877F2 py-3 rounded-lg 
                         text-white" type="submit">Chia sẻ lên tin</button>
         </div>
     </div>

@@ -18,133 +18,138 @@ $user = Session::get('user')[0];
 
 <body>
     <audio src="" class="hidden" id="myAudio" autoplay loop='true'></audio>
-    <input type="hidden" name="IDAmThanh" id="IDAmThanh">
+
     <div class="w-full bg-gray-100 dark:bg-dark-main h-screen relative" id="main">
         @include('Header')
-        <div class="w-full flex z-10 pt-16 bg-gray-100 dark:bg-dark-second lg:w-full lg:mx-auto xl:w-full" id="content">
-            <div class="w-1/4 p-4 pt-0 border-t-2 border-solid border-gray-300 shadow-md 
-            dark:border-dark-third">
-                <p class="w-full flex py-6">
-                    <span class="font-bold text-xl dark:text-white">Tin Của Bạn</span>
-                </p>
-                <div class="w-full flex pb-3">
-                    <a href=""><img class="w-20 h-20 p-1.5 shadow-xl rounded-full " src="/{{ $user[0]->AnhDaiDien }}" alt=""></a>
-                    <a href="" class="py-7 px-3.5 dark:text-white font-bold">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</a>
-                </div>
-                <hr>
-                <div class="w-full pt-4 pb-2">
-                    <textarea class="outline-none w-full h-48 font-bold resize-none border-2 
+        <form action="{{ route('ProcessSaveCanvasStorys') }}" id="formPostStory" method="POST">
+            <input type="hidden" name="IDAmThanh" id="IDAmThanh">
+            <input type="text" name="IDTaiKhoan" value="{{ $user->IDTaiKhoan }}" class="hidden">
+            <textarea name="dataURI" id="dataURI" cols="30" rows="10" class="hidden"></textarea>
+            <div class="w-full flex z-10 pt-16 bg-gray-100 dark:bg-dark-second lg:w-full lg:mx-auto xl:w-full" id="content">
+                <div class="w-1/4 p-4 pt-0 border-t-2 border-solid border-gray-300 shadow-md 
+                dark:border-dark-third">
+                    <p class="w-full flex py-6">
+                        <span class="font-bold text-xl dark:text-white">Tin Của Bạn</span>
+                    </p>
+                    <div class="w-full flex pb-3">
+                        <a href=""><img class="w-20 h-20 p-1.5 shadow-xl rounded-full " src="/{{ $user->AnhDaiDien }}" alt=""></a>
+                        <a href="" class="py-7 px-3.5 dark:text-white font-bold">{{ $user->Ho . ' ' . $user->Ten }}</a>
+                    </div>
+                    <hr>
+                    <div class="w-full pt-4 pb-2">
+                        <textarea class="outline-none w-full h-48 font-bold resize-none border-2 
                         border-solid border-gray-200 dark:bg-dark-second overflow-hidden my-2 p-2 
                         rounded-lg place-type dark:border-dark-third shadow-xl dark:text-white" placeholder="Bắt đầu nhập" oninput="changeTexts()"></textarea>
-                </div>
-                <div class="w-full mb-4 px-2 flex relative cursor-pointer border-2 border-solid 
-                border-gray-300 dark:border-dark-third shadow-lg rounded-lg">
-                    <i class='bx bx-font-family dark:text-white text-xl py-2'></i>
-                    <div class=" p-2.5 relative dark:text-white">
-                        GỌN GÀNG
                     </div>
-                    <i class="fas fa-caret-down absolute top-4 right-4 dark:text-white"></i>
-                </div>
-                <div class="w-full pb-4 border-2 border-solid border-gray-200 rounded-lg 
-                 wrapper-content-right overflow-y-auto dark:border-dark-third shadow-xl" style="max-height: 220px;height: 220px;">
-                    <p class="font-bold text-xm p-2 dark:text-white">Phông nền</p>
-                    <ul class="w-full pl-2 flex flex-wrap ">
-                        <input type="hidden" name="IDPhongNen" id="IDPhongNen" value="PN10000001">
-                        <?php $bg = DataProcessThird::getBackGround(); ?>
-                        @foreach($bg as $key => $value)
-                        <li onclick="clickChangeBackground(
+                    <div class="w-full mb-4 px-2 flex relative cursor-pointer border-2 border-solid 
+                    border-gray-300 dark:border-dark-third shadow-lg rounded-lg">
+                        <i class='bx bx-font-family dark:text-white text-xl py-2'></i>
+                        <div class=" p-2.5 relative dark:text-white">
+                            GỌN GÀNG
+                        </div>
+                        <i class="fas fa-caret-down absolute top-4 right-4 dark:text-white"></i>
+                    </div>
+                    <div class="w-full pb-4 border-2 border-solid border-gray-200 rounded-lg 
+                    wrapper-content-right overflow-y-auto dark:border-dark-third shadow-xl" style="max-height: 220px;height: 220px;">
+                        <p class="font-bold text-xm p-2 dark:text-white">Phông nền</p>
+                        <ul class="w-full pl-2 flex flex-wrap ">
+                            <input type="hidden" name="IDPhongNen" id="IDPhongNen" value="PN10000001">
+                            <?php $bg = DataProcessThird::getBackGround(); ?>
+                            @foreach($bg as $key => $value)
+                            <li onclick="clickChangeBackground(
                                 '{{ $value->IDPhongNen }}',
                                 '{{ $value->DuongDanPN }}')" class="cursor-pointer w-10 h-10 rounded-full">
-                            <img class="w-9 h-9 p-1 rounded-full" src="/{{ $value->DuongDanPN }}" alt="">
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-            <div class="w-2/4 bg-gray-200 dark:bg-dark-main story-right shadow-3xl">
-                <div class="w-11/12 top-1 mx-auto rounded-2xl dark:bg-dark-main bg-white relative 
-                border-2 border-solid border-gray-200 dark:border-dark-third mt-1" style="height: 630px;">
-                    <div class="w-97per text-center relative bg-black rounded-2xl" style="height: 625px;">
-                        <div id="outer" class="w-1/2 relative left-1/2 mt-1 rounded-lg" style="transform: translate(-50%,-50%); height: 612px;top:49.3%;">
-                            <img id="myImage" class="w-full rounded-lg" style="height: 612px;" src="/img/bgText/3.jpg" alt="">
-                            <div id="elementMusic" class="w-1/3 bg-white text-left flex p-1.5 absolute top-32 left-24 rounded-lg" style="transform: rotate(-25deg);">
-                                <div class="w-1/4 pr-2">
-                                    <img src="/img/gai1.jpg" alt="">
-                                </div>
-                                <div class="w-3/4">
-                                    <p class="font-bold" style="font-size: 7px;">បទកំពុងល្បី 24kgoldn - Mood</p>
-                                    <p class="font-sm" style="font-size: 5px;">24kgoldn</p>
-                                </div>
-                            </div>
-                            <div class="text-xl font-bold text-gray-100 break-all content-story-text 
-                            w-80 min-h-8 absolute top-1/2 left-1/2 rounded-2xl text-center font-bold 
-                            outline-none" style="transform: translate(-48%,-50%);" id="myText">
-                            </div>
-                        </div>
-                    </div>
-                    <canvas id="myCanvas" class="hidden" width="345" height="612"></canvas>
-
-                </div>
-                <div class="w-full my-6 pl-9">
-                    <a href="{{ url('index') }}">
-                        <span class="text-center font-bold w-48per mr-4 py-3 bg-gray-300 rounded-lg cursor-pointer" type="button">Bỏ</span>
-                    </a>
-                    <button onclick="postStory()" type="button" class="font-bold w-1/2 bg-1877F2 py-3 rounded-lg 
-                        text-white" type="submit">Chia sẻ lên tin</button>
-                </div>
-            </div>
-            <div class="w-1/4 p-4 pt-0 border-t-2 border-solid border-gray-300 shadow-md 
-            dark:border-dark-third">
-                <p class="w-full flex py-6">
-                    <span class="font-bold text-xl dark:text-white">Màu chữ</span>
-                </p>
-                <div class="w-full">
-                    <div class="w-full pb-2 border-2 border-solid border-gray-200 rounded-lg 
-                        max-h-40 mb-2 wrapper-content-right overflow-y-auto dark:border-dark-third shadow-xl">
-                        <p class="font-bold text-xm py-1 px-2 dark:text-white">Màu chữ</p>
-                        <ul class="w-full pl-2 flex flex-wrap">
-                            <input type="hidden" name="IDPhongNen" id="IDPhongNen" value="">
-                            <?php $cl = DataProcessFour::createColor(); ?>
-                            @foreach($cl as $key => $value)
-                            <?php $dt = '<li onclick="changeColorContent' . "('" . $value . "')" .
-                                '" class="cursor-pointer w-8 h-8 cursor-pointer m-1 rounded-full"
-                            style="background-color: ' . $value . ';"></li>'; ?>
-                            {!! $dt !!}
+                                <img class="w-9 h-9 p-1 rounded-full" src="/{{ $value->DuongDanPN }}" alt="">
+                            </li>
                             @endforeach
                         </ul>
                     </div>
                 </div>
-                <p class="w-full flex py-6">
-                    <span class="font-bold text-xl dark:text-white">Âm nhạc</span>
-                </p>
-                <div class="w-full pb-2 border-2 border-solid border-gray-200 rounded-lg
+                <div class="w-2/4 bg-gray-200 dark:bg-dark-main story-right shadow-3xl">
+                    <div class="w-11/12 top-1 mx-auto rounded-2xl dark:bg-dark-main bg-white relative 
+                    border-2 border-solid border-gray-200 dark:border-dark-third mt-1" style="height: 630px;">
+                        <div class="w-97per text-center relative bg-black rounded-2xl" style="height: 625px;">
+                            <div id="outer" class="w-1/2 relative left-1/2 mt-1 rounded-lg" style="transform: translate(-50%,-50%); height: 612px;top:49.3%;">
+                                <img id="myImage" class="w-full rounded-lg" style="height: 612px;" src="/img/bgText/3.jpg" alt="">
+                                <div id="elementMusic" class="w-1/3 bg-white text-left flex p-1.5 absolute top-32 left-24 rounded-lg" style="transform: rotate(-25deg);">
+                                    <div class="w-1/4 pr-2">
+                                        <img src="/img/gai1.jpg" alt="">
+                                    </div>
+                                    <div class="w-3/4">
+                                        <p class="font-bold" style="font-size: 7px;">បទកំពុងល្បី 24kgoldn - Mood</p>
+                                        <p class="font-sm" style="font-size: 5px;">24kgoldn</p>
+                                    </div>
+                                </div>
+                                <div class="text-xl font-bold text-gray-100 break-all content-story-text 
+                            w-80 min-h-8 absolute top-1/2 left-1/2 rounded-2xl text-center font-bold 
+                            outline-none" style="transform: translate(-48%,-50%);" id="myText">
+                                </div>
+                            </div>
+                        </div>
+                        <canvas id="myCanvas" class="hidden" width="345" height="612"></canvas>
+
+                    </div>
+                    <div class="w-full my-6 pl-9">
+                        <a href="{{ url('index') }}">
+                            <span class="text-center font-bold w-48per mr-4 py-3 bg-gray-300 rounded-lg cursor-pointer" type="button">Bỏ</span>
+                        </a>
+                        <button onclick="postStory(event)" type="button" class="font-bold w-1/2 bg-1877F2 py-3 rounded-lg 
+                        text-white" type="submit">Chia sẻ lên tin</button>
+                    </div>
+                </div>
+                <div class="w-1/4 p-4 pt-0 border-t-2 border-solid border-gray-300 shadow-md 
+                dark:border-dark-third">
+                    <p class="w-full flex py-6">
+                        <span class="font-bold text-xl dark:text-white">Màu chữ</span>
+                    </p>
+                    <div class="w-full">
+                        <div class="w-full pb-2 border-2 border-solid border-gray-200 rounded-lg 
+                        max-h-40 mb-2 wrapper-content-right overflow-y-auto dark:border-dark-third shadow-xl">
+                            <p class="font-bold text-xm py-1 px-2 dark:text-white">Màu chữ</p>
+                            <ul class="w-full pl-2 flex flex-wrap">
+                                <input type="hidden" name="IDPhongNen" id="IDPhongNen" value="">
+                                <?php $cl = DataProcessFour::createColor(); ?>
+                                @foreach($cl as $key => $value)
+                                <?php $dt = '<li onclick="changeColorContent' . "('" . $value . "')" .
+                                    '" class="cursor-pointer w-8 h-8 cursor-pointer m-1 rounded-full"
+                            style="background-color: ' . $value . ';"></li>'; ?>
+                                {!! $dt !!}
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="w-full flex py-6">
+                        <span class="font-bold text-xl dark:text-white">Âm nhạc</span>
+                    </p>
+                    <div class="w-full pb-2 border-2 border-solid border-gray-200 rounded-lg
                      mb-2 dark:border-dark-third  text-center shadow-xl" style="max-height: 384px;height: 384px;">
-                    <?php $music = DataProcessFour::getMusic(); ?>
-                    <p class="font-bold text-xm text-left py-1 px-2 dark:text-white">Âm nhạc</p>
-                    <input type="text" name="" id="" class="justify-center w-11/12 dark:bg-dark-third bg-gray-300
+                        <?php $music = DataProcessFour::getMusic(); ?>
+                        <p class="font-bold text-xm text-left py-1 px-2 dark:text-white">Âm nhạc</p>
+                        <input type="text" name="" id="" class="justify-center w-11/12 dark:bg-dark-third bg-gray-300
                      p-2.5 rounded-lg dark:text-white my-3" placeholder="Nhập tên bài hát">
-                    <ul class="w-full text-left wrapper-content-right text-center overflow-y-auto 
+                        <ul class="w-full text-left wrapper-content-right text-center overflow-y-auto 
                     " style="max-height: 279px; height: 279px;">
-                        @foreach($music as $key => $value)
-                        <li class="w-full flex p-1 border-2 border-solid border-gray-300 
+                            @foreach($music as $key => $value)
+                            <li class="w-full flex p-1 border-2 border-solid border-gray-300 
                         dark:border-dark-third relative cursor-pointer">
-                            <div onclick="chooseMusic('{{$value->IDAmThanh}}')" class="w-2/12 mr-3 pt-1">
-                                <img src="/img/mp3.png" class="w-10 h-10 p-0.5 rounded-full 
+                                <div onclick="chooseMusic('{{$value->IDAmThanh}}')" class="w-2/12 mr-3 pt-1">
+                                    <img src="/img/mp3.png" class="w-10 h-10 p-0.5 rounded-full 
                                 object-cover" alt="">
-                            </div>
-                            <div onclick="chooseMusic('{{$value->IDAmThanh}}')" class="w-8/12 font-bold dark:text-white text-left">
-                                <p class="">{{ $value->TenAmThanh }}</p>
-                                <p class="text-sm">{{ $value->TacGia }}</p>
-                            </div>
-                            <div class="absolute top-3 right-3 dark:text-white cursor-pointer">
-                                <i onclick="playMusicDemoStory('{{ $value->DuongDanAmThanh }}')" class="fas fa-play-circle text-xl"></i>
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
+                                </div>
+                                <div onclick="chooseMusic('{{$value->IDAmThanh}}')" class="w-8/12 font-bold dark:text-white text-left">
+                                    <p class="">{{ $value->TenAmThanh }}</p>
+                                    <p class="text-sm">{{ $value->TacGia }}</p>
+                                </div>
+                                <div class="absolute top-3 right-3 dark:text-white cursor-pointer">
+                                    <i onclick="playMusicDemoStory('{{ $value->DuongDanAmThanh }}')" class="fas fa-play-circle text-xl"></i>
+                                </div>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <script>
         dragElement(document.getElementById("elementMusic"));
@@ -194,23 +199,26 @@ $user = Session::get('user')[0];
             }
         }
 
-        function postStory() {
-            $.ajax({
-                method: "POST",
-                url: "{{ route('ProcessSaveCanvasStorys') }}",
-                data: {
-                    dataURI: document.getElementById('myCanvas').toDataURL('image/png'),
-                    IDPhongNen: $('#IDPhongNen').val(),
-                    IDTaiKhoan: '{{ $user->IDTaiKhoan }}',
-                    IDAmThanh: $('#IDAmThanh').val()
-                },
-                success: function(response) {
+        function postStory(event) {
+            event.preventDefault();
+            $('#dataURI').val(document.getElementById('myCanvas').toDataURL('image/png'));
+            $('#formPostStory').submit();
+            // $.ajax({
+            //     method: "POST",
+            //     url: "{{ route('ProcessSaveCanvasStorys') }}",
+            //     data: {
+            //         dataURI: document.getElementById('myCanvas').toDataURL('image/png'),
+            //         IDPhongNen: $('#IDPhongNen').val(),
+            //         IDTaiKhoan: '{{ $user->IDTaiKhoan }}',
+            //         IDAmThanh: $('#IDAmThanh').val()
+            //     },
+            //     success: function(response) {
 
-                },
-                error: function(xhr) {
-                    console.log((xhr));
-                }
-            });
+            //     },
+            //     error: function(xhr) {
+            //         console.log((xhr));
+            //     }
+            // });
         }
     </script>
 </body>

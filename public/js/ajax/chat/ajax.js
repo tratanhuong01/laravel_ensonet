@@ -1,15 +1,3 @@
-function openMessenger() {
-    if ($("#modalHeaderRight").html() == "")
-        $.ajax({
-            method: "GET",
-            url: "/ProcessOpenMessenger",
-            success: function (response) {
-                $("#numMessager").html("");
-                $("#modalHeaderRight").html(response);
-            },
-        });
-    else $("#modalHeaderRight").html("");
-}
 function openChat(IDTaiKhoan) {
     if ($("#" + IDTaiKhoan + "Chat").length == 0) {
         if ($("#placeChat").children().length >= 2) {
@@ -321,6 +309,9 @@ function selectColorMessage(IDMauTinNhan, TenMau) {
     }
 }
 function openChangeColor(IDNhomTinNhan, IDChat) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessOpenChangeColor",
@@ -330,7 +321,6 @@ function openChangeColor(IDNhomTinNhan, IDChat) {
         },
         success: function (response) {
             second.innerHTML = response;
-            second.className += " fixed h-screen";
             $("#IDNhomTinNhan").val(IDNhomTinNhan);
         },
     });

@@ -289,6 +289,9 @@ function feelMessage(IDTinNhan, LoaiCamXuc) {
 }
 //xem tất cả số lượng cảm xúc của bài đăng
 function viewDetailFeelMessage(IDTinNhan) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessViewDetailFeelMessage",
@@ -297,7 +300,6 @@ function viewDetailFeelMessage(IDTinNhan) {
         },
         success: function (response) {
             $("#second").html(response);
-            second.className += " fixed h-screen";
         },
     });
 }

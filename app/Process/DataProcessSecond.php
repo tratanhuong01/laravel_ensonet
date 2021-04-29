@@ -66,4 +66,15 @@ class DataProcessSecond extends Model
             ->orderBy('moiquanhe.NgayGui', 'DESC')
             ->get();
     }
+    public static function checkUserViewStateWithUserMain($idView, $idMain)
+    {
+        $relation = Moiquanhe::where('IDTaiKhoan', '=', $idView)
+            ->where('IDBanBe', '=', $idMain)->get();
+        if (count($relation) > 0) {
+            if ($relation[0]->TinhTrang == 3)
+                return true;
+            else
+                return false;
+        }
+    }
 }

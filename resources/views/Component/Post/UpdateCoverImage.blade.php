@@ -95,7 +95,7 @@ $u = Session::get('user');
         @endif
     </div>
     @if (count($commentLimit) > 0)
-    <div class="w-11/12 ml-2" id="loadNumComment">
+    <div class="w-11/12 ml-2" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}NumComment">
         @include('Component\Comment\ViewMoreComment',
         ['num' => count($comment),
         'idTaiKhoan' => $item[0]->IDTaiKhoan,

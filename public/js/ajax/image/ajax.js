@@ -1,37 +1,34 @@
-function loadPicture(type,IDTaiKhoan) {
+function loadPicture(type, IDTaiKhoan) {
     $.ajax({
         method: "GET",
-        url : "/ProcessLoadPictures",
-        data : {
-            Type : type,
-            IDTaiKhoan : IDTaiKhoan
+        url: "/ProcessLoadPictures",
+        data: {
+            Type: type,
+            IDTaiKhoan: IDTaiKhoan,
         },
-        success : function(response) {
-            $('#main-friends').html(response);
-            $('#indexOfPicture').val(0);
-            $('#typeViewOfPicture').val(type);
-        }
+        success: function (response) {
+            $("#main-friends").html(response);
+            $("#indexOfPicture").val(0);
+            $("#typeViewOfPicture").val(type);
+        },
     });
 }
-function loadTimeLinePicture(index,type,IDTaiKhoan) {
+function loadTimeLinePicture(index, type, IDTaiKhoan) {
     $.ajax({
         method: "GET",
-        url : "/ProcessLoadTimeLineAndViewPictures",
-        data : {
-            Index : $('#indexOfPicture').val(),
-            Type : $('#typeViewOfPicture').val(),
-            IDTaiKhoan : IDTaiKhoan
+        url: "/ProcessLoadTimeLineAndViewPictures",
+        data: {
+            Index: $("#indexOfPicture").val(),
+            Type: $("#typeViewOfPicture").val(),
+            IDTaiKhoan: IDTaiKhoan,
         },
-        success : function(response) {
-            if (response == '') {
-
+        success: function (response) {
+            if (response == "") {
+            } else {
+                $("#indexOfPicture").val(response.index);
+                $("#mainPic").append(response.view);
+                action = "inactive";
             }
-            else {
-                $('#indexOfPicture').val(response.index)
-                $('#mainPic').append(response.view)
-                action = 'inactive';
-            }
-            
-        }
+        },
     });
 }

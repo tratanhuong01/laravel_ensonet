@@ -75,8 +75,13 @@ use App\Models\StringUtil;
             </div>
         </div>
     </div>
-    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
-    </div>
+    <!-- place show modal -->
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second"></div>
+    <!-- place show modal -->
+
+    <!-- timeline -->
+    @include('TimeLine/DivMainTimeLine')
+    <!-- timeline -->
     @else
     <?php redirect()->to('login')->send(); ?>
     @endif

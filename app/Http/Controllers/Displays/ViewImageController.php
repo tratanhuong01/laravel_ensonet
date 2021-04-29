@@ -44,17 +44,16 @@ class ViewImageController extends Controller
     {
         $comment = DB::table('binhluan')
             ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-            ->join('hinhanh', 'binhluan.IDBinhLuan', 'hinhanh.Khac')
-            ->where('hinhanh.Khac', '=', $idBinhLuan)->get();
+            ->where('binhluan.IDBinhLuan', '=', $idBinhLuan)->get();
         if (count($comment) == 0)
-            return view('Guest\view')->with('data', $comment);
+            return view('Guest\view')->with('data', array());
         else {
-            $posts = DB::table('hinhanh')
+            $image = DB::table('hinhanh')
                 ->where('hinhanh.IDHinhAnh', '=', $idHinhAnh)
                 ->where('hinhanh.Khac', '=', $idBinhLuan)
                 ->get();
-            if (count($posts) == 0)
-                return view('Guest\view')->with('data', $comment);
+            if (count($image) == 0)
+                return view('Guest\view')->with('data', array());
             else {
                 if (session()->has('numLoad'))
                     if (url()->current() == url()->previous())
@@ -66,7 +65,8 @@ class ViewImageController extends Controller
                     }
                 else
                     Session::put('numLoad', -1);
-                return view('Guest\view')->with('data', $comment)->with('idHinhAnh', $idHinhAnh);
+
+                return view('Guest\view')->with('data', $image)->with('idHinhAnh', $idHinhAnh);
             }
         }
     }

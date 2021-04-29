@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Session;
 $user = Session::get('user');
 
 ?>
-<ul class="w-full">
+<ul id="lastModal" class="w-full">
     <?php
     $url_red = "profile." . $user[0]->IDTaiKhoan;
     ?>
