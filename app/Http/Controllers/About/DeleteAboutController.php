@@ -15,7 +15,7 @@ class DeleteAboutController extends Controller
     }
     public function deleteMain(Request $request)
     {
-        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')->get()[0]->JsonGioiThieu;
+        $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->user)->get()[0]->JsonGioiThieu;
         $json = json_decode($json);
         switch ($request->TypeDelete) {
             case 'PlaceWork':
@@ -27,7 +27,7 @@ class DeleteAboutController extends Controller
                 $dt = array_values($json->CongViecHocVan->CongViec);
                 $json->CongViecHocVan->CongViec = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
-                gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
+                gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
                 return view('Component/About/Delete/DeletePlaceWork') .
                     view('Component/About/Add/AddPlaceWork');
                 break;
@@ -40,7 +40,7 @@ class DeleteAboutController extends Controller
                 $dt = array_values($json->CongViecHocVan->HocVan);
                 $json->CongViecHocVan->HocVan = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
-                    gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
+                    gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
                 return view('Component/About/Delete/DeleteSchool') .
                     view('Component/About/Add/AddSchool');
                 break;
@@ -53,7 +53,7 @@ class DeleteAboutController extends Controller
                 $dt = array_values($json->NoiTungSong->NoiOHienTai);
                 $json->NoiTungSong->NoiOHienTai = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
-                            gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
+                            gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
                 return view('Component/About/Delete/DeletePlaceCurrent') .
                     view('Component/About/Add/AddPlaceCurrent');
                 break;
@@ -66,7 +66,7 @@ class DeleteAboutController extends Controller
                 $dt = array_values($json->NoiTungSong->NoiTungSong);
                 $json->NoiTungSong->NoiTungSong = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
-                                gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
+                                gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
                 return view('Component/About/Delete/DeletePlaceLived') .
                     view('Component/About/Add/AddPlaceLived');
                 break;
@@ -79,7 +79,7 @@ class DeleteAboutController extends Controller
                 $dt = array_values($json->NoiTungSong->QueQuan);
                 $json->NoiTungSong->QueQuan = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
-                                gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
+                                gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
                 return view('Component/About/Delete/DeleteHomeTown') .
                     view('Component/About/Add/AddHomeTown');
                 break;
@@ -92,9 +92,46 @@ class DeleteAboutController extends Controller
                 $dt = array_values($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh);
                 $json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
-                                    gioithieu.IDTaiKhoan = ? ', [json_encode($json), '1000000001']);
+                                    gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
                 return view('Component/About/Delete/DeleteMemberFamily') .
-                    view('Component/About/Add/AddMemberFamily');
+                    view('Component/About/Add/AddMemberFamily')
+                    ->with('idTaiKhoan', $request->user);
+                break;
+            case 'IntroYourSelf':
+                unset($json->ChiTietBanThan->GioiThieu[0]);
+                $dt = array_values($json->ChiTietBanThan->GioiThieu);
+                $json->ChiTietBanThan->GioiThieu = $dt;
+                DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+                                            gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
+                return view('Component/About/Delete/DeleteIntroYourSelf') .
+                    view('Component/About/Add/AddIntroYourSelf');
+                break;
+            case 'WayReadName':
+                unset($json->ChiTietBanThan->PhatAm[0]);
+                $dt = array_values($json->ChiTietBanThan->PhatAm);
+                $json->ChiTietBanThan->PhatAm = $dt;
+                DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+                                                gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
+                return view('Component/About/Delete/DeleteWaySpeak') .
+                    view('Component/About/Add/AddWaySpeak');
+                break;
+            case 'NickName':
+                unset($json->ChiTietBanThan->BietDanh[0]);
+                $dt = array_values($json->ChiTietBanThan->BietDanh);
+                $json->ChiTietBanThan->BietDanh = $dt;
+                DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+                                                    gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
+                return view('Component/About/Delete/DeleteNameOther') .
+                    view('Component/About/Add/AddNameOther');
+                break;
+            case 'FavoriteQuote':
+                unset($json->ChiTietBanThan->TrichDanYeuThich[0]);
+                $dt = array_values($json->ChiTietBanThan->TrichDanYeuThich);
+                $json->ChiTietBanThan->TrichDanYeuThich = $dt;
+                DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
+                                                        gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
+                return view('Component/About/Delete/DeleteFavoriteQuote') .
+                    view('Component/About/Add/AddFavoriteQuote');
                 break;
             default:
                 # code...

@@ -19,4 +19,10 @@
             Hủy
         </div>
     </div>
+    <!-- formData -->
+    <div id="formDataPlaceCurrent">
+        <input name="IDDiaChiLive" type="hidden" id="liveCurrentInput" value="">
+        <input name="PrivacyInputLiveCurrent" type="hidden" id="PrivacyInputLiveCurrent" value="">
+    </div>
+    <!-- formData -->
 </div>

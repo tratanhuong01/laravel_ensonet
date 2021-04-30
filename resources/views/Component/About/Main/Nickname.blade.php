@@ -22,7 +22,8 @@
             <li class="p-2  dark:text-white  text-gray-600">
                 <i class="far fa-edit text-xl cursor-pointer"></i>
             </li>
-            <li class="p-2  dark:text-white  text-gray-600">
+            <li onclick="deleteAbout('{{ $value->IDBietDanh }}',
+                'NickName','NickNameMain')" class="p-2  dark:text-white  text-gray-600">
                 <i class="far fa-trash-alt text-xl cursor-pointer"></i>
             </li>
             @else

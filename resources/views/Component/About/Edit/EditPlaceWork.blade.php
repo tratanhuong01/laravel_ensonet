@@ -2,7 +2,7 @@
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
 ?>
-<div class="w-full placeWork hidden relative">
+<div class="w-full relative" id="{{ $data->IDCongViec }}placeWorkEdit">
     <input oninput="OninputValueInputAbout('placeWork',this,'Companies')" onclick="EventClickInputAbout('placeWork',this,'Companies')" name="" id="IDCongTys" class="w-full my-2 p-3 border-2 border-solid border-gray-200 
     dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  
     resize-none outline-none rounded-lg" placeholder="Công ty" value="{{ $data->TenCongTy }}">
@@ -29,7 +29,11 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
     <div class="py-2 px-2 w-full dark:text-white font-bold flex">
         <div class="w-10 h-10 p-2 text-center hover:bg-gray-200 
                 dark:hover:bg-dark-third rounded-full">
+            @if ($data->NamKetThuc != NULL)
             <input onchange="OnChangeCheckBoxAboutOnOrOff(this,'yearAboutPlaceWork')" type="checkbox" class="" name="" id="" style="transform: scale(1.8);">
+            @else
+            <input onchange="OnChangeCheckBoxAboutOnOrOff(this,'yearAboutPlaceWork')" type="checkbox" class="" name="" id="" style="transform: scale(1.8);" checked>
+            @endif
         </div>
         <div class="pl-3 py-2">
             Tôi đang làm việc tại đây
@@ -56,8 +60,8 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
                 @endfor
             </div>
         </div>
-        <p class="py-2">Đến</p>
-        <div class="w-24 text-center relative dark:text-white">
+        <p class="py-2 {{$data->NamKetThuc != NULL ? '' : 'hidden' }}">Đến</p>
+        <div class="w-24 text-center relative dark:text-white {{$data->NamKetThuc != NULL ? '' : 'hidden' }}">
             <input type="button" onclick="EventClickYearAbout('yearPlaceWorks',1)" class="px-4 py-2.5 dark:bg-dark-third dark:text-white bg-gray-200 
                     font-bold rounded-lg" value="{{ $data->NamKetThuc == NULL ? 'Năm' : $data->NamKetThuc }}" id="YearEndPlaceWorks">
             <div class="YearEndPlaceWorkss z-50 hidden absolute left-3.5 top-12 w-80 h-60 overflow-y-auto wrapper-content-right
@@ -81,11 +85,18 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
         <div onclick="PrivacyAbout(this,'PrivacyInputPlaceWork')" class="bg-gray-200 cursor-pointer dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute left-0 font-bold">
             <i class="fas fa-globe-europe"></i>&nbsp;&nbsp;Công khai
         </div>
-        <div onclick="addPlaceWorkSS()" class=" cursor-pointer bg-1877F2 text-white ml-3 rounded-lg p-2 absolute right-0 font-bold">
-            Lưu
-        </div>
-        <div id="btnHuyPlaceWork" onclick="" class=" cursor-pointer bg-gray-200 dark:bg-dark-third dark:text-white  rounded-lg p-2 absolute right-12 font-bold">
+        <div id="btnLuuPlaceWork" class="cursor-pointer bg-1877F2 text-white ml-3 rounded-lg p-2 absolute right-0 font-bold">Lưu</div>
+        <div id="btnHuyPlaceWork" class=" cursor-pointer bg-gray-200 dark:bg-dark-third dark:text-white rounded-lg p-2 absolute right-12 font-bold">
             Hủy
         </div>
     </div>
+    <!-- formData -->
+    <div id="formDataPlaceWork" class="hidden">
+        <input name="IDCongTy" type="hidden" id="companiesInput" value="{{ $data->IDCongTy }}">
+        <input name="IDDiaChi" type="hidden" id="cityAndTownInput" value="{{ $data->IDDiaChi }}">
+        <input name="YearStartPlaceWork" type="hidden" id="YearStartPlaceWorkInput" value="{{ $data->NamBatDau }}">
+        <input name="YearEndPlaceWork" type="hidden" id="YearEndPlaceWorkInput" value="{{ $data->NamKetThuc }}">
+        <input name="PrivacyInputPlaceWork" type="hidden" id="PrivacyInputPlaceWork" value="{{ $data->IDQuyenRiengTu }}">
+    </div>
+    <!-- formData -->
 </div>

@@ -2,7 +2,7 @@
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
 ?>
-<div class="w-full hidden birthday">
+<div class="w-full birthday" id="">
     <div class="w-full p-2 flex dark:text-white font-bold">
         <div class="w-32 text-center relative dark:text-white">
             <button onclick="EventClickYearAbout('birthDayFull',0)" class="px-4 py-2.5 dark:bg-dark-third dark:text-white bg-gray-300 

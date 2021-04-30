@@ -19,4 +19,10 @@
             Hủy
         </div>
     </div>
+    <!-- formData -->
+    <div id="formDataHomeTown">
+        <input name="IDDiaChiHome" type="hidden" id="homeTownInput" value="">
+        <input name="PrivacyInputHomeTown" type="hidden" id="PrivacyInputHomeTown" value="">
+    </div>
+    <!-- formData -->
 </div>

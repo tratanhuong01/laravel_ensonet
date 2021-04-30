@@ -1,4 +1,4 @@
-<li class="w-full pb-4 flex" style="font-size: 16px;">
+<li class="w-full pb-4 flex" id="{{ $data->IDNoiOHienTai }}PlaceCurrent" style="font-size: 16px;">
     <div class="w-10/12 text text-gray-600  dark:text-white ">
         <i class="fas fa-home text-2xl"></i>
         &nbsp;&nbsp;&nbsp;Sống tại <b>{{ $data->TenDiaChi }}</b>
@@ -21,7 +21,8 @@
                 @break
                 @endswitch
             </li>
-            <li class="p-2  dark:text-white  text-gray-600">
+            <li onclick="editViewAbout('{{ $data->IDNoiOHienTai }}',
+                'PlaceCurrent','placeCurrentMain','placeCurrent','{{ $idTaiKhoan }}')" class="p-2  dark:text-white  text-gray-600">
                 <i class="far fa-edit text-xl cursor-pointer"></i>
             </li>
             <li onclick="deleteAbout('{{ $data->IDNoiOHienTai }}',

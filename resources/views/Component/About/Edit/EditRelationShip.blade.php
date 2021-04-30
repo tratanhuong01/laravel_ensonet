@@ -1,4 +1,4 @@
-<div class="w-full relative hidden relationShip">
+<div class="w-full relative relationShip" id="{{ $data->IDHonNhan }}relationShipEdit">
 
     <input oninput="OninputValueInputAbout('',this,'RelationShip')" onclick="EventClickInputAbout('',this,'RelationShip')" name="" id="IDRelationShips" class="w-full my-2 p-3 border-2 border-solid border-gray-200 
         dark:bg-dark-third dark:border-dark-main shadow-lg dark:text-white  

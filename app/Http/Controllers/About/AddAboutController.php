@@ -61,17 +61,19 @@ class AddAboutController extends Controller
         if ($request->ActiveIn == 'Dashboard') {
             DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-            return view('Component/About/Data/PlaceWork')->with(
-                'data',
-                $get
-            )->with('idTaiKhoan', $request->IDTaiKhoan);
+            return view('Component/About/Data/PlaceWork')
+                ->with('data', $get)
+                ->with('idTaiKhoan', $request->IDTaiKhoan)
+                ->with('idMain', $request->idMain)
+                ->with('idView', $request->idView);
         } else {
             DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-            return view('Component/About/Main/PlaceWork')->with(
-                'value',
-                $get
-            )->with('idTaiKhoan', $request->IDTaiKhoan);
+            return view('Component/About/Main/PlaceWork')
+                ->with('value', $get)
+                ->with('idTaiKhoan', $request->IDTaiKhoan)
+                ->with('idMain', $request->idMain)
+                ->with('idView', $request->idView);
         }
     }
     public function addSchool(Request $request)
@@ -119,7 +121,9 @@ class AddAboutController extends Controller
         return view('Component/About/Data/School')->with(
             'data',
             $get
-        )->with('idTaiKhoan', $request->IDTaiKhoan);
+        )->with('idTaiKhoan', $request->IDTaiKhoan)
+            ->with('idMain', $request->idMain)
+            ->with('idView', $request->idView);
     }
     public function addPlaceLiveCurrent(Request $request)
     {
@@ -163,12 +167,16 @@ class AddAboutController extends Controller
             return view('Component/About/Data/PlaceCurrent')->with(
                 'data',
                 $get
-            )->with('idTaiKhoan', $request->IDTaiKhoan);
+            )->with('idTaiKhoan', $request->IDTaiKhoan)
+                ->with('idMain', $request->idMain)
+                ->with('idView', $request->idView);
         } else {
             return view('Component/About/Main/PlaceCurrent')->with(
                 'value',
                 $get
-            )->with('idTaiKhoan', $request->IDTaiKhoan);
+            )->with('idTaiKhoan', $request->IDTaiKhoan)
+                ->with('idMain', $request->idMain)
+                ->with('idView', $request->idView);
         }
     }
     public function addHomeTown(Request $request)
@@ -214,12 +222,16 @@ class AddAboutController extends Controller
             return view('Component/About/Data/HomeTown')->with(
                 'data',
                 $get
-            )->with('idTaiKhoan', $request->IDTaiKhoan);
+            )->with('idTaiKhoan', $request->IDTaiKhoan)
+                ->with('idMain', $request->idMain)
+                ->with('idView', $request->idView);
         else
             return view('Component/About/Main/HomeTown')->with(
                 'value',
                 $get
-            )->with('idTaiKhoan', $request->IDTaiKhoan);
+            )->with('idTaiKhoan', $request->IDTaiKhoan)
+                ->with('idMain', $request->idMain)
+                ->with('idView', $request->idView);
     }
     public function addPlaceLived(Request $request)
     {
@@ -263,7 +275,9 @@ class AddAboutController extends Controller
         return view('Component/About/Main/PlaceLived')->with(
             'value',
             $get
-        )->with('idTaiKhoan', $request->IDTaiKhoan);
+        )->with('idTaiKhoan', $request->IDTaiKhoan)
+            ->with('idMain', $request->idMain)
+            ->with('idView', $request->idView);
     }
     public function addIntroYourSelf(Request $request)
     {
@@ -300,7 +314,9 @@ class AddAboutController extends Controller
         return view('Component/About/Main/IntroYourSelf')->with(
             'value',
             $get
-        )->with('idTaiKhoan', $request->IDTaiKhoan);
+        )->with('idTaiKhoan', $request->IDTaiKhoan)
+            ->with('idMain', $request->idMain)
+            ->with('idView', $request->idView);
     }
     public function addWayReadName(Request $request)
     {
@@ -338,7 +354,9 @@ class AddAboutController extends Controller
         return view('Component/About/Main/WaySpeak')->with(
             'value',
             $get
-        )->with('idTaiKhoan', $request->IDTaiKhoan);
+        )->with('idTaiKhoan', $request->IDTaiKhoan)
+            ->with('idMain', $request->idMain)
+            ->with('idView', $request->idView);
     }
     public function addNickName(Request $request)
     {
@@ -358,7 +376,7 @@ class AddAboutController extends Controller
         } else {
             $id =  $json->ChiTietBanThan->BietDanh[count($json->ChiTietBanThan->BietDanh) - 1]->IDBietDanh;
             $id++;
-            $json->ChiTietBanThan->BietDanh[0] =
+            $json->ChiTietBanThan->BietDanh[count($json->ChiTietBanThan->BietDanh)] =
                 (object)[
                     'IDBietDanh' => $id,
                     'IDQuyenRiengTu' => $request->PrivacyInputNickName == NULL ? $request->IDQuyenRiengTu : $request->PrivacyInputNickName,
@@ -376,7 +394,9 @@ class AddAboutController extends Controller
         return view('Component/About/Main/Nickname')->with(
             'value',
             $get
-        )->with('idTaiKhoan', $request->IDTaiKhoan);
+        )->with('idTaiKhoan', $request->IDTaiKhoan)
+            ->with('idMain', $request->idMain)
+            ->with('idView', $request->idView);
     }
     public function addFavoriteQuote(Request $request)
     {
@@ -412,7 +432,9 @@ class AddAboutController extends Controller
         return view('Component/About/Main/FavoriteQuote')->with(
             'value',
             $get
-        )->with('idTaiKhoan', $request->IDTaiKhoan);
+        )->with('idTaiKhoan', $request->IDTaiKhoan)
+            ->with('idMain', $request->idMain)
+            ->with('idView', $request->idView);
     }
     public function addMemberFamily(Request $request)
     {
@@ -459,6 +481,8 @@ class AddAboutController extends Controller
         return view('Component/About/Main/MemberFamily')->with(
             'value',
             $get
-        )->with('idTaiKhoan', $request->IDTaiKhoan);
+        )->with('idTaiKhoan', $request->IDTaiKhoan)
+            ->with('idMain', $request->idMain)
+            ->with('idView', $request->idView);
     }
 }

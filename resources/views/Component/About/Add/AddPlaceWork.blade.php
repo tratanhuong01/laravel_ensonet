@@ -92,3 +92,12 @@ $year = explode('-', explode(' ', date("Y-m-d H:i:s"))[0])[0];
         </div>
     </div>
 </div>
+<!-- formData -->
+<div id="formDataPlaceWork">
+    <input name="IDCongTy" type="hidden" id="companiesInput" value="">
+    <input name="IDDiaChi" type="hidden" id="cityAndTownInput" value="">
+    <input name="YearStartPlaceWork" type="hidden" id="YearStartPlaceWorkInput" value="">
+    <input name="YearEndPlaceWork" type="hidden" id="YearEndPlaceWorkInput" value="">
+    <input name="PrivacyInputPlaceWork" type="hidden" id="PrivacyInputPlaceWork" value="">
+</div>
+<!-- formData -->

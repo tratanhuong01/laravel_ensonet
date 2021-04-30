@@ -346,7 +346,7 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
 
 //
 Route::get('ProcessViewPrivacyAbout', function () {
-    return view('Component/GioiThieu/Modal/QuyenRiengTu');
+    return view('Component/About/Modal/Privacy');
 })->name('ProcessViewPrivacyAbout');
 
 //

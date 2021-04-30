@@ -265,6 +265,8 @@ function deleteAbout(ID, TypeDelete, Main) {
                         data: {
                             ID: ID,
                             TypeDelete: TypeDelete,
+                            user: user,
+                            users: users,
                         },
                         success: function (response) {
                             if ($("#" + ID + TypeDelete).length > 0) {
