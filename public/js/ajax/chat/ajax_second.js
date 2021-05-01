@@ -7,6 +7,7 @@ function minizeChatGroup(IDNhomTinNhan, IDTaiKhoan) {
         url: "/ProcessMinizeChat",
         data: {
             IDTaiKhoan: IDTaiKhoan,
+            IDNhomTinNhan: IDNhomTinNhan,
         },
         success: function (response) {
             $("#chatMinize").prepend(response);
@@ -317,7 +318,6 @@ function viewOnlyDetailFeelMessage(IDTinNhan, LoaiCamXuc) {
         },
     });
 }
-
 function sendStickerMessage(IDNhomTinNhan, IDTaiKhoan, IDNhanDan) {
     if (IDNhomTinNhan === "" || IDNhomTinNhan === undefined) {
         $.ajax({

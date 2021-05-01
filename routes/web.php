@@ -566,9 +566,16 @@ Route::get('friends/{id}', function ($id) {
 Route::get('messages/{idNhomTinNhan}', function ($idNhomTinNhan) {
     $chater = DataProcess::getUserOfGroupMessage($idNhomTinNhan);
     $messages = DataProcess::getMessageByNhomTinNhan($idNhomTinNhan);
-    return view('Guest/messager')->with('chater', $chater)
-        ->with('messages', $messages)
-        ->with('idNhomTinNhan', $idNhomTinNhan);
+    if (count($chater) == 1) {
+        return view('Guest/messager')->with('chater', $chater)
+            ->with('messages', $messages)
+            ->with('idNhomTinNhan', $idNhomTinNhan);
+    } else {
+        $chater = DataProcess::getUserOfGroupMessageReal($idNhomTinNhan);
+        return view('Guest/messager')->with('chater', $chater)
+            ->with('messages', $messages)
+            ->with('idNhomTinNhan', $idNhomTinNhan);
+    }
 });
 
 //

@@ -23,17 +23,33 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
             <div class="w-1/2 pl-3 flex">
                 <div class="pt-1">
                     <div class="w-10 h-10 relative">
-                        <img src="/{{ $chater[0]->AnhDaiDien }}" alt="" class="w-10 h-10 object-cover rounded-full">
-                        @include('Component\Child\Activity',[
-                        'padding' => 'p-1',
-                        'right' => 'right-0',
-                        'bottom' => 'bottom-0',
-                        'IDTaiKhoan' => $chater[0]->IDTaiKhoan
-                        ])
+                        <div class="w-10 h-10 relative mx-auto">
+                            <img src="/{{ $chater[0]->AnhDaiDien }}" class="w-7 h-7 rounded-full object-cover 
+                            absolute top-0 right-0" alt="">
+                            <img src="/{{ $chater[1]->AnhDaiDien }}" class="w-7 h-7 rounded-full object-cover 
+                            absolute bottom-0 left-0" alt="">
+                        </div>
                     </div>
                 </div>
                 <div class="pl-3">
-                    <b class="block dark:text-white">{{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}</b>
+                    <b class="block dark:text-white">
+                        <span id="{{$idNhomTinNhan}}nameChatGroup">
+                            @if ($messages[0]->TenNhomTinNhan == NULL ||
+                            $messages[0]->TenNhomTinNhan == "")
+                            @php
+                            $name = "";
+                            @endphp
+                            @foreach($chater as $key => $value)
+                            @php
+                            $name .= $value->Ten . ' , '
+                            @endphp
+                            @endforeach
+                            {{ $name }}
+                            @else
+                            {{$messages[0]->TenNhomTinNhan}}
+                            @endif
+                        </span>&nbsp;&nbsp;<br>
+                    </b>
                     <span class="text-gray-700 dark:text-gray-300 text-sm">@php
                         $timeAcitivity = StringUtil::CheckDateTimeUserActivity($chater[0]->ThoiGianHoatDong)
                         @endphp
@@ -66,12 +82,12 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
                 </ul>
             </div>
         </div>
-        <div id='{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges' class="w-full p-1 
+        <div id='{{ $idNhomTinNhan }}Messenges' class="w-full p-1 
         wrapper-content-right overflow-y-auto overflow-x-hidden relative" style="height: 560px;">
             @if (count($messages) == 0)
-            @include('Modal/ModalChat/Child/NewChat',['chater' => $chater])
+            @include('Modal/ModalChat/Child/GUICreateGroup',['users' => $chater])
             @else
-            @include('Modal/ModalChat/Child/NewChat',['chater' => $chater])
+            @include('Modal/ModalChat/Child/GUICreateGroup',['users' => $chater])
             @foreach($messages as $key => $value)
             @if(Session::get('user')[0]->IDTaiKhoan == $value->IDTaiKhoan)
             @if($value->LoaiTinNhan == 2)
@@ -115,7 +131,130 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
             @endforeach
             @endif
         </div>
-        <div class="w-full bg-white dark:bg-dark-second relative z-20 pb-2 pt-2 px-1 flex dark:border-dark-third border-t-2 border-solid border-gray-300">
+        <div class="w-full bg-white dark:bg-dark-second relative z-20 pb-2 pt-4 px-1 flex dark:border-dark-third border-t-2 border-solid border-gray-300">
+            <div id="newExcen" class="w-auto px-1 absolute -top-full rounded-2xl py-2 z-10 bg-white 
+            dark:bg-dark-second" style="display: none;">
+                <ul class="w-full flex bg-white dark:bg-dark-second">
+                    <li class="cursor-pointer mr-2 p-2.5 pb-1.5  fill-65676B dark:bg-dark-third bg-gray-200 rounded-lg">
+                        <svg class="a8c37x1j ms05siws hr662l2t b7h9ocf4" height="20px" width="20px" viewBox="0 -1 17 17">
+                            <g fill="black" fill-rule="evenodd">
+                                <path class=" fill-65676B " d="M2.882 13.13C3.476 4.743 3.773.48 3.773.348L2.195.516c-.7.1-1.478.647-1.478 1.647l1.092 11.419c0 .5.2.9.4 1.3.4.2.7.4.9.4h.4c-.6-.6-.727-.951-.627-2.151z" fill="gray"></path>
+                                <circle cx="8.5" cy="4.5" r="1.5" fill="black"></circle>
+                                <path class=" fill-65676B " d="M14 6.2c-.2-.2-.6-.3-.8-.1l-2.8 2.4c-.2.1-.2.4 0 .6l.6.7c.2.2.2.6-.1.8-.1.1-.2.1-.4.1s-.3-.1-.4-.2L8.3 8.3c-.2-.2-.6-.3-.8-.1l-2.6 2-.4 3.1c0 .5.2 1.6.7 1.7l8.8.6c.2 0 .5 0 .7-.2.2-.2.5-.7.6-.9l.6-5.9L14 6.2z" fill="black"></path>
+                                <path class=" fill-65676B " d="M13.9 15.5l-8.2-.7c-.7-.1-1.3-.8-1.3-1.6l1-11.4C5.5 1 6.2.5 7 .5l8.2.7c.8.1 1.3.8 1.3 1.6l-1 11.4c-.1.8-.8 1.4-1.6 1.3z" stroke-linecap="round" stroke-linejoin="round" stroke="black"></path>
+                            </g>
+                        </svg>
+                    </li>
+                    <li class="cursor-pointer fill-65676B  mx-2 p-2.5 pb-1.5 dark:bg-dark-third bg-gray-200 rounded-lg">
+                        <svg class="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji " height="20px" width="20px" viewBox="0 0 17 16" x="0px" y="0px">
+                            <g fill-rule="evenodd">
+                                <circle cx="5.5" cy="5.5" fill="none" r="1"></circle>
+                                <circle cx="11.5" cy="4.5" fill="none" r="1"></circle>
+                                <path class=" fill-65676B " d="M5.3 9c-.2.1-.4.4-.3.7.4 1.1 1.2 1.9 2.3 2.3h.2c.2 0 .4-.1.5-.3.1-.3 0-.5-.3-.6-.8-.4-1.4-1-1.7-1.8-.1-.2-.4-.4-.7-.3z" fill="none"></path>
+                                <path class=" fill-65676B " d="M10.4 13.1c0 .9-.4 1.6-.9 2.2 4.1-1.1 6.8-5.1 6.5-9.3-.4.6-1 1.1-1.8 1.5-2 1-3.7 3.6-3.8 5.6z">
+                                </path>
+                                <path class=" fill-65676B " d="M2.5 13.4c.1.8.6 1.6 1.3 2 .5.4 1.2.6 1.8.6h.6l.4-.1c1.6-.4 2.6-1.5 2.7-2.9.1-2.4 2.1-5.4 4.5-6.6 1.3-.7 1.9-1.6 1.9-2.8l-.2-.9c-.1-.8-.6-1.6-1.3-2-.7-.5-1.5-.7-2.4-.5L3.6 1.5C1.9 1.8.7 3.4 1 5.2l1.5 8.2zm9-8.9c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1zm-3.57 6.662c.3.1.4.4.3.6-.1.3-.3.4-.5.4h-.2c-1-.4-1.9-1.3-2.3-2.3-.1-.3.1-.6.3-.7.3-.1.5 0 .6.3.4.8 1 1.4 1.8 1.7zM5.5 5.5c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1z" fill-rule="nonzero"></path>
+                            </g>
+                        </svg>
+                    </li>
+                    <li class="cursor-pointer fill-65676B  mx-2 p-2.5 pb-1.5 dark:bg-dark-third bg-gray-200 rounded-lg">
+                        <svg class="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji" height="20px" width="20px" viewBox="0 0 16 16" x="0px" y="0px">
+                            <path d="M.783 12.705c.4.8 1.017 1.206 1.817 1.606 0 0 1.3.594 2.5.694 1 .1 1.9.1 2.9.1s1.9 0 2.9-.1 1.679-.294 2.479-.694c.8-.4 1.157-.906 1.557-1.706.018 0 .4-1.405.5-2.505.1-1.2.1-3 0-4.3-.1-1.1-.073-1.976-.473-2.676-.4-.8-.863-1.408-1.763-1.808-.6-.3-1.2-.3-2.4-.4-1.8-.1-3.8-.1-5.7 0-1 .1-1.7.1-2.5.5s-1.417 1.1-1.817 1.9c0 0-.4 1.484-.5 2.584-.1 1.2-.1 3 0 4.3.1 1 .2 1.705.5 2.505zm10.498-8.274h2.3c.4 0 .769.196.769.696 0 .5-.247.68-.747.68l-1.793.02.022 1.412 1.252-.02c.4 0 .835.204.835.704s-.442.696-.842.696H11.82l-.045 2.139c0 .4-.194.8-.694.8-.5 0-.7-.3-.7-.8l-.031-5.631c0-.4.43-.696.93-.696zm-3.285.771c0-.5.3-.8.8-.8s.8.3.8.8l-.037 5.579c0 .4-.3.8-.8.8s-.8-.4-.8-.8l.037-5.579zm-3.192-.825c.7 0 1.307.183 1.807.683.3.3.4.7.1 1-.2.4-.7.4-1 .1-.2-.1-.5-.3-.9-.3-1 0-2.011.84-2.011 2.14 0 1.3.795 2.227 1.695 2.227.4 0 .805.073 1.105-.127V8.6c0-.4.3-.8.8-.8s.8.3.8.8v1.8c0 .2.037.071-.063.271-.7.7-1.57.991-2.47.991C2.868 11.662 1.3 10.2 1.3 8s1.704-3.623 3.504-3.623z" fill-rule="nonzero"></path>
+                        </svg>
+                    </li>
+                    <li class="cursor-pointer  fill-65676B ml-2 p-2.5 px-3 pb-2 dark:bg-dark-third bg-gray-200 rounded-lg">
+                        <i class="fas fa-paperclip " style="font-size: 18px;color:#65676B;"></i>
+                    </li>
+                </ul>
+            </div>
+            <div id="{{ $idNhomTinNhan }}imageChat" class=" absolute rounded-2xl z-10 bg-white 
+            dark:bg-dark-second hidden" style="bottom: 102%;width: 335px;">
+                <ul class="flex p-2 overflow-x-auto" style="max-width: 335px;width: 335px;">
+                    <li id="{{$idNhomTinNhan}}liLoadAdd" class="w-16 h-16 rounded-lg text-center mr-2 bg-gray-300  flex-shrink-0 dark:bg-dark-third flex justify-center">
+                        <input onchange="loadAddImageChat(this,'{{$idNhomTinNhan}}')" type="file" name="fileImageAdd[]" class="hidden" id="{{ $idNhomTinNhan }}fileImageChatMainAdd" multiple="multiple">
+                        <label for="{{ $idNhomTinNhan }}fileImageChatMainAdd" class="flex items-center">
+                            <i class="fas fa-file-image text-2xl dark:text-white flex items-center"></i>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div id="{{ $idNhomTinNhan }}modalChatElement" class="bg-white my-2 absolute w-72 dark:border-dark-second 
+            shadow-lg border-gray-300 p-1 border-2 border-solid rounded-lg dark:bg-dark-second hidden" style="bottom: 102%;max-height: 365px;height: 360px;">
+            </div>
+            <div id="{{ $idNhomTinNhan }}modalEmoji" class="bg-white absolute w-80 dark:border-dark-second 
+            shadow-lg border-gray-300 rounded-lg dark:bg-dark-second hidden" style="bottom: 102%;max-height: 265;height: 265px;">
+            </div>
+            <div class="flex py-1">
+                <div class="cursor-pointer fill-65676B ">
+                    <div class="hover:bg-gray-200 rounded-full 
+                    dark:hover:bg-dark-third  p-1 ">
+                        <svg id="addOrCancel{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?0:$messages[0]->IDMauTinNhan) }}" id="addOrCancel" onclick="loadTextBoxType()" class="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji tftn3vyl" height="20px" width="20px" viewBox="0 0 24 24">
+                            <g fill-rule="evenodd">
+                                <polygon fill="none" points="-6,30 30,30 30,-6 -6,-6 "></polygon>
+                                <path d="m18,11l-5,0l0,-5c0,-0.552 -0.448,-1 -1,-1c-0.5525,0 -1,0.448 -1,1l0,5l-5,0c-0.5525,0 -1,0.448 -1,1c0,0.552 0.4475,1 1,1l5,0l0,5c0,0.552 0.4475,1 1,1c0.552,0 1,-0.448 1,-1l0,-5l5,0c0.552,0 1,-0.448 1,-1c0,-0.552 -0.448,-1 -1,-1m-6,13c-6.6275,0 -12,-5.3725 -12,-12c0,-6.6275 5.3725,-12 12,-12c6.627,0 12,5.3725 12,12c0,6.6275 -5.373,12 -12,12">
+                                </path>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <ul class="three-exten w-2/12 py-1" id="{{ $idNhomTinNhan }}threeexten" style="display: block;">
+                <input onchange="onchangeViewSendImageChat(this,'{{ $idNhomTinNhan }}')" class="hidden" type="file" name="fileImage[]" id="{{ $chater[0]->IDTaiKhoan }}fileImageChatMain" multiple="multiple">
+                <label for="{{ $chater[0]->IDTaiKhoan }}fileImageChatMain">
+                    <li class="float-left cursor-pointer p-1 fill-65676B hover:bg-gray-200 rounded-full 
+                    dark:hover:bg-dark-third">
+                        <svg class="a8c37x1j ms05siws hr662l2t b7h9ocf4" height="20px" width="20px" viewBox="0 -1 17 17">
+                            <g fill="gray" fill-rule="evenodd">
+                                <path id="picture1{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" d="M2.882 13.13C3.476 4.743 3.773.48 3.773.348L2.195.516c-.7.1-1.478.647-1.478 1.647l1.092 11.419c0 .5.2.9.4 1.3.4.2.7.4.9.4h.4c-.6-.6-.727-.951-.627-2.151z" fill="gray"></path>
+                                <circle cx="8.5" cy="4.5" r="1.5" fill="gray"></circle>
+                                <path id="picture2{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" d="M14 6.2c-.2-.2-.6-.3-.8-.1l-2.8 2.4c-.2.1-.2.4 0 .6l.6.7c.2.2.2.6-.1.8-.1.1-.2.1-.4.1s-.3-.1-.4-.2L8.3 8.3c-.2-.2-.6-.3-.8-.1l-2.6 2-.4 3.1c0 .5.2 1.6.7 1.7l8.8.6c.2 0 .5 0 .7-.2.2-.2.5-.7.6-.9l.6-5.9L14 6.2z" fill="#{{ (count($messages)==0?0:$messages[0]->IDMauTinNhan) }}"></path>
+                                <path id="picture3{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" d="M13.9 15.5l-8.2-.7c-.7-.1-1.3-.8-1.3-1.6l1-11.4C5.5 1 6.2.5 7 .5l8.2.7c.8.1 1.3.8 1.3 1.6l-1 11.4c-.1.8-.8 1.4-1.6 1.3z" stroke-linecap="round" stroke-linejoin="round" stroke="#{{ (count($messages)==0?0:$messages[0]->IDMauTinNhan) }}"></path>
+                            </g>
+                        </svg>
+                    </li>
+                </label>
+                <li onclick="openModalElementChildChat('Sticker','{{ $idNhomTinNhan }}',
+                '{{$idNhomTinNhan}}')" class="float-left cursor-pointer p-1 fill-65676B  hover:bg-gray-200 rounded-full 
+                dark:hover:bg-dark-third">
+                    <svg id="sticker{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" class="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji" height="20px" width="20px" viewBox="0 0 17 16" x="0px" y="0px">
+                        <g fill-rule="evenodd">
+                            <circle cx="5.5" cy="5.5" fill="none" r="1"></circle>
+                            <circle cx="11.5" cy="4.5" fill="none" r="1"></circle>
+                            <path d="M5.3 9c-.2.1-.4.4-.3.7.4 1.1 1.2 1.9 2.3 2.3h.2c.2 0 .4-.1.5-.3.1-.3 0-.5-.3-.6-.8-.4-1.4-1-1.7-1.8-.1-.2-.4-.4-.7-.3z" fill="none"></path>
+                            <path d="M10.4 13.1c0 .9-.4 1.6-.9 2.2 4.1-1.1 6.8-5.1 6.5-9.3-.4.6-1 1.1-1.8 1.5-2 1-3.7 3.6-3.8 5.6z">
+                            </path>
+                            <path d="M2.5 13.4c.1.8.6 1.6 1.3 2 .5.4 1.2.6 1.8.6h.6l.4-.1c1.6-.4 2.6-1.5 2.7-2.9.1-2.4 2.1-5.4 4.5-6.6 1.3-.7 1.9-1.6 1.9-2.8l-.2-.9c-.1-.8-.6-1.6-1.3-2-.7-.5-1.5-.7-2.4-.5L3.6 1.5C1.9 1.8.7 3.4 1 5.2l1.5 8.2zm9-8.9c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1zm-3.57 6.662c.3.1.4.4.3.6-.1.3-.3.4-.5.4h-.2c-1-.4-1.9-1.3-2.3-2.3-.1-.3.1-.6.3-.7.3-.1.5 0 .6.3.4.8 1 1.4 1.8 1.7zM5.5 5.5c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1z" fill-rule="nonzero"></path>
+                        </g>
+                    </svg>
+                </li>
+                <li class="float-left cursor-pointer p-1 fill-65676B hover:bg-gray-200 rounded-full 
+                dark:hover:bg-dark-third">
+                    <svg id="gif{{ $idNhomTinNhan }}" fill="#{{ (count($messages)==0?'65676B':$messages[0]->IDMauTinNhan) }}" class="a8c37x1j ms05siws hr662l2t b7h9ocf4 crt8y2ji" height="20px" width="20px" viewBox="0 0 16 16" x="0px" y="0px">
+                        <path d="M.783 12.705c.4.8 1.017 1.206 1.817 1.606 0 0 1.3.594 2.5.694 1 .1 1.9.1 2.9.1s1.9 0 2.9-.1 1.679-.294 2.479-.694c.8-.4 1.157-.906 1.557-1.706.018 0 .4-1.405.5-2.505.1-1.2.1-3 0-4.3-.1-1.1-.073-1.976-.473-2.676-.4-.8-.863-1.408-1.763-1.808-.6-.3-1.2-.3-2.4-.4-1.8-.1-3.8-.1-5.7 0-1 .1-1.7.1-2.5.5s-1.417 1.1-1.817 1.9c0 0-.4 1.484-.5 2.584-.1 1.2-.1 3 0 4.3.1 1 .2 1.705.5 2.505zm10.498-8.274h2.3c.4 0 .769.196.769.696 0 .5-.247.68-.747.68l-1.793.02.022 1.412 1.252-.02c.4 0 .835.204.835.704s-.442.696-.842.696H11.82l-.045 2.139c0 .4-.194.8-.694.8-.5 0-.7-.3-.7-.8l-.031-5.631c0-.4.43-.696.93-.696zm-3.285.771c0-.5.3-.8.8-.8s.8.3.8.8l-.037 5.579c0 .4-.3.8-.8.8s-.8-.4-.8-.8l.037-5.579zm-3.192-.825c.7 0 1.307.183 1.807.683.3.3.4.7.1 1-.2.4-.7.4-1 .1-.2-.1-.5-.3-.9-.3-1 0-2.011.84-2.011 2.14 0 1.3.795 2.227 1.695 2.227.4 0 .805.073 1.105-.127V8.6c0-.4.3-.8.8-.8s.8.3.8.8v1.8c0 .2.037.071-.063.271-.7.7-1.57.991-2.47.991C2.868 11.662 1.3 10.2 1.3 8s1.704-3.623 3.504-3.623z" fill-rule="nonzero"></path>
+                    </svg>
+                </li>
+            </ul>
+            <div class="three-exten1 w-8/12" id="{{$idNhomTinNhan}}threeexten1">
+                <?php $user = Session::get('user'); ?>
+                <div onkeyup="sendMessageGroup('{{ $chater[0]->IDTaiKhoan }}',
+                '{{ $idNhomTinNhan }}',
+                '{{ $user[0]->IDTaiKhoan }}',event)" id="{{ $idNhomTinNhan }}PlaceTypeText" class="place-input-type border-none rounded-2xl pl-2 outline-none
+                bg-gray-200 py-1.5 break-all w-11/12 dark:bg-dark-third dark:text-white" style="min-height: 20px;" oninput="typeChat('{{ $idNhomTinNhan }}')" onclick="seenMessage(
+                '{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" contenteditable placeholder="Aa"></div>
+                <script>
+                    $("#{{ $idNhomTinNhan }}PlaceTypeText").keypress(function(e) {
+                        return e.which != 13;
+                    });
+                </script>
+            </div>
+            <div class="w-1/12 pt-1 zoom">
+                <p id="{{ $idNhomTinNhan }}IconFeel" onclick="sendMessageIconGroup('{{ $chater[0]->IDTaiKhoan }}',
+                '{{ $idNhomTinNhan }}',this)" class="cursor-pointer zoom text-xl">
+                    {{ (count($messages)==0?'🤝': $messages[0]->BieuTuong) }}
+                </p>
+            </div>
+        </div>
+        <div class="hidden w-full bg-white dark:bg-dark-second relative z-20 pb-2 pt-2 px-1 flex dark:border-dark-third border-t-2 border-solid border-gray-300">
             <div class=" flex py-1">
                 <div class="cursor-pointer fill-65676B ">
                     <div class="hover:bg-gray-200 rounded-full dark:hover:bg-dark-third  p-1 ">
@@ -185,15 +324,31 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
 <div class="w-1/3 pr-2 wrapper-content-right" style="height: 701px;max-height: 701px;overflow-y: auto;">
     <div class="w-full">
         <div class="w-16 h-16 object-cover rounded-full mx-auto my-2 relative">
-            <img src="/{{ $chater[0]->AnhDaiDien }}" alt="" class="w-16 h-16 object-cover rounded-full mx-auto">
-            @include('Component\Child\Activity',[
-            'padding' => 'p-1.5',
-            'right' => 'right-0',
-            'bottom' => 'bottom-0',
-            'IDTaiKhoan' => '1000000008'
-            ])
+            <div class="w-16 h-16 relative mx-auto">
+                <img src="/{{ $chater[0]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
+                    absolute top-0 right-0" alt="">
+                <img src="/{{ $chater[1]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
+                    absolute bottom-0 left-0" alt="">
+            </div>
         </div>
-        <p class="font-bold text-center py-1 dark:text-white">{{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}</p>
+        <p class="font-bold text-center py-1 dark:text-white">
+            <span id="{{$idNhomTinNhan}}nameChatGroup">
+                @if ($messages[0]->TenNhomTinNhan == NULL ||
+                $messages[0]->TenNhomTinNhan == "")
+                @php
+                $name = "";
+                @endphp
+                @foreach($chater as $key => $value)
+                @php
+                $name .= $value->Ten . ' , '
+                @endphp
+                @endforeach
+                {{ $name }}
+                @else
+                {{$messages[0]->TenNhomTinNhan}}
+                @endif
+            </span>&nbsp;&nbsp;
+        </p>
         <p class="font-bold text-center text-sm text-gray-600 dark:text-gray-300">
             @php
             $timeAcitivity = StringUtil::CheckDateTimeUserActivity($chater[0]->ThoiGianHoatDong)
@@ -208,17 +363,19 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
         </li>
         <li class="w-full py-1">
             <ul class="w-full">
-                <li class="w-full py-2.5 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-dark-third 
+                <li onclick="openChangeColor('{{ $idNhomTinNhan }}',
+                '{{ $chater[0]->IDTaiKhoan }}')" class="w-full py-2.5 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-dark-third 
                 py-2 px-2 font-bold cursor-pointer dark:text-white">
                     <i class="fab fa-ussunnah text-xm dark:text-white"></i>&nbsp;&nbsp;
                     Đổi chủ đề
                 </li>
-                <li class="w-full py-2.5 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-dark-third 
+                <li onclick="openModalIconFeelChange('{{ $idNhomTinNhan }}',
+                '{{ json_encode($user[0]) }}')" class="w-full py-2.5 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-dark-third 
                 py-2 px-2 font-bold cursor-pointer dark:text-white">
                     ✌️&nbsp;&nbsp;
                     Thay đổi biểu tượng cảm xúc
                 </li>
-                <li class="w-full py-2.5 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-dark-third 
+                <li onclick="openModalNickName('{{ $idNhomTinNhan }}','{{ $user[0]->IDTaiKhoan }}')" class="w-full py-2.5 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-dark-third 
                 py-2 px-2 font-bold cursor-pointer dark:text-white">
                     <i class="fas fa-pen text-xm dark:text-white"></i>&nbsp;&nbsp;
                     Chỉnh sửa biệt danh
@@ -262,8 +419,9 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
     </ul>
 </div>
 <script>
-    var objDiv = document.getElementById('{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges');
-    if (objDiv.scrollHeight > 400) objDiv.scrollTop = objDiv.scrollHeight;
+    store.set('{{$idNhomTinNhan}}arrayImage', arrayImage);
+    var objDiv = document.getElementById('{{ $idNhomTinNhan}}Messenges');
+    if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
     Pusher.logToConsole = true;
 
     var pusher = new Pusher('5064fc09fcd20f23d5c1', {
@@ -271,79 +429,22 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
     });
     var channel = pusher.subscribe('test.' + '{{ Session::get("user")[0]->IDTaiKhoan }}' +
         '{{ $idNhomTinNhan }}');
-    channel.bind('chatNorl', function() {
+    channel.bind('chatGroup', function() {
         var aud = new Audio("/mp3/ring-mess.mp3");
-        aud.play();
         $.ajax({
             method: "GET",
             url: "/ProcessChatEvent",
             data: {
                 IDNhomTinNhan: '{{ $idNhomTinNhan }}',
-                IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
+                Num: '{{ count(DataProcess::getUserOfGroupMessage($idNhomTinNhan)) }}'
             },
             success: function(response) {
-                if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').length > 0)
-                    $('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').append(response.viewSmall);
-                else
-                    $('#placeChat').append(response.viewBig)
+                aud.play();
+                if (response.typeMessage == 2) {
+                    changeColorSVG('{{ $idNhomTinNhan }}', '#' + response.color);
+                }
+                $('#{{ $idNhomTinNhan }}Messenges').append(response.viewSmall);
                 if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
-                // changeColorSVG('{{$idNhomTinNhan}}', )
-            }
-        });
-    });
-    channel.bind('seenMessage', function() {
-        $.ajax({
-            method: "GET",
-            url: "/ProcessSeenMessageEvent",
-            data: {
-                IDNhomTinNhan: '{{ $idNhomTinNhan }}',
-                IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
-            },
-            success: function(response) {
-                if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').length > 0) {
-                    $('.mess-user-r2' + response.idgroup).html('');
-                    if ($('#' + response.id + 'right').length > 0) {
-                        $('#' + response.id + 'right').html(response.view)
-                    }
-                }
-            }
-        });
-    });
-    channel.bind('loadingTypingOn', function() {
-        $.ajax({
-            method: "GET",
-            url: "/ProcessLoadingTypingOn",
-            data: {
-                IDNhomTinNhan: '{{ $idNhomTinNhan }}',
-                IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
-            },
-            success: function(response) {
-                if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').length > 0) {
-
-                    if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Typing').length > 0) {
-
-                    } else {
-                        $('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges').append(response.view);
-                        if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
-                    }
-
-                }
-            }
-        });
-    });
-    channel.bind('loadingTypingOff', function() {
-        $.ajax({
-            method: "GET",
-            url: "/ProcessLoadingTypingOff",
-            data: {
-                IDNhomTinNhan: '{{ $idNhomTinNhan }}',
-                IDTaiKhoan: '{{ $chater[0]->IDTaiKhoan }}'
-            },
-            success: function(response) {
-                if ($('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Typing').length > 0) {
-                    $('#{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Typing').remove();
-                    if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
-                }
             }
         });
     });

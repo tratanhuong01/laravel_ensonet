@@ -114,4 +114,7 @@ class DataProcessSix extends Model
         else
             return false;
     }
+    public static function getVideoByUser()
+    {
+    }
 }

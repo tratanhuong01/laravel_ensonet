@@ -23,6 +23,21 @@ use App\Models\StringUtil;
         }
     </style>
 </head>
+<script>
+    var store = (function() {
+        var map = {};
+
+        return {
+            set: function(name, value) {
+                map[name] = value;
+            },
+            get: function(name) {
+                return map[name];
+            }
+        };
+    })();
+    var arrayImage = new Array();
+</script>
 
 <body class="dark:bg-dark-main">
     @if (session()->has('user'))
@@ -34,7 +49,7 @@ use App\Models\StringUtil;
         @include('Header')
         <div class="w-full flex pt-16 z-10 bg-white dark:bg-dark-main lg:w-full 
         lg:mx-auto xl:w-full" id="content" style="max-height: 760px;height: 760px;">
-            <div class="w-1/4 border-r-2 mt-5 border-solid dark:border-dark-second
+            <div class="w-1/4 border-r-2 border-solid dark:border-dark-second
              border-gray-100 shadow-xl">
                 <div class="w-full flex py-2">
                     <div class="w-1/2 font-bold text-2xl py-0.5 ml-5 dark:text-white">
@@ -67,11 +82,19 @@ use App\Models\StringUtil;
                 </div>
             </div>
             <div class="w-3/4 flex">
-                @include('Component\Messenger\Messenger',[
+                @if (count($chater) == 1)
+                @include('Component\Messenger\MessengerChat',[
                 'idNhomTinNhan' => $idNhomTinNhan,
                 'chater' => $chater,
                 'messages' => $messages
                 ])
+                @else
+                @include('Component\Messenger\MessengerChatGroup',[
+                'idNhomTinNhan' => $idNhomTinNhan,
+                'chater' => $chater,
+                'messages' => $messages
+                ])
+                @endif
             </div>
         </div>
     </div>

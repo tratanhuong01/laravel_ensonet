@@ -7,10 +7,36 @@
 .bg-size\:4\:3 {
     background-size: 400% 300%;
 }
+.bg-size\:4\:4 {
+    background-size: 400% 400%;
+}
 .bg-size\:6\:5 {
     background-size: 600% 500%;
 }
+.stickerAnimation\:4\:4 {
+    animation: playv4vs4 1s steps(4) infinite,
+        playh4vs4 0.666s steps(4) infinite;
+}
 
+@keyframes playv4vs4 {
+    0% {
+        background-position-y: 0%;
+    }
+
+    100% {
+        background-position-y: 400%;
+    }
+}
+
+@keyframes playh4vs4 {
+    0% {
+        background-position-x: 0%;
+    }
+
+    100% {
+        background-position-x: 400%;
+    }
+}
 .stickerAnimation\:5\:4 {
     animation: playv5vs4 1s steps(5) infinite,
         playh5vs4 0.666s steps(4) infinite;

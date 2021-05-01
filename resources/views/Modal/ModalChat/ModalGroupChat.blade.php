@@ -260,7 +260,10 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     <div style="display: none;right:101%;top:0;" id="{{ $chater[0]->IDTaiKhoan }}SettingChat" class="setting-chat w-full absolute top-2 bg-white rounded-lg border-2 rounded-lg dark:bg-dark-second 
     dark:border-dark-third border-gray-300">
         <ul class="dark:border-dark-third w-full border-b-2 border-gray-200 border-solid p-2">
-            <li class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer dark:text-white">
+            @php
+            $pathRerMessenger = "messages/$idNhomTinNhan"
+            @endphp
+            <li onclick="window.location.href='{{ url($pathRerMessenger) }}'" class="w-full p-1.5 text-lg hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer dark:text-white">
                 <i class="fab fa-facebook-messenger pr-1.5"></i> Mở
                 messager
             </li>
