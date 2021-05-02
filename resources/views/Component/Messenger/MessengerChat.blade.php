@@ -23,7 +23,7 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
             <div class="w-1/2 pl-3 flex">
                 <div class="pt-1">
                     <div class="w-10 h-10 relative">
-                        <img src="/{{ $chater[0]->AnhDaiDien }}" alt="" class="w-10 h-10 object-cover rounded-full">
+                        <img src="{{ $chater[0]->AnhDaiDien }}" alt="" class="w-10 h-10 object-cover rounded-full">
                         @include('Component\Child\Activity',[
                         'padding' => 'p-1',
                         'right' => 'right-0',
@@ -250,7 +250,7 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
 <div class="w-1/3 pr-2 wrapper-content-right" style="height: 701px;max-height: 701px;overflow-y: auto;">
     <div class="w-full">
         <div class="w-16 h-16 object-cover rounded-full mx-auto my-2 relative">
-            <img src="/{{ $chater[0]->AnhDaiDien }}" alt="" class="w-16 h-16 object-cover rounded-full mx-auto">
+            <img src="{{ $chater[0]->AnhDaiDien }}" alt="" class="w-16 h-16 object-cover rounded-full mx-auto">
             @include('Component\Child\Activity',[
             'padding' => 'p-1.5',
             'right' => 'right-0',
@@ -319,7 +319,7 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
             @if(count($imageAndVideo) > 0)
             @foreach($imageAndVideo as $key => $value)
             <a href="">
-                <img src="/{{ $value }}" class="object-cover rounded-lg m-0.5
+                <img src="{{ $value }}" class="object-cover rounded-lg m-0.5
                 " alt="" style="width: 110px;height:110px;">
             </a>
             @endforeach

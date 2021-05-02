@@ -1,6 +1,6 @@
 <div class="w-full p-2 text-center">
     <div class="w-16 h-16 relative mx-auto">
-        <img src="/{{ $chater[0]->AnhDaiDien }}" class="w-16 h-16 rounded-full object-cover mx-auto" alt="">
+        <img src="{{ $chater[0]->AnhDaiDien }}" class="w-16 h-16 rounded-full object-cover mx-auto" alt="">
         @include('Component\Child\Activity',
         [
         'padding' => 'p-1',

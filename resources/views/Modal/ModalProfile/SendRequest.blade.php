@@ -27,7 +27,7 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
         cursor-pointer">
             <div onclick="window.location.href='{{ url($paths) }}'" class="ml-3 mr-3">
                 <div class="w-16 h-16 relative">
-                    <img src="/{{ $value->AnhDaiDien }}" class="w-16 h-16 object-cover 
+                    <img src="{{ $value->AnhDaiDien }}" class="w-16 h-16 object-cover 
                     cursor-pointer" alt="">
                     @include('Component\Child\HoatDong',
                     [

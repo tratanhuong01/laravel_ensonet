@@ -72,7 +72,7 @@ $user = Session::get('user');
                     <!-- avatar user  -->
 
                     <a href="{{ url($pathProfile) }}" id="ajaxAnhDaiDien1">
-                        <img id="ajaxAnhDaiDien2" class="w-8 h-8 rounded-full object-cover" src="/{{ $user[0]->AnhDaiDien }}" alt="" /></a>
+                        <img id="ajaxAnhDaiDien2" class="w-8 h-8 rounded-full object-cover" src="{{ $user[0]->AnhDaiDien }}" alt="" /></a>
                 </div>
                 <div class="w-2/3 hidden pt-1 text-center xl:block xl:w-auto lg:pt-2">
                     <!-- name user  -->

@@ -44,7 +44,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
         @foreach($friends as $key => $value)
         <div id="{{ $value->IDTaiKhoan }}Tag" onclick="tagFriends('{{ $value->IDTaiKhoan }}')" class="w-full relative flex py-2 px-4 cursor-pointer hover:bg-gray-200 rounded-4xl dark:hover:bg-dark-third">
             <div class="" style="text-align: center;padding-right: 10px">
-                <img class="w-12 h-12 rounded-full object-cover" src="/{{ $value->AnhDaiDien }}" alt="">
+                <img class="w-12 h-12 rounded-full object-cover" src="{{ $value->AnhDaiDien }}" alt="">
             </div>
             <div class="tac-user-2" style="padding-top: 1%;padding-left: 2%;">
                 <p class="font-bold dark:text-white">{{ $value->Ho .' ' .$value->Ten }}</p>

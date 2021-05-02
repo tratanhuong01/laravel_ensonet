@@ -32,7 +32,7 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
                 <div class="w-3/5 flex">
                     <div class="w-14 h-14 relative">
                         <a href="">
-                            <img src="/{{ $value[$i][0]->AnhDaiDien }}" class="w-12 h-12 object-cover
+                            <img src="{{ $value[$i][0]->AnhDaiDien }}" class="w-12 h-12 object-cover
                                             rounded-full border-2 border-solid border-gray-300" alt="">
                         </a>
                         <span class="absolute bottom-2 right-1">{{ Functions::getFeelMain($key) }}</span>
@@ -49,7 +49,7 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
                 <div class="w-3/5 flex">
                     <div class="w-14 h-14 relative">
                         <a href="">
-                            <img src="/{{ $value[$i][0]->AnhDaiDien }}" class="w-12 h-12 object-cover
+                            <img src="{{ $value[$i][0]->AnhDaiDien }}" class="w-12 h-12 object-cover
                                             rounded-full border-2 border-solid border-gray-300" alt="">
                         </a>
                         <span class="absolute bottom-2 right-1">{{ Functions::getFeelMain($key) }}</span>

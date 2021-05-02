@@ -57,7 +57,7 @@ $user = Session::get('user')
                 <div onclick="window.location.href='{{ url($pathMainUs) }}'" class="w-full flex my-2 hover:bg-gray-200 cursor-pointer rounded-lg p-2
                  dark:hover:bg-dark-third ">
                     <div class="w-23per">
-                        <img id="img{{ $allStory[0][0]->IDTaiKhoan }}" src="/{{ $allStory[0][0]->AnhDaiDien }}" class="
+                        <img id="img{{ $allStory[0][0]->IDTaiKhoan }}" src="{{ $allStory[0][0]->AnhDaiDien }}" class="
                         rounded-full p-1 {{ DataProcessThird::checkIsViewStoryOfUser($allStory[0][0]->IDTaiKhoan,$user[0]->IDTaiKhoan) == 0 ? 'border-4 border-white' 
                             : 'border-4 border-blue-500' }} object-cover 
                     border-solid" alt="" style="width: 65px;height: 65px;">
@@ -78,7 +78,7 @@ $user = Session::get('user')
                     <div onclick="window.location.href='{{ url($pathIStories) }}'" class="w-full flex my-2 hover:bg-gray-200 cursor-pointer rounded-lg p-2
                  dark:hover:bg-dark-third ">
                         <div class="w-23per">
-                            <img id="img{{$allStory[$i][0]->IDTaiKhoan}}" src="/{{ $allStory[$i][0]->AnhDaiDien }}" class="rounded-full p-1 
+                            <img id="img{{$allStory[$i][0]->IDTaiKhoan}}" src="{{ $allStory[$i][0]->AnhDaiDien }}" class="rounded-full p-1 
                             {{ DataProcessThird::checkIsViewStoryOfUser($allStory[$i][0]->IDTaiKhoan,$user[0]->IDTaiKhoan) == 0 ? 'border-4 border-white' 
                             : 'border-4 border-blue-500' }}
                     border-solid object-cover" alt="" style="width: 65px;height: 65px;">

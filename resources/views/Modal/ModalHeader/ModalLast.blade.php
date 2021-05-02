@@ -24,7 +24,7 @@ $user = Session::get('user');
                 break;
         }
         ?>
-        <img class="w-12 h-12 rounded-full object-cover" src="{{ $path.$user[0]->AnhDaiDien }}" alt="" srcset="">
+        <img class="w-12 h-12 rounded-full object-cover" src="{{ $user[0]->AnhDaiDien }}" alt="" srcset="">
         &nbsp;&nbsp;
         <p class="pt-2.5 pl-1 dark:text-white font-bold">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</p>
     </li>

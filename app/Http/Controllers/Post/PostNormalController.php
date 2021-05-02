@@ -14,136 +14,133 @@ use App\Process\DataProcessSix;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use JD\Cloudder\Facades\Cloudder;
 
 class PostNormalController extends Controller
 {
     public function post(Request $request)
     {
-        try {
-
-            date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $user = Session::get('user');
-            if ($request->hasFile('files_0')) {
-                $datetime = date("Y-m-d H:i:s");
-                $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
-                $tag = "";
-                $idCamXuc = NULL;
-                $idViTri = NULL;
-                if (session()->has('feelCur'))
-                    foreach (Session::get('feelCur') as $key => $value)
-                        $idCamXuc = $value;
-                if (session()->has('tag')) {
-                    if (count(Session::get('tag')) > 0) {
-                        $tags = Session::get('tag');
-                        foreach ($tags as $key => $value) {
-                            $tag .= $key . '&';
-                        }
-                        foreach ($tags as $key => $value) {
-                            Thongbao::add(
-                                StringUtil::ID('thongbao', 'IDThongBao'),
-                                $value,
-                                'DGTBTMBV1',
-                                $idBaiDang . '&' . 'DGTBTMBV1',
-                                $user[0]->IDTaiKhoan,
-                                '0',
-                                date("Y-m-d H:i:s")
-                            );
-                            event(new NotificationEvent($value));
-                        }
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $user = Session::get('user');
+        if ($request->hasFile('files_0')) {
+            $datetime = date("Y-m-d H:i:s");
+            $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
+            $tag = "";
+            $idCamXuc = NULL;
+            $idViTri = NULL;
+            if (session()->has('feelCur'))
+                foreach (Session::get('feelCur') as $key => $value)
+                    $idCamXuc = $value;
+            if (session()->has('tag')) {
+                if (count(Session::get('tag')) > 0) {
+                    $tags = Session::get('tag');
+                    foreach ($tags as $key => $value) {
+                        $tag .= $key . '&';
                     }
-                }
-                if (session()->has('localU'))
-                    foreach (Session::get('localU') as $key => $value)
-                        $idViTri = $value->ID . '@' . $value->Loai;
-                Baidang::add(
-                    $idBaiDang,
-                    $user[0]->IDTaiKhoan,
-                    $request->IDQuyenRiengTu,
-                    $request->content,
-                    $tag,
-                    $idCamXuc,
-                    $idViTri,
-                    $datetime,
-                    2,
-                    NULL
-                );
-
-                for ($i = 0; $i < (int)$request->numberImage; $i++) {
-                    $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
-                    $nameFile = $request->file('files_' . $i)->getClientOriginalName();
-                    if (DataProcessSix::CheckIsVideo($nameFile)) {
-                        $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.mp4';
-                        Hinhanh::add(
-                            $idHinhAnh,
-                            'VIDEO0001',
-                            $idBaiDang,
-                            'video/' . $nameFile,
-                            NULL,
-                            1,
-                            NULL
+                    foreach ($tags as $key => $value) {
+                        Thongbao::add(
+                            StringUtil::ID('thongbao', 'IDThongBao'),
+                            $value,
+                            'DGTBTMBV1',
+                            $idBaiDang . '&' . 'DGTBTMBV1',
+                            $user[0]->IDTaiKhoan,
+                            '0',
+                            date("Y-m-d H:i:s")
                         );
-                        $request->file('files_' . $i)->move(public_path('video'), $nameFile);
-                    } else if (DataProcessSix::CheckIsImage($nameFile)) {
-                        $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
-                        Hinhanh::add(
-                            $idHinhAnh,
-                            'THONGTHUON',
-                            $idBaiDang,
-                            'img/PosTT/' . $nameFile,
-                            NULL,
-                            0,
-                            NULL
-                        );
-                        $request->file('files_' . $i)->move(public_path('img/PosTT'), $nameFile);
-                    } else {
+                        event(new NotificationEvent($value));
                     }
                 }
-            } else {
-                $datetime = date("Y-m-d H:i:s");
-                $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
-                $tag = NULL;
-                $idCamXuc = NULL;
-                $idViTri = NULL;
-                if (session()->has('feelCur'))
-                    foreach (Session::get('feelCur') as $key => $value)
-                        $idCamXuc = $value;
-                if (session()->has('tag')) {
-                    if (count(Session::get('tag')) > 0) {
-                        $tags = Session::get('tag');
-                        foreach ($tags as $key => $value) {
-                            $tag .= $key . '&';
-                        }
-                        foreach ($tags as $key => $value) {
-                            Thongbao::add(
-                                StringUtil::ID('thongbao', 'IDThongBao'),
-                                $value,
-                                'DGTBTMBV1',
-                                $idBaiDang . '&' . 'DGTBTMBV1',
-                                $user[0]->IDTaiKhoan,
-                                '0',
-                                date("Y-m-d H:i:s")
-                            );
-                            event(new NotificationEvent($value));
-                        }
-                    }
-                }
-                if (session()->has('localU'))
-                    foreach (Session::get('localU') as $key => $value)
-                        $idViTri = $value->ID . '@' . $value->Loai;
-                Baidang::add(
-                    $idBaiDang,
-                    $user[0]->IDTaiKhoan,
-                    $request->IDQuyenRiengTu,
-                    $request->content,
-                    $tag,
-                    $idCamXuc,
-                    $idViTri,
-                    $datetime,
-                    2,
-                    NULL
-                );
             }
-        } catch (Exception $es) {
+            if (session()->has('localU'))
+                foreach (Session::get('localU') as $key => $value)
+                    $idViTri = $value->ID . '@' . $value->Loai;
+            Baidang::add(
+                $idBaiDang,
+                $user[0]->IDTaiKhoan,
+                $request->IDQuyenRiengTu,
+                $request->content,
+                $tag,
+                $idCamXuc,
+                $idViTri,
+                $datetime,
+                2,
+                NULL
+            );
+
+            for ($i = 0; $i < (int)$request->numberImage; $i++) {
+                $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
+
+                if (DataProcessSix::CheckIsVideo($request->file('files_' . $i)->getClientOriginalName())) {
+                    Cloudder::upload($request->file('files_' . $i), null, ['folder' => 'Video'], 'Video.mp4');
+                    $nameFile = Cloudder::getResult()['url'];
+                    Hinhanh::add(
+                        $idHinhAnh,
+                        'VIDEO0001',
+                        $idBaiDang,
+                        $nameFile,
+                        NULL,
+                        1,
+                        NULL
+                    );
+                } else if (DataProcessSix::CheckIsImage($request->file('files_' . $i)->getClientOriginalName())) {
+                    Cloudder::upload($request->file('files_' . $i), null, ['folder' => 'PostNormal'], 'PostNormal.jpg');
+                    $nameFile = Cloudder::getResult()['url'];
+                    Hinhanh::add(
+                        $idHinhAnh,
+                        'THONGTHUON',
+                        $idBaiDang,
+                        $nameFile,
+                        NULL,
+                        0,
+                        NULL
+                    );
+                } else {
+                }
+            }
+        } else {
+            $datetime = date("Y-m-d H:i:s");
+            $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
+            $tag = NULL;
+            $idCamXuc = NULL;
+            $idViTri = NULL;
+            if (session()->has('feelCur'))
+                foreach (Session::get('feelCur') as $key => $value)
+                    $idCamXuc = $value;
+            if (session()->has('tag')) {
+                if (count(Session::get('tag')) > 0) {
+                    $tags = Session::get('tag');
+                    foreach ($tags as $key => $value) {
+                        $tag .= $key . '&';
+                    }
+                    foreach ($tags as $key => $value) {
+                        Thongbao::add(
+                            StringUtil::ID('thongbao', 'IDThongBao'),
+                            $value,
+                            'DGTBTMBV1',
+                            $idBaiDang . '&' . 'DGTBTMBV1',
+                            $user[0]->IDTaiKhoan,
+                            '0',
+                            date("Y-m-d H:i:s")
+                        );
+                        event(new NotificationEvent($value));
+                    }
+                }
+            }
+            if (session()->has('localU'))
+                foreach (Session::get('localU') as $key => $value)
+                    $idViTri = $value->ID . '@' . $value->Loai;
+            Baidang::add(
+                $idBaiDang,
+                $user[0]->IDTaiKhoan,
+                $request->IDQuyenRiengTu,
+                $request->content,
+                $tag,
+                $idCamXuc,
+                $idViTri,
+                $datetime,
+                2,
+                NULL
+            );
         }
     }
     public function tickLocal(Request $request)

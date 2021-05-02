@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Taikhoan;
 use App\Models\Thongbao;
 use Illuminate\Support\Facades\Session;
+use JD\Cloudder\Facades\Cloudder;
 
 class RepCommentController extends Controller
 {
@@ -88,11 +89,12 @@ class RepCommentController extends Controller
         $idBinhLuan = StringUtil::ID('binhluan', 'IDBinhLuan');
         $cmt = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuanRep)->get();
         if ($request->hasFile('fileImage')) {
-            $nameFile = Session::get('user')[0]->IDTaiKhoan . $idBinhLuan . '.jpg';
+            Cloudder::upload($request->file('fileImage'), null, ['folder' => 'CommentImage'], 'CommentImage.jpg');
+            $nameFile = Cloudder::getResult()['url'];
             $json = (object)[
                 'ID' => '10000',
                 'LoaiBinhLuan' => '1',
-                'DuongDan' => 'img/CommentImage/' . $nameFile,
+                'DuongDan' => $nameFile,
                 'NoiDungBinhLuan' => $request->NoiDungBinhLuan
             ];
             if (str_contains($request->NoiDungBinhLuan, ' bg-blue-500 text-white p-0.5">')) {

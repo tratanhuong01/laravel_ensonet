@@ -32,7 +32,7 @@ $user = Session::get('user')[0];
                         <span class="font-bold text-xl dark:text-white">Tin Của Bạn</span>
                     </p>
                     <div class="w-full flex pb-3">
-                        <a href=""><img class="w-20 h-20 p-1.5 shadow-xl rounded-full " src="/{{ $user->AnhDaiDien }}" alt=""></a>
+                        <a href=""><img class="w-20 h-20 p-1.5 shadow-xl rounded-full " src="{{ $user->AnhDaiDien }}" alt=""></a>
                         <a href="" class="py-7 px-3.5 dark:text-white font-bold">{{ $user->Ho . ' ' . $user->Ten }}</a>
                     </div>
                     <hr>
@@ -59,7 +59,7 @@ $user = Session::get('user')[0];
                             <li onclick="clickChangeBackground(
                                 '{{ $value->IDPhongNen }}',
                                 '{{ $value->DuongDanPN }}')" class="cursor-pointer w-10 h-10 rounded-full">
-                                <img class="w-9 h-9 p-1 rounded-full" src="/{{ $value->DuongDanPN }}" alt="">
+                                <img class="w-9 h-9 p-1 rounded-full" src="{{ $value->DuongDanPN }}" alt="">
                             </li>
                             @endforeach
                         </ul>

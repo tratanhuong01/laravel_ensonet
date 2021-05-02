@@ -85,7 +85,7 @@ $member = DataProcess::getUserOfGroupMessage($message->IDNhomTinNhan);
             @if (DataProcessFive::checkShowOrHideMessageRight($message->IDNhomTinNhan,
             $member[0]->IDTaiKhoan) != $message->IDTinNhan)
             @else
-            <img src="/{{ Taikhoan::where('IDTaiKhoan','=',$trangThais[0])->get()[0]->AnhDaiDien }}" class="img-mess-right absolute right-3 w-6 h-6 p-0.5 mt-1 mr-7 object-cover rounded-full bottom-2 -right-8" alt="">
+            <img src="{{ Taikhoan::where('IDTaiKhoan','=',$trangThais[0])->get()[0]->AnhDaiDien }}" class="img-mess-right absolute right-3 w-6 h-6 p-0.5 mt-1 mr-7 object-cover rounded-full bottom-2 -right-8" alt="">
             @endif
             @break
             @endswitch

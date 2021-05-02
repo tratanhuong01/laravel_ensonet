@@ -29,7 +29,7 @@
     border-gray-200 border-solid border-2 my-1
     px-2.5 py-2 rounded-3xl dark:bg-dark-third " placeholder="Tìm kiếm">
 </div>
-<div class="w-full h-60 overflow-y-hidden flex flex-wrap
+<div class="w-full h-60 overflow-y-auto flex flex-wrap
 wrapper-content-right px-2" style="max-height: 300px;">
     <?php
 
@@ -41,7 +41,7 @@ wrapper-content-right px-2" style="max-height: 300px;">
     @foreach($sticker as $key => $value)
     <div onclick="postMain('{{ $idTaiKhoan }}','{{ $idBaiDang }}' ,'{{$idBinhLuan}}','{{$value->IDNhanDan}}','{{ $loaiBinhLuan }}')" class="w-20 mr-1 cursor-pointer">
         <div class="w-20 h-20 max-w-20 max-h-20 p-1 overflow-hidden bg-size:{{ $value->Cot }}:{{ $value->Hang }} 
-         stickerAnimation:{{ $value->Cot }}:{{ $value->Hang }} relative" style="background-image: url('/{{ $value->DuongDanNhanDan }}');">
+         stickerAnimation:{{ $value->Cot }}:{{ $value->Hang }} relative" style="background-image: url('{{ $value->DuongDanNhanDan }}');">
         </div>
     </div>
     @endforeach

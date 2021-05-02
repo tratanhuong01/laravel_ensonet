@@ -16,6 +16,7 @@ use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use JD\Cloudder\Facades\Cloudder;
 
 class SendMessageController extends Controller
 {
@@ -31,23 +32,22 @@ class SendMessageController extends Controller
             $json = [];
             for ($i = 0; $i < (int)$request->numberArray; $i++) {
                 $file = $request->file('image_' . $i);
-                $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . '_' . $i . '.jpg';
                 $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
-                $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . $idHinhAnh . '.jpg';
+                Cloudder::upload($file, null, ['folder' => 'ImageMessage'], 'ImageMessage.jpg');
+                $nameFile = Cloudder::getResult()['url'];
                 Hinhanh::add(
                     $idHinhAnh,
                     'IMAGEMESS',
                     NULL,
-                    'img/ImageMessage/' . $nameFile,
+                    $nameFile,
                     $request->NoiDungBinhLuan,
                     3,
                     $idTinNhan
                 );
-                $file->move(public_path('img/ImageMessage'), $nameFile);
                 $json[$i] = (object)[
                     'IDNoiDungTinNhan' => $idHinhAnh,
                     'LoaiTinNhan' => '1',
-                    'DuongDan' => 'img/ImageMessage/' . $nameFile,
+                    'DuongDan' => $nameFile,
                     'NoiDungTinNhan' => ''
                 ];
             }

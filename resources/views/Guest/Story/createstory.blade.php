@@ -25,7 +25,7 @@ $user = Session::get('user');
                     <span class="font-bold text-xl dark:text-white">Tin Của Bạn</span>
                 </p>
                 <div class="w-full flex pb-3">
-                    <a href=""><img class="w-20 h-20 p-1.5 shadow-xl rounded-full object-cover" src="/{{ $user[0]->AnhDaiDien }}" alt=""></a>
+                    <a href=""><img class="w-20 h-20 p-1.5 shadow-xl rounded-full object-cover" src="{{ $user[0]->AnhDaiDien }}" alt=""></a>
                     <a href="" class="py-7 px-3.5 dark:text-white font-bold">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</a>
                 </div>
                 <hr>

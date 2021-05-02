@@ -9,7 +9,7 @@ use App\Process\DataProcessFive;
 ?>
 <div id="{{ $message->IDTinNhan }}" onmouseleave="onleaveHoverFeelHide('{{ $message->IDTinNhan }}')" class="mess-user z-0 chat-lefts w-full py-2 flex relative">
     <div class="w-12 relative">
-        <a href=""><img class="absolute bottom-1 w-9 h-9 object-cover rounded-full" src="/{{ $message->AnhDaiDien }}" alt="" srcset=""></a>
+        <a href=""><img class="absolute bottom-1 w-9 h-9 object-cover rounded-full" src="{{ $message->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
     <div class=" pl-2 flex z-50" style="width: inherit;">
         <div class="border-none relative outline-none  {{ json_decode($message->NoiDung)[0]->LoaiTinNhan == 0 ? 

@@ -17,7 +17,7 @@
             @foreach($data as $key => $value)
             <div class="w-full flex pb-4">
                 <div class="" style="width: 10%;">
-                    <img src="/{{ $value[0]->AnhDaiDien }}" class="w-16 h-16 object-cover rounded-full" alt="">
+                    <img src="{{ $value[0]->AnhDaiDien }}" class="w-16 h-16 object-cover rounded-full" alt="">
                 </div>
                 <div class="pl-2" style="width: 90%;">
                     <b>Bạn</b> {{ str_replace('của bạn.','',$value[0]->TenLoaiThongBao) }} của <b>{{ $value[0]->Ho . ' ' . $value[0]->Ten }}</b><br>

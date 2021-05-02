@@ -2,7 +2,7 @@
 <div class="w-full flex flex-wrap hidden mainChild" id="mainChild">
     @foreach($imageTag as $key => $value)
     <div class="w-1/5 relative case">
-        <a href=""><img src="/{{$value->DuongDan}}" alt="" class="w-44 h-44 p-1.5 object-cover rounded-lg"></a>
+        <a href=""><img src="{{$value->DuongDan}}" alt="" class="w-44 h-44 p-1.5 object-cover rounded-lg"></a>
         <div onclick="openEditPicture('{{$key}}')" class="cursor-pointer edit top-4 right-4 absolute w-10 h-10 rounded-full
                     pt-1.5 pl-2.5 text-lg" style="background-color: rgba(256,256,256, 0.2);">
             <i class="fas fa-pencil-alt text-gray-100"></i>

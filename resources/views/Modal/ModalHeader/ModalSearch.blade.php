@@ -37,7 +37,7 @@
                         huy quần hoa
                     </li>
                     <li class="cursor-pointer w-7 h-7 items-center
-                rounded-full absolute right-3 my-2.5 text-center text-white text-xl pb-1.5">
+                    rounded-full absolute right-3 my-2.5 text-center text-white text-xl pb-1.5">
                         &times;
                     </li>
                 </ul>
@@ -45,7 +45,7 @@
             <div class="w-full hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer">
                 <ul class="w-full relative flex py-2">
                     <li class="pl-3">
-                        <img class="w-11 h-11 object-cover rounded-full p-0.5" src="/img/gai1.jpg" alt="">
+                        <img class="w-11 h-11 object-cover rounded-full p-0.5" src="/img/gai.jpg" alt="">
                     </li>
                     <li class="pl-3 items-center font-bold dark:text-white py-2.5">
                         Hồ Thiên Kim

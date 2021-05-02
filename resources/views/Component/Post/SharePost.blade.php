@@ -17,7 +17,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
         <div class="mr-2">
             <div class="w-14 h-14 relative">
                 <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 
-                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
+                rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $item[0]->AnhDaiDien }}"></a>
                 @include('Component\Child\Activity',
                 [
                 'padding' => 'p-1.5',
@@ -98,7 +98,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
                 <div class="mr-2">
                     <div class="w-14 h-14 relative">
                         <a href="profile.{{ $postShare[0]->IDTaiKhoan }}"><img class="w-12 h-12 
-                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $postShare[0]->AnhDaiDien }}"></a>
+                rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $postShare[0]->AnhDaiDien }}"></a>
                         @include('Component\Child\Activity',
                         [
                         'padding' => 'p-1.5',

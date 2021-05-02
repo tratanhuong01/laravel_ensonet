@@ -16,7 +16,7 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
                 <source src="{{ $url }}" type="video/mp4" />
             </video>
             @else
-            <img src="/{{ $url }}" class="max-w-full mx-auto object-cover" style="height: 420px;" alt="">
+            <img src="{{ $url }}" class="max-w-full mx-auto object-cover" style="height: 420px;" alt="">
             @endif
         </div>
     </div>

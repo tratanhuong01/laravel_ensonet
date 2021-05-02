@@ -1,7 +1,7 @@
 <div class="w-full bg-white mb-3 mt-2 dark:bg-dark-second m-auto rounded-lg mb-2">
     <div class="w-full flex p-2.5 ">
         <div class="w-2/12 md:w-1/12 mr-3 pt-1">
-            <a href=""><img class="w-12 rounded-full h-12 object-cover " src="/{{ $users[0]->AnhDaiDien }}"></a>
+            <a href=""><img class="w-12 rounded-full h-12 object-cover " src="{{ $users[0]->AnhDaiDien }}"></a>
         </div>
         <div class="w-11/12">
             <input class="w-full p-3 border-none outline-none bg-gray-200 

@@ -13,7 +13,7 @@ $u = Session::get('user');
         <div class="" style="width: 10%;">
             <div class="w-14 h-14 relative">
                 <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12
-                 rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
+                 rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $item[0]->AnhDaiDien }}"></a>
                 @include('Component\Child\Activity',
                 [
                 'padding' => 'p-1.5',
@@ -74,9 +74,9 @@ $u = Session::get('user');
     </div>
     <div class="w-full mx-0 my-2.5">
         <div class="w-full relative block" style="height:430px;">
-            <img class="w-full h-60 object-cover" src="/{{ $item[0]->AnhBia }}" alt="">
+            <img class="w-full h-60 object-cover" src="{{ $item[0]->AnhBia }}" alt="">
             <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[0]->IDHinhAnh }}">
-                <img class="w-7/10 absolute rounded-full object-cover border-4 border-solid border-white" style="top: 5%;left: 15%;height:390px;" src="/{{ $item[0]->DuongDan }}" alt="">
+                <img class="w-7/10 absolute rounded-full object-cover border-4 border-solid border-white" style="top: 5%;left: 15%;height:390px;" src="{{ $item[0]->DuongDan }}" alt="">
             </a>
         </div>
     </div>

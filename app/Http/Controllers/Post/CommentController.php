@@ -17,6 +17,7 @@ use App\Models\StringUtil;
 use App\Models\Process;
 use App\Models\Thongbao;
 use Illuminate\Support\Facades\File;
+use JD\Cloudder\Facades\Cloudder;
 
 class CommentController extends Controller
 {
@@ -28,18 +29,19 @@ class CommentController extends Controller
         $date = date("Y-m-d H:i:s");
         if ($request->hasFile('fileImage')) {
             $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
-            $nameFile = $user[0]->IDTaiKhoan . $idBinhLuan . $idHinhAnh . '.jpg';
+            Cloudder::upload($request->file('fileImage'), null, ['folder' => 'CommentImage'], 'CommentImage.jpg');
+            $nameFile = Cloudder::getResult()['url'];
             $json = (object)[
                 'ID' => $idHinhAnh,
                 'LoaiBinhLuan' => '1',
-                'DuongDan' => 'img/CommentImage/' . $nameFile,
+                'DuongDan' => $nameFile,
                 'NoiDungBinhLuan' => $request->NoiDungBinhLuan
             ];
             Hinhanh::add(
                 $idHinhAnh,
                 'IMAGECMT',
                 NULL,
-                'img/CommentImage/' . $nameFile,
+                $nameFile,
                 $request->NoiDungBinhLuan,
                 2,
                 $idBinhLuan
@@ -106,7 +108,6 @@ class CommentController extends Controller
                 ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
                 ->where('binhluan.IDBinhLuan', '=', $idBinhLuan)
                 ->get();
-            $request->file('fileImage')->move(public_path('img/CommentImage'), $nameFile);
             return view('Component\Comment\CommentLv1')
                 ->with(
                     'comment',
@@ -334,16 +335,20 @@ class CommentController extends Controller
         $commentMain = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)->get();
         if ($commentMain[0]->LoaiBinhLuan == 1) {
             $commentRep = Binhluan::where('binhluan.PhanHoi', '=', $request->IDBinhLuanRep)->get();
-            if (json_decode($commentMain[0]->NoiDungBinhLuan)->LoaiBinhLuan == '1')
-                if (File::exists(public_path(json_decode($commentMain[0]->NoiDungBinhLuan)->DuongDan)))
-                    File::delete(public_path(json_decode($commentMain[0]->NoiDungBinhLuan)->DuongDan));
+            if (json_decode($commentMain[0]->NoiDungBinhLuan)->LoaiBinhLuan == '1') {
+                $public_Id = explode('/', json_decode($commentMain[0]->NoiDungBinhLuan)->LoaiBinhLuan->DuongDan);
+                $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+                Cloudder::destroyImage(explode('.', $public_Id)[0]);
+                Cloudder::delete(explode('.', $public_Id)[0]);
+            }
             if (count($commentRep) > 0) {
                 Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)->delete();
                 foreach ($commentRep as $key => $value) {
                     if (json_decode($value->NoiDungBinhLuan)->LoaiBinhLuan == '1') {
-                        if (File::exists(public_path(json_decode($value->NoiDungBinhLuan)->DuongDan))) {
-                            File::delete(public_path(json_decode($value->NoiDungBinhLuan)->DuongDan));
-                        }
+                        $public_Id = explode('/', json_decode($value->NoiDungBinhLuan)->LoaiBinhLuan->DuongDan);
+                        $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+                        Cloudder::destroyImage(explode('.', $public_Id)[0]);
+                        Cloudder::delete(explode('.', $public_Id)[0]);
                     }
                     Binhluan::where('binhluan.IDBinhLuan', '=', $value->IDBinhLuan)->delete();
                     Thongbao::whereRaw("thongbao.IDContent LIKE '%" . $request->IDBinhLuan . "%'")->delete();
@@ -352,9 +357,12 @@ class CommentController extends Controller
             }
             Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)->delete();
         } else {
-            if (json_decode($commentMain[0]->NoiDungBinhLuan)->LoaiBinhLuan == '1')
-                if (File::exists(public_path(json_decode($commentMain[0]->NoiDungBinhLuan)->DuongDan)))
-                    File::delete(public_path(json_decode($commentMain[0]->NoiDungBinhLuan)->DuongDan));
+            if (json_decode($commentMain[0]->NoiDungBinhLuan)->LoaiBinhLuan == '1') {
+                $public_Id = explode('/', json_decode($commentMain[0]->NoiDungBinhLuan)->DuongDan);
+                $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+                Cloudder::destroyImage(explode('.', $public_Id)[0]);
+                Cloudder::delete(explode('.', $public_Id)[0]);
+            }
             Thongbao::whereRaw("thongbao.IDContent LIKE '%" . $request->IDBinhLuan . "%'")->delete();
             Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)->delete();
         }

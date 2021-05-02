@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use JD\Cloudder\Facades\Cloudder;
+use SebastianBergmann\Environment\Console;
 
 Route::group(['namespace' => 'Image'], function () {
     //
@@ -431,13 +432,20 @@ Route::get('ProcessDeleteAllChat', [Chat\DeleteMessageController::class, 'delete
 
 Route::post('post', function (Request $request) {
     $filename = "";
-    if ($request->hasFile('file')) {
-        echo "có file";
-        //get name image
-        $filename = $request->file('file');
-        //upload image
-        Cloudder::upload($filename);
-    }
+    // if ($request->hasFile('file')) {
+    //     echo "có file";
+    //     //get name image
+    //     $filename = $request->file('file');
+    //     //upload image
+    //     Cloudder::upload($filename, null, ['folder' => 'Avatar'], 'avatar.jpg');
+    //     return Cloudder::getResult()['url'];
+    // }
+    $filename = "https://res.cloudinary.com/tratahuong01/image/upload/v1619950624/CommentImage/wt59guv4btgmwti55nc1.jpg";
+    $public_Id = explode('/', $filename);
+    $public_Id = $public_Id[count($public_Id) - 2] . "/" . $public_Id[count($public_Id) - 1];
+    Cloudder::destroyImage(explode('.', $public_Id)[0]);
+    Cloudder::delete(explode('.', $public_Id)[0]);
+    echo "đã xóa";
 })->name('post');
 Route::get('demo', function (Request $request) {
     return view('Demo');

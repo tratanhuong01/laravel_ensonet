@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @if (session()->has('user'))
-<meta property="userID" content="{{isset(Session::get('user')[0]) ? 
+<meta property="userID" content="{{ session()->has('user') ? 
 Session::get('user')[0]->IDTaiKhoan : '' }}" />
 @endif
 <!-- meta -->
