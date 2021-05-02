@@ -18,7 +18,7 @@ use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-
+use JD\Cloudder\Facades\Cloudder;
 
 Route::group(['namespace' => 'Image'], function () {
     //
@@ -429,10 +429,16 @@ Route::get('ProcessViewDeleteAllChat', [Chat\DeleteMessageController::class, 'vi
 Route::get('ProcessDeleteAllChat', [Chat\DeleteMessageController::class, 'deleteChat'])
     ->name('ProcessDeleteAllChat');
 
-Route::get('json', function () {
-    echo "<pre>";
-    print_r(
-        json_decode(Gioithieu::where('IDTaiKhoan', '=', '1000000001')->get()[0]->JsonGioiThieu)
-    );
-    echo "</pre>";
+Route::post('post', function (Request $request) {
+    $filename = "";
+    if ($request->hasFile('file')) {
+        echo "có file";
+        //get name image
+        $filename = $request->file('file');
+        //upload image
+        Cloudder::upload($filename);
+    }
+})->name('post');
+Route::get('demo', function (Request $request) {
+    return view('Demo');
 });

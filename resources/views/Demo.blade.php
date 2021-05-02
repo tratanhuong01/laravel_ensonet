@@ -7,9 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     @include('Head/css')
+    @cloudinaryJS
 </head>
 
 <body>
+    <form action="{{route('post')}}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <input type="file" name="file" id="">
+        <button type="submit">Tải lên</button>
+    </form>
 </body>
 
 </html>
