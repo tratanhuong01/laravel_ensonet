@@ -32,7 +32,7 @@ $user = Session::get('user')[0];
                         <span class="font-bold text-xl dark:text-white">Tin Của Bạn</span>
                     </p>
                     <div class="w-full flex pb-3">
-                        <a href=""><img class="w-20 h-20 p-1.5 shadow-xl rounded-full " src="{{ $user->AnhDaiDien }}" alt=""></a>
+                        <a href=""><img class="w-20 h-20 p-1.5 object-cover shadow-xl rounded-full " src="{{ $user->AnhDaiDien }}" alt=""></a>
                         <a href="" class="py-7 px-3.5 dark:text-white font-bold">{{ $user->Ho . ' ' . $user->Ten }}</a>
                     </div>
                     <hr>
@@ -53,7 +53,7 @@ $user = Session::get('user')[0];
                     wrapper-content-right overflow-y-auto dark:border-dark-third shadow-xl" style="max-height: 220px;height: 220px;">
                         <p class="font-bold text-xm p-2 dark:text-white">Phông nền</p>
                         <ul class="w-full pl-2 flex flex-wrap ">
-                            <input type="hidden" name="IDPhongNen" id="IDPhongNen" value="PN10000001">
+                            <input type="hidden" name="IDPhongNen" id="IDPhongNen" value="PN10000008">
                             <?php $bg = DataProcessThird::getBackGround(); ?>
                             @foreach($bg as $key => $value)
                             <li onclick="clickChangeBackground(
@@ -70,10 +70,10 @@ $user = Session::get('user')[0];
                     border-2 border-solid border-gray-200 dark:border-dark-third mt-1" style="height: 630px;">
                         <div class="w-97per text-center relative bg-black rounded-2xl" style="height: 625px;">
                             <div id="outer" class="w-1/2 relative left-1/2 mt-1 rounded-lg" style="transform: translate(-50%,-50%); height: 612px;top:49.3%;">
-                                <img id="myImage" class="w-full rounded-lg" style="height: 612px;" src="/img/bgText/3.jpg" alt="">
+                                <img id="myImage" class="w-full rounded-lg" style="height: 612px;" src="/img/BackgroundStory/8.jpg" alt="">
                                 <div id="elementMusic" class="w-1/3 bg-white text-left flex p-1.5 absolute top-32 left-24 rounded-lg" style="transform: rotate(-25deg);">
                                     <div class="w-1/4 pr-2">
-                                        <img src="/img/gai1.jpg" alt="">
+                                        <img src="/img/gai.jpg" alt="">
                                     </div>
                                     <div class="w-3/4">
                                         <p class="font-bold" style="font-size: 7px;">បទកំពុងល្បី 24kgoldn - Mood</p>
@@ -81,13 +81,12 @@ $user = Session::get('user')[0];
                                     </div>
                                 </div>
                                 <div class="text-xl font-bold text-gray-100 break-all content-story-text 
-                            w-80 min-h-8 absolute top-1/2 left-1/2 rounded-2xl text-center font-bold 
-                            outline-none" style="transform: translate(-48%,-50%);" id="myText">
+                                w-80 min-h-8 absolute top-1/2 left-1/2 rounded-2xl text-center font-bold 
+                                outline-none" style="transform: translate(-48%,-50%);" id="myText">
                                 </div>
                             </div>
                         </div>
                         <canvas id="myCanvas" class="hidden" width="345" height="612"></canvas>
-
                     </div>
                     <div class="w-full my-6 pl-9">
                         <a href="{{ url('index') }}">
@@ -107,7 +106,7 @@ $user = Session::get('user')[0];
                         max-h-40 mb-2 wrapper-content-right overflow-y-auto dark:border-dark-third shadow-xl">
                             <p class="font-bold text-xm py-1 px-2 dark:text-white">Màu chữ</p>
                             <ul class="w-full pl-2 flex flex-wrap">
-                                <input type="hidden" name="IDPhongNen" id="IDPhongNen" value="">
+                                <input type="hidden" name="IDColor" id="IDColor" value="WHITE">
                                 <?php $cl = DataProcessFour::createColor(); ?>
                                 @foreach($cl as $key => $value)
                                 <?php $dt = '<li onclick="changeColorContent' . "('" . $value . "')" .
@@ -133,7 +132,7 @@ $user = Session::get('user')[0];
                             <li class="w-full flex p-1 border-2 border-solid border-gray-300 
                         dark:border-dark-third relative cursor-pointer">
                                 <div onclick="chooseMusic('{{$value->IDAmThanh}}')" class="w-2/12 mr-3 pt-1">
-                                    <img src="/img/mp3.png" class="w-10 h-10 p-0.5 rounded-full 
+                                    <img src="/img/mp3.png" class="w-10 h-10 p-0.5 object-cover rounded-full 
                                 object-cover" alt="">
                                 </div>
                                 <div onclick="chooseMusic('{{$value->IDAmThanh}}')" class="w-8/12 font-bold dark:text-white text-left">

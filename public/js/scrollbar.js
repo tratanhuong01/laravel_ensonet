@@ -40,7 +40,6 @@ function askBeforeClose() {
     //   }
     // })
 }
-
 function viewInfoHover(IDTaiKhoan, event) {
     var d = document.getElementById("friends-online-info");
     var topPos = event.clientY;

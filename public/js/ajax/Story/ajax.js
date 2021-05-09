@@ -28,6 +28,7 @@ function createStory(text, color) {
     }
 }
 function changeColorContent(color) {
+    console.log(color);
     changeTexts(color);
     document.getElementsByClassName(
         "content-story-text"
@@ -42,7 +43,7 @@ function changeTexts(color) {
     )[0].innerText = document.getElementsByClassName("place-type")[0].value;
 }
 function clickChangeBackground(IDPhongNen, DuongDanPN) {
-    $("#myImage").attr("src", "/" + DuongDanPN);
+    $("#myImage").attr("src", DuongDanPN);
     $("#IDPhongNen").val(IDPhongNen);
 }
 function getLiHaveShowLi() {

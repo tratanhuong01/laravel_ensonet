@@ -26,9 +26,14 @@ function changeBia(event) {
         .getElementById("formUpdateCover")
         .appendChild(document.getElementById("changeB"));
 }
-function updateAvatar() {
-    $("#web").css("opacity", "1");
+function updateAvatar(element) {
     let formData = new FormData($("#formUpdateAvatar")[0]);
+    element.disabled = true;
+    element.classList.add("cursor-not-allowed");
+    element.classList.add("bg-gray-500");
+    element.classList.remove("bg-blue-600");
+    element.innerHTML = '<i class="fas fa-cog fa-spin text-xl"></i>';
+    $("#btnCancelUpdateAvatar").remove();
     $.ajax({
         method: "POST",
         url: "/ProcessUpdateAvatar",

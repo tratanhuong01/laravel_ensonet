@@ -289,6 +289,9 @@ function deleteWarnComment(IDBaiDang, IDBinhLuan, IDBinhLuanRep) {
                     },
                     success: function (response) {
                         $("#" + IDBaiDang + IDBinhLuan).remove();
+                        document
+                            .getElementsByTagName("body")[0]
+                            .classList.remove("overflow-hidden");
                         second.innerHTML = "";
                         second.classList.remove("fixed");
                         second.classList.remove("h-screen");

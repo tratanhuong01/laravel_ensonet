@@ -64,7 +64,7 @@ use App\Models\Process;
             </li>
             <div id="{{ $item[0]->IDBaiDang }}Share" class="hidden bg-white my-2 absolute w-80 
             p-1 border-2 border-solid rounded-lg dark:bg-dark-second">
-                @include('Component/Post/Child/ModalShare',['item' => $item])
+
             </div>
         </div>
 

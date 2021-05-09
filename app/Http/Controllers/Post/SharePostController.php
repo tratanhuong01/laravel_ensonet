@@ -17,10 +17,25 @@ class SharePostController extends Controller
 {
     public function shareView(Request $request)
     {
-        return view('Component/Post/Child/ModalShare')
-            ->with('item', Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)
-                ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                ->leftjoin('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')->get());
+        $post = Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)
+            ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->leftjoin('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')->get();
+        if ($post[0]->LoaiBaiDang == 3)
+            return response()->json(
+                [
+                    'view' => "" . view('Component/Post/Child/ModalShare')
+                        ->with('item', $post)
+                        ->with('idBaiDang', $post[0]->ChiaSe)
+                ]
+            );
+        else
+            return response()->json(
+                [
+                    'view' => "" . view('Component/Post/Child/ModalShare')
+                        ->with('item', $post)
+                        ->with('idBaiDang', $post[0]->IDBaiDang)
+                ]
+            );
     }
     public function share(Request $request)
     {

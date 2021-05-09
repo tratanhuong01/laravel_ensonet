@@ -51,8 +51,8 @@ $u = Session::get('user');
                 </span>
                 @endif
                 <span class="font-bold dark:text-white">
-                    @if ($item[0]->IDViTri != NULL)
-                    {!! DataProcess::getLocal($item[0]->IDViTri) !!}
+                    @if ($item[0]->IDDiaChi != NULL)
+                    {!! DataProcess::getLocal($item[0]->IDDiaChi) !!}
                     @endif
                 </span>
             </p>

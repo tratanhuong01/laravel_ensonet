@@ -447,6 +447,7 @@ Route::post('post', function (Request $request) {
     Cloudder::delete(explode('.', $public_Id)[0]);
     echo "đã xóa";
 })->name('post');
+
 Route::get('demo', function (Request $request) {
     return view('Demo');
 });

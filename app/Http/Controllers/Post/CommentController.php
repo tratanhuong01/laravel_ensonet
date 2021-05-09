@@ -336,7 +336,7 @@ class CommentController extends Controller
         if ($commentMain[0]->LoaiBinhLuan == 1) {
             $commentRep = Binhluan::where('binhluan.PhanHoi', '=', $request->IDBinhLuanRep)->get();
             if (json_decode($commentMain[0]->NoiDungBinhLuan)->LoaiBinhLuan == '1') {
-                $public_Id = explode('/', json_decode($commentMain[0]->NoiDungBinhLuan)->LoaiBinhLuan->DuongDan);
+                $public_Id = explode('/', json_decode($commentMain[0]->NoiDungBinhLuan)->DuongDan);
                 $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
                 Cloudder::destroyImage(explode('.', $public_Id)[0]);
                 Cloudder::delete(explode('.', $public_Id)[0]);
@@ -345,7 +345,7 @@ class CommentController extends Controller
                 Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)->delete();
                 foreach ($commentRep as $key => $value) {
                     if (json_decode($value->NoiDungBinhLuan)->LoaiBinhLuan == '1') {
-                        $public_Id = explode('/', json_decode($value->NoiDungBinhLuan)->LoaiBinhLuan->DuongDan);
+                        $public_Id = explode('/', json_decode($value->NoiDungBinhLuan)->DuongDan);
                         $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
                         Cloudder::destroyImage(explode('.', $public_Id)[0]);
                         Cloudder::delete(explode('.', $public_Id)[0]);

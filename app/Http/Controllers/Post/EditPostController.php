@@ -16,6 +16,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
+use JD\Cloudder\Facades\Cloudder;
 
 class EditPostController extends Controller
 {
@@ -74,8 +75,10 @@ class EditPostController extends Controller
                 }
                 if ($count == 0) {
                     Hinhanh::where('hinhanh.IDHinhAnh', '=', $value->IDHinhAnh)->delete();
-                    if (File::exists(public_path($value->DuongDan)))
-                        File::delete(public_path($value->DuongDan));
+                    $public_Id = explode('/', $value->DuongDan);
+                    $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+                    Cloudder::destroyImage(explode('.', $public_Id)[0]);
+                    Cloudder::delete(explode('.', $public_Id)[0]);
                 }
             }
             for ($i = 0; $i < (int)$request->numberImage; $i++) {
@@ -150,8 +153,10 @@ class EditPostController extends Controller
                 }
                 if ($count == 0) {
                     Hinhanh::where('hinhanh.IDHinhAnh', '=', $value->IDHinhAnh)->delete();
-                    if (File::exists(public_path($value->DuongDan)))
-                        File::delete(public_path($value->DuongDan));
+                    $public_Id = explode('/', $value->DuongDan);
+                    $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+                    Cloudder::destroyImage(explode('.', $public_Id)[0]);
+                    Cloudder::delete(explode('.', $public_Id)[0]);
                 }
             }
             DB::update('UPDATE baidang SET IDQuyenRiengTu = ? ,

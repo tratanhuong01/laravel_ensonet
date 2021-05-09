@@ -31,6 +31,7 @@ Session::get('user')[0]->IDTaiKhoan : '' }}" />
 <!-- cdn general -->
 
 <!-- js general -->
+<script src="/js/ajax/login/ajax.js"></script>
 <script src="/js/ajax/header/ajax.js"></script>
 <script src="/js/scrollbar.js"></script>
 <script src="/js/event/event.js"></script>

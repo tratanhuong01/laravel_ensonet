@@ -13,7 +13,7 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
         <?php $IDBaiDang = Session::get('IDBaiDang');
         session()->forget('IDBaiDang'); ?>
         <span onclick="closePost()" class="bg-gray-300 px-2.5 dark:text-white font-bold
-                     rounded-full dark:bg-dark-second cursor-pointer absolute text-3xl top-2 right-4">&times;</span>
+        ounded-full dark:bg-dark-second cursor-pointer absolute text-3xl top-2 right-4">&times;</span>
         <ul class="w-full flex mb-2">
             <li onclick="viewOnlyDetailFeel('{{ $IDBaiDang }}','NULL')" class="font-bold text-blue-500 px-4 py-3 border-b-4 border-solid
                         border-blue-500 cursor-pointer">Tất cả</li>

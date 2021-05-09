@@ -1,22 +1,18 @@
 $.ajax({
     method: "GET",
     data: {
-        IDTaiKhoan: getUserID()
+        IDTaiKhoan: getUserID(),
     },
     url: "/ProcessStateUsersOnline",
-    success: function (response) {
-
-    }
+    success: function (response) {},
 });
 setInterval(function () {
     $.ajax({
         method: "GET",
         data: {
-            IDTaiKhoan: getUserID()
+            IDTaiKhoan: getUserID(),
         },
         url: "/ProcessStateUsersOnline",
-        success: function (response) {
-
-        }
+        success: function (response) {},
     });
-}, 30000)
+}, 30000);

@@ -2,12 +2,15 @@
 
 use Illuminate\Support\MessageBag;
 ?>
-<div id="form-register" style="height: 600px;" class="overflow-x-auto wrapper-scrollbar w-11/12 fixed top-50per left-50per transform-translate-50per
-        p-3 opacity-100 bg-white z-50 border-2 border-solid border-gray-300 sm:w-11/12 sm:mt-12 
-        lg:w-4/5 xl:w-1/3 xl:mt-4">
+<div id="form-register" style="height: 600px;" class="overflow-x-auto wrapper-scrollbar w-11/12 fixed 
+        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-100 bg-white z-50 border-2 
+        border-solid border-gray-300 pl-6 sm:w-11/12 sm:mt-12 lg:w-4/5 xl:w-1/3 xl:mt-4">
 
     <div class="w-full">
-        <span onclick="closePost()" class="cursor-pointer absolute text-4xl top-4 right-2">&times;</span>
+        <span onclick="closePost()" class="bg-gray-300 px-2.5 dark:text-white font-bold
+        rounded-full dark:bg-dark-second cursor-pointer absolute text-3xl top-2 right-4">
+            &times;
+        </span>
         <h1 class="py-2.5 text-3xl font-bold">Đăng Kí</h1>
     </div>
     <?php
@@ -20,10 +23,10 @@ use Illuminate\Support\MessageBag;
     <form action="" id="formRegister">
         {{ csrf_field() }}
         <div class="w-full flex">
-            <input type="text" name="firstName" id="firstName" onclick='onclickRegister("{{ $w47 }}",0)' class="input_register w-47per p-2.5 rounded-lg border-2 border-solid border-gray-300 
+            <input type="text" name="firstName" id="firstName" onclick='onclickRegister("{{ $w47 }}",0)' class="input_register w-47per p-2 rounded-lg border-2 border-solid border-gray-300 
             @error('firstName') border-red-600 text-red-600 placeholder-red-600 @enderror" placeholder="Họ" value="@isset($requestRegister){{$requestRegister['firstName']}}@endisset">
             &nbsp;
-            <input type="text" name="lastName" id="lastName" onclick='onclickRegister("{{ $w47 }}",1)' class="input_register w-47per ml-2.5 p-2.5 rounded-lg border-2 border-solid border-gray-300 
+            <input type="text" name="lastName" id="lastName" onclick='onclickRegister("{{ $w47 }}",1)' class="input_register w-47per ml-2.5 p-2 rounded-lg border-2 border-solid border-gray-300 
             @error('lastName') border-red-600 text-red-600 placeholder-red-600 @enderror" placeholder="Tên" value="@isset($requestRegister){{$requestRegister['lastName']}}@endisset">
         </div>
         <div class="w-full flex">
@@ -35,7 +38,7 @@ use Illuminate\Support\MessageBag;
             </ul>
         </div>
         <div class="w-full">
-            <input oninput="checkEmail()" type="text" name="emailOrPhone" class="input_register w-96per p-2.5 rounded-lg border-2 
+            <input oninput="checkEmail()" type="text" name="emailOrPhone" class="input_register w-96per p-2 rounded-lg border-2 
             border-solid border-gray-300 @error('emailOrPhone') border-red-600 text-red-600 placeholder-red-600 @enderror" id="emailOrPhone" placeholder="Số Di Động Hoặc Email" onclick='onclickRegister("{{ $w96 }}",2)' value="@isset($requestRegister){{$requestRegister['emailOrPhone']}}@endisset">
         </div>
         <ul class="w-full mb-4 mt-4">
@@ -43,13 +46,13 @@ use Illuminate\Support\MessageBag;
         </ul>
         <div class="w-full email_again_one mb-4" style="display: none;@error('emailAgain') display:block!important; @enderror" id="email-again">
             <input type="text" name="emailAgain" id="emailAgain" class="
-            input_register w-96per p-2.5 rounded-lg border-2 border-solid border-gray-300 @error('emailAgain') border-red-600 text-red-600 placeholder-red-600 @enderror" placeholder="Nhập Lại Email" onclick='onclickRegister("{{ $w96 }}",3)' value="@isset($requestRegister){{$requestRegister['emailAgain']}}@endisset">
+            input_register w-96per p-2 rounded-lg border-2 border-solid border-gray-300 @error('emailAgain') border-red-600 text-red-600 placeholder-red-600 @enderror" placeholder="Nhập Lại Email" onclick='onclickRegister("{{ $w96 }}",3)' value="@isset($requestRegister){{$requestRegister['emailAgain']}}@endisset">
             <ul class="w-full">
                 <li class="w-full text-red-600 value_error mt-4 mb-4">@error('emailAgain') {{ $message  }} @enderror</li>
             </ul>
         </div>
         <div class="w-full">
-            <input type="password" name="passWord" id="passWord" class="input_register w-96per p-2.5 rounded-lg border-2 
+            <input type="password" name="passWord" id="passWord" class="input_register w-96per p-2 rounded-lg border-2 
             border-solid border-gray-300 @error('passWord') border-red-600 text-red-600 placeholder-red-600 @enderror" placeholder="Mật Khẩu Mới" onclick='onclickRegister("{{ $w96 }}",4)' value="@isset($requestRegister){{$requestRegister['passWord']}}@endisset">
         </div>
         <ul class="w-full mb-4 mt-4">
@@ -84,9 +87,10 @@ use Illuminate\Support\MessageBag;
             </p>
         </div>
         <div class="form_5 text-center p-4">
-            <button onclick="submitFormRegister()" type="button" id="btn-submit-form" style="font-size: 18px;width: 50%;background-color: #119F16;padding: 10px;border: none;
-                                border-radius: 10px;color: white;cursor: pointer;
-                                "><b>Đăng Kí</b></button>
+            <button type="button" id="btn-submit-form" class="text-xl w-1/2 p-2.5 border rounded-lg 
+            text-white cursor-pointer bg-green-500" onclick="submitFormRegister()" style="background-color: #00a400;">
+                Đăng Kí
+            </button>
         </div>
     </form>
 </div>

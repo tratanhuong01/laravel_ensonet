@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Session;
                     </div>
                     <div class="w-full flex">
                         <div class="w-2/12">
-                            <img src="{{ $story[0]->AnhDaiDien }}" class="w-12 h-12 rounded-full p-1" alt="">
+                            <img src="{{ $story[0]->AnhDaiDien }}" class="w-12 h-12 object-cover rounded-full p-1" alt="">
                         </div>
                         <div class="w-1/2 pt-1">
                             <p class="pb-1"><a href="" class="font-bold text-white">{{ $story[0]->Ho . ' ' .$story[0]->Ten }}</a>
@@ -85,7 +85,7 @@ use Illuminate\Support\Facades\Session;
                 </div>
                 <div class="w-1/4 bg-white flex p-1.5 absolute top-32 left-24 rounded-lg" style="transform: rotate(-25deg);">
                     <div class="w-1/4 pr-2">
-                        <img src="/img/gai1.jpg" alt="">
+                        <img src="/img/gai.jpg" alt="">
                     </div>
                     <div class="w-3/4">
                         <p class="font-bold" style="font-size: 7px;">បទកំពុងល្បី 24kgoldn - Mood</p>

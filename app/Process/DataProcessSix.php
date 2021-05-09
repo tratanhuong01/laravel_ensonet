@@ -7,6 +7,7 @@ use App\Models\Diachi;
 use App\Models\Tinnhan;
 use App\Models\Truonghoc;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class DataProcessSix extends Model
 {
@@ -116,5 +117,15 @@ class DataProcessSix extends Model
     }
     public static function getVideoByUser()
     {
+    }
+    public static function checkContentIsValid($content)
+    {
+        $word = DB::table('quydinh')->get();
+        $number = 0;
+        foreach ($word as $key => $value) {
+            if (str_contains($content, $value->TenQuyDinh))
+                $number++;
+        }
+        return $number;
     }
 }

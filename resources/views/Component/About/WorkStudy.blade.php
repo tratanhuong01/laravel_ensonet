@@ -84,6 +84,9 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
             <li class="w-full pb-4 flex" style="font-size: 16px;">
                 <ul class="w-full">
                     @foreach ($daiHoc as $key => $value)
+                    @php
+                    $privacy = $value->IDQuyenRiengTu;
+                    @endphp
                     @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                     @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
                     @include('Component/About/Main/School',['value',$value,
@@ -136,6 +139,9 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
             <li class="w-full pb-4 flex" style="font-size: 16px;">
                 <ul class="w-full">
                     @foreach ($caoDang as $key => $value)
+                    @php
+                    $privacy = $value->IDQuyenRiengTu;
+                    @endphp
                     @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                     @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
                     @include('Component/About/Main/School',['value',$value,
@@ -187,6 +193,9 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
             <li class="w-full pb-4 flex" style="font-size: 16px;">
                 <ul class="w-full">
                     @foreach ($thpt as $key => $value)
+                    @php
+                    $privacy = $value->IDQuyenRiengTu;
+                    @endphp
                     @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                     @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
                     @include('Component/About/Main/School',['value',$value,
@@ -238,6 +247,9 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
             <li class="w-full pb-4 flex" style="font-size: 16px;">
                 <ul class="w-full">
                     @foreach ($thcs as $key => $value)
+                    @php
+                    $privacy = $value->IDQuyenRiengTu;
+                    @endphp
                     @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                     @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
                     @include('Component/About/Main/School',['value',$value,

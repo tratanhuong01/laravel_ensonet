@@ -1,15 +1,15 @@
 <ul class="w-full">
-    <li onclick="sharePost('{{ $item[0]->IDBaiDang }}','CONGKHAI')" class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+    <li onclick="sharePost('{{ $idBaiDang }}','CONGKHAI')" class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
                     hover:bg-gray-300">
         <i class='bx bx-share text-2xl pr-2 rotate-90'></i>
         Chia sẽ ngay (Công khai)
     </li>
-    <li onclick="sharePost('{{ $item[0]->IDBaiDang }}','CHIBANBE')" class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+    <li onclick="sharePost('{{ $idBaiDang }}','CHIBANBE')" class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
                     hover:bg-gray-300">
         <i class='bx bx-share text-2xl pr-2 rotate-90'></i>
         Chia sẽ ngay (Bạn bè)
     </li>
-    <li onclick="sharePost('{{ $item[0]->IDBaiDang }}','RIENGTU')" class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
+    <li onclick="sharePost('{{ $idBaiDang }}','RIENGTU')" class="w-full flex p-2 cursor-pointer dark:text-white dark:hover:bg-dark-third 
                     hover:bg-gray-300">
         <i class='bx bx-share text-2xl pr-2 rotate-90'></i>
         Chia sẽ ngay (Chỉ mình tôi)
@@ -28,8 +28,5 @@
                     hover:bg-gray-300">
         <i class='bx bxl-messenger text-xl pr-2'></i>
         Gửi qua messenger
-    </li>
-    <li class="">
-        <input type="hidden" id="post-shortlink{{$item[0]->IDBaiDang}}" value="{{ parse_url(url()->current())['host'] }}:{{ parse_url(url()->current())['port'] }}/post/{{ $item[0]->IDBaiDang }}">
     </li>
 </ul>

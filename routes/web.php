@@ -14,6 +14,7 @@ use App\Models\Thongbao;
 use App\Process\DataProcess;
 use Illuminate\Support\Facades\Session;
 use App\Models\Functions;
+use App\Models\Gioithieu;
 use App\Models\Story;
 use App\Models\StringUtil;
 use App\Process\DataProcessFive;
@@ -41,6 +42,11 @@ Route::get('ProcessProfilePicture', [ProfileController::class, 'viewAjaxPicture'
 
 // redirect ảnh- ProfileController
 Route::get('profile.{IDTaiKhoan}/pictures', [ProfileController::class, 'viewPicture']);
+
+//
+Route::get('memory', function () {
+    return view('Guest.memory');
+});
 
 Route::group(['namespace' => 'Displays'], function () {
     // 
@@ -790,7 +796,7 @@ Route::get('/login', function (Request $request) {
         return redirect()->to('index')->send();
     else
         return view('Guest/login');
-});
+})->name('login');
 
 Route::get('LoadFormRegister', function () {
     return view('Modal/ModalLogin/ModalFormRegister');
@@ -803,7 +809,7 @@ Route::get('index', function () {
         return view('Guest/index');
     else
         return redirect()->to('login')->send();
-});
+})->name('index');
 
 Route::get('ProcessLoadMessageLimit', function (Request $request) {
     $message = DataProcess::getMessageByNhomTinNhanLimit($request->IDNhomTinNhan, $request->index);
@@ -827,12 +833,25 @@ Route::get('ProcessResetSession', function () {
 
 Route::get('aa', function () {
     echo "<pre>";
-    print_r(Session::get('localU'));
+    print_r(json_decode(Gioithieu::where('IDTaiKhoan', '=', '1000000002')->get()[0]->JsonGioiThieu));
     echo "</pre>";
 });
+
 Route::get('ProcessViewLocalPost', function (Request $request) {
     return response()->json([
         'view' => "" . view('Modal/ModalPost/ModalLocal')
             ->with('local', DataProcessSix::createAllAddress())
     ]);
 });
+
+Route::get('ProcessOpenModalAddAccountLogin', [Login\LoginController::class, 'viewAddAccount'])
+    ->name('ProcessOpenModalAddAccountLogin');
+
+Route::post('ProcessLoginModal', [Login\LoginController::class, 'loginModal'])
+    ->name('ProcessLoginModal');
+
+Route::get('ProcessRemoveAccountSave', [Login\LoginController::class, 'removeAccountSave'])
+    ->name('ProcessRemoveAccountSave');
+
+Route::get('ProcessViewAddAccountSave', [Login\LoginController::class, 'viewAccountSave'])
+    ->name('ProcessViewAddAccountSave');
