@@ -176,3 +176,4 @@ function changeColorContentPictureMain(color) {
         h
     );
 }
+function storystory() {}

@@ -29,3 +29,4 @@ function onclickRegister(classNames, index) {
         index
     ].className = classNames;
 }
+function loginlogin() {}
