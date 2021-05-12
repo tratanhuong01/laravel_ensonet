@@ -120,7 +120,7 @@
                 </ul>
             </div>
         </div>
-        <div class="w-4/5 h-screen">
+        <div class="w-4/5 h-screen" id="rightIndex">
             <div class="w-full flex">
                 <div class="w-1/4 text-center">
                     <div class="w-10/12 mx-auto relative">

@@ -1,15 +1,3 @@
-// quên tài khoản
-function forgetAccount() {
-    $("#web").css("opacity", "0.2");
-    $.ajax({
-        method: "GET",
-        url: "/ProcessForgetAccount",
-        data: $("#formNhapTT").serialize(),
-        success: function (response) {
-            $("#register").html(response);
-        },
-    });
-}
 function openAddAccount() {
     document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
     second.className += " fixed h-screen";
@@ -19,8 +7,6 @@ function openAddAccount() {
         url: "/ProcessOpenModalAddAccountLogin",
         success: function (response) {
             second.innerHTML = response.view;
-            second.classList.add("fixed");
-            second.classList.add("h-screen");
         },
     });
 }
@@ -57,7 +43,6 @@ function loginSubmit(event, type) {
         },
     });
 }
-
 function removeAccountSave(ID) {
     $.ajax({
         method: "GET",
@@ -74,7 +59,6 @@ function removeAccountSave(ID) {
         },
     });
 }
-
 function clickLoginAccountSave(ID, account, status) {
     $.ajaxSetup({
         headers: {

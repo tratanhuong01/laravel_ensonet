@@ -7,34 +7,63 @@ use App\Admin\Query;
 <div class="w-full flex py-3">
     <div class="w-1/2 flex">
         <p class="text-xm font-bold py-3 mr-4 flex items-center">Bộ Lọc</p>
-        <div class="w-48 p-3 mr-5 font-bold flex bg-white cursor-pointer relative">
-            <p class="items-center">Trạng thái</p>
+        <div onclick="openFilterOrSort(0)" class="w-48 p-3 mr-5 font-bold flex bg-white cursor-pointer relative">
+            <p class="items-center" id="showSecondFilter">Tất Cả</p>
             <i class="fas fa-caret-down absolute right-3 top-4"></i>
+            <div class="w-48 bg-white border-2 border-solid border-gray-200 
+            p-1 font-bold absolute top-full left-0 shadow-lg hidden filterOrSort">
+                @foreach ($userTable->Filter as $item)
+                <div onclick="onClickFilter('user','{{$item->Name}}','{{ json_encode($item->Data) }}',
+                '{{ json_encode($userTable) }}',this)" class="p-2 w-full">
+                    {{$item->Name}}
+                </div>
+                @endforeach
+            </div>
         </div>
-        <div class="w-48 p-3 font-bold flex bg-white cursor-pointer relative">
-            <p class="items-center">Trạng thái</p>
+        <div onclick="openFilterOrSort(1)" class="w-48 p-3 font-bold flex bg-white cursor-pointer relative">
+            <p class="items-center" id="showFirstFilter"></p>
             <i class="fas fa-caret-down absolute right-3 top-4"></i>
+            <div class="w-48 bg-white border-2 border-solid border-gray-200 
+            p-1 font-bold absolute top-full left-0 shadow-lg hidden filterOrSort" id="filter">
+
+            </div>
         </div>
         <p class="text-xm font-bold py-3 ml-8 text-center flex items-center">Sắp xếp</p>
     </div>
     <div class="w-1/2 flex">
-        <div class="w-48 p-3 mr-5 font-bold flex bg-white cursor-pointer relative">
-            <p class="items-center">Trạng thái</p>
+        <div onclick="openFilterOrSort(2)" class="w-48 p-3 mr-5 font-bold flex bg-white cursor-pointer relative">
+            <p class="items-center" id="showSecondSort">Tất cả</p>
             <i class="fas fa-caret-down absolute right-3 top-4"></i>
+            <div class="w-48 bg-white border-2 border-solid border-gray-200 
+            p-1 font-bold absolute top-full left-0 shadow-lg hidden filterOrSort">
+                @foreach ($userTable->Sort as $item)
+                <div onclick="onClickSort('user','{{$item->Name}}','{{ json_encode($item->Data) }}',
+                '{{ json_encode($userTable) }}',this)" class="p-2 w-full">
+                    {{$item->Name}}
+                </div>
+                @endforeach
+            </div>
         </div>
-        <div class="w-48 p-3 font-bold flex bg-white cursor-pointer relative">
-            <p class="items-center">Trạng thái</p>
+        <div onclick="openFilterOrSort(3)" class="w-48 p-3 font-bold flex bg-white cursor-pointer relative">
+            <p class="items-center" id="showFirstSort"></p>
             <i class="fas fa-caret-down absolute right-3 top-4"></i>
+            <div class="w-48 bg-white border-2 border-solid border-gray-200 
+            p-1 font-bold absolute top-full left-0 shadow-lg hidden filterOrSort" id="sort">
+
+            </div>
         </div>
-        <input type="text" name="" id="" class="w-2/5 ml-4 p-2.5 rounded-3xl 
-                        bg-white border-solid border-gray-200 border-2" placeholder="Tìm kiếm">
+        <input type="text" oninput="onChangeSearch('user',this)" name="" id="" class="w-2/5 ml-4 p-2.5 rounded-3xl 
+        bg-white border-solid border-gray-200 border-2" placeholder="Tìm kiếm">
     </div>
+</div>
+<div class="w-full flex py-1" id="filterAndSortMainData">
+
 </div>
 <div class="w-full wrapper-content-right overflow-x-auto max-w-full py-3">
     <?php
     $account = Query::getAllAccount(10, 0);
     $accountFull = Query::getAllAccountFull();
-    ?>;
+    ?>
     <table class="w-full bg-white" id="tableMain">
         <tr>
             <td class="p-2">STT</td>

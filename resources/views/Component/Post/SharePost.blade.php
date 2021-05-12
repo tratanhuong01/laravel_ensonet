@@ -76,10 +76,15 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
     <div class="w-full mx-0 my-2.5">
         <p class="dark:text-white">{!! $item[0]->NoiDung !!}</p>
     </div>
-    <div class="w-full mx-0 my-4">
-        @if (count($postShare) == 0)
 
-        @else
+    @if (count($postShare) == 0)
+    <div class="w-full mx-0 my-4">
+        <div class="w-11/12  p-4 mb-4 ml-4 bg-white dark:bg-dark-second" style="border: 1px solid #ccc;">
+            @include('Component.Post.Child.PostDeleted')
+        </div>
+    </div>
+    @else
+    <div class="w-full mx-0 my-4">
         @switch($postShare[0]->LoaiBaiDang)
         @case('0')
         @include('Component/Post/Child/AvatarImage',['item' => $postShare])
@@ -94,15 +99,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
         @include('Component/Post/Child/Share',['item' => $postShare])
         @break
         @endswitch
-        @endif
     </div>
-    @if (count($postShare) == 0)
-    <div class="w-full mx-0 my-4">
-        <div class="w-11/12  p-4 mb-4 ml-4 bg-white dark:bg-dark-second" style="border: 1px solid #ccc;">
-            @include('Component.Post.Child.PostDeleted')
-        </div>
-    </div>
-    @else
     <div class="w-full mx-0 my-4">
         <div class="w-11/12  p-4 mb-4 ml-4 bg-white dark:bg-dark-second" style="border: 1px solid #ccc;">
             <div class="w-full flex">
@@ -167,7 +164,6 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
             </div>
         </div>
     </div>
-
     @endif
     @include('Component\Post\FeelPost',['item' => $item])
     <div class="w-full" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}CommentLv1">

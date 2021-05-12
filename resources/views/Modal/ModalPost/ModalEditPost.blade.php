@@ -75,9 +75,16 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                     <i class="far fa-smile text-gray-600 text-2xl dark:text-gray-300"></i>
                 </button>
             </div>
-            <div class="w-full mt-2.5 px-2 flex flex-wrap relative" id="imagePost">
+            @if ($post[0]->LoaiBaiDang == 3)
+            @include('Component.Post.Child.Share',
+            [
+            'item' => $post,
+            ])
+            @else
+            <div class="w-full mt-2.5 px-2 flex flex-wrap relative hidden" id="imagePost">
                 <img src="" alt="" id="imgPost1">
             </div>
+            @endif
             <div id="myEmojis" class="absolute left-full top-44 hidden bg-gray-200 
             dark:bg-dark-third" style="max-height: 270px;height: 270px;">
 

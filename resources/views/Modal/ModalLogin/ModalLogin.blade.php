@@ -20,7 +20,7 @@
             {{ csrf_field() }}
             <input type="hidden" name="emailOrPhone" value="{{ $account->EmailOrPhone }}">
             <input type="hidden" name="account" value="{{ json_encode($account) }}">
-            <input type="text" name="passWord" placeholder="Mật khẩu" class="p-2.5 
+            <input type="password" name="passWord" placeholder="Mật khẩu" class="p-2.5 
             rounded-lg w-full mx-auto my-2 border-2 border-solid border-blue-500 
             @error('passWord') border-red-600 text-red-600 placeholder-red-600 @enderror">
             <p class="py-2 text-left pl-3 font-bold text-red-600">

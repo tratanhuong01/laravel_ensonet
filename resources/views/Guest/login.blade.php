@@ -9,14 +9,6 @@
 
 <body class=" bg-gray-100">
     <!-- main -->
-    <?php
-
-    use Illuminate\Support\Facades\Cookie;
-
-    echo "<pre>";
-    print_r(json_decode(Cookie::get('accountSave')));
-    echo "</pre>";
-    ?>
     <div class="w-full dark:bg-dark-main h-screen relative" id="web">
         <div class="w-full mx-auto sm:w-full md:w-full lg:w-full xl:w-3/4 2xl:w-3/4">
             <div class="w-full flex flex-col py-2 mx-auto sm:flex-col sm:pt-4 lg:flex-row lg:pt-20">

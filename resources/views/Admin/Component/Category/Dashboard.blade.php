@@ -55,10 +55,10 @@ use App\Admin\Query;
                     <span class="bg-blue-500 p-1.5 rounded-full absolute top-4"></span>
                 </div>
                 <div class="ml-3 pt-0.5">
-                    <img src="/{{$value->AnhDaiDien}}" class="w-10 h-10 rounded-full mx-auto" alt=""><br>
+                    <img src="{{$value->AnhDaiDien}}" class="w-10 h-10 rounded-full mx-auto" alt=""><br>
                 </div>
                 <div class="pl-3">
-                    <p class="break-all text-gray-600 pb-0.5 font-bold whitespace-nowrap">
+                    <p class="text-gray-600 pb-0.5 font-bold break-all whitespace-nowrap">
                         {{ $value->Ho . ' ' . $value->Ten }}
                     </p>
                     <p class="text-sm text-gray-600">{{ $value->NgayTao }}</p>
@@ -75,8 +75,11 @@ use App\Admin\Query;
             <?php $userActivity = Query::getUserActivityCurrent(6); ?>
             @foreach($userActivity as $key => $value)
             <li class="w-1/3 p-2.5 text-center">
-                <img src="/{{ $value->AnhDaiDien }}" class="w-14 h-14 object-cover rounded-full mx-auto" alt=""><br>
-                <p class="break-all whitespace-nowrap">{{ $value->Ho . ' ' . $value->Ten }}</p>
+                <img src="{{ $value->AnhDaiDien }}" class="w-14 h-14 object-cover rounded-full mx-auto" alt=""><br>
+                <p class="max-w-full break-all whitespace-nowrap 
+                whitespace-nowrap overflow-ellipsis overflow-hidden">
+                    {{ $value->Ho . ' ' . $value->Ten }}
+                </p>
             </li>
             @endforeach
         </ul>
@@ -93,7 +96,8 @@ use App\Admin\Query;
                     <span class="bg-blue-500 p-1.5 rounded-full absolute top-4"></span>
                 </div>
                 <div class="ml-3 pt-0.5">
-                    <img src="/{{$value->AnhDaiDien}}" class="w-10 h-10 rounded-full mx-auto" alt=""><br>
+                    <img src="{{$value->AnhDaiDien}}" class="w-10 h-10 rounded-full mx-auto 
+                    object-cover" alt=""><br>
                 </div>
                 <div class="pl-3">
                     <p class="break-all text-gray-600 pb-0.5 font-bold whitespace-nowrap">

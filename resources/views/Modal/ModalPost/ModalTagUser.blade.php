@@ -16,7 +16,7 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
     </div>
     <div id="all" class="w-full dark:bg-dark-second px-2 pt-16 wrapper-content-right overflow-y-auto" style="max-height: 420px;height: 420px;">
         @foreach($data as $key => $value)
-        @if ($value->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
+        @if ($value->IDTaiKhoan == $user->IDTaiKhoan)
         <div class="w-full py-2 flex">
             <div class="w-3/5 flex">
                 <div class="w-14 h-14 relative">
@@ -44,11 +44,11 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
                 <div class="px-3">
                     <p><a href="" class="dark:text-white font-bold font-bold">{{ $value->Ho . ' ' . $value->Ten }}</a></p>
                     <p><a href="" class="dark:text-gray-300 font-bold text-gray-700 text-sm">
-                            {{ count(Functions::getMutualFriend($value->IDTaiKhoan,Session::get('user')[0]->IDTaiKhoan)) }} bạn chung
+                            {{ count(Functions::getMutualFriend($value->IDTaiKhoan,$user->IDTaiKhoan)) }} bạn chung
                         </a></p>
                 </div>
             </div>
-            <?php $datas = DB::table('moiquanhe')->where('IDTaiKhoan', '=', Session::get('users')[0]->IDTaiKhoan)
+            <?php $datas = DB::table('moiquanhe')->where('IDTaiKhoan', '=', '1000000001')
                 ->where('IDBanBe', '=', $value->IDTaiKhoan)->get(); ?>
             @if (count($datas) == 0)
             <div class="w-2/5 text-right">

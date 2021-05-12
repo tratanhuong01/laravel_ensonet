@@ -128,4 +128,24 @@ class DataProcessSix extends Model
         }
         return $number;
     }
+    public static function getMemoryByID($idTaiKhoan)
+    {
+        $post = DB::table('baidang')
+            ->whereRaw("DATE_FORMAT(CAST(baidang.NgayDang AS DATE),'%m-%d') = 
+            DATE_FORMAT(CAST(DATE_SUB(NOW(),INTERVAL 1 YEAR) AS DATE),'%m-%d') AND 
+            YEAR(baidang.NgayDang) < YEAR(NOW())")
+            ->get();
+        $postNew = array();
+        foreach ($post as $key => $value) {
+            $data = DB::table('baidang')
+                ->where('baidang.IDBaiDang', '=', $value->IDBaiDang)
+                ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                ->leftjoin('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')
+                ->get();
+            foreach ($data as $keys => $values) {
+                $postNew[$key][$keys] =  $values;
+            }
+        }
+        return $postNew;
+    }
 }

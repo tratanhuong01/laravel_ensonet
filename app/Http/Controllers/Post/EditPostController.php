@@ -56,7 +56,7 @@ class EditPostController extends Controller
                 foreach (Session::get('localU') as $key => $value)
                     $idViTri = $value->ID . '@' . $value->Loai;
             DB::update('UPDATE baidang SET IDQuyenRiengTu = ? ,
-                NoiDung = ? ,GanThe = ? ,IDCamXuc = ? ,IDViTri = ? 
+                NoiDung = ? ,GanThe = ? ,IDCamXuc = ? ,IDDiaChi = ? 
                  WHERE IDBaiDang = ? ', [
                 $request->IDQuyenRiengTu,
                 $request->content,
@@ -160,7 +160,7 @@ class EditPostController extends Controller
                 }
             }
             DB::update('UPDATE baidang SET IDQuyenRiengTu = ? ,
-                        NoiDung = ? ,GanThe = ? ,IDCamXuc = ? ,IDViTri = ? 
+                        NoiDung = ? ,GanThe = ? ,IDCamXuc = ? ,IDDiaChi = ? 
                          WHERE IDBaiDang = ? ', [
                 $request->IDQuyenRiengTu,
                 $request->content,
@@ -183,18 +183,39 @@ class EditPostController extends Controller
     public function view(Request $request)
     {
         $user = Session::get('user');
-        $getPost = DB::table('baidang')
-            ->where('baidang.IDBaiDang', '=', $request->IDBaiDang)
-            ->where('baidang.IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
-            ->get();
+        $checkPost = Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)->get()[0];
+        $getPost = array();
+        $postShare = array();
+        if ($checkPost->LoaiBaiDang == 3) {
+            $getPost = $getPost = DB::table('baidang')
+                ->where('baidang.IDBaiDang', '=', $request->IDBaiDang)
+                ->where('baidang.IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
+                ->get();
+            $postShare = DB::table('baidang')
+                ->where('baidang.IDBaiDang', '=', $checkPost->ChiaSe)
+                ->join('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')
+                ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                ->get();
+        } else {
+            $getPost = DB::table('baidang')
+                ->where('baidang.IDBaiDang', '=', $request->IDBaiDang)
+                ->where('baidang.IDTaiKhoan', '=', $user[0]->IDTaiKhoan)
+                ->get();
+            $postShare = DB::table('baidang')
+                ->where('baidang.IDBaiDang', '=', $checkPost->ChiaSe)
+                ->join('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')
+                ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                ->get();
+        }
+
         if ($getPost[0]->IDCamXuc != NULL) {
             $feelCur[$getPost[0]->IDCamXuc] = $getPost[0]->IDCamXuc;
             Session::put('feelCur', $feelCur);
         }
-        if ($getPost[0]->IDViTri != NULL) {
-            $localU[$getPost[0]->IDViTri] = (object)[
-                'ID' => explode('@', $getPost[0]->IDViTri)[0],
-                'Loai' => explode('@', $getPost[0]->IDViTri)[1]
+        if ($getPost[0]->IDDiaChi != NULL) {
+            $localU[$getPost[0]->IDDiaChi] = (object)[
+                'ID' => explode('@', $getPost[0]->IDDiaChi)[0],
+                'Loai' => explode('@', $getPost[0]->IDDiaChi)[1]
             ];
             Session::put('localU', $localU);
         }
@@ -215,8 +236,10 @@ class EditPostController extends Controller
                 ];
             }
         return response()->json([
-            'view' => "" . view('Modal/ModalPost/ModalEditPost')->with('post', $post),
-            'json' => $json
+            'view' => "" . view('Modal/ModalPost/ModalEditPost')->with('post', $post)
+                ->with('postShare', $postShare),
+            'json' => $json,
+            'state' => $post[0]->LoaiBaiDang
         ]);
     }
 }

@@ -49,4 +49,20 @@ class Process extends Model
         $array['comment'] = Binhluan::where('binhluan.IDTaiKhoan', '=', $idTaiKhoan)->get();
         return $array;
     }
+    public static function getNameOfFilter($json, $valueFilter)
+    {
+        $array = array();
+        foreach ($json->Filter as $key => $value)
+            if ($value->Name == $valueFilter)
+                $array = [$value->ValueQuery, $value->Name];
+        return $array;
+    }
+    public static function getNameOfSort($json, $valueFilter)
+    {
+        $array = array();
+        foreach ($json->Sort as $key => $value)
+            if ($value->Name == $valueFilter)
+                $array = [$value->ValueQuery, $value->Name];
+        return $array;
+    }
 }

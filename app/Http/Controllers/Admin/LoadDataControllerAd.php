@@ -9,20 +9,96 @@ use App\Models\Story;
 use App\Models\Taikhoan;
 use App\Models\Yeucaunguoidung;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoadDataControllerAd extends Controller
 {
     public function loadCategory(Request $request)
     {
+        Session::forget('abc');
+        Session::forget('def');
         switch ($request->name) {
             case 'dashboard':
                 return response()->json([
                     'view' => "" . view('Admin/Component/Category/Dashboard')
+
                 ]);
                 break;
             case 'user':
+                $userTable = (object)[
+                    "Filter" => (object)[
+                        "State" => (object)[
+                            "Name" => "Tình trạng",
+                            "Data" => [
+                                "Tất cả",
+                                "Checkpoint",
+                                "Khóa",
+                                "Bình thường",
+                                "Hạn chế"
+                            ],
+                            'ValueQuery' =>  "TinhTrang"
+                        ],
+                        "Status" => (object)[
+                            "Name" => "Xác Minh",
+                            "Data" => [
+                                "Tất cả",
+                                "Chưa xác minh",
+                                "Đang xác minh",
+                                "Đã xác minh"
+                            ],
+                            'ValueQuery' =>  "XacMinh"
+                        ],
+                        "Activity" => (object)[
+                            "Name" => "Hoạt động",
+                            "Data" => [
+                                "Tất cả",
+                                "Online",
+                                "Offline"
+                            ],
+                            'ValueQuery' =>  "ThoiGianHoatDong"
+                        ],
+                        'Sex' => (object)[
+                            'Name' => "Giới tính",
+                            "Data" => [
+                                "Tất cả",
+                                "Nam",
+                                "Nữ",
+                                "Khác"
+                            ],
+                            'ValueQuery' =>  "GioiTinh"
+                        ]
+                    ],
+                    "Sort" => (object)[
+                        "Name" => (object)[
+                            "Name" => "Tên",
+                            "Data" => [
+                                "Tăng dần",
+                                "Giảm dần"
+                            ],
+                            'ValueQuery' =>  "Ten"
+                        ],
+                        "BirthDay" => (object)[
+                            "Name" => "Ngày sinh",
+                            "Data" => [
+                                "Tăng dần",
+                                "Giảm dần"
+                            ],
+                            'ValueQuery' =>  "NgaySinh"
+                        ],
+                        "TimeCreated" => (object)[
+                            "Name" => "Thời gian tạo",
+                            "Data" => [
+                                "Tăng dần",
+                                "Giảm dần"
+                            ],
+                            'ValueQuery' =>  "NgayTao"
+                        ],
+                    ]
+                ];
                 return response()->json([
                     'view' => "" . view('Admin/Component/Category/User')
+                        ->with('userTable', $userTable)
+                        ->with('data', array())
                 ]);
                 break;
             case 'post':

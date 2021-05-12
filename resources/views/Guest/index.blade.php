@@ -54,7 +54,7 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
                                 <img class="w-10 h-10 mr-4" src="img/friends.png" alt="" srcset="">
                                 <span class="font-bold flex items-center dark:text-white">Bạn Bè</span>
                             </li>
-                            <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
+                            <li onclick="window.location.href='memory'" class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
                                 <img class="w-10 h-10 mr-4" src="img/memory.png" alt="" srcset="">
                                 <span class="font-bold flex items-center dark:text-white">Kỉ Niệm</span>
                             </li>

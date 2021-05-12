@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\Convert;
+use App\Admin\Process as AdminProcess;
 use App\Http\Controllers\Storys\StoryController;
 use App\Models\Data;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +23,16 @@ use App\Process\DataProcessFive;
 use App\Process\DataProcessSix;
 use App\Process\DataProcessThird;
 use Illuminate\Database\Eloquent\Model;
+
+// use session in admin api 
+
+Route::get('admin/ProcessFilterAdmin', [Admin\FilterController::class, 'filter']);
+
+Route::get('admin/ProcessSortAdmin', [Admin\SortController::class, 'sort']);
+
+Route::get('admin/ProcessSearchAdmin', [Admin\SearchController::class, 'search']);
+
+// use session in admin api 
 
 // profile người dùng - ProfileController
 Route::get('profile.{id}', [ProfileController::class, 'view']);
@@ -45,7 +57,8 @@ Route::get('profile.{IDTaiKhoan}/pictures', [ProfileController::class, 'viewPict
 
 //
 Route::get('memory', function () {
-    return view('Guest.memory');
+    return view('Guest.memory')
+        ->with('postOld', DataProcessSix::getMemoryByID(Session::get('user')[0]->IDTaiKhoan));
 });
 
 Route::group(['namespace' => 'Displays'], function () {

@@ -3,13 +3,17 @@
 use App\Models\StringUtil;
 use App\Process\DataProcess;
 
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+$datetime = date("Y-m-d H:i:s");
+$year = explode('-', explode(' ', $datetime)[0])[0] -
+    explode('-', explode(' ', $item[0]->NgayDang)[0])[0]
 ?>
 <div class="w-full my-3 bg-white dark:bg-dark-second rounded-lg p-2">
     <div class="w-full p-2">
         <p class="text-sm py-0.5 font-bold text-gray-900 dark:text-white">
             VÀO NGÀY NÀY
         </p>
-        <p class="text-xl font-bold dark:text-white">4 năm trước</p>
+        <p class="text-xl font-bold dark:text-white">{{ $year }} năm trước</p>
     </div>
     <div onclick="" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Main" class="w-full pt-2">
         <div class="w-full flex">

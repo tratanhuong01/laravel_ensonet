@@ -71,7 +71,12 @@ class PostNormalController extends Controller
                 $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
 
                 if (DataProcessSix::CheckIsVideo($request->file('files_' . $i)->getClientOriginalName())) {
-                    Cloudder::upload($request->file('files_' . $i), null, ['folder' => 'Video'], 'Video.mp4');
+                    Cloudder::upload(
+                        $request->file('files_' . $i),
+                        null,
+                        ['folder' => 'Video'],
+                        'Video.mp4'
+                    );
                     $nameFile = Cloudder::getResult()['url'];
                     Hinhanh::add(
                         $idHinhAnh,

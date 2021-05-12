@@ -117,4 +117,16 @@ class Query extends Model
     {
         return Luotxemstory::where('luotxemstory.IDStory', '=', $idStory)->get();
     }
+    public static function filter($type, $valueQuery)
+    {
+        switch ($type) {
+            case 'user':
+                # code...
+                break;
+
+            default:
+                # code...
+                break;
+        }
+    }
 }

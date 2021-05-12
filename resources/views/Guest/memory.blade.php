@@ -29,10 +29,10 @@
                     <p class="font-bold text-2xl p-2 dark:text-white" style="font-family: system-ui;">
                         Kỉ niệm
                     </p>
-                    <div class="w-64 p-2.5 rounded-lg bg-blue-500 dark:text-white font-bold">
+                    <div class="w-64 p-2.5 rounded-lg bg-gray-500 text-gray-100 font-bold">
                         <div class="flex items-center">
                             <i class='bx bx-home-circle mr-3 text-2xl px-2 py-1 
-                            rounded-full bg-blue-500 text-white'></i>
+                            rounded-full bg-gray-500 text-white'></i>
                             Trang chủ kỉ niệm
                         </div>
                     </div>
@@ -46,19 +46,27 @@
                 <div class="w-full mx-auto">
                     <div class="w-full py-2 dark:bg-dark-second">
                         <img src="/img/memory_1.png" class="w-full h-24 object-cover" alt="" srcset="">
-                        <p class="w-11/12 mx-auto text-center text-xl p-2 dark:text-white">
-                            Chúng tôi hy vọng bạn thích ôn lại và
-                            chia sẻ kỷ niệm trên Facebook, từ các kỷ
-                            niệm gần đây nhất đến những kỷ niệm ngày xa xưa.</p>
                     </div>
-                    <?php
-
-                    use App\Models\Data;
-
-                    $post = Data::sortAllPost('1000000001');
-                    ?>
-                    @include('Component.Post.PostMemory',['item' => $post[0],
+                    @if (count($postOld) == 0)
+                    <div class="w-10/12 mx-auto my-2 dark:text-white">
+                        <p class="text-center mb-2 font-bold text-xl">
+                            Không có kỷ niệm hôm nay
+                        </p>
+                        <p class="text-center text-base">
+                            Hôm nay không có Kỷ niệm nào để xem hay chia sẻ,
+                            nhưng chúng tôi sẽ thông báo cho bạn khi bạn có khoảnh khắc để ôn lại.
+                        </p>
+                    </div>
+                    @else
+                    <p class="w-11/12 mx-auto text-center text-xl p-2 dark:text-white">
+                        Chúng tôi hy vọng bạn thích ôn lại và
+                        chia sẻ kỷ niệm trên Facebook, từ các kỷ
+                        niệm gần đây nhất đến những kỷ niệm ngày xa xưa.
+                    </p>
+                    @foreach ($postOld as $post)
+                    @include('Component.Post.PostMemory',['item' => $post,
                     'u' => Session::get('user')])
+                    @endforeach
                     <div class="w-full py-2 dark:bg-dark-second">
                         <img src="/img/memory_1.png" class="w-full h-24 object-cover" alt="" srcset="">
                         <p class="p-2 text-xl font-bold  dark:text-white" style="font-family: system-ui;">
@@ -68,6 +76,7 @@
                             Hãy quay lại vào ngày mai để xem thêm kỷ niệm bạn nhé!
                         </p>
                     </div>
+                    @endif
                 </div>
             </div>
             <!-- right -->

@@ -63,7 +63,8 @@ class TagFriendController extends Controller
     public function viewUserTagOfPost(Request $request)
     {
         $data = DataProcessThird::getUserTag($request->IDBaiDang);
-        return view('Modal/ModalPost/ModalTagUser')->with('data', $data);
+        return view('Modal/ModalPost/ModalTagUser')->with('data', $data)
+            ->with('user', json_decode($request->user));
     }
     public function removeTagFriend(Request $request)
     {
