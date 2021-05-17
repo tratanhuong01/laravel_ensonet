@@ -99,6 +99,11 @@ function RepCommentPost(
     event
 ) {
     if (event.keyCode === 13) {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
         var formData = new FormData(
             $("#" + IDBaiDang + IDBinhLuan + "FormComment")[0]
         );

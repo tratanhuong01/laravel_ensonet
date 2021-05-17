@@ -22,179 +22,95 @@ use JD\Cloudder\Facades\Cloudder;
 use SebastianBergmann\Environment\Console;
 
 Route::group(['namespace' => 'Image'], function () {
-    //
     Route::get('ProcessLoadPictures', [Image\PictureController::class, 'load'])
         ->name('ProcessLoadPictures');
-
-    //
     Route::get('ProcessLoadTimeLineAndViewPictures', [Image\PictureController::class, 'loadAndView'])
         ->name('ProcessLoadTimeLineAndViewPictures');
 });
-
 Route::group(['namespace' => 'Chat'], function () {
-    //
     Route::get('ProcessLoadingChatTypingMessenge', [Chat\ChatController::class, 'loadingTypingMessage'])
         ->name('ProcessLoadingChatTypingMessenge');
-
-    //
     Route::get('ProcessLoadingTypingOn', [Chat\ChatController::class, 'loadingTypingOn'])
         ->name('ProcessLoadingTypingOn');
-
-    //
     Route::get('ProcessLoadingTypingOff', [Chat\ChatController::class, 'loadingTypingOff'])
         ->name('ProcessLoadingTypingOff');
 });
-
 Route::group(['namespace' => 'Post'], function () {
-    //
     Route::get('ProcessLoadViewCommentImage', [Post\CommentController::class, 'loadViewCommentImage'])
         ->name('ProcessLoadViewCommentImage');
-
-    //
     Route::get('ProcessOpenViewStickerCommnet', [Post\CommentController::class, 'openStickComment'])
         ->name('ProcessOpenViewStickerCommnet');
-
-    //
     Route::get('ProcessOpenViewGifCommnet', [Post\CommentController::class, 'openGifComment'])
         ->name('ProcessOpenViewGifCommnet');
-
-    //
     Route::get('ProcessWarnDeleteComment', [Post\CommentController::class, 'warn'])
         ->name('ProcessWarnDeleteComment');
-
-    //
     Route::get('ProcessDeleteComment', [Post\CommentController::class, 'delete'])
         ->name('ProcessDeleteComment');
 });
-
 Route::group(['namespace' => 'About'], function () {
-    //
     Route::post('ProcessAjaxDashboardAbout', [About\AboutController::class, 'dashboard'])
         ->name('ProcessAjaxDashboardAbout');
-
-    //
     Route::post('ProcessAjaxWorkAndStudyAbout', [About\AboutController::class, 'workAndStudy'])
         ->name('ProcessAjaxWorkAndStudyAbout');
-
-    //
     Route::post('ProcessAjaxPlaceLivedAbout', [About\AboutController::class, 'placeLived'])
         ->name('ProcessAjaxPlaceLivedAbout');
-
-    //
     Route::post('ProcessAjaxInfoSimpleAndContactAbout', [About\AboutController::class, 'infoSimpleAndContact'])
         ->name('ProcessAjaxInfoSimpleAndContactAbout');
-
-    //
     Route::post('ProcessAjaxFamilyAndRelationshipAbout', [About\AboutController::class, 'familyAndRelatioship'])
         ->name('ProcessAjaxFamilyAndRelationshipAbout');
-
-    //
     Route::post('ProcessAjaxDetailAboutUserAbout', [About\AboutController::class, 'detailAboutUser'])
         ->name('ProcessAjaxDetailAboutUserAbout');
-
-    //
     Route::post('ProcessAjaxEventLifeAbout', [About\AboutController::class, 'eventLife'])
         ->name('ProcessAjaxEventLifeAbout');
-
-    // Add
-
-    //
     Route::post('ProccessAddPlaceWorkAbout', [About\AddAboutController::class, 'addPlaceWorks'])
         ->name('ProccessAddPlaceWorkAbout');
-
-    //
     Route::post('ProcessAddSchoolAbout', [About\AddAboutController::class, 'addSchool'])
         ->name('ProcessAddSchoolAbout');
-
-    //
     Route::post('ProcessAddPlaceLiveCurrent', [About\AddAboutController::class, 'addPlaceLiveCurrent'])
         ->name('ProcessAddPlaceLiveCurrent');
-
-    //
     Route::post('ProcessAddHomeTown', [About\AddAboutController::class, 'addHomeTown'])
         ->name('ProcessAddHomeTown');
-
-    //
     Route::post('ProcessAddPlaceLived', [About\AddAboutController::class, 'addPlaceLived'])
         ->name('ProcessAddPlaceLived');
-
-    //
     Route::post('ProcessAddIntroYouSelf', [About\AddAboutController::class, 'addIntroYourSelf'])
         ->name('ProcessAddIntroYouSelf');
-
-    //
     Route::post('ProcessAddWayReadName', [About\AddAboutController::class, 'AddWayReadName'])
         ->name('ProcessAddWayReadName');
-
-    //
     Route::post('ProcessAddNickName', [About\AddAboutController::class, 'addNickName'])
         ->name('ProcessAddNickName');
-
-    //
     Route::post('ProcessAddFavoriteQuote', [About\AddAboutController::class, 'addFavoriteQuote'])
         ->name('ProcessAddFavoriteQuote');
-
-    //
     Route::post('ProcessAddMemberFamilyAbout', [About\AddAboutController::class, 'addMemberFamily'])
         ->name('ProcessAddMemberFamilyAbout');
-
-    //Delete
-
-    //
     Route::get('ProcessDeleteAbout', [About\DeleteAboutController::class, 'delete']);
-
-    //
     Route::get('ProcessDeleteAboutMain', [About\DeleteAboutController::class, 'deleteMain']);
-
-    //Edit
-
-    //
     Route::get('ProcessEditViewAbout', [About\EditAboutController::class, 'editView']);
-
-    //
     Route::post('ProcessEditAboutMain', [About\EditAboutController::class, 'edit'])
         ->name('ProcessEditAboutMain');
-
-    //
     Route::get('ProcessChangePrivacyAboutViewMain', [About\ChangePrivacyAboutController::class, 'changeView']);
-
-    //
     Route::get('ProcessChangePrivacyAboutMain', [About\ChangePrivacyAboutController::class, 'change']);
 });
-
 Route::group(['namespace' => 'Storys'], function () {
-    //
     Route::post('ProcessSaveCanvasStory', [Storys\StoryController::class, 'create'])
         ->name('ProcessSaveCanvasStorys');
-
-    //
     Route::post('ProcessViewPictureStory', [Storys\StoryController::class, 'createPicView'])
         ->name('ProcessViewPictureStory');
-
-    //
     Route::post('ProcessSavePictureStory', [Storys\StoryController::class, 'createPic'])
         ->name('ProcessSavePictureStory');
-    //
     Route::post('ProcessLoadStory', [Storys\StoryController::class, 'load'])
         ->name('ProcessLoadStory');
 
-    //
     Route::post('ProcessLoadAndAddViewStory', [Storys\StoryController::class, 'loadAndAddViewStory'])
         ->name('ProcessLoadAndAddViewStory');
 
-    //
     Route::get('ProcessNextStory', [Storys\StoryController::class, 'nextStory'])
         ->name('ProcessNextStory');
-
-    //
     Route::get('ProcessPreviousStory', [Storys\StoryController::class, 'previousStory'])
         ->name('ProcessPreviousStory');
 
-    //
     Route::get('ProcessDeleteStory', [Storys\StoryController::class, 'deleteStory'])
         ->name('ProcessDeleteStory');
 });
-
 //
 Route::get('save/{id}', function ($id) {
     $json = [
@@ -262,11 +178,9 @@ Route::get('save/{id}', function ($id) {
         'JsonGioiThieu' => json_encode($json)
     ]);
 });
-
 //
 Route::post('ProcessSearchData', [SearchController::class, 'search'])
     ->name('ProcessSearchData');
-
 //
 Route::get('ProcessOpenRequestFriendsMain', function (Request $request) {
     $data = DataProcessSecond::getRequestSend($request->IDTaiKhoan);
@@ -275,7 +189,6 @@ Route::get('ProcessOpenRequestFriendsMain', function (Request $request) {
             ->with('idTaiKhoan', $request->IDTaiKhoan)
     ]);
 })->name('ProcessOpenRequestFriendsMain');
-
 //
 Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
     switch ($request->Type) {
@@ -344,17 +257,14 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
             break;
     }
 })->name('ProcessShowDataAboutCorresponding');
-
 //
 Route::get('ProcessViewPrivacyAbout', function () {
     return view('Component/About/Modal/Privacy');
 })->name('ProcessViewPrivacyAbout');
-
 //
 Route::get('ProcessPrivacyAbouts', function (Request $request) {
     return view('Component/Child/PrivacyAbout')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
 })->name('ProcessPrivacyAbouts');
-
 Route::get('ProcessOpenModalStickerChat', function (Request $request) {
     switch ($request->type) {
         case 'Sticker':
@@ -374,7 +284,6 @@ Route::get('ProcessOpenModalStickerChat', function (Request $request) {
             break;
     }
 });
-
 Route::get('ProcessPreviewBeforeUploadFile', function (Request $request) {
     return response()->json([
         'view' => "" . view('Modal/ModalPost/ModalPreviewPost')
@@ -382,7 +291,6 @@ Route::get('ProcessPreviewBeforeUploadFile', function (Request $request) {
             ->with('type', $request->type)
     ]);
 })->name('ProcessPreviewBeforeUploadFile');
-
 Route::get('ProcessSearchLocal', function (Request $request) {
     $array = DataProcessSix::createAllAddress();
     return response()->json([
@@ -392,44 +300,31 @@ Route::get('ProcessSearchLocal', function (Request $request) {
         )
     ]);
 });
-
 Route::get('ProcessViewChangeNickName', [Chat\SettingChatController::class, 'viewNickName'])
     ->name('ProcessViewChangeNickName');
-
 Route::get('ProcessEditNickNameUserChat', [Chat\SettingChatController::class, 'editNickName'])
     ->name('ProcessEditNickNameUserChat');
-
 Route::get('ProcessViewChangeIconFeelChat', [Chat\SettingChatController::class, 'viewIconFeel'])
     ->name('ProcessViewChangeIconFeelChat');
-
 Route::get('ProcessChangeIconFeelChat', [Chat\SettingChatController::class, 'changeIconFeel'])
     ->name('ProcessChangeIconFeelChat');
-
 Route::get('ProcessViewChangeNameChat', [Chat\SettingChatController::class, 'viewChangeNameChat'])
     ->name('ProcessViewChangeNameChat');
-
 Route::get('ProcessChangeNameChat', [Chat\SettingChatController::class, 'changeNameChat'])
     ->name('ProcessChangeNameChat');
-
 Route::get('demo', function () {
     return view('Demo');
 });
-
 Route::get('ProcessViewMemberGroupChat', [Chat\GroupChatSettingController::class, 'viewMember'])
     ->name('ProcessViewMemberGroupChat');
-
 Route::get('ProcessViewOutGroupChat', [Chat\GroupChatSettingController::class, 'viewOutGroupChat'])
     ->name('ProcessViewOutGroupChat');
-
 Route::get('ProcessOutGroupChat', [Chat\GroupChatSettingController::class, 'outGroupChat'])
     ->name('ProcessOutGroupChat');
-
 Route::get('ProcessViewDeleteAllChat', [Chat\DeleteMessageController::class, 'viewDeleteChat'])
     ->name('ProcessViewDeleteAllChat');
-
 Route::get('ProcessDeleteAllChat', [Chat\DeleteMessageController::class, 'deleteChat'])
     ->name('ProcessDeleteAllChat');
-
 Route::post('post', function (Request $request) {
     $filename = "";
     // if ($request->hasFile('file')) {
@@ -447,7 +342,6 @@ Route::post('post', function (Request $request) {
     Cloudder::delete(explode('.', $public_Id)[0]);
     echo "đã xóa";
 })->name('post');
-
 Route::get('demo', function (Request $request) {
     return view('Demo');
 });

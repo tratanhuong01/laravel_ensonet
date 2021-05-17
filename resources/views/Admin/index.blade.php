@@ -1,5 +1,5 @@
 <?php
-
+$path = explode('/', parse_url(url()->current())['path']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +45,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/js/admin/nor.js"></script>
     <script src="/js/admin/ajax.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
@@ -80,33 +81,69 @@
             </div>
             <div class="w-full">
                 <ul class="w-full p-3">
-                    <li onclick="loadCategoryAd('dashboard',this)" class="activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('dashboard',this)" class="{{ $path[2] == 'dashboard' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="fas fa-home text-2xl mr-3"></i>
                         Tổng quan
                     </li>
-                    <li onclick="loadCategoryAd('user',this)" class="w-full border-sold border-white font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('user',this)" class="{{ $path[2] == 'user' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="fas fa-user text-2xl mr-3"></i>
                         Người dùng
                     </li>
-                    <li onclick="loadCategoryAd('post',this)" class="w-full border-sold border-white font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('post',this)" class="{{ $path[2] == 'post' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="fas fa-marker text-2xl mr-3"></i>
                         Bài viết
                     </li>
-                    <li onclick="loadCategoryAd('story',this)" class="w-full border-sold border-white font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('story',this)" class="{{ $path[2] == 'story' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="fas fa-book text-2xl mr-3"></i>
                         Story
                     </li>
-                    <li onclick="loadCategoryAd('reply',this)" class="w-full border-sold border-white font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('reply',this)" class="{{ $path[2] == 'reply' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="fas fa-comment-dots text-2xl mr-3"></i>
                         Phản hồi
                     </li>
-                    <li onclick="loadCategoryAd('category',this)" class="w-full border-sold border-white font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('category',this)" class="{{ $path[2] == 'category' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="far fa-list-alt text-2xl mr-3"></i>
                         Danh mục
                     </li>
@@ -168,7 +205,41 @@
             </div>
             <div class="w-full p-5 bg-gray-100 overflow-y-auto 
             wrapper-content-right" style="height: 685px;max-height: 685px;" id="content">
+                @switch($path[2])
+                @case('user')
+                @include('Admin/Component/Category/User',
+                [
+                'userTable' => $table,
+                'data' => $data
+                ])
+                @break
+                @case('post')
+                @include('Admin/Component/Category/Post',
+                [
+                'userPost' => $table,
+                'data' => $data
+                ])
+                @break
+                @case('story')
+                @include('Admin/Component/Category/Story',
+                [
+                'userStory' => $table,
+                'data' => $data
+                ])
+                @break
+                @case('reply')
+                @include('Admin/Component/Category/Reply',
+                [
+                'userReply' => $table,
+                'data' => $data
+                ])
+                @break
+                @case('category')
+                @include('Admin/Component/Category/Category')
+                @break
+                @default
                 @include('Admin/Component/Category/Dashboard')
+                @endswitch
             </div>
         </div>
     </div>

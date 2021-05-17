@@ -42,7 +42,7 @@ class DeleteMessageController extends Controller
                     ), $request->IDTinNhan]
                 );
                 $mess = Tinnhan::where('tinnhan.IDTinNhan', '=', $request->IDTinNhan)->get();
-                $mess = json_decode($mess[0]->NoiDungTinNhan);
+                $mess = json_decode($mess[0]->NoiDung);
                 foreach ($mess as $key => $value) {
                     if ($value->LoaiTinNhan == 1) {
                         $public_Id = explode('/', $value->LoaiTinNhan->DuongDan);

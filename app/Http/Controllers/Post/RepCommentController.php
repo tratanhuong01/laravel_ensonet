@@ -285,7 +285,6 @@ class RepCommentController extends Controller
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $idBinhLuan = StringUtil::ID('binhluan', 'IDBinhLuan');
         $cmt = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuanRep)->get();
-        $nameFile = Session::get('user')[0]->IDTaiKhoan . $idBinhLuan . '.jpg';
         $json = (object)[
             'ID' => '10000',
             'LoaiBinhLuan' => '2',

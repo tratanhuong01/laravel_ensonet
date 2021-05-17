@@ -102,18 +102,149 @@ class LoadDataControllerAd extends Controller
                 ]);
                 break;
             case 'post':
+                $userPost = (object)[
+                    "Filter" => (object)[
+                        "TypePost" => (object)[
+                            "Name" => "Loại bài đăng",
+                            "Data" => [
+                                "Tất cả",
+                                "Ảnh đại diện",
+                                "Ảnh bìa",
+                                "Chia sẽ",
+                                "Dòng thời gian"
+                            ],
+                            'ValueQuery' =>  "LoaiBaiDang"
+                        ],
+                        "Privacy" => (object)[
+                            "Name" => "Quyền riêng tư",
+                            "Data" => [
+                                "Tất cả",
+                                "Công khai",
+                                "Bạn bè",
+                                "Riêng tư"
+                            ],
+                            'ValueQuery' =>  "IDQuyenRiengTu"
+                        ]
+                    ],
+                    "Sort" => (object)[
+                        "TimePost" => (object)[
+                            "Name" => "Thời gian đăng",
+                            "Data" => [
+                                "Tăng dần",
+                                "Giảm dần"
+                            ],
+                            'ValueQuery' =>  "NgayDang"
+                        ],
+                        "NumberComment" => (object)[
+                            "Name" => "Số lượng bình luận",
+                            "Data" => [
+                                "Tăng dần",
+                                "Giảm dần"
+                            ],
+                            'ValueQuery' =>  "SoLuongBinhLuan"
+                        ],
+                        "NumberFeel" => (object)[
+                            "Name" => "Số lượng cảm xúc",
+                            "Data" => [
+                                "Tăng dần",
+                                "Giảm dần"
+                            ],
+                            'ValueQuery' =>  "SoLuongCamXuc"
+                        ],
+                    ]
+                ];
                 return response()->json([
                     'view' => "" . view('Admin/Component/Category/Post')
+                        ->with('userPost', $userPost)
+                        ->with('data', array())
                 ]);
                 break;
             case 'story':
+                $userStory = (object)[
+                    "Filter" => (object)[
+                        "TypePost" => (object)[
+                            "Name" => "Loại story",
+                            "Data" => [
+                                "Tất cả",
+                                "Chữ",
+                                "Ảnh",
+                                "Video"
+                            ],
+                            'ValueQuery' =>  "LoaiStory"
+                        ],
+                        "Privacy" => (object)[
+                            "Name" => "Quyền riêng tư",
+                            "Data" => [
+                                "Tất cả",
+                                "Công khai",
+                                "Bạn bè",
+                                "Riêng tư"
+                            ],
+                            'ValueQuery' =>  "IDQuyenRiengTu"
+                        ]
+                    ],
+                    "Sort" => (object)[
+                        "TimePost" => (object)[
+                            "Name" => "Thời gian đăng",
+                            "Data" => [
+                                "Tăng dần",
+                                "Giảm dần"
+                            ],
+                            'ValueQuery' =>  "ThoiGianDangStory"
+                        ],
+                        "View" => (object)[
+                            "Name" => "Lượt xem",
+                            "Data" => [
+                                "Tăng dần",
+                                "Giảm dần"
+                            ],
+                            'ValueQuery' =>  ""
+                        ],
+                    ]
+                ];
                 return response()->json([
                     'view' => "" . view('Admin/Component/Category/Story')
+                        ->with('userStory', $userStory)
                 ]);
                 break;
             case 'reply':
+                $userReply = (object)[
+                    "Filter" => (object)[
+                        "TypePost" => (object)[
+                            "Name" => "Loại yêu cầu",
+                            "Data" => [
+                                "Tất cả",
+                                "Cấp lại tài khoản",
+                                "Quá trình sử dụng",
+                                "Tích xanh",
+                            ],
+                            'ValueQuery' =>  "LoaiYeuCau"
+                        ],
+                        "Privacy" => (object)[
+                            "Name" => "Tình trạng",
+                            "Data" => [
+                                "Tất cả",
+                                "Đã duyệt",
+                                "Đang duyệt",
+                                "Từ chối duyệt"
+                            ],
+                            'ValueQuery' =>  "TinhTrangYeuCau"
+                        ]
+                    ],
+                    "Sort" => (object)[
+                        "TimePost" => (object)[
+                            "Name" => "Thời gian yêu cầu",
+                            "Data" => [
+                                "Tăng dần",
+                                "Giảm dần"
+                            ],
+                            'ValueQuery' =>  "ThoiGianYeuCau"
+                        ],
+                    ]
+                ];
                 return response()->json([
                     'view' => "" . view('Admin/Component/Category/Reply')
+                        ->with('userReply', $userReply)
                 ]);
                 break;
             case 'category':

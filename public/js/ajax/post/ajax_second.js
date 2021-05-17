@@ -352,8 +352,12 @@ function postFiles() {
         contentType: false,
         processData: false,
         success: function (response) {
-            console.log("posted");
-            $("#second").html(response);
+            document
+                .getElementsByTagName("body")[0]
+                .classList.remove("overflow-hidden");
+            second.innerHTML = "";
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
             store.set("imageAndVideoPost", new Array());
         },
     });

@@ -16,7 +16,7 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
     </div>
     <div class="w-full flex flex-wrap">
         <div class="w-1/4 pl-3">
-            <img src="/{{ $user[0]->AnhDaiDien }}" class="w-40 mx-auto h-40 object-cover rounded-full" alt="">
+            <img src="{{ $user[0]->AnhDaiDien }}" class="w-40 mx-auto h-40 object-cover rounded-full" alt="">
         </div>
         <div class="w-3/4 pl-4">
             <p class="font-bold text-2xl py-3 text-gray-700">{{ $user[0]->Ho . ' ' . $user[0]->Ten }}</p>

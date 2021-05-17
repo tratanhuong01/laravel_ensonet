@@ -88,11 +88,14 @@ class Query extends Model
     }
     public static function getAllStory($take, $skip)
     {
-        return Story::skip($skip)->take($take)->get();
+        return Story::skip($skip)->take($take)
+            ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->get();
     }
     public static function getAllStoryFull()
     {
-        return Story::get();
+        return Story::join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->get();
     }
     public static function getAllReply($take, $skip)
     {

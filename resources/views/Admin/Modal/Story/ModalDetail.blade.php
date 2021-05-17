@@ -22,7 +22,7 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
 
                 </div>
                 <div class="w-8/12 px-2">
-                    <img src="/{{ $story[0]->DuongDan }}" class="w-auto mx-auto object-cover" alt="" style="height: 440px;">
+                    <img src="{{ $story[0]->DuongDan }}" class="w-auto mx-auto object-cover" alt="" style="height: 440px;">
                 </div>
                 <div class="w-2/12 relative">
 

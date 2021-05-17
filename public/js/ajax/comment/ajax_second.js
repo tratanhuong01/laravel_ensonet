@@ -244,7 +244,7 @@ function postMain(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDNhanDan, Loai) {
             postSticker(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDNhanDan);
             break;
         case "2":
-            postStickerRepView(IDBaiDang, IDBinhLuan, IDNhanDan);
+            postStickerRep(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDNhanDan);
             break;
         default:
             break;

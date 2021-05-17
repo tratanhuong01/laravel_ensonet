@@ -51,13 +51,16 @@ class ChatController extends Controller
             $request->IDNhomTinNhan,
             $request->IDTaiKhoan
         );
-        if (count($userOfGroupChat) == 1) {
-            $chater = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
-            return view('Modal.ModalChat.Child.HideChat')->with('chater', $chater);
+        if (count($userOfGroupChat) == 0) {
         } else {
-            $userOfGroupChat = DataProcess::getUserOfGroupMessageReal($request->IDNhomTinNhan);
-            return view('Modal.ModalChat.Child.HideChatGroupMain')->with('chater', $userOfGroupChat)
-                ->with('idNhomTinNhan', $request->IDNhomTinNhan);
+            if (count($userOfGroupChat) == 1) {
+                $chater = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+                return view('Modal.ModalChat.Child.HideChat')->with('chater', $chater);
+            } else {
+                $userOfGroupChat = DataProcess::getUserOfGroupMessageReal($request->IDNhomTinNhan);
+                return view('Modal.ModalChat.Child.HideChatGroupMain')->with('chater', $userOfGroupChat)
+                    ->with('idNhomTinNhan', $request->IDNhomTinNhan);
+            }
         }
     }
     public function openMessenger()

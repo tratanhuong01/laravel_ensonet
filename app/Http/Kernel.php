@@ -15,7 +15,6 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
-        \Illuminate\Session\Middleware\StartSession::class,
         \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\CORS::class,
         \App\Http\Middleware\TrustProxies::class,
@@ -44,13 +43,6 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
-        'adminApi' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-
-            'throttle:60,1',
-            'bindings',
         ],
     ];
 

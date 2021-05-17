@@ -25,42 +25,32 @@ use App\Process\DataProcessThird;
 use Illuminate\Database\Eloquent\Model;
 
 // use session in admin api 
-
 Route::get('admin/ProcessFilterAdmin', [Admin\FilterController::class, 'filter']);
-
 Route::get('admin/ProcessSortAdmin', [Admin\SortController::class, 'sort']);
-
 Route::get('admin/ProcessSearchAdmin', [Admin\SearchController::class, 'search']);
+Route::get('admin/ProcessLoadCategoryAd', [Admin\LoadDataControllerAd::class, 'loadCategory'])
+    ->name('admin/ProcessLoadCategoryAd');
 
 // use session in admin api 
-
 // profile người dùng - ProfileController
 Route::get('profile.{id}', [ProfileController::class, 'view']);
-
 //load ajax page bạn bè- ProfileController
 Route::get('ProcessProfileFriend', [ProfileController::class, 'viewAjaxFriends']);
-
 //- ProfileController
 Route::get('profile.{IDTaiKhoan}/friends', [ProfileController::class, 'viewFriends']);
-
 // redirect giới thiệu- ProfileController
 Route::get('ProcessProfileAbout', [ProfileController::class, 'viewAjaxAbout']);
-
 // redirect giới thiệu- ProfileController
 Route::get('profile.{IDTaiKhoan}/about', [ProfileController::class, 'viewAbout']);
-
 // redirect ảnh- ProfileController
 Route::get('ProcessProfilePicture', [ProfileController::class, 'viewAjaxPicture']);
-
 // redirect ảnh- ProfileController
 Route::get('profile.{IDTaiKhoan}/pictures', [ProfileController::class, 'viewPicture']);
-
 //
 Route::get('memory', function () {
     return view('Guest.memory')
         ->with('postOld', DataProcessSix::getMemoryByID(Session::get('user')[0]->IDTaiKhoan));
 });
-
 Route::group(['namespace' => 'Displays'], function () {
     // 
     Route::get('/photo/{idBaiDang}/{idHinhAnh}', [Displays\ViewImageController::class, 'views']);
@@ -78,7 +68,6 @@ Route::group(['namespace' => 'Displays'], function () {
     //
     Route::get('/{value1}/{value2}/{value3}/ProcessZoomViewOut', [Displays\ViewImageController::class, 'zoomOut']);
 });
-
 Route::group(['namespace' => 'Register'], function () {
     // xử lí đăng kí
     Route::get('ProcessRegister', [Register\RegisterController::class, 'register'])
@@ -88,7 +77,6 @@ Route::group(['namespace' => 'Register'], function () {
     Route::get('ProcessVerify', [Register\VerifyMailController::class, 'verify'])
         ->name('ProcessVerify');
 });
-
 Route::group(['namespace' => 'Account'], function () {
     //ajax quên mật khẩu
     Route::get('ProcessForgetAccount', [Account\ForgetAccountController::class, 'get'])
@@ -114,7 +102,6 @@ Route::group(['namespace' => 'Account'], function () {
     Route::get('ProcessSearchUserChat', [Account\SearchFriendController::class, 'searchUserChat'])
         ->name('ProcessSearchUserChat');
 });
-
 Route::group(['namespace' => 'Login'], function () {
     // ajax đăng nhập
     Route::post('ProcessLogin', [Login\LoginController::class, 'login'])
@@ -132,7 +119,6 @@ Route::group(['namespace' => 'Login'], function () {
     Route::get('logout', [Login\LogoutController::class, 'logout'])
         ->name('logout');
 });
-
 Route::group(['namespace' => 'Relationship'], function () {
     // ajax yêu cầu kết bạn
     Route::get('ProcessRequestFriend', [Relationship\RequestFriendController::class, 'send'])
@@ -162,7 +148,6 @@ Route::group(['namespace' => 'Relationship'], function () {
     Route::get('ProcessDeleteFriend', [Relationship\DeleteFriendController::class, 'delete'])
         ->name('ProcessDeleteFriend');
 });
-
 Route::group(['namespace' => 'Post'], function () {
     //
     Route::post('ProcessPostCommentSticker', [Post\CommentController::class, 'postCommentSticker'])
@@ -333,7 +318,6 @@ Route::group(['namespace' => 'Post'], function () {
     Route::post('ProcessEditComment', [Post\EditCommentController::class, 'edit'])
         ->name('ProcessEditComment');
 });
-
 Route::group(['namespace' => 'Chat'], function () {
     //
     Route::get('ProcessRetrievalMessageEvent', [Chat\DeleteMessageController::class, 'retrievalMessageEvent'])
@@ -425,10 +409,8 @@ Route::group(['namespace' => 'Chat'], function () {
     Route::get('ProcessSendStickerMessageNewChat', [Chat\SendMessageController::class, 'sendStickerMessageNewChat'])
         ->name('ProcessSendStickerMessageNewChat');
 });
-
 //ajax xác nhận thành công
 Route::get('VerifySuccess', [VerifyMailController::class, 'verify']);
-
 //ajax cập nhật ảnh đại diện
 Route::post('ProcessUpdateAvatar', [UpdateAvatarController::class, 'update'])
     ->name('ProcessUpdateAvatar');
@@ -475,33 +457,27 @@ Route::get('ProcessOpenPostDialog', function (Request $request) {
     else
         return view('Modal\ModalPost\ModalWriteAnyThing');
 })->name('ProcessOpenPostDialog');
-
 // ajax chọn quyền riêng tư bài đăng
 Route::get('ProcessSelecPrivacyPost', function () {
     return view('Modal\ModalPrivacy\ModalPrivacy');
 })->name('ProcessSelecPrivacyPost');
-
 // ajax chọn quyền riêng tư bài đăng
 Route::get('ProcessOnChangeInputPrivacy', function (Request $request) {
     return view('Component\Child\Privacy')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
 })->name('ProcessOnChangeInputPrivacy');
-
 // 
 Route::get('ProcessModalLast', function () {
     return view('Modal/ModalHeader/ModalLast');
 })->name('ProcessModalLast');
-
 // ajax quên tài khoản
 Route::get('LoadForgetAccount', function () {
     return view('Modal\ModalLogin\ModalTypeInfo')->with('errors', '');
 });
-
 //xử lí show modal notifications
 Route::get('ProcessShowModalNotifications', function () {
     $notify = Notify::getNotify(Session::get('user')[0]->IDTaiKhoan);
     return view('Modal\ModalHeader\ModalNotify')->with('notify', $notify);
 })->name('ProcessShowModalNotifications');
-
 //Cập nhật trạng thái của thông báo
 Route::get('ProcessUpdateStateNotifications', function () {
     $notify = Thongbao::where('thongbao.IDTaiKhoan', '=', Session::get('user')[0]->IDTaiKhoan)->get();
@@ -518,22 +494,18 @@ Route::get('ProcessUpdateStateNotifications', function () {
             ->with('num', Notify::countNotify(Session::get('user')[0]->IDTaiKhoan, 0));
     }
 })->name('ProcessUpdateStateNotifications');
-
 //Đánh dấu tất cả là đã đọc
 Route::get('ProcessTickAllIsRead', function () {
     DB::update("UPDATE thongbao SET TinhTrang = ? 
     WHERE IDTaiKhoan = ? AND IDLoaiThongBao != 'TINNHAN001' ", ['2', Session::get('user')[0]->IDTaiKhoan]);
     return '';
 })->name('ProcessTickAllIsRead');
-
 //
 Route::post('ProcessEditDescribeUser', [ProfileController::class, 'editDescribeUser'])
     ->name('ProcessEditDescribeUser');
-
 //
 Route::get('ProcessLoadProfileFriendRequest', [ProfileController::class, 'loadAjaxProfileFriendRequest'])
     ->name('ProcessLoadProfileFriendRequest');
-
 //dark mode
 Route::get('ProcessDarkMode', function () {
     $darkMode = Taikhoan::where(
@@ -565,13 +537,11 @@ Route::get('ProcessDarkMode', function () {
         return '';
     }
 })->name('ProcessDarkMode');
-
 //
 Route::get('friends', function () {
     return view('Guest/friend-request')
         ->with('users', []);
 });
-
 //
 Route::get('friends/{id}', function ($id) {
     $users = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $id)->get();
@@ -580,7 +550,6 @@ Route::get('friends/{id}', function ($id) {
     else
         return view('Guest/friend-request')->with('users', []);
 });
-
 //
 Route::get('messages/{idNhomTinNhan}', function ($idNhomTinNhan) {
     $chater = DataProcess::getUserOfGroupMessage($idNhomTinNhan);
@@ -596,12 +565,10 @@ Route::get('messages/{idNhomTinNhan}', function ($idNhomTinNhan) {
             ->with('idNhomTinNhan', $idNhomTinNhan);
     }
 });
-
 //
 Route::get('Timeline', function () {
     return strtotime(date("Y-m-d H:i:s")) - strtotime('2021-03-19 15:09:29');
 });
-
 //
 Route::get('ProcessLoadingPost', function (Request $request) {
     $post = Data::sortAllPost(Session::get('user')[0]->IDTaiKhoan);
@@ -639,7 +606,6 @@ Route::get('ProcessLoadingPost', function (Request $request) {
         return $data . '<input type="hidden" name="indexPost" id="indexPost" value="' . $num . '">';
     }
 })->name('ProcessLoadingPost');
-
 //
 Route::get('ProcessLoadingPostProfile', function (Request $request) {
     $posts = Functions::getAllPost($request->IDTaiKhoan);
@@ -683,30 +649,24 @@ Route::get('ProcessLoadingPostProfile', function (Request $request) {
         return $data . '<input type="hidden" name="indexPost" id="indexPost" value="' . $num . '">';
     }
 })->name('ProcessLoadingPostProfile');
-
 //
 Route::get('ProcessLoading', function () {
     return view('TimeLine/Post') . view('TimeLine/Post');
 })->name('ProcessLoading');
-
 //
 Route::get('stories/create', function () {
     return view('Guest/Story/createstory');
 });
-
 //
 Route::get('stories/{IDTaiKhoan}', [Storys\StoryController::class, 'addViewStory']);
-
 //
 Route::get('stories/create/text', function () {
     return view('Guest/Story/storytext');
 });
-
 //
 Route::get('stories/create/picture', function () {
     return view('Guest/Story/storypicture');
 });
-
 //
 Route::get('stories', function () {
     $story = array();
@@ -714,22 +674,18 @@ Route::get('stories', function () {
     return view('Guest/Story/viewstory')->with('story', $story)
         ->with('allStory', $allStory);
 });
-
 //
 Route::get('verify-user-identity', function () {
     return view('Guest/verify-account');
 });
-
 Route::get('verify-success', function () {
     Session::flush();
     return view('Component/Child/SendRequestSuccess');
 });
-
 //
 Route::get('checkpoint', function () {
     return view('Guest/block');
 });
-
 //
 Route::get('activity', function () {
     return view('Guest/activity')->with(
@@ -742,7 +698,6 @@ Route::get('activity', function () {
 Route::get('change-password', function () {
     return view('Guest/change-pass');
 });
-
 //
 Route::get('loadIndexVeriCheckpoint', function () {
     Session::put('user', Taikhoan::where(
@@ -755,7 +710,6 @@ Route::get('loadIndexVeriCheckpoint', function () {
     Session::forget('idcheckpoint');
     redirect()->to('index')->send();
 });
-
 //
 Route::get('setting/change-name', function () {
     Session::forget('verify');
@@ -765,12 +719,10 @@ Route::get('setting/change-name', function () {
     Session::forget('typePassWordNew');
     return view('Guest/setting');
 });
-
 //
 Route::get('setting/change-password', function () {
     return view('Guest/setting');
 });
-
 //
 Route::get('setting/delete-account', function () {
     Session::forget('passWordOld');
@@ -780,7 +732,6 @@ Route::get('setting/delete-account', function () {
     Session::forget('emailSend');
     return view('Guest/setting');
 });
-
 //
 Route::get('ProcessSeenMessageEvent', function (Request $request) {
     $acc = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
@@ -794,7 +745,6 @@ Route::get('ProcessSeenMessageEvent', function (Request $request) {
         right-3 w-6 h-6 p-0.5 mt-1 mr-7 object-cover rounded-full bottom-2 -right-8" alt="">'
     ]);
 });
-
 //
 Route::get('/', function () {
     if (session()->has('user'))
@@ -802,7 +752,6 @@ Route::get('/', function () {
     else
         redirect()->to('index')->send();
 });
-
 // Đăng Nhập
 Route::get('/login', function (Request $request) {
     if (session()->has('user'))
@@ -810,11 +759,9 @@ Route::get('/login', function (Request $request) {
     else
         return view('Guest/login');
 })->name('login');
-
 Route::get('LoadFormRegister', function () {
     return view('Modal/ModalLogin/ModalFormRegister');
 });
-
 // redriect sang index
 Route::get('index', function () {
     session()->forget('users');
@@ -823,7 +770,6 @@ Route::get('index', function () {
     else
         return redirect()->to('login')->send();
 })->name('index');
-
 Route::get('ProcessLoadMessageLimit', function (Request $request) {
     $message = DataProcess::getMessageByNhomTinNhanLimit($request->IDNhomTinNhan, $request->index);
 
@@ -833,7 +779,6 @@ Route::get('ProcessLoadMessageLimit', function (Request $request) {
         'index' => $request->index - 15
     ]);
 })->name('ProcessLoadMessageLimit');
-
 Route::get('ProcessFeelMessage', [Chat\ChatController::class, 'feelMessage'])
     ->name('ProcessFeelMessage');
 
@@ -843,20 +788,17 @@ Route::get('ProcessResetSession', function () {
     Session::forget('userGroup');
     Session::forget('localU');
 });
-
 Route::get('aa', function () {
     echo "<pre>";
     print_r(json_decode(Gioithieu::where('IDTaiKhoan', '=', '1000000002')->get()[0]->JsonGioiThieu));
     echo "</pre>";
 });
-
 Route::get('ProcessViewLocalPost', function (Request $request) {
     return response()->json([
         'view' => "" . view('Modal/ModalPost/ModalLocal')
             ->with('local', DataProcessSix::createAllAddress())
     ]);
 });
-
 Route::get('ProcessOpenModalAddAccountLogin', [Login\LoginController::class, 'viewAddAccount'])
     ->name('ProcessOpenModalAddAccountLogin');
 

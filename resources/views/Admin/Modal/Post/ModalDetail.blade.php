@@ -24,7 +24,7 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
                     </span>
                 </div>
                 <div class="w-10/12 px-2">
-                    <img src="/{{ $post[0]->DuongDan }}" class="w-auto mx-auto max-h-80" alt="">
+                    <img src="{{ $post[0]->DuongDan }}" class="w-auto mx-auto max-h-80" alt="">
                 </div>
                 <div class="w-1/12 relative">
                     <span class="cursor-pointer absolute top-1/2 left-1/2" style="transform: translate(-50%,-50%);">
@@ -35,19 +35,19 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
             </div>
             <div class="w-full flex">
                 <div class="w-1/4">
-                    <img src="/img/avatar.jpg" class="w-full h-full 
+                    <img src="img/avatar.jpg" class="w-full h-full 
                     object-cover p-1" alt="">
                 </div>
                 <div class="w-1/4">
-                    <img src="/img/avatar.jpg" class="w-full h-full 
+                    <img src="img/avatar.jpg" class="w-full h-full 
                     object-cover p-1" alt="">
                 </div>
                 <div class="w-1/4">
-                    <img src="/img/avatar.jpg" class="w-full h-full 
+                    <img src="img/avatar.jpg" class="w-full h-full 
                     object-cover p-1" alt="">
                 </div>
                 <div class="w-1/4">
-                    <img src="/img/avatar.jpg" class="w-full h-full 
+                    <img src="img/avatar.jpg" class="w-full h-full 
                     object-cover p-1" alt="">
                 </div>
             </div>

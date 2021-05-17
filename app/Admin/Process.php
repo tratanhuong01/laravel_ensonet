@@ -9,6 +9,8 @@ use App\Models\Camxucbinhluan;
 use App\Models\Camxuctinnhan;
 use App\Models\Hinhanh;
 use App\Models\Story;
+use App\Models\Taikhoan;
+use App\Models\Yeucaunguoidung;
 use Illuminate\Database\Eloquent\Model;
 
 class Process extends Model
@@ -64,5 +66,29 @@ class Process extends Model
             if ($value->Name == $valueFilter)
                 $array = [$value->ValueQuery, $value->Name];
         return $array;
+    }
+    public static function chartCircleUserVerify()
+    {
+        $nverify = count(Taikhoan::where('taikhoan.XacMinh', '=', 0)->get());
+        $verifing = count(Taikhoan::where('taikhoan.XacMinh', '=', 1)->get());
+        $verified = count(Taikhoan::where('taikhoan.XacMinh', '=', 2)->get());
+
+        return (object)[
+            'NotVerify' => $nverify,
+            'Verifying' => $verifing,
+            'Verified' => $verified
+        ];
+    }
+    public static function chartCircleRequest()
+    {
+        $TickBlue = count(Yeucaunguoidung::where('yeucaunguoidung.LoaiYeuCau', '=', 2)->get());
+        $AccessAccount = count(Yeucaunguoidung::where('yeucaunguoidung.LoaiYeuCau', '=', 0)->get());
+        $ProcessUsage = count(Yeucaunguoidung::where('yeucaunguoidung.LoaiYeuCau', '=', 1)->get());
+
+        return (object)[
+            'TickBlue' => $TickBlue,
+            'AccessAccount' => $AccessAccount,
+            'ProcessUsage' => $ProcessUsage
+        ];
     }
 }

@@ -82,7 +82,13 @@ $paths = explode('/', parse_url(url()->current())['path']);
                     <div class="w-full absolute text-center top-20 lg:top-6/10">
                         <a href="" id="ajaxAnhDaiDien"><img class="w-44 h-44 rounded-full mx-auto
                                 border-4 border-solid border-white object-cover" src="{{ $user[0]->AnhDaiDien }}" alt=""></a>
-                        <p class="font-bold text-center text-3xl py-2 dark:text-white" style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten }}</p>
+                        <p class="font-bold flex text-center text-3xl py-2 dark:text-white 
+                        justify-center" style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten }}
+                            <span class="ml-3 mt-3.5 bg-blue-500 rounded-full 
+                            text-sm font-bold text-white w-4 h-4 flex">
+                                <i class='bx bx-check flex justiy-center items-center '></i>
+                            </span>
+                        </p>
                     </div>
                     <div class="text-2xl absolute bg-gray-100 rounded-full" style="top: 95%;left: 54%;padding: 2px 6px;">
                         <form id="formAvatar" method="POST" action="ProcessViewAvatar" enctype="multipart/form-data">
@@ -117,7 +123,12 @@ $paths = explode('/', parse_url(url()->current())['path']);
                         <div class="w-full absolute text-center top-20 lg:top-6/10">
                             <img class="w-44 h-44 rounded-full mx-auto
                                 border-4 border-solid border-white object-cover" src="{{ $users[0]->AnhDaiDien }}" alt=""></a>
-                            <p class="font-bold text-center text-3xl py-2 dark:text-white" style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten }}
+                            <p class="font-bold flex text-center text-3xl py-2 dark:text-white 
+                            justify-center" style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten }}
+                                <span class="ml-3 mt-3.5 bg-blue-500 rounded-full 
+                                text-sm font-bold text-white w-4 h-4 flex">
+                                    <i class='bx bx-check flex justiy-center items-center '></i>
+                                </span>
                             </p>
                         </div>
                     </div>

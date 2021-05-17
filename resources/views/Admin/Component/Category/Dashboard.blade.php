@@ -1,5 +1,6 @@
 <?php
 
+use App\Admin\Process;
 use App\Admin\Query;
 
 ?>
@@ -42,7 +43,11 @@ use App\Admin\Query;
         </div>
     </li>
 </ul>
-<div class="w-full flex py-5">
+<div class="w-full py-5 flex">
+    <div id="piechart1" class="w-1/2" style="height: 400px;"></div>
+    <div id="piechart2" class="w-1/2" style="height: 400px;"></div>
+</div>
+<div class="w-full flex py-5 pr-5">
     <div class="w-1/3 p-1 bg-white mr-2">
         <p class="font-bold text-xm font-bold my-2 pl-3">
             Người dùng đăng kí mới
@@ -110,3 +115,52 @@ use App\Admin\Query;
         </ul>
     </div>
 </div>
+<?php
+$user = Process::chartCircleUserVerify();
+$request = Process::chartCircleRequest();
+?>
+<script type="text/javascript">
+    // Load google charts
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart1);
+    google.charts.setOnLoadCallback(drawChart2);
+
+    // Draw the chart and set the chart values
+    function drawChart1() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', ''],
+            ['Chưa xác minh', Number('{{ $user->NotVerify }}')],
+            ['Đang xác minh', Number('{{ $user->Verifying }}')],
+            ['Đã xác minh', Number('{{ $user->Verified }}')],
+        ]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = {
+            'title': 'Biểu đồ người dùng',
+        };
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
+        chart.draw(data, options);
+    }
+
+    function drawChart2() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', ''],
+            ['Tích Xanh', Number('{{ $request->TickBlue }}')],
+            ['Quá Trình Sử Dụng', Number('{{ $request->ProcessUsage }}')],
+            ['Cấp Lại Tài Khoản', Number('{{ $request->AccessAccount }}')],
+        ]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = {
+            'title': 'Biểu đồ lượt yêu cầu phản hồi',
+        };
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+        chart.draw(data, options);
+    }
+</script>
