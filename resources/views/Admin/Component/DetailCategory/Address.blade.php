@@ -1,4 +1,11 @@
-<button type="button" class="mr-4 w-40 py-2.5 rounded-lg bg-blue-500 
+<?php
+
+use App\Models\Diachi;
+
+$address = Diachi::get();
+
+?>
+<button onclick="openModalAddCategoryDetail('address')" type="button" class="mr-4 w-40 py-2.5 rounded-lg bg-blue-500 
 font-bold text-white absolute top-3 right-5">
     Thêm
 </button>
@@ -13,16 +20,21 @@ font-bold text-white absolute top-3 right-5">
                 <th class="p-2"></th>
                 <th class="p-2"></th>
             </tr>
+            @foreach ($address as $key => $item)
             <tr>
-                <td class="p-2">STT</td>
-                <td class="p-2">ID Địa Chỉ</td>
-                <td class="p-2">IDTrang</td>
-                <td class="p-2">Tên Địa Chỉ</td>
-                <td class="p-2"><button class="rounded-lg py-2 px-5 font-bold 
+                <td class="p-2">{{ $key + 1 }}</td>
+                <td class="p-2">{{ $item->IDDiaChi }}</td>
+                <td class="p-2">{{ $item->IDTrang == NULL || $item->IDTrang == "" ? 
+                "<-- Trống -->" : $item->IDTrang }}</td>
+                <td class="p-2">{{ $item->TenDiaChi }}</td>
+                <td class="p-2"><button type="button" onclick="openModaEditCategoryDetail('address',
+                '{{ $item->IDDiaChi }}')" class="rounded-lg py-2 px-5 font-bold 
                 bg-yellow-600 text-white">Sửa</button></td>
-                <td class="p-2"><button class="rounded-lg py-2 px-5 font-bold 
+                <td class="p-2"><button type="button" onclick="openModaDeleteCategoryDetail('address',
+                '{{ $item->IDDiaChi }}')" class="rounded-lg py-2 px-5 font-bold 
                 bg-red-600 text-white">Xóa</button></td>
             </tr>
+            @endforeach
         </table>
     </div>
     <div class="w-full py-3">

@@ -12,6 +12,7 @@ use App\Models\Story;
 use App\Models\Taikhoan;
 use App\Models\Yeucaunguoidung;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Process extends Model
 {

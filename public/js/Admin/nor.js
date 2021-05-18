@@ -57,17 +57,31 @@ function paginationAdmin(name, index) {
         },
     });
 }
-function onClickChangeCategory(key, name) {
+function openPost(type) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
-        url: "/admin/ProcessClickLoadCategoryChild",
+        url: "ProcessOpenPostDialog",
         data: {
-            key: key,
+            type: type,
         },
         success: function (response) {
-            $("#categoryLoad").html(response.view);
-            $("#modalCategorySelect").addClass("hidden");
-            $("#contentView").html(name);
+            second.innerHTML = response;
+            new MeteorEmoji(
+                document.getElementById("textarea-post"),
+                document.getElementById("myTriggers"),
+                document.getElementById("myEmojis")
+            );
         },
     });
+}
+function closePost() {
+    document
+        .getElementsByTagName("body")[0]
+        .classList.remove("overflow-hidden");
+    second.innerHTML = "";
+    second.classList.remove("fixed");
+    second.classList.remove("h-screen");
 }

@@ -144,3 +144,63 @@ function onChangeSearch(type, element) {
         },
     });
 }
+function onClickChangeCategory(key, name) {
+    $.ajax({
+        method: "GET",
+        url: "/admin/ProcessClickLoadCategoryChild",
+        data: {
+            key: key,
+        },
+        success: function (response) {
+            $("#categoryLoad").html(response.view);
+            $("#modalCategorySelect").addClass("hidden");
+            $("#contentView").html(name);
+        },
+    });
+}
+function openModalAddCategoryDetail(type) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
+    $.ajax({
+        method: "GET",
+        url: "/admin/ProcessOpenModalAddCategoryDetail",
+        data: {
+            type: type,
+        },
+        success: function (response) {
+            second.innerHTML = response.view;
+        },
+    });
+}
+function openModaEditCategoryDetail(type, ID) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
+    $.ajax({
+        method: "GET",
+        url: "/admin/ProcessOpenModalEditCategoryDetail",
+        data: {
+            type: type,
+            ID: ID,
+        },
+        success: function (response) {
+            second.innerHTML = response.view;
+        },
+    });
+}
+function openModaDeleteCategoryDetail(type) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
+    $.ajax({
+        method: "GET",
+        url: "/admin/ProcessOpenModalDeleteCategoryDetail",
+        data: {
+            type: type,
+        },
+        success: function (response) {
+            second.innerHTML = response.view;
+        },
+    });
+}

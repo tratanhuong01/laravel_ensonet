@@ -22,6 +22,6 @@ $category = Category::category();
         </div>
     </div>
     <div class="w-full" id="categoryLoad">
-        @include('Admin.Component.DetailCategory.Address')
+
     </div>
 </div>
