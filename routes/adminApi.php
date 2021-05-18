@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin\Category;
 use App\Admin\GeneralID;
+use App\Models\Amthanh;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -34,40 +35,20 @@ Route::get('ProcessClickLoadCategoryChild', function (Request $request) {
     }
 });
 
-Route::get('ProcessOpenModalAddCategoryDetail', function (Request $request) {
-    $modalAdd = Category::generalModalAdd();
-    foreach ($modalAdd as $key => $value) {
-        if ($value->type == $request->type) {
-            return response()->json([
-                'view' => "" . view('Admin.Component.DetailCategory.Modal.ModalAdd')
-                    ->with('modal', $value)
-                    ->with('id', GeneralID::ID($value->table, $value->ID))
-            ]);
-            break;
-        }
-    }
-})->name('ProcessOpenModalAddCategoryDetail');
+Route::get('ProcessOpenModalAddCategoryDetail', [InsertCategoryController::class, 'view'])
+    ->name('ProcessOpenModalAddCategoryDetail');
 
-Route::get('ProcessOpenModalEditCategoryDetail', function (Request $request) {
-    $modalAdd = Category::generalModalAdd();
-    foreach ($modalAdd as $key => $value) {
-        if ($value->type == $request->type) {
-            $data = DB::select(
-                "SELECT * FROM $value->table WHERE $value->ID = ? ",
-                [$request->ID]
-            )[0];
-            $modalEdit = Category::generalModalEdit($data, $value->type);
-            return response()->json([
-                'view' => "" . view('Admin.Component.DetailCategory.Modal.ModalEdit')
-                    ->with('modal', $modalEdit)
-            ]);
-            break;
-        }
-    }
-})->name('ProcessOpenModalEditCategoryDetail');
+Route::get('ProcessOpenModalEditCategoryDetail', [UpdateCategoryController::class, 'view'])
+    ->name('ProcessOpenModalEditCategoryDetail');
 
-Route::get('ProcessOpenModalDeleteCategoryDetail', function (Request $request) {
-    return response()->json([
-        'view' => "" . view('Admin.Component.DetailCategory.Modal.ModalDelete')
-    ]);
-})->name('ProcessOpenModalDeleteCategoryDetail');
+Route::get('ProcessOpenModalDeleteCategoryDetail', [DeleteCategoryController::class, 'view'])
+    ->name('ProcessOpenModalDeleteCategoryDetail');
+
+Route::post('ProcessInsertCategoryDetail', [InsertCategoryController::class, 'insert'])
+    ->name('ProcessInsertCategoryDetail');
+
+Route::post('ProcessUpdateCategoryDetail', [UpdateCategoryController::class, 'update'])
+    ->name('ProcessUpdateCategoryDetail');
+
+Route::get('ProcessDeleteCategoryDetail',  [DeleteCategoryController::class, 'delete'])
+    ->name('ProcessDeleteCategoryDetail');

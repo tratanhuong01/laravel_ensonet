@@ -14,8 +14,16 @@ class Diachi extends Model
         'IDTrang',
         'TenDiaChi'
     ];
-    public static function add()
-    {
+    public static function add(
+        $IDDiaChi,
+        $IDTrang,
+        $TenDiaChi
+    ) {
+        $diachi = new Diachi;
+        $diachi->IDDiaChi = $IDDiaChi;
+        $diachi->IDTrang = $IDTrang;
+        $diachi->TenDiaChi = $TenDiaChi;
+        $diachi->save();
     }
     public $timestamps = false;
 }

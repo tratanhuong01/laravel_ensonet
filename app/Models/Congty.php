@@ -14,8 +14,16 @@ class Congty extends Model
         'IDTrang',
         'TenCongTy'
     ];
-    public static function add()
-    {
+    public static function add(
+        $IDCongTy,
+        $IDTrang,
+        $TenCongTy
+    ) {
+        $congty = new Congty;
+        $congty->IDCongTy = $IDCongTy;
+        $congty->IDTrang = $IDTrang;
+        $congty->TenCongTy = $TenCongTy;
+        $congty->save();
     }
     public $timestamps = false;
 }

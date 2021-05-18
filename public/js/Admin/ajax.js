@@ -189,7 +189,7 @@ function openModaEditCategoryDetail(type, ID) {
         },
     });
 }
-function openModaDeleteCategoryDetail(type) {
+function openModaDeleteCategoryDetail(type, ID) {
     document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
     second.className += " fixed h-screen";
     $("#second").append(createElementFromHTML($("#myLoading").html()));
@@ -198,9 +198,93 @@ function openModaDeleteCategoryDetail(type) {
         url: "/admin/ProcessOpenModalDeleteCategoryDetail",
         data: {
             type: type,
+            ID: ID,
         },
         success: function (response) {
             second.innerHTML = response.view;
+        },
+    });
+}
+function insertCategoryDetail(type, ID) {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+    $("#" + ID).prop("disabled", false);
+    let formData = new FormData($("#form")[0]);
+    formData.append("type", type);
+    $.ajax({
+        method: "POST",
+        url: "/admin/ProcessInsertCategoryDetail",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            $(response.view).insertAfter($("#header"));
+            let stt = document.getElementsByClassName("stt");
+            for (let index = 0; index < stt.length; index++) {
+                const element = stt[index];
+                element.innerHTML = index + 1;
+            }
+            document
+                .getElementsByTagName("body")[0]
+                .classList.remove("overflow-hidden");
+            second.innerHTML = "";
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
+            audio.pause();
+            audio.currentTime = 0;
+        },
+    });
+}
+function updateCategoryDetail(type, ID, IDMain) {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+    $("#" + IDMain).prop("disabled", false);
+    let formData = new FormData($("#form")[0]);
+    formData.append("type", type);
+    $.ajax({
+        method: "POST",
+        url: "/admin/ProcessUpdateCategoryDetail",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            $("#" + ID).replaceWith(response.view);
+            let stt = document.getElementsByClassName("stt");
+            for (let index = 0; index < stt.length; index++) {
+                const element = stt[index];
+                element.innerHTML = index + 1;
+            }
+            document
+                .getElementsByTagName("body")[0]
+                .classList.remove("overflow-hidden");
+            second.innerHTML = "";
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
+        },
+    });
+}
+function deleteCategoryDetail(type, ID) {
+    $.ajax({
+        method: "GET",
+        url: "/admin/ProcessDeleteCategoryDetail",
+        data: {
+            type: type,
+            ID: ID,
+        },
+        success: function (response) {
+            $("#" + ID).remove();
+            document
+                .getElementsByTagName("body")[0]
+                .classList.remove("overflow-hidden");
+            second.innerHTML = "";
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
         },
     });
 }

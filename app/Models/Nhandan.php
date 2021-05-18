@@ -17,8 +17,22 @@ class Nhandan extends Model
         'Hang',
         'Cot'
     ];
-    public static function add()
-    {
+    public static function add(
+        $IDNhanDan,
+        $NhomNhanDan,
+        $DongNhanDan,
+        $DuongDanNhanDan,
+        $Hang,
+        $Cot
+    ) {
+        $nhandan = new Nhandan;
+        $nhandan->IDNhanDan = $IDNhanDan;
+        $nhandan->NhomNhanDan = $NhomNhanDan;
+        $nhandan->DongNhanDan = $DongNhanDan;
+        $nhandan->DuongDanNhanDan = $DuongDanNhanDan;
+        $nhandan->Hang = $Hang;
+        $nhandan->Cot = $Cot;
+        $nhandan->save();
     }
     public $timestamps = false;
 }

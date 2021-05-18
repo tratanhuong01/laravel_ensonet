@@ -11,8 +11,8 @@ font-bold text-white absolute top-3 right-5">
 </button>
 <div class="w-full py-3" id="tableMain">
     <div class="w-full wrapper-content-right overflow-x-auto max-w-full p-3">
-        <table class="w-full bg-white" id="">
-            <tr>
+        <table class="w-full bg-white" id="tableMain">
+            <tr id="header">
                 <th class="p-2">STT</th>
                 <th class="p-2">ID Nhãn Dán</th>
                 <th class="p-2">Nhóm Nhãn Dán</th>
@@ -24,8 +24,8 @@ font-bold text-white absolute top-3 right-5">
                 <th class="p-2"></th>
             </tr>
             @foreach ($sticker as $key => $item)
-            <tr>
-                <td class="p-2">{{ $key + 1 }}</td>
+            <tr id="{{$item->IDNhanDan}}">
+                <td class="p-2 stt">{{ $key + 1 }}</td>
                 <td class="p-2">{{ $item->IDNhanDan }}</td>
                 <td class="p-2">{{ $item->NhomNhanDan }}</td>
                 <td class="p-2">{{ $item->DongNhanDan }}</td>

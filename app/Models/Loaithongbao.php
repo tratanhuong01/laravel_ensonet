@@ -14,6 +14,16 @@ class Loaithongbao extends Model
         'TenLoaiThongBao',
         'Loai'
     ];
-
+    public static function add(
+        $IDLoaiThongBao,
+        $TenLoaiThongBao,
+        $Loai
+    ) {
+        $loaithongbao = new Loaithongbao;
+        $loaithongbao->IDLoaiThongBao = $IDLoaiThongBao;
+        $loaithongbao->TenLoaiThongBao = $TenLoaiThongBao;
+        $loaithongbao->Loai = $Loai;
+        $loaithongbao->save();
+    }
     public $timestamps = false;
 }

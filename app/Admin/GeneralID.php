@@ -67,4 +67,40 @@ class GeneralID extends Model
                 break;
         }
     }
+    public static function GetID($table, $column)
+    {
+        $data = DB::select("SELECT  $column FROM $table  ORDER BY  $column DESC ");
+        switch ($table) {
+            case 'camxuc':
+                return $data[0]->IDCamXuc;
+                break;
+            case 'truonghoc':
+                return  $data[0]->IDTruongHoc;
+                break;
+            case 'diachi':
+                return $data[0]->IDDiaChi;
+                break;
+            case 'congty':
+                return $data[0]->IDCongTy;
+                break;
+            case 'amthanh':
+                return $data[0]->IDAmThanh;
+                break;
+            case 'nhandan':
+                return $data[0]->IDNhanDan;
+                break;
+            case 'amthanh':
+                return $data[0]->IDAmThanh;
+                break;
+            case 'quyenriengtu':
+                return $data[0]->IDQuyenRiengTu;
+                break;
+            case 'loaithongbao':
+                return $data[0]->IDLoaiThongBao;
+                break;
+            case 'phongnen':
+                return $data[0]->IDPhongNen;
+                break;
+        }
+    }
 }

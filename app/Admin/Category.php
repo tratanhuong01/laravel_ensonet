@@ -209,7 +209,8 @@ class Category extends Model
                             'name' => 'File',
                             'id' => 'File',
                         ],
-                        'Type' => 'File'
+                        'Type' => 'File',
+                        'Accept' => 'audio/mp3'
                     ],
                 ],
                 'type' => 'sound',
@@ -258,7 +259,8 @@ class Category extends Model
                             'name' => 'File',
                             'id' => 'File',
                         ],
-                        'Type' => 'File'
+                        'Type' => 'File',
+                        'Accept' => 'image'
                     ],
                     'line5' => (object)[
                         'Label' => 'Hàng',
@@ -348,7 +350,8 @@ class Category extends Model
                             'name' => 'File',
                             'id' => 'File',
                         ],
-                        'Type' => 'File'
+                        'Type' => 'File',
+                        'Accept' => 'image'
                     ],
                 ],
                 'type' => 'background',
@@ -409,7 +412,7 @@ class Category extends Model
                             'name' => 'IDCamXuc',
                             'value' => '',
                             'id' => 'IDCamXuc',
-                            'disabled' => 'false'
+                            'disabled' => 'true'
                         ],
                         'Type' => 'Input'
                     ],
@@ -602,7 +605,7 @@ class Category extends Model
                                     'Data' => (object)[
                                         'placeHolder' => $data->IDAmThanh,
                                         'name' => 'IDAmThanh',
-                                        'value' => '',
+                                        'value' => $data->IDAmThanh,
                                         'id' => 'IDAmThanh',
                                         'disabled' => 'true'
                                     ],
@@ -636,7 +639,9 @@ class Category extends Model
                                         'name' => 'File',
                                         'id' => 'File',
                                     ],
-                                    'Type' => 'File'
+                                    'Type' => 'File',
+                                    'Accept' => 'audio/mp3',
+                                    'SRC' => $data->DuongDanAmThanh
                                 ],
                             ],
                             'type' => 'sound',
@@ -687,7 +692,8 @@ class Category extends Model
                                         'name' => 'File',
                                         'id' => 'File',
                                     ],
-                                    'Type' => 'File'
+                                    'Type' => 'File',
+                                    'Accept' => 'image'
                                 ],
                                 'line5' => (object)[
                                     'Label' => 'Hàng',
@@ -770,7 +776,8 @@ class Category extends Model
                                         'name' => 'File',
                                         'id' => 'File',
                                     ],
-                                    'Type' => 'File'
+                                    'Type' => 'File',
+                                    'Accept' => 'image'
                                 ],
                             ],
                             'type' => 'background',

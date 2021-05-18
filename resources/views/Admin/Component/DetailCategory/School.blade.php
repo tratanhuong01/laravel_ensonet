@@ -11,8 +11,8 @@ font-bold text-white absolute top-3 right-5">
 </button>
 <div class="w-full py-3" id="tableMain">
     <div class="w-full wrapper-content-right overflow-x-auto max-w-full p-3">
-        <table class="w-full bg-white" id="">
-            <tr>
+        <table class="w-full bg-white" id="tableMain">
+            <tr id="header">
                 <th class="p-2">STT</th>
                 <th class="p-2">ID Trường Học</th>
                 <th class="p-2">ID Trang</th>
@@ -22,8 +22,8 @@ font-bold text-white absolute top-3 right-5">
                 <th class="p-2"></th>
             </tr>
             @foreach ($school as $key => $item)
-            <tr>
-                <td class="p-2">{{ $key + 1 }}</td>
+            <tr id="{{$item->IDTruongHoc}}">
+                <td class="p-2 stt">{{ $key + 1 }}</td>
                 <td class="p-2">{{ $item->IDTruongHoc }}</td>
                 <td class="p-2">{{ $item->IDTrang == NULL || $item->IDTrang == "" ? 
                 "<-- Trống -->" : $item->IDTrang }}</td>

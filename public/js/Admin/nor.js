@@ -1,3 +1,6 @@
+var audio = document.createElement("audio");
+var music = true;
+var state = true;
 function loadCategoryAd(name, element) {
     $.ajax({
         method: "GET",
@@ -84,4 +87,129 @@ function closePost() {
     second.innerHTML = "";
     second.classList.remove("fixed");
     second.classList.remove("h-screen");
+}
+function onChangePreviewImageDemo(event) {
+    var path = URL.createObjectURL(event.target.files[0]);
+    $("#imageDemo").attr("src", path);
+}
+function onChangePreviewSoundDemo(event) {
+    var { name } = event.target.files[0];
+    $("#nameSound").html(name);
+    audio.pause();
+    audio.currentTime = 0;
+    state = true;
+    music = true;
+    $("#btnPlay").html("Phát");
+    $("#btnPlay").addClass("bg-gray-500");
+    $("#btnPlay").removeClass("bg-red-500");
+}
+function playMusic(element) {
+    var path = URL.createObjectURL(document.getElementById("File").files[0]);
+    if (music === true) {
+        if (state == true) {
+            audio.src = path;
+            audio.play();
+        } else {
+            audio.play();
+        }
+        element.innerHTML = "Dừng";
+        element.classList.remove("bg-gray-500");
+        element.classList.add("bg-red-500");
+        music = false;
+    } else {
+        state = false;
+        music = true;
+        audio.pause();
+        element.innerHTML = "Phát";
+        element.classList.add("bg-gray-500");
+        element.classList.remove("bg-red-500");
+    }
+}
+
+function playMusics(element, ID, URL) {
+    if (element.classList.contains("activeMusic")) {
+        $("#soundShow").val(ID);
+        if (element.classList.contains("music" + ID)) {
+            if (element.classList.contains("state" + ID)) {
+                audio.src = URL;
+                audio.play();
+            } else {
+                audio.play();
+            }
+            element.innerHTML = "Dừng";
+            element.classList.remove("bg-gray-500");
+            element.classList.add("bg-red-500");
+            !element.classList.remove("music" + ID);
+        } else {
+            element.classList.add("music" + ID);
+            element.classList.remove("state" + ID);
+            audio.pause();
+            element.innerHTML = "Phát";
+            element.classList.add("bg-gray-500");
+            element.classList.remove("bg-red-500");
+        }
+    } else {
+        let soundBtn = document.getElementsByClassName("sound");
+        for (let index = 0; index < soundBtn.length; index++) {
+            const elements = soundBtn[index];
+            elements.innerHTML = "Phát";
+            elements.classList.add("bg-gray-500");
+            elements.classList.remove("bg-red-500");
+            elements.classList.remove("activeMusic");
+        }
+        element.classList.add("activeMusic");
+        audio.src = URL;
+        audio.play();
+        if (
+            $("#play" + $("#soundShow").val()).hasClass(
+                "music" + $("#soundShow").val()
+            )
+        ) {
+        } else {
+            $("#play" + $("#soundShow").val()).addClass(
+                "music" + $("#soundShow").val()
+            );
+        }
+        if (
+            $("#play" + $("#soundShow").val()).hasClass(
+                "state" + $("#soundShow").val()
+            )
+        ) {
+        } else {
+            $("#play" + $("#soundShow").val()).addClass(
+                "state" + $("#soundShow").val()
+            );
+        }
+        $("#soundShow").val(ID);
+        element.innerHTML = "Dừng";
+        element.classList.remove("bg-gray-500");
+        element.classList.add("bg-red-500");
+        element.classList.remove("music" + ID);
+    }
+}
+
+function playMusicss(element, path) {
+    if (document.getElementById("File").files.length > 0) {
+        path = URL.createObjectURL(document.getElementById("File").files[0]);
+    } else {
+    }
+    if (music === true) {
+        if (state == true) {
+            audio.src = path;
+            audio.play();
+        } else {
+            audio.play();
+        }
+        element.innerHTML = "Dừng";
+        element.classList.remove("bg-gray-500");
+        element.classList.add("bg-red-500");
+        music = false;
+    } else {
+        state = false;
+        music = true;
+        audio.pause();
+        element.innerHTML = "Phát";
+        element.classList.add("bg-gray-500");
+        element.classList.remove("bg-red-500");
+    }
 }

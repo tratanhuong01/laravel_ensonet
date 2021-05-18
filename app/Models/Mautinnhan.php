@@ -13,6 +13,14 @@ class Mautinnhan extends Model
         'IDMauTinNhan',
         'TenMau',
     ];
-
+    public static function add(
+        $IDMauTinNhan,
+        $TenMau
+    ) {
+        $mautinnhan = new Mautinnhan;
+        $mautinnhan->IDMauTinNhan = $IDMauTinNhan;
+        $mautinnhan->TenMau = $TenMau;
+        $mautinnhan->save();
+    }
     public $timestamps = false;
 }

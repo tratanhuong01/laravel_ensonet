@@ -8,7 +8,7 @@
         </span>
     </div>
     <div class="w-full p-2">
-        <form action="" method="POST" class="w-11/12 mx-auto">
+        <form action="" method="POST" class="w-11/12 mx-auto" id="form">
             @foreach ($modal->data as $key => $value)
             <div class="w-full py-2 flex">
                 <label class="w-3/12 flex items-center mr-6 font-bold">
@@ -33,10 +33,37 @@
                 </select>
                 @break
                 @case('File')
-                <div class="flex w-9/12">
-                    <input type="file" name="" id="" class="w-1/2 pr-5">
-                    <button type="button" class="font-bold">Phát</button>
+                @switch($value->Accept)
+                @case('image')
+                <div class="flex items-start w-9/12">
+                    <input onchange="onChangePreviewImageDemo(event)" type="file" name="{{ $value->Data->name }}" id="{{ $value->Data->id }}" accept="{{ $value->Accept }}" class="w-1/2 pr-5 my-5 hidden">
+                    <label for="{{ $value->Data->id }}" class="flex items-center py-1.5 px-5 bg-red-500 
+                    font-bold text-white mr-5 rounded-lg my-4">
+                        <i class='bx bx-upload mt-0.5 text-2xl mr-3 
+                            flex items-center'></i>
+                        <span class="flex items-center">Chọn File....</span>
+                    </label>
+                    <img src="" id="imageDemo" class="w-20 h-20 bg-gray-500 object-cover">
                 </div>
+                @break
+                @case('audio/mp3')
+                <div class="flex items-start flex-wrap w-9/12">
+                    <input onchange="onChangePreviewSoundDemo(event)" type="file" name="{{ $value->Data->name }}" id="{{ $value->Data->id }}" accept="{{ $value->Accept }}" class="w-1/2 pr-5 
+                    flex items-center hidden">
+                    <label for="{{ $value->Data->id }}" class="flex items-center py-1.5 px-5 bg-red-500 
+                    font-bold text-white mr-5 rounded-lg my-4">
+                        <i class='bx bx-upload mt-0.5 text-2xl mr-3 
+                            flex items-center'></i>
+                        <span class="flex items-center">Chọn File....</span>
+                    </label>
+                    <button id="btnPlay" onclick="playMusic(this)" type="button" class="font-bold my-4 
+                    p-2.5 rounded-lg bg-gray-500 text-white font-bold">Phát</button>
+                    <span class="my-4 font-bold w-full" id="nameSound"></span>
+                </div>
+                @break
+                @default
+
+                @endswitch
                 @break
                 @default
                 @endswitch
@@ -44,7 +71,8 @@
             </div>
             @endforeach
             <div class="w-full py-2 my-2 h-12">
-                <button type="submit" class="px-5 py-2 bg-blue-500 text-white 
+                <button type="button" onclick="insertCategoryDetail('{{ $modal->type }}',
+                '{{ $modal->ID }}')" class="px-5 py-2 bg-blue-500 text-white 
                     float-right mr-1 rounded-lg">
                     Lưu
                 </button>

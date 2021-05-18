@@ -14,7 +14,11 @@
             muốn thoát.
         </div>
         <div class="w-full py-2 my-2 h-12">
-            <button type="button" class="px-5 py-2 bg-blue-500 text-white 
+            @php
+            $line1 = 'line1';
+            @endphp
+            <button type="button" onclick="deleteCategoryDetail('{{ $modal->type }}',
+                '{{ $id }}')" class="px-5 py-2 bg-blue-500 text-white 
                     float-right mr-1 rounded-lg">
                 Xóa
             </button>

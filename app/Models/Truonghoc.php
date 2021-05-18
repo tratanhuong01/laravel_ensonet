@@ -15,8 +15,18 @@ class Truonghoc extends Model
         'TenTruongHoc',
         'LoaiTruongHoc'
     ];
-    public static function add()
-    {
+    public static function add(
+        $IDTruongHoc,
+        $IDTrang,
+        $TenTruongHoc,
+        $LoaiTruongHoc
+    ) {
+        $truonghoc = new Truonghoc;
+        $truonghoc->IDTruongHoc = $IDTruongHoc;
+        $truonghoc->IDTrang = $IDTrang;
+        $truonghoc->TenTruongHoc = $TenTruongHoc;
+        $truonghoc->LoaiTruongHoc = $LoaiTruongHoc;
+        $truonghoc->save();
     }
     public $timestamps = false;
 }
