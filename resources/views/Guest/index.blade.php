@@ -204,8 +204,9 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
         <!-- create chat -->
 
         <!-- place show chat -->
-        <div class="w-full px-4 flex z-0 md:w-full lg:w-full xl:w-1/2
-        ml-auto fixed -bottom-1 right-20" id="placeChat">
+        <div class="w-full px-4 flex z-0 w-full w-full xl:w-1/2 xl:translate-x-0 overflow-x-auto flex-nowrap  
+        ml-auto fixed bottom-0 lg:-bottom-1 w-91 max-w-91 lg:max-w-full xl:max-w-1/2  left-12 transform -translate-x-1/2 xl:right-20 flex-1 
+        xl:overflow-x-hidden" id="placeChat">
         </div>
         <!-- place show chat -->
     </div>

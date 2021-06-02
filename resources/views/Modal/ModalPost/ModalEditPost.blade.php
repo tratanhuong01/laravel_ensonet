@@ -81,7 +81,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
             'item' => $post,
             ])
             @else
-            <div class="w-full mt-2.5 px-2 flex flex-wrap relative hidden" id="imagePost">
+            <div class="w-full mt-2.5 px-2 flex flex-wrap relative" id="imagePost">
                 <img src="" alt="" id="imgPost1">
             </div>
             @endif

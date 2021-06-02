@@ -62,7 +62,7 @@ $user = Session::get('user');
                 </ul>
             </div>
         </div>
-        <div class="w-1/2 flex sm:w-3/4 md:w-1/4 relative">
+        <div class="w-1/2 flex sm:w-3/4 md:w-1/4">
             <!-- header right -->
             <?php $pathProfile = "profile." . $user[0]->IDTaiKhoan; ?>
             <div onclick="window.location.href='{{ url($pathProfile) }}'" class="w-1/2 flex py-0.875 px-2.5 mx-2 mt-1 mb-1.5 p-1.5 
@@ -84,9 +84,10 @@ $user = Session::get('user');
                     @include('HeaderRight')
                 </ul>
             </div>
-            <div id="modalHeaderRight" class="w-92 rounded-lg absolute dark:bg-dark-second bg-white z-50 top-16
-            wrapper-scrollbar w-full overflow-x-hidden overflow-y-auto border-solid border-gray-200 
-            border-2 shadow-xl dark:border-dark-main" style="max-height: 675px !important;">
+            <div id="modalHeaderRight" class="w-full p-2 rounded-lg absolute dark:bg-dark-second bg-white 
+            z-50 top-16 wrapper-scrollbar overflow-x-hidden overflow-y-auto border-solid border-gray-200 
+            lg:w-92 lg:p-0 tranform -translate-1/2 sm:w-3/4 right-0 border-2 lg:w-92 shadow-xl 
+            dark:border-dark-main" style="max-height: 675px !important;">
             </div>
         </div>
     </div>

@@ -9,7 +9,7 @@ $user = Session::get('user');
 
 ?>
 
-<div id="{{ $chater[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
+<div id="{{ $chater[0]->IDTaiKhoan }}Chat" class="relative bg-white max-w-91 min-w-91 w-91 m-2 p-2 dark:bg-dark-second rounded-lg 
 dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     <?php
     echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .

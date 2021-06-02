@@ -1,6 +1,15 @@
 *:focus {
     outline: 0 !important;
 }
+.w-91 {
+    width: 364px;
+}
+.max-w-91 {
+    max-width: 364px;
+}
+.min-w-91 {
+    min-width: 364px;
+}
 .vjs-big-play-button {
     transform: translate(-50%, -50%) !important;
     top: 50% !important;

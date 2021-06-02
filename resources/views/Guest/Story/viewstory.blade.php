@@ -163,7 +163,7 @@ $user = Session::get('user')
                 },
                 success: function(responses) {
                     $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
-                    document.getElementById('myAudio').src = '/' + responses.urlMp3;
+                    document.getElementById('myAudio').src = responses.urlMp3;
                     $('#play').on('click', function() {
                         if ($('#btnClickStart').hasClass('far fa-play-circle')) {
                             if (Math.round(data) == 100) {
@@ -252,7 +252,7 @@ $user = Session::get('user')
                                     if ($('#' + response.IDStory).length > 0)
                                         changeStoryImage(document.getElementById(response.IDStory), 0)
                                     $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
-                                    $('#myAudio').attr('src', '/' + responses.urlMp3);
+                                    $('#myAudio').attr('src', responses.urlMp3);
                                     document.getElementById('myAudio').play();
                                     $('#btnClickStart').removeClass('far fa-play-circle');
                                     $('#btnClickStart').addClass('far fa-stop-circle');
@@ -326,7 +326,7 @@ $user = Session::get('user')
                     if ($('#' + response.IDStory).length > 0)
                         changeStoryImage(document.getElementById(response.IDStory), 0)
                     $('#viewStoryDetailFull').html(response.ViewStoryDetail);
-                    $('#myAudio').attr('src', '/' + response.urlMp3);
+                    $('#myAudio').attr('src', response.urlMp3);
                     document.getElementById('myAudio').play();
                     $('#btnClickStart').removeClass('far fa-play-circle');
                     $('#btnClickStart').addClass('far fa-stop-circle');
@@ -377,7 +377,7 @@ $user = Session::get('user')
                     if ($('#' + response.IDStory).length > 0)
                         changeStoryImage(document.getElementById(response.IDStory), 0)
                     $('#viewStoryDetailFull').html(response.ViewStoryDetail);
-                    $('#myAudio').attr('src', '/' + response.urlMp3);
+                    $('#myAudio').attr('src', response.urlMp3);
                     document.getElementById('myAudio').play();
                     $('#btnClickStart').removeClass('far fa-play-circle');
                     $('#btnClickStart').addClass('far fa-stop-circle');

@@ -98,11 +98,15 @@ function ajaxProfileFriend(ID, NameID) {
             IDView: ID,
         },
         success: function (response) {
-            $("#post").removeClass("border-b-4 border-blue-500");
-            $("#pictures").removeClass("border-b-4 border-blue-500");
-            $("#about").removeClass("border-b-4 border-blue-500");
-            $("#more").removeClass("border-b-4 border-blue-500");
-            $("#friends").addClass("border-b-4 border-blue-500");
+            $("#post").removeClass(
+                "border-b-4 border-blue-500 text-blue-500 text-blue-500"
+            );
+            $("#pictures").removeClass(
+                "border-b-4 border-blue-500 text-blue-500"
+            );
+            $("#about").removeClass("border-b-4 border-blue-500 text-blue-500");
+            $("#more").removeClass("border-b-4 border-blue-500 text-blue-500");
+            $("#friends").addClass("border-b-4 border-blue-500 text-blue-500");
             $("#" + NameID).html(response);
             window.history.pushState("", "", "/profile." + ID + "/friends");
         },
@@ -116,11 +120,13 @@ function ajaxProfilePicture(ID, NameID) {
             IDView: ID,
         },
         success: function (response) {
-            $("#about").removeClass("border-b-4 border-blue-500");
-            $("#post").removeClass("border-b-4 border-blue-500");
-            $("#friends").removeClass("border-b-4 border-blue-500");
-            $("#pictures").addClass("border-b-4 border-blue-500");
-            $("#more").removeClass("border-b-4 border-blue-500");
+            $("#about").removeClass("border-b-4 border-blue-500 text-blue-500");
+            $("#post").removeClass("border-b-4 border-blue-500 text-blue-500");
+            $("#friends").removeClass(
+                "border-b-4 border-blue-500 text-blue-500"
+            );
+            $("#pictures").addClass("border-b-4 border-blue-500 text-blue-500");
+            $("#more").removeClass("border-b-4 border-blue-500 text-blue-500");
             $("#" + NameID).html(response);
             window.history.pushState("", "", "/profile." + ID + "/pictures");
         },
@@ -134,11 +140,15 @@ function ajaxProfileAbout(ID, NameID) {
             IDView: ID,
         },
         success: function (response) {
-            $("#about").addClass("border-b-4 border-blue-500");
-            $("#post").removeClass("border-b-4 border-blue-500");
-            $("#friends").removeClass("border-b-4 border-blue-500");
-            $("#pictures").removeClass("border-b-4 border-blue-500");
-            $("#more").removeClass("border-b-4 border-blue-500");
+            $("#about").addClass("border-b-4 border-blue-500 text-blue-500");
+            $("#post").removeClass("border-b-4 border-blue-500 text-blue-500");
+            $("#friends").removeClass(
+                "border-b-4 border-blue-500 text-blue-500"
+            );
+            $("#pictures").removeClass(
+                "border-b-4 border-blue-500 text-blue-500"
+            );
+            $("#more").removeClass("border-b-4 border-blue-500 text-blue-500");
             $("#" + NameID).html(response);
             window.history.pushState("", "", "/profile." + ID + "/about");
         },

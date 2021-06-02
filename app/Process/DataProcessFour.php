@@ -352,7 +352,7 @@ class DataProcessFour extends Model
         $num = 0;
         foreach ($friends as $key => $value) {
             $posts = Baidang::where('baidang.IDTaiKhoan', '=', $value[0]->IDTaiKhoan)
-                ->join('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')->get();
+                ->get();
             foreach ($posts as $keys => $values) {
                 $arrTag = explode('&', $values->GanThe);
                 for ($i = 0; $i < count($arrTag) -  1; $i++) {
@@ -365,9 +365,14 @@ class DataProcessFour extends Model
         }
         $images = array();
         $num = 0;
+
         foreach ($post as $key => $value) {
-            $image = Hinhanh::where('hinhanh.IDBaiDang', '=', $value->IDBaiDang)->get()[0];
-            $images[$num] = $image;
+            $image = Hinhanh::where('hinhanh.IDBaiDang', '=', $value->IDBaiDang)
+                ->where('hinhanh.Loai', '=', 0)->get();
+            foreach ($image as $keys => $values) {
+                $images[$num] = $values;
+                $num++;
+            }
         }
         return $images;
     }
@@ -378,6 +383,18 @@ class DataProcessFour extends Model
             ->join('baidang', 'hinhanh.IDBaiDang', '=', 'baidang.IDBaiDang')
             ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
             ->where('baidang.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('hinhanh.Loai', '=', 0)
+            ->orderByDesc('baidang.NgayDang')
+            ->get();
+    }
+    public static function sorVideoByUser($idTaiKhoan, $index)
+    {
+        return DB::table('hinhanh')
+            ->skip($index)->take(15)
+            ->join('baidang', 'hinhanh.IDBaiDang', '=', 'baidang.IDBaiDang')
+            ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
+            ->where('baidang.IDTaiKhoan', '=', $idTaiKhoan)
+            ->where('hinhanh.Loai', '=', 1)
             ->orderByDesc('baidang.NgayDang')
             ->get();
     }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Baidang;
 use App\Models\Binhluan;
 use App\Models\Functions;
+use App\Models\Hinhanh;
 use App\Models\Process;
 use App\Models\StringUtil;
 use Illuminate\Support\Facades\DB;
@@ -159,7 +160,16 @@ class RepCommentController extends Controller
                 ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
                 ->where('binhluan.IDBinhLuan', '=', $idBinhLuan)
                 ->get();
-            $request->file('fileImage')->move(public_path('img/CommentImage'), $nameFile);
+            $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
+            Hinhanh::add(
+                $idHinhAnh,
+                'IMAGECMT',
+                NULL,
+                $nameFile,
+                $request->NoiDungBinhLuan,
+                2,
+                $idBinhLuan
+            );
             return view('Component\Comment\CommentLv2')
                 ->with(
                     'comment',
@@ -168,7 +178,9 @@ class RepCommentController extends Controller
                 ->with(
                     'comment_main',
                     $comment[0]
-                );
+                )
+                ->with('idHinhAnh', $idHinhAnh)
+                ->with('idBinhLuan', $idBinhLuan);
         } else {
             if (str_contains($request->NoiDungBinhLuan, ' bg-blue-500 text-white p-0.5">')) {
                 $json = (object)[

@@ -22,6 +22,29 @@ use App\Models\Notify;
     @foreach($notify as $key => $value)
     <?php $path = "/post" . "/" . explode('&', $value[0][0]->IDContent)[0]; ?>
     @switch($value[0][0]->IDLoaiThongBao)
+    @case('WARNPOST00')
+    <div class="w-full py-2 flex cursor-pointer 
+    dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
+        <div class="relative pl-2">
+            <div class="w-16 h-16 rounded-full mt-3 relative">
+                <img src="/img/logo.png" class="w-14 h-14 rounded-full object-cover 
+                border-2 border-white" alt="">
+            </div>
+        </div>
+        <div class="w-9/12 dark:text-gray-300 pl-3">
+            {{ $value[0][0]->TenLoaiThongBao }}.
+            <br>
+            <p class="text-xs font-bold">{{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+                &nbsp;&nbsp;&nbsp;</p>
+        </div>
+        <div class="w-1/12 relative text-center dotNotView">
+            @if ($value[0][0]->TinhTrang != 2)
+            <span class="bg-blue-400 rounded-full p-1.5 absolute top-1/2" style="transform: translateY(-50%);"></span>
+            @else
+            @endif
+        </div>
+    </div>
+    @break
     @case('CSBVCB123')
     <div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer 
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">

@@ -84,31 +84,35 @@ class EditPostController extends Controller
             for ($i = 0; $i < (int)$request->numberImage; $i++) {
                 $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
                 $nameFile = $request->file('files_' . $i)->getClientOriginalName();
-                echo $nameFile;
                 if (DataProcessSix::CheckIsVideo($nameFile)) {
-                    $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.mp4';
+                    Cloudder::uploadVideo(
+                        $request->file('files_' . $i),
+                        null,
+                        ['folder' => 'Video'],
+                        'Video.mp4'
+                    );
+                    $nameFile = Cloudder::getResult()['url'];
                     Hinhanh::add(
                         $idHinhAnh,
                         'VIDEO0001',
                         $idBaiDang,
-                        'video/' . $nameFile,
+                        $nameFile,
                         NULL,
                         1,
                         NULL
                     );
-                    $request->file('files_' . $i)->move(public_path('video'), $nameFile);
                 } else if (DataProcessSix::CheckIsImage($nameFile)) {
-                    $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
+                    Cloudder::upload($request->file('files_' . $i), null, ['folder' => 'PostNormal'], 'PostNormal.jpg');
+                    $nameFile = Cloudder::getResult()['url'];
                     Hinhanh::add(
                         $idHinhAnh,
                         'THONGTHUON',
                         $idBaiDang,
-                        'img/PosTT/' . $nameFile,
+                        $nameFile,
                         NULL,
                         0,
                         NULL
                     );
-                    $request->file('files_' . $i)->move(public_path('img/PosTT'), $nameFile);
                 } else {
                     echo "not valid";
                 }

@@ -131,6 +131,17 @@ function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                 "numberArray",
                 store.get(IDNguoiNhan + "arrayImage").length
             );
+            $("#" + IDNguoiNhan + "PlaceTypeText").html("");
+            $("#" + IDNguoiNhan + "imageChat").html("");
+            $("#" + IDNguoiNhan + "imageChat").addClass("hidden");
+            $("#" + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(
+                createLoadingChat(IDNhomTinNhan, IDNguoiNhan, 1)
+            );
+            var objDiv = document.getElementById(
+                IDNhomTinNhan + IDNguoiNhan + "Messenges"
+            );
+            if (objDiv.scrollHeight > 352)
+                objDiv.scrollTop = objDiv.scrollHeight;
             $.ajax({
                 method: "POST",
                 url: "/ProcessSendMessages",
@@ -138,12 +149,10 @@ function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    $("#loadingChatElement" + IDNhomTinNhan).remove();
                     $("#" + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(
                         response
                     );
-                    $("#" + IDNguoiNhan + "PlaceTypeText").html("");
-                    $("#" + IDNguoiNhan + "imageChat").html("");
-                    $("#" + IDNguoiNhan + "imageChat").addClass("hidden");
                     var objDiv = document.getElementById(
                         IDNhomTinNhan + IDNguoiNhan + "Messenges"
                     );
@@ -169,6 +178,15 @@ function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                 $("#" + IDNguoiNhan + "PlaceTypeText").html()
             );
             formData.append("IDNhomTinNhan", IDNhomTinNhan);
+            var objDiv = document.getElementById(
+                IDNhomTinNhan + IDNguoiNhan + "Messenges"
+            );
+            $("#" + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(
+                createLoadingChat(IDNhomTinNhan, IDNguoiNhan, 0)
+            );
+            if (objDiv.scrollHeight > 352)
+                objDiv.scrollTop = objDiv.scrollHeight;
+            $("#" + IDNguoiNhan + "PlaceTypeText").html("");
             $.ajax({
                 method: "POST",
                 url: "/ProcessSendMessages",
@@ -176,10 +194,10 @@ function sendMessage(IDNguoiNhan, IDNhomTinNhan, IDTaiKhoan, event) {
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    $("#loadingChatElement" + IDNhomTinNhan).remove();
                     $("#" + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(
                         response
                     );
-                    $("#" + IDNguoiNhan + "PlaceTypeText").html("");
                     var objDiv = document.getElementById(
                         IDNhomTinNhan + IDNguoiNhan + "Messenges"
                     );
@@ -202,6 +220,14 @@ function sendMessageIcon(IDNguoiNhan, IDNhomTinNhan, Element) {
     formData.append("IDNguoiNhan", IDNguoiNhan);
     formData.append("NoiDungTinNhan", Element.innerText);
     formData.append("IDNhomTinNhan", IDNhomTinNhan);
+    $("#" + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(
+        createLoadingChat(IDNhomTinNhan, IDNguoiNhan, 0)
+    );
+    $("#" + IDNguoiNhan + "PlaceTypeText").html("");
+    var objDiv = document.getElementById(
+        IDNhomTinNhan + IDNguoiNhan + "Messenges"
+    );
+    if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
     $.ajax({
         method: "POST",
         url: "/ProcessSendMessages",
@@ -209,6 +235,7 @@ function sendMessageIcon(IDNguoiNhan, IDNhomTinNhan, Element) {
         contentType: false,
         processData: false,
         success: function (response) {
+            $("#loadingChatElement" + IDNhomTinNhan).remove();
             $("#" + IDNhomTinNhan + IDNguoiNhan + "Messenges").append(response);
             $("#" + IDNguoiNhan + "PlaceTypeText").html("");
             var objDiv = document.getElementById(
@@ -229,6 +256,12 @@ function sendMessageIconGroup(IDNguoiNhan, IDNhomTinNhan, Element) {
     formData.append("IDNguoiNhan", IDNguoiNhan);
     formData.append("NoiDungTinNhan", Element.innerText);
     formData.append("IDNhomTinNhan", IDNhomTinNhan);
+    $("#" + IDNhomTinNhan + "Messenges").append(
+        createLoadingChat(IDNhomTinNhan, IDNguoiNhan, 0)
+    );
+    $("#" + IDNguoiNhan + "PlaceTypeText").html("");
+    var objDiv = document.getElementById(IDNhomTinNhan + "Messenges");
+    if (objDiv.scrollHeight > 352) objDiv.scrollTop = objDiv.scrollHeight;
     $.ajax({
         method: "POST",
         url: "/ProcessSendMessages",
@@ -236,6 +269,7 @@ function sendMessageIconGroup(IDNguoiNhan, IDNhomTinNhan, Element) {
         contentType: false,
         processData: false,
         success: function (response) {
+            $("#loadingChatElement" + IDNhomTinNhan).remove();
             $("#" + IDNhomTinNhan + "Messenges").append(response);
             $("#" + IDNguoiNhan + "PlaceTypeText").html("");
             var objDiv = document.getElementById(IDNhomTinNhan + "Messenges");

@@ -1278,7 +1278,12 @@ video {
     .md\:inline-block {
         display: inline-block;
     }
-
+    .md\:w-11\/12 {
+        width: 91%;
+    }
+    .md\:w-92 {
+        width: 368px;
+    }
     .md\:flex {
         display: flex;
     }
@@ -1310,7 +1315,9 @@ video {
     .lg\:grid {
         display: grid;
     }
-
+    .lg\:w-92 {
+        width: 368px !important;
+    }
     .lg\:h-10 {
         height: 2.5rem;
     }

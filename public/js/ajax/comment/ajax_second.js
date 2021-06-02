@@ -156,6 +156,13 @@ function postSticker(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDNhanDan) {
         "NoiDungBinhLuan",
         $("#" + IDTaiKhoan + IDBaiDang + "Write").html()
     );
+    $("#" + IDBaiDang + IDBinhLuan + "FormComment").html("");
+    $("#" + IDBaiDang + IDBinhLuan + "modalComment").html("");
+    $("#" + IDBaiDang + IDBinhLuan + "modalComment").addClass("hidden");
+    $("#" + IDBaiDang + IDBinhLuan + "FormComment").html("");
+    $("#" + IDTaiKhoan + IDBaiDang + "CommentLv1").prepend(
+        createLoadingComment()
+    );
     $.ajax({
         method: "POST",
         url: "/ProcessPostCommentSticker",
@@ -163,10 +170,8 @@ function postSticker(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDNhanDan) {
         contentType: false,
         processData: false,
         success: function (response) {
+            $("#loadingCommentElement").remove();
             $("#" + IDTaiKhoan + IDBaiDang + "CommentLv1").prepend(response);
-            $("#" + IDBaiDang + IDBinhLuan + "modalComment").html("");
-            $("#" + IDBaiDang + IDBinhLuan + "modalComment").addClass("hidden");
-            $("#" + IDBaiDang + IDBinhLuan + "FormComment").html("");
         },
     });
 }

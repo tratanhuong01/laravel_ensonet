@@ -345,6 +345,7 @@ function postFiles() {
         formData.append("files_" + index, array[index]);
     }
     formData.append("numberImage", array.length);
+
     $.ajax({
         method: "POST",
         url: "/ProcessPostNormal",

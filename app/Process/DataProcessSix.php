@@ -4,6 +4,8 @@ namespace App\Process;
 
 use App\Models\Congty;
 use App\Models\Diachi;
+use App\Models\Hinhanh;
+use App\Models\Quydinh;
 use App\Models\Tinnhan;
 use App\Models\Truonghoc;
 use Illuminate\Database\Eloquent\Model;
@@ -147,5 +149,20 @@ class DataProcessSix extends Model
             }
         }
         return $postNew;
+    }
+    public static function getIDImageByIDCommnet($idBinhLuan)
+    {
+        return Hinhanh::where('hinhanh.Khac', '=', $idBinhLuan)->get()[0]->IDHinhAnh;
+    }
+    public static function checkWordIsValid($word)
+    {
+        $rule = Quydinh::get();
+        foreach ($rule as $key => $value) {
+            if (str_contains($word, $value->TenQuyDinh)) {
+                return false;
+                break;
+            }
+        }
+        return true;
     }
 }

@@ -98,8 +98,11 @@ function editPost(IDBaiDang) {
                 document.getElementById("myTriggers"),
                 document.getElementById("myEmojis")
             );
-            if (response.json !== "")
-                if (response.state !== "3") loadUIEditPostMain(response.json);
+            if (response.json !== "") {
+                if (response.state !== "3") {
+                    loadUIEditPostMain(response.json);
+                }
+            }
         },
     });
 }

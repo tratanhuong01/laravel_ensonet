@@ -112,7 +112,9 @@ class CommentController extends Controller
                 ->with(
                     'comment',
                     $comment[0]
-                );
+                )
+                ->with('idHinhAnh', $idHinhAnh)
+                ->with('idBinhLuan', $idBinhLuan);
         } else {
             $json = (object)[
                 'ID' => '10000',

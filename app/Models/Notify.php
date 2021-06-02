@@ -37,7 +37,12 @@ class Notify extends Model
                         ->get();
                     $newNotify[$j] = $notify;
                 }
-                $noiDung = Baidang::where('baidang.IDBaiDang', '=', explode('&', $post[$i]->IDContent)[0])->get()[0]->NoiDung;
+                $noiDung = Baidang::where('baidang.IDBaiDang', '=', explode('&', $post[$i]->IDContent)[0])->get();
+                if (count($noiDung) > 0) {
+                    $noiDung = $noiDung[0]->NoiDung;
+                } else {
+                    $noiDung = "";
+                }
                 if (sizeof(explode('&', $post[$i]->IDContent)) > 2) {
                     $cx = Camxucbinhluan::where('camxucbinhluan.IDBinhLuan', '=', explode('&', $post[$i]->IDContent)[2])
                         ->where('camxucbinhluan.IDTaiKhoan', '=', $newNotify[0][0]->IDGui)

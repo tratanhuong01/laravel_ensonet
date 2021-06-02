@@ -11,6 +11,14 @@ function CommentPost(IDTaiKhoan, IDBaiDang, event) {
             "NoiDungBinhLuan",
             $("#" + IDTaiKhoan + IDBaiDang + "Write").html()
         );
+        $("#" + IDTaiKhoan + IDBaiDang + "Write").html("");
+        $("#" + IDBaiDang + "FormComment").html("");
+        $("#" + IDBaiDang + "modalComment").html("");
+        $("#" + IDBaiDang + "modalComment").addClass("hidden");
+        $("#" + IDBaiDang + "CommentImage").html("");
+        $("#" + IDTaiKhoan + IDBaiDang + "CommentLv1").prepend(
+            createLoadingComment()
+        );
         $.ajax({
             method: "POST",
             url: "/ProcessCommentPost",
@@ -18,14 +26,10 @@ function CommentPost(IDTaiKhoan, IDBaiDang, event) {
             contentType: false,
             processData: false,
             success: function (response) {
+                $("#loadingCommentElement").remove();
                 $("#" + IDTaiKhoan + IDBaiDang + "CommentLv1").prepend(
                     response
                 );
-                $("#" + IDTaiKhoan + IDBaiDang + "Write").html("");
-                $("#" + IDBaiDang + "FormComment").html("");
-                $("#" + IDBaiDang + "modalComment").html("");
-                $("#" + IDBaiDang + "modalComment").addClass("hidden");
-                $("#" + IDBaiDang + "CommentImage").html("");
             },
         });
     }
@@ -124,6 +128,12 @@ function RepCommentPost(
                 $("#" + IDBaiDang + IDBinhLuan + "IDNhanDan").val()
             );
         } else {
+            $("#" + IDTaiKhoan + IDBaiDang + IDBinhLuan + "Write").html("");
+            $("#" + IDBaiDang + IDBinhLuan + "FormComment").html("");
+            $("#" + IDBaiDang + IDBinhLuan + "CommentImage").html("");
+            $(
+                "#" + IDTaiKhoan + IDBaiDang + IDBinhLuanRep + "CommentLv2"
+            ).prepend(createLoadingComment());
             $.ajax({
                 method: "POST",
                 url: "/ProcessRepCommentPost",
@@ -131,6 +141,7 @@ function RepCommentPost(
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    $("#loadingCommentElement").remove();
                     $(
                         "#" +
                             IDTaiKhoan +
@@ -138,11 +149,6 @@ function RepCommentPost(
                             IDBinhLuanRep +
                             "CommentLv2"
                     ).prepend(response);
-                    $("#" + IDTaiKhoan + IDBaiDang + IDBinhLuan + "Write").html(
-                        ""
-                    );
-                    $("#" + IDBaiDang + IDBinhLuan + "FormComment").html("");
-                    $("#" + IDBaiDang + IDBinhLuan + "CommentImage").html("");
                 },
             });
         }

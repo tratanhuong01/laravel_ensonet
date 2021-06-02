@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\StringUtil;
 use App\Models\Functions;
 use App\Models\Nhandan;
+use App\Process\DataProcessSix;
 
 $user = Session::get('user');
 
@@ -26,7 +27,11 @@ $user = Session::get('user');
                 {!! json_decode($comment->NoiDungBinhLuan)->NoiDungBinhLuan !!}
                 @break
                 @case('1')
-                @include('Component/Comment/CommentImage',['json' => json_decode($comment->NoiDungBinhLuan)])
+                @include('Component/Comment/CommentImage',[
+                'json' => json_decode($comment->NoiDungBinhLuan),
+                'idBinhLuan' => $comment->IDBinhLuan,
+                'idHinhAnh' => DataProcessSix::getIDImageByIDCommnet($comment->IDBinhLuan)
+                ])
                 @break
                 @case('2')
                 @include('Component/Comment/Sticker',[

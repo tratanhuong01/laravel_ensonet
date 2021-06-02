@@ -799,6 +799,9 @@ Route::get('ProcessViewLocalPost', function (Request $request) {
             ->with('local', DataProcessSix::createAllAddress())
     ]);
 });
+Route::get('demo', function () {
+    return view('Demo');
+});
 Route::get('ProcessOpenModalAddAccountLogin', [Login\LoginController::class, 'viewAddAccount'])
     ->name('ProcessOpenModalAddAccountLogin');
 

@@ -153,7 +153,14 @@ class SendMessageController extends Controller
                             ->with('index',  $index - 15)
                     ]);
             else
-                return 'sai';
+                return response()->json([
+                    'viewSmall' => "" . view('Modal\ModalChat\Child\ChatLeft')
+                        ->with('message', $message[0]),
+                    'viewBig' => "" . view('Modal\ModalChat\ModalChat')->with('chater', $chater)
+                        ->with('messages', $messages)
+                        ->with('idNhomTinNhan', $request->IDNhomTinNhan)
+                        ->with('index',  $index - 15)
+                ]);
         }
     }
     public function sendStickerMessage(Request $request)
