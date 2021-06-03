@@ -178,11 +178,57 @@ class EditPostController extends Controller
             Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)
                 ->get()[0]
         );
-        return response()->json([
-            'view' => "" . view('Component/Post/PostNormal')
-                ->with('item', $post)
-                ->with('user', $user)
-        ]);
+        $postShare = Baidang::where('baidang.IDBaiDang', '=', $post[0]->ChiaSe)->get();
+        if (count($postShare) == 0) {
+            $postShare = [];
+        } else {
+            $postShare = Functions::getPost($postShare[0]);
+        }
+        switch ($post[0]->LoaiBaiDang) {
+            case 0:
+                return response()->json([
+                    'view' => "" . view('Component.Post.UpdateAvatarImage')
+                        ->with('item', $post)
+                        ->with('user', $user)
+                ]);
+            case 1:
+                return response()->json([
+                    'view' => "" . view('Component.Post.UpdateCoverImage')
+                        ->with('item', $post)
+                        ->with('user', $user)
+                ]);
+            case 2:
+                return response()->json([
+                    'view' => "" . view('Component.Post.PostNormal')
+                        ->with('item', $post)
+                        ->with('user', $user)
+                ]);
+            case 3:
+                return response()->json([
+                    'view' => "" . view('Component.Post.SharePost')
+                        ->with('item', $post)
+                        ->with('user', $user)
+                        ->with('postShare', $postShare)
+                ]);
+            case 4:
+                return response()->json([
+                    'view' => "" . view('Component.Post.Timeline')
+                        ->with('item', $post)
+                        ->with('user', $user)
+                ]);
+                break;
+            case 5:
+                return response()->json([
+                    'view' => "" . view('Component.Post.PostShareMemory')
+                        ->with('item', $post)
+                        ->with('user', $user)
+                        ->with('postShare', $postShare)
+                ]);
+                break;
+            default:
+                $view = "Not DâtA";
+                break;
+        }
     }
     public function view(Request $request)
     {

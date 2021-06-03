@@ -152,7 +152,11 @@ class DataProcessSix extends Model
     }
     public static function getIDImageByIDCommnet($idBinhLuan)
     {
-        return Hinhanh::where('hinhanh.Khac', '=', $idBinhLuan)->get()[0]->IDHinhAnh;
+        $id = Hinhanh::where('hinhanh.Khac', '=', $idBinhLuan)->get();
+        if (count($id) > 0)
+            return $id[0]->IDHinhAnh;
+        else
+            return "";
     }
     public static function checkWordIsValid($word)
     {

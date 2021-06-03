@@ -40,15 +40,9 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
                             <a href="" class="dark:text-gray-300 font-bold">
                                 {{ StringUtil::CheckDateTime($item[0]->NgayDang) }}</a>
                         </li>
-                        @if ($u[0]->IDTaiKhoan == $item[0]->IDTaiKhoan)
-                        <li onclick="changeObjectPrivacyPost('{{ $item[0]->IDBaiDang }}')" class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
-                            @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
-                        </li>
-                        @else
                         <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
                             @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                         </li>
-                        @endif
                     </ul>
                 </div>
             </div>
@@ -90,29 +84,39 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
         </div>
     </div>
     @else
-    <div class="w-full mx-0 my-4">
-        @switch($postShare[0]->LoaiBaiDang)
-        @case('0')
-        @include('Component/Post/Child/AvatarImage',['item' => $postShare])
-        @break
-        @case('1')
-        @include('Component/Post/Child/CoverImage',['item' => $postShare])
-        @break
-        @case('2')
-        @include('Component/Post/Child/Normal',['item' => $postShare])
-        @break
-        @case('3')
-        @include('Component/Post/Child/Share',['item' => $postShare])
-        @break
-        @endswitch
-    </div>
-    <div class="w-full mx-0 my-4">
-        <div class="w-11/12  p-4 mb-4 ml-4 bg-white dark:bg-dark-second" style="border: 1px solid #ccc;">
+    <div class="w-full my-4 flex justify-center flex-wrap">
+        <div class="w-97% p-2 bg-white dark:bg-dark-second border-2 border-solid 
+        border-gray-200 flex dark:text-white dark:border-dark-third rounded-t-lg">
+            <div class="w-1/3 flex justify-center">
+                <img src="/img/shared-story-left-1.5x.png" class="w-1/4 object-cover" alt="" srcset="">
+            </div>
+            @php
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $datetime = date("Y-m-d H:i:s");
+            $year = explode('-', explode(' ', $datetime)[0])[0] -
+            explode('-', explode(' ', $postShare[0]->NgayDang)[0])[0];
+            @endphp
+            <div class="w-1/3 flex justify-center">
+                <div class="flex items-center justify-center flex-wrap">
+                    <p class="text-center font-semibold mb-1">
+                        {{ $year }} năm trước
+                    </p>
+                    <p class="text-center font-semibold ">
+                        <a href="{{url('memory')}}">Xem kỉ niệm của bạn</a>
+                    </p>
+                </div>
+            </div>
+            <div class="w-1/3 flex justify-center">
+                <img src="/img/shared-story-right-1.5x.png" class="w-1/4 object-cover" alt="" srcset="">
+            </div>
+        </div>
+        <div class="w-97% p-4 mb-4 bg-white dark:bg-dark-second border-2 border-solid 
+        border-gray-200 dark:border-dark-third rounded-b-lg">
             <div class="w-full flex">
                 <div class="mr-2">
                     <div class="w-14 h-14 relative">
                         <a href="profile.{{ $postShare[0]->IDTaiKhoan }}"><img class="w-12 h-12 
-                rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $postShare[0]->AnhDaiDien }}"></a>
+                        rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $postShare[0]->AnhDaiDien }}"></a>
                         @include('Component\Child\Activity',
                         [
                         'padding' => 'p-1.5',
@@ -168,6 +172,22 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
             <div class="w-full py-1.5 dark:text-white">
                 {{ $postShare[0]->NoiDung }}
             </div>
+            <div class="w-full mx-0 mt-4">
+                @switch($postShare[0]->LoaiBaiDang)
+                @case('0')
+                @include('Component/Post/Child/AvatarImage',['item' => $postShare])
+                @break
+                @case('1')
+                @include('Component/Post/Child/CoverImage',['item' => $postShare])
+                @break
+                @case('2')
+                @include('Component/Post/Child/Normal',['item' => $postShare])
+                @break
+                @case('3')
+                @include('Component/Post/Child/Share',['item' => $postShare])
+                @break
+                @endswitch
+            </div>
         </div>
     </div>
     @endif
@@ -179,7 +199,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
         $comment = Process::getCommentNew($item[0]->IDBaiDang); ?>
         @if (count($commentLimit) == 0)
         @else
-        <div class=w-full>
+        <div class="w-full">
             @for($i = 0;$i < count($commentLimit) ;$i++) </p>
                 @include('Component\Comment\CommentLv1',[
                 'comment'=> $commentLimit[$i],

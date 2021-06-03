@@ -270,6 +270,11 @@ $paths = explode('/', parse_url(url()->current())['path']);
                                                                                                                         ml-auto fixed -bottom-1 right-20" id="placeChat">
         </div>
         <!-- place show chat -->
+
+        <!-- place show notify -->
+        <div class="w-80 fixed bottom-3 left-5" id="notifyShow">
+        </div>
+        <!-- place show notify -->
         @endif
 
     </div>
@@ -354,7 +359,8 @@ $paths = explode('/', parse_url(url()->current())['path']);
                 method: "GET",
                 url: "/ProcessNotificationShow",
                 success: function(response) {
-                    $('#numNotification').html(response);
+                    $('#numNotification').html(response.num);
+                    $('#notifyShow').append(response.view);
                 }
             });
         });

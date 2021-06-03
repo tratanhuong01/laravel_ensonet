@@ -209,6 +209,11 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
         xl:overflow-x-hidden" id="placeChat">
         </div>
         <!-- place show chat -->
+
+        <!-- place show notify -->
+        <div class="w-80 fixed bottom-3 left-5" id="notifyShow">
+        </div>
+        <!-- place show notify -->
     </div>
     <!-- main -->
 
@@ -254,7 +259,8 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
                 method: "GET",
                 url: "/ProcessNotificationShow",
                 success: function(response) {
-                    $('#numNotification').html(response);
+                    $('#numNotification').html(response.num);
+                    $('#notifyShow').append(response.view);
                 }
             });
         });

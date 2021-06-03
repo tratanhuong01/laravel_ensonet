@@ -600,6 +600,11 @@ Route::get('ProcessLoadingPost', function (Request $request) {
                         ->with('item', $value)
                         ->with('user', Session::get('user'));
                     break;
+                case '5':
+                    $data .= view('Component/Post/PostShareMemory')
+                        ->with('item', $value)
+                        ->with('user', Session::get('user'));
+                    break;
             }
         }
         $num += 3;
@@ -640,6 +645,11 @@ Route::get('ProcessLoadingPostProfile', function (Request $request) {
                     break;
                 case '4':
                     $data .= view('Component/Post/Timeline')
+                        ->with('item', $post)
+                        ->with('user', Session::get('user'));
+                    break;
+                case '5':
+                    $data .= view('Component/Post/PostShareMemory')
                         ->with('item', $post)
                         ->with('user', Session::get('user'));
                     break;

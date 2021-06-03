@@ -90,6 +90,9 @@ class Notify extends Model
             case '4':
                 return 'DDLDTGCB1';
                 break;
+            case '5':
+                return 'BTCVKNBCS';
+                break;
         }
     }
     public static function countNotify($idTaiKhoan, $tinhTrang)

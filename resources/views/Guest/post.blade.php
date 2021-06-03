@@ -47,6 +47,9 @@ $post = Functions::getPost($post_main[0]);
                 @case('3')
                 @include('Component/Post/SharePost',['item' => $post])
                 @break
+                @case('5')
+                @include('Component/Post/PostShareMemory',['item' => $post])
+                @break
                 @endswitch
                 <!-- content -->
             </div>

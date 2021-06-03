@@ -20,7 +20,7 @@ use App\Process\DataProcess;
     @include('Component/Post/Child/CoverImage',['item' => $postShare])
     @break
     @case('2')
-    @include('Component/Post/Child/Normal',['item' => $postShare])
+    @include('Component/Post/Child/NormalMain',['item' => $postShare])
     @break
     @endswitch
 </div>

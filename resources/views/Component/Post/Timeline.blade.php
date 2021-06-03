@@ -10,7 +10,9 @@ use App\Process\DataProcess;
 $u = Session::get('user');
 
 $per = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $item[0]->ChiaSe)->get();
+
 ?>
+@if (count($per) > 0)
 <div onclick="" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Main" class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
         <div class="mr-2">
@@ -116,7 +118,9 @@ $per = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $item[0]->ChiaSe)->get();
                 @endfor
         </ul>
     </div>
-    @include('Component\Post\FeelPost',['item' => $item])
+    @include('Component\Post\FeelPost',[
+    'item' => $item
+    ])
     <div class="w-full" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}CommentLv1">
         <?php $commentLimit = Process::getCommentLimitFromTo($item[0]->IDBaiDang, 0);
         $comment = Process::getCommentNew($item[0]->IDBaiDang); ?>
@@ -145,3 +149,4 @@ $per = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $item[0]->ChiaSe)->get();
     @endif
     @include('Component\Comment\WriteCommentLv1',['item' => $item])
 </div>
+@endif

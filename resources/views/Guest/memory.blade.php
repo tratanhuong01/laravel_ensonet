@@ -97,6 +97,10 @@
             ml-auto fixed -bottom-1 right-20" id="placeChat">
         </div>
         <!-- place show chat -->
+        <!-- place show notify -->
+        <div class="w-80 fixed bottom-3 left-5" id="notifyShow">
+        </div>
+        <!-- place show notify -->
     </div>
     <!-- content -->
     </div>
@@ -107,7 +111,21 @@
     <!-- timeline -->
     @include('TimeLine/DivMainTimeLine')
     <!-- timeline -->
-
+    <script>
+        $('#modalHeaderRight').html('');
+        const userID = getUserID();
+        var channel = pusher.subscribe('test.' + userID);
+        channel.bind('tests', function() {
+            $.ajax({
+                method: "GET",
+                url: "/ProcessNotificationShow",
+                success: function(response) {
+                    $('#numNotification').html(response.num);
+                    $('#notifyShow').append(response.view);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -235,7 +235,8 @@ $u = Session::get('user');
                 method: "GET",
                 url: "/ProcessNotificationShow",
                 success: function(response) {
-                    $('#numNotification').html(response);
+                    $('#numNotification').html(response.num);
+                    $('#notifyShow').append(response.view);
                 }
             });
         });
