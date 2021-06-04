@@ -88,30 +88,20 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
             'item' => $post
             ])
             @break
-            @case('2')
-            @include('Component.Post.Child.Normal',
-            [
-            'item' => $post
-            ])
-            @break
-            @break
             @case('3')
             @include('Component.Post.Child.Share',
             [
             'item' => $post
             ])
             @break
-            @break
             @case('4')
 
-            @break
             @break
             @case('5')
             @include('Component.Post.Child.Memory',
             [
             'item' => $postShare
             ])
-            @break
             @break
             @default
             <div class="w-full mt-2.5 px-2 flex flex-wrap relative" id="imagePost">

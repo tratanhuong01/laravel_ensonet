@@ -47,6 +47,7 @@ $path = explode('/', parse_url(url()->current())['path']);
     <script src="/js/admin/nor.js"></script>
     <script src="/js/admin/ajax.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/js/admin/ajax_second.js"></script>
 </head>
 
 <body>

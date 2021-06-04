@@ -11,7 +11,7 @@
     cursor-pointer">
         <img src="/img/sticker.png" class="w-8 h-8 p-0.5 object-cover mb-2">
     </li>
-    <li class="w-10 h-10 mr-2  flex items-center dark:text-white justify-center 
+    <li class="w-10 h-10 mr-2 flex items-center dark:text-white justify-center 
     cursor-pointer">
         <img src="/img/sticker.png " class="w-8 h-8 p-0.5 object-cover mb-2">
     </li>

@@ -86,15 +86,17 @@ class InsertCategoryController extends Controller
                 ]);
                 break;
             case 'sticker':
+                Cloudder::upload($request->file('file'), null, ['folder' => 'Sticker'], 'PostNormal.jpg');
+                $nameFile = Cloudder::getResult()['url'];
                 Nhandan::add(
                     $request->IDNhanDan,
                     $request->NhomNhanDan,
                     $request->DongNhanDan,
-                    $request->DuongDanNhanDan,
+                    $nameFile,
                     $request->Hang,
                     $request->Cot
                 );
-                $data = Truonghoc::where('truonghoc.IDTruongHoc', '=', $request->IDNhanDan)->get();
+                $data = Nhandan::where('nhandan.IDNhanDan', '=', $request->IDNhanDan)->get();
                 return response()->json([
                     'view' => "" . view('Admin.Component.DetailCategory.Child.Sticker')
                         ->with('item', $data[0])

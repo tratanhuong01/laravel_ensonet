@@ -20,6 +20,7 @@ use App\Models\Gioithieu;
 use App\Models\Story;
 use App\Models\StringUtil;
 use App\Process\DataProcessFive;
+use App\Process\DataProcessSecond;
 use App\Process\DataProcessSix;
 use App\Process\DataProcessThird;
 use Illuminate\Database\Eloquent\Model;
@@ -571,7 +572,8 @@ Route::get('Timeline', function () {
 });
 //
 Route::get('ProcessLoadingPost', function (Request $request) {
-    $post = Data::sortAllPost(Session::get('user')[0]->IDTaiKhoan);
+    $user = Session::get('user')[0];
+    $post = Data::sortAllPost($user->IDTaiKhoan);
     $data = "";
     $num = $request->indexPost;
     $arrayNew = array_slice($post, $num, 3);
@@ -579,33 +581,34 @@ Route::get('ProcessLoadingPost', function (Request $request) {
         return '';
     } else {
         foreach ($arrayNew as $key => $value) {
-            switch ($value[0]->LoaiBaiDang) {
-                case '0':
-                    $data .= view('Component/Post/UpdateAvatarImage')
-                        ->with('item', $value)
-                        ->with('user', Session::get('user'));
-                    break;
-                case '1':
-                    $data .= view('Component/Post/UpdateCoverImage')
-                        ->with('item', $value)
-                        ->with('user', Session::get('user'));
-                    break;
-                case '2':
-                    $data .= view('Component/Post/PostNormal')
-                        ->with('item', $value)
-                        ->with('user', Session::get('user'));
-                    break;
-                case '3':
-                    $data .= view('Component/Post/SharePost')
-                        ->with('item', $value)
-                        ->with('user', Session::get('user'));
-                    break;
-                case '5':
-                    $data .= view('Component/Post/PostShareMemory')
-                        ->with('item', $value)
-                        ->with('user', Session::get('user'));
-                    break;
-            }
+            if (DataProcessSecond::checkIsFriends($user->IDTaiKhoan, $value[0]->IDTaiKhoan, $value) == true)
+                switch ($value[0]->LoaiBaiDang) {
+                    case '0':
+                        $data .= view('Component/Post/UpdateAvatarImage')
+                            ->with('item', $value)
+                            ->with('user', Session::get('user'));
+                        break;
+                    case '1':
+                        $data .= view('Component/Post/UpdateCoverImage')
+                            ->with('item', $value)
+                            ->with('user', Session::get('user'));
+                        break;
+                    case '2':
+                        $data .= view('Component/Post/PostNormal')
+                            ->with('item', $value)
+                            ->with('user', Session::get('user'));
+                        break;
+                    case '3':
+                        $data .= view('Component/Post/SharePost')
+                            ->with('item', $value)
+                            ->with('user', Session::get('user'));
+                        break;
+                    case '5':
+                        $data .= view('Component/Post/PostShareMemory')
+                            ->with('item', $value)
+                            ->with('user', Session::get('user'));
+                        break;
+                }
         }
         $num += 3;
         return $data . '<input type="hidden" name="indexPost" id="indexPost" value="' . $num . '">';
@@ -613,6 +616,7 @@ Route::get('ProcessLoadingPost', function (Request $request) {
 })->name('ProcessLoadingPost');
 //
 Route::get('ProcessLoadingPostProfile', function (Request $request) {
+    $user = Session::get('user')[0];
     $posts = Functions::getAllPost($request->IDTaiKhoan);
     $data = "";
     $num = $request->indexPost;
@@ -621,39 +625,41 @@ Route::get('ProcessLoadingPostProfile', function (Request $request) {
         return '';
     } else {
         foreach ($arrayNew as $key => $value) {
+
             $post = Functions::getPost($value);
-            switch ($value->LoaiBaiDang) {
-                case '0':
-                    $data .= view('Component/Post/UpdateAvatarImage')
-                        ->with('item', $post)
-                        ->with('user', Session::get('user'));
-                    break;
-                case '1':
-                    $data .= view('Component/Post/UpdateCoverImage')
-                        ->with('item', $post)
-                        ->with('user', Session::get('user'));
-                    break;
-                case '2':
-                    $data .= view('Component/Post/PostNormal')
-                        ->with('item', $post)
-                        ->with('user', Session::get('user'));
-                    break;
-                case '3':
-                    $data .= view('Component/Post/SharePost')
-                        ->with('item', $post)
-                        ->with('user', Session::get('user'));
-                    break;
-                case '4':
-                    $data .= view('Component/Post/Timeline')
-                        ->with('item', $post)
-                        ->with('user', Session::get('user'));
-                    break;
-                case '5':
-                    $data .= view('Component/Post/PostShareMemory')
-                        ->with('item', $post)
-                        ->with('user', Session::get('user'));
-                    break;
-            }
+            if (DataProcessSecond::checkIsFriends($user->IDTaiKhoan, $value->IDTaiKhoan, [$value]) == true)
+                switch ($value->LoaiBaiDang) {
+                    case '0':
+                        $data .= view('Component/Post/UpdateAvatarImage')
+                            ->with('item', $post)
+                            ->with('user', Session::get('user'));
+                        break;
+                    case '1':
+                        $data .= view('Component/Post/UpdateCoverImage')
+                            ->with('item', $post)
+                            ->with('user', Session::get('user'));
+                        break;
+                    case '2':
+                        $data .= view('Component/Post/PostNormal')
+                            ->with('item', $post)
+                            ->with('user', Session::get('user'));
+                        break;
+                    case '3':
+                        $data .= view('Component/Post/SharePost')
+                            ->with('item', $post)
+                            ->with('user', Session::get('user'));
+                        break;
+                    case '4':
+                        $data .= view('Component/Post/Timeline')
+                            ->with('item', $post)
+                            ->with('user', Session::get('user'));
+                        break;
+                    case '5':
+                        $data .= view('Component/Post/PostShareMemory')
+                            ->with('item', $post)
+                            ->with('user', Session::get('user'));
+                        break;
+                }
         }
         $num += 3;
         return $data . '<input type="hidden" name="indexPost" id="indexPost" value="' . $num . '">';

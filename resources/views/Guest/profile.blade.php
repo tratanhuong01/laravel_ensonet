@@ -258,16 +258,16 @@ $paths = explode('/', parse_url(url()->current())['path']);
         <div class="h-auto p-3 w-20">
             <div class="text-center cursor-pointer py-2 pl-2 pr-1.5 fixed right-3 bottom-4 " id="chatMinize">
                 <div onclick="openCreateChat()" class="cursor-pointer">
-                    <i class="far fa-edit text-2xl py-2 px-3 pr-2 rounded-full bg-white dark:bg-dark-second 
-                                                                                                                                    dark:text-white"></i>
+                    <i class="far fa-edit text-2xl py-2 px-3 pr-2 rounded-full bg-white dark:bg-dark-second
+                    dark:text-white"></i>
                 </div>
             </div>
         </div>
         <!-- create chat -->
 
         <!-- place show chat -->
-        <div class="w-full px-4 flex z-0 md:w-full lg:w-full xl:w-1/2
-                                                                                                                        ml-auto fixed -bottom-1 right-20" id="placeChat">
+        <div class="w-full px-4 flex z-0 md:w-full lg:w-full xl:w-1/2 ml-auto fixed 
+        -bottom-1 right-20" id="placeChat">
         </div>
         <!-- place show chat -->
 

@@ -9,7 +9,25 @@
     </div>
     <div class="w-full p-2">
         <form action="" method="POST" class="w-11/12 mx-auto" id="form">
+            @php
+            $Hang = "";
+            $Cot = "";
+            $DuongDanNhanDan = "";
+            @endphp
             @foreach ($modal->data as $key => $value)
+            <?php
+            switch ($value->Data->name) {
+                case 'Hang':
+                    $Hang = $value->Data->value;
+                    break;
+                case 'Cot':
+                    $Cot = $value->Data->value;
+                    break;
+                case 'File':
+                    $DuongDanNhanDan = $value->Data->value;
+                    break;
+            }
+            ?>
             <div class="w-full py-2 flex">
                 <label class="w-3/12 flex items-center mr-6 font-bold">
                     {{$value->Label}} :
@@ -34,6 +52,26 @@
                 @break
                 @case('File')
                 @switch($value->Accept)
+                @case('sticker')
+                <div class="flex items-start w-9/12">
+                    <input onchange="onChangeFileSticker(event)" type="file" name="file" id="{{ $value->Data->id }}" accept="{{ $value->Accept }}" class="w-1/2 pr-5 my-5 hidden">
+                    <label for="{{ $value->Data->id }}" class="flex items-center py-1.5 px-5 bg-red-500 
+                    font-bold text-white mr-5 rounded-lg my-4">
+                        <i class='bx bx-upload mt-0.5 text-2xl mr-3 
+                            flex items-center'></i>
+                        <span class="flex items-center">Chọn File....</span>
+                    </label>
+                    <div class="w-20 h-20 bg-gray-500 rounded-lg" id="show">
+                        @include('Modal.ModalChat.Child.ChatSticker',[
+                        'value' => (object)[
+                        'Hang' => $Hang,
+                        'Cot' => $Cot,
+                        'DuongDanNhanDan' => $DuongDanNhanDan,
+                        ]
+                        ])
+                    </div>
+                </div>
+                @break
                 @case('image')
                 <div class="flex items-start w-9/12">
                     <input onchange="onChangePreviewImageDemo(event)" type="file" name="{{ $value->Data->name }}" id="{{ $value->Data->id }}" accept="{{ $value->Accept }}" class="w-1/2 pr-5 my-5 hidden">

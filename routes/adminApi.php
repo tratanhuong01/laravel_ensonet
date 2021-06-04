@@ -52,3 +52,15 @@ Route::post('ProcessUpdateCategoryDetail', [UpdateCategoryController::class, 'up
 
 Route::get('ProcessDeleteCategoryDetail',  [DeleteCategoryController::class, 'delete'])
     ->name('ProcessDeleteCategoryDetail');
+
+Route::get('ProcessOnChangeSticker', function (Request $request) {
+    $value = (object)[
+        'Hang' => $request->Hang,
+        'Cot' => $request->Cot,
+        'DuongDanNhanDan' => $request->DuongDanNhanDan
+    ];
+    return response()->json([
+        'view' => "" . view('Modal.ModalChat.Child.ChatSticker')
+            ->with('value', $value)
+    ]);
+});

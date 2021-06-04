@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Nhandan extends Model
 {
@@ -33,6 +34,19 @@ class Nhandan extends Model
         $nhandan->Hang = $Hang;
         $nhandan->Cot = $Cot;
         $nhandan->save();
+    }
+    public static function edit(
+        $IDNhanDan,
+        $NhomNhanDan,
+        $DongNhanDan,
+        $DuongDanNhanDan,
+        $Hang,
+        $Cot
+    ) {
+        DB::update('UPDATE nhandan SET NhomNhanDan = ? , DongNhanDan = ? ,
+         DuongDanNhanDan = ? , Hang = ? , Cot = ?  WHERE IDNhanDan = ? ', [
+            $NhomNhanDan, $DongNhanDan, $DuongDanNhanDan, $Hang, $Cot, $IDNhanDan
+        ]);
     }
     public $timestamps = false;
 }

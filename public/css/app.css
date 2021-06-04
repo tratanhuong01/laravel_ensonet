@@ -13,6 +13,33 @@
 .bg-size\:6\:5 {
     background-size: 600% 500%;
 }
+.bg-size\:3\:2 {
+    background-size: 300% 200%;
+}
+.stickerAnimation\:3\:2 {
+    animation: playv3vs2 1s steps(3) infinite,
+        playh3vs2 0.666s steps(2) infinite;
+}
+
+@keyframes playv3vs2 {
+    0% {
+        background-position-y: 0%;
+    }
+
+    100% {
+        background-position-y: 300%;
+    }
+}
+
+@keyframes playh3vs2 {
+    0% {
+        background-position-x: 0%;
+    }
+
+    100% {
+        background-position-x: 200%;
+    }
+}
 .stickerAnimation\:4\:4 {
     animation: playv4vs4 1s steps(4) infinite,
         playh4vs4 0.666s steps(4) infinite;

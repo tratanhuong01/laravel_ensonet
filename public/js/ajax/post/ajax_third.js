@@ -19,11 +19,32 @@ function loadUIEditPostMain(json) {
     $("#imagePost").addClass("relative");
     $("#imagePost").append(edit);
     store.set("imageAndVideoPostEdit", arrayImageAndVideoPostEdit);
+    console.log(json);
     for (var i = 0; i < json.length; i++) {
-        var div = document.createElement("div");
-        div.classList = "divImage relative";
-        var img = document.createElement("img");
-        img.style.objectFit = "cover";
+        var img;
+        var div;
+        if (
+            checkTypeEditPostImgVidFirst(json[i]) === "MOV" ||
+            checkTypeEditPostImgVidFirst(json[i]) === "MP4" ||
+            checkTypeEditPostImgVidFirst(json[i]) === "mp4"
+        ) {
+            div = document.createElement("div");
+            div.classList = "divImage relative flex justify-center";
+            img = document.createElement("video");
+            var divChilds = document.createElement("div");
+            divChilds.classList =
+                "bg-transparent cursor-pointer w-10 h-10 left-48% rounded-full flex justify-center absolute top-45per ml-5 ";
+            var iChilds = document.createElement("i");
+            iChilds.classList =
+                "far fa-play-circle text-4xl flex items-center text-white";
+            divChilds.appendChild(iChilds);
+            div.appendChild(divChilds);
+        } else {
+            div = document.createElement("div");
+            div.classList = "divImage relative";
+            img = document.createElement("img");
+            img.style.objectFit = "cover";
+        }
         if (json.length <= 1) {
             div.className = "w-full";
             img.className = "w-full";
@@ -61,7 +82,10 @@ function loadUIEditPostMain(json) {
 }
 function checkTypeEditPostImgVid(arr) {
     if (arr.Loai === 1) return arr.DuongDan.name.split(".")[1];
-    else return arr.DuongDan.split("/")[1].split(".")[1];
+    else return arr.DuongDan.substr(arr.DuongDan.length - 4);
+}
+function checkTypeEditPostImgVidFirst(arr) {
+    return arr.DuongDan.substr(arr.DuongDan.length - 3);
 }
 function returnUrlImageVideoEdit(arr) {
     if (arr.Loai === 1) return URL.createObjectURL(arr.DuongDan);
@@ -83,7 +107,10 @@ function loadUIPostMainEdit(arr) {
         if (
             checkTypeEditPostImgVid(arr[i]) === "MOV" ||
             checkTypeEditPostImgVid(arr[i]) === "MP4" ||
-            checkTypeEditPostImgVid(arr[i]) === "mp4"
+            checkTypeEditPostImgVid(arr[i]) === "mp4" ||
+            checkTypeEditPostImgVidFirst(arr[i]) === "MOV" ||
+            checkTypeEditPostImgVidFirst(arr[i]) === "MP4" ||
+            checkTypeEditPostImgVidFirst(arr[i]) === "mp4"
         ) {
             div = document.createElement("div");
             div.classList = "divImage relative flex justify-center";
@@ -227,7 +254,10 @@ function addImageVideoEdit(indexMain, array, divContent) {
         if (
             checkTypeEditPostImgVid(element) === "MOV" ||
             checkTypeEditPostImgVid(element) === "MP4" ||
-            checkTypeEditPostImgVid(element) === "mp4"
+            checkTypeEditPostImgVid(element) === "mp4" ||
+            checkTypeEditPostImgVidFirst(element) === "MOV" ||
+            checkTypeEditPostImgVidFirst(element) === "MP4" ||
+            checkTypeEditPostImgVidFirst(element) === "mp4"
         ) {
             var videoChild = document.createElement("video");
             videoChild.setAttribute("src", returnUrlImageVideoEdit(element));

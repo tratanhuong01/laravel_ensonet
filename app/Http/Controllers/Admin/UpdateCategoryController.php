@@ -34,7 +34,7 @@ class UpdateCategoryController extends Controller
                 return response()->json([
                     'view' => "" . view('Admin.Component.DetailCategory.Modal.ModalEdit')
                         ->with('modal', $modalEdit)
-                        ->with('id', GeneralID::GetID($value->table, $value->ID))
+                        ->with('id', $request->ID)
                 ]);
                 break;
             }
@@ -44,7 +44,7 @@ class UpdateCategoryController extends Controller
     {
         switch ($request->type) {
             case 'address':
-                Diachi::add(
+                Diachi::edit(
                     $request->IDDiaChi,
                     NULL,
                     $request->TenDiaChi
@@ -56,7 +56,7 @@ class UpdateCategoryController extends Controller
                 ]);
                 break;
             case 'school':
-                Truonghoc::add(
+                Truonghoc::edit(
                     $request->IDTruongHoc,
                     NULL,
                     $request->TenTruongHoc,
@@ -69,7 +69,7 @@ class UpdateCategoryController extends Controller
                 ]);
                 break;
             case 'company':
-                Congty::add(
+                Congty::edit(
                     $request->IDCongTy,
                     NULL,
                     $request->TenCongTy
@@ -81,7 +81,7 @@ class UpdateCategoryController extends Controller
                 ]);
                 break;
             case 'colorMessage':
-                Mautinnhan::add(
+                Mautinnhan::edit(
                     $request->IDMauTinNhan,
                     $request->TenMau
                 );
@@ -92,7 +92,7 @@ class UpdateCategoryController extends Controller
                 ]);
                 break;
             case 'sticker':
-                Nhandan::add(
+                Nhandan::edit(
                     $request->IDNhanDan,
                     $request->NhomNhanDan,
                     $request->DongNhanDan,
@@ -107,7 +107,7 @@ class UpdateCategoryController extends Controller
                 ]);
                 break;
             case 'feel':
-                Camxuc::add(
+                Camxuc::edit(
                     $request->IDCamXuc,
                     $request->TenCamXuc,
                     $request->BieuTuong
@@ -119,7 +119,7 @@ class UpdateCategoryController extends Controller
                 ]);
                 break;
             case 'typeNotify':
-                Loaithongbao::add(
+                Loaithongbao::edit(
                     $request->IDLoaiThongBao,
                     $request->TenLoaiThongBao,
                     $request->Loai
@@ -131,7 +131,7 @@ class UpdateCategoryController extends Controller
                 ]);
                 break;
             case 'privacy':
-                Quyenriengtu::add(
+                Quyenriengtu::edit(
                     $request->IDQuyenRiengTu,
                     $request->TenQuyenRiengTu,
                 );
@@ -183,7 +183,7 @@ class UpdateCategoryController extends Controller
                 }
                 break;
             case 'background':
-                Phongnen::add(
+                Phongnen::edit(
                     $request->IDPhongNen,
                     $request->DuongDanPN
                 );

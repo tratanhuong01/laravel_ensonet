@@ -34,6 +34,19 @@
                 @break
                 @case('File')
                 @switch($value->Accept)
+                @case('sticker')
+                <div class="flex items-start w-9/12">
+                    <input onchange="onChangeFileSticker(event)" type="file" name="file" id="{{ $value->Data->id }}" accept="{{ $value->Accept }}" class="w-1/2 pr-5 my-5 hidden">
+                    <label for="{{ $value->Data->id }}" class="flex items-center py-1.5 px-5 bg-red-500 
+                    font-bold text-white mr-5 rounded-lg my-4">
+                        <i class='bx bx-upload mt-0.5 text-2xl mr-3 
+                            flex items-center'></i>
+                        <span class="flex items-center">Chọn File....</span>
+                    </label>
+                    <div class="w-20 h-20 bg-gray-500 rounded-lg" id="show">
+                    </div>
+                </div>
+                @break
                 @case('image')
                 <div class="flex items-start w-9/12">
                     <input onchange="onChangePreviewImageDemo(event)" type="file" name="{{ $value->Data->name }}" id="{{ $value->Data->id }}" accept="{{ $value->Accept }}" class="w-1/2 pr-5 my-5 hidden">

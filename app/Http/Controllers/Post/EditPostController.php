@@ -282,7 +282,8 @@ class EditPostController extends Controller
             foreach ($post as $key => $value) {
                 $json[$key] = (object)[
                     'ID' => $value->IDHinhAnh,
-                    'DuongDan' => $value->DuongDan
+                    'DuongDan' => $value->DuongDan,
+                    'Loai' => $value->Loai
                 ];
             }
         return response()->json([

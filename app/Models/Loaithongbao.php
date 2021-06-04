@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Loaithongbao extends Model
 {
@@ -24,6 +25,19 @@ class Loaithongbao extends Model
         $loaithongbao->TenLoaiThongBao = $TenLoaiThongBao;
         $loaithongbao->Loai = $Loai;
         $loaithongbao->save();
+    }
+    public static function edit(
+        $IDLoaiThongBao,
+        $TenLoaiThongBao,
+        $Loai
+    ) {
+        DB::update(
+            'UPDATE loaithongbao SET TenLoaiThongBao = ? , 
+            Loai = ? WHERE IDLoaiThongBao = ? ',
+            [
+                $TenLoaiThongBao, $Loai, $IDLoaiThongBao
+            ]
+        );
     }
     public $timestamps = false;
 }

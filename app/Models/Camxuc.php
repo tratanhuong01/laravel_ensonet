@@ -26,6 +26,16 @@ class Camxuc extends Model
         $camxuc->BieuTuong = $BieuTuong;
         $camxuc->save();
     }
+    public static function edit(
+        $IDCamXuc,
+        $TenCamXuc,
+        $BieuTuong
+    ) {
+        DB::update('UPDATE camxuc SET TenCamXuc = ? , 
+        BieuTuong = ? WHERE IDCamXuc = ? ', [
+            $TenCamXuc, $BieuTuong, $IDCamXuc
+        ]);
+    }
     public static function search($data)
     {
         return DB::select("select * from camxuc 

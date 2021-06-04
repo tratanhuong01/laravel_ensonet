@@ -189,22 +189,22 @@ function openModaEditCategoryDetail(type, ID) {
         },
     });
 }
-function openModaDeleteCategoryDetail(type, ID) {
-    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
-    second.className += " fixed h-screen";
-    $("#second").append(createElementFromHTML($("#myLoading").html()));
-    $.ajax({
-        method: "GET",
-        url: "/admin/ProcessOpenModalDeleteCategoryDetail",
-        data: {
-            type: type,
-            ID: ID,
-        },
-        success: function (response) {
-            second.innerHTML = response.view;
-        },
-    });
-}
+// function openModaDeleteCategoryDetail(type, ID) {
+//     document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+//     second.className += " fixed h-screen";
+//     $("#second").append(createElementFromHTML($("#myLoading").html()));
+//     $.ajax({
+//         method: "GET",
+//         url: "/admin/ProcessOpenModalDeleteCategoryDetail",
+//         data: {
+//             type: type,
+//             ID: ID,
+//         },
+//         success: function (response) {
+//             second.innerHTML = response.view;
+//         },
+//     });
+// }
 function insertCategoryDetail(type, ID) {
     $.ajaxSetup({
         headers: {

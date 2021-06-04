@@ -254,15 +254,6 @@ class Category extends Model
                         'Type' => 'Input',
                     ],
                     'line4' => (object)[
-                        'Label' => 'Ảnh',
-                        'Data' => (object) [
-                            'name' => 'File',
-                            'id' => 'File',
-                        ],
-                        'Type' => 'File',
-                        'Accept' => 'image'
-                    ],
-                    'line5' => (object)[
                         'Label' => 'Hàng',
                         'Data' => (object) [
                             'placeHolder' => 'Nhập hàng...',
@@ -273,7 +264,7 @@ class Category extends Model
                         ],
                         'Type' => 'Input',
                     ],
-                    'line6' => (object)[
+                    'line5' => (object)[
                         'Label' => 'Cột',
                         'Data' => (object) [
                             'placeHolder' => 'Nhập cột...',
@@ -283,6 +274,15 @@ class Category extends Model
                             'disabled' => 'false'
                         ],
                         'Type' => 'Input',
+                    ],
+                    'line6' => (object)[
+                        'Label' => 'Ảnh',
+                        'Data' => (object) [
+                            'name' => 'File',
+                            'id' => 'File',
+                        ],
+                        'Type' => 'File',
+                        'Accept' => 'sticker'
                     ],
                 ],
                 'type' => 'sticker',
@@ -687,15 +687,6 @@ class Category extends Model
                                     'Type' => 'Input',
                                 ],
                                 'line4' => (object)[
-                                    'Label' => 'Ảnh',
-                                    'Data' => (object) [
-                                        'name' => 'File',
-                                        'id' => 'File',
-                                    ],
-                                    'Type' => 'File',
-                                    'Accept' => 'image'
-                                ],
-                                'line5' => (object)[
                                     'Label' => 'Hàng',
                                     'Data' => (object) [
                                         'placeHolder' => 'Nhập hàng...',
@@ -706,7 +697,7 @@ class Category extends Model
                                     ],
                                     'Type' => 'Input',
                                 ],
-                                'line6' => (object)[
+                                'line5' => (object)[
                                     'Label' => 'Cột',
                                     'Data' => (object) [
                                         'placeHolder' => 'Nhập cột...',
@@ -716,6 +707,16 @@ class Category extends Model
                                         'disabled' => 'false'
                                     ],
                                     'Type' => 'Input',
+                                ],
+                                'line6' => (object)[
+                                    'Label' => 'Ảnh',
+                                    'Data' => (object) [
+                                        'name' => 'File',
+                                        'id' => 'File',
+                                        'value' => $data->DuongDanNhanDan
+                                    ],
+                                    'Type' => 'File',
+                                    'Accept' => 'sticker'
                                 ],
                             ],
                             'type' => 'sticker',
