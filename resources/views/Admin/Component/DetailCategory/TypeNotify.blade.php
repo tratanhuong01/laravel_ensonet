@@ -1,10 +1,3 @@
-<?php
-
-use App\Models\Loaithongbao;
-
-$typeNotify = Loaithongbao::get();
-
-?>
 <button onclick="openModalAddCategoryDetail('typeNotify')" type="button" class="mr-4 w-40 py-2.5 rounded-lg bg-blue-500 
 font-bold text-white absolute top-3 right-5">
     Thêm
@@ -20,9 +13,12 @@ font-bold text-white absolute top-3 right-5">
                 <th class="p-2"></th>
                 <th class="p-2"></th>
             </tr>
+            @php
+            $data = $index == 0 ? $index : round($index/10)*10
+            @endphp
             @foreach ($typeNotify as $key => $item)
             <tr id="{{$item->IDLoaiThongBao}}">
-                <td class="p-2 stt">{{ $key + 1 }}</td>
+                <td class="p-2 stt">{{ $key + 1 + $data }}</td>
                 <td class="p-2">{{ $item->IDLoaiThongBao }}</td>
                 <td class="p-2">{{ $item->TenLoaiThongBao }}</td>
                 <td class="p-2 font-bold">

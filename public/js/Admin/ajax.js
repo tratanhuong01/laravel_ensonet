@@ -152,7 +152,8 @@ function onClickChangeCategory(key, name) {
             key: key,
         },
         success: function (response) {
-            $("#categoryLoad").html(response.view);
+            $("#categoryLoad").html(response.viewCategory);
+            $("#pageMain").html(response.viewPagination);
             $("#modalCategorySelect").addClass("hidden");
             $("#contentView").html(name);
         },
@@ -189,22 +190,22 @@ function openModaEditCategoryDetail(type, ID) {
         },
     });
 }
-// function openModaDeleteCategoryDetail(type, ID) {
-//     document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
-//     second.className += " fixed h-screen";
-//     $("#second").append(createElementFromHTML($("#myLoading").html()));
-//     $.ajax({
-//         method: "GET",
-//         url: "/admin/ProcessOpenModalDeleteCategoryDetail",
-//         data: {
-//             type: type,
-//             ID: ID,
-//         },
-//         success: function (response) {
-//             second.innerHTML = response.view;
-//         },
-//     });
-// }
+function openModaDeleteCategoryDetail(type, ID) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
+    $.ajax({
+        method: "GET",
+        url: "/admin/ProcessOpenModalDeleteCategoryDetail",
+        data: {
+            type: type,
+            ID: ID,
+        },
+        success: function (response) {
+            second.innerHTML = response.view;
+        },
+    });
+}
 function insertCategoryDetail(type, ID) {
     $.ajaxSetup({
         headers: {
@@ -214,6 +215,7 @@ function insertCategoryDetail(type, ID) {
     $("#" + ID).prop("disabled", false);
     let formData = new FormData($("#form")[0]);
     formData.append("type", type);
+    $("#cover").removeClass("hidden");
     $.ajax({
         method: "POST",
         url: "/admin/ProcessInsertCategoryDetail",
@@ -247,6 +249,7 @@ function updateCategoryDetail(type, ID, IDMain) {
     $("#" + IDMain).prop("disabled", false);
     let formData = new FormData($("#form")[0]);
     formData.append("type", type);
+    $("#cover").removeClass("hidden");
     $.ajax({
         method: "POST",
         url: "/admin/ProcessUpdateCategoryDetail",
@@ -270,6 +273,7 @@ function updateCategoryDetail(type, ID, IDMain) {
     });
 }
 function deleteCategoryDetail(type, ID) {
+    $("#cover").removeClass("hidden");
     $.ajax({
         method: "GET",
         url: "/admin/ProcessDeleteCategoryDetail",
@@ -278,6 +282,7 @@ function deleteCategoryDetail(type, ID) {
             ID: ID,
         },
         success: function (response) {
+            console.log("oke");
             $("#" + ID).remove();
             document
                 .getElementsByTagName("body")[0]

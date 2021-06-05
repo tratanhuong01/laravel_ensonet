@@ -25,6 +25,28 @@ use App\Process\DataProcessSix;
 use App\Process\DataProcessThird;
 use Illuminate\Database\Eloquent\Model;
 
+Route::get('/admin/login ', function () {
+    if (session()->has('admin'))
+        return redirect()->to('admin/dashboard')->send();
+    else
+        return view('admin/login');
+});
+
+Route::get('/admin/logout', function () {
+    Session::forget('admin');
+    return redirect()->to('admin/login')->send();
+});
+
+Route::get('/admin/dashboard', function () {
+    if (session()->has('admin')) {
+        return view('Admin.index');
+    } else
+        return view('admin/login');
+});
+
+Route::post('admin/ProcessLoginAd', [Admin\LoginControllerAd::class, 'login'])
+    ->name('ProcessLoginAd');
+
 // use session in admin api 
 Route::get('admin/ProcessFilterAdmin', [Admin\FilterController::class, 'filter']);
 Route::get('admin/ProcessSortAdmin', [Admin\SortController::class, 'sort']);

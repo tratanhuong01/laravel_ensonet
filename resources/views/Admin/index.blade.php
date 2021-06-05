@@ -200,7 +200,9 @@ $path = explode('/', parse_url(url()->current())['path']);
                         <hr>
                         <ul class="w-full">
                             <li class="w-full p-2">Cài đặt</li>
-                            <li onclick="window.location.href='login'" class="w-full p-2">Đăng Xuất</li>
+                            <li class="w-full p-2">
+                                <a href="{{ url('admin/logout') }}">Đăng Xuất</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

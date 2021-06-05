@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link rel="stylesheet" href="/css/app.css" />
     <link rel="stylesheet" href="/css/emojis.css" />
@@ -32,7 +33,8 @@
                 <img src="/img/logo.png" class="w-20 h-20 object-cover rounded-full" alt="">
             </div>
             <div class="w-full px-4 py-6 bg-white">
-                <form action="{{ route('ProcessLogin') }}" method="post">
+                <form action="{{ route('ProcessLoginAd') }}" method="POST">
+                    {{ csrf_field() }}
                     <p class="my-2">Tên đăng nhập</p>
                     <input type="text" class="w-full mx-auto border-2 border-gray-100 p-2.5 
                     border-solid" placeholder="Tên đăng nhập" name="username"><br>

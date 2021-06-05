@@ -11,47 +11,123 @@ class Category extends Model
         $category = [
             "address" => (object)[
                 "Name" => "Bảng địa chỉ",
-                "View" => "" . view('Admin.Component.DetailCategory.Address')
+                'viewCategory' => "" . view('Admin.Component.DetailCategory.Address')
+                    ->with('address', Query::getAllAddress(10, 0))
+                    ->with('index', 0)
+                    ->with('addressFull', Query::getAllAddressFull()),
+                'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                    ->with('index', 0)
+                    ->with('addressFull', Query::getAllAddressFull())
+                    ->with('num', count(Query::getAllAddressFull()) / 10)
+                    ->with('name', 'address')
             ],
             "company" => (object)[
                 "Name" => "Bảng công ty",
-                "View" => "" . view('Admin.Component.DetailCategory.Company')
+                'viewCategory' => "" . view('Admin.Component.DetailCategory.Company')
+                    ->with('company', Query::getAllCompany(10, 0))
+                    ->with('index', 0)
+                    ->with('companyFull', Query::getAllCompanyFull()),
+                'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                    ->with('index', 0)
+                    ->with('companyFull', Query::getAllCompanyFull())
+                    ->with('num', count(Query::getAllCompanyFull()) / 10)
+                    ->with('name', 'company')
             ],
             "school" => (object)[
                 "Name" => "Bảng trường học",
-                "View" => "" . view('Admin.Component.DetailCategory.School')
+                'viewCategory' => "" . view('Admin.Component.DetailCategory.School')
+                    ->with('school', Query::getAllSchool(10, 0))
+                    ->with('index', 0)
+                    ->with('schoolFull', Query::getAllSchoolFull()),
+                'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                    ->with('index', 0)
+                    ->with('schoolFull', Query::getAllSchoolFull())
+                    ->with('num', count(Query::getAllSchoolFull()) / 10)
+                    ->with('name', 'school')
             ],
             "sound" => (object)[
                 "Name" => "Bảng âm thanh",
-                "View" => "" . view('Admin.Component.DetailCategory.Sound')
+                'viewCategory' => "" . view('Admin.Component.DetailCategory.Sound')
+                    ->with('sound', Query::getAllSound(10, 0))
+                    ->with('index', 0)
+                    ->with('soundFull', Query::getAllSoundFull()),
+                'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                    ->with('index', 0)
+                    ->with('soundFull', Query::getAllSoundFull())
+                    ->with('num', count(Query::getAllSoundFull()) / 10)
+                    ->with('name', 'sound')
             ],
             "sticker" => (object)[
                 "Name" => "Bảng nhãn dán",
-                "View" => "" . view('Admin.Component.DetailCategory.Sticker')
+                'viewCategory' => "" . view('Admin.Component.DetailCategory.Sticker')
+                    ->with('sticker', Query::getAllSticker(10, 0))
+                    ->with('index', 0)
+                    ->with('stickerFull', Query::getAllStickerFull()),
+                'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                    ->with('index', 0)
+                    ->with('stickerFull', Query::getAllStickerFull())
+                    ->with('num', count(Query::getAllStickerFull()) / 10)
+                    ->with('name', 'sticker')
             ],
-            "colorMessenge" => (object)[
+            "colorMessage" => (object)[
                 "Name" => "Bảng màu tin nhắn",
-                "View" => "" . view('Admin.Component.DetailCategory.ColorMessage')
-            ],
-            "school" => (object)[
-                "Name" => "Bảng trường học",
-                "View" => "" . view('Admin.Component.DetailCategory.School')
+                'viewCategory' => "" . view('Admin.Component.DetailCategory.ColorMessage')
+                    ->with('colorMessage', Query::getAllColorMessage(10, 0))
+                    ->with('index', 0)
+                    ->with('colorMessageFull', Query::getAllColorMessageFull()),
+                'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                    ->with('index', 0)
+                    ->with('colorMessageFull', Query::getAllColorMessageFull())
+                    ->with('num', count(Query::getAllColorMessageFull()) / 10)
+                    ->with('name', 'colorMessage')
             ],
             "background" => (object)[
                 "Name" => "Bảng phông nền",
-                "View" => "" . view('Admin.Component.DetailCategory.Background')
+                'viewCategory' => "" . view('Admin.Component.DetailCategory.Background')
+                    ->with('background', Query::getAllBackground(10, 0))
+                    ->with('index', 0)
+                    ->with('backgroundFull', Query::getAllBackgroundFull()),
+                'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                    ->with('index', 0)
+                    ->with('backgroundFull', Query::getAllBackgroundFull())
+                    ->with('num', count(Query::getAllBackgroundFull()) / 10)
+                    ->with('name', 'background')
             ],
             "typeNotify" => (object)[
                 "Name" => "Bảng loại thông báo",
-                "View" => "" . view('Admin.Component.DetailCategory.TypeNotify')
+                'viewCategory' => "" . view('Admin.Component.DetailCategory.TypeNotify')
+                    ->with('typeNotify', Query::getAllTypeNotify(10, 0))
+                    ->with('index', 0)
+                    ->with('typeNotifyFull', Query::getAllTypeNotifyFull()),
+                'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                    ->with('index', 0)
+                    ->with('typeNotifyFull', Query::getAllTypeNotifyFull())
+                    ->with('num', count(Query::getAllTypeNotifyFull()) / 10)
+                    ->with('name', 'typeNotify')
             ],
             "feel" => (object)[
                 "Name" => "Bảng cảm xúc",
-                "View" => "" . view('Admin.Component.DetailCategory.Feel')
+                'viewCategory' => "" . view('Admin.Component.DetailCategory.Feel')
+                    ->with('feel', Query::getAllFeel(10, 0))
+                    ->with('index', 0)
+                    ->with('feelFull', Query::getAllFeelFull()),
+                'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                    ->with('index', 0)
+                    ->with('feelFull', Query::getAllFeelFull())
+                    ->with('num', count(Query::getAllFeelFull()) / 10)
+                    ->with('name', 'feel')
             ],
             "privacy" => (object)[
                 "Name" => "Bảng quyền riêng tư",
-                "View" => "" . view('Admin.Component.DetailCategory.Privacy')
+                'viewCategory' => "" . view('Admin.Component.DetailCategory.Privacy')
+                    ->with('privacy', Query::getAllPrivacy(10, 0))
+                    ->with('index', 0)
+                    ->with('privacyFull', Query::getAllPrivacyFull()),
+                'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                    ->with('index', 0)
+                    ->with('privacyFull', Query::getAllPrivacyFull())
+                    ->with('num', count(Query::getAllPrivacyFull()) / 10)
+                    ->with('name', 'privacy')
             ],
         ];
         return $category;
@@ -289,7 +365,7 @@ class Category extends Model
                 'table' => 'nhandan',
                 'ID' => 'IDNhanDan'
             ],
-            "colorMessenge" => (object)[
+            "colorMessage" => (object)[
                 'title' => 'Thêm màu tin nhắn',
                 'data' => [
                     'line1' => (object)[
@@ -299,7 +375,7 @@ class Category extends Model
                             'name' => 'IDMauTinNhan',
                             'value' => '',
                             'id' => 'IDMauTinNhan',
-                            'disabled' => 'true'
+                            'disabled' => 'false'
                         ],
                         'Type' => 'Input'
                     ],
@@ -314,8 +390,19 @@ class Category extends Model
                         ],
                         'Type' => 'Input'
                     ],
+                    'line3' => (object)[
+                        'Label' => 'Màu',
+                        'Data' => (object) [
+                            'placeHolder' => 'Nhập tên màu...',
+                            'name' => 'TenMau',
+                            'value' => '',
+                            'id' => 'TenMau',
+                            'disabled' => 'false'
+                        ],
+                        'Type' => 'Color'
+                    ],
                 ],
-                'type' => 'colorMessenge',
+                'type' => 'colorMessage',
                 'table' => 'mautinnhan',
                 'ID' => 'IDMauTinNhan'
             ],
@@ -334,17 +421,6 @@ class Category extends Model
                         'Type' => 'Input'
                     ],
                     'line2' => (object)[
-                        'Label' => 'Tên Màu',
-                        'Data' => (object) [
-                            'placeHolder' => 'Nhập tên màu...',
-                            'name' => 'TenMau',
-                            'value' => '',
-                            'id' => 'TenMau',
-                            'disabled' => 'false'
-                        ],
-                        'Type' => 'Input'
-                    ],
-                    'line3' => (object)[
                         'Label' => 'Ảnh',
                         'Data' => (object) [
                             'name' => 'File',
@@ -400,7 +476,7 @@ class Category extends Model
                 ],
                 'type' => 'typeNotify',
                 'table' => 'loaithongbao',
-                'ID' => 'IDLoaiThongbao'
+                'ID' => 'IDLoaiThongBao'
             ],
             "feel" => (object)[
                 'title' => 'Thêm cảm xúc',
@@ -724,7 +800,7 @@ class Category extends Model
                             'ID' => 'IDNhanDan'
                         ];
                         break;
-                    case "colorMessenge":
+                    case "colorMessage":
                         return  (object)[
                             'title' => 'Thêm màu tin nhắn',
                             'data' => [
@@ -735,7 +811,7 @@ class Category extends Model
                                         'name' => 'IDMauTinNhan',
                                         'value' => $data->IDMauTinNhan,
                                         'id' => 'IDMauTinNhan',
-                                        'disabled' => 'true'
+                                        'disabled' => 'false'
                                     ],
                                     'Type' => 'Input'
                                 ],
@@ -750,8 +826,19 @@ class Category extends Model
                                     ],
                                     'Type' => 'Input'
                                 ],
+                                'line3' => (object)[
+                                    'Label' => 'Màu',
+                                    'Data' => (object) [
+                                        'placeHolder' => 'Nhập tên màu...',
+                                        'name' => 'TenMau',
+                                        'value' => '',
+                                        'id' => 'TenMau',
+                                        'disabled' => 'false'
+                                    ],
+                                    'Type' => 'Color'
+                                ],
                             ],
-                            'type' => 'colorMessenge',
+                            'type' => 'colorMessage',
                             'table' => 'mautinnhan',
                             'ID' => 'IDMauTinNhan'
                         ];
@@ -771,7 +858,7 @@ class Category extends Model
                                     ],
                                     'Type' => 'Input'
                                 ],
-                                'line3' => (object)[
+                                'line2' => (object)[
                                     'Label' => 'Ảnh',
                                     'Data' => (object) [
                                         'name' => 'File',
@@ -829,7 +916,7 @@ class Category extends Model
                             ],
                             'type' => 'typeNotify',
                             'table' => 'loaithongbao',
-                            'ID' => 'IDLoaiThongbao'
+                            'ID' => 'IDLoaiThongBao'
                         ];
                         break;
                     case "feel":

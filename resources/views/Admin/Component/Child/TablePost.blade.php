@@ -23,7 +23,7 @@ $data = $index == 0 ? $index : round($index/10)*10
             <th class="p-2">Xem</th>
         </tr>
         @foreach($post as $key => $value)
-        <tr>
+        <tr id="{{$value->IDBaiDang}}">
             <td class="p-2">{{$key + 1 + $data}}</td>
             <td class="p-2">{{ $value->IDBaiDang }}</td>
             <td class="p-2">
@@ -75,7 +75,7 @@ $data = $index == 0 ? $index : round($index/10)*10
                 {{ Query::getFeelOfPost($value->IDBaiDang) }}
             </td>
             <td class="p-2">
-                <i class="far fa-trash-alt text-2xl text-gray-500 cursor-pointer"></i>
+                <i onclick="deleteWarnPost('{{$value->IDBaiDang}}')" class="far fa-trash-alt text-2xl text-gray-500 cursor-pointer"></i>
             </td>
             <td class="p-2">
                 <button onclick="openModalViewDetailAd('post','{{ $value->IDBaiDang }}')" type="button" class="py-1.5 px-3 rounded-2xl bg-blue-500 text-sm font-bold text-white">

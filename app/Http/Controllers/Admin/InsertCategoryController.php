@@ -155,9 +155,11 @@ class InsertCategoryController extends Controller
                 }
                 break;
             case 'background':
+                $nameFile = count(Phongnen::get()) + 1;
+                $request->file('file')->move(public_path('/img/BackgroundStory/'), $nameFile);
                 Phongnen::add(
                     $request->IDPhongNen,
-                    $request->DuongDanPN
+                    '/img/BackgroundStory/' . $nameFile
                 );
                 $data = Phongnen::where('phongnen.IDPhongNen', '=', $request->IDPhongNen)->get();
                 return response()->json([

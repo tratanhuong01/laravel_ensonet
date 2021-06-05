@@ -23,7 +23,7 @@ class Quyenriengtu extends Model
     }
     public static function edit($IDQuyenRiengTu, $TenQuyenRiengTu)
     {
-        DB::update('UPDATE quyenriengtu SET TenQuyenRiengTu = ? , 
+        DB::update('UPDATE quyenriengtu SET TenQuyenRiengTu = ? WHERE  
         IDQuyenRiengTu = ? ', [
             $TenQuyenRiengTu, $IDQuyenRiengTu
         ]);

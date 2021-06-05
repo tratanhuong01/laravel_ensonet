@@ -67,9 +67,10 @@ class GeneralID extends Model
                 break;
         }
     }
-    public static function GetID($table, $column)
+    public static function GetID($table, $column, $value)
     {
         $data = DB::select("SELECT  $column FROM $table  ORDER BY  $column DESC ");
+
         switch ($table) {
             case 'camxuc':
                 return $data[0]->IDCamXuc;
@@ -96,7 +97,14 @@ class GeneralID extends Model
                 return $data[0]->IDQuyenRiengTu;
                 break;
             case 'loaithongbao':
+                $data = DB::select("SELECT $column FROM $table 
+                WHERE $column = ? ", [$value]);
                 return $data[0]->IDLoaiThongBao;
+                break;
+            case 'mautinnhan':
+                $data = DB::select("SELECT $column FROM $table 
+                    WHERE $column = ? ", [$value]);
+                return $data[0]->IDMauTinNhan;
                 break;
             case 'phongnen':
                 return $data[0]->IDPhongNen;

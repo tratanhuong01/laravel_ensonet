@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Admin\Category;
 use App\Admin\GeneralID;
 use App\Models\Amthanh;
+use App\Models\Baidang;
+use App\Models\Binhluan;
+use App\Models\Thongbao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-
+use JD\Cloudder\Facades\Cloudder;
 
 Route::get('ProcessLoadViewDetailAd', [LoadDataControllerAd::class, 'loadViewDetail'])
     ->name('ProcessLoadViewDetailAd');
@@ -28,7 +31,8 @@ Route::get('ProcessClickLoadCategoryChild', function (Request $request) {
     foreach ($category as $key => $value) {
         if ($key == $request->key) {
             return response()->json([
-                "view" => "" . $value->View
+                "viewCategory" => "" . $value->viewCategory,
+                "viewPagination" => "" . $value->viewPagination
             ]);
             break;
         }
@@ -63,4 +67,27 @@ Route::get('ProcessOnChangeSticker', function (Request $request) {
         'view' => "" . view('Modal.ModalChat.Child.ChatSticker')
             ->with('value', $value)
     ]);
+});
+
+Route::get('ProcessDeletePostAPIAmin', function (Request $request) {
+    $images = DB::table('hinhanh')->where('hinhanh.IDBaiDang', '=', $request->IDBaiDang)->get();
+    for ($i = 0; $i < count($images); $i++) {
+        $public_Id = explode('/', $images[$i]->DuongDan);
+        $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+        Cloudder::destroyImage(explode('.', $public_Id)[0]);
+        Cloudder::delete(explode('.', $public_Id)[0]);
+    }
+    $comment = Binhluan::where('binhluan.IDBaiDang', '=', $request->IDBaiDang)->get();
+    foreach ($comment as $key => $value) {
+        if (json_decode($value->NoiDungBinhLuan)->LoaiBinhLuan == 1) {
+            $public_Id = explode('/', json_decode($value->NoiDungBinhLuan)->DuongDan);
+            $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+            Cloudder::destroyImage(explode('.', $public_Id)[0]);
+            Cloudder::delete(explode('.', $public_Id)[0]);
+        }
+        Binhluan::where('binhluan.IDBinhLuan', '=', $value->IDBinhLuan)->delete();
+    }
+    Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)->delete();
+    Thongbao::whereRaw("thongbao.IDContent LIKE '%" . $request->IDBaiDang . "%'")->delete();
+    return '';
 });

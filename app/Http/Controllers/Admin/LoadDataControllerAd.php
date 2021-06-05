@@ -311,11 +311,13 @@ class LoadDataControllerAd extends Controller
                 return response()->json([
                     'viewTable' => "" . view('Admin/Component/Child/TableUser')
                         ->with('account', $account)
-                        ->with('index', $request->index * 10),
+                        ->with('index', $request->index * 10)
+                        ->with('accountFull', Query::getAllAccountFull()),
                     'viewPage' => "" . view('Admin/Component/Child/Pagination')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllAccountFull()) / 10)
                         ->with('name', 'user')
+                        ->with('accountFull', Query::getAllAccountFull())
                 ]);
                 break;
             case 'post':
@@ -323,11 +325,13 @@ class LoadDataControllerAd extends Controller
                 return response()->json([
                     'viewTable' => "" . view('Admin/Component/Child/TablePost')
                         ->with('post', $post)
-                        ->with('index', $request->index * 10),
+                        ->with('index', $request->index * 10)
+                        ->with('postFull', Query::getAllPostFull()),
                     'viewPage' => "" . view('Admin/Component/Child/Pagination')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllPostFull()) / 10)
                         ->with('name', 'post')
+                        ->with('postFull', Query::getAllPostFull())
                 ]);
                 break;
             case 'story':
@@ -335,11 +339,13 @@ class LoadDataControllerAd extends Controller
                 return response()->json([
                     'viewTable' => "" . view('Admin/Component/Child/TableStory')
                         ->with('story', $post)
-                        ->with('index', $request->index * 10),
+                        ->with('index', $request->index * 10)
+                        ->with('storyFull', Query::getAllStoryFull()),
                     'viewPage' => "" . view('Admin/Component/Child/Pagination')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllStoryFull()) / 10)
                         ->with('name', 'story')
+                        ->with('storyFull', Query::getAllStoryFull())
                 ]);
                 break;
             case 'reply':
@@ -347,15 +353,154 @@ class LoadDataControllerAd extends Controller
                 return response()->json([
                     'viewTable' => "" . view('Admin/Component/Child/TableReply')
                         ->with('reply', $reply)
-                        ->with('index', $request->index * 10),
+                        ->with('index', $request->index * 10)
+                        ->with('replyFull', Query::getAllReplyFull()),
                     'viewPage' => "" . view('Admin/Component/Child/Pagination')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllReplyFull()) / 10)
                         ->with('name', 'story')
+                        ->with('replyFull', Query::getAllReplyFull())
                 ]);
                 break;
-            default:
-                # code...
+            case 'address':
+                $reply = Query::getAllAddress(10, $request->index * 10);
+                return response()->json([
+                    'viewCategory' => "" . view('Admin.Component.DetailCategory.Address')
+                        ->with('address', $reply)
+                        ->with('index', $request->index * 10)
+                        ->with('addressFull', Query::getAllAddressFull()),
+                    'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('addressFull', Query::getAllAddressFull())
+                        ->with('num', count(Query::getAllAddressFull()) / 10)
+                        ->with('name', 'address')
+                ]);
+                break;
+            case 'school':
+                $school = Query::getAllSchool(10, $request->index * 10);
+                return response()->json([
+                    'viewCategory' => "" . view('Admin.Component.DetailCategory.School')
+                        ->with('school', $school)
+                        ->with('index', $request->index * 10)
+                        ->with('schoolFull', Query::getAllSchoolFull()),
+                    'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('schoolFull', Query::getAllSchoolFull())
+                        ->with('num', count(Query::getAllSchoolFull()) / 10)
+                        ->with('name', 'school')
+                ]);
+                break;
+            case 'company':
+                $school = Query::getAllCompany(10, $request->index * 10);
+                return response()->json([
+                    'viewCategory' => "" . view('Admin.Component.DetailCategory.Company')
+                        ->with('company', $school)
+                        ->with('index', $request->index * 10)
+                        ->with('companyFull', Query::getAllCompanyFull()),
+                    'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('companyFull', Query::getAllCompanyFull())
+                        ->with('num', count(Query::getAllCompanyFull()) / 10)
+                        ->with('name', 'company')
+                ]);
+                break;
+            case 'sound':
+                $school = Query::getAllSound(10, $request->index * 10);
+                return response()->json([
+                    'viewCategory' => "" . view('Admin.Component.DetailCategory.Sound')
+                        ->with('sound', $school)
+                        ->with('index', $request->index * 10)
+                        ->with('soundFull', Query::getAllSoundFull()),
+                    'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('soundFull', Query::getAllSoundFull())
+                        ->with('num', count(Query::getAllSoundFull()) / 10)
+                        ->with('name', 'sound')
+                ]);
+                break;
+            case 'sticker':
+                $school = Query::getAllSticker(10, $request->index * 10);
+                return response()->json([
+                    'viewCategory' => "" . view('Admin.Component.DetailCategory.Sticker')
+                        ->with('sticker', $school)
+                        ->with('index', $request->index * 10)
+                        ->with('stickerFull', Query::getAllStickerFull()),
+                    'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('stickerFull', Query::getAllStickerFull())
+                        ->with('num', count(Query::getAllStickerFull()) / 10)
+                        ->with('name', 'sticker')
+                ]);
+                break;
+            case 'colorMessage':
+                $school = Query::getAllColorMessage(10, $request->index * 10);
+                return response()->json([
+                    'viewCategory' => "" . view('Admin.Component.DetailCategory.ColorMessage')
+                        ->with('colorMessage', $school)
+                        ->with('index', $request->index * 10)
+                        ->with('colorMessageFull', Query::getAllColorMessageFull()),
+                    'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('colorMessageFull', Query::getAllColorMessageFull())
+                        ->with('num', count(Query::getAllColorMessageFull()) / 10)
+                        ->with('name', 'colorMessage')
+                ]);
+                break;
+            case 'background':
+                $school = Query::getAllBackground(10, $request->index * 10);
+                return response()->json([
+                    'viewCategory' => "" . view('Admin.Component.DetailCategory.Background')
+                        ->with('background', $school)
+                        ->with('index', $request->index * 10)
+                        ->with('backgroundFull', Query::getAllBackgroundFull()),
+                    'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('backgroundFull', Query::getAllBackgroundFull())
+                        ->with('num', count(Query::getAllBackgroundFull()) / 10)
+                        ->with('name', 'background')
+                ]);
+                break;
+            case 'typeNotify':
+                $school = Query::getAllTypeNotify(10, $request->index * 10);
+                return response()->json([
+                    'viewCategory' => "" . view('Admin.Component.DetailCategory.TypeNotify')
+                        ->with('typeNotify', $school)
+                        ->with('index', $request->index * 10)
+                        ->with('typeNotifyFull', Query::getAllTypeNotifyFull()),
+                    'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('typeNotifyFull', Query::getAllTypeNotifyFull())
+                        ->with('num', count(Query::getAllTypeNotifyFull()) / 10)
+                        ->with('name', 'typeNotify')
+                ]);
+                break;
+            case 'feel':
+                $school = Query::getAllFeel(10, $request->index * 10);
+                return response()->json([
+                    'viewCategory' => "" . view('Admin.Component.DetailCategory.Feel')
+                        ->with('feel', $school)
+                        ->with('index', $request->index * 10)
+                        ->with('feelFull', Query::getAllFeelFull()),
+                    'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('feelFull', Query::getAllFeelFull())
+                        ->with('num', count(Query::getAllFeelFull()) / 10)
+                        ->with('name', 'feel')
+                ]);
+                break;
+            case 'privacy':
+                $school = Query::getAllPrivacy(10, $request->index * 10);
+                return response()->json([
+                    'viewCategory' => "" . view('Admin.Component.DetailCategory.Privacy')
+                        ->with('privacy', $school)
+                        ->with('index', $request->index * 10)
+                        ->with('privacyFull', Query::getAllPrivacyFull()),
+                    'viewPagination' => "" . view('Admin.Component.DetailCategory.Child.Pagination')
+                        ->with('index', $request->index * 10)
+                        ->with('privacyFull', Query::getAllPrivacyFull())
+                        ->with('num', count(Query::getAllPrivacyFull()) / 10)
+                        ->with('name', 'privacy')
+                ]);
                 break;
         }
     }

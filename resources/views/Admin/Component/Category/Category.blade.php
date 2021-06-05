@@ -24,4 +24,8 @@ $category = Category::category();
     <div class="w-full" id="categoryLoad">
 
     </div>
+    <div class="w-full py-3">
+        <ul class="flex justify-center" id="pageMain">
+        </ul>
+    </div>
 </div>

@@ -60,6 +60,20 @@ function paginationAdmin(name, index) {
         },
     });
 }
+function paginationAdminCategory(name, index) {
+    $.ajax({
+        method: "GET",
+        url: "/admin/ProcessPaginationAdmin",
+        data: {
+            index: index,
+            name: name,
+        },
+        success: function (response) {
+            $("#categoryLoad").html(response.viewCategory);
+            $("#pageMain").html(response.viewPagination);
+        },
+    });
+}
 function openPost(type) {
     document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
     second.className += " fixed h-screen";

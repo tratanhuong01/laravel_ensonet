@@ -92,18 +92,27 @@ class UpdateCategoryController extends Controller
                 ]);
                 break;
             case 'sticker':
+                $sticker = Nhandan::where('nhandan.IDNhanDan', '=', $request->IDNhanDan)->get();
+                if ($request->hasFile('file')) {
+                    $public_Id = explode('/', $sticker[0]->DuongDan);
+                    $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+                    Cloudder::destroyImage(explode('.', $public_Id)[0]);
+                    Cloudder::delete(explode('.', $public_Id)[0]);
+                    Cloudder::upload($request->file('file'), null, ['folder' => 'Sticker'], 'PostNormal.jpg');
+                    $nameFile = Cloudder::getResult()['url'];
+                }
                 Nhandan::edit(
                     $request->IDNhanDan,
                     $request->NhomNhanDan,
                     $request->DongNhanDan,
-                    $request->DuongDanNhanDan,
+                    $nameFile,
                     $request->Hang,
                     $request->Cot
                 );
-                $data = Truonghoc::where('truonghoc.IDTruongHoc', '=', $request->IDNhanDan)->get();
+                $sticker = Nhandan::where('nhandan.IDNhanDan', '=', $request->IDNhanDan)->get();
                 return response()->json([
                     'view' => "" . view('Admin.Component.DetailCategory.Child.Sticker')
-                        ->with('item', $data[0])
+                        ->with('item', $sticker[0])
                 ]);
                 break;
             case 'feel':

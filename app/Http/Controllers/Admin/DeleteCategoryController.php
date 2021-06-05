@@ -17,6 +17,7 @@ use App\Models\Phongnen;
 use App\Models\Quyenriengtu;
 use App\Models\Truonghoc;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use JD\Cloudder\Facades\Cloudder;
 
 class DeleteCategoryController extends Controller
@@ -34,7 +35,7 @@ class DeleteCategoryController extends Controller
                 return response()->json([
                     'view' => "" . view('Admin.Component.DetailCategory.Modal.ModalDelete')
                         ->with('modal', $modalEdit)
-                        ->with('id', GeneralID::GetID($value->table, $value->ID))
+                        ->with('id', GeneralID::GetID($value->table, $value->ID, $request->ID))
                 ]);
                 break;
             }
@@ -44,35 +45,32 @@ class DeleteCategoryController extends Controller
     {
         switch ($request->type) {
             case 'address':
-                $data = Diachi::where('diachi.IDDiaChi', '=', $request->ID)->get();
-                Diachi::where('diachi.IDDiaChi', '=', $request->ID)->detele();
+                Diachi::where('diachi.IDDiaChi', '=', $request->ID)->delete();
                 break;
             case 'school':
-                $data = Truonghoc::where('truonghoc.IDTruongHoc', '=', $request->ID)->get();
-                Truonghoc::where('truonghoc.IDTruongHoc', '=', $request->ID)->detele();
+                Truonghoc::where('truonghoc.IDTruongHoc', '=', $request->ID)->delete();
                 break;
             case 'company':
-                $data = Congty::where('congty.IDCongTy', '=', $request->ID)->get();
-                Congty::where('congty.IDCongTy', '=', $request->ID)->detele();
+                Congty::where('congty.IDCongTy', '=', $request->ID)->delete();
                 break;
             case 'colorMessage':
-                $data = Mautinnhan::where('mautinnhan.IDMauTinNhan', '=', $request->ID)->get();
                 Mautinnhan::where('mautinnhan.IDMauTinNhan', '=', $request->ID)->delete();
                 break;
             case 'sticker':
-                $data = Truonghoc::where('truonghoc.IDTruongHoc', '=', $request->ID)->get();
-                Truonghoc::where('truonghoc.IDTruongHoc', '=', $request->ID)->delete();
+                $data = Nhandan::where('nhandan.IDNhanDan', '=', $request->ID)->get();
+                $public_Id = explode('/', $data[0]->DuongDanNhanDan);
+                $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+                Cloudder::destroyImage(explode('.', $public_Id)[0]);
+                Cloudder::delete(explode('.', $public_Id)[0]);
+                Nhandan::where('nhandan.IDNhanDan', '=', $request->ID)->delete();
                 break;
             case 'feel':
-                $data = Camxuc::where('camxuc.IDCamXuc', '=', $request->ID)->get();
                 Camxuc::where('camxuc.IDCamXuc', '=', $request->ID)->delete();
                 break;
             case 'typeNotify':
-                $data = Loaithongbao::where('loaithongbao.IDLoaiThongBao', '=', $request->ID)->get();
                 Loaithongbao::where('loaithongbao.IDLoaiThongBao', '=', $request->ID)->delete();
                 break;
             case 'privacy':
-                $data = Quyenriengtu::where('quyenriengtu.IDQuyenRiengTu', '=', $request->ID)->get();
                 Quyenriengtu::where('quyenriengtu.IDQuyenRiengTu', '=', $request->ID)->delete();
                 break;
             case 'sound':
@@ -90,10 +88,13 @@ class DeleteCategoryController extends Controller
                 Amthanh::where('amthanh.IDAmThanh', '=', $request->ID)->delete();
                 break;
             case 'background':
-                Phongnen::where('phongnen.IDPhongNen', '=', $request->ID)->delete();
-                break;
-            default:
-                # code...
+                $data = Phongnen::where('phongnen.IDPhongNen', '=', $request->ID)->get();
+                if (File::exists(public_path($data[0]->DuongDanPN))) {
+                    File::delete(public_path($data[0]->DuongDanPN));
+                } else {
+                    dd('File does not exists.');
+                }
+                $data = Phongnen::where('phongnen.IDPhongNen', '=', $request->ID)->delete();
                 break;
         }
     }

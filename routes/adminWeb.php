@@ -6,17 +6,6 @@ use App\Models\Gioithieu;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-Route::get('/login', function () {
-    if (session()->has('admin'))
-        return redirect()->to('admin/dashboard')->send();
-    else
-        return view('Admin/login');
-});
-
-Route::get('/dashboard', function () {
-    return view('Admin/index');
-});
-
 Route::get('/user', function () {
     $userTable = (object)[
         "Filter" => (object)[
@@ -237,6 +226,3 @@ Route::get('/reply', function () {
 Route::get('/category', function () {
     return view('Admin/index');
 });
-
-Route::post('ProcessLoginAd', [LoginControllerAd::class, 'login'])
-    ->name('ProcessLoginAd');
