@@ -8,7 +8,7 @@ $users = Session::get('users')[0];
 ?>
 
 <div class="w-full mx-auto py-2 pt-3 dark:bg-dark-second rounded-lg">
-    <input type="hidden" name="indexOfPicture" id="indexOfPicture" value="0">
+    <input type="hidden" name="indexOfPicture" id="indexOfPicture" value="1">
     <input type="hidden" name="typeViewOfPicture" id="typeViewOfPicture" value="">
     @include('Timeline/Picture')
     <div class="w-full hidden" id="mainPic">
@@ -18,14 +18,14 @@ $users = Session::get('users')[0];
                 <p>
                 <ul class="flex" style="font-size: 15px;">
                     <li onclick="loadPicture('PictureHaveFaceOfUser',
-                    '{{ $users->IDTaiKhoan }}')" class="cursor-pointer py-2 px-4 text-center
+                    '{{ $users->IDTaiKhoan }}',this)" class="activePictureText cursor-pointer py-2 px-4 text-center
                      border-blue-500 border-solid border-b-4 text-blue-500">
-                        Ảnh có mặt bạn</li>
+                        Ảnh gắn thẻ</li>
                     <li onclick="loadPicture('PictureOfUser',
-                    '{{ $users->IDTaiKhoan }}')" class="cursor-pointer py-2 px-4 text-center 
-                    text-gray-600 dark:text-white">Ảnh của Hưởng</li>
+                    '{{ $users->IDTaiKhoan }}',this)" class="activePictureText cursor-pointer py-2 px-4 text-center 
+                    text-gray-600 dark:text-white">Ảnh của {{ $users->Ten }}</li>
                     <li onclick="loadPicture('Album',
-                    '{{ $users->IDTaiKhoan }}')" class="cursor-pointer py-2 px-4 text-center 
+                    '{{ $users->IDTaiKhoan }}',this)" class="activePictureText cursor-pointer py-2 px-4 text-center 
                     text-gray-600 dark:text-white">Album</li>
                 </ul>
             </div>
@@ -39,7 +39,11 @@ $users = Session::get('users')[0];
                         display: block;
                     }
                 </style>
-                @include('Component/Child/Image',['imageTag' => array_slice($imageTag,0,15)])
+                <div class="w-full" id="mainChild">
+                    @include('Component/Child/Image',['imageTag' => array_slice($imageTag,0,15),
+                    'users' => $users])
+                </div>
+                @include('Component.Child.LoadingViewMore',['users' => $users])
             </div>
         </div>
         <!-- <div class="w-full mx-auto my-2">
@@ -52,20 +56,5 @@ $users = Session::get('users')[0];
     setTimeout(function() {
         $('.removeTimelinePicture').remove()
         $('#mainPic').removeClass('hidden')
-    }, 10);
-    if (action == 'inactive') {
-        loadTimeLinePicture($('#indexOfPicture').val(), $('#typeViewOfPicture').val(),
-            '{{ $users->IDTaiKhoan }}')
-    }
-    $(window).scroll(function() {
-        if ($(window).scrollTop() + $(window).height() - 900 > $("#mainChild").height() &&
-            action == 'inactive') {
-            action = 'active';
-            setTimeout(function() {
-                loadTimeLinePicture($('#indexOfPicture').val(), $('#typeViewOfPicture').val(),
-                    '{{ $users->IDTaiKhoan }}')
-                $('.mainChild').removeClass('hidden');
-            }, 500);
-        }
-    });
+    }, 1000);
 </script>

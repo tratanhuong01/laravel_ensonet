@@ -3,8 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @if (session()->has('user'))
-<meta property="userID" content="{{isset(Session::get('user')[0]) ? 
-Session::get('user')[0]->IDTaiKhoan : '' }}" />
+<meta property="userID" content="Session::get('user')[0]->IDTaiKhoan" />
 @endif
 <!-- meta -->
 
@@ -31,6 +30,7 @@ Session::get('user')[0]->IDTaiKhoan : '' }}" />
 <!-- cdn general -->
 
 <!-- js general -->
+<script src="/js/ajax/login/ajax.js"></script>
 <script src="/js/ajax/header/ajax.js"></script>
 <script src="/js/scrollbar.js"></script>
 <script src="/js/event/event.js"></script>

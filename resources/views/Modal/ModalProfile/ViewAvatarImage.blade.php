@@ -21,10 +21,10 @@ fixed top-1/2 left-1/2 bg-white dark:bg-dark-second z-10 mt-1" style="transform:
         <div class="w-11/12 text-right pt-8 pb-4" id="formUpdateAvatar1">
             {{ csrf_field() }}
             <input type="hidden" name="pathAvatar" id="" value="">
-            <button type="button" onclick="closePost()" class="w-2/12 font-bold p-2 border-none rounded-lg 
+            <button type="button" id="btnCancelUpdateAvatar" onclick="closePost()" class="w-2/12 font-bold p-2 border-none rounded-lg 
             dark:text-white">Hủy</button>
             <button type="button" class="w-2/12 font-bold p-2 border-none rounded-lg bg-blue-600 
-            text-white ml-4" onclick="updateAvatar()">Lưu</button>
+            text-white ml-4" onclick="updateAvatar(this)">Lưu</button>
         </div>
     </form>
 </div>

@@ -6,12 +6,14 @@ use App\Events\ChatGroupEvent;
 use App\Events\ChatNorlEvent;
 use App\Events\RetrievalMessageEvent;
 use App\Http\Controllers\Controller;
+use App\Models\Hinhanh;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\Tinnhan;
 use App\Process\DataProcess;
 use Illuminate\Support\Facades\Redis;
+use JD\Cloudder\Facades\Cloudder;
 
 class DeleteMessageController extends Controller
 {
@@ -39,6 +41,18 @@ class DeleteMessageController extends Controller
                         '2'
                     ), $request->IDTinNhan]
                 );
+                $mess = Tinnhan::where('tinnhan.IDTinNhan', '=', $request->IDTinNhan)->get();
+                $mess = json_decode($mess[0]->NoiDung);
+                foreach ($mess as $key => $value) {
+                    if ($value->LoaiTinNhan == 1) {
+                        $public_Id = explode('/', $value->LoaiTinNhan->DuongDan);
+                        $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+                        Cloudder::destroyImage(explode('.', $public_Id)[0]);
+                        Cloudder::delete(explode('.', $public_Id)[0]);
+                        Hinhanh::where('hinhanh.IDHinhAnh', '=', $value->IDNoiDungTinNhan)->delete();
+                    }
+                }
+
                 $userGroup = DataProcess::getUserOfGroupMessage($request->IDNhomTinNhan);
                 if (count($userGroup) == 1)
                     event(new RetrievalMessageEvent(

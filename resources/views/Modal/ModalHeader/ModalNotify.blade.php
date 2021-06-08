@@ -22,12 +22,35 @@ use App\Models\Notify;
     @foreach($notify as $key => $value)
     <?php $path = "/post" . "/" . explode('&', $value[0][0]->IDContent)[0]; ?>
     @switch($value[0][0]->IDLoaiThongBao)
+    @case('WARNPOST00')
+    <div class="w-full py-2 flex cursor-pointer 
+    dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
+        <div class="relative pl-2">
+            <div class="w-16 h-16 rounded-full mt-3 relative">
+                <img src="/img/logo.png" class="w-14 h-14 rounded-full object-cover 
+                border-2 border-white" alt="">
+            </div>
+        </div>
+        <div class="w-9/12 dark:text-gray-300 pl-3">
+            {{ $value[0][0]->TenLoaiThongBao }}.
+            <br>
+            <p class="text-xs font-bold">{{ StringUtil::CheckDateTime($value[0][0]->ThoiGianThongBao) }}
+                &nbsp;&nbsp;&nbsp;</p>
+        </div>
+        <div class="w-1/12 relative text-center dotNotView">
+            @if ($value[0][0]->TinhTrang != 2)
+            <span class="bg-blue-400 rounded-full p-1.5 absolute top-1/2" style="transform: translateY(-50%);"></span>
+            @else
+            @endif
+        </div>
+    </div>
+    @break
     @case('CSBVCB123')
     <div onclick="window.location.href='{{ url($path) }}'" class="w-full py-2 flex cursor-pointer 
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class="relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 dark:bg-gray-300 right-0 text-xl">
                     <i class='bx bxs-share text-2xl dark:text-gray-300'></i>
@@ -60,7 +83,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class="relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 dark:bg-gray-300 right-0 text-xl">
                     <i class='bx bxs-purchase-tag text-2xl dark:text-gray-300'></i>
@@ -93,7 +116,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class="relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 right-0 text-xl">
                     {{ Functions::getFeelMain($value['loaiCamXuc']) }}
@@ -126,7 +149,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class="relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 right-0 text-xl">
                     {{ Functions::getFeelMain($value['loaiCamXuc']) }}
@@ -159,7 +182,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class="relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 right-0 text-xl">
                     {{ Functions::getFeelMain($value['loaiCamXuc']) }}
@@ -189,7 +212,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class="relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 right-0 text-xl">
                     {{ Functions::getFeelMain($value['loaiCamXuc']) }}
@@ -219,7 +242,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class="pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 right-0 text-xl rounded-full bg-dark-third">
                     💭
@@ -254,7 +277,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class=" pt-2 relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 right-0 text-xl">
                     💭
@@ -285,7 +308,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class=" pt-2 relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 right-0 text-xl">
                     💭
@@ -314,7 +337,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class="relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 right-0 text-xl">
                     💭
@@ -345,7 +368,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class="relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 right-0 text-xl">
                     💭
@@ -374,7 +397,7 @@ use App\Models\Notify;
     dark:hover:bg-dark-third text-gray-700 hover:bg-gray-100">
         <div class="relative pl-2">
             <div class="w-16 h-16 rounded-full relative">
-                <img src="/{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
+                <img src="{{ $value[0][0]->AnhDaiDien }}" class="w-14 h-14 rounded-full object-cover 
             border-2 border-white" alt="">
                 <span class="absolute bottom-0 right-0 text-xl">
                     {{ Functions::getFeelMain($value['loaiCamXuc']) }}

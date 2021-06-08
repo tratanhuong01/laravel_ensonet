@@ -4,7 +4,7 @@
     <div class="mr-2">
         <a href="">
             <img class="w-12 h-12 object-cover rounded-full 
-                                border-4 border-solid border-gray-200" src="/{{ $data[0]->AnhDaiDien }}"></a>
+                                border-4 border-solid border-gray-200" src="{{ $data[0]->AnhDaiDien }}"></a>
     </div>
     <div class="relative pl-1 w-3/4">
         <div class="dark:text-gray-300 text-left"><a href=""><b class="dark:text-white">

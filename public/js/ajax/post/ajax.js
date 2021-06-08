@@ -98,7 +98,11 @@ function editPost(IDBaiDang) {
                 document.getElementById("myTriggers"),
                 document.getElementById("myEmojis")
             );
-            if (response.json !== "") loadUIEditPostMain(response.json);
+            if (response.json !== "") {
+                if (response.state !== "3") {
+                    loadUIEditPostMain(response.json);
+                }
+            }
         },
     });
 }
@@ -312,7 +316,7 @@ function tickFeel(IDCamXuc) {
         },
     });
 }
-function viewUserTagOfPost(IDBaiDang) {
+function viewUserTagOfPost(IDBaiDang, user) {
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -326,6 +330,7 @@ function viewUserTagOfPost(IDBaiDang) {
         url: "/ProcessViewUserTagOfPost",
         data: {
             IDBaiDang: IDBaiDang,
+            user: user,
         },
         success: function (response) {
             $("#second").html(response);

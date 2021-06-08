@@ -77,4 +77,20 @@ class DataProcessSecond extends Model
                 return false;
         }
     }
+    public static function checkIsFriends($id, $id__, $post)
+    {
+        if ($id == $id__) {
+            return true;
+        } else {
+            $relation = Moiquanhe::where('IDTaiKhoan', '=', $id)
+                ->where('IDBanBe', '=', $id__)->get();
+            if (count($relation) > 0) {
+                if ($relation[0]->TinhTrang == 3)
+                    return true;
+                elseif ($post[0]->IDQuyenRiengTu == 'CONGKHAI')
+                    return true;
+            }
+            return false;
+        }
+    }
 }

@@ -24,6 +24,7 @@ use App\Process\DataProcessThird;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use JD\Cloudder\Facades\Cloudder;
 
 class ChatController extends Controller
 {
@@ -50,13 +51,16 @@ class ChatController extends Controller
             $request->IDNhomTinNhan,
             $request->IDTaiKhoan
         );
-        if (count($userOfGroupChat) == 1) {
-            $chater = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
-            return view('Modal.ModalChat.Child.HideChat')->with('chater', $chater);
+        if (count($userOfGroupChat) == 0) {
         } else {
-            $userOfGroupChat = DataProcess::getUserOfGroupMessageReal($request->IDNhomTinNhan);
-            return view('Modal.ModalChat.Child.HideChatGroupMain')->with('chater', $userOfGroupChat)
-                ->with('idNhomTinNhan', $request->IDNhomTinNhan);
+            if (count($userOfGroupChat) == 1) {
+                $chater = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
+                return view('Modal.ModalChat.Child.HideChat')->with('chater', $chater);
+            } else {
+                $userOfGroupChat = DataProcess::getUserOfGroupMessageReal($request->IDNhomTinNhan);
+                return view('Modal.ModalChat.Child.HideChatGroupMain')->with('chater', $userOfGroupChat)
+                    ->with('idNhomTinNhan', $request->IDNhomTinNhan);
+            }
         }
     }
     public function openMessenger()
@@ -181,23 +185,22 @@ class ChatController extends Controller
                 $id = 10000;
                 for ($i = 0; $i < (int)$request->numberArray; $i++) {
                     $file = $request->file('image_' . $i);
-                    $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . '_' . $i . '.jpg';
                     $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
-                    $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . $idHinhAnh . '.jpg';
+                    Cloudder::upload($file, null, ['folder' => 'ImageMessage'], 'ImageMessage.jpg');
+                    $nameFile = Cloudder::getResult()['url'];
                     Hinhanh::add(
                         $idHinhAnh,
                         'IMAGEMESS',
                         NULL,
-                        'img/ImageMessage/' . $nameFile,
+                        $nameFile,
                         $request->NoiDungBinhLuan,
                         3,
                         $idTinNhan
                     );
-                    $file->move(public_path('img/ImageMessage'), $nameFile);
                     $json[$i] = (object)[
                         'IDNoiDungTinNhan' => $idHinhAnh,
                         'LoaiTinNhan' => '1',
-                        'DuongDan' => 'img/ImageMessage/' . $nameFile,
+                        'DuongDan' => $nameFile,
                         'NoiDungTinNhan' => ''
                     ];
                 }
@@ -268,23 +271,22 @@ class ChatController extends Controller
             if ($request->hasFile('image_0')) {
                 for ($i = 0; $i < (int)$request->numberArray; $i++) {
                     $file = $request->file('image_' . $i);
-                    $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . '_' . $i . '.jpg';
                     $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
-                    $nameFile = Session::get('user')[0]->IDTaiKhoan . $idTinNhan . $idHinhAnh . '.jpg';
+                    Cloudder::upload($file, null, ['folder' => 'ImageMessage'], 'ImageMessage.jpg');
+                    $nameFile = Cloudder::getResult()['url'];
                     Hinhanh::add(
                         $idHinhAnh,
                         'IMAGEMESS',
                         NULL,
-                        'img/ImageMessage/' . $nameFile,
+                        $nameFile,
                         $request->NoiDungBinhLuan,
                         3,
                         $idTinNhan
                     );
-                    $file->move(public_path('img/ImageMessage'), $nameFile);
                     $json[$i] = (object)[
                         'IDNoiDungTinNhan' => $idHinhAnh,
                         'LoaiTinNhan' => '1',
-                        'DuongDan' => 'img/ImageMessage/' . $nameFile,
+                        'DuongDan' =>  $nameFile,
                         'NoiDungTinNhan' => ''
                     ];
                 }

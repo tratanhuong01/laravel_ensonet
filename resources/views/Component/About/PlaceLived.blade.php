@@ -6,7 +6,7 @@ use App\Process\DataProcessSecond;
 use Illuminate\Support\Facades\Session;
 
 $user = Session::get('user');
-$json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', '1000000001')->get()[0]->JsonGioiThieu;
+$json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->get()[0]->JsonGioiThieu;
 $json = json_decode($json);
 ?>
 <form action="" method="post" id="formTongQuan">

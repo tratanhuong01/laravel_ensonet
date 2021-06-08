@@ -101,7 +101,10 @@ use App\Models\StringUtil;
     <!-- place show modal -->
     <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second"></div>
     <!-- place show modal -->
-
+    <!-- place show notify -->
+    <div class="w-80 fixed bottom-3 left-5" id="notifyShow">
+    </div>
+    <!-- place show notify -->
     <!-- timeline -->
     @include('TimeLine/DivMainTimeLine')
     <!-- timeline -->

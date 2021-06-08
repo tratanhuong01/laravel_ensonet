@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\StringUtil;
 use App\Models\Functions;
 use App\Models\Nhandan;
+use App\Process\DataProcessSix;
 
 $user = Session::get('user');
 
@@ -12,7 +13,7 @@ $user = Session::get('user');
 
 <div class="w-full mx-0 flex my-2" id="{{$comment->IDBaiDang.$comment->IDBinhLuan}}">
     <div class="w-1/12 pt-2">
-        <a href=""><img class="w-12 h-12 p-0.5 object-cover rounded-full" src="/{{ $comment->AnhDaiDien }}" alt="" srcset=""></a>
+        <a href=""><img class="w-12 h-12 p-0.5 object-cover rounded-full" src="{{ $comment->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
     <div class="w-11/12 ml-2 relative main-comment">
         <div id="comment.{{ $comment->IDBinhLuan.$comment->IDBaiDang }}" class="comment-per 
@@ -26,7 +27,11 @@ $user = Session::get('user');
                 {!! json_decode($comment->NoiDungBinhLuan)->NoiDungBinhLuan !!}
                 @break
                 @case('1')
-                @include('Component/Comment/CommentImage',['json' => json_decode($comment->NoiDungBinhLuan)])
+                @include('Component/Comment/CommentImage',[
+                'json' => json_decode($comment->NoiDungBinhLuan),
+                'idBinhLuan' => $comment->IDBinhLuan,
+                'idHinhAnh' => DataProcessSix::getIDImageByIDCommnet($comment->IDBinhLuan)
+                ])
                 @break
                 @case('2')
                 @include('Component/Comment/Sticker',[

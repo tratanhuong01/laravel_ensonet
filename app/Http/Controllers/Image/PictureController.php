@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Image;
 
 use App\Http\Controllers\Controller;
+use App\Models\Taikhoan;
 use App\Process\DataProcessFour;
 use Illuminate\Http\Request;
 
@@ -12,18 +13,32 @@ class PictureController extends Controller
     {
         switch ($request->Type) {
             case 'PictureHaveFaceOfUser':
-                return view('Component/Child/Image')
-                    ->with(
-                        'imageTag',
-                        DataProcessFour::sortImageByTagOfUser($request->IDTaiKhoan)
-                    );
+                return response()->json([
+                    'view' => "" . view('Component/Child/Image')
+                        ->with(
+                            'imageTag',
+                            DataProcessFour::sortImageByTagOfUser($request->IDTaiKhoan)
+                        )
+                        ->with('users', Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)
+                            ->get()[0]),
+                    'viewMore' => "" . view('Component.Child.LoadingViewMore')
+                        ->with('users', Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)
+                            ->get()[0])
+                ]);
                 break;
             case 'PictureOfUser':
-                return view('Component/Child/Image')
-                    ->with(
-                        'imageTag',
-                        DataProcessFour::sortImageByUser($request->IDTaiKhoan, 0)
-                    );
+                return response()->json([
+                    'view' => "" . view('Component/Child/Image')
+                        ->with(
+                            'imageTag',
+                            DataProcessFour::sortImageByUser($request->IDTaiKhoan, 0)
+                        )
+                        ->with('users', Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)
+                            ->get()[0]),
+                    'viewMore' => "" . view('Component.Child.LoadingViewMore')
+                        ->with('users', Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)
+                            ->get()[0])
+                ]);
                 break;
             case 'Album':
                 // return view('Component/Child/HinhAnh')
@@ -51,8 +66,13 @@ class PictureController extends Controller
                             ->with(
                                 'imageTag',
                                 array_slice($array, $request->Index * 15, 15)
-                            ),
-                        'index' => $index
+                            )
+                            ->with('users', Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)
+                                ->get()[0]),
+                        'index' => $index,
+                        'viewMore' => "" . view('Component.Child.LoadingViewMore')
+                            ->with('users', Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)
+                                ->get()[0])
                     ]);
                 }
                 break;
@@ -67,8 +87,13 @@ class PictureController extends Controller
                         'view' => "" . view('Component/Child/Image')->with(
                             'imageTag',
                             $array
-                        ),
-                        'index' => $index
+                        )
+                            ->with('users', Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)
+                                ->get()[0]),
+                        'index' => $index,
+                        'viewMore' => "" . view('Component.Child.LoadingViewMore')
+                            ->with('users', Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)
+                                ->get()[0])
                     ]);
                 }
 

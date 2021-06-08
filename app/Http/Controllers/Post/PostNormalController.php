@@ -14,15 +14,27 @@ use App\Process\DataProcessSix;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use JD\Cloudder\Facades\Cloudder;
 
 class PostNormalController extends Controller
 {
     public function post(Request $request)
     {
-        try {
-
-            date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $user = Session::get('user');
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $user = Session::get('user');
+        if (DataProcessSix::checkWordIsValid($request->content) == false) {
+            Thongbao::add(
+                StringUtil::ID('thongbao', 'IDThongBao'),
+                $user[0]->IDTaiKhoan,
+                'WARNPOST00',
+                'WARNPOST00',
+                $user[0]->IDTaiKhoan,
+                '0',
+                date("Y-m-d H:i:s")
+            );
+            event(new NotificationEvent($user[0]->IDTaiKhoan));
+            return response()->json([]);
+        } else {
             if ($request->hasFile('files_0')) {
                 $datetime = date("Y-m-d H:i:s");
                 $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
@@ -67,34 +79,37 @@ class PostNormalController extends Controller
                     2,
                     NULL
                 );
-
                 for ($i = 0; $i < (int)$request->numberImage; $i++) {
                     $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
-                    $nameFile = $request->file('files_' . $i)->getClientOriginalName();
-                    if (DataProcessSix::CheckIsVideo($nameFile)) {
-                        $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.mp4';
+                    if (DataProcessSix::CheckIsVideo($request->file('files_' . $i)->getClientOriginalName())) {
+                        Cloudder::uploadVideo(
+                            $request->file('files_' . $i),
+                            null,
+                            ['folder' => 'Video'],
+                            'Video.mp4'
+                        );
+                        $nameFile = Cloudder::getResult()['url'];
                         Hinhanh::add(
                             $idHinhAnh,
                             'VIDEO0001',
                             $idBaiDang,
-                            'video/' . $nameFile,
+                            $nameFile,
                             NULL,
                             1,
                             NULL
                         );
-                        $request->file('files_' . $i)->move(public_path('video'), $nameFile);
-                    } else if (DataProcessSix::CheckIsImage($nameFile)) {
-                        $nameFile = $user[0]->IDTaiKhoan . $idBaiDang . $idHinhAnh . '.jpg';
+                    } else if (DataProcessSix::CheckIsImage($request->file('files_' . $i)->getClientOriginalName())) {
+                        Cloudder::upload($request->file('files_' . $i), null, ['folder' => 'PostNormal'], 'PostNormal.jpg');
+                        $nameFile = Cloudder::getResult()['url'];
                         Hinhanh::add(
                             $idHinhAnh,
                             'THONGTHUON',
                             $idBaiDang,
-                            'img/PosTT/' . $nameFile,
+                            $nameFile,
                             NULL,
                             0,
                             NULL
                         );
-                        $request->file('files_' . $i)->move(public_path('img/PosTT'), $nameFile);
                     } else {
                     }
                 }
@@ -143,7 +158,6 @@ class PostNormalController extends Controller
                     NULL
                 );
             }
-        } catch (Exception $es) {
         }
     }
     public function tickLocal(Request $request)

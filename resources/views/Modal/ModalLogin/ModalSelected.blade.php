@@ -2,8 +2,13 @@
         p-4 opacity-100 bg-white z-50 border-2 border-solid border-gray-300 sm:w-4/5 sm:mt-12 
         lg:w-3/5 xl:w-5/12 xl:mt-4">
     <div class="w-full">
-        <span onclick="closePost()" class="cursor-pointer absolute text-4xl top-4 right-4">&times;</span>
-        <p class="py-2.5 text-xl text-center font-bold">Lấy lại tài khoản</p>
+        <div class="w-full text-center">
+            <p class="text-2xl font-bold p-2.5 dark:text-white">Lấy lại tài khoản</p>
+            <span onclick="closePost()" class="bg-gray-300 px-2.5 dark:text-white font-bold
+            rounded-full dark:bg-dark-second cursor-pointer absolute text-3xl top-2 right-4">
+                &times;
+            </span>
+        </div>
     </div>
     <div class="w-full flex">
         <div class="w-70per border-2 border-solid border-gray-200">

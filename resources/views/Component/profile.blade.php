@@ -18,11 +18,11 @@ $json = json_decode(
     <div class="w-full relative">
         <div class="w-full mx-auto relative">
             <div class="w-full relative h-60 lg:h-96">
-                <a href="photo/"><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;" src="/{{ $users[0]->AnhBia}}" alt=""></a>
+                <a href="photo/"><img class="w-full h-60 object-cover  lg:h-96" style="border-radius: 10px;" src="{{ $users[0]->AnhBia}}" alt=""></a>
             </div>
             <div class="w-full absolute text-center top-20 lg:top-6/10">
                 <img class="w-44 h-44 rounded-full mx-auto
-                                border-4 border-solid border-white object-cover" src="/{{ $users[0]->AnhDaiDien}}" alt=""></a>
+                                border-4 border-solid border-white object-cover" src="{{ $users[0]->AnhDaiDien}}" alt=""></a>
                 <p class="font-bold text-center text-3xl py-2 dark:text-white" style="font-family: system-ui;">{{ $users[0]->Ho . ' ' . $users[0]->Ten}}</p>
             </div>
         </div>
@@ -150,7 +150,7 @@ $json = json_decode(
                         @foreach($images as $key => $value)
                         <?php $pathImg = 'photo/' . $value->IDBaiDang . '/' . $value->IDHinhAnh; ?>
                         <div class="fr-us">
-                            <a href="{{ url($pathImg) }}"><img class="object-cover rounded-lg" src="/{{ $value->DuongDan }}" alt=""></a>
+                            <a href="{{ url($pathImg) }}"><img class="object-cover rounded-lg" src="{{ $value->DuongDan }}" alt=""></a>
                         </div>
                         @endforeach
                         @endif
@@ -180,7 +180,7 @@ $json = json_decode(
                         @foreach($friendsGet as $key => $value)
                         <?php $pathProfile = 'profile.' . $value[0]->IDTaiKhoan; ?>
                         <div class="fr-us">
-                            <a href="{{ url($pathProfile) }}"><img src="/{{ $value[0]->AnhDaiDien }}" alt=""></a>
+                            <a href="{{ url($pathProfile) }}"><img src="{{ $value[0]->AnhDaiDien }}" alt=""></a>
                             <p class="font-bold py-2 dark:text-white text-sm">
                                 <a href="{{ url($pathProfile) }}">
                                     {{ $value[0]->Ho . ' ' . $value[0]->Ten }}

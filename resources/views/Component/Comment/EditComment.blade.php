@@ -7,7 +7,7 @@ use App\Models\Nhandan;
     <div class="w-full mx-0 my-2 flex relative">
         <div class="w-1/12">
             <a href=""><img class="w-12 h-12 p-0.5 object-cover
-        rounded-full border-2 border-solid" src="/{{ $anhDaiDien }}" alt="" srcset=""></a>
+        rounded-full border-2 border-solid" src="{{ $anhDaiDien }}" alt="" srcset=""></a>
         </div>
         <form action="" method="get" id="{{$comment->IDBinhLuan}}FormComment" enctype="multipart/form-data">
             {{ csrf_field() }}

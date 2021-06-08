@@ -1,6 +1,6 @@
 <div id="{{ $idNhomTinNhan.$user->IDTaiKhoan }}Typing" class="mess-user  w-full py-2 flex relative">
     <div class="w-15per relative">
-        <a href=""><img class="absolute bottom-1 w-9 h-9 object-cover rounded-full" src="/{{ $user->AnhDaiDien }}" alt="" srcset=""></a>
+        <a href=""><img class="absolute bottom-1 w-9 h-9 object-cover rounded-full" src="{{ $user->AnhDaiDien }}" alt="" srcset=""></a>
     </div>
     <div class=" pl-2 flex pb-1" style="width: inherit;">
         <div class="w-16 h-8 text-center relative border-none outline-none bg-gray-200 bg-1877F2 p-1.5 rounded-lg">

@@ -18,38 +18,31 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
         <div class="w-1/2 px-3">
             <div class="w-full flex mb-3">
                 <div class="w-1/12 relative">
-                    <span class="cursor-pointer absolute top-1/2 left-1/2" style="transform: translate(-50%,-50%);">
+                    <span class="cursor-pointer absolute top-1/2 left-1/2 hidden transform 
+                    -translate-x-1/2 -translate-y-1/2">
                         <i class="bx bxs-chevrons-left text-xl rounded-full 
                         px-2.5 py-1.5 bg-gray-200"></i>
                     </span>
                 </div>
                 <div class="w-10/12 px-2">
-                    <img src="/{{ $post[0]->DuongDan }}" class="w-auto mx-auto max-h-80" alt="">
+                    <img src="{{ $post[0]->DuongDan }}" id="imageMain" class="w-auto mx-auto max-h-80" alt="">
                 </div>
                 <div class="w-1/12 relative">
-                    <span class="cursor-pointer absolute top-1/2 left-1/2" style="transform: translate(-50%,-50%);">
+                    <span class="cursor-pointer absolute top-1/2 left-1/2 hidden transform 
+                    -translate-x-1/2 -translate-y-1/2">
                         <i class="bx bxs-chevrons-right text-xl rounded-full 
                         px-2.5 py-1.5 bg-gray-200"></i>
                     </span>
                 </div>
             </div>
-            <div class="w-full flex">
-                <div class="w-1/4">
-                    <img src="/img/avatar.jpg" class="w-full h-full 
+            <div class="w-full flex max-w-full overflow-x-auto wrapper-content-right ">
+                @foreach ($post as $item)
+                <div onclick="clickChangeImage(this)" class="w-1/4 h-32 object-cover flex-shrink-0 mr-2   
+                border-4 border-solid border-gray-100 cursor-pointer hover:border-gray-300 image__item">
+                    <img src="{{$item->DuongDan }}" class="w-full h-full 
                     object-cover p-1" alt="">
                 </div>
-                <div class="w-1/4">
-                    <img src="/img/avatar.jpg" class="w-full h-full 
-                    object-cover p-1" alt="">
-                </div>
-                <div class="w-1/4">
-                    <img src="/img/avatar.jpg" class="w-full h-full 
-                    object-cover p-1" alt="">
-                </div>
-                <div class="w-1/4">
-                    <img src="/img/avatar.jpg" class="w-full h-full 
-                    object-cover p-1" alt="">
-                </div>
+                @endforeach
             </div>
         </div>
         <div class="w-1/2 border-solid border-gray-200 border-l-2 
@@ -57,11 +50,16 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
             <ul class="w-full">
                 <li class="w-full p-2">ID Tài Khoản :
                     <span class="cursor-pointer bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
-                        font-bold text-white">{{ $post[0]->IDTaiKhoan }}</span>
+                    font-bold text-white">{{ $post[0]->IDTaiKhoan }}
+                    </span>
                 </li>
-                <li class="w-full p-2">Nguời đăng :
-                    <span class="cursor-pointer bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
-                        font-bold text-white">{{ $post[0]->Ho . ' ' . $post[0]->Ten }}</span>
+                <li class=" w-full p-2">
+                    <div class="w-full p-2">
+                        Nguời đăng :
+                        <span class="cursor-pointer bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
+                        font-bold text-white">{{ $post[0]->Ho . ' ' . $post[0]->Ten }}
+                        </span>
+                    </div>
                 </li>
                 <li class="w-full p-2">Gắn Thẻ :
                     <?php $tag = explode('@', $post[0]->GanThe); ?>
@@ -77,15 +75,15 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
                     @switch($post[0]->IDQuyenRiengTu)
                     @case('CONGKHAI')
                     <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
-                    font-bold text-white">Công khai</span>
+                        font-bold text-white">Công khai</span>
                     @break
                     @case('CHIBANBE')
                     <span class="bg-yellow-500 px-3 py-1.5 text-sm rounded-3xl 
-                    font-bold text-white">Bạn bè</span>
+                        font-bold text-white">Bạn bè</span>
                     @break
                     @case('RIENGTU')
                     <span class="bg-red-500 px-3 py-1.5 text-sm rounded-3xl 
-                    font-bold text-white">Chỉ mình tôi</span>
+                        font-bold text-white">Chỉ mình tôi</span>
                     @break
                     @endswitch
                 </li>
@@ -110,7 +108,7 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
                     @endswitch
                 </li>
                 <li class="w-full p-2 max-h-32 overflow-y-auto border-gray-200 shadow-lg
-                wrapper-content-right border-2 border-solid">Nội Dung :
+                    wrapper-content-right border-2 border-solid">Nội Dung :
                     <span class="font-bold">{{ $post[0]->NoiDung }}</span>
                 </li>
                 <li class="w-full mt-2 p-2">Số Lượt Cảm Xúc :
@@ -127,8 +125,8 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
                 </li>
             </ul>
             <div class="w-full my-10 text-center">
-                <button class="w-32 p-2.5 rounded-lg font-bold text-white 
-                bg-red-500 ">Xóa bài đăng</button>
+                <button type="button" onclick="deleteWarnPost('{{ $post[0]->IDBaiDang }}')" class="w-32 p-2.5 rounded-lg font-bold text-white 
+                        bg-red-500 ">Xóa bài đăng</button>
             </div>
         </div>
     </div>

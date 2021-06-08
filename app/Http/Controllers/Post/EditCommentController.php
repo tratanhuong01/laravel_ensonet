@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+use JD\Cloudder\Facades\Cloudder;
 
 class EditCommentController extends Controller
 {
@@ -82,14 +83,16 @@ class EditCommentController extends Controller
                     $comment = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)
                         ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                         ->get()[0];
-                    if (File::exists(public_path(json_decode($comment->NoiDungBinhLuan)->DuongDan)))
-                        File::delete(public_path(json_decode($comment->NoiDungBinhLuan)->DuongDan));
-                    $nameFile = Session::get('user')[0]->IDTaiKhoan . $request->IDBinhLuan . '.jpg';
-                    $request->file('fileImage')->move(public_path('img/CommentImage'), $nameFile);
+                    $public_Id = explode('/', json_decode($comment->NoiDungBinhLuan)->DuongDan);
+                    $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+                    Cloudder::destroyImage(explode('.', $public_Id)[0]);
+                    Cloudder::delete(explode('.', $public_Id)[0]);
+                    Cloudder::upload($request->file('fileImage'), null, ['folder' => 'CommentImage'], 'CommentImage.jpg');
+                    $nameFile = Cloudder::getResult()['url'];
                     $json = (object)[
                         'ID' => '10000',
                         'LoaiBinhLuan' => '1',
-                        'DuongDan' => 'img/CommentImage/' . $nameFile,
+                        'DuongDan' => $nameFile,
                         'NoiDungBinhLuan' => $request->NoiDungBinhLuan
                     ];
                 } else

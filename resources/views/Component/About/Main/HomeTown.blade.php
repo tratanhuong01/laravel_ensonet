@@ -1,7 +1,7 @@
 <li class="w-full py-2 flex relative" id="{{$value->IDQueQuan}}HomeTown" style="font-size: 16px;">
     <div class="w-10/12 pb-2 flex">
         <div class="mr-2 pt-0.5">
-            <img src="/{{ $value->DuongDanImg }}" class="w-12 h-12 object-cover 
+            <img src="{{ $value->DuongDanImg }}" class="w-12 h-12 object-cover 
                             rounded-full" alt="">
         </div>
         <div class="">

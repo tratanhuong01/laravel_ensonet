@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Phongnen extends Model
 {
@@ -21,6 +22,15 @@ class Phongnen extends Model
         $phongnen->IDPhongNen = $IDPhongNen;
         $phongnen->DuongDanPN = $DuongDanPN;
         $phongnen->save();
+    }
+    public static function edit(
+        $IDPhongNen,
+        $DuongDanPN
+    ) {
+        DB::update('UPDATE phongnen SET DuongDanPN = ? , 
+        WHERE IDPhongNen = ? ', [
+            $DuongDanPN, $IDPhongNen
+        ]);
     }
     public $timestamps = false;
 }

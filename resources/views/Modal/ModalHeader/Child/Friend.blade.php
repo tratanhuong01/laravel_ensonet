@@ -1,7 +1,7 @@
 <div class="w-full hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer">
     <ul class="w-full relative flex py-2">
         <li class="pl-3">
-            <img class="w-11 h-11 object-cover rounded-full p-0.5" src="/{{ $value->AnhDaiDien }}" alt="">
+            <img class="w-11 h-11 object-cover rounded-full p-0.5" src="{{ $value->AnhDaiDien }}" alt="">
         </li>
         <li class="pl-3 items-center font-bold dark:text-white">
             {{ $value->Ho . ' ' . $value->Ten }}

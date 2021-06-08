@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Quyenriengtu extends Model
 {
@@ -19,6 +20,13 @@ class Quyenriengtu extends Model
         $quyenriengtu->IDQuyenRiengTu = $IDQuyenRiengTu;
         $quyenriengtu->TenQuyenRiengTu = $TenQuyenRiengTu;
         $quyenriengtu->save();
+    }
+    public static function edit($IDQuyenRiengTu, $TenQuyenRiengTu)
+    {
+        DB::update('UPDATE quyenriengtu SET TenQuyenRiengTu = ? WHERE  
+        IDQuyenRiengTu = ? ', [
+            $TenQuyenRiengTu, $IDQuyenRiengTu
+        ]);
     }
     public $timestamps = false;
 }

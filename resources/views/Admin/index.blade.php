@@ -1,5 +1,5 @@
 <?php
-
+$path = explode('/', parse_url(url()->current())['path']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/css/app.css" />
@@ -45,6 +46,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/js/admin/nor.js"></script>
     <script src="/js/admin/ajax.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/js/admin/ajax_second.js"></script>
 </head>
 
 <body>
@@ -80,33 +83,69 @@
             </div>
             <div class="w-full">
                 <ul class="w-full p-3">
-                    <li onclick="loadCategoryAd('dashboard',this)" class="activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('dashboard',this)" class="{{ $path[2] == 'dashboard' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="fas fa-home text-2xl mr-3"></i>
                         Tổng quan
                     </li>
-                    <li onclick="loadCategoryAd('user',this)" class="w-full border-sold border-white font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('user',this)" class="{{ $path[2] == 'user' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="fas fa-user text-2xl mr-3"></i>
                         Người dùng
                     </li>
-                    <li onclick="loadCategoryAd('post',this)" class="w-full border-sold border-white font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('post',this)" class="{{ $path[2] == 'post' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="fas fa-marker text-2xl mr-3"></i>
                         Bài viết
                     </li>
-                    <li onclick="loadCategoryAd('story',this)" class="w-full border-sold border-white font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('story',this)" class="{{ $path[2] == 'story' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="fas fa-book text-2xl mr-3"></i>
                         Story
                     </li>
-                    <li onclick="loadCategoryAd('reply',this)" class="w-full border-sold border-white font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('reply',this)" class="{{ $path[2] == 'reply' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="fas fa-comment-dots text-2xl mr-3"></i>
                         Phản hồi
                     </li>
-                    <li onclick="loadCategoryAd('category',this)" class="w-full border-sold border-white font-bold my-1 hover:bg-gray-200
-                    border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 items-center rounded-lg">
+                    <li onclick="loadCategoryAd('category',this)" class="{{ $path[2] == 'category' ?
+                    'activeBorder bg-gray-300 w-full border-sold border-blue-500 font-bold 
+                    my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 text-gray-700 
+                    items-center rounded-lg' :
+                    'w-full border-sold border-white 
+                    font-bold my-1 hover:bg-gray-200 border-l-4 cursor-pointer flex pl-5 py-2 
+                    text-gray-700 items-center rounded-lg'
+                    }}">
                         <i class="far fa-list-alt text-2xl mr-3"></i>
                         Danh mục
                     </li>
@@ -120,7 +159,7 @@
                 </ul>
             </div>
         </div>
-        <div class="w-4/5 h-screen">
+        <div class="w-4/5 h-screen" id="rightIndex">
             <div class="w-full flex">
                 <div class="w-1/4 text-center">
                     <div class="w-10/12 mx-auto relative">
@@ -161,19 +200,60 @@
                         <hr>
                         <ul class="w-full">
                             <li class="w-full p-2">Cài đặt</li>
-                            <li onclick="window.location.href='login'" class="w-full p-2">Đăng Xuất</li>
+                            <li class="w-full p-2">
+                                <a href="{{ url('admin/logout') }}">Đăng Xuất</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="w-full p-5 bg-gray-100 overflow-y-auto 
             wrapper-content-right" style="height: 685px;max-height: 685px;" id="content">
+                @switch($path[2])
+                @case('user')
+                @include('Admin/Component/Category/User',
+                [
+                'userTable' => $table,
+                'data' => $data
+                ])
+                @break
+                @case('post')
+                @include('Admin/Component/Category/Post',
+                [
+                'userPost' => $table,
+                'data' => $data
+                ])
+                @break
+                @case('story')
+                @include('Admin/Component/Category/Story',
+                [
+                'userStory' => $table,
+                'data' => $data
+                ])
+                @break
+                @case('reply')
+                @include('Admin/Component/Category/Reply',
+                [
+                'userReply' => $table,
+                'data' => $data
+                ])
+                @break
+                @case('category')
+                @include('Admin/Component/Category/Category')
+                @break
+                @default
                 @include('Admin/Component/Category/Dashboard')
+                @endswitch
             </div>
         </div>
     </div>
-    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
-    </div>
+    <!-- place show modal -->
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second"></div>
+    <!-- place show modal -->
+
+    <!-- timeline -->
+    @include('TimeLine/DivMainTimeLine')
+    <!-- timeline -->
 </body>
 <script>
 </script>

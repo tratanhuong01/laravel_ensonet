@@ -850,9 +850,11 @@
                                                     emojiPicker.appendChild(
                                                         objectsCategory
                                                     ),
-                                                    emojiContainer.appendChild(
-                                                        emojiPicker
-                                                    );
+                                                    (emojiContainer.innerHTML =
+                                                        "");
+                                                emojiContainer.appendChild(
+                                                    emojiPicker
+                                                );
                                             },
                                         },
                                     ]),

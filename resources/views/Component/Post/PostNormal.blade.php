@@ -14,7 +14,7 @@ $u = Session::get('user');
         <div class="mr-2">
             <div class="w-14 h-14 relative">
                 <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 
-                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
+                rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $item[0]->AnhDaiDien }}"></a>
                 @include('Component\Child\Activity',
                 [
                 'padding' => 'p-1.5',
@@ -51,8 +51,8 @@ $u = Session::get('user');
                 </span>
                 @endif
                 <span class="font-bold dark:text-white">
-                    @if ($item[0]->IDViTri != NULL)
-                    {!! DataProcess::getLocal($item[0]->IDViTri) !!}
+                    @if ($item[0]->IDDiaChi != NULL)
+                    {!! DataProcess::getLocal($item[0]->IDDiaChi) !!}
                     @endif
                 </span>
             </p>
@@ -114,32 +114,58 @@ $u = Session::get('user');
                 @if ($item[$i]->Loai == 0)
                 <li class="w-full">
                     <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
-                        <img class="w-full p-1 object-cover" style="max-height:350px;height: 350px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a>
+                        <img class="w-full p-1 object-cover" style="max-height:350px;height: 350px;" src="{{ $item[$i]->DuongDan }}" alt=""></a>
                 </li>
                 @else
                 <li class="w-full relative" id="{{$item[0]->IDBaiDang.$item[0]->IDHinhAnh}}Video">
-                    <video id="my-video" class="video-js" controls preload="auto" poster="/video/review.mp4" data-setup="{}" style="width: 100%;max-height:350px;height: 350px;">
-                        <source src="/{{ $item[$i]->DuongDan }}" type="video/mp4" />
+                    <video id="my-video" class="video-js" controls preload="auto" poster="" data-setup="{}" style="width: 100%;max-height:350px;height: 350px;">
+                        <source src="{{ $item[$i]->DuongDan }}" type="video/mp4" />
                     </video>
                 </li>
                 @endif
                 @else
                 @if (sizeof($item) > 4 && $i == 3)
-                <li class="relative"><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
+                @if ($item[$i]->Loai == 0)
+                <li class="relative">
+                    <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
+                        <img class="p-1 object-cover rounded-lg" style="width:241px;height:250px;" src="{{ $item[$i]->DuongDan }}" alt="">
+                    </a>
+                </li>
+                @else
+                <li class="relative">
+                    <video id="my-video{{$item[$i]->IDHinhAnh}}" class="video-js" controls preload="auto" poster="/video/review.mp4" data-setup="{}" style="width:241px;height:250px;">
+                        <source src="{{ $item[$i]->DuongDan }}" type="video/mp4" />
+                    </video>
+                </li>
+                @endif
                 <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
                     <div class="rounded-lg absolute bottom-1 left-1/2" style="width:273px;height:280px;background:rgba(0, 0, 0, 0.5);">
                         <span class="text-5xl font-bold absolute top-1/2 left-1/2 text-white" style="transform:translate(-50%,-50%);">{{ '+'. (sizeof($item) - 4) }}</span>
                     </div>
                 </a>
-                @break;
+                @break
                 @else
-                <li class=""><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
+                @if ($item[$i]->Loai == 0)
+                <li class="relative">
+                    <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
+                        <img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src=" {{ $item[$i]->DuongDan }}" alt="">
+                    </a>
+                </li>
+                @else
+                <li class="relative">
+                    <video id="my-video{{$item[$i]->IDHinhAnh}}" class="video-js" controls preload="auto" poster="/video/review.mp4" data-setup="{}" style="width:278px;height:285px;">
+                        <source src=" {{ $item[$i]->DuongDan }}" type="video/mp4" />
+                    </video>
+                </li>
+                @endif
                 @endif
                 @endif
                 @endfor
         </ul>
     </div>
-    @include('Component\Post\FeelPost',['item' => $item])
+    @include('Component\Post\FeelPost',[
+    'item' => $item
+    ])
     <div class="w-full" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}CommentLv1">
         <?php $commentLimit = Process::getCommentLimitFromTo($item[0]->IDBaiDang, 0);
         $comment = Process::getCommentNew($item[0]->IDBaiDang); ?>

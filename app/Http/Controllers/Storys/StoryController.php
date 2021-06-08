@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use JD\Cloudder\Facades\Cloudder;
 
 class StoryController extends Controller
 {
@@ -23,12 +24,8 @@ class StoryController extends Controller
         $idStory = StringUtil::ID('story', 'IDStory');
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $image = $request->dataURI; // image base64 encoded
-        preg_match("/data:image\/(.*?);/", $image, $image_extension); // extract the image extension
-        $image = preg_replace('/data:image\/(.*?);base64,/', '', $image); // remove the type part
-        $image = str_replace(' ', '+', $image);
-        $imageName = $request->IDTaiKhoan . $idStory . ".png"; //generating unique file name;
-        Storage::disk('public')->put($imageName, base64_decode($image));
-        rename(storage_path('app/public/') . $imageName, public_path('img/story/') . $imageName);
+        Cloudder::upload($image, null, ['folder' => 'Story'], 'Story.jpg');
+        $nameFile = Cloudder::getResult()['url'];
         $music = Amthanh::where('amthanh.IDAmThanh', '=', $request->IDAmThanh)->get();
         $jsonMusic = NULL;
         if (count($music) > 0) {
@@ -45,7 +42,7 @@ class StoryController extends Controller
             'CHIBANBE',
             $request->IDTaiKhoan,
             $request->IDPhongNen,
-            'img/story/' . $imageName,
+            $nameFile,
             '0',
             date("Y-m-d H:i:s"),
             $jsonMusic == NULL ? NULL : json_encode($jsonMusic)
@@ -62,12 +59,8 @@ class StoryController extends Controller
         $idStory = StringUtil::ID('story', 'IDStory');
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $image = $request->dataURI; // image base64 encoded
-        preg_match("/data:image\/(.*?);/", $image, $image_extension); // extract the image extension
-        $image = preg_replace('/data:image\/(.*?);base64,/', '', $image); // remove the type part
-        $image = str_replace(' ', '+', $image);
-        $imageName = $request->IDTaiKhoan . $idStory . ".png"; //generating unique file name;
-        Storage::disk('public')->put($imageName, base64_decode($image));
-        rename(storage_path('app/public/') . $imageName, public_path('img/story/') . $imageName);
+        Cloudder::upload($image, null, ['folder' => 'Story'], 'Story.jpg');
+        $nameFile = Cloudder::getResult()['url'];
         $music = Amthanh::where('amthanh.IDAmThanh', '=', $request->IDAmThanh)->get();
         $jsonMusic = NULL;
         if (count($music) > 0) {
@@ -85,7 +78,7 @@ class StoryController extends Controller
             'CHIBANBE',
             $request->IDTaiKhoan,
             NULL,
-            'img/story/' . $imageName,
+            $nameFile,
             '1',
             date("Y-m-d H:i:s"),
             $jsonMusic == NULL ? NULL : json_encode($jsonMusic)
@@ -391,8 +384,10 @@ class StoryController extends Controller
     {
         $story = Story::where('story.IDStory', '=', $request->IDStory)->get();
         Story::where('story.IDStory', '=', $request->IDStory)->delete();
-        if (File::exists(public_path($story[0]->DuongDan)))
-            File::delete(public_path($story[0]->DuongDan));
+        $public_Id = explode('/', $story[0]->DuongDan);
+        $public_Id = $public_Id[count($public_Id) - 2]  . "/" . $public_Id[count($public_Id) - 1];
+        Cloudder::destroyImage(explode('.', $public_Id)[0]);
+        Cloudder::delete(explode('.', $public_Id)[0]);
         $storys =  Story::where('story.IDTaiKhoan', '=', $request->IDTaiKhoan)
             ->whereRaw(" DATE_SUB(NOW(), INTERVAL 24 HOUR) < story.ThoiGianDangStory ")
             ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')

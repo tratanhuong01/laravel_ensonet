@@ -189,7 +189,7 @@
     'MemberFamily')" class="w-full p-2 hover:bg-gray-300 dark:hover:bg-dark-third cursor-pointer 
     dark:text-white flex rounded-lg flex font-bold">
     <div class="mr-3">
-        <img src="/{{ $value->AnhDaiDien }}" class="w-10 h-10 object-cover rounded-full" alt="">
+        <img src="{{ $value->AnhDaiDien }}" class="w-10 h-10 object-cover rounded-full" alt="">
     </div>
     <div class="font-bold dark:text-white py-2">
         {{ $value->Ho . ' ' . $value->Ten }}

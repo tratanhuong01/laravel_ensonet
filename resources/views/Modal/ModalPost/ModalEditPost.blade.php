@@ -75,9 +75,39 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                     <i class="far fa-smile text-gray-600 text-2xl dark:text-gray-300"></i>
                 </button>
             </div>
+            @switch($post[0]->LoaiBaiDang)
+            @case('0')
+            @include('Component.Post.Child.AvatarImage',
+            [
+            'item' => $post
+            ])
+            @break
+            @case('1')
+            @include('Component.Post.Child.CoverImage',
+            [
+            'item' => $post
+            ])
+            @break
+            @case('3')
+            @include('Component.Post.Child.Share',
+            [
+            'item' => $post
+            ])
+            @break
+            @case('4')
+
+            @break
+            @case('5')
+            @include('Component.Post.Child.Memory',
+            [
+            'item' => $postShare
+            ])
+            @break
+            @default
             <div class="w-full mt-2.5 px-2 flex flex-wrap relative" id="imagePost">
                 <img src="" alt="" id="imgPost1">
             </div>
+            @endswitch
             <div id="myEmojis" class="absolute left-full top-44 hidden bg-gray-200 
             dark:bg-dark-third" style="max-height: 270px;height: 270px;">
 
@@ -88,8 +118,8 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                 <p class="pl-2.5 dark:text-white font-bold text-sm flex items-center">Thêm vào bài viết</p>
             </div>
             <ul class="ml-auto flex" id="placeSelection">
-                <input type="file" onchange="changeUploadFileEdit(this)" id="uploadFileS" name="files[]" accept="image/*,video/*" multiple="multiple" class="hidden">
-                <label for="uploadFileS">
+                <input type="file" onchange="changeUploadFileEdit(this)" id="uploadFileSSS" name="files[]" accept="image/*,video/*" multiple="multiple" class="hidden">
+                <label for="uploadFileSSS">
                     <li class="cursor-pointer flex w-10 h-10 mx-1 rounded-full hover:bg-gray-200 
                     dark:hover:bg-dark-third justify-center  
                     ">

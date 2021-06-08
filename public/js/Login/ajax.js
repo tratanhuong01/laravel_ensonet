@@ -1,4 +1,7 @@
 function loadajax(value, nameID) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -60,13 +63,15 @@ function sendCodeAgain() {
     });
 }
 function forgetAccount() {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
     $.ajax({
         method: "GET",
         url: "/ProcessForgetAccount",
         data: $("#formNhapTT").serialize(),
         success: function (response) {
-            $("#second").html(response);
-            second.className += " fixed h-screen";
+            second.innerHTML = response;
         },
     });
 }

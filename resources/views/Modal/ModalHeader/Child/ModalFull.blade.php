@@ -34,7 +34,7 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
         <div class="w-1/5">
             <a href="">
                 <div class="w-14 h-14 rounded-full relative">
-                    <img src="/{{ $el[0]->AnhDaiDien }}" alt="" class="w-14 h-14 rounded-full object-cover p-0.5">
+                    <img src="{{ $el[0]->AnhDaiDien }}" alt="" class="w-14 h-14 rounded-full object-cover p-0.5">
                     @include('Component\Child\HoatDong',
                     [
                     'padding' => 'p-1.5',
@@ -127,9 +127,9 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
     hover:bg-gray-200 py-2 px-1">
         <div class="w-1/5">
             <div class="w-14 h-14 relative mx-auto">
-                <img src="/{{ $el[0]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
+                <img src="{{ $el[0]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
                 absolute top-0 right-0" alt="">
-                <img src="/{{ $el[1]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
+                <img src="{{ $el[1]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
                 absolute bottom-0 left-0" alt="">
             </div>
         </div>

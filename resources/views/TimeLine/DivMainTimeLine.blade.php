@@ -10,3 +10,9 @@
 <div id="lastModalLoading" class="hidden">
     @include('TimeLine/ModalLast')
 </div>
+@if (session()->has('user'))
+<script>
+    var userJson = "{{ json_encode(Session::get('user')[0]) }}";
+    userJson = JSON.parse(userJson.replaceAll('&quot;', '"'));
+</script>
+@endif

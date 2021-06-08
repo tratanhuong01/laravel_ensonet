@@ -71,14 +71,18 @@ class Functions extends Model
     }
     public static function getPost($post)
     {
-        return DB::table('baidang')->select('*', 'baidang.IDBaiDang')
-            ->leftjoin('hinhanh', 'baidang.IDBaiDang', '=', 'hinhanh.IDBaiDang')
-            ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
-            ->leftjoin('camxuc', 'baidang.IDCamXuc', '=', 'camxuc.IDCamXuc')
-            ->where('taikhoan.IDTaiKhoan', '=', $post->IDTaiKhoan)
-            ->where('baidang.IDBaiDang', '=', $post->IDBaiDang)
-            ->orderBy('NgayDang', 'desc')
-            ->get();
+        if (is_object($post)) {
+            return DB::table('baidang')->select('*', 'baidang.IDBaiDang')
+                ->leftjoin('hinhanh', 'baidang.IDBaiDang', '=', 'hinhanh.IDBaiDang')
+                ->join('taikhoan', 'baidang.IDTaiKhoan', '=', 'taikhoan.IDTaiKhoan')
+                ->leftjoin('camxuc', 'baidang.IDCamXuc', '=', 'camxuc.IDCamXuc')
+                ->where('taikhoan.IDTaiKhoan', '=', $post->IDTaiKhoan)
+                ->where('baidang.IDBaiDang', '=', $post->IDBaiDang)
+                ->orderBy('NgayDang', 'desc')
+                ->get();
+        } else {
+            return [];
+        }
     }
     public static function getListFriendsUser($idTaiKhoan)
     {

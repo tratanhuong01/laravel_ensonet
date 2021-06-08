@@ -30,7 +30,7 @@ use App\Models\Gioithieu;
         @foreach($friendsGet as $key => $value)
         <?php $pathProfile = 'profile.' . $value[0]->IDTaiKhoan; ?>
         <div class="fr-us">
-            <a href="{{ url($pathProfile) }}"><img src="/{{ $value[0]->AnhDaiDien }}" alt=""></a>
+            <a href="{{ url($pathProfile) }}"><img src="{{ $value[0]->AnhDaiDien }}" alt=""></a>
             <p class="font-bold py-2 dark:text-white text-sm">
                 <a href="{{ url($pathProfile) }}">
                     {{ $value[0]->Ho . ' ' . $value[0]->Ten }}

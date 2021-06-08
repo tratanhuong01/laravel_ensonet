@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 use App\Models\Baidang;
 use App\Models\Binhluan;
 use App\Models\Functions;
+use App\Models\Hinhanh;
 use App\Models\Process;
 use App\Models\StringUtil;
 use Illuminate\Support\Facades\DB;
 use App\Models\Taikhoan;
 use App\Models\Thongbao;
 use Illuminate\Support\Facades\Session;
+use JD\Cloudder\Facades\Cloudder;
 
 class RepCommentController extends Controller
 {
@@ -88,11 +90,12 @@ class RepCommentController extends Controller
         $idBinhLuan = StringUtil::ID('binhluan', 'IDBinhLuan');
         $cmt = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuanRep)->get();
         if ($request->hasFile('fileImage')) {
-            $nameFile = Session::get('user')[0]->IDTaiKhoan . $idBinhLuan . '.jpg';
+            Cloudder::upload($request->file('fileImage'), null, ['folder' => 'CommentImage'], 'CommentImage.jpg');
+            $nameFile = Cloudder::getResult()['url'];
             $json = (object)[
                 'ID' => '10000',
                 'LoaiBinhLuan' => '1',
-                'DuongDan' => 'img/CommentImage/' . $nameFile,
+                'DuongDan' => $nameFile,
                 'NoiDungBinhLuan' => $request->NoiDungBinhLuan
             ];
             if (str_contains($request->NoiDungBinhLuan, ' bg-blue-500 text-white p-0.5">')) {
@@ -157,7 +160,16 @@ class RepCommentController extends Controller
                 ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
                 ->where('binhluan.IDBinhLuan', '=', $idBinhLuan)
                 ->get();
-            $request->file('fileImage')->move(public_path('img/CommentImage'), $nameFile);
+            $idHinhAnh = StringUtil::ID('hinhanh', 'IDHinhAnh');
+            Hinhanh::add(
+                $idHinhAnh,
+                'IMAGECMT',
+                NULL,
+                $nameFile,
+                $request->NoiDungBinhLuan,
+                2,
+                $idBinhLuan
+            );
             return view('Component\Comment\CommentLv2')
                 ->with(
                     'comment',
@@ -166,7 +178,9 @@ class RepCommentController extends Controller
                 ->with(
                     'comment_main',
                     $comment[0]
-                );
+                )
+                ->with('idHinhAnh', $idHinhAnh)
+                ->with('idBinhLuan', $idBinhLuan);
         } else {
             if (str_contains($request->NoiDungBinhLuan, ' bg-blue-500 text-white p-0.5">')) {
                 $json = (object)[
@@ -283,7 +297,6 @@ class RepCommentController extends Controller
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $idBinhLuan = StringUtil::ID('binhluan', 'IDBinhLuan');
         $cmt = Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuanRep)->get();
-        $nameFile = Session::get('user')[0]->IDTaiKhoan . $idBinhLuan . '.jpg';
         $json = (object)[
             'ID' => '10000',
             'LoaiBinhLuan' => '2',

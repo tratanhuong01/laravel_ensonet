@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
                         top-1/2 left-1/2 rounded-full  hover:bg-white text-xl" style="transform: translate(-50%,-50%);"></i>
             </div>
             <div class="w-7/12 story-right bg-gray-400 relative m-2 rounded-lg relative">
-                <img src="/{{ $story[0]->DuongDan }}" class="w-full img-story" alt="">
+                <img src="{{ $story[0]->DuongDan }}" class="w-full img-story" alt="">
                 <div class="w-full py-1 px-2 absolute top-1">
                     <div class="w-full pb-2">
                         <ul class="w-full flex">
@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Session;
                     </div>
                     <div class="w-full flex">
                         <div class="w-2/12">
-                            <img src="/{{ $story[0]->AnhDaiDien }}" class="w-12 h-12 rounded-full p-1" alt="">
+                            <img src="{{ $story[0]->AnhDaiDien }}" class="w-12 object-cover h-12 rounded-full p-1" alt="">
                         </div>
                         <div class="w-1/2 pt-1">
                             <p class="pb-1"><a href="" class="font-bold text-white">{{ $story[0]->Ho . ' ' .$story[0]->Ten }}</a>

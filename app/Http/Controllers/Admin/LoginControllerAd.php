@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class LoginController extends Controller
+class LoginControllerAd extends Controller
 {
     public function login(Request $request)
     {
@@ -45,7 +45,7 @@ class LoginController extends Controller
         } else {
             $data = DB::table('taikhoan')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)->get();
             Session::put('admin', $data);
-            redirect()->to('admin/index')->send();
+            redirect()->to('admin/dashboard')->send();
         }
     }
 }

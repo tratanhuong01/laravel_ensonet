@@ -57,10 +57,10 @@ $user = Session::get('user')
                 <div onclick="window.location.href='{{ url($pathMainUs) }}'" class="w-full flex my-2 hover:bg-gray-200 cursor-pointer rounded-lg p-2
                  dark:hover:bg-dark-third ">
                     <div class="w-23per">
-                        <img id="img{{ $allStory[0][0]->IDTaiKhoan }}" src="/{{ $allStory[0][0]->AnhDaiDien }}" class="
+                        <img id="img{{ $allStory[0][0]->IDTaiKhoan }}" src="{{ $allStory[0][0]->AnhDaiDien }}" class="
                         rounded-full p-1 {{ DataProcessThird::checkIsViewStoryOfUser($allStory[0][0]->IDTaiKhoan,$user[0]->IDTaiKhoan) == 0 ? 'border-4 border-white' 
-                            : 'border-4 border-blue-500' }} object-cover 
-                    border-solid" alt="" style="width: 65px;height: 65px;">
+                        : 'border-4 border-blue-500' }} object-cover 
+                        border-solid" alt="" style="width: 65px;height: 65px;">
                     </div>
                     <div class="w-3/4">
                         <p class="font-bold pt-2 dark:text-white"><a href="">{{ $allStory[0][0]->Ho . ' ' . $allStory[0][0]->Ten }}</a></p>
@@ -76,12 +76,12 @@ $user = Session::get('user')
                 <hr class="p-2 my-3">
                 @for ($i = 1 ; $i < count($allStory) ; $i++) @php $pathIStories='stories/' .$allStory[$i][0]->IDTaiKhoan @endphp
                     <div onclick="window.location.href='{{ url($pathIStories) }}'" class="w-full flex my-2 hover:bg-gray-200 cursor-pointer rounded-lg p-2
-                 dark:hover:bg-dark-third ">
+                    dark:hover:bg-dark-third ">
                         <div class="w-23per">
-                            <img id="img{{$allStory[$i][0]->IDTaiKhoan}}" src="/{{ $allStory[$i][0]->AnhDaiDien }}" class="rounded-full p-1 
+                            <img id="img{{$allStory[$i][0]->IDTaiKhoan}}" src="{{ $allStory[$i][0]->AnhDaiDien }}" class="rounded-full p-1 
                             {{ DataProcessThird::checkIsViewStoryOfUser($allStory[$i][0]->IDTaiKhoan,$user[0]->IDTaiKhoan) == 0 ? 'border-4 border-white' 
                             : 'border-4 border-blue-500' }}
-                    border-solid object-cover" alt="" style="width: 65px;height: 65px;">
+                            border-solid object-cover" alt="" style="width: 65px;height: 65px;">
                         </div>
                         <div class="w-3/4">
                             <p class="font-bold pt-2 dark:text-white"><a href="">{{ $allStory[$i][0]->Ho . ' ' . $allStory[$i][0]->Ten }}</a></p>
@@ -163,7 +163,7 @@ $user = Session::get('user')
                 },
                 success: function(responses) {
                     $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
-                    document.getElementById('myAudio').src = '/' + responses.urlMp3;
+                    document.getElementById('myAudio').src = responses.urlMp3;
                     $('#play').on('click', function() {
                         if ($('#btnClickStart').hasClass('far fa-play-circle')) {
                             if (Math.round(data) == 100) {
@@ -247,12 +247,12 @@ $user = Session::get('user')
                                     $('#IDStoryCurrent').val(response.IDStory)
                                     $('#img' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').removeClass(responses.Border)
                                     $('#tag' + '@isset($story[0]->IDTaiKhoan){{($story[0]->IDTaiKhoan)}}@endisset').html(responses.SoTheMoi)
-                                    $('.img-story').attr('src', "/" + response.DuongDan);
+                                    $('.img-story').attr('src', response.DuongDan);
                                     $('#timeStory').html(response.ThoiGianDangStory)
                                     if ($('#' + response.IDStory).length > 0)
                                         changeStoryImage(document.getElementById(response.IDStory), 0)
                                     $('#viewStoryDetailFull').html(responses.ViewStoryDetail);
-                                    $('#myAudio').attr('src', '/' + responses.urlMp3);
+                                    $('#myAudio').attr('src', responses.urlMp3);
                                     document.getElementById('myAudio').play();
                                     $('#btnClickStart').removeClass('far fa-play-circle');
                                     $('#btnClickStart').addClass('far fa-stop-circle');
@@ -326,7 +326,7 @@ $user = Session::get('user')
                     if ($('#' + response.IDStory).length > 0)
                         changeStoryImage(document.getElementById(response.IDStory), 0)
                     $('#viewStoryDetailFull').html(response.ViewStoryDetail);
-                    $('#myAudio').attr('src', '/' + response.urlMp3);
+                    $('#myAudio').attr('src', response.urlMp3);
                     document.getElementById('myAudio').play();
                     $('#btnClickStart').removeClass('far fa-play-circle');
                     $('#btnClickStart').addClass('far fa-stop-circle');
@@ -377,7 +377,7 @@ $user = Session::get('user')
                     if ($('#' + response.IDStory).length > 0)
                         changeStoryImage(document.getElementById(response.IDStory), 0)
                     $('#viewStoryDetailFull').html(response.ViewStoryDetail);
-                    $('#myAudio').attr('src', '/' + response.urlMp3);
+                    $('#myAudio').attr('src', response.urlMp3);
                     document.getElementById('myAudio').play();
                     $('#btnClickStart').removeClass('far fa-play-circle');
                     $('#btnClickStart').addClass('far fa-stop-circle');

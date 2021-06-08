@@ -43,7 +43,7 @@ class StringUtil extends Model
         $year = round($sec / 31553280);
         if ($sec <= 60) {
             $result = "Vừa xong";
-        } else if ($min <= 60) {
+        } else if ($min < 60) {
             if ($min == 1) {
                 $result = "1 phút trước";
             } else {
@@ -55,20 +55,20 @@ class StringUtil extends Model
             } else {
                 $result = "$hour giờ";
             }
-        } else if ($day <= 7) {
+        } else if ($day < 7) {
             if ($day == 1) {
                 $result = "Hôm qua lúc $h : $m : $s";
             } else {
                 $result = "$d tháng $mon lúc $h : $m : $s";
             }
-        } else if ($week <= 4.3) //4.3 == 52/12  
+        } else if ($week < 4.3) //4.3 == 52/12  
         {
             if ($week == 1) {
                 $result = "1 tuần";
             } else {
                 $result = "$week tuần trước";
             }
-        } else if ($month <= 12) {
+        } else if ($month < 12) {
             if ($month == 1) {
                 $result = "1 tháng trước";
             } else {

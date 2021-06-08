@@ -54,7 +54,7 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
                                 <img class="w-10 h-10 mr-4" src="img/friends.png" alt="" srcset="">
                                 <span class="font-bold flex items-center dark:text-white">Bạn Bè</span>
                             </li>
-                            <li class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
+                            <li onclick="window.location.href='memory'" class="cursor-pointer w-full flex px-2.5 py-2 dark:hover:bg-dark-third">
                                 <img class="w-10 h-10 mr-4" src="img/memory.png" alt="" srcset="">
                                 <span class="font-bold flex items-center dark:text-white">Kỉ Niệm</span>
                             </li>
@@ -204,10 +204,16 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
         <!-- create chat -->
 
         <!-- place show chat -->
-        <div class="w-full px-4 flex z-0 md:w-full lg:w-full xl:w-1/2
-        ml-auto fixed -bottom-1 right-20" id="placeChat">
+        <div class="w-full px-4 flex z-0 w-full w-full xl:w-1/2 xl:translate-x-0 overflow-x-auto flex-nowrap  
+        ml-auto fixed bottom-0 lg:-bottom-1 w-91 max-w-91 lg:max-w-full xl:max-w-1/2  left-12 transform -translate-x-1/2 xl:right-20 flex-1 
+        xl:overflow-x-hidden" id="placeChat">
         </div>
         <!-- place show chat -->
+
+        <!-- place show notify -->
+        <div class="w-80 fixed bottom-3 left-5" id="notifyShow">
+        </div>
+        <!-- place show notify -->
     </div>
     <!-- main -->
 
@@ -253,7 +259,8 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
                 method: "GET",
                 url: "/ProcessNotificationShow",
                 success: function(response) {
-                    $('#numNotification').html(response);
+                    $('#numNotification').html(response.num);
+                    $('#notifyShow').append(response.view);
                 }
             });
         });

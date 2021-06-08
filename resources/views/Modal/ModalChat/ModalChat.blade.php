@@ -9,7 +9,7 @@ $user = Session::get('user');
 
 ?>
 
-<div id="{{ $chater[0]->IDTaiKhoan }}Chat" class="relative bg-white w-1/2 m-2 p-2 dark:bg-dark-second rounded-lg 
+<div id="{{ $chater[0]->IDTaiKhoan }}Chat" class="relative bg-white max-w-91 min-w-91 w-91 m-2 p-2 dark:bg-dark-second rounded-lg 
 dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     <?php
     echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
@@ -20,7 +20,7 @@ dark:border-dark-third border-2 border-solid border-gray-300 ml-auto">
     <div class="w-full flex py-1 border-b-2 border-solid border-gray-200  dark:border-dark-third">
         <div class=" pb-0.5">
             <div class="w-10 h-10 relative">
-                <img src="/{{ $chater[0]->AnhDaiDien }}" class="cursor-pointer w-10 h-10 rounded-full object-cover" alt="">
+                <img src="{{ $chater[0]->AnhDaiDien }}" class="cursor-pointer w-10 h-10 rounded-full object-cover" alt="">
                 @include('Component\Child\Activity',
                 [
                 'padding' => 'p-1',

@@ -34,7 +34,7 @@ $allStory = array_slice($allStory, 0, 4);
         <div class="h-44 rounded-xl overflow-hidden relative cursor-pointer flex-shrink-0 
         bg-black">
             <div class="relative h-full group cursor-pointer">
-                <img class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover " src="/{{ $value[0]->DuongDan }}" alt="">
+                <img class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover " src="{{ $value[0]->DuongDan }}" alt="">
             </div>
             <div class="w-full absolute text-left pl-1.5 break-all" style="bottom: 8px;">
                 <a href=""><b class="text-white text-sm">{{ $value[0]->Ho . ' ' . $value[0]->Ten }}</b></a>
@@ -43,7 +43,7 @@ $allStory = array_slice($allStory, 0, 4);
                 <img class="w-10 h-10 rounded-full object-cover border-4 border-solid 
             {{ DataProcessThird::checkIsViewStoryOfUser(
             $value[0]->IDTaiKhoan
-            ,$user[0]->IDTaiKhoan ) == 0 ? 'border-white' : 'border-blue-500' }} " src="/{{ $value[0]->AnhDaiDien }}" alt="">
+            ,$user[0]->IDTaiKhoan ) == 0 ? 'border-white' : 'border-blue-500' }} " src="{{ $value[0]->AnhDaiDien }}" alt="">
             </div>
         </div>
     </div>

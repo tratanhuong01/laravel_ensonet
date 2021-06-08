@@ -28,21 +28,20 @@ function createStory(text, color) {
     }
 }
 function changeColorContent(color) {
+    console.log(color);
     changeTexts(color);
-    document.getElementsByClassName(
-        "content-story-text"
-    )[0].style.color = color;
+    document.getElementsByClassName("content-story-text")[0].style.color =
+        color;
     createStory(document.getElementsByClassName("place-type")[0].value, color);
 }
 function changeTexts(color) {
     color = color == "" ? "white" : color;
     createStory(document.getElementsByClassName("place-type")[0].value, color);
-    document.getElementsByClassName(
-        "content-story-text"
-    )[0].innerText = document.getElementsByClassName("place-type")[0].value;
+    document.getElementsByClassName("content-story-text")[0].innerText =
+        document.getElementsByClassName("place-type")[0].value;
 }
 function clickChangeBackground(IDPhongNen, DuongDanPN) {
-    $("#myImage").attr("src", "/" + DuongDanPN);
+    $("#myImage").attr("src", DuongDanPN);
     $("#IDPhongNen").val(IDPhongNen);
 }
 function getLiHaveShowLi() {
@@ -67,7 +66,7 @@ function changeStoryImage(element, index) {
     }
 }
 function playMusicDemoStory(url) {
-    $("#myAudio").attr("src", "/" + url);
+    $("#myAudio").attr("src", url);
     document.getElementById("myAudio").play();
 }
 function chooseMusic(ID) {
@@ -151,9 +150,8 @@ function changeTextsPictureMain(color) {
         w,
         h
     );
-    document.getElementsByClassName(
-        "content-story-text"
-    )[0].innerText = document.getElementsByClassName("place-type")[0].value;
+    document.getElementsByClassName("content-story-text")[0].innerText =
+        document.getElementsByClassName("place-type")[0].value;
 }
 function changeColorContentPictureMain(color) {
     var x = 0;
@@ -163,9 +161,8 @@ function changeColorContentPictureMain(color) {
     var w = document.getElementById("myImage").offsetWidth;
     var h = document.getElementById("myImage").offsetHeight;
     changeTextsPictureMain(color);
-    document.getElementsByClassName(
-        "content-story-text"
-    )[0].style.color = color;
+    document.getElementsByClassName("content-story-text")[0].style.color =
+        color;
     createStoryPictureMain(
         document.getElementsByClassName("place-type")[0].value,
         color,
@@ -175,3 +172,4 @@ function changeColorContentPictureMain(color) {
         h
     );
 }
+function storystory() {}

@@ -31,7 +31,7 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
         <div class="w-full hover:bg-gray-200 dark:hover:bg-dark-third 
         flex cursor-pointer relative p-2">
             <div class="w-1/12">
-                <img src="/{{ $value->AnhDaiDien }}" class="w-12 h-12 object-cover 
+                <img src="{{ $value->AnhDaiDien }}" class="w-12 h-12 object-cover 
                 rounded-full" alt="">
             </div>
             <div class="w-10/12 flex pl-3">

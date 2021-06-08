@@ -19,9 +19,8 @@ function EventClickInputAbout(Name, Element, Condition) {
                 Name: Name,
             },
             success: function (response) {
-                document.getElementsByClassName(
-                    Condition
-                )[0].innerHTML = response;
+                document.getElementsByClassName(Condition)[0].innerHTML =
+                    response;
                 document
                     .getElementsByClassName(Condition)[0]
                     .classList.remove("hidden");
@@ -42,9 +41,8 @@ function PrivacyAbout(Element, IDInput) {
         success: function (response) {
             second.innerHTML = response;
             second.className += " fixed h-screen";
-            var inputPrivacy = document.getElementsByClassName(
-                "privacyAboutss"
-            );
+            var inputPrivacy =
+                document.getElementsByClassName("privacyAboutss");
             inputPrivacy[0].addEventListener("change", function () {
                 $.ajax({
                     method: "GET",

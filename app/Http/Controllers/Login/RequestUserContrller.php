@@ -8,6 +8,7 @@ use App\Models\Yeucaunguoidung;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use JD\Cloudder\Facades\Cloudder;
 
 class RequestUserContrller extends Controller
 {
@@ -30,15 +31,12 @@ class RequestUserContrller extends Controller
                 $json = array();
                 $nameFile = '';
                 foreach ($files as $key => $file) {
-                    $nameFile .= 'img/RequestUserImage/' . StringUtil::createNameFileCMND($id, $key) . '.png';
+                    Cloudder::upload($file, null, ['folder' => 'RequestUser'], 'PostNormal.jpg');
+                    $nameFile = Cloudder::getResult()['url'];
                     $json[$key] = (object)[
-                        'IDHinhAnh' => StringUtil::createNameFileCMND($id, $key),
+                        'IDHinhAnh' => $nameFile,
                         'DuongDan' => $nameFile
                     ];
-                    $file->move(
-                        public_path('img/RequestUserImage'),
-                        StringUtil::createNameFileCMND($id, $key) . '.png'
-                    );
                 }
                 Yeucaunguoidung::add(
                     $id,

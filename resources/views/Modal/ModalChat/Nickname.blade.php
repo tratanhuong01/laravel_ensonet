@@ -21,7 +21,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-5/12" style="transform: translate(-50%,-50%);z
         <div class="w-full cursor-pointer p-2.5 flex hover:bg-gray-200 dark:hover:bg-dark-third 
         rounded-lg">
             <div class="w-1/12">
-                <img src="/{{ $value->AnhDaiDien }}" class="w-12 h-12 object-cover rounded-full" alt="">
+                <img src="{{ $value->AnhDaiDien }}" class="w-12 h-12 object-cover rounded-full" alt="">
             </div>
             <div class="w-10/12 pl-3">
                 <p onclick="eventOpenOrCloseEditNickName('{{ $value->IDTaiKhoan }}')" class="flex items-center flex-wrap " id="{{$value->IDTaiKhoan }}unactiveNickName">

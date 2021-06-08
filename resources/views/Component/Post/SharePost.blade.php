@@ -17,7 +17,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
         <div class="mr-2">
             <div class="w-14 h-14 relative">
                 <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 
-                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $item[0]->AnhDaiDien }}"></a>
+                rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $item[0]->AnhDaiDien }}"></a>
                 @include('Component\Child\Activity',
                 [
                 'padding' => 'p-1.5',
@@ -40,19 +40,25 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
                             <a href="" class="dark:text-gray-300 font-bold">
                                 {{ StringUtil::CheckDateTime($item[0]->NgayDang) }}</a>
                         </li>
+                        @if ($u[0]->IDTaiKhoan == $item[0]->IDTaiKhoan)
+                        <li onclick="changeObjectPrivacyPost('{{ $item[0]->IDBaiDang }}')" class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
+                            @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
+                        </li>
+                        @else
                         <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
                             @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                         </li>
+                        @endif
                     </ul>
                 </div>
             </div>
         </div>
         <div class="relative text-center" style="width: 10%;">
             @if ($item[0]->IDTaiKhoan != $u[0]->IDTaiKhoan)
-            <i class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
+
             @else
             <i onclick="openEditPost('{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}')" class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
-            <div class="w-72 z-40 dark:bg-dark-second bg-gray-100 border-2 absolute top-10 right-4 
+            <div class="w-72 z-50 dark:bg-dark-second bg-gray-100 border-2 absolute top-10 right-4 
             border-solid border-gray-300 dark:border-dark-third shadow-1 hidden " id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}">
                 <ul class="w-full">
                     <li onclick="editPost('{{ $item[0]->IDBaiDang }}')" class="dark:text-white font-bold px-4 py-2.5 border-b-2 border-solid border-gray-200 
@@ -76,6 +82,14 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
     <div class="w-full mx-0 my-2.5">
         <p class="dark:text-white">{!! $item[0]->NoiDung !!}</p>
     </div>
+
+    @if (count($postShare) == 0)
+    <div class="w-full mx-0 my-4">
+        <div class="w-11/12  p-4 mb-4 ml-4 bg-white dark:bg-dark-second" style="border: 1px solid #ccc;">
+            @include('Component.Post.Child.PostDeleted')
+        </div>
+    </div>
+    @else
     <div class="w-full mx-0 my-4">
         @switch($postShare[0]->LoaiBaiDang)
         @case('0')
@@ -98,7 +112,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
                 <div class="mr-2">
                     <div class="w-14 h-14 relative">
                         <a href="profile.{{ $postShare[0]->IDTaiKhoan }}"><img class="w-12 h-12 
-                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $postShare[0]->AnhDaiDien }}"></a>
+                rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $postShare[0]->AnhDaiDien }}"></a>
                         @include('Component\Child\Activity',
                         [
                         'padding' => 'p-1.5',
@@ -156,7 +170,10 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
             </div>
         </div>
     </div>
-    @include('Component\Post\FeelPost',['item' => $item])
+    @endif
+    @include('Component\Post\FeelPost',[
+    'item' => $item
+    ])
     <div class="w-full" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}CommentLv1">
         <?php $commentLimit = Process::getCommentLimitFromTo($item[0]->IDBaiDang, 0);
         $comment = Process::getCommentNew($item[0]->IDBaiDang); ?>

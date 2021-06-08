@@ -10,13 +10,15 @@ use App\Process\DataProcess;
 $u = Session::get('user');
 
 $per = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $item[0]->ChiaSe)->get();
+
 ?>
+@if (count($per) > 0)
 <div onclick="" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}Main" class="w-full bg-white dark:bg-dark-second my-4 py-4 px-2 rounded-lg">
     <div class="w-full flex">
         <div class="mr-2">
             <div class="w-14 h-14 relative">
                 <a href="profile.{{ $per[0]->IDTaiKhoan }}"><img class="w-12 h-12 
-                rounded-full object-cover border-4 border-solid border-gray-200" src="/{{ $per[0]->AnhDaiDien }}"></a>
+                rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $per[0]->AnhDaiDien }}"></a>
                 @include('Component\Child\Activity',
                 [
                 'padding' => 'p-1.5',
@@ -98,11 +100,11 @@ $per = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $item[0]->ChiaSe)->get();
                 @elseif (sizeof($item) == 1 && $item[$i]->DuongDan != NULL)
                 <li class="w-full">
                     <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
-                        <img class="w-full p-1 object-cover" style="max-height:650px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a>
+                        <img class="w-full p-1 object-cover" style="max-height:650px;" src="{{ $item[$i]->DuongDan }}" alt=""></a>
                 </li>
                 @else
                 @if (sizeof($item) > 4 && $i == 3)
-                <li class="relative"><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
+                <li class="relative"><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="{{ $item[$i]->DuongDan }}" alt=""></a></li>
                 <a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}">
                     <div class="rounded-lg absolute bottom-1 left-1/2" style="width:273px;height:280px;background:rgba(0, 0, 0, 0.5);">
                         <span class="text-5xl font-bold absolute top-1/2 left-1/2 text-white" style="transform:translate(-50%,-50%);">{{ '+'. (sizeof($item) - 4) }}</span>
@@ -110,13 +112,15 @@ $per = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $item[0]->ChiaSe)->get();
                 </a>
                 @break;
                 @else
-                <li class=""><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="/{{ $item[$i]->DuongDan }}" alt=""></a></li>
+                <li class=""><a href="photo/{{ $item[0]->IDBaiDang }}/{{ $item[$i]->IDHinhAnh }}"><img class="p-1 object-cover rounded-lg" style="width:278px;height:285px;" src="{{ $item[$i]->DuongDan }}" alt=""></a></li>
                 @endif
                 @endif
                 @endfor
         </ul>
     </div>
-    @include('Component\Post\FeelPost',['item' => $item])
+    @include('Component\Post\FeelPost',[
+    'item' => $item
+    ])
     <div class="w-full" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}CommentLv1">
         <?php $commentLimit = Process::getCommentLimitFromTo($item[0]->IDBaiDang, 0);
         $comment = Process::getCommentNew($item[0]->IDBaiDang); ?>
@@ -134,7 +138,7 @@ $per = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $item[0]->ChiaSe)->get();
     </div>
     @if (count($commentLimit) > 0)
     <div class="w-11/12 ml-2" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}NumComment">
-        @include('Component\BinhLuan\ViewMoreComment',
+        @include('Component\Comment\ViewMoreComment',
         ['num' => count($comment),
         'idTaiKhoan' => $item[0]->IDTaiKhoan,
         'idBaiDang' => $item[0]->IDBaiDang ,
@@ -145,3 +149,4 @@ $per = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $item[0]->ChiaSe)->get();
     @endif
     @include('Component\Comment\WriteCommentLv1',['item' => $item])
 </div>
+@endif

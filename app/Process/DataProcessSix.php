@@ -4,9 +4,12 @@ namespace App\Process;
 
 use App\Models\Congty;
 use App\Models\Diachi;
+use App\Models\Hinhanh;
+use App\Models\Quydinh;
 use App\Models\Tinnhan;
 use App\Models\Truonghoc;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class DataProcessSix extends Model
 {
@@ -116,5 +119,54 @@ class DataProcessSix extends Model
     }
     public static function getVideoByUser()
     {
+    }
+    public static function checkContentIsValid($content)
+    {
+        $word = DB::table('quydinh')->get();
+        $number = 0;
+        foreach ($word as $key => $value) {
+            if (str_contains($content, $value->TenQuyDinh))
+                $number++;
+        }
+        return $number;
+    }
+    public static function getMemoryByID($idTaiKhoan)
+    {
+        $post = DB::table('baidang')
+            ->whereRaw("DATE_FORMAT(CAST(baidang.NgayDang AS DATE),'%m-%d') = 
+            DATE_FORMAT(CAST(DATE_SUB(NOW(),INTERVAL 1 YEAR) AS DATE),'%m-%d') AND 
+            YEAR(baidang.NgayDang) < YEAR(NOW())")
+            ->get();
+        $postNew = array();
+        foreach ($post as $key => $value) {
+            $data = DB::table('baidang')
+                ->where('baidang.IDBaiDang', '=', $value->IDBaiDang)
+                ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                ->leftjoin('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')
+                ->get();
+            foreach ($data as $keys => $values) {
+                $postNew[$key][$keys] =  $values;
+            }
+        }
+        return $postNew;
+    }
+    public static function getIDImageByIDCommnet($idBinhLuan)
+    {
+        $id = Hinhanh::where('hinhanh.Khac', '=', $idBinhLuan)->get();
+        if (count($id) > 0)
+            return $id[0]->IDHinhAnh;
+        else
+            return "";
+    }
+    public static function checkWordIsValid($word)
+    {
+        $rule = Quydinh::get();
+        foreach ($rule as $key => $value) {
+            if (str_contains($word, $value->TenQuyDinh)) {
+                return false;
+                break;
+            }
+        }
+        return true;
     }
 }

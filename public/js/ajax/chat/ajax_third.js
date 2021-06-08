@@ -38,7 +38,7 @@ function saveNickName(
     numberMember
 ) {
     if (event.keyCode === 13) {
-        numberMember = new Number(numberMember);
+        numberMember = Number(numberMember);
         $.ajax({
             method: "GET",
             url: "/ProcessEditNickNameUserChat",
@@ -55,13 +55,11 @@ function saveNickName(
                         (numberMember === 1 ? IDMain : "") +
                         "Messenges"
                 ).append(response.view);
-                var objDiv = document.getElementById(
+                console.log(
                     IDNhomTinNhan +
                         (numberMember === 1 ? IDMain : "") +
                         "Messenges"
                 );
-                if (objDiv.scrollHeight > 352)
-                    objDiv.scrollTop = objDiv.scrollHeight;
                 $("#" + IDTaiKhoan + "unactiveNickName").removeClass("hidden");
                 $("#" + IDTaiKhoan + "checkedEditNickName").addClass("hidden");
                 $("#" + IDTaiKhoan + "inputNickName").addClass("hidden");
@@ -93,6 +91,13 @@ function saveNickName(
                     );
                 }
                 $("#" + IDTaiKhoan + "inputNickName").val("");
+                var objDiv = document.getElementById(
+                    IDNhomTinNhan +
+                        (numberMember === 1 ? IDMain : "") +
+                        "Messenges"
+                );
+                if (objDiv.scrollHeight > 352)
+                    objDiv.scrollTop = objDiv.scrollHeight;
             },
         });
     }

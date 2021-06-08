@@ -156,6 +156,13 @@ function postSticker(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDNhanDan) {
         "NoiDungBinhLuan",
         $("#" + IDTaiKhoan + IDBaiDang + "Write").html()
     );
+    $("#" + IDBaiDang + IDBinhLuan + "FormComment").html("");
+    $("#" + IDBaiDang + IDBinhLuan + "modalComment").html("");
+    $("#" + IDBaiDang + IDBinhLuan + "modalComment").addClass("hidden");
+    $("#" + IDBaiDang + IDBinhLuan + "FormComment").html("");
+    $("#" + IDTaiKhoan + IDBaiDang + "CommentLv1").prepend(
+        createLoadingComment()
+    );
     $.ajax({
         method: "POST",
         url: "/ProcessPostCommentSticker",
@@ -163,10 +170,8 @@ function postSticker(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDNhanDan) {
         contentType: false,
         processData: false,
         success: function (response) {
+            $("#loadingCommentElement").remove();
             $("#" + IDTaiKhoan + IDBaiDang + "CommentLv1").prepend(response);
-            $("#" + IDBaiDang + IDBinhLuan + "modalComment").html("");
-            $("#" + IDBaiDang + IDBinhLuan + "modalComment").addClass("hidden");
-            $("#" + IDBaiDang + IDBinhLuan + "FormComment").html("");
         },
     });
 }
@@ -244,7 +249,7 @@ function postMain(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDNhanDan, Loai) {
             postSticker(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDNhanDan);
             break;
         case "2":
-            postStickerRepView(IDBaiDang, IDBinhLuan, IDNhanDan);
+            postStickerRep(IDTaiKhoan, IDBaiDang, IDBinhLuan, IDNhanDan);
             break;
         default:
             break;
@@ -289,6 +294,9 @@ function deleteWarnComment(IDBaiDang, IDBinhLuan, IDBinhLuanRep) {
                     },
                     success: function (response) {
                         $("#" + IDBaiDang + IDBinhLuan).remove();
+                        document
+                            .getElementsByTagName("body")[0]
+                            .classList.remove("overflow-hidden");
                         second.innerHTML = "";
                         second.classList.remove("fixed");
                         second.classList.remove("h-screen");

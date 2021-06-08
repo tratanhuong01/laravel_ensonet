@@ -16,28 +16,31 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
     </div>
     <div class="w-full flex flex-wrap">
         <div class="w-1/2 px-3">
+            <?php $url = json_decode($reply[0]->DuongDanHinhAnh) ?>
             <div class="w-full flex mb-3">
-                <?php $url = json_decode($reply[0]->DuongDanHinhAnh) ?>
                 <div class="w-1/12 relative">
-                    <span class="cursor-pointer absolute top-1/2 left-1/2" style="transform: translate(-50%,-50%);">
+                    <span class="cursor-pointer absolute top-1/2 left-1/2 hidden transform 
+                    -translate-x-1/2 -translate-y-1/2">
                         <i class="bx bxs-chevrons-left text-xl rounded-full 
                         px-2.5 py-1.5 bg-gray-200"></i>
                     </span>
                 </div>
                 <div class="w-10/12 px-2">
-                    <img src="/{{ $url[0]->DuongDan }}" class="w-auto mx-auto max-h-80" alt="">
+                    <img src="{{ $url[0]->DuongDan }}" id="imageMain" class="w-auto mx-auto max-h-80" alt="">
                 </div>
                 <div class="w-1/12 relative">
-                    <span class="cursor-pointer absolute top-1/2 left-1/2" style="transform: translate(-50%,-50%);">
+                    <span class="cursor-pointer absolute top-1/2 left-1/2 hidden transform 
+                    -translate-x-1/2 -translate-y-1/2">
                         <i class="bx bxs-chevrons-right text-xl rounded-full 
                         px-2.5 py-1.5 bg-gray-200"></i>
                     </span>
                 </div>
             </div>
-            <div class="w-full flex">
-                @foreach($url as $key => $value)
-                <div class="w-1/4">
-                    <img src="/{{ $value->DuongDan }}" class="w-full h-full 
+            <div class="w-full flex max-w-full overflow-x-auto wrapper-content-right ">
+                @foreach ($url as $item)
+                <div onclick="clickChangeImage(this)" class="w-1/4 h-32 object-cover flex-shrink-0 mr-2   
+                border-4 border-solid border-gray-100 cursor-pointer hover:border-gray-300 image__item">
+                    <img src="{{$item->DuongDan }}" class="w-full h-full 
                     object-cover p-1" alt="">
                 </div>
                 @endforeach
@@ -54,7 +57,7 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
                     <span class="cursor-pointer bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
                         font-bold text-white">{{ $reply[0]->Ho . ' ' . $reply[0]->Ten }}</span>
                 </li>
-                <li class="w-full p-2">Loại phản hồi :
+                <li class="w-full p-2" id="status">Loại phản hồi :
                     @switch($reply[0]->LoaiYeuCau)
                     @case('0')
                     <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
@@ -70,14 +73,25 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
                 wrapper-content-right border-2 border-solid">Nội Dung :
                     <span class="font-bold">{{ $reply[0]->NoiDungYeuCau }}</span>
                 </li>
+                @if ($reply[0]->TinhTrangYeuCau == -2 || $reply[0]->TinhTrangYeuCau == 0)
+                <li class="p-2 w-full flex justify-center">
+                    @include('Admin.Modal.Reply.Child.ElementStatus',
+                    ['value'=>$reply[0]]
+                    )
+                </li>
+                @else
                 <ul class="mx-auto justify-center py-10 flex">
-                    <li class="bg-green-500 px-5 py-3 text-xm rounded-3xl 
+                    <li onclick="updateStatusRequestUser('{{ $reply[0]->IDYeuCauNguoiDung }}',
+                    '2','{{ $reply[0]->IDTaiKhoan }}')" class="bg-green-500 px-5 py-3 text-xm rounded-3xl 
                     font-bold text-white mr-4 cursor-pointer">Mở tài khoản</li>
-                    <li class="bg-yellow-500 px-5 py-3 text-xm rounded-3xl 
+                    <li onclick="updateStatusRequestUser('{{ $reply[0]->IDYeuCauNguoiDung }}',
+                    '1','{{ $reply[0]->IDTaiKhoan }}')" class="bg-yellow-500 px-5 py-3 text-xm rounded-3xl 
                     font-bold text-white mr-4 cursor-pointer">Đang chờ</li>
-                    <li class="bg-red-500 px-5 py-3 text-xm rounded-3xl 
+                    <li onclick="updateStatusRequestUser('{{ $reply[0]->IDYeuCauNguoiDung }}',
+                    '0','{{ $reply[0]->IDTaiKhoan }}')" class="bg-red-500 px-5 py-3 text-xm rounded-3xl 
                     font-bold text-white cursor-pointer">Từ chối</li>
                 </ul>
+                @endif
             </ul>
         </div>
     </div>

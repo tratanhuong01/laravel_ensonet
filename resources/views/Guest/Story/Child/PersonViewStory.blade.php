@@ -8,12 +8,12 @@ use App\Process\DataProcessThird;
     @foreach($allStory[0] as $key => $value)
     @if ($key == 0)
     <li onclick="changeStoryImage(this,0)" id="{{$value->IDStory}}" class="mr-2 cursor-pointer flex-shrink-0 showLi " style="width: 120px;">
-        <img class="w-32 h-40 object-cover showImg" src="/{{ $value->DuongDan }}">
+        <img class="w-32 h-40 object-cover showImg" src="{{ $value->DuongDan }}">
     </li>
     @else
     <li id="{{$value->IDStory}}" onclick="changeStoryImage(this,1)" class="cursor-pointer 
     flex-shrink-0 mx-2" style="width: 120px;">
-        <img class="w-32 h-40  opacity-40 object-cover " src="/{{ $value->DuongDan }}">
+        <img class="w-32 h-40  opacity-40 object-cover " src="{{ $value->DuongDan }}">
     </li>
     @endif
     @endforeach

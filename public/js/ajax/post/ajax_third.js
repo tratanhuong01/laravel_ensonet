@@ -1,5 +1,5 @@
 function loadUIEditPostMain(json) {
-    document.getElementById("imagePost").innerHTML = "";
+    $("#imagePost").html("");
     var edit = document.createElement("div");
     edit.classList =
         "w-24 absolute dark:text-white top-3 z-50 cursor-pointer left-4 p-1.5 bg-gray-200 rounded-lg dark:bg-dark-third text-center font-bold";
@@ -8,28 +8,51 @@ function loadUIEditPostMain(json) {
         $("#modal-one").hide();
         second.appendChild(editFileUploadMainEdit());
     });
-    var arrayImageAndVideoPostEdit = new Array();
+    var arrayImageAndVideoPostEdit = store.get("imageAndVideoPostEdit");
     for (let index = 0; index < json.length; index++) {
-        arrayImageAndVideoPostEdit[index] = {
+        arrayImageAndVideoPostEdit.push({
             Loai: 0,
             DuongDan: json[index].DuongDan,
             IDHinhAnh: json[index].ID,
-        };
+        });
     }
-    document.getElementById("imagePost").classList.add("relative");
-    document.getElementById("imagePost").appendChild(edit);
+    $("#imagePost").addClass("relative");
+    $("#imagePost").append(edit);
     store.set("imageAndVideoPostEdit", arrayImageAndVideoPostEdit);
-    for (var i = 0; i < json.length; i++) {
-        var div = document.createElement("div");
-        div.classList = "divImage relative";
-        var img = document.createElement("img");
-        img.style.objectFit = "cover";
+    for (var i = 0; i < arrayImageAndVideoPostEdit.length; i++) {
+        var img;
+        var div;
+        if (
+            checkTypeEditPostImgVidFirst(arrayImageAndVideoPostEdit[i]) ===
+                "MOV" ||
+            checkTypeEditPostImgVidFirst(arrayImageAndVideoPostEdit[i]) ===
+                "MP4" ||
+            checkTypeEditPostImgVidFirst(arrayImageAndVideoPostEdit[i]) ===
+                "mp4"
+        ) {
+            div = document.createElement("div");
+            div.classList = "divImage relative flex justify-center";
+            img = document.createElement("video");
+            var divChilds = document.createElement("div");
+            divChilds.classList =
+                "bg-transparent cursor-pointer w-10 h-10 left-48% rounded-full flex justify-center absolute top-45per ml-5 ";
+            var iChilds = document.createElement("i");
+            iChilds.classList =
+                "far fa-play-circle text-4xl flex items-center text-white";
+            divChilds.appendChild(iChilds);
+            div.appendChild(divChilds);
+        } else {
+            div = document.createElement("div");
+            div.classList = "divImage relative";
+            img = document.createElement("img");
+            img.style.objectFit = "cover";
+        }
         if (json.length <= 1) {
             div.className = "w-full";
             img.className = "w-full";
             img.src = json[i].DuongDan;
             div.appendChild(img);
-            document.getElementById("imagePost").appendChild(div);
+            $("#imagePost").append(div);
         } else {
             img.className = "p-1 object-cover";
             div.style.width = "232px";
@@ -38,7 +61,7 @@ function loadUIEditPostMain(json) {
             img.style.height = "248px";
             img.src = json[i].DuongDan;
             div.appendChild(img);
-            document.getElementById("imagePost").appendChild(div);
+            $("#imagePost").append(div);
             if (json.length > 4 && i == 3) {
                 var divs = document.createElement("div");
                 divs.className = "relative";
@@ -53,18 +76,29 @@ function loadUIEditPostMain(json) {
                 divs.style.height = "239px";
                 divs.style.background = "rgba(0, 0, 0, 0.5)";
                 divs.className = "absolute bottom-2 right-4";
-                document.getElementById("imagePost").appendChild(divs);
+                $("#imagePost").append(divs);
                 break;
             }
         }
     }
 }
 function checkTypeEditPostImgVid(arr) {
-    if (arr.Loai === 1) return arr.DuongDan.name.split(".")[1];
-    else return arr.DuongDan.split("/")[1].split(".")[1];
+    console.log(arr);
+    if (arr.Loai == 1) {
+        return arr.DuongDan.name.substr(arr.DuongDan.name.length - 3);
+    } else {
+        return arr.DuongDan.substr(arr.DuongDan.length - 3);
+    }
+}
+function checkTypeEditPostImgVidFirst(arr) {
+    if (arr.Loai == 1) {
+        return arr.DuongDan.name.substr(arr.DuongDan.name.length - 3);
+    } else {
+        return arr.DuongDan.substr(arr.DuongDan.length - 3);
+    }
 }
 function returnUrlImageVideoEdit(arr) {
-    if (arr.Loai === 1) return URL.createObjectURL(arr.DuongDan);
+    if (arr.Loai == 1) return URL.createObjectURL(arr.DuongDan);
     else return arr.DuongDan;
 }
 function loadUIPostMainEdit(arr) {
@@ -83,7 +117,10 @@ function loadUIPostMainEdit(arr) {
         if (
             checkTypeEditPostImgVid(arr[i]) === "MOV" ||
             checkTypeEditPostImgVid(arr[i]) === "MP4" ||
-            checkTypeEditPostImgVid(arr[i]) === "mp4"
+            checkTypeEditPostImgVid(arr[i]) === "mp4" ||
+            checkTypeEditPostImgVidFirst(arr[i]) === "MOV" ||
+            checkTypeEditPostImgVidFirst(arr[i]) === "MP4" ||
+            checkTypeEditPostImgVidFirst(arr[i]) === "mp4"
         ) {
             div = document.createElement("div");
             div.classList = "divImage relative flex justify-center";
@@ -107,7 +144,7 @@ function loadUIPostMainEdit(arr) {
             data.className = "w-full";
             data.src = returnUrlImageVideoEdit(arr[i]);
             div.appendChild(data);
-            document.getElementById("imagePost").appendChild(div);
+            $("#imagePost").append(div);
         } else {
             data.className = "p-1 object-cover";
             div.style.width = "232px";
@@ -116,7 +153,7 @@ function loadUIPostMainEdit(arr) {
             data.style.height = "248px";
             data.src = returnUrlImageVideoEdit(arr[i]);
             div.appendChild(data);
-            document.getElementById("imagePost").appendChild(div);
+            $("#imagePost").append(div);
             if (arr.length > 4 && i == 3) {
                 var divs = document.createElement("div");
                 divs.className = "relative";
@@ -131,13 +168,13 @@ function loadUIPostMainEdit(arr) {
                 divs.style.height = "239px";
                 divs.style.background = "rgba(0, 0, 0, 0.5)";
                 divs.className = "absolute bottom-2 right-4";
-                document.getElementById("imagePost").appendChild(divs);
+                $("#imagePost").append(divs);
                 break;
             }
         }
     }
     document.getElementById("imagePost").classList.add("relative");
-    document.getElementById("imagePost").appendChild(edit);
+    $("#imagePost").append(edit);
 }
 function editFileUploadMainEdit() {
     var divMain = document.createElement("div");
@@ -227,7 +264,10 @@ function addImageVideoEdit(indexMain, array, divContent) {
         if (
             checkTypeEditPostImgVid(element) === "MOV" ||
             checkTypeEditPostImgVid(element) === "MP4" ||
-            checkTypeEditPostImgVid(element) === "mp4"
+            checkTypeEditPostImgVid(element) === "mp4" ||
+            checkTypeEditPostImgVidFirst(element) === "MOV" ||
+            checkTypeEditPostImgVidFirst(element) === "MP4" ||
+            checkTypeEditPostImgVidFirst(element) === "mp4"
         ) {
             var videoChild = document.createElement("video");
             videoChild.setAttribute("src", returnUrlImageVideoEdit(element));
@@ -313,8 +353,8 @@ function addImageVideoEdit(indexMain, array, divContent) {
     }
 }
 function changeUploadFileEdit(el) {
+    console.log(store.get("imageAndVideoPostEdit"));
     document.getElementById("imagePost").innerHTML = "";
-    store.set("imageAndVideoPostEdit", new Array());
     var files = el.files;
     var arr = Array.from(files);
     var array = store.get("imageAndVideoPostEdit");
@@ -326,12 +366,16 @@ function changeUploadFileEdit(el) {
         $("#modal-one").hide();
         second.appendChild(editFileUploadMainEdit());
     });
-    loadUIPostMainEdit(arr);
     document.getElementById("imagePost").classList.add("relative");
-    document.getElementById("imagePost").appendChild(edit);
+    $("#imagePost").append(edit);
     for (let index = 0; index < arr.length; index++) {
-        array[index] = arr[index];
+        array.push({
+            Loai: 1,
+            DuongDan: arr[index],
+            IDHinhAnh: arr[index].name,
+        });
     }
+    loadUIPostMainEdit(array);
     store.get("arrayImageAndVideoEdit", array);
 }
 function EditPostMain(IDTaiKhoan, IDBaiDang) {
@@ -375,7 +419,7 @@ function EditPostMain(IDTaiKhoan, IDBaiDang) {
             second.innerHTML = "";
             second.classList.remove("fixed");
             second.classList.remove("h-screen");
-            store.set("imageAndVideoPost", new Array());
+            store.set("imageAndVideoPostEdit", new Array());
         },
     });
 }

@@ -45,7 +45,7 @@ $users = Session::get('users');
         border-gray-200 rounded-lg" style="width: 48.5%;margin: 6px;padding: 2%;">
             <?php $path = "profile." . $data[$i][0]->IDTaiKhoan; ?>
             <div class="w-1/4">
-                <a href="{{ url($path) }}"><img class="w-24 h-24 rounded-lg object-cover" src="/{{ $data[$i][0]->AnhDaiDien }}" alt=""></a>
+                <a href="{{ url($path) }}"><img class="w-24 h-24 rounded-lg object-cover" src="{{ $data[$i][0]->AnhDaiDien }}" alt=""></a>
             </div>
             <div class="w-5/12 flex pl-4">
                 <div class="flex flex-wrap items-center">

@@ -16,7 +16,7 @@ class Baidang extends Model
         'NoiDung',
         'GanThe',
         'IDCamXuc',
-        'IDViTri',
+        'IDDiaChi',
         'NgayDang',
         'LoaiBaiDang',
         'ChiaSe'
@@ -28,7 +28,7 @@ class Baidang extends Model
         $NoiDung,
         $GanThe,
         $IDCamXuc,
-        $IDViTri,
+        $IDDiaChi,
         $NgayDang,
         $LoaiBaiDang,
         $ChiaSe
@@ -40,7 +40,7 @@ class Baidang extends Model
         $baidang->NoiDung = $NoiDung;
         $baidang->GanThe = $GanThe;
         $baidang->IDCamXuc = $IDCamXuc;
-        $baidang->IDViTri = $IDViTri;
+        $baidang->IDDiaChi = $IDDiaChi;
         $baidang->NgayDang = $NgayDang;
         $baidang->LoaiBaiDang = $LoaiBaiDang;
         $baidang->ChiaSe = $ChiaSe;

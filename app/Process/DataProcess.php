@@ -158,13 +158,16 @@ class DataProcess extends Model
         $usersOfGroupMessages = DB::select('SELECT DISTINCT tinnhan.IDTaiKhoan ,AnhDaiDien,Ho,Ten,ThoiGianHoatDong FROM tinnhan INNER JOIN 
         taikhoan ON tinnhan.IDTaiKhoan = taikhoan.IDTaiKhoan
         WHERE tinnhan.IDNhomTinNhan = ? ', [$idNhomTinNhan]);
-        foreach ($usersOfGroupMessages as $key => $value) {
-            if ($usersOfGroupMessages[$key]->IDTaiKhoan == $idTaiKhoan) {
-                unset($usersOfGroupMessages[$key]);
-                return array_values($usersOfGroupMessages);
-                break;
+        if (count($usersOfGroupMessages) == 0)
+            return array();
+        else
+            foreach ($usersOfGroupMessages as $key => $value) {
+                if ($usersOfGroupMessages[$key]->IDTaiKhoan == $idTaiKhoan) {
+                    unset($usersOfGroupMessages[$key]);
+                    return array_values($usersOfGroupMessages);
+                    break;
+                }
             }
-        }
     }
     public static function getNotificationMessage($idTaiKhoan, $tinhTrang)
     {

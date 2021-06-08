@@ -24,9 +24,9 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
                 <div class="pt-1">
                     <div class="w-10 h-10 relative">
                         <div class="w-10 h-10 relative mx-auto">
-                            <img src="/{{ $chater[0]->AnhDaiDien }}" class="w-7 h-7 rounded-full object-cover 
+                            <img src="{{ $chater[0]->AnhDaiDien }}" class="w-7 h-7 rounded-full object-cover 
                             absolute top-0 right-0" alt="">
-                            <img src="/{{ $chater[1]->AnhDaiDien }}" class="w-7 h-7 rounded-full object-cover 
+                            <img src="{{ $chater[1]->AnhDaiDien }}" class="w-7 h-7 rounded-full object-cover 
                             absolute bottom-0 left-0" alt="">
                         </div>
                     </div>
@@ -325,9 +325,9 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
     <div class="w-full">
         <div class="w-16 h-16 object-cover rounded-full mx-auto my-2 relative">
             <div class="w-16 h-16 relative mx-auto">
-                <img src="/{{ $chater[0]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
+                <img src="{{ $chater[0]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
                     absolute top-0 right-0" alt="">
-                <img src="/{{ $chater[1]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
+                <img src="{{ $chater[1]->AnhDaiDien }}" class="w-10 h-10 rounded-full object-cover 
                     absolute bottom-0 left-0" alt="">
             </div>
         </div>
@@ -410,7 +410,7 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
             @if(count($imageAndVideo) > 0)
             @foreach($imageAndVideo as $key => $value)
             <a href="">
-                <img src="/{{ $value }}" class="object-cover rounded-lg m-0.5
+                <img src="{{ $value }}" class="object-cover rounded-lg m-0.5
                 " alt="" style="width: 110px;height:110px;">
             </a>
             @endforeach

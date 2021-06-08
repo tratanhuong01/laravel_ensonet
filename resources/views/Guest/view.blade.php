@@ -76,9 +76,9 @@ $u = Session::get('user');
                 <div class="w-10/12">
                     <div class="mx-auto relative ">
                         @if ($data[0]->LoaiBaiDang == 1)
-                        <img class="w-full mx-auto object-cover absolute object-cover" style="transform: translateY(45%); height: 400px;" src="/../../{{ $dataNew[$indexImage][$idHinhAnh] }}" alt="">
+                        <img class="w-full mx-auto object-cover absolute object-cover" style="transform: translateY(45%); height: 400px;" src="{{ $dataNew[$indexImage][$idHinhAnh] }}" alt="">
                         @else
-                        <img style="max-width: 90%;" class="mx-auto object-cover h-screen" src="/../../{{ $dataNew[$indexImage][$idHinhAnh] }}" alt="">
+                        <img style="max-width: 90%;" class="mx-auto object-cover h-screen" src="{{ $dataNew[$indexImage][$idHinhAnh] }}" alt="">
                         @endif
                     </div>
                 </div>
@@ -141,7 +141,7 @@ $u = Session::get('user');
                 <div class="w-1/12"></div>
                 <div class="w-10/12">
                     <div class="mx-auto relative ">
-                        <img style="max-width: 90%;" class="mx-auto object-cover h-screen" style="transform: translateY(45%); height: 400px;" src="/{{ $dataNew[0]->DuongDan }}" alt="">
+                        <img style="max-width: 90%;" class="mx-auto object-cover h-screen" style="transform: translateY(45%); height: 400px;" src="{{ $dataNew[0]->DuongDan }}" alt="">
                     </div>
                 </div>
                 <div class="w-1/12"></div>
@@ -235,7 +235,8 @@ $u = Session::get('user');
                 method: "GET",
                 url: "/ProcessNotificationShow",
                 success: function(response) {
-                    $('#numNotification').html(response);
+                    $('#numNotification').html(response.num);
+                    $('#notifyShow').append(response.view);
                 }
             });
         });

@@ -12,15 +12,14 @@
     <div class="w-full dark:bg-dark-main h-screen relative" id="web">
         <div class="w-full mx-auto sm:w-full md:w-full lg:w-full xl:w-3/4 2xl:w-3/4">
             <div class="w-full flex flex-col py-2 mx-auto sm:flex-col sm:pt-4 lg:flex-row lg:pt-20">
-                <div class="w-full xl:absolute xl:top-1/2 transform xl:-translate-y-3/4 xl:py-0
-                p-8 pr-4 sm:w-11/12 sm:mx-auto lg:w-1/2 ">
-                    <!-- <span class="text-55px font-bold text-1877F2">Ensonet <br></span>
-                    <p class="text-2xl color-word font-bold">Mạng Xã Hội Lớn Nhất Thế Giới</p>
-                    <br>
-                    <br>
-                    <h2>Ensonet giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn.</h2> -->
+                <div class="w-full xl:absolute xl:top-1/2 transform xl:-translate-y-1/2 xl:py-0
+                p-8 pr-4 sm:w-11/12 sm:mx-auto lg:w-1/2" id="leftLogin">
+                    @if (Cookie::get('accountSave') !== NULL)
                     <span class="text-3xl font-bold text-1877F2">Ensonet <br></span>
                     @include('Guest/Child/SaveLogin')
+                    @else
+                    @include('Guest.Child.NotAccountSave')
+                    @endif
                 </div>
                 <div class="w-full mx-auto rounded-lg mr-8 sm:w-11/12 sm:mx-auto lg:w-1/3
                 lg:mr-8 items-center flex flex-wrap xl:mt-12">
@@ -29,7 +28,7 @@
                             <form class="w-full bg-white" action="{{ route('ProcessLogin') }}" method="post">
                                 {{ csrf_field() }}
                                 <input type="text" name="emailOrPhone" class="w-96per p-3 m-2.5 rounded-lg border-2 border-solid border-gray-200 
-                                @error('emailOrPhone') border-red-600 text-red-600 placeholder-red-600 @enderror" id="" placeholder="Email Hoặc Số Điện Thoại" value="{{ session()->has('emailOrPhone') ? Session::get('emailOrPhone') : '' }}">
+                                @error('emailOrPhone') border-red-600 text-red-600 placeholder-red-600 @enderror" placeholder="Email Hoặc Số Điện Thoại" value="{{ session()->has('emailOrPhone') ? Session::get('emailOrPhone') : '' }}">
                                 <p class="py-2 text-left pl-3 font-bold text-red-600">
                                     @error('emailOrPhone') {{ $message  }} @enderror
                                 </p>
@@ -38,7 +37,7 @@
                                     session()->forget('emailOrPhone');
                                 ?>
                                 <input type="password" name="passWord" class="w-96per p-3 m-2.5 rounded-lg border-2 border-solid border-gray-200 
-                                @error('passWord') border-red-600 text-red-600 placeholder-red-600 @enderror" id="" placeholder="Mật Khẩu" value="">
+                                @error('passWord') border-red-600 text-red-600 placeholder-red-600 @enderror" placeholder="Mật Khẩu" value="">
                                 <p class="py-2 text-left pl-3 font-bold text-red-600">
                                     @error('passWord') {{ $message  }} @enderror
                                     @isset($message){{$message}}@endisset
@@ -124,8 +123,14 @@
     <!-- main -->
 
     <!-- place show modal -->
-    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second"></div>
+    <div class="w-full bg-gray-500 top-0 left-0 z-50 bg-opacity-50" id="second">
+    </div>
     <!-- place show modal -->
+
+    <!-- timeline -->
+    @include('TimeLine/DivMainTimeLine')
+    <!-- timeline -->
+
 </body>
 
 </html>

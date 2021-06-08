@@ -26,9 +26,14 @@ function changeBia(event) {
         .getElementById("formUpdateCover")
         .appendChild(document.getElementById("changeB"));
 }
-function updateAvatar() {
-    $("#web").css("opacity", "1");
+function updateAvatar(element) {
     let formData = new FormData($("#formUpdateAvatar")[0]);
+    element.disabled = true;
+    element.classList.add("cursor-not-allowed");
+    element.classList.add("bg-gray-500");
+    element.classList.remove("bg-blue-600");
+    element.innerHTML = '<i class="fas fa-cog fa-spin text-xl"></i>';
+    $("#btnCancelUpdateAvatar").remove();
     $.ajax({
         method: "POST",
         url: "/ProcessUpdateAvatar",
@@ -93,11 +98,15 @@ function ajaxProfileFriend(ID, NameID) {
             IDView: ID,
         },
         success: function (response) {
-            $("#post").removeClass("border-b-4 border-blue-500");
-            $("#pictures").removeClass("border-b-4 border-blue-500");
-            $("#about").removeClass("border-b-4 border-blue-500");
-            $("#more").removeClass("border-b-4 border-blue-500");
-            $("#friends").addClass("border-b-4 border-blue-500");
+            $("#post").removeClass(
+                "border-b-4 border-blue-500 text-blue-500 text-blue-500"
+            );
+            $("#pictures").removeClass(
+                "border-b-4 border-blue-500 text-blue-500"
+            );
+            $("#about").removeClass("border-b-4 border-blue-500 text-blue-500");
+            $("#more").removeClass("border-b-4 border-blue-500 text-blue-500");
+            $("#friends").addClass("border-b-4 border-blue-500 text-blue-500");
             $("#" + NameID).html(response);
             window.history.pushState("", "", "/profile." + ID + "/friends");
         },
@@ -111,11 +120,13 @@ function ajaxProfilePicture(ID, NameID) {
             IDView: ID,
         },
         success: function (response) {
-            $("#about").removeClass("border-b-4 border-blue-500");
-            $("#post").removeClass("border-b-4 border-blue-500");
-            $("#friends").removeClass("border-b-4 border-blue-500");
-            $("#pictures").addClass("border-b-4 border-blue-500");
-            $("#more").removeClass("border-b-4 border-blue-500");
+            $("#about").removeClass("border-b-4 border-blue-500 text-blue-500");
+            $("#post").removeClass("border-b-4 border-blue-500 text-blue-500");
+            $("#friends").removeClass(
+                "border-b-4 border-blue-500 text-blue-500"
+            );
+            $("#pictures").addClass("border-b-4 border-blue-500 text-blue-500");
+            $("#more").removeClass("border-b-4 border-blue-500 text-blue-500");
             $("#" + NameID).html(response);
             window.history.pushState("", "", "/profile." + ID + "/pictures");
         },
@@ -129,11 +140,15 @@ function ajaxProfileAbout(ID, NameID) {
             IDView: ID,
         },
         success: function (response) {
-            $("#about").addClass("border-b-4 border-blue-500");
-            $("#post").removeClass("border-b-4 border-blue-500");
-            $("#friends").removeClass("border-b-4 border-blue-500");
-            $("#pictures").removeClass("border-b-4 border-blue-500");
-            $("#more").removeClass("border-b-4 border-blue-500");
+            $("#about").addClass("border-b-4 border-blue-500 text-blue-500");
+            $("#post").removeClass("border-b-4 border-blue-500 text-blue-500");
+            $("#friends").removeClass(
+                "border-b-4 border-blue-500 text-blue-500"
+            );
+            $("#pictures").removeClass(
+                "border-b-4 border-blue-500 text-blue-500"
+            );
+            $("#more").removeClass("border-b-4 border-blue-500 text-blue-500");
             $("#" + NameID).html(response);
             window.history.pushState("", "", "/profile." + ID + "/about");
         },
