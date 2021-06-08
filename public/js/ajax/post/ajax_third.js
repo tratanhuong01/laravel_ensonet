@@ -8,25 +8,27 @@ function loadUIEditPostMain(json) {
         $("#modal-one").hide();
         second.appendChild(editFileUploadMainEdit());
     });
-    var arrayImageAndVideoPostEdit = new Array();
+    var arrayImageAndVideoPostEdit = store.get("imageAndVideoPostEdit");
     for (let index = 0; index < json.length; index++) {
-        arrayImageAndVideoPostEdit[index] = {
+        arrayImageAndVideoPostEdit.push({
             Loai: 0,
             DuongDan: json[index].DuongDan,
             IDHinhAnh: json[index].ID,
-        };
+        });
     }
     $("#imagePost").addClass("relative");
     $("#imagePost").append(edit);
     store.set("imageAndVideoPostEdit", arrayImageAndVideoPostEdit);
-    console.log(json);
-    for (var i = 0; i < json.length; i++) {
+    for (var i = 0; i < arrayImageAndVideoPostEdit.length; i++) {
         var img;
         var div;
         if (
-            checkTypeEditPostImgVidFirst(json[i]) === "MOV" ||
-            checkTypeEditPostImgVidFirst(json[i]) === "MP4" ||
-            checkTypeEditPostImgVidFirst(json[i]) === "mp4"
+            checkTypeEditPostImgVidFirst(arrayImageAndVideoPostEdit[i]) ===
+                "MOV" ||
+            checkTypeEditPostImgVidFirst(arrayImageAndVideoPostEdit[i]) ===
+                "MP4" ||
+            checkTypeEditPostImgVidFirst(arrayImageAndVideoPostEdit[i]) ===
+                "mp4"
         ) {
             div = document.createElement("div");
             div.classList = "divImage relative flex justify-center";
@@ -81,14 +83,22 @@ function loadUIEditPostMain(json) {
     }
 }
 function checkTypeEditPostImgVid(arr) {
-    if (arr.Loai === 1) return arr.DuongDan.name.split(".")[1];
-    else return arr.DuongDan.substr(arr.DuongDan.length - 4);
+    console.log(arr);
+    if (arr.Loai == 1) {
+        return arr.DuongDan.name.substr(arr.DuongDan.name.length - 3);
+    } else {
+        return arr.DuongDan.substr(arr.DuongDan.length - 3);
+    }
 }
 function checkTypeEditPostImgVidFirst(arr) {
-    return arr.DuongDan.substr(arr.DuongDan.length - 3);
+    if (arr.Loai == 1) {
+        return arr.DuongDan.name.substr(arr.DuongDan.name.length - 3);
+    } else {
+        return arr.DuongDan.substr(arr.DuongDan.length - 3);
+    }
 }
 function returnUrlImageVideoEdit(arr) {
-    if (arr.Loai === 1) return URL.createObjectURL(arr.DuongDan);
+    if (arr.Loai == 1) return URL.createObjectURL(arr.DuongDan);
     else return arr.DuongDan;
 }
 function loadUIPostMainEdit(arr) {
@@ -343,8 +353,8 @@ function addImageVideoEdit(indexMain, array, divContent) {
     }
 }
 function changeUploadFileEdit(el) {
+    console.log(store.get("imageAndVideoPostEdit"));
     document.getElementById("imagePost").innerHTML = "";
-    store.set("imageAndVideoPostEdit", new Array());
     var files = el.files;
     var arr = Array.from(files);
     var array = store.get("imageAndVideoPostEdit");
@@ -356,12 +366,16 @@ function changeUploadFileEdit(el) {
         $("#modal-one").hide();
         second.appendChild(editFileUploadMainEdit());
     });
-    loadUIPostMainEdit(arr);
     document.getElementById("imagePost").classList.add("relative");
     $("#imagePost").append(edit);
     for (let index = 0; index < arr.length; index++) {
-        array[index] = arr[index];
+        array.push({
+            Loai: 1,
+            DuongDan: arr[index],
+            IDHinhAnh: arr[index].name,
+        });
     }
+    loadUIPostMainEdit(array);
     store.get("arrayImageAndVideoEdit", array);
 }
 function EditPostMain(IDTaiKhoan, IDBaiDang) {
@@ -405,7 +419,7 @@ function EditPostMain(IDTaiKhoan, IDBaiDang) {
             second.innerHTML = "";
             second.classList.remove("fixed");
             second.classList.remove("h-screen");
-            store.set("imageAndVideoPost", new Array());
+            store.set("imageAndVideoPostEdit", new Array());
         },
     });
 }

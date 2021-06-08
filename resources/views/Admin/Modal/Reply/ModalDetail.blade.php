@@ -57,7 +57,7 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
                     <span class="cursor-pointer bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
                         font-bold text-white">{{ $reply[0]->Ho . ' ' . $reply[0]->Ten }}</span>
                 </li>
-                <li class="w-full p-2">Loại phản hồi :
+                <li class="w-full p-2" id="status">Loại phản hồi :
                     @switch($reply[0]->LoaiYeuCau)
                     @case('0')
                     <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
@@ -73,14 +73,25 @@ xl:mt-4 dark:border-dark-main shadow-1 rounded-lg">
                 wrapper-content-right border-2 border-solid">Nội Dung :
                     <span class="font-bold">{{ $reply[0]->NoiDungYeuCau }}</span>
                 </li>
+                @if ($reply[0]->TinhTrangYeuCau == -2 || $reply[0]->TinhTrangYeuCau == 0)
+                <li class="p-2 w-full flex justify-center">
+                    @include('Admin.Modal.Reply.Child.ElementStatus',
+                    ['value'=>$reply[0]]
+                    )
+                </li>
+                @else
                 <ul class="mx-auto justify-center py-10 flex">
-                    <li class="bg-green-500 px-5 py-3 text-xm rounded-3xl 
+                    <li onclick="updateStatusRequestUser('{{ $reply[0]->IDYeuCauNguoiDung }}',
+                    '2','{{ $reply[0]->IDTaiKhoan }}')" class="bg-green-500 px-5 py-3 text-xm rounded-3xl 
                     font-bold text-white mr-4 cursor-pointer">Mở tài khoản</li>
-                    <li class="bg-yellow-500 px-5 py-3 text-xm rounded-3xl 
+                    <li onclick="updateStatusRequestUser('{{ $reply[0]->IDYeuCauNguoiDung }}',
+                    '1','{{ $reply[0]->IDTaiKhoan }}')" class="bg-yellow-500 px-5 py-3 text-xm rounded-3xl 
                     font-bold text-white mr-4 cursor-pointer">Đang chờ</li>
-                    <li class="bg-red-500 px-5 py-3 text-xm rounded-3xl 
+                    <li onclick="updateStatusRequestUser('{{ $reply[0]->IDYeuCauNguoiDung }}',
+                    '0','{{ $reply[0]->IDTaiKhoan }}')" class="bg-red-500 px-5 py-3 text-xm rounded-3xl 
                     font-bold text-white cursor-pointer">Từ chối</li>
                 </ul>
+                @endif
             </ul>
         </div>
     </div>

@@ -9,9 +9,9 @@ use App\Process\DataProcess;
 use App\Process\DataProcessSecond;
 use App\Models\Gioithieu;
 
-$user = Session::get('user');
+$user = session()->has('user') ? Session::get('user') : [];
 
-$user_id = $user[0]->IDTaiKhoan;
+$user_id = count($user) > 0 ? $user[0]->IDTaiKhoan : "";
 
 $users_id = count($users) > 0 ? $users[0]->IDTaiKhoan : '';
 
@@ -49,7 +49,7 @@ $paths = explode('/', parse_url(url()->current())['path']);
         @include('Header')
         <!-- header -->
 
-        @if (count($users) == 0)
+        @if (count($users) == 0 || count($user) == 0)
         @include('Component/NotFound')
         @else
         @include('Timeline/Profile')
@@ -304,8 +304,8 @@ $paths = explode('/', parse_url(url()->current())['path']);
         var users_id = '{{ $users_id }}';
         var changeValue = '"';
         var position = 2;
-        var user = '{{ $user[0]->IDTaiKhoan }}';
-        var users = '{{ $users[0]->IDTaiKhoan }}';
+        var user = '{{ $user_id }}';
+        var users = '{{ $users_id }}';
         var arrayImage = new Array();
         store.set('imageAndVideoPost', new Array());
         store.set('imageAndVideoPostEdit', new Array());

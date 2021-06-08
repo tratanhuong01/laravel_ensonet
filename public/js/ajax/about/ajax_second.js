@@ -6,9 +6,8 @@ function changePrivacyAboutMain(TypeChange, ID, Element) {
         success: function (response) {
             second.innerHTML = response;
             second.className += " fixed h-screen";
-            var inputPrivacy = document.getElementsByClassName(
-                "privacyAboutss"
-            );
+            var inputPrivacy =
+                document.getElementsByClassName("privacyAboutss");
             inputPrivacy[0].addEventListener("change", function () {
                 $.ajax({
                     method: "GET",

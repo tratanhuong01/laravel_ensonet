@@ -7,6 +7,7 @@ use App\Admin\GeneralID;
 use App\Models\Amthanh;
 use App\Models\Baidang;
 use App\Models\Binhluan;
+use App\Models\Taikhoan;
 use App\Models\Thongbao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -90,4 +91,17 @@ Route::get('ProcessDeletePostAPIAmin', function (Request $request) {
     Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)->delete();
     Thongbao::whereRaw("thongbao.IDContent LIKE '%" . $request->IDBaiDang . "%'")->delete();
     return '';
+});
+
+Route::get('ProcessUpdateStatusOfRequestUser', function (Request $request) {
+    DB::update('UPDATE yeucaunguoidung SET TinhTrangYeuCau = ? WHERE 
+    IDYeuCauNguoiDung = ? ', [$request->TinhTrangYeuCau, $request->IDYeuCauNguoiDung]);
+    $statusOfUser = $request->TinhTrangYeuCau;
+    if ($statusOfUser == 2)
+        DB::update('UPDATE taikhoan SET TinhTrang = ? WHERE 
+        IDTaiKhoan = ? ', [0, $request->IDTaiKhoan]);
+    return response()->json([
+        'view' => "" . view("Admin.Modal.Reply.Child.ElementStatus")
+            ->with('value', (object)['TinhTrangYeuCau' => $request->TinhTrangYeuCau])
+    ]);
 });

@@ -22,6 +22,7 @@ function handelOnChangeStateUserAdmin(IDTaiKhoan, state) {
         },
         success: function (response) {
             $("#stateUser").html(response.view);
+            $("#status" + IDTaiKhoan).html(response.view);
             $("#modal-two").remove();
             $("#modal-one").show();
         },
@@ -290,6 +291,24 @@ function deleteCategoryDetail(type, ID) {
             second.innerHTML = "";
             second.classList.remove("fixed");
             second.classList.remove("h-screen");
+        },
+    });
+}
+function updateStatusRequestUser(
+    IDYeuCauNguoiDung,
+    TinhTrangYeuCau,
+    IDTaiKhoan
+) {
+    $.ajax({
+        method: "GET",
+        url: "/admin/ProcessUpdateStatusOfRequestUser",
+        data: {
+            IDYeuCauNguoiDung: IDYeuCauNguoiDung,
+            TinhTrangYeuCau: TinhTrangYeuCau,
+        },
+        success: function (response) {
+            $("#status").html(response.view);
+            $("#status" + IDYeuCauNguoiDung).html(response.view);
         },
     });
 }

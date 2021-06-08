@@ -226,3 +226,6 @@ Route::get('/reply', function () {
 Route::get('/category', function () {
     return view('Admin/index');
 });
+
+Route::get('check', function () {
+});

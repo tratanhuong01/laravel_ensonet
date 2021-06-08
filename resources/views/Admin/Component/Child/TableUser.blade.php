@@ -49,7 +49,7 @@ use App\Admin\Query;
                 @endswitch
 
             </td>
-            <td class="p-2">
+            <td class="p-2" id="status{{$value->IDTaiKhoan}}">
                 @switch($value->TinhTrang)
                 @case('0')
                 <span class="cursor-pointer  bg-green-500 px-3 py-1.5 text-sm rounded-3xl 

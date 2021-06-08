@@ -277,8 +277,8 @@ class EditPostController extends Controller
             Session::put('tag', $newTag);
         }
         $post = Functions::getPost($getPost[0]);
-        $json = NULL;
-        if (count($post) != 0)
+        $json = [];
+        if ($post[0]->DuongDan != "" || $post[0]->DuongDan != NULL)
             foreach ($post as $key => $value) {
                 $json[$key] = (object)[
                     'ID' => $value->IDHinhAnh,

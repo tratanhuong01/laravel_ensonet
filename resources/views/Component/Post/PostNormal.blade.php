@@ -118,7 +118,7 @@ $u = Session::get('user');
                 </li>
                 @else
                 <li class="w-full relative" id="{{$item[0]->IDBaiDang.$item[0]->IDHinhAnh}}Video">
-                    <video id="my-video" class="video-js" controls preload="auto" poster="/video/review.mp4" data-setup="{}" style="width: 100%;max-height:350px;height: 350px;">
+                    <video id="my-video" class="video-js" controls preload="auto" poster="" data-setup="{}" style="width: 100%;max-height:350px;height: 350px;">
                         <source src="{{ $item[$i]->DuongDan }}" type="video/mp4" />
                     </video>
                 </li>

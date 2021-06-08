@@ -118,8 +118,8 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                 <p class="pl-2.5 dark:text-white font-bold text-sm flex items-center">Thêm vào bài viết</p>
             </div>
             <ul class="ml-auto flex" id="placeSelection">
-                <input type="file" onchange="changeUploadFileEdit(this)" id="uploadFileS" name="files[]" accept="image/*,video/*" multiple="multiple" class="hidden">
-                <label for="uploadFileS">
+                <input type="file" onchange="changeUploadFileEdit(this)" id="uploadFileSSS" name="files[]" accept="image/*,video/*" multiple="multiple" class="hidden">
+                <label for="uploadFileSSS">
                     <li class="cursor-pointer flex w-10 h-10 mx-1 rounded-full hover:bg-gray-200 
                     dark:hover:bg-dark-third justify-center  
                     ">

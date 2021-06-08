@@ -1,5 +1,6 @@
 function checkEmail() {
-    var regex_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    var regex_email =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     var regex_phone = /((09|03|07|08|05)+([0-9]{8})\b)/g;
     var email_again = document.getElementsByClassName("email_again_one");
     var emailOrPhone = document.getElementById("emailOrPhone");
@@ -25,8 +26,7 @@ function uncheckEmail() {
 }
 function onclickRegister(classNames, index) {
     document.getElementsByClassName("value_error")[index].innerHTML = " ";
-    document.getElementsByClassName("input_register")[
-        index
-    ].className = classNames;
+    document.getElementsByClassName("input_register")[index].className =
+        classNames;
 }
 function loginlogin() {}

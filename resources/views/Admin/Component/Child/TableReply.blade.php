@@ -25,11 +25,11 @@ use App\Admin\Query;
                     font-bold text-white">Cấp lại tài khoản</span>
                 @break
                 @case('1')
-                <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
+                <span class="bg-red-500 px-3 py-1.5 text-sm rounded-3xl 
                     font-bold text-white">Quá trình sử dụng</span>
                 @break
                 @case('2')
-                <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
+                <span class="bg-yellow-500 px-3 py-1.5 text-sm rounded-3xl 
                     font-bold text-white">Tích xanh</span>
                 @break
                 @endswitch
@@ -40,8 +40,16 @@ use App\Admin\Query;
             <td class="p-2">
                 {{ $value->ThoiGianYeuCau }}
             </td>
-            <td class="p-2">
+            <td class="p-2" id="status{{$value->IDYeuCauNguoiDung}}">
                 @switch($value->TinhTrangYeuCau)
+                @case('-2')
+                <span class="bg-yellow-500 px-3 py-1.5 text-sm rounded-3xl 
+                    font-bold text-white">Đã duyệt</span>
+                @break
+                @case('-1')
+                <span class="bg-red-900 px-3 py-1.5 text-sm rounded-3xl 
+                    font-bold text-white">Chưa duyệt</span>
+                @break
                 @case('0')
                 <span class="bg-red-500 px-3 py-1.5 text-sm rounded-3xl 
                     font-bold text-white">Từ chối duyệt</span>
@@ -53,6 +61,7 @@ use App\Admin\Query;
                 @case('2')
                 <span class="bg-green-500 px-3 py-1.5 text-sm rounded-3xl 
                     font-bold text-white">Đã duyệt</span>
+                @break
                 @endswitch
             </td>
             <td class="p-2">

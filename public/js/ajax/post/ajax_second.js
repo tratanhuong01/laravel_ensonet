@@ -98,12 +98,13 @@ function loadUICreatePostMain(arr) {
             data = document.createElement("video");
             var divChilds = document.createElement("div");
             divChilds.classList =
-                "bg-transparent cursor-pointer w-10 h-10 left-48% rounded-full flex justify-center absolute top-45per ml-5 ";
+                "bg-transparent cursor-pointer w-10 h-10 left-44% rounded-full flex justify-center absolute top-45per ml-5 ";
             var iChilds = document.createElement("i");
             iChilds.classList =
                 "far fa-play-circle text-4xl flex items-center text-white";
             divChilds.appendChild(iChilds);
             div.appendChild(divChilds);
+            capture(URL.createObjectURL(arr[i]), data);
         } else {
             div = document.createElement("div");
             div.classList = "divImage relative";
@@ -113,8 +114,8 @@ function loadUICreatePostMain(arr) {
         if (arr.length <= 1) {
             div.className = "w-full";
             data.className = "w-full";
-            data.src = URL.createObjectURL(arr[i]);
             div.appendChild(data);
+            data.src = URL.createObjectURL(arr[i]);
             document.getElementById("imagePost").appendChild(div);
         } else {
             data.className = "p-1 object-cover";
@@ -144,6 +145,18 @@ function loadUICreatePostMain(arr) {
             }
         }
     }
+}
+function addEdit() {
+    var edit = document.createElement("div");
+    edit.classList =
+        "w-24 absolute dark:text-white top-3 z-50 cursor-pointer left-4 p-1.5 bg-gray-200 rounded-lg dark:bg-dark-third text-center font-bold";
+    edit.innerHTML = "Chỉnh sửa";
+    edit.addEventListener("click", function () {
+        $("#modal-one").hide();
+        second.appendChild(editFileUplopad());
+    });
+    document.getElementById("imagePost").classList.add("relative");
+    document.getElementById("imagePost").appendChild(edit);
 }
 function editFileUplopad() {
     var divMain = document.createElement("div");
@@ -198,6 +211,7 @@ function editFileUplopad() {
         store.set("imageAndVideoPost", array);
         divContent.scrollTop = divContent.scrollHeight;
         loadUICreatePostMain(array);
+        addEdit();
     });
     var liFooterRight = document.createElement("li");
     liFooterRight.innerHTML =
@@ -312,6 +326,7 @@ function addImageVideoContinues(indexMain, array, divContent) {
             if (newArray.length == 0) divContent.append(endImageVideo());
             store.set("imageAndVideoPost", newArray);
             loadUICreatePostMain(newArray);
+            addEdit();
         });
         var input = document.createElement("input");
         input.classList =
@@ -394,4 +409,15 @@ function returnCreatePosts(first, second) {
 function returnCreatePost() {
     $("#modal-one").show();
     $("#modal-two").remove();
+}
+function capture(url, data) {
+    var canvas = document.createElement("canvas");
+    var video = document.createElement("video");
+    video.src = url;
+    video.currentTime = 3;
+    setTimeout(() => {
+        var context = canvas.getContext("2d");
+        context.drawImage(video, 0, 0, data.videoWidth, data.videoHeight);
+        return canvas.toDataURL("image/png");
+    }, 500);
 }

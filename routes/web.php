@@ -826,11 +826,6 @@ Route::get('ProcessResetSession', function () {
     Session::forget('userGroup');
     Session::forget('localU');
 });
-Route::get('aa', function () {
-    echo "<pre>";
-    print_r(json_decode(Gioithieu::where('IDTaiKhoan', '=', '1000000002')->get()[0]->JsonGioiThieu));
-    echo "</pre>";
-});
 Route::get('ProcessViewLocalPost', function (Request $request) {
     return response()->json([
         'view' => "" . view('Modal/ModalPost/ModalLocal')

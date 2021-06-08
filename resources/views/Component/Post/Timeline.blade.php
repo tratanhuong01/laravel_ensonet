@@ -138,7 +138,7 @@ $per = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $item[0]->ChiaSe)->get();
     </div>
     @if (count($commentLimit) > 0)
     <div class="w-11/12 ml-2" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}NumComment">
-        @include('Component\BinhLuan\ViewMoreComment',
+        @include('Component\Comment\ViewMoreComment',
         ['num' => count($comment),
         'idTaiKhoan' => $item[0]->IDTaiKhoan,
         'idBaiDang' => $item[0]->IDBaiDang ,
