@@ -27,10 +27,10 @@ class Convert extends Model
     {
         switch ($data) {
             case "Checkpoint":
-                return 2;
+                return 1;
                 break;
             case "Khóa":
-                return 1;
+                return 2;
                 break;
             case "Đang gửi yêu câu":
                 return 5;

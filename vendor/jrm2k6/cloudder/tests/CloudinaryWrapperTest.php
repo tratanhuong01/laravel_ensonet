@@ -366,13 +366,11 @@ class CloudinaryWrapperTest extends \PHPUnit_Framework_TestCase
     {
         $pids = ['pid1', 'pid2'];
 
-        $options = ['test', 'test1'];
-
         // given
-        $this->api->shouldReceive('resources_by_ids')->once()->with($pids, $options);
+        $this->api->shouldReceive('resources_by_ids')->once()->with($pids);
 
         // when
-        $this->cloudinary_wrapper->resourcesByIds($pids, $options);
+        $this->cloudinary_wrapper->resourcesByIds($pids);
     }
 
     /** @test */

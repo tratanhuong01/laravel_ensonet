@@ -463,13 +463,12 @@ class CloudinaryWrapper
     /**
      * Show Resources by id
      *
-     * @param  array $publicIds
-     * @param  array $options
+     * @param  array  $options
      * @return array
      */
-    public function resourcesByIds($publicIds, $options = array())
+    public function resourcesByIds($options = array())
     {
-        return $this->getApi()->resources_by_ids($publicIds, $options);
+        return $this->getApi()->resources_by_ids($options);
     }
 
     /**
@@ -480,7 +479,7 @@ class CloudinaryWrapper
      */
     public function resourcesByTag($tag, $options = array())
     {
-        return $this->getApi()->resources_by_tag($tag, $options);
+        return $this->getApi()->resources_by_tag($tag, $options = array());
     }
 
     /**
@@ -492,7 +491,7 @@ class CloudinaryWrapper
      */
     public function resourcesByModeration($kind, $status, $options = array())
     {
-        return $this->getApi()->resources_by_moderation($kind, $status, $options);
+        return $this->getApi()->resources_by_moderation($kind, $status, $options = array());
     }
 
     /**

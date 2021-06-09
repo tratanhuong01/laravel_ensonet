@@ -167,80 +167,82 @@ class DataProcessThird extends Model
         $data =  array();
         $num = 0;
         foreach ($notify as $key => $value) {
-            switch (explode('&', $value->IDContent)[1]) {
-                case 'CXP1234567':
-                    $data[$num] = Baidang::where('baidang.IDBaiDang', '=', explode('&', $value->IDContent)[0])
-                        ->join('taikhoan',  'taikhoan.IDTaiKhoan', 'baidang.IDTaiKhoan')
-                        ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
-                        ->get();
-                    $num++;
-                    break;
-                case 'ADD1234567':
-                    $data[$num] = Baidang::where('baidang.IDBaiDang', '=', explode('&', $value->IDContent)[0])
-                        ->join('taikhoan',  'taikhoan.IDTaiKhoan', 'baidang.IDTaiKhoan')
-                        ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
-                        ->get();
-                    $num++;
-                    break;
-                case 'AB12345678':
-                    $data[$num] = Baidang::where('baidang.IDBaiDang', '=', explode('&', $value->IDContent)[0])
-                        ->join('taikhoan',  'taikhoan.IDTaiKhoan', 'baidang.IDTaiKhoan')
-                        ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
-                        ->get();
-                    $num++;
-                    break;
-                case 'BINHLUANPO':
-                    $data[$num] = Baidang::where('baidang.IDBaiDang', '=', explode('&', $value->IDContent)[0])
-                        ->join('taikhoan',  'taikhoan.IDTaiKhoan', 'baidang.IDTaiKhoan')
-                        ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
-                        ->get();
-                    $num++;
-                    break;
-                case 'NDBTBLCH12':
-                    $data[$num] = Binhluan::where('binhluan.IDBinhLuan', '=', explode('&', $value->IDContent)[2])
-                        ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
-                        ->get();
-                    $num++;
-                    break;
-                case 'BLVBVMBDGT':
-                    $data[$num] = Baidang::where('baidang.IDBaiDang', '=', explode('&', $value->IDContent)[0])
-                        ->join('taikhoan',  'taikhoan.IDTaiKhoan', 'baidang.IDTaiKhoan')
-                        ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
-                        ->get();
-                    $num++;
-                    break;
-                case 'NDBTBLC123':
-                    $data[$num] = Binhluan::where('binhluan.IDBinhLuan', '=', explode('&', $value->IDContent)[2])
-                        ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
-                        ->get();
-                    $num++;
-                    break;
-                case 'TLBLC12345':
-                    $data[$num] = Binhluan::where('binhluan.IDBinhLuan', '=', explode('&', $value->IDContent)[2])
-                        ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
-                        ->get();
-                    $num++;
-                    break;
-                case 'BTCXVBLC12':
-                    $data[$num] = Binhluan::where('binhluan.IDBinhLuan', '=', explode('&', $value->IDContent)[2])
-                        ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
-                        ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
-                        ->get();
-                    $num++;
-                    break;
-            }
+            $dt = explode('&', $value->IDContent);
+            if (count($dt) >= 2)
+                switch (explode('&', $value->IDContent)[1]) {
+                    case 'CXP1234567':
+                        $data[$num] = Baidang::where('baidang.IDBaiDang', '=', explode('&', $value->IDContent)[0])
+                            ->join('taikhoan',  'taikhoan.IDTaiKhoan', 'baidang.IDTaiKhoan')
+                            ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
+                            ->get();
+                        $num++;
+                        break;
+                    case 'ADD1234567':
+                        $data[$num] = Baidang::where('baidang.IDBaiDang', '=', explode('&', $value->IDContent)[0])
+                            ->join('taikhoan',  'taikhoan.IDTaiKhoan', 'baidang.IDTaiKhoan')
+                            ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
+                            ->get();
+                        $num++;
+                        break;
+                    case 'AB12345678':
+                        $data[$num] = Baidang::where('baidang.IDBaiDang', '=', explode('&', $value->IDContent)[0])
+                            ->join('taikhoan',  'taikhoan.IDTaiKhoan', 'baidang.IDTaiKhoan')
+                            ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
+                            ->get();
+                        $num++;
+                        break;
+                    case 'BINHLUANPO':
+                        $data[$num] = Baidang::where('baidang.IDBaiDang', '=', explode('&', $value->IDContent)[0])
+                            ->join('taikhoan',  'taikhoan.IDTaiKhoan', 'baidang.IDTaiKhoan')
+                            ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
+                            ->get();
+                        $num++;
+                        break;
+                    case 'NDBTBLCH12':
+                        $data[$num] = Binhluan::where('binhluan.IDBinhLuan', '=', explode('&', $value->IDContent)[2])
+                            ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
+                            ->get();
+                        $num++;
+                        break;
+                    case 'BLVBVMBDGT':
+                        $data[$num] = Baidang::where('baidang.IDBaiDang', '=', explode('&', $value->IDContent)[0])
+                            ->join('taikhoan',  'taikhoan.IDTaiKhoan', 'baidang.IDTaiKhoan')
+                            ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
+                            ->get();
+                        $num++;
+                        break;
+                    case 'NDBTBLC123':
+                        $data[$num] = Binhluan::where('binhluan.IDBinhLuan', '=', explode('&', $value->IDContent)[2])
+                            ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
+                            ->get();
+                        $num++;
+                        break;
+                    case 'TLBLC12345':
+                        $data[$num] = Binhluan::where('binhluan.IDBinhLuan', '=', explode('&', $value->IDContent)[2])
+                            ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
+                            ->get();
+                        $num++;
+                        break;
+                    case 'BTCXVBLC12':
+                        $data[$num] = Binhluan::where('binhluan.IDBinhLuan', '=', explode('&', $value->IDContent)[2])
+                            ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('thongbao', 'thongbao.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+                            ->join('loaithongbao', 'thongbao.IDLoaiThongBao', 'loaithongbao.IDLoaiThongBao')
+                            ->get();
+                        $num++;
+                        break;
+                }
         }
         return $data;
     }

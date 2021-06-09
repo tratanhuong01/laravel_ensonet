@@ -1421,21 +1421,21 @@
         },
         {
             "name": "jrm2k6/cloudder",
-            "version": "0.7.0",
-            "version_normalized": "0.7.0.0",
+            "version": "0.4.0",
+            "version_normalized": "0.4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jrm2k6/cloudder.git",
-                "reference": "d54a7cd7c880705ae565dcc078a6f81320f21b05"
+                "reference": "82d75368890424d166bf025df39611a1d18abcc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrm2k6/cloudder/zipball/d54a7cd7c880705ae565dcc078a6f81320f21b05",
-                "reference": "d54a7cd7c880705ae565dcc078a6f81320f21b05",
+                "url": "https://api.github.com/repos/jrm2k6/cloudder/zipball/82d75368890424d166bf025df39611a1d18abcc0",
+                "reference": "82d75368890424d166bf025df39611a1d18abcc0",
                 "shasum": ""
             },
             "require": {
-                "cloudinary/cloudinary_php": "^1.1",
+                "cloudinary/cloudinary_php": ">=1.1",
                 "php": ">=5.3.0"
             },
             "require-dev": {
@@ -1443,18 +1443,8 @@
                 "mockery/mockery": "0.9.*",
                 "phpunit/phpunit": "4.*"
             },
-            "time": "2021-02-04T04:53:27+00:00",
+            "time": "2017-02-03T19:10:37+00:00",
             "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "JD\\Cloudder\\CloudderServiceProvider"
-                    ],
-                    "aliases": {
-                        "Cloudder": "JD\\Cloudder\\Facades\\Cloudder"
-                    }
-                }
-            },
             "installation-source": "dist",
             "autoload": {
                 "psr-0": {
@@ -1483,7 +1473,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jrm2k6/cloudder/issues",
-                "source": "https://github.com/jrm2k6/cloudder/tree/0.7.0"
+                "source": "https://github.com/jrm2k6/cloudder/tree/master"
             },
             "abandoned": true,
             "install-path": "../jrm2k6/cloudder"

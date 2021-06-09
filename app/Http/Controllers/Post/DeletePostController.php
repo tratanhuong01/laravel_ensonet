@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Baidang;
 use App\Models\Binhluan;
+use App\Models\Taikhoan;
 use App\Models\Thongbao;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use JD\Cloudder\Facades\Cloudder;
 
 class DeletePostController extends Controller
@@ -19,6 +21,9 @@ class DeletePostController extends Controller
     }
     public function delete(Request $request)
     {
+        $post = Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)
+            ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
+            ->get();
         $images = DB::table('hinhanh')->where('hinhanh.IDBaiDang', '=', $request->IDBaiDang)->get();
         for ($i = 0; $i < count($images); $i++) {
             $public_Id = explode('/', $images[$i]->DuongDan);
@@ -38,6 +43,39 @@ class DeletePostController extends Controller
         }
         Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)->delete();
         Thongbao::whereRaw("thongbao.IDContent LIKE '%" . $request->IDBaiDang . "%'")->delete();
+        if ($post[0]->LoaiBaiDang == 0) {
+            $avatar = "";
+            switch ($post[0]->GioiTinh) {
+                case 'Nam':
+                    $avatar = '/img/boy.jpg';
+                    break;
+                case 'Nữ':
+                    $avatar = '/img/girl.jpg';
+                    break;
+                default:
+                    $avatar = '/img/other.jpg';
+                    break;
+            }
+            DB::update(
+                'UPDATE taikhoan SET AnhDaiDien = ? WHERE IDTaiKhoan = ? ',
+                [
+                    $avatar, $post[0]->IDTaiKhoan
+                ]
+            );
+            $user = Taikhoan::where('IDTaiKhoan', '=', $post[0]->IDTaiKhoan)->get();
+            Session::put('user', $user);
+            Session::put('users', $user);
+        } else if ($post[0]->LoaiBaiDang == 1) {
+            DB::update(
+                'UPDATE taikhoan SET AnhDaiDien = ? WHERE IDTaiKhoan = ? ',
+                [
+                    "", $post[0]->IDTaiKhoan
+                ]
+            );
+            $user = Taikhoan::where('IDTaiKhoan', '=', $post[0]->IDTaiKhoan)->get();
+            Session::put('user', $user);
+            Session::put('users', $user);
+        }
         return '';
     }
 }
