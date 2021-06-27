@@ -67,9 +67,9 @@ class DeletePostController extends Controller
             Session::put('users', $user);
         } else if ($post[0]->LoaiBaiDang == 1) {
             DB::update(
-                'UPDATE taikhoan SET AnhDaiDien = ? WHERE IDTaiKhoan = ? ',
+                'UPDATE taikhoan SET AnhBia = ? WHERE IDTaiKhoan = ? ',
                 [
-                    "", $post[0]->IDTaiKhoan
+                    "/img/bg-white.png", $post[0]->IDTaiKhoan
                 ]
             );
             $user = Taikhoan::where('IDTaiKhoan', '=', $post[0]->IDTaiKhoan)->get();

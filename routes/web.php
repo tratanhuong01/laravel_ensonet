@@ -236,6 +236,9 @@ Route::group(['namespace' => 'Post'], function () {
     Route::get('ProcessSharePost', [Post\SharePostController::class, 'share'])
         ->name('ProcessSharePost');
 
+    Route::post('ProcessSharePostUI', [Post\SharePostController::class, 'shareMemory'])
+        ->name('ProcessSharePostUI');
+
     // ajax view lượt cảm xúc
     Route::get('ProcessViewDetailFeel', [Post\ViewDetailFeelController::class, 'view'])
         ->name('ProcessViewDetailFeel');
@@ -846,3 +849,4 @@ Route::get('ProcessRemoveAccountSave', [Login\LoginController::class, 'removeAcc
 
 Route::get('ProcessViewAddAccountSave', [Login\LoginController::class, 'viewAccountSave'])
     ->name('ProcessViewAddAccountSave');
+Route::get('ProcessSharePostMainViewS', [Post\SharePostController::class, 'shareIntoWall']);

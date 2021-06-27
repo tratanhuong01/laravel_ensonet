@@ -6,6 +6,7 @@ use App\Events\NotificationEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Baidang;
+use App\Models\Functions;
 use App\Models\Hinhanh;
 use App\Models\StringUtil;
 use App\Models\Thongbao;
@@ -22,6 +23,7 @@ class PostNormalController extends Controller
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $user = Session::get('user');
+
         if (DataProcessSix::checkWordIsValid($request->content) == false) {
             Thongbao::add(
                 StringUtil::ID('thongbao', 'IDThongBao'),
@@ -35,9 +37,9 @@ class PostNormalController extends Controller
             event(new NotificationEvent($user[0]->IDTaiKhoan));
             return response()->json([]);
         } else {
+            $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
             if ($request->hasFile('files_0')) {
                 $datetime = date("Y-m-d H:i:s");
-                $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
                 $tag = "";
                 $idCamXuc = NULL;
                 $idViTri = NULL;
@@ -115,7 +117,6 @@ class PostNormalController extends Controller
                 }
             } else {
                 $datetime = date("Y-m-d H:i:s");
-                $idBaiDang = StringUtil::ID('baidang', 'IDBaiDang');
                 $tag = NULL;
                 $idCamXuc = NULL;
                 $idViTri = NULL;
@@ -158,6 +159,15 @@ class PostNormalController extends Controller
                     NULL
                 );
             }
+            $post = Functions::getPost(
+                Baidang::where('baidang.IDBaiDang', '=', $idBaiDang)
+                    ->get()[0]
+            );
+            return response()->json([
+                'view' => "" . view('Component.Post.PostNormal')
+                    ->with('item', $post)
+                    ->with('user', $user)
+            ]);
         }
     }
     public function tickLocal(Request $request)

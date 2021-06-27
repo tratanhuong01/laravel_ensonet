@@ -61,10 +61,11 @@ function updateAvatar(element) {
             re.appendChild(parent1);
             $("#ajaxAnhDaiDien1").append(parent2);
             second.innerHTML = "";
+            $("#show__post").prepend(response.viewMain);
             second.classList.remove("fixed");
             second.classList.remove("h-screen");
             setTimeout(function () {
-                $("#ajaxAnhDaiDien").html(response);
+                $("#ajaxAnhDaiDien").html(response.viewChild);
                 $("#ajaxAnhDaiDien1").html("");
                 $("#ajaxAnhDaiDien1").append(
                     '<img class="w-8 h-8 rounded-full" id="ajaxAnhDaiDien2" src="" alt="" />'
@@ -76,8 +77,9 @@ function updateAvatar(element) {
     });
 }
 function updateCoverImage() {
-    $("#web").css("opacity", "1");
     let formData = new FormData($("#formUpdateCover")[0]);
+    $("#showSubmitBia").hide();
+    $("#loadingUpdateCover").removeClass("hidden");
     $.ajax({
         method: "POST",
         url: "/ProcessUpdateCoverImage",
@@ -85,8 +87,9 @@ function updateCoverImage() {
         contentType: false,
         processData: false,
         success: function (response) {
-            $("#showSubmitBia").hide();
-            $("#ajaxCover").html(response);
+            $("#loadingUpdateCover").addClass("hidden");
+            $("#show__post").prepend(response.viewMain);
+            $("#ajaxCover").html(response.viewChild);
         },
     });
 }

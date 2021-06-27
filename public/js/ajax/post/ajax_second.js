@@ -374,6 +374,7 @@ function postFiles() {
             second.innerHTML = "";
             second.classList.remove("fixed");
             second.classList.remove("h-screen");
+            $("#show__post").prepend(response.view);
             store.set("imageAndVideoPost", new Array());
         },
     });

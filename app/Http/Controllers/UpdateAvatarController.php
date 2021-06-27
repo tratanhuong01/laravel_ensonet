@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Baidang;
+use App\Models\Functions;
 use App\Models\Hinhanh;
 use App\Models\StringUtil;
 use Illuminate\Support\Facades\Session;
@@ -59,7 +60,16 @@ class UpdateAvatarController extends Controller
             );
             $users = DB::table('taikhoan')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)->get();
             $request->session()->put('user', $users);
-            return view('Modal/ModalProfile/AvatarImage')->with('path', $nameFile);
+            $post = Functions::getPost(
+                Baidang::where('baidang.IDBaiDang', '=', $idBaiDang)
+                    ->get()[0]
+            );
+            return response()->json([
+                'viewChild' => "" . view('Modal.ModalProfile.AvatarImage')->with('path', $nameFile),
+                'viewMain' => "" . view('Component.Post.UpdateAvatarImage')
+                    ->with('item', $post)
+                    ->with('user', $user)
+            ]);
         } else
             echo "khong co file";
     }

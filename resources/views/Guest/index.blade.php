@@ -99,7 +99,7 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
                 <!-- write post -->
 
                 <!-- show post  -->
-                <div class="timeline">
+                <div class="timeline" id="show__post">
                     <input type="hidden" name="indexPost" id="indexPost" value="0">
                     @include('TimeLine/Post')
                     @include('TimeLine/Post')

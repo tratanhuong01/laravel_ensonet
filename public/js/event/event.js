@@ -77,6 +77,7 @@ function sharePost(IDBaiDang, IDQuyenRiengTu) {
         data: {
             IDBaiDang: IDBaiDang,
             IDQuyenRiengTu: IDQuyenRiengTu,
+            LoaiBaiDang: 3,
         },
         success: function (response) {
             $("#" + IDBaiDang + "Share").html("");
@@ -84,6 +85,7 @@ function sharePost(IDBaiDang, IDQuyenRiengTu) {
             $("#" + IDBaiDang + "Share").addClass("hidden");
             $("#" + IDBaiDang + "Share").removeClass("bottom-14");
             $("#" + IDBaiDang + "Share").removeClass("top-14");
+            $("#show__post").prepend(response.view);
         },
     });
 }

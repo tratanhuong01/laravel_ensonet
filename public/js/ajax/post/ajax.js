@@ -155,8 +155,12 @@ function deleteWarnPost(IDBaiDang, IDMain) {
                 second.innerHTML = "";
                 second.classList.remove("fixed");
                 second.classList.remove("h-screen");
+                document
+                    .getElementsByTagName("body")[0]
+                    .classList.remove("overflow-hidden");
             });
             $("#btnXoaBaiDang").click(function () {
+                $("#loadingDeletePostss").removeClass("hidden");
                 $.ajax({
                     method: "GET",
                     url: "ProcessDeletePost",
@@ -165,9 +169,13 @@ function deleteWarnPost(IDBaiDang, IDMain) {
                     },
                     success: function (response) {
                         $("#" + IDMain).remove();
+                        $("#loadingDeletePostss").addClass("hidden");
                         second.innerHTML = "";
                         second.classList.remove("fixed");
                         second.classList.remove("h-screen");
+                        document
+                            .getElementsByTagName("body")[0]
+                            .classList.remove("overflow-hidden");
                     },
                 });
             });
@@ -386,6 +394,67 @@ function postTimeLine(IDNhan) {
         },
         error: function (response) {
             console.log(response);
+        },
+    });
+}
+function SharePostMainSView(IDBaiDang, Type) {
+    document.getElementsByTagName("body")[0].classList.add("overflow-hidden");
+    second.className += " fixed h-screen";
+    $("#second").append(createElementFromHTML($("#myLoading").html()));
+    $("#" + IDBaiDang + "Share").html("");
+    $("#" + IDBaiDang + "Share").html("");
+    $("#" + IDBaiDang + "Share").addClass("hidden");
+    $("#" + IDBaiDang + "Share").removeClass("bottom-14");
+    $("#" + IDBaiDang + "Share").removeClass("top-14");
+    $.ajax({
+        method: "GET",
+        url: "/ProcessSharePostMainViewS",
+        data: {
+            IDBaiDang: IDBaiDang,
+            Type: Type,
+        },
+        success: function (response) {
+            second.innerHTML = response.view;
+            new MeteorEmoji(
+                document.getElementById("textarea-post"),
+                document.getElementById("myTriggers"),
+                document.getElementById("myEmojis")
+            );
+        },
+    });
+}
+function SharePostMainS(IDBaiDang) {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+    $("#button-post").html("");
+    $("#button-post").prop("disabled", true);
+    $("#button-post").css("cursor", "not-allowed");
+    $("#button-post").append('<i class="fas fa-cog fa-spin text-xl"></i>');
+    let formData = new FormData($("#formPost")[0]);
+    formData.append("LoaiBaiDang", 5);
+    formData.append("IDBaiDang", IDBaiDang);
+    $.ajax({
+        method: "POST",
+        url: "/ProcessSharePostUI",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            document
+                .getElementsByTagName("body")[0]
+                .classList.remove("overflow-hidden");
+            second.innerHTML = "";
+            second.classList.remove("fixed");
+            second.classList.remove("h-screen");
+            $("#" + IDBaiDang + "Share").html("");
+            $("#" + IDBaiDang + "Share").html("");
+            $("#" + IDBaiDang + "Share").addClass("hidden");
+            $("#" + IDBaiDang + "Share").removeClass("bottom-14");
+            $("#" + IDBaiDang + "Share").removeClass("top-14");
+            $("#show__post").prepend(response.view);
         },
     });
 }

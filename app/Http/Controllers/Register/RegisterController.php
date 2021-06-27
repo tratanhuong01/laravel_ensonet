@@ -78,7 +78,7 @@ class RegisterController extends Controller
                         NULL,
                         NULL,
                         $anhDaiDien,
-                        NULL,
+                        '/img/bg-white.png',
                         $request->GioiTinh,
                         $request->NgaySinh,
                         NULL,

@@ -146,7 +146,7 @@ $year = explode('-', explode(' ', $datetime)[0])[0] -
             </ul>
         </div>
     </div>
-    <div class="dark:text-gray-300 dark:bg-dark-third bg-gray-200
+    <div onclick="SharePostMainSView('{{ $item[0]->IDBaiDang }}',5)" class="dark:text-gray-300 dark:bg-dark-third bg-gray-200
     text-center  font-bold w-full mx-2 py-2 mx-auto cursor-pointer">
         <i class="fas fa-share dark:text-gray-300"></i> &nbsp; Chia sẻ
     </div>
