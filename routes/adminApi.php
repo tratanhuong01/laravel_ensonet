@@ -105,3 +105,7 @@ Route::get('ProcessUpdateStatusOfRequestUser', function (Request $request) {
             ->with('value', (object)['TinhTrangYeuCau' => $request->TinhTrangYeuCau])
     ]);
 });
+// "post-install-cmd": [
+//     "php artisan clear-compiled",
+//     "chmod -R 777 public/"
+// ]
