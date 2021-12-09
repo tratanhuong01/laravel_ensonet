@@ -1,8 +1,8 @@
-@include('Head/document')
+@include('Head.document')
 
 <head>
     <title>Thay đổi mật khẩu</title>
-    @include('Head/css')
+    @include('Head.css')
 </head>
 
 <body class="bg-gray-200">

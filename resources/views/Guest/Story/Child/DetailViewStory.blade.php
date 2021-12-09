@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Session;
             <div class="w-10 h-10 rounded-full relative">
                 <img src="{{ $value->AnhDaiDien }}" class="w-10 h-10 object-cover
                                             rounded-full" alt="">
-                @include('Component\Child\Activity',
+                @include('Component.Child.Activity',
                 [
                 'padding' => 'p-1',
                 'bottom' => 'bottom-0',

@@ -1,7 +1,7 @@
-@include('Head/document')
+@include('Head.document')
 
 <head>
-    @include('Head/css')
+    @include('Head.css')
 </head>
 
 <body>

@@ -12,7 +12,7 @@ class AboutController extends Controller
     public function dashboard(Request $request)
     {
         $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
-        return view('Component/About/Dashboard')->with('json', $json)
+        return view('Component.About.Dashboard')->with('json', $json)
             ->with('idTaiKhoan', $request->IDTaiKhoan)
             ->with('idMain', json_decode($request->user))
             ->with('idView', json_decode($request->users));
@@ -20,7 +20,7 @@ class AboutController extends Controller
     public function workAndStudy(Request $request)
     {
         $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
-        return view('Component/About/WorkStudy')->with('json', $json)
+        return view('Component.About.WorkStudy')->with('json', $json)
             ->with('idTaiKhoan', $request->IDTaiKhoan)
             ->with('idMain', json_decode($request->user))
             ->with('idView', json_decode($request->users));
@@ -28,7 +28,7 @@ class AboutController extends Controller
     public function placeLived(Request $request)
     {
         $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
-        return view('Component/About/PlaceLived')->with('json', $json)
+        return view('Component.About.PlaceLived')->with('json', $json)
             ->with('idTaiKhoan', $request->IDTaiKhoan)
             ->with('idMain', json_decode($request->user))
             ->with('idView', json_decode($request->users));
@@ -36,7 +36,7 @@ class AboutController extends Controller
     public function infoSimpleAndContact(Request $request)
     {
         $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
-        return view('Component/About/InfoSimpleAndContact')->with('json', $json)
+        return view('Component.About.InfoSimpleAndContact')->with('json', $json)
             ->with('idTaiKhoan', $request->IDTaiKhoan)
             ->with('idMain', json_decode($request->user))
             ->with('idView', json_decode($request->users));
@@ -44,7 +44,7 @@ class AboutController extends Controller
     public function familyAndRelatioship(Request $request)
     {
         $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
-        return view('Component/About/FamilyAndRelationShip')->with('json', $json)
+        return view('Component.About.FamilyAndRelationShip')->with('json', $json)
             ->with('idTaiKhoan', $request->IDTaiKhoan)
             ->with('idMain', json_decode($request->user))
             ->with('idView', json_decode($request->users));
@@ -52,7 +52,7 @@ class AboutController extends Controller
     public function detailAboutUser(Request $request)
     {
         $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
-        return view('Component/About/DetailAboutYourSelf')->with('json', $json)
+        return view('Component.About.DetailAboutYourSelf')->with('json', $json)
             ->with('idTaiKhoan', $request->IDTaiKhoan)
             ->with('idMain', json_decode($request->user))
             ->with('idView', json_decode($request->users));
@@ -60,7 +60,7 @@ class AboutController extends Controller
     public function eventLife(Request $request)
     {
         $json = Gioithieu::where('gioithieu.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
-        return view('Component/About/EventLife')->with('json', $json)
+        return view('Component.About.EventLife')->with('json', $json)
             ->with('idTaiKhoan', $request->IDTaiKhoan)
             ->with('idMain', json_decode($request->user))
             ->with('idView', json_decode($request->users));

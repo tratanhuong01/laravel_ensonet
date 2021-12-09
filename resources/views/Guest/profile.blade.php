@@ -29,7 +29,7 @@ $relationShip =
 
 $paths = explode('/', parse_url(url()->current())['path']);
 ?>
-@include('Head/document')
+@include('Head.document')
 
 <head>
     <title>
@@ -39,7 +39,7 @@ $paths = explode('/', parse_url(url()->current())['path']);
         {{ $users[0]->Ho . ' ' . $users[0]->Ten . ' | Ensonet' }}
         @endif
     </title>
-    @include('Head/css')
+    @include('Head.css')
 </head>
 
 <body class="dark:bg-dark-main">
@@ -50,9 +50,9 @@ $paths = explode('/', parse_url(url()->current())['path']);
         <!-- header -->
 
         @if (count($users) == 0 || count($user) == 0)
-        @include('Component/NotFound')
+        @include('Component.NotFound')
         @else
-        @include('Timeline/Profile')
+        @include('Timeline.Profile')
 
         <!-- head profile -->
         <div class="hidden dark:bg-dark-second pt-10 w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%" id="firstContentProfile">
@@ -73,17 +73,17 @@ $paths = explode('/', parse_url(url()->current())['path']);
         <!-- relationship -->
         <div class="w-full relative mx-auto md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63% hidden" id="moiQuanHe">
             @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
-            @include('Component/Relationship/Owner')
+            @include('Component.Relationship.Owner')
             @elseif (sizeof($relationShip) == 0)
-            @include('Component/Relationship/NotFriend')
+            @include('Component.Relationship.NotFriend')
             @elseif ($relationShip[0]->TinhTrang == 0)
-            @include('Component/Relationship/NotFriend')
+            @include('Component.Relationship.NotFriend')
             @elseif ($relationShip[0]->TinhTrang == 1)
-            @include('Component/Relationship/SendRequest')
+            @include('Component.Relationship.SendRequest')
             @elseif ($relationShip[0]->TinhTrang == 2)
-            @include('Component/Relationship/ReciviceRequest')
+            @include('Component.Relationship.ReciviceRequest')
             @elseif ($relationShip[0]->TinhTrang == 3)
-            @include('Component/Relationship/Friend')
+            @include('Component.Relationship.Friend')
             @endif
         </div>
         <!-- relationship -->

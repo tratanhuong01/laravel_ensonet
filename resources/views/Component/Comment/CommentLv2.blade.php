@@ -25,14 +25,14 @@ $user = Session::get('user');
                 {!! json_decode($comment->NoiDungBinhLuan)->NoiDungBinhLuan !!}
                 @break
                 @case('1')
-                @include('Component/Comment/CommentImage',[
+                @include('Component.Comment.CommentImage',[
                 'json' => json_decode($comment->NoiDungBinhLuan),
                 'idBinhLuan' => $comment->IDBinhLuan,
                 'idHinhAnh' => DataProcessSix::getIDImageByIDCommnet($comment->IDBinhLuan)
                 ])
                 @break
                 @case('2')
-                @include('Component/Comment/Sticker',[
+                @include('Component.Comment.Sticker',[
                 'value' => Nhandan::where('nhandan.IDNhanDan', '=', json_decode($comment->NoiDungBinhLuan)->DuongDan)->get()[0],
                 'json' => json_decode($comment->NoiDungBinhLuan)
                 ])
@@ -76,7 +76,7 @@ $user = Session::get('user');
                 pr-2 cursor-pointer dark:text-white">
                 <span onclick="FeelCommentPost('{{ $comment->IDBinhLuan }}','0@0')" id="{{ $comment->IDBinhLuan }}">
                     {!! Functions::checkIsFeelCmt($user[0]->IDTaiKhoan,$comment->IDBinhLuan) !!}</span>
-                @include('Component\Comment\FeelComment',['comment' => $comment])
+                @include('Component.Comment.FeelComment',['comment' => $comment])
             </li>
             <li onclick="RepViewCommentPost2(
                 '{{ $comment_main->IDTaiKhoan }}',

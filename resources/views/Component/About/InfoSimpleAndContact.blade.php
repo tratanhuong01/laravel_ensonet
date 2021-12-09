@@ -26,7 +26,7 @@ $json = json_decode($json);
 <div class="w-full">
     <ul class="w-full py-2 px-4  dark:text-white mainAboutFull">
         @if ($idMain == $idView)
-            @include('Component/About/Main/NumberPhone',
+            @include('Component.About.Main.NumberPhone',
             ['value' => $json->ThongTinCoBanVaLienHe->SoDienThoai,
             'idMain' => $idMain,
             'idView' => $idView])
@@ -37,7 +37,7 @@ $json = json_decode($json);
             @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
 
                 @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                    @include('Component/About/Main/NumberPhone',
+                    @include('Component.About.Main.NumberPhone',
                     ['value' => $json->ThongTinCoBanVaLienHe->SoDienThoai,
                     'idMain' => $idMain,
                     'idView' => $idView])
@@ -45,7 +45,7 @@ $json = json_decode($json);
                 @endif
             @else
                 @if ($privacy == 'CONGKHAI')
-                    @include('Component/About/Main/NumberPhone',
+                    @include('Component.About.Main.NumberPhone',
                     ['value' => $json->ThongTinCoBanVaLienHe->SoDienThoai,
                     'idMain' => $idMain,
                     'idView' => $idView])
@@ -55,7 +55,7 @@ $json = json_decode($json);
         @endif
 
         @if ($idMain == $idView)
-            @include('Component/About/Main/Email',
+            @include('Component.About.Main.Email',
             ['value' => $json->ThongTinCoBanVaLienHe->Email,
             'idMain' => $idMain,
             'idView' => $idView])
@@ -65,7 +65,7 @@ $json = json_decode($json);
             @endphp
             @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                 @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                    @include('Component/About/Main/Email',
+                    @include('Component.About.Main.Email',
                     ['value' => $json->ThongTinCoBanVaLienHe->Email,
                     'idMain' => $idMain,
                     'idView' => $idView])
@@ -73,7 +73,7 @@ $json = json_decode($json);
                 @endif
             @else
                 @if ($privacy == 'CONGKHAI')
-                    @include('Component/About/Main/Email',
+                    @include('Component.About.Main.Email',
                     ['value' => $json->ThongTinCoBanVaLienHe->Email,
                     'idMain' => $idMain,
                     'idView' => $idView])
@@ -84,7 +84,7 @@ $json = json_decode($json);
 
         <div class="w-full" id="sexMain">
             @if ($idMain == $idView)
-                @include('Component/About/Main/Sex',
+                @include('Component.About.Main.Sex',
                 ['value' => $json->ThongTinCoBanVaLienHe->GioiTinh,
                 'idMain' => $idMain,
                 'idView' => $idView])
@@ -95,7 +95,7 @@ $json = json_decode($json);
                 @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
 
                     @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                        @include('Component/About/Main/Sex',
+                        @include('Component.About.Main.Sex',
                         ['value' => $json->ThongTinCoBanVaLienHe->GioiTinh,
                         'idMain' => $idMain,
                         'idView' => $idView])
@@ -103,7 +103,7 @@ $json = json_decode($json);
                     @endif
                 @else
                     @if ($privacy == 'CONGKHAI')
-                        @include('Component/About/Main/Sex',
+                        @include('Component.About.Main.Sex',
                         ['value' => $json->ThongTinCoBanVaLienHe->GioiTinh,
                         'idMain' => $idMain,
                         'idView' => $idView])
@@ -116,12 +116,12 @@ $json = json_decode($json);
 
         <div class="w-ful" id="birthDayMain">
             @if ($idMain == $idView)
-                @include('Component/About/Main/Birthday',
+                @include('Component.About.Main.Birthday',
                 ['value' => $json->ThongTinCoBanVaLienHe->NgaySinh,
                 'idMain' => $idMain,
                 'idView' => $idView])
             @else
-                @include('Component/About/Main/Birthday',
+                @include('Component.About.Main.Birthday',
                 ['value' => $json->ThongTinCoBanVaLienHe->NgaySinh,
                 'idMain' => $idMain,
                 'idView' => $idView])

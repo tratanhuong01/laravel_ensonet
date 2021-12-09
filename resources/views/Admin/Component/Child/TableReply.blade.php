@@ -74,7 +74,7 @@ use App\Admin\Query;
 </div>
 <div class="w-full py-3">
     <ul class="flex justify-center" id="pageMain">
-        @include('Admin/Component/Child/Pagination',[
+        @include('Admin.Component.Child.Pagination',[
         'index' => 0,
         'num' => count($replyFull)/10,
         'name' => 'post'

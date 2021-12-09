@@ -21,7 +21,7 @@ $year = explode('-', explode(' ', $datetime)[0])[0] -
                 <div class="w-14 h-14 relative">
                     <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 
                                         rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $item[0]->AnhDaiDien }}"></a>
-                    @include('Component\Child\Activity',
+                    @include('Component.Child.Activity',
                     [
                     'padding' => 'p-1.5',
                     'bottom' => 'bottom-2',
@@ -71,11 +71,11 @@ $year = explode('-', explode(' ', $datetime)[0])[0] -
                             </li>
                             @if ($u[0]->IDTaiKhoan == $item[0]->IDTaiKhoan)
                             <li onclick="changeObjectPrivacyPost('{{ $item[0]->IDBaiDang }}')" class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
-                                @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
+                                @include('Component.Post.PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                             </li>
                             @else
                             <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
-                                @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
+                                @include('Component.Post.PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                             </li>
                             @endif
                         </ul>

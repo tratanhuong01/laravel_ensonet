@@ -27,14 +27,14 @@ $user = Session::get('user');
                 {!! json_decode($comment->NoiDungBinhLuan)->NoiDungBinhLuan !!}
                 @break
                 @case('1')
-                @include('Component/Comment/CommentImage',[
+                @include('Component.Comment.CommentImage',[
                 'json' => json_decode($comment->NoiDungBinhLuan),
                 'idBinhLuan' => $comment->IDBinhLuan,
                 'idHinhAnh' => DataProcessSix::getIDImageByIDCommnet($comment->IDBinhLuan)
                 ])
                 @break
                 @case('2')
-                @include('Component/Comment/Sticker',[
+                @include('Component.Comment.Sticker',[
                 'value' => Nhandan::where('nhandan.IDNhanDan', '=', json_decode($comment->NoiDungBinhLuan)->DuongDan)->get()[0],
                 'json' => json_decode($comment->NoiDungBinhLuan)
                 ])
@@ -78,7 +78,7 @@ $user = Session::get('user');
                 pr-2 cursor-pointer dark:text-white">
                 <span onclick="FeelCommentPost('{{ $comment->IDBinhLuan }}','0@0')" id="{{ $comment->IDBinhLuan }}">
                     {!! Functions::checkIsFeelCmt($user[0]->IDTaiKhoan,$comment->IDBinhLuan) !!}</span>
-                @include('Component\Comment\FeelComment',['comment' => $comment])
+                @include('Component.Comment.FeelComment',['comment' => $comment])
             </li>
             <li onclick="RepViewCommentPost(
                 '{{ $comment->IDTaiKhoan }}',
@@ -95,7 +95,7 @@ $user = Session::get('user');
                     <?php $commentLimit = Process::getRepCommentLimit($comment->IDBinhLuan, 0);
                     ?>
                     @for($i = 0;$i < count($commentLimit) ;$i++) </p>
-                        @include('Component\Comment\CommentLv2',[
+                        @include('Component.Comment.CommentLv2',[
                         'comment'=> $commentLimit[$i],
                         'comment_main'=> $comment,
                         ])
@@ -105,7 +105,7 @@ $user = Session::get('user');
             </div>
             <div class="w-full" id="{{ $comment->IDTaiKhoan.$comment->IDBaiDang.$comment->IDBinhLuan }}NumComment">
                 <?php $comments = Process::getCommentNewCmt($comment->IDBinhLuan); ?>
-                @include('Component\Comment\ViewReply',
+                @include('Component.Comment.ViewReply',
                 ['num' => count($comments),
                 'idTaiKhoan' => $comment->IDTaiKhoan,
                 'idBaiDang' => $comment->IDBaiDang,

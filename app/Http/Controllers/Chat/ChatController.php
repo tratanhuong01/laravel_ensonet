@@ -40,7 +40,7 @@ class ChatController extends Controller
         $messages = DataProcess::getMessageByID($sender, $receiver);
         $index = count($messages);
         $messages = DataProcess::getMessageByID($sender, $receiver);
-        return view('Modal\ModalChat\ModalChat')->with('chater', $chater)
+        return view('Modal.ModalChat.ModalChat')->with('chater', $chater)
             ->with('index',  $index - 15)
             ->with('messages', $messages)
             ->with('idNhomTinNhan', DataProcess::checkIsSimilarGroupMessage($sender, $receiver));
@@ -77,13 +77,13 @@ class ChatController extends Controller
             DB::update("UPDATE thongbao SET TinhTrang = ? 
         WHERE IDTaiKhoan = ? AND IDLoaiThongBao = 'TINNHAN001' ", ['1', Session::get('user')[0]->IDTaiKhoan]);
         }
-        return view('Modal/ModalHeader/ModalMessenger');
+        return view('Modal.ModalHeader.ModalMessenger');
     }
     public function createChat()
     {
         Session::forget('userGroup');
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/ModalNewChat')
+            'view' => "" . view('Modal.ModalChat.ModalNewChat')
         ]);
     }
     public function addUser(Request $request)
@@ -101,7 +101,7 @@ class ChatController extends Controller
             } else {
                 $userGroup[$IDTaiKhoan] = $request->IDTaiKhoan;
                 Session::put('userGroup', $userGroup);
-                return view('Modal/ModalChat/Child/UserSelected')
+                return view('Modal.ModalChat.Child.UserSelected')
                     ->with(
                         'user',
                         $user
@@ -110,7 +110,7 @@ class ChatController extends Controller
         } else {
             $userGroup[$IDTaiKhoan] = $request->IDTaiKhoan;
             Session::put('userGroup', $userGroup);
-            return view('Modal/ModalChat/Child/UserSelected')
+            return view('Modal.ModalChat.Child.UserSelected')
                 ->with(
                     'user',
                     $user
@@ -147,10 +147,10 @@ class ChatController extends Controller
                     ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
                     ->get();
                 $messages = DataProcess::getMessageByID($sender, $receiver);
-                return view('Modal\ModalChat\Child\Message')->with('messages', $messages);
+                return view('Modal.ModalChat.Child.Message')->with('messages', $messages);
             } else {
                 $users = DataProcessSecond::createArrayUser(Session::get('userGroup'));
-                return view('Modal\ModalChat\Child\GUICreateGroup')->with('users', $users);
+                return view('Modal.ModalChat.Child.GUICreateGroup')->with('users', $users);
             }
         }
     }
@@ -167,10 +167,10 @@ class ChatController extends Controller
                     ->join('nhomtinnhan', 'tinnhan.IDNhomTinNhan', 'nhomtinnhan.IDNhomTinNhan')
                     ->get();
                 $messages = DataProcess::getMessageByID($sender, $receiver);
-                return view('Modal\ModalChat\Child\Message')->with('messages', $messages);
+                return view('Modal.ModalChat.Child.Message')->with('messages', $messages);
             } else {
                 $users = DataProcessSecond::createArrayUser(Session::get('userGroup'));
-                return view('Modal\ModalChat\Child\GUICreateGroup')->with('users', $users);
+                return view('Modal.ModalChat.Child.GUICreateGroup')->with('users', $users);
             }
         }
     }
@@ -251,7 +251,7 @@ class ChatController extends Controller
                 $messages = DataProcess::getMessageByID($sender, $receiver);
                 $index = count($messages);
                 return response()->json([
-                    'viewGroup' => "" . view('Modal\ModalChat\ModalChat')->with('chater', $chater)
+                    'viewGroup' => "" . view('Modal.ModalChat.ModalChat')->with('chater', $chater)
                         ->with('messages', $messages)
                         ->with('index', $index - 15)
                         ->with('idNhomTinNhan', $idNhomTinNhan)
@@ -359,11 +359,11 @@ class ChatController extends Controller
             );
             $chater = (DataProcess::getUserOfGroupMessageReal($idNhomTinNhan));
             return response()->json([
-                'viewGroup' => "" . view('Modal/ModalChat/ModalGroupChat')
+                'viewGroup' => "" . view('Modal.ModalChat.ModalGroupChat')
                     ->with('chater', $chater)
                     ->with('messages', DataProcess::getMessageByNhomTinNhan($idNhomTinNhan))
                     ->with('idNhomTinNhan', $idNhomTinNhan),
-                'viewMessage' => "" . view('Modal/ModalChat/Child/ChatRight')->with('message', $message[0])
+                'viewMessage' => "" . view('Modal.ModalChat.Child.ChatRight')->with('message', $message[0])
             ]);
         }
     }
@@ -372,12 +372,12 @@ class ChatController extends Controller
         $chater = (DataProcess::getUserOfGroupMessageReal($request->IDNhomTinNhan));
         if (count($chater) == 1) {
             $messages = DataProcess::getMessageByNhomTinNhan($request->IDNhomTinNhan);
-            return view('Modal\ModalChat\ModalChat')->with('chater', $chater)
+            return view('Modal.ModalChat.ModalChat')->with('chater', $chater)
                 ->with('index', count($messages))
                 ->with('messages', DataProcess::getMessageByNhomTinNhanLimit($request->IDNhomTinNhan, count($messages) - 15))
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan);
         } else
-            return view('Modal\ModalChat\ModalGroupChat')->with('chater', $chater)
+            return view('Modal.ModalChat.ModalGroupChat')->with('chater', $chater)
                 ->with('messages', DataProcess::getMessageByNhomTinNhan($request->IDNhomTinNhan))
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan);
     }
@@ -420,7 +420,7 @@ class ChatController extends Controller
     {
         $user = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()[0];
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/Child/ChatTyping')
+            'view' => "" . view('Modal.ModalChat.Child.ChatTyping')
                 ->with('user', $user)
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan)
         ]);
@@ -464,7 +464,7 @@ class ChatController extends Controller
     public function viewFeel(Request $request)
     {
         Session::put('IDTinNhan', $request->IDTinNhan);
-        return view('Modal\ModalChat\ModalFeel')->with(
+        return view('Modal.ModalChat.ModalFeel')->with(
             'data',
             DataProcessFive::getDetailFeelMesage($request->IDTinNhan)
         );
@@ -472,12 +472,12 @@ class ChatController extends Controller
     public function viewFeelOnly(Request $request)
     {
         if ($request->LoaiCamXuc == 'NULL')
-            return view('Modal\ModalChat\Child\ViewFeel')->with(
+            return view('Modal.ModalChat.Child.ViewFeel')->with(
                 'data',
                 DataProcessFive::getDetailFeelMesage($request->IDTinNhan)
             );
         else
-            return view('Modal\ModalChat\Child\ViewFeel')->with(
+            return view('Modal.ModalChat.Child.ViewFeel')->with(
                 'data',
                 DataProcessFive::getOnlyDetailFeelPost($request->IDTinNhan, $request->LoaiCamXuc)
             );

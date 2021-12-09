@@ -10,11 +10,11 @@ $post = Functions::getPost($post_main[0]);
 
 ?>
 
-@include('Head/document')
+@include('Head.document')
 
 <head>
     <title>Ensonet</title>
-    @include('Head/css')
+    @include('Head.css')
 </head>
 
 <body class="dark:bg-dark-main">
@@ -29,26 +29,26 @@ $post = Functions::getPost($post_main[0]);
         lg:mx-auto xl:w-full" id="content">
             @if (sizeof($post_main) == 0)
             <!-- content -->
-            @include('Component\NotFound');
+            @include('Component.NotFound');
             <!-- content -->
             @else
             <div class="w-5/12 mx-auto">
                 <!-- content -->
                 @switch($post[0]->LoaiBaiDang)
                 @case('0')
-                @include('Component/Post/UpdateAvatarImage',['item' => $post])
+                @include('Component.Post.UpdateAvatarImage',['item' => $post])
                 @break
                 @case('1')
-                @include('Component/Post/UpdateCoverImage',['item' => $post])
+                @include('Component.Post.UpdateCoverImage',['item' => $post])
                 @break
                 @case('2')
-                @include('Component/Post/PostNormal',['item' => $post])
+                @include('Component.Post.PostNormal',['item' => $post])
                 @break
                 @case('3')
-                @include('Component/Post/SharePost',['item' => $post])
+                @include('Component.Post.SharePost',['item' => $post])
                 @break
                 @case('5')
-                @include('Component/Post/PostShareMemory',['item' => $post])
+                @include('Component.Post.PostShareMemory',['item' => $post])
                 @break
                 @endswitch
                 <!-- content -->
@@ -78,7 +78,7 @@ $post = Functions::getPost($post_main[0]);
     <!-- place show modal -->
 
     <!-- timeline -->
-    @include('TimeLine/DivMainTimeLine')
+    @include('TimeLine.DivMainTimeLine')
     <!-- timeline -->
     <script>
         $('#modalHeaderRight').html('')

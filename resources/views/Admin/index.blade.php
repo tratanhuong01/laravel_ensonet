@@ -211,38 +211,38 @@ $path = explode('/', parse_url(url()->current())['path']);
             wrapper-content-right" style="height: 685px;max-height: 685px;" id="content">
                 @switch($path[2])
                 @case('user')
-                @include('Admin/Component/Category/User',
+                @include('Admin.Component.Category.User',
                 [
                 'userTable' => $table,
                 'data' => $data
                 ])
                 @break
                 @case('post')
-                @include('Admin/Component/Category/Post',
+                @include('Admin.Component.Category.Post',
                 [
                 'userPost' => $table,
                 'data' => $data
                 ])
                 @break
                 @case('story')
-                @include('Admin/Component/Category/Story',
+                @include('Admin.Component.Category.Story',
                 [
                 'userStory' => $table,
                 'data' => $data
                 ])
                 @break
                 @case('reply')
-                @include('Admin/Component/Category/Reply',
+                @include('Admin.Component.Category.Reply',
                 [
                 'userReply' => $table,
                 'data' => $data
                 ])
                 @break
                 @case('category')
-                @include('Admin/Component/Category/Category')
+                @include('Admin.Component.Category.Category')
                 @break
                 @default
-                @include('Admin/Component/Category/Dashboard')
+                @include('Admin.Component.Category.Dashboard')
                 @endswitch
             </div>
         </div>
@@ -252,7 +252,7 @@ $path = explode('/', parse_url(url()->current())['path']);
     <!-- place show modal -->
 
     <!-- timeline -->
-    @include('TimeLine/DivMainTimeLine')
+    @include('TimeLine.DivMainTimeLine')
     <!-- timeline -->
 </body>
 <script>

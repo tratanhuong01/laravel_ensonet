@@ -100,6 +100,6 @@ use Illuminate\Support\Facades\Session;
         </div>
     </div>
     <div class="w-1/3 bg-gray-100 dark:bg-dark-second pl-2 ">
-        @include('Guest/Story/Child/PersonViewStory')
+        @include('Guest.Story.Child.PersonViewStory')
     </div>
 </div>

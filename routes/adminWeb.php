@@ -77,7 +77,7 @@ Route::get('/user', function () {
             ],
         ]
     ];
-    return view('Admin/index')
+    return view('Admin.index')
         ->with('table', $userTable)
         ->with('data', array());
 });
@@ -133,7 +133,7 @@ Route::get('/post', function () {
             ],
         ]
     ];
-    return view('Admin/index')
+    return view('Admin.index')
         ->with('table', $userPost)
         ->with('data', array());;
 });
@@ -180,7 +180,7 @@ Route::get('/story', function () {
             ],
         ]
     ];
-    return view('Admin/index')
+    return view('Admin.index')
         ->with('table', $userStory)
         ->with('data', array());;
 });
@@ -219,12 +219,12 @@ Route::get('/reply', function () {
             ],
         ]
     ];
-    return view('Admin/index')
+    return view('Admin.index')
         ->with('table', $userReply)
         ->with('data', array());;
 });
 Route::get('/category', function () {
-    return view('Admin/index');
+    return view('Admin.index');
 });
 
 Route::get('check', function () {

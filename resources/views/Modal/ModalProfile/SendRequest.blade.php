@@ -29,7 +29,7 @@ transform-translate-50per pb-2 pt-2 opacity-100 bg-white z-50 border-2 border-so
                 <div class="w-16 h-16 relative">
                     <img src="{{ $value->AnhDaiDien }}" class="w-16 h-16 object-cover 
                     cursor-pointer" alt="">
-                    @include('Component\Child\Activity',
+                    @include('Component.Child.Activity',
                     [
                     'padding' => 'p-1.5',
                     'bottom' => 'bottom-2',

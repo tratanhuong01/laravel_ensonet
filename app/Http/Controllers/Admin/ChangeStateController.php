@@ -11,7 +11,7 @@ class ChangeStateController extends Controller
     public function changeViewStateUser(Request $request)
     {
         return response()->json([
-            'view' => "" . view('Admin/Modal/User/ModalState')
+            'view' => "" . view('Admin.Modal.User.ModalState')
                 ->with('idTaiKhoan', $request->IDTaiKhoan)
         ]);
     }
@@ -20,7 +20,7 @@ class ChangeStateController extends Controller
         DB::update('UPDATE taikhoan SET taikhoan.TinhTrang = ? WHERE 
         taikhoan.IDTaiKhoan = ? ', [$request->state, $request->IDTaiKhoan]);
         return response()->json([
-            'view' => "" . view('Admin/Modal/User/Child/ElementState')
+            'view' => "" . view('Admin.Modal.User.Child.ElementState')
                 ->with('state', $request->state)
         ]);
     }

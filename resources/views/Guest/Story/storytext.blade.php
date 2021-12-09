@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Session;
 $user = Session::get('user')[0];
 
 ?>
-@include('Head/document')
+@include('Head.document')
 
 <head>
     <title>Tạo tin</title>
-    @include('Head/css')
+    @include('Head.css')
     <script src="/js/ajax/Story/ajax.js"></script>
 </head>
 

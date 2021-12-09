@@ -18,7 +18,7 @@ class ColorMessageController extends Controller
 {
     public function open(Request $request)
     {
-        return view('Modal/ModalChat/ModalColor')->with('IDNhomTinNhan', $request->IDNhomTinNhan)
+        return view('Modal.ModalChat.ModalColor')->with('IDNhomTinNhan', $request->IDNhomTinNhan)
             ->with('idChat', $request->IDChat);
     }
     public function change(Request $request)
@@ -70,6 +70,6 @@ class ColorMessageController extends Controller
             }
         }
 
-        return view('Modal/ModalChat/Child/ChatCenter')->with('message', $message[0]);
+        return view('Modal.ModalChat.Child.ChatCenter')->with('message', $message[0]);
     }
 }

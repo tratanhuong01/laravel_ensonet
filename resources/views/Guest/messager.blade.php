@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Session;
 use App\Models\StringUtil;
 
 ?>
-@include('Head/document')
+@include('Head.document')
 
 <head>
     <title>Ensonet</title>
-    @include('Head/css')
+    @include('Head.css')
     <style>
         .dataTwoImage {
             height: 241px;
@@ -78,18 +78,18 @@ use App\Models\StringUtil;
                 </div>
 
                 <div class="w-full pt-3 wrapper-scrollbar overflow-y-auto my-1" id="mess-right-messenger" style="max-height: 595px;height:595px;">
-                    @include('Guest/Child/AllMessager',['allMess' => $allMess])
+                    @include('Guest.Child.AllMessager',['allMess' => $allMess])
                 </div>
             </div>
             <div class="w-3/4 flex">
                 @if (count($chater) == 1)
-                @include('Component\Messenger\MessengerChat',[
+                @include('Component.Messenger.MessengerChat',[
                 'idNhomTinNhan' => $idNhomTinNhan,
                 'chater' => $chater,
                 'messages' => $messages
                 ])
                 @else
-                @include('Component\Messenger\MessengerChatGroup',[
+                @include('Component.Messenger.MessengerChatGroup',[
                 'idNhomTinNhan' => $idNhomTinNhan,
                 'chater' => $chater,
                 'messages' => $messages
@@ -106,7 +106,7 @@ use App\Models\StringUtil;
     </div>
     <!-- place show notify -->
     <!-- timeline -->
-    @include('TimeLine/DivMainTimeLine')
+    @include('TimeLine.DivMainTimeLine')
     <!-- timeline -->
     @else
     <?php redirect()->to('login')->send(); ?>

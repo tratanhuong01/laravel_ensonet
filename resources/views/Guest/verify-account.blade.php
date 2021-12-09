@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 
 <head>
     <title>Ensonet</title>
-    @include('Head/css')
+    @include('Head.css')
 </head>
 
 <body class="bg-gray-100">

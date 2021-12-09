@@ -17,6 +17,6 @@ class SendCodeAgainController extends Controller
         $code_veri = mt_rand(100000, 999999);
         DB::update('update taikhoan set CodeEmail = ? where taikhoan.IDTaiKhoan = ?', [$code_veri, $user[0]->IDTaiKhoan]);
         \Mail::to($request->emailOrPhone)->send(new Ensonet($code_veri));
-        return view('Modal/ModalLogin/ModalTypeCode')->with('emailOrPhoneRegister', $request->emailOrPhone);
+        return view('Modal.ModalLogin.ModalTypeCode')->with('emailOrPhoneRegister', $request->emailOrPhone);
     }
 }

@@ -22,13 +22,13 @@ $json = json_decode($json);
                         <div class="w-full" id="placeLivedMain">
                             @if ($idMain == $idView)
                             @if (count($json->NoiTungSong->NoiTungSong) == 0)
-                            @include('Component/About/Delete/DeletePlaceLived')
-                            @include('Component/About/Add/AddPlaceLived')
+                            @include('Component.About.Delete.DeletePlaceLived')
+                            @include('Component.About.Add.AddPlaceLived')
                             @else
-                            @include('Component/About/Delete/DeletePlaceLived')
-                            @include('Component/About/Add/AddPlaceLived')
+                            @include('Component.About.Delete.DeletePlaceLived')
+                            @include('Component.About.Add.AddPlaceLived')
                             @foreach ($json->NoiTungSong->NoiTungSong as $key => $value)
-                            @include('Component/About/Main/PlaceLived',['value'=> $value,
+                            @include('Component.About.Main.PlaceLived',['value'=> $value,
                             'idMain' => $idMain,
                             'idView' => $idView])
                             @endforeach
@@ -44,14 +44,14 @@ $json = json_decode($json);
                             @endphp
                             @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                             @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                            @include('Component/About/Main/PlaceLived',['value'=> $value,
+                            @include('Component.About.Main.PlaceLived',['value'=> $value,
                             'idMain' => $idMain,
                             'idView' => $idView])
                             @else
                             @endif
                             @else
                             @if ($privacy == 'CONGKHAI')
-                            @include('Component/About/Main/PlaceLived',['value'=> $value,
+                            @include('Component.About.Main.PlaceLived',['value'=> $value,
                             'idMain' => $idMain,
                             'idView' => $idView])
                             @else
@@ -66,10 +66,10 @@ $json = json_decode($json);
                         <div class="w-full" id="placeCurrentMain">
                             @if ($idMain == $idView)
                             @if (count($json->NoiTungSong->NoiOHienTai) == 0)
-                            @include('Component/About/Delete/DeletePlaceCurrent')
-                            @include('Component/About/Add/AddPlaceCurrent')
+                            @include('Component.About.Delete.DeletePlaceCurrent')
+                            @include('Component.About.Add.AddPlaceCurrent')
                             @else
-                            @include('Component/About/Main/PlaceCurrent',['value'=>
+                            @include('Component.About.Main.PlaceCurrent',['value'=>
                             $json->NoiTungSong->NoiOHienTai[0],
                             'idMain' => $idMain,
                             'idView' => $idView])
@@ -84,7 +84,7 @@ $json = json_decode($json);
                             @endphp
                             @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                             @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                            @include('Component/About/Main/PlaceCurrent',['value'=>
+                            @include('Component.About.Main.PlaceCurrent',['value'=>
                             $json->NoiTungSong->NoiOHienTai[0],
                             'idMain' => $idMain,
                             'idView' => $idView])
@@ -92,7 +92,7 @@ $json = json_decode($json);
                             @endif
                             @else
                             @if ($privacy == 'CONGKHAI')
-                            @include('Component/About/Main/PlaceCurrent',['value'=>
+                            @include('Component.About.Main.PlaceCurrent',['value'=>
                             $json->NoiTungSong->NoiOHienTai[0],
                             'idMain' => $idMain,
                             'idView' => $idView])
@@ -107,10 +107,10 @@ $json = json_decode($json);
                         <div class="w-full" id="homeTownMain">
                             @if ($idMain == $idView)
                             @if (count($json->NoiTungSong->QueQuan) == 0)
-                            @include('Component/About/Delete/DeleteHomeTown')
-                            @include('Component/About/Add/AddHomeTown')
+                            @include('Component.About.Delete.DeleteHomeTown')
+                            @include('Component.About.Add.AddHomeTown')
                             @else
-                            @include('Component/About/Main/HomeTown',['value'=> $json->NoiTungSong->QueQuan[0],
+                            @include('Component.About.Main.HomeTown',['value'=> $json->NoiTungSong->QueQuan[0],
                             'idMain' => $idMain,
                             'idView' => $idView])
                             @endif
@@ -124,7 +124,7 @@ $json = json_decode($json);
                             @endphp
                             @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                             @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                            @include('Component/About/Main/HomeTown',['value'=>
+                            @include('Component.About.Main.HomeTown',['value'=>
                             $json->NoiTungSong->QueQuan[0],
                             'idMain' => $idMain,
                             'idView' => $idView])
@@ -132,7 +132,7 @@ $json = json_decode($json);
                             @endif
                             @else
                             @if ($privacy == 'CONGKHAI')
-                            @include('Component/About/Main/HomeTown',['value'=>
+                            @include('Component.About.Main.HomeTown',['value'=>
                             $json->NoiTungSong->QueQuan[0],
                             'idMain' => $idMain,
                             'idView' => $idView])

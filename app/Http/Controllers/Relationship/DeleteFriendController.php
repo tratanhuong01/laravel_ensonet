@@ -19,7 +19,7 @@ class DeleteFriendController extends Controller
             DB::table('moiquanhe')->where('moiquanhe.IDTaiKhoan', '=', $request->UserOther)
                 ->where('moiquanhe.IDBanBe', '=', $request->UserMain)->delete();
             $user = DB::table('taikhoan')->where('taikhoan.IDTaiKhoan', '=', $request->UserOther)->get();
-            return view('Component/Relationship/NotFriend')->with('users', $user);
+            return view('Component.Relationship.NotFriend')->with('users', $user);
         } catch (Exception $e) {
             $e->Error;
         }

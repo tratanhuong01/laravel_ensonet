@@ -97,7 +97,7 @@ $json = json_decode($json);
 
         <div class="w-full" id="relationShipMain">
             @if ($idMain == $idView)
-            @include('Component/About/Data/Marriage',['data' =>
+            @include('Component.About.Data.Marriage',['data' =>
             json_decode($json[0]->JsonGioiThieu)->GiaDinhVaCacMoiQuanHe->HonNhan,
             'idTaiKhoan'=> $idTaiKhoan,
             'idMain' => $idMain,
@@ -108,7 +108,7 @@ $json = json_decode($json);
             @endphp
             @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
             @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-            @include('Component/About/Data/Marriage',['data' =>
+            @include('Component.About.Data.Marriage',['data' =>
             json_decode($json[0]->JsonGioiThieu)->GiaDinhVaCacMoiQuanHe->HonNhan,
             'idTaiKhoan'=> $idTaiKhoan,
             'idMain' => $idMain,
@@ -117,7 +117,7 @@ $json = json_decode($json);
             @endif
             @else
             @if ($privacy == 'CONGKHAI')
-            @include('Component/About/Data/Marriage',['data' =>
+            @include('Component.About.Data.Marriage',['data' =>
             json_decode($json[0]->JsonGioiThieu)->GiaDinhVaCacMoiQuanHe->HonNhan,
             'idTaiKhoan'=> $idTaiKhoan,
             'idMain' => $idMain,
@@ -132,10 +132,12 @@ $json = json_decode($json);
         </p>
         <div class="w-full" id="memberFamilyMain">
             @if ($idMain == $idView)
-            @if (sizeof(json_decode($json[0]->JsonGioiThieu)->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh) < 0) @include('Component/About/Delele/DeleteMemberFamily') @include('Component/About/Add/AddMemberFamily') @else @include('Component/About/Delete/DeleteMemberFamily') @include('Component/About/Add/AddMemberFamily') <li class="w-full pb-4 flex" style="font-size: 16px;">
+            @if (sizeof(json_decode($json[0]->JsonGioiThieu)->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh) < 0) 
+            @include('Component.About.Delele.DeleteMemberFamily') @include('Component.About.Add.AddMemberFamily') @else 
+            @include('Component.About.Delete.DeleteMemberFamily') @include('Component.About.Add.AddMemberFamily') <li class="w-full pb-4 flex" style="font-size: 16px;">
                 <ul class="w-full">
                     @foreach (json_decode($json[0]->JsonGioiThieu)->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh as $key => $value)
-                    @include('Component/About/Main/MemberFamily',[
+                    @include('Component.About.Main.MemberFamily',[
                     'value'=>$value
                     ])
                     @endforeach
@@ -143,7 +145,7 @@ $json = json_decode($json);
                 </li>
                 @endif
                 @else
-                @include('Component/About/Add/AddMemberFamily')
+                @include('Component.About.Add.AddMemberFamily')
                 @if (sizeof(json_decode($json[0]->JsonGioiThieu)->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh) < 0) <p class="w-full font-bold dark:text-gray-300 
                 text-gray-700 py-2">Không có gì để hiển thị.</p>
                     @else
@@ -155,7 +157,7 @@ $json = json_decode($json);
                             @endphp
                             @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                             @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                            @include('Component/About/Main/MemberFamily',[
+                            @include('Component.About.Main.MemberFamily',[
                             'value'=>$value,
                             'idMain' => $idMain,
                             'idView' => $idView])
@@ -163,7 +165,7 @@ $json = json_decode($json);
                             @endif
                             @else
                             @if ($privacy == 'CONGKHAI')
-                            @include('Component/About/Main/MemberFamily',[
+                            @include('Component.About.Main.MemberFamily',[
                             'value'=>$value,
                             'idMain' => $idMain,
                             'idView' => $idView])

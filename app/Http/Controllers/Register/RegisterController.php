@@ -96,7 +96,7 @@ class RegisterController extends Controller
                     )));
                     DB::update('update taikhoan set CodeEmail = ? where taikhoan.IDTaiKhoan = ?', [$code_veri, $id]);
                     \Mail::to($request->emailAgain)->send(new Ensonet($code_veri));
-                    return view('Modal/ModalLogin/ModalTypeCode')->with('emailOrPhoneRegister', $request->emailOrPhone);
+                    return view('Modal.ModalLogin.ModalTypeCode')->with('emailOrPhoneRegister', $request->emailOrPhone);
                 }
             }
         }

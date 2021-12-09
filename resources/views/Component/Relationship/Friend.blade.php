@@ -6,7 +6,7 @@ $user = Session::get('user');
 
 ?>
 <div class="w-full py-2 flex">
-    @include('Component/Relationship/Category')
+    @include('Component.Relationship.Category')
     <div class="w-5/12 py-1.5 text-right">
         <span onclick="openChat('{{ $users[0]->IDTaiKhoan }}')" class="p-3 mr-2 cursor-pointer dark:bg-dark-third dark:text-white bg-gray-200 font-bold rounded-lg" style="line-height: 24px;"><i class="fab fa-facebook-messenger dark:text-white" style="font-size: 20px;"></i>&nbsp;&nbsp;Nhắn tin</span>
         <span class="p-3 mr-2 cursor-pointer dark:bg-dark-third dark:text-white bg-gray-200 font-bold rounded-lg">

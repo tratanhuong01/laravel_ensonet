@@ -16,11 +16,11 @@ class SearchFriendController extends Controller
         for ($i = 0; $i < count($data); $i++) {
             $new[$i][$i] = $data[$i];
         }
-        return view('Component\Category\Friends')->with('data', $new);
+        return view('Component.Category.Friends')->with('data', $new);
     }
     public function searchUserChat(Request $request)
     {
         $data = Taikhoan::search($request->HoTen, Session::get('user')[0]->IDTaiKhoan);
-        return view('Modal\ModalChat\Child\UserChat')->with('data', $data);
+        return view('Modal.ModalChat.Child.UserChat')->with('data', $data);
     }
 }

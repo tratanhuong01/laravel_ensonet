@@ -11,7 +11,7 @@ class ChangePrivacyAboutController extends Controller
 {
     public function changeView(Request $request)
     {
-        return view('Component/About/Modal/Privacy');
+        return view('Component.About.Modal.Privacy');
     }
     public function change(Request $request)
     {
@@ -24,7 +24,7 @@ class ChangePrivacyAboutController extends Controller
                         $json->CongViecHocVan->CongViec[$key]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                        return view('Component/About/Modal/PrivacyMini')
+                        return view('Component.About.Modal.PrivacyMini')
                             ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                             ->with('typeChange', $request->TypeChange)
                             ->with('id', $request->ID);
@@ -37,7 +37,7 @@ class ChangePrivacyAboutController extends Controller
                         $json->CongViecHocVan->HocVan[$key]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                        return view('Component/About/Modal/PrivacyMini')
+                        return view('Component.About.Modal.PrivacyMini')
                             ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                             ->with('typeChange', $request->TypeChange)
                             ->with('id', $request->ID);
@@ -50,7 +50,7 @@ class ChangePrivacyAboutController extends Controller
                         $json->NoiTungSong->NoiOHienTai[$key]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                        return view('Component/About/Modal/PrivacyMini')
+                        return view('Component.About.Modal.PrivacyMini')
                             ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                             ->with('typeChange', $request->TypeChange)
                             ->with('id', $request->ID);
@@ -63,7 +63,7 @@ class ChangePrivacyAboutController extends Controller
                         $json->NoiTungSong->NoiTungSong[$key]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                        return view('Component/About/Modal/PrivacyMini')
+                        return view('Component.About.Modal.PrivacyMini')
                             ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                             ->with('typeChange', $request->TypeChange)
                             ->with('id', $request->ID);
@@ -76,7 +76,7 @@ class ChangePrivacyAboutController extends Controller
                         $json->NoiTungSong->QueQuan[$key]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                        return view('Component/About/Modal/PrivacyMini')
+                        return view('Component.About.Modal.PrivacyMini')
                             ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                             ->with('typeChange', $request->TypeChange)
                             ->with('id', $request->ID);
@@ -88,7 +88,7 @@ class ChangePrivacyAboutController extends Controller
                     $json->GiaDinhVaCacMoiQuanHe->HonNhan->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                     DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                    return view('Component/About/Modal/PrivacyMini')
+                    return view('Component.About.Modal.PrivacyMini')
                         ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                         ->with('typeChange', $request->TypeChange)
                         ->with('id', $request->ID);
@@ -99,7 +99,7 @@ class ChangePrivacyAboutController extends Controller
                     $json->ChiTietBanThan->PhatAm[0]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                     DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                    return view('Component/About/Modal/PrivacyMini')
+                    return view('Component.About.Modal.PrivacyMini')
                         ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                         ->with('typeChange', $request->TypeChange)
                         ->with('id', $request->ID);
@@ -111,7 +111,7 @@ class ChangePrivacyAboutController extends Controller
                         $json->ChiTietBanThan->BietDanh[$key]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                        return view('Component/About/Modal/PrivacyMini')
+                        return view('Component.About.Modal.PrivacyMini')
                             ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                             ->with('typeChange', $request->TypeChange)
                             ->with('id', $request->ID);
@@ -123,7 +123,7 @@ class ChangePrivacyAboutController extends Controller
                     $json->ChiTietBanThan->BietDanh[0]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                     DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                    return view('Component/About/Modal/PrivacyMini')
+                    return view('Component.About.Modal.PrivacyMini')
                         ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                         ->with('typeChange', $request->TypeChange)
                         ->with('id', $request->ID);
@@ -134,7 +134,7 @@ class ChangePrivacyAboutController extends Controller
                     $json->ChiTietBanThan->TrichDanYeuThich[0]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                     DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                    return view('Component/About/Modal/PrivacyMini')
+                    return view('Component.About.Modal.PrivacyMini')
                         ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                         ->with('typeChange', $request->TypeChange)
                         ->with('id', $request->ID);
@@ -145,7 +145,7 @@ class ChangePrivacyAboutController extends Controller
                     $json->ThongTinCoBanVaLienHe->SoDienThoai->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                     DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                    return view('Component/About/Modal/PrivacyMini')
+                    return view('Component.About.Modal.PrivacyMini')
                         ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                         ->with('typeChange', $request->TypeChange)
                         ->with('id', $request->ID);
@@ -156,7 +156,7 @@ class ChangePrivacyAboutController extends Controller
                     $json->ThongTinCoBanVaLienHe->Email->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                     DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                    return view('Component/About/Modal/PrivacyMini')
+                    return view('Component.About.Modal.PrivacyMini')
                         ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                         ->with('typeChange', $request->TypeChange)
                         ->with('id', $request->ID);
@@ -167,7 +167,7 @@ class ChangePrivacyAboutController extends Controller
                     $json->ThongTinCoBanVaLienHe->GioiTinh->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                     DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                                         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                    return view('Component/About/Modal/PrivacyMini')
+                    return view('Component.About.Modal.PrivacyMini')
                         ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                         ->with('typeChange', $request->TypeChange)
                         ->with('id', $request->ID);
@@ -178,7 +178,7 @@ class ChangePrivacyAboutController extends Controller
                 $json->ThongTinCoBanVaLienHe->NgaySinh->Thang->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                                         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                return view('Component/About/Modal/PrivacyMini')
+                return view('Component.About.Modal.PrivacyMini')
                     ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                     ->with('typeChange', $request->TypeChange)
                     ->with('id', $request->ID);
@@ -187,7 +187,7 @@ class ChangePrivacyAboutController extends Controller
                 $json->ThongTinCoBanVaLienHe->NgaySinh->Nam->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                                             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                return view('Component/About/Modal/PrivacyMini')
+                return view('Component.About.Modal.PrivacyMini')
                     ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                     ->with('typeChange', $request->TypeChange)
                     ->with('id', $request->ID);
@@ -198,7 +198,7 @@ class ChangePrivacyAboutController extends Controller
                         $json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh[$key]->IDQuyenRiengTu = $request->IDQuyenRiengTu;
                         DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->IDTaiKhoan]);
-                        return view('Component/About/Modal/PrivacyMini')
+                        return view('Component.About.Modal.PrivacyMini')
                             ->with('idQuyenRiengTu', $request->IDQuyenRiengTu)
                             ->with('typeChange', $request->TypeChange)
                             ->with('id', $request->ID);

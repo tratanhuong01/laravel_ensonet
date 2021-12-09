@@ -52,10 +52,10 @@ $member = DataProcess::getUserOfGroupMessage($message->IDNhomTinNhan);
             {{json_decode($message->NoiDung)[0]->NoiDungTinNhan}}
             @break
             @case('1')
-            @include('Modal/ModalChat/Child/Image',['json' => json_decode($message->NoiDung)])
+            @include('Modal.ModalChat.Child.Image',['json' => json_decode($message->NoiDung)])
             @break
             @case('2')
-            @include('Modal/ModalChat/Child/ChatSticker',[
+            @include('Modal.ModalChat.Child.ChatSticker',[
             'value' => Nhandan::where('nhandan.IDNhanDan', '=', json_decode($message->NoiDung)[0]->DuongDan)->get()[0],
             'json' => json_decode($message->NoiDung)[0]
             ])

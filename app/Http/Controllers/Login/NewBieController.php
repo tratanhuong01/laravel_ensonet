@@ -16,11 +16,11 @@ class NewBieController extends Controller
             ->where('taikhoan.MatKhau', '=', $request->passWord)->get();
 
         if (sizeof($user) == 0)
-            return view('Guest/login');
+            return view('Guest.login');
         else {
             $request->session()->put('user', $user);
             redirect()->to('index')->send();
-            return view('Guest/index');
+            return view('Guest.index');
         }
     }
 }

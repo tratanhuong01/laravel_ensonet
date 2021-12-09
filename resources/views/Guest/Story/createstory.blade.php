@@ -11,7 +11,7 @@ $user = Session::get('user');
 
 <head>
     <title>Tạo tin | Ensonet</title>
-    @include('Head/css')
+    @include('Head.css')
     <script src="/js/ajax/Story/ajax.js"></script>
 </head>
 

@@ -179,7 +179,7 @@ $post = Data::sortAllPost($user[0]->IDTaiKhoan);
                             </div>
                             @else
                             @foreach($listFriend as $key => $value)
-                            @include('Component\Index\UserActivity',['data'=> $value[0]])
+                            @include('Component.Index.UserActivity',['data'=> $value[0]])
                             @endforeach
                             @endif
                             <div id="friends-online-info" class="absolute bg-white 

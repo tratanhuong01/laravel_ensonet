@@ -27,7 +27,7 @@ class RepCommentController extends Controller
             ->where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)
             ->orderBy('ThoiGianBinhLuan', 'desc')
             ->get();
-        return view('Component\Comment\WriteCommentLv2')
+        return view('Component.Comment.WriteCommentLv2')
             ->with(
                 'comment',
                 $comment[0]
@@ -35,7 +35,7 @@ class RepCommentController extends Controller
             ->with('cmt', $comment)
             ->with(
                 'name',
-                view('Component\Child\TheTag')
+                view('Component.Child.TheTag')
                     ->with(
                         'name',
                         $comment[0]->Ho . ' ' . $comment[0]->Ten
@@ -61,7 +61,7 @@ class RepCommentController extends Controller
             ->get();
         $cmt = Binhluan::where('IDBinhLuan', '=', $request->IDBinhLuanRep)->get();
         $tag = Taikhoan::where('IDTaiKhoan', '=', $comment[0]->IDTaiKhoan)->get();
-        return view('Component\Comment\WriteCommentLv2')
+        return view('Component.Comment.WriteCommentLv2')
             ->with(
                 'comment',
                 $comment[0]
@@ -69,7 +69,7 @@ class RepCommentController extends Controller
             ->with('cmt', $cmt)
             ->with(
                 'name',
-                view('Component\Child\TheTag')
+                view('Component.Child.TheTag')
                     ->with(
                         'name',
                         $tag[0]->Ho . ' ' . $tag[0]->Ten
@@ -170,7 +170,7 @@ class RepCommentController extends Controller
                 2,
                 $idBinhLuan
             );
-            return view('Component\Comment\CommentLv2')
+            return view('Component.Comment.CommentLv2')
                 ->with(
                     'comment',
                     $comment[0]
@@ -256,7 +256,7 @@ class RepCommentController extends Controller
                 ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
                 ->where('binhluan.IDBinhLuan', '=', $idBinhLuan)
                 ->get();
-            return view('Component\Comment\CommentLv2')
+            return view('Component.Comment.CommentLv2')
                 ->with(
                     'comment',
                     $comment[0]
@@ -273,7 +273,7 @@ class RepCommentController extends Controller
         $comment = Process::getRepCommentLimit($request->IDBinhLuan, $request->Index);
         $view = "";
         for ($i = 0; $i < count($comment); $i++)
-            $view .= view('Component\Comment\CommentLv2')->with('comment', $comment[$i])
+            $view .= view('Component.Comment.CommentLv2')->with('comment', $comment[$i])
                 ->with('comment_main', Binhluan::where('binhluan.IDBinhLuan', '=', $request->IDBinhLuan)->get()[0]);
         return $view;
     }
@@ -284,7 +284,7 @@ class RepCommentController extends Controller
         if (count($comment) == 0)
             return '';
         else
-            return view('Component\Comment\ViewReply')
+            return view('Component.Comment.ViewReply')
                 ->with('num', $request->Num)
                 ->with('count', $request->Count)
                 ->with('idTaiKhoan', $request->IDTaiKhoan)
@@ -365,7 +365,7 @@ class RepCommentController extends Controller
             ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
             ->where('binhluan.IDBinhLuan', '=', $idBinhLuan)
             ->get();
-        return view('Component\Comment\CommentLv2')
+        return view('Component.Comment.CommentLv2')
             ->with(
                 'comment',
                 $comment[0]

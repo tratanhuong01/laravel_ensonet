@@ -18,7 +18,7 @@
                             {{ StringUtil::CheckDateTime($data[0]->NgayDang) }}</a></a>
                     </li>
                     <li class="pl-3 pt-0.5" id="{{ $data[0]->IDBaiDang }}QRT">
-                        @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $data[0]->IDQuyenRiengTu])
+                        @include('Component.Post.PrivacyPost',['idQuyenRiengTu' => $data[0]->IDQuyenRiengTu])
                     </li>
                 </ul>
             </div>
@@ -28,4 +28,4 @@
         <i class="cursor-pointer fas fa-ellipsis-h pt-2 text-xl dark:text-gray-300"></i>
     </div>
 </div>
-@include('Component\Child\FeelComment',['item' => $data])
+@include('Component.Child.FeelComment',['item' => $data])

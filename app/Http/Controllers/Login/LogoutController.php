@@ -14,6 +14,6 @@ class LogoutController extends Controller
     {
         Session::forget('user');
         redirect()->to('login')->send();
-        return view('Guest/login');
+        return view('Guest.login');
     }
 }

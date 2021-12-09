@@ -287,7 +287,7 @@ class EditPostController extends Controller
                 ];
             }
         return response()->json([
-            'view' => "" . view('Modal/ModalPost/ModalEditPost')->with('post', $post)
+            'view' => "" . view('Modal.ModalPost.ModalEditPost')->with('post', $post)
                 ->with('postShare', $postShare),
             'json' => $json,
             'state' => $post[0]->LoaiBaiDang

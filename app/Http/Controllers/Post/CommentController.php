@@ -108,7 +108,7 @@ class CommentController extends Controller
                 ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
                 ->where('binhluan.IDBinhLuan', '=', $idBinhLuan)
                 ->get();
-            return view('Component\Comment\CommentLv1')
+            return view('Component.Comment.CommentLv1')
                 ->with(
                     'comment',
                     $comment[0]
@@ -184,7 +184,7 @@ class CommentController extends Controller
                 ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
                 ->where('binhluan.IDBinhLuan', '=', $idBinhLuan)
                 ->get();
-            return view('Component\Comment\CommentLv1')
+            return view('Component.Comment.CommentLv1')
                 ->with(
                     'comment',
                     $comment[0]
@@ -196,7 +196,7 @@ class CommentController extends Controller
         $comment = Process::getCommentLimitFromTo($request->IDBaiDang, $request->Index);
         $view = "";
         for ($i = 0; $i < count($comment); $i++)
-            $view .= view('Component\Comment\CommentLv1')->with('comment', $comment[$i]);
+            $view .= view('Component.Comment.CommentLv1')->with('comment', $comment[$i]);
         return $view;
     }
     public function numcomment(Request $request)
@@ -205,7 +205,7 @@ class CommentController extends Controller
         if (count($comment) == 0)
             return '';
         else
-            return view('Component\Comment\ViewMoreComment')
+            return view('Component.Comment.ViewMoreComment')
                 ->with('num', $request->Num)
                 ->with('count', $request->Count)
                 ->with('idTaiKhoan', $request->IDTaiKhoan)
@@ -213,7 +213,7 @@ class CommentController extends Controller
     }
     public function openStickComment(Request $request)
     {
-        return view('Component/Child/Sticker')
+        return view('Component.Child.Sticker')
             ->with('idTaiKhoan', $request->IDTaiKhoan)
             ->with('idBaiDang', $request->IDBaiDang)
             ->with('idBinhLuan', $request->IDBinhLuan)
@@ -222,14 +222,14 @@ class CommentController extends Controller
     }
     public function openGifComment(Request $request)
     {
-        return view('Component/Child/Gif');
+        return view('Component.Child.Gif');
     }
     public function loadViewCommentImage(Request $request)
     {
         switch ($request->type) {
             case '0':
                 return response()->json([
-                    'view' => "" . view('Component/Child/CommentImage')
+                    'view' => "" . view('Component.Child.CommentImage')
                         ->with('path', $request->path)
                         ->with('idBaiDang', $request->IDBaiDang)
                         ->with('idBinhLuan', $request->IDBinhLuan)
@@ -237,7 +237,7 @@ class CommentController extends Controller
                 break;
             case '1':
                 return response()->json([
-                    'view' => "" . view('Component/Child/CommentSticker')
+                    'view' => "" . view('Component.Child.CommentSticker')
                         ->with('value', Nhandan::where('nhandan.IDNhanDan', '=', $request->IDNhanDan)->get()[0])
                         ->with('idBaiDang', $request->IDBaiDang)
                         ->with('idBinhLuan', $request->IDBinhLuan)
@@ -322,7 +322,7 @@ class CommentController extends Controller
             ->where('binhluan.IDBaiDang', '=', $request->IDBaiDang)
             ->where('binhluan.IDBinhLuan', '=', $idBinhLuan)
             ->get();
-        return view('Component\Comment\CommentLv1')
+        return view('Component.Comment.CommentLv1')
             ->with(
                 'comment',
                 $comment[0]
@@ -330,7 +330,7 @@ class CommentController extends Controller
     }
     public function warn(Request $request)
     {
-        return view('Modal/ModalComment/ModalDeleteComment');
+        return view('Modal.ModalComment.ModalDeleteComment');
     }
     public function delete(Request $request)
     {

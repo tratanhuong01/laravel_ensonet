@@ -108,7 +108,7 @@ class SendMessageController extends Controller
                 event(new ChatGroupEvent($value->IDTaiKhoan, $request->IDNhomTinNhan));
             }
         }
-        return view('Modal/ModalChat/Child/ChatRight')->with('message', $message[0]);
+        return view('Modal.ModalChat.Child.ChatRight')->with('message', $message[0]);
     }
     public function chatEvent(Request $request)
     {
@@ -216,7 +216,7 @@ class SendMessageController extends Controller
             }
         }
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/Child/ChatRight')->with('message', $message[0])
+            'view' => "" . view('Modal.ModalChat.Child.ChatRight')->with('message', $message[0])
         ]);
     }
     public function sendStickerMessageNewChat(Request $request)
@@ -355,11 +355,11 @@ class SendMessageController extends Controller
             );
             $chater = (DataProcess::getUserOfGroupMessage($idNhomTinNhan));
             return response()->json([
-                'viewGroup' => "" . view('Modal/ModalChat/ModalGroupChat')
+                'viewGroup' => "" . view('Modal.ModalChat.ModalGroupChat')
                     ->with('chater', $chater)
                     ->with('messages', DataProcess::getMessageByNhomTinNhan($idNhomTinNhan))
                     ->with('idNhomTinNhan', $idNhomTinNhan),
-                'viewMessage' => "" . view('Modal/ModalChat/Child/ChatRight')->with('message', $message[0])
+                'viewMessage' => "" . view('Modal.ModalChat.Child.ChatRight')->with('message', $message[0])
             ]);
         }
     }

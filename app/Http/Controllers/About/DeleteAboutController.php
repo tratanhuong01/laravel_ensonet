@@ -11,7 +11,7 @@ class DeleteAboutController extends Controller
 {
     public function delete(Request $request)
     {
-        return view('Component/About/Modal/DeleteAbout');
+        return view('Component.About.Modal.DeleteAbout');
     }
     public function deleteMain(Request $request)
     {
@@ -28,8 +28,8 @@ class DeleteAboutController extends Controller
                 $json->CongViecHocVan->CongViec = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
-                return view('Component/About/Delete/DeletePlaceWork') .
-                    view('Component/About/Add/AddPlaceWork');
+                return view('Component.About.Delete.DeletePlaceWork') .
+                    view('Component.About.Add.AddPlaceWork');
                 break;
             case 'School':
                 foreach ($json->CongViecHocVan->HocVan as $key => $value) {
@@ -41,8 +41,8 @@ class DeleteAboutController extends Controller
                 $json->CongViecHocVan->HocVan = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
-                return view('Component/About/Delete/DeleteSchool') .
-                    view('Component/About/Add/AddSchool');
+                return view('Component.About.Delete.DeleteSchool') .
+                    view('Component.About.Add.AddSchool');
                 break;
             case 'PlaceLiveCurrent':
                 foreach ($json->NoiTungSong->NoiOHienTai as $key => $value) {
@@ -54,8 +54,8 @@ class DeleteAboutController extends Controller
                 $json->NoiTungSong->NoiOHienTai = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
-                return view('Component/About/Delete/DeletePlaceCurrent') .
-                    view('Component/About/Add/AddPlaceCurrent');
+                return view('Component.About.Delete.DeletePlaceCurrent') .
+                    view('Component.About.Add.AddPlaceCurrent');
                 break;
             case 'PlaceLived':
                 foreach ($json->NoiTungSong->NoiTungSong as $key => $value) {
@@ -67,8 +67,8 @@ class DeleteAboutController extends Controller
                 $json->NoiTungSong->NoiTungSong = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
-                return view('Component/About/Delete/DeletePlaceLived') .
-                    view('Component/About/Add/AddPlaceLived');
+                return view('Component.About.Delete.DeletePlaceLived') .
+                    view('Component.About.Add.AddPlaceLived');
                 break;
             case 'HomeTown':
                 foreach ($json->NoiTungSong->QueQuan as $key => $value) {
@@ -80,8 +80,8 @@ class DeleteAboutController extends Controller
                 $json->NoiTungSong->QueQuan = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
-                return view('Component/About/Delete/DeleteHomeTown') .
-                    view('Component/About/Add/AddHomeTown');
+                return view('Component.About.Delete.DeleteHomeTown') .
+                    view('Component.About.Add.AddHomeTown');
                 break;
             case 'MemberFamily':
                 foreach ($json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh as $key => $value) {
@@ -93,8 +93,8 @@ class DeleteAboutController extends Controller
                 $json->GiaDinhVaCacMoiQuanHe->ThanhVienGiaDinh = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
-                return view('Component/About/Delete/DeleteMemberFamily') .
-                    view('Component/About/Add/AddMemberFamily')
+                return view('Component.About.Delete.DeleteMemberFamily') .
+                    view('Component.About.Add.AddMemberFamily')
                     ->with('idTaiKhoan', $request->user);
                 break;
             case 'IntroYourSelf':
@@ -103,8 +103,8 @@ class DeleteAboutController extends Controller
                 $json->ChiTietBanThan->GioiThieu = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                             gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
-                return view('Component/About/Delete/DeleteIntroYourSelf') .
-                    view('Component/About/Add/AddIntroYourSelf');
+                return view('Component.About.Delete.DeleteIntroYourSelf') .
+                    view('Component.About.Add.AddIntroYourSelf');
                 break;
             case 'WayReadName':
                 unset($json->ChiTietBanThan->PhatAm[0]);
@@ -112,8 +112,8 @@ class DeleteAboutController extends Controller
                 $json->ChiTietBanThan->PhatAm = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                 gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
-                return view('Component/About/Delete/DeleteWaySpeak') .
-                    view('Component/About/Add/AddWaySpeak');
+                return view('Component.About.Delete.DeleteWaySpeak') .
+                    view('Component.About.Add.AddWaySpeak');
                 break;
             case 'NickName':
                 unset($json->ChiTietBanThan->BietDanh[0]);
@@ -121,8 +121,8 @@ class DeleteAboutController extends Controller
                 $json->ChiTietBanThan->BietDanh = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                     gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
-                return view('Component/About/Delete/DeleteNameOther') .
-                    view('Component/About/Add/AddNameOther');
+                return view('Component.About.Delete.DeleteNameOther') .
+                    view('Component.About.Add.AddNameOther');
                 break;
             case 'FavoriteQuote':
                 unset($json->ChiTietBanThan->TrichDanYeuThich[0]);
@@ -130,8 +130,8 @@ class DeleteAboutController extends Controller
                 $json->ChiTietBanThan->TrichDanYeuThich = $dt;
                 DB::update('UPDATE gioithieu SET gioithieu.JsonGioiThieu = ? WHERE 
                                                         gioithieu.IDTaiKhoan = ? ', [json_encode($json), $request->user]);
-                return view('Component/About/Delete/DeleteFavoriteQuote') .
-                    view('Component/About/Add/AddFavoriteQuote');
+                return view('Component.About.Delete.DeleteFavoriteQuote') .
+                    view('Component.About.Add.AddFavoriteQuote');
                 break;
             default:
                 # code...

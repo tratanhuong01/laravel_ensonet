@@ -87,7 +87,7 @@ $data = $index == 0 ? $index : round($index/10)*10
 </div>
 <div class="w-full py-3">
     <ul class="flex justify-center" id="pageMain">
-        @include('Admin/Component/Child/Pagination',[
+        @include('Admin.Component.Child.Pagination',[
         'index' => 0,
         'num' => count($postFull)/10,
         'name' => 'post'

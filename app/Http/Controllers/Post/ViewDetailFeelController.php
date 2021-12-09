@@ -13,7 +13,7 @@ class ViewDetailFeelController extends Controller
     public function view(Request $request)
     {
         Session::put('IDBaiDang', $request->IDBaiDang);
-        return view('Modal\ModalPost\ModalFeel')->with(
+        return view('Modal.ModalPost.ModalFeel')->with(
             'data',
             Data::getDetailFeelPost($request->IDBaiDang)
         );
@@ -21,12 +21,12 @@ class ViewDetailFeelController extends Controller
     public function viewOnly(Request $request)
     {
         if ($request->LoaiCamXuc == 'NULL')
-            return view('Component\Post\ViewFeel')->with(
+            return view('Component.Post.ViewFeel')->with(
                 'datas',
                 Data::getDetailFeelPost($request->IDBaiDang)
             );
         else
-            return view('Component\Post\ViewFeel')->with(
+            return view('Component.Post.ViewFeel')->with(
                 'datas',
                 Data::getOnlyDetailFeelPost($request->IDBaiDang, $request->LoaiCamXuc)
             );
@@ -34,7 +34,7 @@ class ViewDetailFeelController extends Controller
     public function viewCmt(Request $request)
     {
         Session::put('IDBinhLuan', $request->IDBinhLuan);
-        return view('Modal\ModalComment\ModalComment')->with(
+        return view('Modal.ModalComment.ModalComment')->with(
             'data',
             Process::getDetailFeelPost($request->IDBinhLuan)
         );
@@ -42,12 +42,12 @@ class ViewDetailFeelController extends Controller
     public function viewOnlyCmt(Request $request)
     {
         if ($request->LoaiCamXuc == 'NULL')
-            return view('Component\Comment\ViewFeel')->with(
+            return view('Component.Comment.ViewFeel')->with(
                 'datas',
                 Process::getDetailFeelPost($request->IDBinhLuan)
             );
         else
-            return view('Component\Comment\ViewFeel')->with(
+            return view('Component.Comment.ViewFeel')->with(
                 'datas',
                 Process::getOnlyDetailFeelPost($request->IDBinhLuan, $request->LoaiCamXuc)
             );

@@ -23,7 +23,7 @@ class EditCommentController extends Controller
                     ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                     ->get();
                 return response()->json([
-                    'view' => "" . view('Component/Comment/EditComment')
+                    'view' => "" . view('Component.Comment.EditComment')
                         ->with('comment', $comment[0])
                         ->with('idBaiDang', $request->IDBaiDang)
                         ->with('anhDaiDien', $comment[0]->AnhDaiDien)
@@ -36,7 +36,7 @@ class EditCommentController extends Controller
                             ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                             ->get();
                         return response()->json([
-                            'view' => "" . view('Component/Comment/CommentLv1')
+                            'view' => "" . view('Component.Comment.CommentLv1')
                                 ->with('comment', $comment[0])
                                 ->with('item', Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)->get())
                         ]);
@@ -49,7 +49,7 @@ class EditCommentController extends Controller
                             ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                             ->get();
                         return response()->json([
-                            'view' => "" . view('Component/Comment/CommentLv2')
+                            'view' => "" . view('Component.Comment.CommentLv2')
                                 ->with('comment', $comment[0])
                                 ->with('comment_main', $comment_main[0])
                                 ->with('item', Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)->get())
@@ -121,7 +121,7 @@ class EditCommentController extends Controller
                     ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                     ->get();
                 return response()->json([
-                    'view' => "" . view('Component/Comment/CommentLv1')
+                    'view' => "" . view('Component.Comment.CommentLv1')
                         ->with('comment', $comment[0])
                         ->with('item', Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)->get())
                 ]);
@@ -134,7 +134,7 @@ class EditCommentController extends Controller
                     ->join('taikhoan', 'binhluan.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                     ->get();
                 return response()->json([
-                    'view' => "" . view('Component/Comment/CommentLv2')
+                    'view' => "" . view('Component.Comment.CommentLv2')
                         ->with('comment', $comment[0])
                         ->with('comment_main', $comment_main[0])
                         ->with('item', Baidang::where('baidang.IDBaiDang', '=', $request->IDBaiDang)->get())

@@ -23,11 +23,11 @@ class DeleteMessageController extends Controller
             $message = Tinnhan::where('tinnhan.IDTinNhan', '=', $request->IDTinNhan)->get();
             $tinhTrang = explode('#', DataProcess::getState($message[0]->TinhTrang, Session::get('user')[0]->IDTaiKhoan))[1];
             if ($tinhTrang == 1)
-                return view('Modal/ModalChat/ModalDeleteMessageR')->with('IDTinNhan', $request->IDTinNhan);
+                return view('Modal.ModalChat.ModalDeleteMessageR')->with('IDTinNhan', $request->IDTinNhan);
             else
-                return view('Modal/ModalChat/ModalDeleteMessageL')->with('IDTinNhan', $request->IDTinNhan);
+                return view('Modal.ModalChat.ModalDeleteMessageL')->with('IDTinNhan', $request->IDTinNhan);
         } else
-            return view('Modal/ModalChat/ModalDeleteMessageL')->with('IDTinNhan', $request->IDTinNhan);
+            return view('Modal.ModalChat.ModalDeleteMessageL')->with('IDTinNhan', $request->IDTinNhan);
     }
     public function remove(Request $request)
     {
@@ -66,7 +66,7 @@ class DeleteMessageController extends Controller
                             $request->IDTinNhan
                         ));
                 return response()->json([
-                    'right' => "" . view('Modal/ModalChat/Child/RetrievalMessageR')
+                    'right' => "" . view('Modal.ModalChat.Child.RetrievalMessageR')
                         ->with(
                             'message',
                             Tinnhan::where('tinnhan.IDTinNhan', '=', $request->IDTinNhan)
@@ -100,7 +100,7 @@ class DeleteMessageController extends Controller
     public function retrievalMessageEvent(Request $request)
     {
         return response()->json([
-            'left' => "" .  view('Modal/ModalChat/Child/RetrievalMessageL')
+            'left' => "" .  view('Modal.ModalChat.Child.RetrievalMessageL')
                 ->with(
                     'message',
                     Tinnhan::where('tinnhan.IDTinNhan', '=', $request->IDTinNhan)
@@ -113,7 +113,7 @@ class DeleteMessageController extends Controller
     public function viewDeleteChat(Request $request)
     {
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/DeleteAllChat')
+            'view' => "" . view('Modal.ModalChat.DeleteAllChat')
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan)
                 ->with('json', $request->user)
         ]);

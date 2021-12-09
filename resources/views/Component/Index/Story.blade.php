@@ -50,7 +50,7 @@ $allStory = array_slice($allStory, 0, 4);
     @endif
     @endforeach
     @endif
-    @include('Component/Index/ViewAllStory')
+    @include('Component.Index.ViewAllStory')
 </div>
 
 <script>

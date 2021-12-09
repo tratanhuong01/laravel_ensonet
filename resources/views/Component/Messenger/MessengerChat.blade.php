@@ -24,7 +24,7 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
                 <div class="pt-1">
                     <div class="w-10 h-10 relative">
                         <img src="{{ $chater[0]->AnhDaiDien }}" alt="" class="w-10 h-10 object-cover rounded-full">
-                        @include('Component\Child\Activity',[
+                        @include('Component.Child.Activity',[
                         'padding' => 'p-1',
                         'right' => 'right-0',
                         'bottom' => 'bottom-0',
@@ -69,45 +69,45 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
         <div id='{{ $idNhomTinNhan.$chater[0]->IDTaiKhoan }}Messenges' class="w-full p-1 
         wrapper-content-right overflow-y-auto overflow-x-hidden relative" style="height: 560px;">
             @if (count($messages) == 0)
-            @include('Modal/ModalChat/Child/NewChat',['chater' => $chater])
+            @include('Modal.ModalChat.Child.NewChat',['chater' => $chater])
             @else
-            @include('Modal/ModalChat/Child/NewChat',['chater' => $chater])
+            @include('Modal.ModalChat.Child.NewChat',['chater' => $chater])
             @foreach($messages as $key => $value)
             @if(Session::get('user')[0]->IDTaiKhoan == $value->IDTaiKhoan)
             @if($value->LoaiTinNhan == 2)
-            @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+            @include('Modal.ModalChat.Child.ChatTime',['datetime' => $value->ThoiGianNhanTin,
             'idTinNhan' => $value->IDTinNhan])
-            @include('Modal\ModalChat\Child\ChatCenter',['message' => $value])
+            @include('Modal.ModalChat.Child.ChatCenter',['message' => $value])
             @else
             @switch(explode('#',DataProcess::getState($value->TinhTrang,Session::get('user')[0]->IDTaiKhoan))[1])
             @case('1')
-            @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+            @include('Modal.ModalChat.Child.ChatTime',['datetime' => $value->ThoiGianNhanTin,
             'idTinNhan' => $value->IDTinNhan])
-            @include('Modal\ModalChat\Child\ChatRight',['message' => $value])
+            @include('Modal.ModalChat.Child.ChatRight',['message' => $value])
             @break
             @case('2')
-            @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+            @include('Modal.ModalChat.Child.ChatTime',['datetime' => $value->ThoiGianNhanTin,
             'idTinNhan' => $value->IDTinNhan])
-            @include('Modal\ModalChat\Child\RetrievalMessageR',['message' => $value])
+            @include('Modal.ModalChat.Child.RetrievalMessageR',['message' => $value])
             @break
             @endswitch
             @endif
             @else
             @if($value->LoaiTinNhan == 2)
-            @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+            @include('Modal.ModalChat.Child.ChatTime',['datetime' => $value->ThoiGianNhanTin,
             'idTinNhan' => $value->IDTinNhan])
-            @include('Modal\ModalChat\Child\ChatCenter',['message' => $value])
+            @include('Modal.ModalChat.Child.ChatCenter',['message' => $value])
             @else
             @switch(explode('#',DataProcess::getState($value->TinhTrang,Session::get('user')[0]->IDTaiKhoan))[1])
             @case('1')
-            @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+            @include('Modal.ModalChat.Child.ChatTime',['datetime' => $value->ThoiGianNhanTin,
             'idTinNhan' => $value->IDTinNhan])
-            @include('Modal\ModalChat\Child\ChatLeft',['message' => $value])
+            @include('Modal.ModalChat.Child.ChatLeft',['message' => $value])
             @break
             @case('2')
-            @include('Modal/ModalChat/Child/ChatTime',['datetime' => $value->ThoiGianNhanTin,
+            @include('Modal.ModalChat.Child.ChatTime',['datetime' => $value->ThoiGianNhanTin,
             'idTinNhan' => $value->IDTinNhan])
-            @include('Modal\ModalChat\Child\RetrievalMessageL',['message' => $value])
+            @include('Modal.ModalChat.Child.RetrievalMessageL',['message' => $value])
             @break
             @endswitch
             @endif
@@ -216,13 +216,13 @@ echo "<style> .mess-right-child-" . $idNhomTinNhan . " { background-color: #" .
     <div class="w-full">
         <div class="w-16 h-16 object-cover rounded-full mx-auto my-2 relative">
             <img src="{{ $chater[0]->AnhDaiDien }}" alt="" class="w-16 h-16 object-cover rounded-full mx-auto">
-            @include('Component\Child\Activity',[
+            @include('Component.Child.Activity',[
             'padding' => 'p-1.5',
             'right' => 'right-0',
             'bottom' => 'bottom-0',
             'IDTaiKhoan' => '1000000008'
             ])
-        </div>
+        <div>
         <p class="font-bold text-center py-1 dark:text-white">{{ $chater[0]->Ho . ' ' . $chater[0]->Ten }}</p>
         <p class="font-bold text-center text-sm text-gray-600 dark:text-gray-300">
             @php

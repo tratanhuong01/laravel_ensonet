@@ -21,26 +21,26 @@ $json = json_decode($json);
             <div class="w-full" id="IntroYourSelfMain">
                 @if ($idMain == $idView)
                 @if (count($json->ChiTietBanThan->GioiThieu) == 0)
-                @include('Component/About/Delete/DeleteIntroYourSelf')
-                @include('Component/About/Add/AddIntroYourSelf')
+                @include('Component.About.Delete.DeleteIntroYourSelf')
+                @include('Component.About.Add.AddIntroYourSelf')
                 @else
-                @include('Component/About/Main/IntroYourSelf',
+                @include('Component.About.Main.IntroYourSelf',
                 ['value' => $json->ChiTietBanThan->GioiThieu[0],
                 'idMain' => $idMain,
                 'idView' => $idView])
-                @include('Component/About/Edit/EditIntroYourSelf')
+                @include('Component.About.Edit.EditIntroYourSelf')
                 @endif
                 @else
                 @if (count($json->ChiTietBanThan->GioiThieu) == 0)
                 <p class="w-full font-bold dark:text-gray-300 
-                        text-gray-700 py-2">Không có gì để hiển thị.</p>
+                        text-gray-700 py-2">Không có gì để hiển thị.<.p>
                 @else
                 @php
                 $privacy = $json->ChiTietBanThan->GioiThieu[0]->IDQuyenRiengTu;
                 @endphp
                 @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                 @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                @include('Component/About/Main/IntroYourSelf',
+                @include('Component.About.Main.IntroYourSelf',
                 ['value' => $json->ChiTietBanThan->GioiThieu[0],
                 'idMain' => $idMain,
                 'idView' => $idView])
@@ -48,7 +48,7 @@ $json = json_decode($json);
                 @endif
                 @else
                 @if ($privacy == 'CONGKHAI')
-                @include('Component/About/Main/IntroYourSelf',
+                @include('Component.About.Main.IntroYourSelf',
                 ['value' => $json->ChiTietBanThan->GioiThieu[0],
                 'idMain' => $idMain,
                 'idView' => $idView])
@@ -67,14 +67,14 @@ $json = json_decode($json);
             <div class="w-full" id="WayReadNameMain">
                 @if ($idMain == $idView)
                 @if (count($json->ChiTietBanThan->PhatAm) == 0)
-                @include('Component/About/Delete/DeleteWaySpeak')
-                @include('Component/About/Add/AddWaySpeak')
+                @include('Component.About.Delete.DeleteWaySpeak')
+                @include('Component.About.Add.AddWaySpeak')
                 @else
-                @include('Component/About/Main/WaySpeak',
+                @include('Component.About.Main.WaySpeak',
                 ['value' => $json->ChiTietBanThan->PhatAm[0],
                 'idMain' => $idMain,
                 'idView' => $idView])
-                @include('Component/About/Add/AddWaySpeak')
+                @include('Component.About.Add.AddWaySpeak')
                 @endif
                 @else
                 @if (count($json->ChiTietBanThan->PhatAm) == 0)
@@ -86,20 +86,20 @@ $json = json_decode($json);
                 @endphp
                 @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                 @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                @include('Component/About/Main/WaySpeak',
+                @include('Component.About.Main.WaySpeak',
                 ['value' => $json->ChiTietBanThan->PhatAm[0],
                 'idMain' => $idMain,
                 'idView' => $idView])
-                @include('Component/About/Add/AddWaySpeak')
+                @include('Component.About.Add.AddWaySpeak')
                 @else
                 @endif
                 @else
                 @if ($privacy == 'CONGKHAI')
-                @include('Component/About/Main/WaySpeak',
+                @include('Component.About.Main.WaySpeak',
                 ['value' => $json->ChiTietBanThan->PhatAm[0],
                 'idMain' => $idMain,
                 'idView' => $idView])
-                @include('Component/About/Add/AddWaySpeak')
+                @include('Component.About.Add.AddWaySpeak')
                 @else
                 @endif
                 @endif
@@ -115,13 +115,13 @@ $json = json_decode($json);
             <div class="w-full" id="NickNameMain">
                 @if ($idMain == $idView)
                 @if (count($json->ChiTietBanThan->BietDanh) == 0)
-                @include('Component/About/Delete/DeleteNameOther')
-                @include('Component/About/Add/AddNameOther')
+                @include('Component.About.Delete.DeleteNameOther')
+                @include('Component.About.Add.AddNameOther')
                 @else
-                @include('Component/About/Delete/DeleteNameOther')
-                @include('Component/About/Add/AddNameOther')
+                @include('Component.About.Delete.DeleteNameOther')
+                @include('Component.About.Add.AddNameOther')
                 @foreach ($json->ChiTietBanThan->BietDanh as $key => $value)
-                @include('Component/About/Main/Nickname',
+                @include('Component.About.Main.Nickname',
                 ['value' => $value,
                 'idMain' => $idMain,
                 'idView' => $idView])
@@ -130,14 +130,14 @@ $json = json_decode($json);
                 @else
                 @if (count($json->ChiTietBanThan->BietDanh) == 0)
                 <p class="w-full font-bold dark:text-gray-300 
-                        text-gray-700 py-2">Không có gì để hiển thị.</p>
+                        text-gray-700 py-2">Không có gì để hiển thị.<.p>
                 @else
                 @php
                 $privacy = $json->ChiTietBanThan->BietDanh[0]->IDQuyenRiengTu;
                 @endphp
                 @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                 @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                @include('Component/About/Main/Nickname',
+                @include('Component.About.Main.Nickname',
                 ['value' => $json->ChiTietBanThan->BietDanh[0],
                 'idMain' => $idMain,
                 'idView' => $idView])
@@ -145,7 +145,7 @@ $json = json_decode($json);
                 @endif
                 @else
                 @if ($privacy == 'CONGKHAI')
-                @include('Component/About/Main/Nickname',
+                @include('Component.About.Main.Nickname',
                 ['value' => $json->ChiTietBanThan->BietDanh[0],
                 'idMain' => $idMain,
                 'idView' => $idView])
@@ -164,26 +164,26 @@ $json = json_decode($json);
             <div class="w-full" id="FavoriteQuoteMain">
                 @if ($idMain == $idView)
                 @if (count($json->ChiTietBanThan->TrichDanYeuThich) == 0)
-                @include('Component/About/Delete/DeleteFavoriteQuote')
-                @include('Component/About/Add/AddFavoriteQuote')
+                @include('Component.About.Delete.DeleteFavoriteQuote')
+                @include('Component.About.Add.AddFavoriteQuote')
                 @else
-                @include('Component/About/Main/FavoriteQuote',
+                @include('Component.About.Main.FavoriteQuote',
                 ['value' => $json->ChiTietBanThan->TrichDanYeuThich[0],
                 'idMain' => $idMain,
                 'idView' => $idView])
-                @include('Component/About/Add/AddFavoriteQuote')
+                @include('Component.About.Add.AddFavoriteQuote')
                 @endif
                 @else
                 @if (count($json->ChiTietBanThan->TrichDanYeuThich) == 0)
                 <p class="w-full font-bold dark:text-gray-300 
-                    text-gray-700 py-2">Không có gì để hiển thị.</p>
+                    text-gray-700 py-2">Không có gì để hiển thị.<.p>
                 @else
                 @php
                 $privacy = $json->ChiTietBanThan->TrichDanYeuThich[0]->IDQuyenRiengTu;
                 @endphp
                 @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                 @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                @include('Component/About/Main/FavoriteQuote',
+                @include('Component.About.Main.FavoriteQuote',
                 ['value' => $json->ChiTietBanThan->TrichDanYeuThich[0],
                 'idMain' => $idMain,
                 'idView' => $idView])
@@ -191,7 +191,7 @@ $json = json_decode($json);
                 @endif
                 @else
                 @if ($privacy == 'CONGKHAI')
-                @include('Component/About/Main/FavoriteQuote',
+                @include('Component.About.Main.FavoriteQuote',
                 ['value' => $json->ChiTietBanThan->TrichDanYeuThich[0],
                 'idMain' => $idMain,
                 'idView' => $idView])

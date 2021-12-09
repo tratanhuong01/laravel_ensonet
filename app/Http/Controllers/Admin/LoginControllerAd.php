@@ -41,11 +41,11 @@ class LoginControllerAd extends Controller
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-            redirect()->to('admin/login')->withErrors($errors)->send();
+            redirect()->to('admin.login')->withErrors($errors)->send();
         } else {
             $data = DB::table('taikhoan')->where('IDTaiKhoan', '=', $user[0]->IDTaiKhoan)->get();
             Session::put('admin', $data);
-            redirect()->to('admin/dashboard')->send();
+            redirect()->to('admin.dashboard')->send();
         }
     }
 }

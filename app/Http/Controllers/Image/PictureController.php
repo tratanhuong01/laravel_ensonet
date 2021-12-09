@@ -14,7 +14,7 @@ class PictureController extends Controller
         switch ($request->Type) {
             case 'PictureHaveFaceOfUser':
                 return response()->json([
-                    'view' => "" . view('Component/Child/Image')
+                    'view' => "" . view('Component.Child.Image')
                         ->with(
                             'imageTag',
                             DataProcessFour::sortImageByTagOfUser($request->IDTaiKhoan)
@@ -28,7 +28,7 @@ class PictureController extends Controller
                 break;
             case 'PictureOfUser':
                 return response()->json([
-                    'view' => "" . view('Component/Child/Image')
+                    'view' => "" . view('Component.Child.Image')
                         ->with(
                             'imageTag',
                             DataProcessFour::sortImageByUser($request->IDTaiKhoan, 0)
@@ -41,7 +41,7 @@ class PictureController extends Controller
                 ]);
                 break;
             case 'Album':
-                // return view('Component/Child/HinhAnh')
+               // return view('Component.Child.HinhAnh')
                 //     ->with(
                 //         'imageTag',
                 //         DataProcessFour::groupImage($request->IDTaiKhoan)
@@ -62,7 +62,7 @@ class PictureController extends Controller
                     return '';
                 } else {
                     return response()->json([
-                        'view' => "" . view('Component/Child/Image')
+                        'view' => "" . view('Component.Child.Image')
                             ->with(
                                 'imageTag',
                                 array_slice($array, $request->Index * 15, 15)
@@ -84,7 +84,7 @@ class PictureController extends Controller
                     return '';
                 } else {
                     return response()->json([
-                        'view' => "" . view('Component/Child/Image')->with(
+                        'view' => "" . view('Component.Child.Image')->with(
                             'imageTag',
                             $array
                         )

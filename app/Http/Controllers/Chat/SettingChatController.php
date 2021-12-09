@@ -31,7 +31,7 @@ class SettingChatController extends Controller
                 ->get()[0];
         }
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/Nickname')
+            'view' => "" . view('Modal.ModalChat.Nickname')
                 ->with('member', $new)
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan)
                 ->with('user', $user)
@@ -127,7 +127,7 @@ class SettingChatController extends Controller
             $request->IDTaiKhoan
         ]);
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/Child/ChatCenter')
+            'view' => "" . view('Modal.ModalChat.Child.ChatCenter')
                 ->with('message', $message[0])
                 ->with('user', $userCreateNew)
         ]);
@@ -135,7 +135,7 @@ class SettingChatController extends Controller
     public function viewIconFeel(Request $request)
     {
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/IconFeelChange')
+            'view' => "" . view('Modal.ModalChat.IconFeelChange')
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan)
                 ->with('json', $request->user)
         ]);
@@ -199,7 +199,7 @@ class SettingChatController extends Controller
             $request->IDNhomTinNhan,
         ]);
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/Child/ChatCenter')
+            'view' => "" . view('Modal.ModalChat.Child.ChatCenter')
                 ->with('message', $message[0])
                 ->with('user', $userCreateNew),
             'numberMembers' => count($getUserOfGroupMessage),
@@ -210,7 +210,7 @@ class SettingChatController extends Controller
     public function viewChangeNameChat(Request $request)
     {
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/ChangeNameChat')
+            'view' => "" . view('Modal.ModalChat.ChangeNameChat')
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan)
                 ->with('user', $request->user)
         ]);
@@ -274,7 +274,7 @@ class SettingChatController extends Controller
             $request->IDNhomTinNhan,
         ]);
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/Child/ChatCenter')
+            'view' => "" . view('Modal.ModalChat.Child.ChatCenter')
                 ->with('message', $message[0])
                 ->with('user', $userCreateNew),
             'numberMembers' => count($getUserOfGroupMessage),

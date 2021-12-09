@@ -21,7 +21,7 @@ use App\Process\DataProcess;
                 <div class="w-14 h-14 relative">
                     <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 
                 rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $item[0]->AnhDaiDien }}"></a>
-                    @include('Component\Child\Activity',
+                    @include('Component.Child.Activity',
                     [
                     'padding' => 'p-1.5',
                     'bottom' => 'bottom-2',
@@ -63,7 +63,7 @@ use App\Process\DataProcess;
                                     {{ StringUtil::CheckDateTime($item[0]->NgayDang) }}</a>
                             </li>
                             <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
-                                @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
+                                @include('Component.Post.PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                             </li>
                         </ul>
                     </div>

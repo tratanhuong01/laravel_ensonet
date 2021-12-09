@@ -1,4 +1,4 @@
-@include('Timeline/Picture')
+@include('Timeline.Picture')
 <div class="w-full flex flex-wrap hidden mainChildVideo" id="mainChildVideo">
     @foreach($video as $key => $value)
     <div class="w-1/5 relative case">

@@ -60,14 +60,14 @@ use App\Models\Nhandan;
         @else
         @switch(json_decode($comment->NoiDungBinhLuan)->LoaiBinhLuan)
         @case('1')
-        @include('Component/Child/CommentImage',[
+        @include('Component.Child.CommentImage',[
         'path' => json_decode($comment->NoiDungBinhLuan)->DuongDan,
         'idBaiDang' => '',
         'idBinhLuan' => $comment->IDBinhLuan
         ])
         @break
         @case('2')
-        @include('Component\Child\CommentSticker',[
+        @include('Component.Child.CommentSticker',[
         'value' => Nhandan::where('nhandan.IDNhanDan','=',
         json_decode($comment->NoiDungBinhLuan)->DuongDan)->get()[0],
         'idBaiDang' => '',

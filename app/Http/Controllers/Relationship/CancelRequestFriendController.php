@@ -19,7 +19,7 @@ class CancelRequestFriendController extends Controller
             DB::table('moiquanhe')->where('moiquanhe.IDTaiKhoan', '=', $request->UserOther)
                 ->where('moiquanhe.IDBanBe', '=', $request->UserMain)->delete();
             $user = DB::table('taikhoan')->where('taikhoan.IDTaiKhoan', '=', $request->UserOther)->get();
-            return view('Component/Relationship/NotFriend')->with('users', $user);
+            return view('Component.Relationship.NotFriend')->with('users', $user);
         } catch (Exception $e) {
             $e->Error;
         }
@@ -32,7 +32,7 @@ class CancelRequestFriendController extends Controller
             DB::table('moiquanhe')->where('moiquanhe.IDTaiKhoan', '=', $request->UserOther)
                 ->where('moiquanhe.IDBanBe', '=', $request->UserMain)->delete();
             $requestFriend = Functions::getListRequestFriendNew($request->UserMain);
-            return view('Component\Index\FriendRequest')->with('requestFriend', $requestFriend);
+            return view('Component.Index.FriendRequest')->with('requestFriend', $requestFriend);
         } catch (Exception $e) {
             $e->Error;
         }

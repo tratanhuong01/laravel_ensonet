@@ -185,7 +185,7 @@ Route::post('ProcessSearchData', [SearchController::class, 'search'])
 Route::get('ProcessOpenRequestFriendsMain', function (Request $request) {
     $data = DataProcessSecond::getRequestSend($request->IDTaiKhoan);
     return response()->json([
-        'view' => "" . view('Modal/ModalProfile/SendRequest')->with('requests', $data)
+        'view' => "" . view('Modal.ModalProfile.SendRequest')->with('requests', $data)
             ->with('idTaiKhoan', $request->IDTaiKhoan)
     ]);
 })->name('ProcessOpenRequestFriendsMain');
@@ -194,62 +194,62 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
     switch ($request->Type) {
         case 'Companies':
             $data = DataProcessFour::getCompanies($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'CityAndTown':
             $data = DataProcessFour::getCityAndTown($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'NameSchool':
             $data = DataProcessFour::getSchool($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'TypeSchool':
             $data = DataProcessFour::getTypeSchool($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'LiveCurrents':
             $data = DataProcessFour::getCityAndTown($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'PlaceHomeTown':
             $data = DataProcessFour::getCityAndTown($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'PlaceLived':
             $data = DataProcessFour::getCityAndTown($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'NameOthers':
             $data = DataProcessFour::getNickName($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'Sexs':
             $data = DataProcessFour::getSex($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'RelationShip':
             $data = DataProcessFour::getMaritalStatus($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'MemberFamily':
             $data = Taikhoan::search($request->Value, $request->Name);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         case 'RelationShipFamily':
             $data = DataProcessFour::getRelationShip($request->Value);
-            return view('Component/About/Add/Data')->with('data', $data)
+            return view('Component.About.Add.Data')->with('data', $data)
                 ->with('type', $request->Type);
             break;
         default:
@@ -259,17 +259,17 @@ Route::get('ProcessShowDataAboutCorresponding', function (Request $request) {
 })->name('ProcessShowDataAboutCorresponding');
 //
 Route::get('ProcessViewPrivacyAbout', function () {
-    return view('Component/About/Modal/Privacy');
+    return view('Component.About.Modal.Privacy');
 })->name('ProcessViewPrivacyAbout');
 //
 Route::get('ProcessPrivacyAbouts', function (Request $request) {
-    return view('Component/Child/PrivacyAbout')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
+    return view('Component.Child.PrivacyAbout')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
 })->name('ProcessPrivacyAbouts');
 Route::get('ProcessOpenModalStickerChat', function (Request $request) {
     switch ($request->type) {
         case 'Sticker':
             return response()->json([
-                'view' => "" . view('Modal/ModalChat/Child/Sticker')
+                'view' => "" . view('Modal.ModalChat.Child.Sticker')
                     ->with('IDNhomTinNhan', $request->IDNhomTinNhan)
                     ->with('IDTaiKhoan', $request->IDTaiKhoan)
             ]);
@@ -286,7 +286,7 @@ Route::get('ProcessOpenModalStickerChat', function (Request $request) {
 });
 Route::get('ProcessPreviewBeforeUploadFile', function (Request $request) {
     return response()->json([
-        'view' => "" . view('Modal/ModalPost/ModalPreviewPost')
+        'view' => "" . view('Modal.ModalPost.ModalPreviewPost')
             ->with('url', $request->url)
             ->with('type', $request->type)
     ]);
@@ -294,7 +294,7 @@ Route::get('ProcessPreviewBeforeUploadFile', function (Request $request) {
 Route::get('ProcessSearchLocal', function (Request $request) {
     $array = DataProcessSix::createAllAddress();
     return response()->json([
-        'view' => "" . view('Modal/ModalPost/Child/Local')->with(
+        'view' => "" . view('Modal.ModalPost.Child.Local')->with(
             'local',
             DataProcessSix::searchAllAddress($array, $request->Ten)
         )

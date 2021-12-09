@@ -1,5 +1,5 @@
 <div class="w-full py-2  mx-auto flex">
-    @include('Component/Relationship/Category')
+    @include('Component.Relationship.Category')
     <div class="w-4/5 pb-1.5 xl:w-5/12 text-right mr-3">
         <span onclick="AcceptFriend('{{ $user[0]->IDTaiKhoan }}','{{ $users[0]->IDTaiKhoan }}')" class="p-3 mr-2 cursor-pointer bg-blue-200 text-blue-600" style="border-radius: 6px;line-height: 24px;"><i class="fas fa-user-plus text-blue-600 nhanYeuCau" style="font: size 18px;"></i>&nbsp;&nbsp;Phản hồi</span>
         <span class="p-3 mr-2  cursor-pointer dark:bg-dark-third dark:text-white bg-gray-200 font-bold rounded-lg">

@@ -35,14 +35,14 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
                     @endphp
                     @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                     @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                    @include('Component/About/Main/PlaceWork',['value'=>$value,
+                    @include('Component.About.Main.PlaceWork',['value'=>$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @else
                     @endif
                     @else
                     @if ($privacy == 'CONGKHAI')
-                    @include('Component/About/Main/PlaceWork',['value'=>$value,
+                    @include('Component.About.Main.PlaceWork',['value'=>$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @else
@@ -54,15 +54,15 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
             @endif
             @else
             @if (count($json->CongViecHocVan->CongViec) == 0)
-            @include('Component/About/Delete/DeletePlaceWork')
-            @include('Component/About/Add/AddPlaceWork')
+            @include('Component.About.Delete.DeletePlaceWork')
+            @include('Component.About.Add.AddPlaceWork')
             @else
-            @include('Component/About/Delete/DeletePlaceWork')
-            @include('Component/About/Add/AddPlaceWork')
+            @include('Component.About.Delete.DeletePlaceWork')
+            @include('Component.About.Add.AddPlaceWork')
             <li class="w-full pb-4 flex" style="font-size: 16px;">
                 <ul class="w-full">
                     @foreach ($json->CongViecHocVan->CongViec as $key => $value)
-                    @include('Component/About/Main/PlaceWork',['value'=>$value,
+                    @include('Component.About.Main.PlaceWork',['value'=>$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @endforeach
@@ -89,14 +89,14 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
                     @endphp
                     @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                     @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @else
                     @endif
                     @else
                     @if ($privacy == 'CONGKHAI')
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @else
@@ -108,15 +108,15 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
             @endif
             @else
             @if (count($daiHoc) == 0)
-            @include('Component/About/Delete/DeleteSchool')
-            @include('Component/About/Add/AddSchool')
+            @include('Component.About.Delete.DeleteSchool')
+            @include('Component.About.Add.AddSchool')
             @else
-            @include('Component/About/Delete/DeleteSchool')
-            @include('Component/About/Add/AddSchool')
+            @include('Component.About.Delete.DeleteSchool')
+            @include('Component.About.Add.AddSchool')
             <li class="w-full pb-4 flex" style="font-size: 16px;">
                 <ul class="w-full">
                     @foreach ($daiHoc as $key => $value)
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @endforeach
@@ -144,14 +144,14 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
                     @endphp
                     @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                     @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @else
                     @endif
                     @else
                     @if ($privacy == 'CONGKHAI')
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @else
@@ -163,15 +163,15 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
             @endif
             @else
             @if (count($caoDang) == 0)
-            @include('Component/About/Delete/DeleteSchool')
-            @include('Component/About/Add/AddSchool')
+            @include('Component.About.Delete.DeleteSchool')
+            @include('Component.About.Add.AddSchool')
             @else
-            @include('Component/About/Delete/DeleteSchool')
-            @include('Component/About/Add/AddSchool')
+            @include('Component.About.Delete.DeleteSchool')
+            @include('Component.About.Add.AddSchool')
             <li class="w-full pb-4 flex" style="font-size: 16px;">
                 <ul class="w-full">
                     @foreach ($caoDang as $key => $value)
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @endforeach
@@ -198,14 +198,14 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
                     @endphp
                     @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                     @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @else
                     @endif
                     @else
                     @if ($privacy == 'CONGKHAI')
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @else
@@ -217,15 +217,15 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
             @endif
             @else
             @if (count($thpt) == 0)
-            @include('Component/About/Delete/DeleteSchool')
-            @include('Component/About/Add/AddSchool')
+            @include('Component.About.Delete.DeleteSchool')
+            @include('Component.About.Add.AddSchool')
             @else
-            @include('Component/About/Delete/DeleteSchool')
-            @include('Component/About/Add/AddSchool')
+            @include('Component.About.Delete.DeleteSchool')
+            @include('Component.About.Add.AddSchool')
             <li class="w-full pb-4 flex" style="font-size: 16px;">
                 <ul class="w-full">
                     @foreach ($thpt as $key => $value)
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @endforeach
@@ -252,14 +252,14 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
                     @endphp
                     @if (DataProcessSecond::checkUserViewStateWithUserMain($idMain, $idView))
                     @if ($privacy == 'CONGKHAI' || $privacy == 'CHIBANBE')
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @else
                     @endif
                     @else
                     @if ($privacy == 'CONGKHAI')
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @else
@@ -271,15 +271,15 @@ $json = json_decode(Gioithieu::where('gioithieu.IDTaiKhoan', '=', $idTaiKhoan)->
             @endif
             @else
             @if (count($thcs) == 0)
-            @include('Component/About/Delete/DeleteSchool')
-            @include('Component/About/Add/AddSchool')
+            @include('Component.About.Delete.DeleteSchool')
+            @include('Component.About.Add.AddSchool')
             @else
-            @include('Component/About/Delete/DeleteSchool')
-            @include('Component/About/Add/AddSchool')
+            @include('Component.About.Delete.DeleteSchool')
+            @include('Component.About.Add.AddSchool')
             <li class="w-full pb-4 flex" style="font-size: 16px;">
                 <ul class="w-full">
                     @foreach ($thcs as $key => $value)
-                    @include('Component/About/Main/School',['value',$value,
+                    @include('Component.About.Main.School',['value',$value,
                     'idMain' => $idMain,
                     'idView' => $idView])
                     @endforeach

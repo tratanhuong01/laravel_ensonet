@@ -21,7 +21,7 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
         <div class="w-full p-1">
             <input type="text" name="" class="w-full py-2.5 px-4 my-2 bg-gray-200 dark:bg-dark-third rounded-3xl" placeholder="Tìm kiếm trên messenger">
         </div>
-        @include('Guest/Child/AllMessager',['allMess' => $allMess])
+        @include('Guest.Child.AllMessager',['allMess' => $allMess])
         <hr class="my-2.5 mx-auto w-full">
         <div class="w-full text-center py-2">
             <a href="" class="font-bold text-center dark:text-white">Xem tất cả trong messenger</a>

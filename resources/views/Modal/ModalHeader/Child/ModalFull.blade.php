@@ -35,7 +35,7 @@ $allMess = DataProcess::getFullMessageByID(Session::get('user')[0]->IDTaiKhoan);
             <a href="">
                 <div class="w-14 h-14 rounded-full relative">
                     <img src="{{ $el[0]->AnhDaiDien }}" alt="" class="w-14 h-14 rounded-full object-cover p-0.5">
-                    @include('Component\Child\HoatDong',
+                    @include('Component.Child.HoatDong',
                     [
                     'padding' => 'p-1.5',
                     'bottom' => 'bottom-0',

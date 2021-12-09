@@ -297,7 +297,7 @@ class Functions extends Model
             $arr[0] = $all;
             $arr[1] = count($userFeel);
             $arr[2] = $userFeel;
-            return view('Component\Post\NumberFeel')->with('arr', $arr);
+            return view('Component.Post.NumberFeel')->with('arr', $arr);
         }
     }
     public static function getFeelCmt($i)

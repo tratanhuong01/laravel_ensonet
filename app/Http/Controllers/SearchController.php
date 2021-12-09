@@ -25,9 +25,9 @@ class SearchController extends Controller
             } else {
                 $tinhTrang = $user[0]->TinhTrang;
                 if ($tinhTrang == 3)
-                    $view .= view('Modal/ModalHeader/Child/Friend')->with('value', $value);
+                    $view .= view('Modal.ModalHeader.Child.Friend')->with('value', $value);
                 else
-                    $view .= view('Modal/ModalHeader/Child/DataSearch')->with('value', $value);
+                    $view .= view('Modal.ModalHeader.Child.DataSearch')->with('value', $value);
             }
         }
         return response()->json([

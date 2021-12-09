@@ -29,7 +29,7 @@ class GroupChatSettingController extends Controller
                 ->get()[0];
         }
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/MemberGroupChat')
+            'view' => "" . view('Modal.ModalChat.MemberGroupChat')
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan)
                 ->with('member', $new)
         ]);
@@ -37,7 +37,7 @@ class GroupChatSettingController extends Controller
     public function viewOutGroupChat(Request $request)
     {
         return response()->json([
-            'view' => "" . view('Modal/ModalChat/OutGroupChat')
+            'view' => "" . view('Modal.ModalChat.OutGroupChat')
                 ->with('idNhomTinNhan', $request->IDNhomTinNhan)
                 ->with('json', $request->user)
         ]);

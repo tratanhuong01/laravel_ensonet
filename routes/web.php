@@ -29,19 +29,19 @@ Route::get('/admin/login ', function () {
     if (session()->has('admin'))
         return redirect()->to('admin/dashboard')->send();
     else
-        return view('admin/login');
+        return view('admin.login');
 });
 
 Route::get('/admin/logout', function () {
     Session::forget('admin');
-    return redirect()->to('admin/login')->send();
+    return redirect()->to('admin.login')->send();
 });
 
 Route::get('/admin/dashboard', function () {
     if (session()->has('admin')) {
         return view('Admin.index');
     } else
-        return view('admin/login');
+        return view('admin.login');
 });
 
 Route::post('admin/ProcessLoginAd', [Admin\LoginControllerAd::class, 'login'])
@@ -479,30 +479,30 @@ Route::post('ProcessVerifyChangePassword', [SettingController::class, 'verifyCha
 // ajax mở hộp thoại bài đăng
 Route::get('ProcessOpenPostDialog', function (Request $request) {
     if ($request->type == NULL)
-        return view('Modal\ModalPost\ModalCreatePost');
+        return view('Modal.ModalPost.ModalCreatePost');
     else
-        return view('Modal\ModalPost\ModalWriteAnyThing');
+        return view('Modal.ModalPost.ModalWriteAnyThing');
 })->name('ProcessOpenPostDialog');
 // ajax chọn quyền riêng tư bài đăng
 Route::get('ProcessSelecPrivacyPost', function () {
-    return view('Modal\ModalPrivacy\ModalPrivacy');
+    return view('Modal.ModalPrivacy.ModalPrivacy');
 })->name('ProcessSelecPrivacyPost');
 // ajax chọn quyền riêng tư bài đăng
 Route::get('ProcessOnChangeInputPrivacy', function (Request $request) {
-    return view('Component\Child\Privacy')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
+    return view('Component.Child.Privacy')->with('idQuyenRiengTu', $request->IDQuyenRiengTu);
 })->name('ProcessOnChangeInputPrivacy');
 // 
 Route::get('ProcessModalLast', function () {
-    return view('Modal/ModalHeader/ModalLast');
+    return view('Modal.ModalHeader.ModalLast');
 })->name('ProcessModalLast');
 // ajax quên tài khoản
 Route::get('LoadForgetAccount', function () {
-    return view('Modal\ModalLogin\ModalTypeInfo')->with('errors', '');
+    return view('Modal.ModalLogin.ModalTypeInfo')->with('errors', '');
 });
 //xử lí show modal notifications
 Route::get('ProcessShowModalNotifications', function () {
     $notify = Notify::getNotify(Session::get('user')[0]->IDTaiKhoan);
-    return view('Modal\ModalHeader\ModalNotify')->with('notify', $notify);
+    return view('Modal.ModalHeader.ModalNotify')->with('notify', $notify);
 })->name('ProcessShowModalNotifications');
 //Cập nhật trạng thái của thông báo
 Route::get('ProcessUpdateStateNotifications', function () {
@@ -516,7 +516,7 @@ Route::get('ProcessUpdateStateNotifications', function () {
     } else {
         DB::update("UPDATE thongbao SET TinhTrang = ? 
         WHERE IDTaiKhoan = ? AND IDLoaiThongBao != 'TINNHAN001' ", ['1', Session::get('user')[0]->IDTaiKhoan]);
-        return view('Component/Child/NumberNotify')
+        return view('Component.Child.NumberNotify')
             ->with('num', Notify::countNotify(Session::get('user')[0]->IDTaiKhoan, 0));
     }
 })->name('ProcessUpdateStateNotifications');
@@ -565,28 +565,28 @@ Route::get('ProcessDarkMode', function () {
 })->name('ProcessDarkMode');
 //
 Route::get('friends', function () {
-    return view('Guest/friend-request')
+    return view('Guest.friend-request')
         ->with('users', []);
 });
 //
 Route::get('friends/{id}', function ($id) {
     $users = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $id)->get();
     if (count($users) > 0)
-        return view('Guest/friend-request')->with('users', $users);
+        return view('Guest.friend-request')->with('users', $users);
     else
-        return view('Guest/friend-request')->with('users', []);
+        return view('Guest.friend-request')->with('users', []);
 });
 //
 Route::get('messages/{idNhomTinNhan}', function ($idNhomTinNhan) {
     $chater = DataProcess::getUserOfGroupMessage($idNhomTinNhan);
     $messages = DataProcess::getMessageByNhomTinNhan($idNhomTinNhan);
     if (count($chater) == 1) {
-        return view('Guest/messager')->with('chater', $chater)
+        return view('Guest.messager')->with('chater', $chater)
             ->with('messages', $messages)
             ->with('idNhomTinNhan', $idNhomTinNhan);
     } else {
         $chater = DataProcess::getUserOfGroupMessageReal($idNhomTinNhan);
-        return view('Guest/messager')->with('chater', $chater)
+        return view('Guest.messager')->with('chater', $chater)
             ->with('messages', $messages)
             ->with('idNhomTinNhan', $idNhomTinNhan);
     }
@@ -609,27 +609,27 @@ Route::get('ProcessLoadingPost', function (Request $request) {
             if (DataProcessSecond::checkIsFriends($user->IDTaiKhoan, $value[0]->IDTaiKhoan, $value) == true)
                 switch ($value[0]->LoaiBaiDang) {
                     case '0':
-                        $data .= view('Component/Post/UpdateAvatarImage')
+                        $data .= view('Component.Post.UpdateAvatarImage')
                             ->with('item', $value)
                             ->with('user', Session::get('user'));
                         break;
                     case '1':
-                        $data .= view('Component/Post/UpdateCoverImage')
+                        $data .= view('Component.Post.UpdateCoverImage')
                             ->with('item', $value)
                             ->with('user', Session::get('user'));
                         break;
                     case '2':
-                        $data .= view('Component/Post/PostNormal')
+                        $data .= view('Component.Post.PostNormal')
                             ->with('item', $value)
                             ->with('user', Session::get('user'));
                         break;
                     case '3':
-                        $data .= view('Component/Post/SharePost')
+                        $data .= view('Component.Post.SharePost')
                             ->with('item', $value)
                             ->with('user', Session::get('user'));
                         break;
                     case '5':
-                        $data .= view('Component/Post/PostShareMemory')
+                        $data .= view('Component.Post.PostShareMemory')
                             ->with('item', $value)
                             ->with('user', Session::get('user'));
                         break;
@@ -655,32 +655,32 @@ Route::get('ProcessLoadingPostProfile', function (Request $request) {
             if (DataProcessSecond::checkIsFriends($user->IDTaiKhoan, $value->IDTaiKhoan, [$value]) == true)
                 switch ($value->LoaiBaiDang) {
                     case '0':
-                        $data .= view('Component/Post/UpdateAvatarImage')
+                        $data .= view('Component.Post.UpdateAvatarImage')
                             ->with('item', $post)
                             ->with('user', Session::get('user'));
                         break;
                     case '1':
-                        $data .= view('Component/Post/UpdateCoverImage')
+                        $data .= view('Component.Post.UpdateCoverImage')
                             ->with('item', $post)
                             ->with('user', Session::get('user'));
                         break;
                     case '2':
-                        $data .= view('Component/Post/PostNormal')
+                        $data .= view('Component.Post.PostNormal')
                             ->with('item', $post)
                             ->with('user', Session::get('user'));
                         break;
                     case '3':
-                        $data .= view('Component/Post/SharePost')
+                        $data .= view('Component.Post.SharePost')
                             ->with('item', $post)
                             ->with('user', Session::get('user'));
                         break;
                     case '4':
-                        $data .= view('Component/Post/Timeline')
+                        $data .= view('Component.Post.Timeline')
                             ->with('item', $post)
                             ->with('user', Session::get('user'));
                         break;
                     case '5':
-                        $data .= view('Component/Post/PostShareMemory')
+                        $data .= view('Component.Post.PostShareMemory')
                             ->with('item', $post)
                             ->with('user', Session::get('user'));
                         break;
@@ -692,44 +692,44 @@ Route::get('ProcessLoadingPostProfile', function (Request $request) {
 })->name('ProcessLoadingPostProfile');
 //
 Route::get('ProcessLoading', function () {
-    return view('TimeLine/Post') . view('TimeLine/Post');
+    return view('TimeLine.Post') . view('TimeLine.Post');
 })->name('ProcessLoading');
 //
 Route::get('stories/create', function () {
-    return view('Guest/Story/createstory');
+    return view('Guest.Story.createstory');
 });
 //
 Route::get('stories/{IDTaiKhoan}', [Storys\StoryController::class, 'addViewStory']);
 //
 Route::get('stories/create/text', function () {
-    return view('Guest/Story/storytext');
+    return view('Guest.Story.storytext');
 });
 //
 Route::get('stories/create/picture', function () {
-    return view('Guest/Story/storypicture');
+    return view('Guest.Story.storypicture');
 });
 //
 Route::get('stories', function () {
     $story = array();
     $allStory = DataProcessThird::sortStoryByID(Session::get('user')[0]->IDTaiKhoan);
-    return view('Guest/Story/viewstory')->with('story', $story)
+    return view('Guest.Story.viewstory')->with('story', $story)
         ->with('allStory', $allStory);
 });
 //
 Route::get('verify-user-identity', function () {
-    return view('Guest/verify-account');
+    return view('Guest.verify-account');
 });
 Route::get('verify-success', function () {
     Session::flush();
-    return view('Component/Child/SendRequestSuccess');
+    return view('Component.Child.SendRequestSuccess');
 });
 //
 Route::get('checkpoint', function () {
-    return view('Guest/block');
+    return view('Guest.block');
 });
 //
 Route::get('activity', function () {
-    return view('Guest/activity')->with(
+    return view('Guest.activity')->with(
         'data',
         DataProcessThird::getActivityByIDTaiKhoan(Session::get('idcheckpoint'))
     );
@@ -737,7 +737,7 @@ Route::get('activity', function () {
 
 //
 Route::get('change-password', function () {
-    return view('Guest/change-pass');
+    return view('Guest.change-pass');
 });
 //
 Route::get('loadIndexVeriCheckpoint', function () {
@@ -758,11 +758,11 @@ Route::get('setting/change-name', function () {
     Session::forget('passWordOld');
     Session::forget('passWordNew');
     Session::forget('typePassWordNew');
-    return view('Guest/setting');
+    return view('Guest.setting');
 });
 //
 Route::get('setting/change-password', function () {
-    return view('Guest/setting');
+    return view('Guest.setting');
 });
 //
 Route::get('setting/delete-account', function () {
@@ -771,7 +771,7 @@ Route::get('setting/delete-account', function () {
     Session::forget('typePassWordNew');
     Session::forget('verify');
     Session::forget('emailSend');
-    return view('Guest/setting');
+    return view('Guest.setting');
 });
 //
 Route::get('ProcessSeenMessageEvent', function (Request $request) {
@@ -798,16 +798,16 @@ Route::get('/login', function (Request $request) {
     if (session()->has('user'))
         return redirect()->to('index')->send();
     else
-        return view('Guest/login');
+        return view('Guest.login');
 })->name('login');
 Route::get('LoadFormRegister', function () {
-    return view('Modal/ModalLogin/ModalFormRegister');
+    return view('Modal.ModalLogin.ModalFormRegister');
 });
 // redriect sang index
 Route::get('index', function () {
     session()->forget('users');
     if (session()->has('user'))
-        return view('Guest/index');
+        return view('Guest.index');
     else
         return redirect()->to('login')->send();
 })->name('index');
@@ -815,7 +815,7 @@ Route::get('ProcessLoadMessageLimit', function (Request $request) {
     $message = DataProcess::getMessageByNhomTinNhanLimit($request->IDNhomTinNhan, $request->index);
 
     return response()->json([
-        'view' => "" . view('Modal/ModalChat/Child/Message')
+        'view' => "" . view('Modal.ModalChat.Child.Message')
             ->with('messages', $message),
         'index' => $request->index - 15
     ]);
@@ -831,7 +831,7 @@ Route::get('ProcessResetSession', function () {
 });
 Route::get('ProcessViewLocalPost', function (Request $request) {
     return response()->json([
-        'view' => "" . view('Modal/ModalPost/ModalLocal')
+        'view' => "" . view('Modal.ModalPost.ModalLocal')
             ->with('local', DataProcessSix::createAllAddress())
     ]);
 });

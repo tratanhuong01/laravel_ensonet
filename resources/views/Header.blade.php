@@ -11,7 +11,7 @@ $user = Session::get('user');
     <div class="w-full flex px-2 my-1">
         <!-- div header left -->
         <div class="w-1/2 flex ml-1 md:w-1/4 relative">
-            @include('Modal/ModalHeader/ModalSearch')
+            @include('Modal.ModalHeader.ModalSearch')
             <div class="pt-0.5">
                 <!-- ** Logo ** -->
                 <a href="{{ url('index') }}">

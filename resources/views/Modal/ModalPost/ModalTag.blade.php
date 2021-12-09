@@ -32,7 +32,7 @@ sm:w-10/12 md:w-2/3 lg:w-2/3 xl:w-1/3" style="transform: translate(-50%,-50%);z-
                 @php
                 $us = TaiKhoan::where('taikhoan.IDTaiKhoan','=',$value)->get()
                 @endphp
-                @include('Modal/ModalPost/Child/UserTaged',['user' => $us])
+                @include('Modal.ModalPost.Child.UserTaged',['user' => $us])
                 @endforeach
                 @endif
                 @endif

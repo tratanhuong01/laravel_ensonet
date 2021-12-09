@@ -56,7 +56,7 @@ class AcceptFriendController extends Controller
                 date("Y-m-d H:i:s")
             );
             $user = DB::table('taikhoan')->where('taikhoan.IDTaiKhoan', '=', $request->UserOther)->get();
-            return view('Component/Relationship/Friend')->with('users', $user);
+            return view('Component.Relationship.Friend')->with('users', $user);
         } catch (Exception $e) {
             $e->Error;
         }
@@ -103,7 +103,7 @@ class AcceptFriendController extends Controller
                 date("Y-m-d H:i:s")
             );
             $requestFriend = Functions::getListRequestFriendNew($request->UserMain);
-            return view('Component\Index\FriendRequest')->with('requestFriend', $requestFriend);
+            return view('Component.Index.FriendRequest')->with('requestFriend', $requestFriend);
         } catch (Exception $e) {
             $e->Error;
         }

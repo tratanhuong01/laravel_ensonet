@@ -114,7 +114,7 @@ class PostTimeLineController extends Controller
                 $user[0]->IDTaiKhoan
             );
             return response()->json([
-                'view' => "" . view('Component/Post/Timeline')
+                'view' => "" . view('Component.Post.Timeline')
                     ->with('item', Baidang::where('baidang.IDBaiDang', '=', $idBaiDang)
                         ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                         ->leftjoin('hinhanh', 'baidang.IDBaiDang', 'hinhanh.IDBaiDang')->get())

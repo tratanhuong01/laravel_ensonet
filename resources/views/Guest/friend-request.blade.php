@@ -10,11 +10,11 @@ $user = Session::get('user');
 $requestFriend = DataProcessSecond::getListRequestFriendNew($user[0]->IDTaiKhoan);
 
 ?>
-@include('Head/document')
+@include('Head.document')
 
 <head>
     <title>Facebook</title>
-    @include('Head/css')
+    @include('Head.css')
 </head>
 
 <body>
@@ -81,7 +81,7 @@ $requestFriend = DataProcessSecond::getListRequestFriendNew($user[0]->IDTaiKhoan
             overflow-y: auto;" id="profileRight">
                 <!-- content -->
                 @if(count($users) > 0)
-                @include('Component/profile',[
+                @include('Component.profile',[
                 'user' => $user,
                 'users' => $users
                 ])

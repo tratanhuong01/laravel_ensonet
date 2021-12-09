@@ -66,7 +66,7 @@ $users = Session::get('users');
                 @if (count($relationShip) != 0)
                 @switch($relationShip[0]->TinhTrang)
                 @case('0')
-                @include('Component\Child\Button\ChuaKetBan')
+                @include('Component.Child.Button.ChuaKetBan')
                 @break;
                 @case('1')
                 <button onclick="CancelRequestFriend()" class="p-2.5 my-6 cursor-pointer 

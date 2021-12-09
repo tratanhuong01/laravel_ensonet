@@ -20,7 +20,7 @@ class LoadDataControllerAd extends Controller
         switch ($request->name) {
             case 'dashboard':
                 return response()->json([
-                    'view' => "" . view('Admin/Component/Category/Dashboard')
+                    'view' => "" . view('Admin.Component.Category.Dashboard')
 
                 ]);
                 break;
@@ -96,7 +96,7 @@ class LoadDataControllerAd extends Controller
                     ]
                 ];
                 return response()->json([
-                    'view' => "" . view('Admin/Component/Category/User')
+                    'view' => "" . view('Admin.Component.Category.User')
                         ->with('userTable', $userTable)
                         ->with('data', array())
                 ]);
@@ -154,7 +154,7 @@ class LoadDataControllerAd extends Controller
                     ]
                 ];
                 return response()->json([
-                    'view' => "" . view('Admin/Component/Category/Post')
+                    'view' => "" . view('Admin.Component.Category.Post')
                         ->with('userPost', $userPost)
                         ->with('data', array())
                 ]);
@@ -203,7 +203,7 @@ class LoadDataControllerAd extends Controller
                     ]
                 ];
                 return response()->json([
-                    'view' => "" . view('Admin/Component/Category/Story')
+                    'view' => "" . view('Admin.Component.Category.Story')
                         ->with('userStory', $userStory)
                 ]);
                 break;
@@ -243,13 +243,13 @@ class LoadDataControllerAd extends Controller
                     ]
                 ];
                 return response()->json([
-                    'view' => "" . view('Admin/Component/Category/Reply')
+                    'view' => "" . view('Admin.Component.Category.Reply')
                         ->with('userReply', $userReply)
                 ]);
                 break;
             case 'category':
                 return response()->json([
-                    'view' => "" . view('Admin/Component/Category/Category')
+                    'view' => "" . view('Admin.Component.Category.Category')
                 ]);
                 break;
             default:
@@ -262,7 +262,7 @@ class LoadDataControllerAd extends Controller
             case 'user':
                 $user = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get();
                 return response()->json([
-                    'view' => "" . view('Admin/Modal/User/ModalDetail')
+                    'view' => "" . view('Admin.Modal.User.ModalDetail')
                         ->with('user', $user)
                 ]);
                 break;
@@ -272,7 +272,7 @@ class LoadDataControllerAd extends Controller
                     ->join('taikhoan', 'baidang.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                     ->get();
                 return response()->json([
-                    'view' => "" . view('Admin/Modal/Post/ModalDetail')
+                    'view' => "" . view('Admin.Modal.Post.ModalDetail')
                         ->with('post', $post)
                 ]);
                 break;
@@ -281,7 +281,7 @@ class LoadDataControllerAd extends Controller
                     ->join('taikhoan', 'story.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                     ->get();
                 return response()->json([
-                    'view' => "" . view('Admin/Modal/Story/ModalDetail')
+                    'view' => "" . view('Admin.Modal.Story.ModalDetail')
                         ->with('story', $story)
                 ]);
                 break;
@@ -294,7 +294,7 @@ class LoadDataControllerAd extends Controller
                     ->join('taikhoan', 'yeucaunguoidung.IDTaiKhoan', 'taikhoan.IDTaiKhoan')
                     ->get();
                 return response()->json([
-                    'view' => "" . view('Admin/Modal/Reply/ModalDetail')
+                    'view' => "" . view('Admin.Modal.Reply.ModalDetail')
                         ->with('reply', $reply)
 
                 ]);
@@ -309,13 +309,13 @@ class LoadDataControllerAd extends Controller
             case 'user':
                 $account = Query::getAllAccount(10, $request->index * 10);
                 return response()->json([
-                    'viewTable' => "" . view('Admin/Component/Child/TableUser')
+                    'viewTable' => "" . view('Admin.Component.Child.TableUser')
                         ->with('account', $account)
                         ->with('index', $request->index * 10)
                         ->with('accountFull', Query::getAllAccountFull()),
-                    'viewPage' => "" . view('Admin/Component/Child/Pagination')
+                    'viewPage' => "" . view('Admin.Component.Child.Pagination')
                         ->with('index', $request->index * 10)
-                        ->with('num', count(Query::getAllAccountFull()) / 10)
+                        ->with('num', count(Query::getAllAccountFull()) . 10)
                         ->with('name', 'user')
                         ->with('accountFull', Query::getAllAccountFull())
                 ]);
@@ -323,11 +323,11 @@ class LoadDataControllerAd extends Controller
             case 'post':
                 $post = Query::getAllPost(10, $request->index * 10);
                 return response()->json([
-                    'viewTable' => "" . view('Admin/Component/Child/TablePost')
+                    'viewTable' => "" . view('Admin.Component.Child.TablePost')
                         ->with('post', $post)
                         ->with('index', $request->index * 10)
                         ->with('postFull', Query::getAllPostFull()),
-                    'viewPage' => "" . view('Admin/Component/Child/Pagination')
+                    'viewPage' => "" . view('Admin.Component.Child.Pagination')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllPostFull()) / 10)
                         ->with('name', 'post')
@@ -337,11 +337,11 @@ class LoadDataControllerAd extends Controller
             case 'story':
                 $post = Query::getAllStory(10, $request->index * 10);
                 return response()->json([
-                    'viewTable' => "" . view('Admin/Component/Child/TableStory')
+                    'viewTable' => "" . view('Admin.Component.Child.TableStory')
                         ->with('story', $post)
                         ->with('index', $request->index * 10)
                         ->with('storyFull', Query::getAllStoryFull()),
-                    'viewPage' => "" . view('Admin/Component/Child/Pagination')
+                    'viewPage' => "" . view('Admin.Component.Child.Pagination')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllStoryFull()) / 10)
                         ->with('name', 'story')
@@ -351,11 +351,11 @@ class LoadDataControllerAd extends Controller
             case 'reply':
                 $reply = Query::getAllReply(10, $request->index * 10);
                 return response()->json([
-                    'viewTable' => "" . view('Admin/Component/Child/TableReply')
+                    'viewTable' => "" . view('Admin.Component.Child.TableReply')
                         ->with('reply', $reply)
                         ->with('index', $request->index * 10)
                         ->with('replyFull', Query::getAllReplyFull()),
-                    'viewPage' => "" . view('Admin/Component/Child/Pagination')
+                    'viewPage' => "" . view('Admin.Component.Child.Pagination')
                         ->with('index', $request->index * 10)
                         ->with('num', count(Query::getAllReplyFull()) / 10)
                         ->with('name', 'story')

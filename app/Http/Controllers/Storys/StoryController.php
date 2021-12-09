@@ -52,7 +52,7 @@ class StoryController extends Controller
     public function createPicView(Request $request)
     {
         $user = Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()[0];
-        return view('Guest/Story/storypicture')->with('user', $user);
+        return view('Guest.Story.storypicture')->with('user', $user);
     }
     public function createPic(Request $request)
     {
@@ -116,7 +116,7 @@ class StoryController extends Controller
                 Session::get('user')[0]->IDTaiKhoan
             );
         }
-        return view('Guest/Story/viewstory')->with('story', $story)
+        return view('Guest.Story.viewstory')->with('story', $story)
             ->with('allStory', $allStory)
             ->with('numberStoryDisplay', count($allStory))
             ->with('indexOfStory', DataProcessFive::getIndexOfStory($allStory, $story));
@@ -149,7 +149,7 @@ class StoryController extends Controller
                 'urlMp3' => $str->AmThanh == NULL ? '/' : json_decode($str->AmThanh)->DuongDanAmThanh,
                 'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
                 'Border' => $dt == 0 ? 'border-blue-500' : '',
-                'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
+                'ViewStoryDetail' => view('Guest.Story.Child.DetailViewStory')
                     ->with('viewStory', DataProcessThird::getViewStoryByIDStory($request->IDStory, $request->IDTaiKhoan))
             ]);
         }
@@ -161,7 +161,7 @@ class StoryController extends Controller
             count(DataProcessThird::sortStoryByID($request->IDTaiKhoan))
         ) {
             return response()->json([
-                'end' => "" . view('Guest/Story/Child/HetTin')
+                'end' => "" . view('Guest.Story.Child.HetTin')
             ]);
         } else {
             $strMain = DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory][$request->numberStory];
@@ -179,7 +179,7 @@ class StoryController extends Controller
                         'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
                         'SoTheMoi' => '',
                         'Border' => '',
-                        'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
+                        'ViewStoryDetail' => "" . view('Guest.Story.Child.DetailViewStory')
                             ->with(
                                 'viewStory',
                                 DataProcessThird::getViewStoryByIDStory(
@@ -207,7 +207,7 @@ class StoryController extends Controller
                         'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
                         'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
                         'Border' => $dt == 0 ? 'border-blue-500' : '',
-                        'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
+                        'ViewStoryDetail' => view('Guest.Story.Child.DetailViewStory')
                             ->with('viewStory', DataProcessThird::getViewStoryByIDStory($strMain->IDStory, $request->IDTaiKhoan))
                     ]);
                 }
@@ -221,7 +221,7 @@ class StoryController extends Controller
                         'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
                         'SoTheMoi' => '',
                         'Border' => '',
-                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')
+                        'viewMain' => "" . view('Guest.Story.Child.FriendsStory')
                             ->with(
                                 'story',
                                 DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]
@@ -230,7 +230,7 @@ class StoryController extends Controller
                                 'user',
                                 Taikhoan::where('taikhoan.IDTaiKhoan', $request->IDTaiKhoan)->get()
                             ),
-                        'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
+                        'ViewStoryDetail' => "" . view('Guest.Story.Child.DetailViewStory')
                             ->with(
                                 'viewStory',
                                 DataProcessThird::getViewStoryByIDStory(
@@ -266,7 +266,7 @@ class StoryController extends Controller
                         'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
                         'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
                         'Border' => $dt == 0 ? 'border-blue-500' : '',
-                        'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
+                        'ViewStoryDetail' => view('Guest.Story.Child.DetailViewStory')
                             ->with(
                                 'viewStory',
                                 DataProcessThird::getViewStoryByIDStory($strMain->IDStory, $request->IDTaiKhoan)
@@ -282,7 +282,7 @@ class StoryController extends Controller
             $request->indexStory < 0
         ) {
             return response()->json([
-                'end' => "" . view('Guest/Story/Child/HetTin')
+                'end' => "" . view('Guest.Story.Child.HetTin')
             ]);
         } else {
             $strMain = DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory][$request->numberStory];
@@ -292,7 +292,7 @@ class StoryController extends Controller
             if ($strMain->IDTaiKhoan == $request->IDTaiKhoan) {
                 if (count($view) > 0) {
                     return response()->json([
-                        'viewMain' => "" . view('Guest/Story/Child/UserStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'viewMain' => "" . view('Guest.Story.Child.UserStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
                         'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
                         'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
                         'user' => 'user',
@@ -301,7 +301,7 @@ class StoryController extends Controller
                         'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
                         'SoTheMoi' => '',
                         'Border' => '',
-                        'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
+                        'ViewStoryDetail' => "" . view('Guest.Story.Child.DetailViewStory')
                             ->with(
                                 'viewStory',
                                 DataProcessThird::getViewStoryByIDStory(
@@ -321,7 +321,7 @@ class StoryController extends Controller
                         $request->IDTaiKhoan
                     );
                     return response()->json([
-                        'viewMain' => "" . view('Guest/Story/Child/UserStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'viewMain' => "" . view('Guest.Story.Child.UserStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
                         'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
                         'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
                         'user' => 'user',
@@ -330,7 +330,7 @@ class StoryController extends Controller
                         'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
                         'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
                         'Border' => $dt == 0 ? 'border-blue-500' : '',
-                        'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
+                        'ViewStoryDetail' => view('Guest.Story.Child.DetailViewStory')
                             ->with('viewStory', DataProcessThird::getViewStoryByIDStory($strMain->IDStory, $request->IDTaiKhoan))
                     ]);
                 }
@@ -344,8 +344,8 @@ class StoryController extends Controller
                         'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
                         'SoTheMoi' => '',
                         'Border' => '',
-                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
-                        'ViewStoryDetail' => "" . view('Guest/Story/Child/DetailViewStory')
+                        'viewMain' => "" . view('Guest.Story.Child.FriendsStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'ViewStoryDetail' => "" . view('Guest.Story.Child.DetailViewStory')
                             ->with(
                                 'viewStory',
                                 DataProcessThird::getViewStoryByIDStory(
@@ -367,13 +367,13 @@ class StoryController extends Controller
                     return response()->json([
                         'countStory' => count(DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
                         'IDTaiKhoanStory' => $strMain->IDTaiKhoan,
-                        'viewMain' => "" . view('Guest/Story/Child/FriendsStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
+                        'viewMain' => "" . view('Guest.Story.Child.FriendsStory')->with('story', DataProcessThird::sortStoryByID($request->IDTaiKhoan)[$request->indexStory]),
                         'IDStory' => $strMain->IDStory,
                         'DuongDan' => $strMain->DuongDan,
                         'urlMp3' => $strMain->AmThanh == NULL ? '/' : json_decode($strMain->AmThanh)->DuongDanAmThanh,
                         'SoTheMoi' => $dt == 0 ? '' : $dt . ' thẻ mới  ',
                         'Border' => $dt == 0 ? 'border-blue-500' : '',
-                        'ViewStoryDetail' => view('Guest/Story/Child/DetailViewStory')
+                        'ViewStoryDetail' => view('Guest.Story.Child.DetailViewStory')
                             ->with('viewStory', DataProcessThird::getViewStoryByIDStory($strMain->IDStory, $request->IDTaiKhoan))
                     ]);
                 }

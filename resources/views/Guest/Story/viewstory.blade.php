@@ -21,7 +21,7 @@ $user = Session::get('user')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>(1) Xem tin | Ensonet</title>
-    @include('Head/css')
+    @include('Head.css')
     <script src="/js/ajax/Story/ajax.js"></script>
 </head>
 
@@ -123,13 +123,13 @@ $user = Session::get('user')
                 </div>
                 @else
                 @if ($story[0]->IDTaiKhoan == Session::get('user')[0]->IDTaiKhoan)
-                @include('Guest/Story/Child/UserStory',[
+                @include('Guest.Story.Child.UserStory',[
                 'story' => $story,
                 'allStory' => $allStory,
                 'user' => $user
                 ])
                 @else
-                @include('Guest/Story/Child/FriendsStory',[
+                @include('Guest.Story.Child.FriendsStory',[
                 'story' => $story,
                 'allStory' => $allStory,
                 'user' => $user

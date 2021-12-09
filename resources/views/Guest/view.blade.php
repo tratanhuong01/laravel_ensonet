@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\DB;
 $u = Session::get('user');
 
 ?>
-@include('Head/document')
+@include('Head.document')
 
 <head>
     <title>Ensonet</title>
-    @include('Head/css')
+    @include('Head.css')
 </head>
 
 <body>
@@ -51,7 +51,7 @@ $u = Session::get('user');
     @switch($paths[1])
     @case('photo')
     @if (count($dataNew) == 0 && $indexImage == -1)
-    @include('Component\NotFound')
+    @include('Component.NotFound')
     @else
     <div class="w-full dark:bg-dark-main" id="main">
         <div class="w-full flex h-screen bg-gray-100" id="content">
@@ -128,7 +128,7 @@ $u = Session::get('user');
     @break
     @case('comment')
     @if (count($dataNew) == 0)
-    @include('Component\NotFound')
+    @include('Component.NotFound')
     @else
     <div class="w-full dark:bg-dark-main" id="main">
         <div class="w-full flex h-screen bg-gray-100" id="content">
@@ -184,7 +184,7 @@ $u = Session::get('user');
     <!-- place show modal -->
 
     <!-- timeline -->
-    @include('TimeLine/DivMainTimeLine')
+    @include('TimeLine.DivMainTimeLine')
     <!-- timeline -->
 
     <script>

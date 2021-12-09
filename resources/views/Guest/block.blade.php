@@ -1,6 +1,6 @@
 <head>
     <title>Khóa Tài Khoản</title>
-    @include('Head/css')
+    @include('Head.css')
 </head>
 
 <body class="bg-gray-200">

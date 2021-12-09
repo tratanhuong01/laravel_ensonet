@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Session;
 
 $user = Session::get('user'); ?>
 <div class="w-full py-2  mx-auto flex ">
-    @include('Component/Relationship/Category')
+    @include('Component.Relationship.Category')
     <div class="w-4/5 xl:w-2/5 pb-1.5 text-right mr-3">
         <span onclick="CancelRequestFriend('{{ $user[0]->IDTaiKhoan }}','{{ $users[0]->IDTaiKhoan }}')" class="p-3 mr-2 cursor-pointer " style="background-color: #E7F3FF;
         color:#1095F4;font-weight:bold;border-radius: 6px;line-height: 24px;"><i class="fas fa-user-times guiYeuCau" style="font-size: 18px;"></i>&nbsp;&nbsp;

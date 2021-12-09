@@ -18,7 +18,7 @@ class UpdateAvatarController extends Controller
     {
         try {
             if ($request->hasFile('fileAvatar')) {
-                return view('Modal/ModalProfile/ViewAvatarImage');
+                return view('Modal.ModalProfile.ViewAvatarImage');
             }
         } catch (Exception $e) {
             $e->Error;

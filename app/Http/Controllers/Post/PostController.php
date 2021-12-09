@@ -10,11 +10,11 @@ class PostController extends Controller
 {
     public function view($idBaiDang)
     {
-        return view('Guest/post')
+        return view('Guest.post')
             ->with('post_main', Baidang::where('baidang.IDBaiDang', '=', $idBaiDang)->get());
     }
     public function viewCreatePost()
     {
-        return view('Modal/ModalPost/ModalCreatePost');
+        return view('Modal.ModalPost.ModalCreatePost');
     }
 }

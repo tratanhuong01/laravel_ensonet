@@ -25,7 +25,7 @@ $elMain = DataProcess::getUserOfGroupMessageReal($value[0]->IDNhomTinNhan);
     <div class="w-1/5">
         <div class="w-14 h-14 rounded-full relative">
             <img src="{{ $el[0]->AnhDaiDien }}" alt="" class="w-14 h-14 rounded-full object-cover p-0.5">
-            @include('Component\Child\Activity',
+            @include('Component.Child.Activity',
             [
             'padding' => 'p-1.5',
             'bottom' => 'bottom-0',

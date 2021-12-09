@@ -17,7 +17,7 @@ class DeletePostController extends Controller
 {
     public function warn(Request $request)
     {
-        return view('Modal/ModalPost/ModalDeletePost')->with('idBaiDang', $request->IDBaiDang);
+        return view('Modal.ModalPost.ModalDeletePost')->with('idBaiDang', $request->IDBaiDang);
     }
     public function delete(Request $request)
     {

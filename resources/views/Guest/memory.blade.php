@@ -1,8 +1,8 @@
-@include('Head/document')
+@include('Head.document')
 
 <head>
     <title>Ensonet</title>
-    @include('Head/css')
+    @include('Head.css')
     <style>
         @media (min-width: 1280px) {
             #center {
@@ -109,7 +109,7 @@
     <!-- place show modal -->
 
     <!-- timeline -->
-    @include('TimeLine/DivMainTimeLine')
+    @include('TimeLine.DivMainTimeLine')
     <!-- timeline -->
     <script>
         $('#modalHeaderRight').html('');

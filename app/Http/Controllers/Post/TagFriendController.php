@@ -14,12 +14,12 @@ class TagFriendController extends Controller
     public function view()
     {
         $friends = Taikhoan::get(Session::get('user')[0]->IDTaiKhoan);
-        return view('Modal/ModalPost/ModalTag')->with('friends', $friends);
+        return view('Modal.ModalPost.ModalTag')->with('friends', $friends);
     }
     public function search(Request $request)
     {
         $friends = Taikhoan::search($request->HoTen, $request->IDTaiKhoan);
-        return view('Modal/ModalPost/Child/Tag')->with('friends', $friends);
+        return view('Modal.ModalPost.Child.Tag')->with('friends', $friends);
     }
     public function tag(Request $request)
     {
@@ -37,7 +37,7 @@ class TagFriendController extends Controller
                 $tag[$request->IDTaiKhoan] = $request->IDTaiKhoan;
                 Session::put('tag', $tag);
                 return response()->json([
-                    'view' => "" . view('Modal/ModalPost/Child/UserTaged')
+                    'view' => "" . view('Modal.ModalPost.Child.UserTaged')
                         ->with(
                             'user',
                             Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()
@@ -50,7 +50,7 @@ class TagFriendController extends Controller
             $tag[$request->IDTaiKhoan] = $request->IDTaiKhoan;
             Session::put('tag', $tag);
             return response()->json([
-                'view' => "" . view('Modal/ModalPost/Child/UserTaged')
+                'view' => "" . view('Modal.ModalPost.Child.UserTaged')
                     ->with(
                         'user',
                         Taikhoan::where('taikhoan.IDTaiKhoan', '=', $request->IDTaiKhoan)->get()
@@ -63,7 +63,7 @@ class TagFriendController extends Controller
     public function viewUserTagOfPost(Request $request)
     {
         $data = DataProcessThird::getUserTag($request->IDBaiDang);
-        return view('Modal/ModalPost/ModalTagUser')->with('data', $data)
+        return view('Modal.ModalPost.ModalTagUser')->with('data', $data)
             ->with('user', json_decode($request->user));
     }
     public function removeTagFriend(Request $request)

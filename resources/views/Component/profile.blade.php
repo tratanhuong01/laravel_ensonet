@@ -39,17 +39,17 @@ $json = json_decode(
     ->where('IDBanBe', '=', $users[0]->IDTaiKhoan)->get(); ?>
 <div class="w-full relative mx-auto md:w-4/5 lg:w-3/4 md:mx-auto xl:w-11/12" id="moiQuanHe">
     @if ($user[0]->IDTaiKhoan == $users[0]->IDTaiKhoan)
-    @include('Component/MoiQuanHe/ChinhChu')
+    @include('Component.MoiQuanHe.ChinhChu')
     @elseif (sizeof($moiQuanHe) == 0)
-    @include('Component/MoiQuanHe/ChuaKetBan')
+    @include('Component.MoiQuanHe.ChuaKetBan')
     @elseif ($moiQuanHe[0]->TinhTrang == 0)
-    @include('Component/MoiQuanHe/ChuaKetBan')
+    @include('Component.MoiQuanHe.ChuaKetBan')
     @elseif ($moiQuanHe[0]->TinhTrang == 1)
-    @include('Component/MoiQuanHe/GuiYeuCau')
+    @include('Component.MoiQuanHe.GuiYeuCau')
     @elseif ($moiQuanHe[0]->TinhTrang == 2)
-    @include('Component/MoiQuanHe/NhanYeuCau')
+    @include('Component.MoiQuanHe.NhanYeuCau')
     @elseif ($moiQuanHe[0]->TinhTrang == 3)
-    @include('Component/MoiQuanHe/BanBe')
+    @include('Component.MoiQuanHe.BanBe')
     @endif
 </div>
 <div class="w-full relative bg-gray-100 dark:bg-dark-main pt-3">
@@ -193,7 +193,7 @@ $json = json_decode(
                 </div>
             </div>
             <div class="w-full bg-white dark:bg-dark-main mx-auto my-4 rounded-lg lg:w-3/5">
-                @include('Component/BaiDang/Child/VietGiDo',['users' => $users])
+                @include('Component.BaiDang.Child.VietGiDo',['users' => $users])
                 <div class="timeline">
                     <input type="hidden" name="indexPost" id="indexPost" value="0">
                 </div>

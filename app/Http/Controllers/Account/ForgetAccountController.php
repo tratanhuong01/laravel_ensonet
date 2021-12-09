@@ -14,8 +14,8 @@ class ForgetAccountController extends Controller
     {
         $user = DB::table('taikhoan')->where('Email', '=', $request->emailOrPhone_Type)->get();
         if (sizeof($user) == 0)
-            return view('Modal/ModalLogin/ModalTypeInfo')->with('errors', "Không tìm thấy tài khoản");
+            return view('Modal.ModalLogin.ModalTypeInfo')->with('errors', "Không tìm thấy tài khoản");
         else
-            return view('Modal/ModalLogin/ModalSelected')->with('user', $user);
+            return view('Modal.ModalLogin.ModalSelected')->with('user', $user);
     }
 }

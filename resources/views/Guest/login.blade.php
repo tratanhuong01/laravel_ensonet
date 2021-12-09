@@ -1,8 +1,8 @@
-@include('Head/document')
+@include('Head.document')
 
 <head>
     <title>Ensonet - Login Or Register</title>
-    @include('Head/css')
+    @include('Head.css')
     <script src="/js/login/login.js"></script>
     <script src="/js/login/ajax.js"></script>
 </head>
@@ -16,7 +16,7 @@
                 p-8 pr-4 sm:w-11/12 sm:mx-auto lg:w-1/2" id="leftLogin">
                     @if (Cookie::get('accountSave') !== NULL)
                     <span class="text-3xl font-bold text-1877F2">Ensonet <br></span>
-                    @include('Guest/Child/SaveLogin')
+                    @include('Guest.Child.SaveLogin')
                     @else
                     @include('Guest.Child.NotAccountSave')
                     @endif
@@ -128,7 +128,7 @@
     <!-- place show modal -->
 
     <!-- timeline -->
-    @include('TimeLine/DivMainTimeLine')
+    @include('TimeLine.DivMainTimeLine')
     <!-- timeline -->
 
 </body>

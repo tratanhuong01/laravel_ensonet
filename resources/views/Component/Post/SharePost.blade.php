@@ -18,7 +18,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
             <div class="w-14 h-14 relative">
                 <a href="profile.{{ $item[0]->IDTaiKhoan }}"><img class="w-12 h-12 
                 rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $item[0]->AnhDaiDien }}"></a>
-                @include('Component\Child\Activity',
+                @include('Component.Child.Activity',
                 [
                 'padding' => 'p-1.5',
                 'bottom' => 'bottom-2',
@@ -42,11 +42,11 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
                         </li>
                         @if ($u[0]->IDTaiKhoan == $item[0]->IDTaiKhoan)
                         <li onclick="changeObjectPrivacyPost('{{ $item[0]->IDBaiDang }}')" class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
-                            @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
+                            @include('Component.Post.PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                         </li>
                         @else
                         <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
-                            @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
+                            @include('Component.Post.PrivacyPost',['idQuyenRiengTu' => $item[0]->IDQuyenRiengTu])
                         </li>
                         @endif
                     </ul>
@@ -93,16 +93,16 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
     <div class="w-full mx-0 my-4">
         @switch($postShare[0]->LoaiBaiDang)
         @case('0')
-        @include('Component/Post/Child/AvatarImage',['item' => $postShare])
+        @include('Component.Post.Child.AvatarImage',['item' => $postShare])
         @break
         @case('1')
-        @include('Component/Post/Child/CoverImage',['item' => $postShare])
+        @include('Component.Post.Child.CoverImage',['item' => $postShare])
         @break
         @case('2')
-        @include('Component/Post/Child/Normal',['item' => $postShare])
+        @include('Component.Post.Child.Normal',['item' => $postShare])
         @break
         @case('3')
-        @include('Component/Post/Child/Share',['item' => $postShare])
+        @include('Component.Post.Child.Share',['item' => $postShare])
         @break
         @endswitch
     </div>
@@ -113,7 +113,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
                     <div class="w-14 h-14 relative">
                         <a href="profile.{{ $postShare[0]->IDTaiKhoan }}"><img class="w-12 h-12 
                 rounded-full object-cover border-4 border-solid border-gray-200" src="{{ $postShare[0]->AnhDaiDien }}"></a>
-                        @include('Component\Child\Activity',
+                        @include('Component.Child.Activity',
                         [
                         'padding' => 'p-1.5',
                         'bottom' => 'bottom-2',
@@ -155,7 +155,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
                                         {{ StringUtil::CheckDateTime($postShare[0]->NgayDang) }}</a>
                                 </li>
                                 <li class="pl-3 pt-0.5" id="{{ $item[0]->IDBaiDang }}QRT">
-                                    @include('Component\Post\PrivacyPost',['idQuyenRiengTu' => $postShare[0]->IDQuyenRiengTu])
+                                    @include('Component.Post.PrivacyPost',['idQuyenRiengTu' => $postShare[0]->IDQuyenRiengTu])
                                 </li>
                             </ul>
                         </div>
@@ -171,7 +171,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
         </div>
     </div>
     @endif
-    @include('Component\Post\FeelPost',[
+    @include('Component.Post.FeelPost',[
     'item' => $item
     ])
     <div class="w-full" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}CommentLv1">
@@ -181,7 +181,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
         @else
         <div class=w-full>
             @for($i = 0;$i < count($commentLimit) ;$i++) </p>
-                @include('Component\Comment\CommentLv1',[
+                @include('Component.Comment.CommentLv1',[
                 'comment'=> $commentLimit[$i],
                 'item' => $item
                 ])
@@ -191,7 +191,7 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
     </div>
     @if (count($commentLimit) > 0)
     <div class="w-11/12 ml-2" id="{{ $item[0]->IDTaiKhoan.$item[0]->IDBaiDang }}NumComment">
-        @include('Component\Comment\ViewMoreComment',
+        @include('Component.Comment.ViewMoreComment',
         ['num' => count($comment),
         'idTaiKhoan' => $item[0]->IDTaiKhoan,
         'idBaiDang' => $item[0]->IDBaiDang ,
@@ -200,5 +200,5 @@ $postShare = Baidang::where('baidang.IDbaiDang', '=', $item[0]->ChiaSe)
     </div>
     @else
     @endif
-    @include('Component\Comment\WriteCommentLv1',['item' => $item])
+    @include('Component.Comment.WriteCommentLv1',['item' => $item])
 </div>

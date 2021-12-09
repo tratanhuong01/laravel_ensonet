@@ -10,6 +10,6 @@
         dark:text-white font-bold rounded-3xl " type="text" placeholder="Tìm kiếm địa chỉ" id="localInputPost">
     </div>
     <div class="tac-user wrapper-content-right" id="localPost">
-        @include('Modal/ModalPost/Child/Local',['local' => $local])
+        @include('Modal.ModalPost.Child.Local',['local' => $local])
     </div>
 </div>
