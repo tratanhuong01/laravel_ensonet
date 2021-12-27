@@ -3,8 +3,8 @@
 <head>
     <title>Ensonet - Login Or Register</title>
     @include('Head.css')
-    <script src="/js/login/login.js"></script>
-    <script src="/js/login/ajax.js"></script>
+    <script src="./js/login/login.js"></script>
+    <script src="./js/login/ajax.js"></script>
 </head>
 
 <body class=" bg-gray-100">

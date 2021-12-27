@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '3406aa3e750752e651516a876b15efaa92f22e03',
+        'reference' => 'ff925d08a2acb8f28778cf10906c161f1e3d8164',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -26,6 +26,15 @@
             'install_path' => __DIR__ . '/../brick/math',
             'aliases' => array(),
             'reference' => 'ca57d18f028f84f777b2168cd1911b0dee2343ae',
+            'dev_requirement' => false,
+        ),
+        'cloudinary-labs/cloudinary-laravel' => array(
+            'pretty_version' => '1.0.4',
+            'version' => '1.0.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../cloudinary-labs/cloudinary-laravel',
+            'aliases' => array(),
+            'reference' => '7543449243848eb936e4c492b82ec64512e67da0',
             'dev_requirement' => false,
         ),
         'cloudinary/cloudinary_php' => array(
@@ -418,7 +427,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '3406aa3e750752e651516a876b15efaa92f22e03',
+            'reference' => 'ff925d08a2acb8f28778cf10906c161f1e3d8164',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

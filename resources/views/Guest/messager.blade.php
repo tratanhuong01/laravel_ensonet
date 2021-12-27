@@ -47,10 +47,10 @@ use App\Models\StringUtil;
     ?>
     <div class="w-full bg-gray-100 dark:bg-dark-main relative" id="main">
         @include('Header')
-        <div class="w-full flex pt-16 z-10 bg-white dark:bg-dark-main lg:w-full 
-        lg:mx-auto xl:w-full" id="content" style="max-height: 760px;height: 760px;">
+        <div class="w-full flex pt-16 z-10 bg-white dark:bg-dark-main h-screen lg:w-full 
+        lg:mx-auto xl:w-full" id="content">
             <div class="w-1/4 border-r-2 border-solid dark:border-dark-second
-             border-gray-100 shadow-xl">
+             border-gray-100 shadow-xl h-full">
                 <div class="w-full flex py-2">
                     <div class="w-1/2 font-bold text-2xl py-0.5 ml-5 dark:text-white">
                         Chat
@@ -76,8 +76,8 @@ use App\Models\StringUtil;
                     <input type="text" name="" id="" class="w-11/12 mx-auto py-1.5 px-2.5 rounded-4xl 
                     bg-gray-300 dark:bg-dark-third dark:text-white" placeholder="Tìm kiếm trên messenger">
                 </div>
-
-                <div class="w-full pt-3 wrapper-scrollbar overflow-y-auto my-1" id="mess-right-messenger" style="max-height: 595px;height:595px;">
+                <div class="w-full pt-3 wrapper-scrollbar overflow-y-auto my-1" id="mess-right-messenger" 
+                style="max-height: calc(100% - 100px);height: calc(100% - 100px);">
                     @include('Guest.Child.AllMessager',['allMess' => $allMess])
                 </div>
             </div>

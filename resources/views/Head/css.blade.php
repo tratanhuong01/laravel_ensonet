@@ -8,13 +8,13 @@
 <!-- meta -->
 
 <!-- css general -->
-<link rel="stylesheet" href="/css/loading.css">
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/tailwind_second.css">
-<link rel="stylesheet" href="/tailwind/tailwind.css" />
-<link rel="stylesheet" href="/tailwind/tailwind.custom.css" />
-<link rel="stylesheet" href="/css/app.css" />
-<link rel="stylesheet" href="/css/emojis.css">
+<link rel="stylesheet" href="{{ URL::asset('css/loading.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/tailwind_second.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('tailwind/tailwind.css') }}" />
+<link rel="stylesheet" href="{{ URL::asset('tailwind/tailwind.custom.css') }}" />
+<link rel="stylesheet" href="{{ URL::asset('css/app.css') }}" />
+<link rel="stylesheet" href="{{ URL::asset('css/emojis.css') }}">
 <!-- css general -->
 
 <!-- cdn general -->
@@ -30,38 +30,38 @@
 <!-- cdn general -->
 
 <!-- js general -->
-<script src="/js/ajax/login/ajax.js"></script>
-<script src="/js/ajax/header/ajax.js"></script>
-<script src="/js/scrollbar.js"></script>
-<script src="/js/event/event.js"></script>
-<script src="/js/ajax/post/ajax.js"></script>
-<script src="/js/ajax/post/ajax_second.js"></script>
-<script src="/js/ajax/about/ajax_second.js"></script>
-<script src="/js/ajax/about/ajax.js"></script>
-<script src="/js/ajax/relationship/ajax.js"></script>
-<script src="/js/ajax/comment/ajax.js"></script>
-<script src="/js/ajax/chat/ajax.js"></script>
-<script src="/js/ajax/chat/ajax_second.js"></script>
-<script src="/js/ajax/image/ajax.js"></script>
-<script src="/js/loading/ajax.js"></script>
-<script src="/js/ajax/comment/ajax_second.js"></script>
-<script src="/js/library/common.js"></script>
-<script src="/js/library/emojii.js"></script>
-<script src="/js/library/emojii_chat.js"></script>
-<script src="/js/ajax/main/ajax.js"></script>
-<script src="/js/realtime/notification.js"></script>
-<script src="/js/header.js"></script>
-<script src="/js/ajax/profile/ajax.js"></script>
-<script src="/js/ajax/story/ajax.js"></script>
-<script src="/js/ajax/post/ajax_third.js"></script>
-<script src="/js/ajax/chat/ajax_third.js"></script>
+<script src="{{ URL::asset('js/ajax/login/ajax.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/header/ajax.js')}}"></script>
+<script src="{{ URL::asset('js/scrollbar.js')}}"></script>
+<script src="{{ URL::asset('js/event/event.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/post/ajax.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/post/ajax_second.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/about/ajax_second.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/about/ajax.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/relationship/ajax.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/comment/ajax.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/chat/ajax.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/chat/ajax_second.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/image/ajax.js')}}"></script>
+<script src="{{ URL::asset('js/loading/ajax.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/comment/ajax_second.js')}}"></script>
+<script src="{{ URL::asset('js/library/common.js')}}"></script>
+<script src="{{ URL::asset('js/library/emojii.js')}}"></script>
+<script src="{{ URL::asset('js/library/emojii_chat.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/main/ajax.js')}}"></script>
+<script src="{{ URL::asset('js/realtime/notification.js')}}"></script>
+<script src="{{ URL::asset('js/header.js')}}"></script>
+<script src="{{ URL::asset('js/ajax/profile/ajax.js') }}"></script>
+<script src="{{ URL::asset('js/ajax/story/ajax.js') }}"></script>
+<script src="{{ URL::asset('js/ajax/post/ajax_third.js') }}"></script>
+<script src="{{ URL::asset('js/ajax/chat/ajax_third.js') }}"></script>
 @if (session()->has('user'))
-<script src="/js/realtime/state.js"></script>
+<script src="{{ URL::asset('js/realtime/state.js') }}"></script>
 @endif
 <!-- js general -->
 
 <!-- icon website general -->
-<link rel="icon" href="/img/logo.ico" type="image/icon type">
+<link rel="icon" href="./img/logo.ico" type="image/icon type">
 <!-- icon website general -->
 
 <!-- style general -->
