@@ -96,30 +96,30 @@ $paths = explode('/', parse_url(url()->current())['path']);
                 @switch($paths[count($paths) - 1])
 
                 @case('friends')
-                @include('Component\Category\Friends',['data' => $data])
+                @include('Component.Category.Friends',['data' => $data])
                 @break
 
                 @case('about')
                 <div class="w-full dark:bg-dark-second flex my-4 rounded-lg">
-                    @include('Component\About\Category',['data' => $users,
+                    @include('Component.About.Category',['data' => $users,
                     'idTaiKhoan' => $users[0]->IDTaiKhoan])
                     <div class="w-3/4 px-3" id="detailAbout">
-                        @include('Component\About\Dashboard',[
+                        @include('Component.About.Dashboard',[
                         'idTaiKhoan' => $users[0]->IDTaiKhoan,
                         'idMain' => $user[0]->IDTaiKhoan,
                         'idView' => $users[0]->IDTaiKhoan])
                     </div>
                 </div>
-                @include('Component\Category\Friends',['data' => $data])
-                @include('Component\Category\Pictures')
-                @include('Component\Category\Video')
-                @include('Component\Category\Story')
+                @include('Component.Category.Friends',['data' => $data])
+                @include('Component.Category.Pictures')
+                @include('Component.Category.Video')
+                @include('Component.Category.Story')
                 @break
 
                 @case('pictures')
-                @include('Component\Category\Pictures')
-                @include('Component\Category\Video')
-                @include('Component\Category\Story')
+                @include('Component.Category.Pictures')
+                @include('Component.Category.Video')
+                @include('Component.Category.Story')
                 @break;
 
                 @default

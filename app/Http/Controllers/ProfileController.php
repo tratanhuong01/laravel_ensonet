@@ -33,7 +33,7 @@ class ProfileController extends Controller
     public function viewAjaxFriends(Request $request)
     {
         $data = Functions::getListFriendsUser($request->IDView);
-        return view('Component\Category\Friends')->with('data', $data);
+        return view('Component.Category.Friends')->with('data', $data);
     }
     public function viewFriends($idTaiKhoan)
     {
