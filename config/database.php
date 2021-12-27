@@ -124,6 +124,10 @@ return [
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
             'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            //add
+            PDO::MYSQL_ATTR_SSL_CA => '/var/lib/mysql/cert.pem',
+            PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false
+            //add
         ],
 
         'default' => [
