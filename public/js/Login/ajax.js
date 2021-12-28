@@ -41,9 +41,9 @@ function submitFormVerify() {
     xmlhttp.open(
         "GET",
         "/ProcessVerify?emailOrPhone=" +
-            value("emailOrPhone") +
-            "&code_veri=" +
-            value("code_veri"),
+        value("emailOrPhone") +
+        "&code_veri=" +
+        value("code_veri"),
         true
     );
     xmlhttp.send();
