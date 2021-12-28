@@ -52,7 +52,7 @@ $paths = explode('/', parse_url(url()->current())['path']);
         @if (count($users) == 0 || count($user) == 0)
         @include('Component.NotFound')
         @else
-        @include('Timeline.Profile')
+        @include('TimeLine.Profile')
 
         <!-- head profile -->
         <div class="hidden dark:bg-dark-second pt-10 w-full md:w-4/5 lg:w-3/4 md:mx-auto xl:w-63%" id="firstContentProfile">
