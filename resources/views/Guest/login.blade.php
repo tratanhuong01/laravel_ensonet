@@ -42,6 +42,13 @@
                                     @error('passWord') {{ $message  }} @enderror
                                     @isset($message){{$message}}@endisset
                                 </p>
+                                <div class="font-bold mb-1">Demo</div>
+                                <div class="mb-1 text-sm">
+                                    Email or phone : tratanhuong01@gmail.com
+                                </div>
+                                <div class="mb-1 text-sm">
+                                    Password : huongtra2001
+                                </div>
                                 <button class="mx-auto ml-2 w-93per p-3 my-2.5 border-none rounded-lg bg-1877F2 text-sm text-white font-bold" type="submit">Đăng Nhập</button>
                                 <p onclick="loadajax('LoadForgetAccount','second')" class="text-1877F2 bg-white p-4 bg-white cursor-pointer">
                                     Quên Tài khoản
